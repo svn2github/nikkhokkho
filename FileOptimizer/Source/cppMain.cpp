@@ -5,7 +5,6 @@
 #include <string.h>
 #include <mem.h>
 #include <StrUtils.hpp>
-
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -161,10 +160,16 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::FormResize(TObject *Sender)
 {
+	//Prevent flickering
+	LockWindowUpdate(Handle);	
+
 	grdFiles->ColWidths[0] = grdFiles->Width >> 1;
 	grdFiles->ColWidths[1] = (grdFiles->Width - grdFiles->ColWidths[0]) / 3;
 	grdFiles->ColWidths[2] = (grdFiles->Width - grdFiles->ColWidths[0]) / 3;
 	grdFiles->ColWidths[3] = (grdFiles->Width - grdFiles->ColWidths[0]) / 3;
+
+	//Reenable form updates
+	LockWindowUpdate(NULL);	
 }
 
 
@@ -307,13 +312,6 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 		pgbProgress->Width = Rect.right - Rect.left;
 		pgbProgress->Height = Rect.bottom - Rect.top;
 	}
-}
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesPopup(TObject *Sender)
-{
-	//
 }
 
 
@@ -1123,7 +1121,7 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psProc
 
 
 // ---------------------------------------------------------------------------
-int __fastcall TfrmMain::RunPluginNew(int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, sTring psOutputFile)
+int __fastcall TfrmMain::RunPluginNew(int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile)
 {
 	int iError;
 	unsigned int iSize, iSizeNew, iPercent;
@@ -1155,25 +1153,21 @@ int __fastcall TfrmMain::RunPluginNew(int piCurrent, String psStatus, String psC
 	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
 	
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
-	if ((StrPos(psCommandLine, "%OUTPUTFILE%") == NULL) && (StrPos(psCommandLine, "%TMPOUTPUTFILE%") == NULL))
+	if ((PosEx(psCommandLine, "%OUTPUTFILE%") == NULL) && (PosEx(psCommandLine, "%TMPOUTPUTFILE%") == NULL))
 	{
 		CopyFile(sInputFile.c_str(), sTmpOutputFile.c_str(), false);
 		sInputFile = sTmpOutputFile;
-	}	
-		
-	clsUtil::ReplaceString(sCommandLine, "%INPUTFILE%", sInputFile);
-	//clsUtil::ReplaceString(sCommandLine, "%INPUTFILESHORT%", GetShortName(sInputFile));
-	clsUtil::ReplaceString(sCommandLine, "%OUTPUTFILE%", sOutputFile);
-	//clsUtil::ReplaceString(sCommandLine, "%OUTPUTFILESHORT%", GetShortName(sOutputFile));
-	clsUtil::ReplaceString(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile);
-	//clsUtil::ReplaceString(sCommandLine, "%TMPINPUTFILESHORT%", GetShortName(sTmpOutputFile));
-	clsUtil::ReplaceString(sCommandLine, "%TMPOUTPUTFILE%", sTmpInputFile);
-	//clsUtil::ReplaceString(sCommandLine, "%TMPOUTPUTFILESHORT%", GetShortName(sTmpOutputFile));
+	}
+
+	sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
 
 	iError = RunProcess(sCommandLine.c_str(), psDirectory.c_str(), NULL, 0, true);
-	Log(3, ("Return: " + ((String) iError) + ". Process: " + psProcess).c_str());
+	Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
 
-	if (StrPos(psCommandLine, "%TMPOUTPUTFILE%") != NULL)
+	if (PosEx(psCommandLine, "%TMPOUTPUTFILE%") != 0)
 	{
 		iSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
 		if ((iSizeNew > 0) && (iSizeNew < iSize))
@@ -1181,8 +1175,8 @@ int __fastcall TfrmMain::RunPluginNew(int piCurrent, String psStatus, String psC
 			iSize = iSizeNew;
 			CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str(), false);
 		}
-	}	
-	else if ((StrPos(psCommandLine, "%OUTPUTFILE%") == NULL) && (StrPos(psCommandLine, "%TMPOUTPUTFILE%") == NULL))
+	}
+	else if ((PosEx(psCommandLine, "%OUTPUTFILE%") == 0) && (PosEx(psCommandLine, "%TMPOUTPUTFILE%") == 0))
 	{
 		iSizeNew = clsUtil::SizeFile(sInputFile.c_str());
 		if ((iSizeNew > 0) && (iSizeNew < iSize))
@@ -1548,6 +1542,9 @@ bool __fastcall TfrmMain::IsManagedNet(const TCHAR *pacFile)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 {
+	//Prevent flickering
+	LockWindowUpdate(Handle);	
+
 	RefreshStatus();
 
 	if (pacTheme[0] != NULL)
@@ -1570,6 +1567,9 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	//rbnMain->UseCustomFrame = (_tcscmp(pacTheme, _T("Luna")) == 0);
 
 	RefreshStatus();
+
+	//Reenable form updates
+	LockWindowUpdate(NULL);	
 }
 
 
@@ -1578,6 +1578,9 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 {
 	unsigned int iPercentBytes;
 
+
+	//Prevent flickering
+	LockWindowUpdate(Handle);	
 
 	if (gbProcess)
 	{
@@ -1653,6 +1656,9 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 	actStop->Enabled = mnuFilesStop->Enabled;
 	actClear->Enabled = mnuFilesClear->Enabled;
 	actRemove->Enabled = mnuFilesRemove->Enabled;
+	
+	//Reenable form updates
+	LockWindowUpdate(NULL);	
 }
 
 

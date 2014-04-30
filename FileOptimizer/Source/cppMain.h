@@ -133,7 +133,6 @@ __published: // IDE-managed Components
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall mnuFilesOptimizeClick(TObject *Sender);
-	void __fastcall mnuFilesPopup(TObject *Sender);
 	void __fastcall mnuFilesClearClick(TObject *Sender);
 	void __fastcall lblCopyrightClick(TObject *Sender);
 	void __fastcall FormResize(TObject *Sender);
@@ -177,6 +176,7 @@ private: // User declarations
 	String __inline FormatNumberThousand (int piNumber);
 	int __inline ParseNumberThousand (String psNumber);
 	int __fastcall RunPlugin(int piCurrent, String psStatus, String psProcess, String psDirectory, String psTmpName);
+	int __fastcall RunPluginNew(int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile);
 	unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
 	void __fastcall WMDropFiles(TWMDropFiles &udtMessage);
 	void __fastcall AddFiles(const TCHAR *pacFile);
