@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Frequently Asked Questions (FAQ)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+html,body { 
+	/* Default Font */
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+</style>
+
+</head>
+
+<body><STRONG>Frequently Asked Questions (FAQ)</STRONG> <BR><EM>Why are 
+several downloads available?</EM> <BR>  Available 
+downloads come separated in a binaries (executables) form, suitable for x86 and 
+x64 architectures, and in a source code archive. Both are usually available in 
+several package formats. 
+<P></P>
+<P><EM>What is the sense of FileOptimizer, if standalone tools are already 
+available? </EM><BR><EM>Indeed you can manually execute the commandline tools 
+that FileOptimizer uses as plugins, but this will be probably less comfortable. 
+Specially if you consider you will need to execute one or another depending on 
+the file format, and to chain some of them to obtain best results.</EM>         
+           
+              
+             </P>
+<P><EM>What is different in FileOptimizer compared to similar tools? 
+</EM><BR><EM>General idea on tools like PNGGauntlet, ImageOptim, 
+RIOT, etc is esentially the same.<BR>FileOptimizer is built-in with lots of 
+plugins that allow it to handle a big variety of file formats. Optimized files 
+are usually smaller than in competing products, or comparable at worst. It is 
+easy to use, and at the same time easy to automate. Is a native Win32 
+application, being compact and fast, and works portable with no external 
+dependencies nor access to the system registry. Finally it is free and 
+opensource.<BR>At the moment, it is not much mature, lacks some features, and is 
+not configurable at all.</EM>     
+            </P>
+<P><EM>Are optimized files identical to the original ones? <BR></EM>Optimized files, will look 
+identical to the original ones, but internally they will be different in order 
+to achieve the size reduction.<BR>For images, bit depth 
+reduction is used when possible. For instance an image encoded with 24 bit color 
+depth could be resampled to 8 bit color depth if 256 colors of less are used. 
+Quality should not be affected after the transformation. </P>
+<P><EM>Have the optimized files same degree of compatibility as the original 
+ones? <BR></EM>Generally yes, they have the same degree of compatibility. The 
+exception is JPEG images, when you have enabled the &lt;i&gt;User arithmetic encoding&lt;/i&gt; 
+option. It generates smallest files with the same quality, but require 
+recent software to render them. </P>
+<P><EM>Will optimized files load faster? </EM><BR><EM>Definitively yes, optimized files are 
+smaller, less information needs to be transferred from the internet, of from the 
+local disk, and will load faster in a direct proportion with the size 
+reduction.<BR>Decompression speed of the optimized files is also proportional to 
+the size reduction, because used compression algorithms are asymmetric (slow 
+compression and fast decompression).</EM>            
+         
+   </P>
+<P><EM>Does optimized files work on other platforms than Windows? <BR></EM>Yes, 
+since they are the same format as the original ones, they will continue to work, 
+no matter if they are rendered in a web browser, an Android or iOS application, 
+or any other desktop program. </P>
+<P><EM>Why is the recompression process so slow? </EM><BR><EM>The speed of the 
+recompression depends on the particular format of the file.<BR>Noticeably PNG 
+processing is the slowest, because the brute-force recompression to squeeze 
+them. As oposite, PDF and JPEG files should be encoded pretty fast.</EM>  
+          
+            </P>
+<P><EM>Does it work on other platforms than Windows? <BR></EM>FileOptimizer is reported to work in 
+some environments under UNIX based operating systems with Wine.<BR>For other platforms, you will need to install a virtual machine such 
+as VirtualBox with Windows XP or later. </P>
+<P><EM>Why a particular format is not supported? </EM><BR><EM>Even if I do my best to add new 
+format support to FileOptimizer, I may have missed some.<BR>If the format to add 
+has available a Windows commandline tool to optimize it, it can be easily 
+integrated on FileOptimizer, so please, let me know.</EM>  
+               
+         </P>
+<P><EM>How can I disable a particular plugin? <BR></EM>Simply remove the desired plugin from 
+the Plugins32 and Plugins64 folder, and FileOptimizer will not use it. </P>
+<P><EM>Can I prevent certain file formats to be processed? <BR></EM>If they are supported by 
+FileOptimizer, unless you could remove all the plugins used to treat this 
+format, it will not be possible.<BR>The workaround would be 
+to not add those type of files.&nbsp;</P>
+<P><EM>I can appreciate some quality loss on PDF 
+optimization. Why? <BR></EM>PDF are recompressed with no loss of quality, but 
+images can be downsampled, and so on, allow certain lost of quality, specially 
+at high zoom levels. You can control it under Options -&gt; PDF -&gt; Profile.</P>
+<P><EM>How is the command line syntax? 
+</EM><BR>FileOptimizer command line arguments work like: 
+<BR>C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe 
+"C:\PROYECTOS\FileOptimizer\_Tests\_ - copia"\<BR>&nbsp;Where:<BR>&nbsp;- 
+C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe: Is the full path 
+where FileOptimizer executable is.<BR>&nbsp;- 
+"C:\PROYECTOS\FileOptimizer\_Tests\_ - copia"\: Is the full path of the folder 
+to recursively process. Be aware enclosing it with double quotes as in the 
+example, which is Windows mandatory if the folder contains spaces, or extended 
+characters.<BR>&nbsp;Alternatively you can specify only one single file instead 
+of a 
+folder:<BR>&nbsp;C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe 
+"C:\PROYECTOS\FileOptimizer\_Tests\_ - 
+copia\av-214_.zip"<BR>&nbsp;Where:<BR>&nbsp;- 
+C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe: Is the full path 
+where FileOptimizer executable is.<BR>&nbsp;- 
+"C:\PROYECTOS\FileOptimizer\_Tests\_ - copia\av-214_.zip": Is the full path of 
+the file to process.</FONT></P></body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml-stylesheet type="text/xsl" href="http://www.w3.org/Math/XSL/mathml.xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mp3packer</title>
+<style type="text/css">
+<!--
+p,dd {
+	text-align: justify;
+}
+h1 {
+	font-variant: small-caps;
+}
+img {
+	border: 1px solid #000000;
+}
+table * {
+	text-align: center;
+}
+#lorem {
+	display:none;
+}
+-->
+</style>
+</head>
+
+<body>
+<h1 style="text-align:center">MP3packer Settings</h1>
+<h2 style="text-align:center">An MP3 reorganizer</h2>
+<h5 style="text-align:center">Copyright &copy; 2006-2012 Reed Wilson (&quot;Omion&quot;)<br />
+  &#x63;<!-- This is all crazy stuff to prevent my email from being read by bots -->&#101;&#8203;&#x64;&#105;&#8203;&#108;&#x6C;<span id="lorem"> LOREM IPSUM DOLOR SIT AMET </span>&#97;&#32;&#x41;<span style="display: none">CCEN</span>&#x54;&#32;<!-- If you can think of any other obfuscation to add, using only HTML and CSS, e-mail me! -->&#x67;&#109;<a style="display:none"> CONSECTETUR ADIPISICING ELIT </a>&#x61;<i></i>&#x69;&#108;&#x20;&#68;&#x4F;<b style="display:none">N</b>&#x54;&#8203;&#32;&#99;<em style="display:none"><b>Hmm.. it looks like you don't have CSS. My email will be very hard to decipher</b></em>​<span style="display:none">SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA</span>&#111;<!-- Approaching the end, cap'n! -->&#109;</h5>
+<h3>Abstract</h3>
+<p>MP3packer is a program which can rearrange the data within an MP3 to fulfill specific goals. By default, the program generates the smallest MP3 possible (with the least padding). However, many people also use it to turn <abbr title="variable bit rate" lang="en">VBR</abbr> files into <abbr title="constant bit rate" lang="en">CBR</abbr> for use with players which don't support VBR.</p>
+<h3>License</h3>
+<p>This program is free software; you can redistribute it and/or modify      it under the terms of the <abbr title="GNU's Not Unix" lang="en">GNU</abbr> General Public License as published by      the Free Software Foundation; either version 2 of the License, or      (at your option) any later version. Please see <a href="gpl.txt">gpl.txt</a> for more details. Source code for this program should be available from the same place as the compiled version. </p>
+<h3>Usage</h3>
+<p><code>mp3packer </code>[ <code>options</code> ]<code> in.mp3 </code>[ <code>out</code> ]<br />
+Processes <code>in.mp3</code> according to <code>options</code> and saves the output to <code>out</code>. If <code>out</code> is a directory, mp3packer will keep the same name as <code>in</code> but in the <code>out</code> directory. If <code>out</code> is not given, the <code>-a</code> string will be appended to the file name (see below).</p>
+<p><code>mp3packer </code>[ <code>options</code> ]<code> inDir </code>[ <code>outDir</code> ]<br /> 
+  Processes all files ending in &quot;.mp3&quot; in the  directory 
+<code>inDir</code>. This is not recursive. If <code>outDir</code> is given, all output files will have the same name in the <code>outDir</code> directory. If <code>outDir</code> is not given, the files will have the <code>-a</code> string appended to them, and will stay in <code>inDir</code>.</p>
+<p> <code>options</code>, if specified, may be any of the following:</p>
+<dl>
+  <dt><code>-b #</code> </dt>
+  <dd>Minimum bitrate allowed for output. Defaults to 0, which means all frame sizes are allowed. If the number given is a valid bitrate, the minimum frame size will be &quot;dithered&quot; between padded and unpadded frames, depending on standard CBR rules. If the bitrate given is one more than a valid bitrate, all frames will be padded. Anything larger than the maximum bitrate will be clamped to a padded maximum-bitrate frame. All other bitrates will round up to the next higher unpadded frame. <br />
+  For example, <code>-b 129 </code> will result in the smallest allowed frame size being a padded 128kbps frame. <code>-b 117</code> will result in the smallest allowed frame size being an <em>un</em>padded 128kbps frame. If <code>-b 128</code> is used with 44100Hz files, the minimum bitrate will depend on the frame number. Assuming 44100Hz, for 2 frames out of 49 the minimum frame will be unpadded, for the other 47 it will be padded. All bitrates from 114 to 127 will result in the smallest frame being an unpadded 128kbps frame. For further clarifications, see <a href="#bswitch">below</a>.</dd>
+  <dt><code>-t</code></dt>
+  <dd>Strip non-MP3 data at the beginning of the file. This will remove some kinds of ID3v2 tags. Use both <code>-s</code> and <code>-t</code> to remove all tags.</dd>
+  <dt><code>-s</code></dt>
+  <dd>Strip non-MP3 data at the end of the file. Using this option will remove most tags and any incomplete last frames from the file.</dd>
+  <dt><code>-z</code></dt>
+  <dd>This option makes mp3packer partially decode the audio in the file, optimize the data, then recode it. This method stops decoding before any lossy transformations take place, and therefore <em>the <code>-z</code> switch is still completely lossless</em>. MP3 files have a number of different methods to compress the data, and most encoders only choose between a few of them. The <code>-z</code> switch will do a brute-force search for the most efficient compression setting. This guarantees that each frame is as small as it can get, but it takes longer to repack.</dd>
+  <dt><code>--workers #</code></dt>
+  <dd>Set the number of threads to use for <code>-z</code> processing. These workers will run in parallel with the rest of the program. 0 is a valid number, and corresponds to synchronous processing. The default is a function of the number of processors/cores the program detects, and will likely change in different versions of the program.</dd>
+  <dt><code>-a "-vbr"</code></dt>
+  <dd>Specify the string to append to the file name if no output file name is given. If <code>mp3packer -a &quot;-food&quot; in.mp3</code> is given, the output will be named <code>in-food.mp3</code>. <code>&quot;-vbr&quot;</code> is the default.</dd>
+  <dt><code>-A</code></dt>
+  <dd>Don't skip the files in a directory which already have the <code>-a</code> string appended. The default prevents files from being processed twice (giving names like filename-vbr-vbr-vbr.mp3), but if you have changed settings to reprocess this may be useful.</dd>
+  <dt><code>-u</code></dt>
+  <dd>
+    Updates the input file, and stores a backup to the output file. So after <code>mp3packer -u process.mp3 backup.mp3</code>, the file <code>process.mp3</code> will contain the packed mp3, and <code>backup.mp3</code> will be the same as the original <code>process.mp3</code>. Note that if you don't specify an output file or change the <code>-a</code> option, the original will have <code>&quot;-vbr&quot;</code> appended to it, which may lead to confusion.</dd>
+  <dt><code>-w</code></dt>
+  <dd>Silences the whole frame if an error is encountered. By default only the granule with the error (in both channels) is silenced.</dd>
+  <dt><code>-r</code>, <code>-R</code></dt>
+  <dd>As of 1.16, mp3packer will attempt to minimize the bit reservoir when the <code>-b</code> switch is used. The <code>-r</code> switch will force minimization all the time, and the <code>-R</code> switch will maximize the bit reservoir at every frame (which was the behavior before 1.16). Note that this will not change the size of the files at all, and has little purpose other than occasionally making CBR320 files easier to split.</dd>
+  <dt><code>--keep-ok</code> [ <code>out</code> | <code>both</code> ]</dt>
+  <dd>Specify which files to keep if no errors occur. <code>out</code> will only keep the output file and will delete the input file, whereas <code>both</code> will keep both files (the default)</dd>
+  <dt><code>--keep-bad </code>[ <code>in</code> | <code>out</code> | <code>both</code> ]</dt>
+  <dd>Specify which files to keep if an error occurs. <code>in</code> will only leave the input file and will discard the repacked file. <code>out</code> does just the opposite. <code>both</code> keeps both files (default). Note that buffer under/overflows and sync errors are counted as errors, whereas recompression errors (if using the <code>-z</code> switch) are not.</dd>
+  <dt><code>--copy-time</code></dt>
+  <dd>The output files' times are copied from the input files. In Windows this preserves the files' creation, modification, and last access times.</dd>
+  <dt><code>-f</code></dt>
+  <dd>Force overwriting of the output file, if it exists. When used with the <code>-u</code> option, it will force overwriting the backup file.</dd>
+  <dt><code>--process</code> [ <code>base</code> | <code>sse41</code> ]</dt>
+  <dd>Determines which processing algorithm to use for the <code>-z</code> switch. The default is SSE4.1 (represented by <code>&quot;sse41&quot;</code>) if your computer supports it. There is generally no reason to change the default unless you suspect there is an error in one of the algorithms.</dd>
+  <dt><code>-i</code></dt>
+  <dd>Print info about the input file, then exit. The output location, if specified, is ignored. See the info section for more detials.</dd>
+  <dt><code>--ib</code></dt>
+  <dd>Similar to <code>-i</code>, but print only the minimum CBR bitrate.</dd>
+  <dt><code>--nice #</code> </dt>
+  <dd>Adjust the priority of the program. Uses a Unix-style range. On Windows the numbers are mapped as follows:<br />
+    <table width="100%" border="1" cellspacing="0">
+      <tr>
+        <th scope="row">Parameter</th>
+        <td>&lt;=-16</td>
+        <td>-15</td>
+        <td>-14</td>
+        <td>-13</td>
+        <td>-12</td>
+        <td>-11</td>
+        <td>-10</td>
+        <td>-9</td>
+        <td>-8</td>
+        <td>-7</td>
+        <td>-6</td>
+        <td>-5</td>
+        <td>-4</td>
+        <td>-3</td>
+        <td>-2</td>
+        <td>-1</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>&gt;=19</td>
+      </tr>
+      <tr>
+        <th scope="row">Priority</th>
+        <td>15</td>
+        <td colspan="3">14</td>
+        <td colspan="3">13</td>
+        <td colspan="3">12</td>
+        <td colspan="3">11</td>
+        <td colspan="3">10</td>
+        <td>8/9</td>
+        <td colspan="3">7</td>
+        <td colspan="3">6</td>
+        <td colspan="3">5</td>
+        <td colspan="3">4</td>
+        <td colspan="3">3</td>
+        <td colspan="3">2</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <th scope="row">Name</th>
+        <td colspan="10">High</td>
+        <td colspan="6">Above normal </td>
+        <td>Normal</td>
+        <td colspan="12">Below Normal </td>
+        <td colspan="7">Idle</td>
+      </tr>
+    </table>
+  Basically, using <code>--nice</code> with <strong>Parameter</strong> will set the Windows priority to <strong>Priority</strong>, which shows up in the task manager as <strong>Name</strong>. The default niceness is 10, which corresponds to a Windows priority of 4, or &quot;Below Normal&quot;. </dd>
+  <dt><code>--debug</code> [ <code>in</code> | <code>out</code> | <code>huff</code> | <code>all</code> ]</dt>
+  <dd>Prints a bunch of debugging info about the files. <code>--debug in</code> will report frame statistics about the input file. <code>--debug out</code> will report on how the file was processed and written. <code>--debug huff</code> will print debug information about the recompression of frames if the <code>-z</code> option is given. <code>--debug all</code> does all three. It is recommended that you redirect the output to a file, as the information gets quite verbose.</dd>
+</dl>
+
+<h4>Info</h4>
+<p>By specifying the <code>-i</code> option, the program will print data about the input file then exit. No files will be written and the output (if given) will be ignored. Example printout:</p>
+<pre>*** "test/APS.mp3"
+INFO:
+ MPEG1 layer 3
+ 21687 frames
+ 44100 Hz
+ 38.281250 frames per second
+ 566.517551 seconds
+ 12514543 bytes in file (176.722405 kbps)
+ 12514126 bytes in MP3 frames (176.716516 kbps) = current bitrate
+ 93784923 bits of payload data (165.546368 kbps)
+ 11732617 bytes of payload data (165.680544 kbps)
+ 76013 bits wasted from partially-full bytes (0.134176 kbps)
+ 12513349 bytes of MP3 data (176.705544 kbps) = minimum bitrate possible
+ 777 bytes of padding (0.010972 kbps)
+ 417 bytes outside MP3 frames (0.005889 kbps)
+ 1 sync error
+ Bitrate distribution:
+   32: 9,0
+  128: 3641,0
+  160: 7691,0
+  192: 6700,0
+  224: 2736,0
+  256: 785,0
+  320: 125,0
+ Largest frame uses 8478 bits = 1060 bytes = 324.548437 kbps
+ Smallest bitrate for CBR is 256</pre>
+ <p>Using the --ib option will only print the smallest possible CBR bitrate, with no other information.</p>
+<h4>Explanation:</h4>
+<dl>
+  <dt><code>*** &quot;test/APS.mp3&quot;</code></dt>
+  <dd>Name of the file processed.</dd>
+  <dt><code> MPEG1 layer 3<br />
+    21687 frames<br />
+  44100 Hz<br />
+  </code><code>38.281250 frames per second
+  <br />
+  566.517551 seconds </code> </dt>
+  <dd>Basic properties of the file. All self-explanatory.</dd>
+  <dt><code>12514543 bytes in file (176.722405 kbps)</code></dt>
+  <dd>The number of bytes in the file and the corresponding bitrate. This bitrate includes tags and non-MP3 data which can be stripped out using the <code>-s</code> and <code>-t</code> options.</dd>
+  <dt><code>12514126 bytes in MP3 frames (176.716516 kbps) = current bitrate</code></dt>
+  <dd>The number of bytes currently in MP3 frames. This does not count tags and broken frames. This is the current bitrate of the file.</dd>
+  <dt><code>93784923 bits of payload data (165.546368 kbps)</code></dt>
+  <dd>The bits of payload data. This ignores padding, headers, side-info, and tags.</dd>
+  <dt><code>11732617 bytes of payload data (165.680544 kbps)</code></dt>
+  <dd>The bytes of payload data. This is not a direct result of the previous line, and in fact is generally going to be a higher bitrate than the previous line due to partially-full bytes.</dd>
+  <dt><code>76013 bits wasted from partially-full bytes (0.134176 kbps)</code></dt>
+  <dd>The number of bits wasted from partially-full bytes. The bitrate here is the difference between the previous two lines. Nothing can be done to &quot;repack&quot; this wasted data.</dd>
+  <dt><code>12513349 bytes of MP3 data (176.705544 kbps) = minimum bitrate possible</code></dt>
+  <dd>The amount of payload data plus headers and side-info. Assuming that mp3packer completely gets rid of all padding and non-mp3 data, this is the smallest bitrate that can be achieved.</dd>
+  <dt><code>777 bytes of padding (0.010972 kbps)</code></dt>
+  <dd>The total amount of padding in the file. This is the main thing that mp3packer tries to get rid of.</dd>
+  <dt><code>417 bytes outside MP3 frames (0.005889 kbps)</code></dt>
+  <dd>The amount of padding and tags outside of MP3 frames. By default, everything before the first frame and after the last frame is kept, but all non-MP3 data between frames will be discarded.</dd>
+  <dt><code>1 sync error</code></dt>
+  <dd>The number of times when a frame is not found directly after the previous frame.</dd>
+  <dt><code>32: 9,0<br />
+    128: 3641,0<br />
+    160: 7691,0<br />
+    192: 6700,0<br />
+    224: 2736,0<br />
+    256: 785,0<br />
+    320: 125,0</code></dt>
+  <dd>The bitrate distribution of the file. Only the bitrates that actually appear in the file wil be listed. The two numbers given per line are the unpadded,padded frames. In the above example, there are nine unpadded 32kbps frames, and no padded frames of any bitrate.</dd>
+  <dt><code>Largest frame uses 8478 bits = 1060 bytes = 324.548437 kbps</code></dt>
+  <dd>Information about the frame with the largest amount of data. If the bit reservoir were not used, this would be the smallest CBR bitrate possible.</dd>
+  <dt><code>Smallest bitrate for CBR is 256</code></dt>
+  <dd>The smallest value for the -b option that will result in a CBR file. This number is generally much less than the previous line due to the bit reservoir. It is, however, generally much more than the average bitrate because of limitations on the bit reservoir. Note that using the <code>-z</code> switch may reduce the minimum, but will never increase it.</dd>
+</dl>
+<h3>How it works:</h3>
+<p>In normal operation, mp3packer will iterate over the input frames and choose the smallest frame size which can store all the data needed. It will therefore minimize the file size by ensuring that the frames are as the smallest possible. This is actually somewhat difficult, as the frame size depends on how much of the current frame's data can be stored in previous frames, and how much space in the current frame is necessary to store data from following frames.</p>
+<h4>The -z switch:</h4>
+<p>Whereas the default operation is to choose the minimum frame size to fit the data, using the <code>-z</code> switch will also minimize the data size. This is completely lossless as long as the input file has no errors, and is equivalent to decompressing a ZIP file and recompressing with a more aggressive setting. It attempts to minimize the data by doing a brute-force search for the optimal parameters, so it takes much longer than it would normally.</p>
+<h4><a name="bswitch" id="bswitch">The -b switch:</a></h4>
+<p>Setting the <code>-b</code> switch will set the minimum bitrate for each frame. Using this switch will make more room in small frames for other frames' data, so it will also generally reduce the maximum bitrate as well. There is no direct control over the maximum bitrate, since there may simply be too much data to fit into a smaller frame. The exact format of the parameter is a bit odd: if the bitrate given is a valid frame bitrate, the minimum bitrate is dithered between padded and unpadded frames. If the bitrate is one more than a valid frame bitrate, then the minimum is a padded frame of bitrate one less than the given. Anything else is rounded up to the next highest unpadded bitrate. An example table may be simpler to follow, assuming a 32, 44.1, or 48kHz file:</p>
+<table border="1" cellspacing="0">
+  <tr>
+    <th scope="col">Parameter given to -b: </th>
+    <th scope="col">Resultant minimum frame size: </th>
+  </tr>
+  <tr>
+    <td>0-31</td><td>unpadded 32kbps </td>
+  </tr>
+  <tr>
+    <td>32</td><td>exactly 32kbps </td>
+  </tr>
+  <tr>
+    <td>33</td><td>padded 32kbps </td>
+  </tr>
+  <tr>
+    <td>34-39</td><td>unpadded 40kbps </td>
+  </tr>
+  <tr>
+    <td>40</td><td>exactly 40kbps </td>
+  </tr>
+  <tr>
+    <td>41</td><td>padded 40kbps </td>
+  </tr>
+  <tr>
+    <td>42-47</td><td>unpadded 48kbps </td>
+  </tr>
+  <tr>
+    <td>48</td><td>exactly 48kbps </td>
+  </tr>
+  <tr>
+    <td>49</td><td>padded 48kbps </td>
+  </tr>
+  <tr>
+    <td>50-63</td><td>unpadded 64kbps </td>
+  </tr>
+  <tr>
+    <td>64</td>
+    <td>exactly 64kbps </td>
+  </tr>
+  <tr>
+    <td>65</td>
+    <td>padded 64kbps </td>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+</table>
+<p>The &quot;exact&quot; bitrates are as follows:</p>
+<table border="1" cellspacing="0">
+  <tr>
+    <th scope="row">32000,&nbsp;44100,&nbsp;or&nbsp;48000kHz:</th>
+    <td>32</td><td>40</td><td>48</td><td>56</td><td>64</td><td>80</td><td>96</td><td>112</td><td>128</td><td>160</td><td>192</td><td>224</td><td>256</td><td>320</td>
+  </tr>
+  <tr>
+    <th scope="row">Everything else: </th>
+    <td>8</td><td>16</td><td>24</td><td>32</td><td>40</td><td>48</td><td>56</td><td>64</td><td>80</td><td>96</td><td>112</td><td>128</td><td>144</td><td>160</td>
+  </tr>
+</table>
+<p>If an exact bitrate is given, the minimum bitrate will switch between unpadded and padded frames as needed in order to achieve exactly that bitrate. For 8, 12, 16, 24, 32, and 48kHz files, this uses all unpadded frames.</p>
+<h4>The -r and -R switches:</h4>
+<p>After mp3packer has chosen an output bitrate for a given frame, there is generally a range of positions to put the actual data. The data can be packed as much as possible into the previous frame, or it can be set to fill up the current frame as much as possible.</p>
+<p>The default is to pack as far behind as possible if the <code>-b</code> switch is not given, since there is usually no problem filling up the frames. If a minimum bitrate is specified then the frames are pushed as far up as possible without affecting any of the following frames.</p>
+<p>The <code>-r</code> switch  will attempt to always push data as far up as possible, even if a minimum bitrate is not specified. Conversely, the <code>-R</code> switch will push the data into previous frames as possible (note that this was the default behavior before 1.16).</p>
+<p>Note that these options do not affect file size or compatibility at all. It will only change the internal layout of the data in the frames.</p>
+<h3><a name="changelog" id="changelog">Changelog:</a></h3>
+<dl>
+	<dt>2.03 (2012-08-05)</dt>
+    <dd>Fixed a bug with the 32-bit build giving errors with files larger than 256MiB. It will still not work with files 1GiB or larger, but the warning is more user-friendly.
+	<dt>2.02 (2012-07-28)</dt>
+    <dd>Multi-threading is more efficient. <code>-z</code> processing can go 2-3x faster than 2.01 with quad-core processors.<br />
+    Check the input frames' CRC if they have it.</dd>
+	<dt>2.01 (2012-07-15)</dt>
+    <dd>Removed a debug line causing a file named pipe.bin to be created.</dd>
+	<dt>2.00 (2012-07-14)</dt>
+    <dd>Re-made the <code>-z</code> processing to be multi-threaded and use SSE if available.</dd>
+    <dt>1.26 (2012-07-11)</dt>
+    <dd>Fixed a problem where deleting a file would fail in many cases.<br />
+      Fixed some Windows terminal corruption related to printing Unicode filenames (Unicode names are even less likely to print correctly in the terminal) </dd>
+    <dt></dt>
+    <dt>1.25 (2012-02-24)</dt>
+	<dd>Support Unicode files and directories (names may not print correctly)<br />Made re-synchronization faster<br />Simple stereo and joint stereo frames are now considered equivalent for re-synchronization</dd>
+	<dt>1.24 (2012-02-16)</dt>
+	<dd>Give warning messages in more cases where the output file may not exactly match the input file.<br />Change the handling of invalid frames to be more like Foobar2000.</dd>
+	<dt>1.23 (2011-08-14)</dt>
+	<dd>Fixed an invalid buffer operation related to the bug fixed in 1.22.</dd>
+	<dt>1.22 (2011-06-26)</dt>
+	<dd>Fixed a rare bug that caused mp3packer to quit with certain corrupted files.<br />
+    Minor changes to <code>-z</code> to deal with overflows better<br />
+	Display recompression (<code>-z</code>) errors, and make all errors displays a bit more user-friendly.</dd>
+	<dt>1.21 (2010-08-06)</dt>
+	<dd>Frame queues are more efficient. Some files would take a very large amount of CPU time with some options in 1.16-1.20. Output files should be identical to 1.20 except for the padding bytes.</dd>
+	<dt>1.20 (2008-05-06)</dt>
+	<dd>Made the frame checker more lenient. It now will accept changes in CRC, copyright, and emphasis per frame.</dd>
+	<dt>1.19 (2007-09-29)</dt>
+	<dd>Added time information to the sync error and buffer error messages to indicate the approximate location of the error. Error times are only valid relative to the output file, and may be off by up to 0.1 seconds.</dd>
+	<dt>1.18 (2007-06-05)</dt>
+	<dd>Supports the <code>--nice</code> option, for changing the program's priority.<br />
+	Minor bug fixes to the initial frame detection algorithm.</dd>
+	<dt>1.17 (2007-05-23) </dt>
+	<dd>Multiple improvements to the <code>-z</code> switch. It now goes ~40% slower, but manages a bit of extra compression. This change is most apparent with low-bitrate encodes.<br />
+	  Fixed the <code>-i</code> switch. No longer prints a bunch of garbage for every frame, and the number of bits wasted is no longer negative.</dd>
+	<dt>1.16-169 (2007-05-09) </dt>
+	<dd>Major rewrite of the frame queue. Should be easier to maintain and makes more sense to read, but doesn't mean anything to the end user.<br />
+	  Added the <code>-r</code> and <code>-R</code> options to control bit reservior minimization.<br />
+	  <code>-z</code> now works with MPEG-2 files.<br />
+	Patched a problem with <code>-z</code> outputting larger frames than the input.<br />
+	The program will only resync if it finds 3 valid frames in a row.<br />
+	Deleting the first granule in an invalid frame now works correctly.</dd>
+	<dt>1.15-162 (2007-02-18) </dt>
+	<dd>Don't use consistant &quot;original&quot; bit as a requirement for valid frames.</dd>
+	<dt>1.14-159 (2007-01-20) </dt>
+	<dd>Worded some of the warnings better. <br />
+    Match up the number of buffer warnings with the number displayed at the end of repacking. </dd>
+	<dt>1.13-145 (2006-10-17) </dt>
+	<dd>Throw out VBRI frames from the input file. They aren't actually audio data and the information wasn't saved anyway, so there's no reason to keep them.</dd>
+	<dt>1.12-143 (2006-10-04) </dt>
+	<dd>Suppressed many warnings from the <code>-z</code> switch when the errors had no effect on anything.</dd>
+	<dt>1.11-141 (2006-09-30) </dt>
+	<dd>Fixed an array overflow when using <code>-z</code> which showed up mainly for high-bitrate iTunes encodes.</dd>
+	<dt>1.10-139 (2006-09-28) </dt>
+	<dd>Re-implemented full-directory packing and support for deleting files on a successful repacking. Included the <code>-z</code> option for brute-force Huffman table searching.</dd>
+	<dt>1.09-134 (2006-08-06) </dt>
+	<dd>Now prints out the the number of sync errors when using the <code>-i</code> mode, and prints sync/buffer errors if they occur in normal mode.</dd>
+	<dt></dt>
+	<dt>1.08-133 (2006-07-27) </dt>
+	<dd>Added the <code>-w</code> switch to throw out entire frames if only one granule has a buffer error. This mirrors what Foobar does upon encountering a broken frame.</dd>
+	<dt>1.07-132 (2006-07-22) </dt>
+	<dd>Fixed the frame detection to ignore all the settings found in the XING frame's header.<br />
+    Added support for files with only offset information but nothing else.</dd>
+	<dt>1.06-130 (2006-07-20) </dt>
+	<dd>Fixed a bizarre bug that occured when an XING tag has neither CRC nor encoder info, but the other frames have CRCs.</dd>
+	<dt>1.05-128 (2006-07-16) </dt>
+	<dd>Fixed another problem with a frame referencing data before the beginning of the file. All reservoir-related exceptions should now be non-fatal.<br />
+    Added the <code>-u</code> switch to update the original file and keep a backup of the old file.</dd>
+	<dt>1.04-126 (2006-06-25)</dt>
+	<dd>Fixed an error when a frame attempts to access data from the following frame(s).<br />
+    Tweaked the silent-frame detection.</dd>
+	<dt>1.03-123 (2006-05-25)</dt>
+	<dd>Remove all data from frames which have been determined to be silent.</dd>
+	<dt>1.02-112 (2006-04-20)</dt>
+	<dd>Fixed the previous fix.<br />
+    Fixed a problem when an XING tag was parsed as a LAME tag.</dd>
+	<dt>1.01-110 (2006-04-13)</dt>
+	<dd>Fixed a crash when the first frame references data from before the beginning of the file.</dd>
+	<dt>1.00-106 (2006-03-15)</dt>
+	<dd>First release of the OCaml version.</dd>
+</dl>
+</body>
+</html>

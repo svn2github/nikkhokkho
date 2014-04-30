@@ -1,0 +1,289 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4C6AB878-216E-4385-8EBD-FF2F7428F5C2}</ProjectGuid>
+        <ProjectVersion>15.4</ProjectVersion>
+        <FrameworkType>VCL</FrameworkType>
+        <AppType>Application</AppType>
+        <MainSource>FileOptimizer.cpp</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Release</Config>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <TargetedPlatforms>3</TargetedPlatforms>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+        <Cfg_1_Win64>true</Cfg_1_Win64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Locale>3082</VerInfo_Locale>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
+        <VerInfo_Build>324</VerInfo_Build>
+        <TASM_ImpureCodeCheck>true</TASM_ImpureCodeCheck>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=6.8.0.329;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2014 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2014 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimize.exe;ProductName=File Optimizer;ProductVersion=6.8.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
+        <BRCC_EnableMultiByte>true</BRCC_EnableMultiByte>
+        <IncludePath>Source\;$(IncludePath)</IncludePath>
+        <TASM_Passes>9</TASM_Passes>
+        <TASM_FloatingPoint>Real</TASM_FloatingPoint>
+        <VerInfo_MajorVer>6</VerInfo_MajorVer>
+        <VerInfo_MinorVer>7</VerInfo_MinorVer>
+        <ILINK_LibraryPath>Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <BCC_PCHCache>true</BCC_PCHCache>
+        <RunBCCOutOfProcess>true</RunBCCOutOfProcess>
+        <VCL_Custom_Styles>Luna|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\14.0\Styles\Luna.vsf;&quot;Metropolis UI Black|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\14.0\Styles\MetropolisUIBlack.vsf&quot;</VCL_Custom_Styles>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <Multithreaded>true</Multithreaded>
+        <_TCHARMapping>wchar_t</_TCHARMapping>
+        <ProjectType>CppVCLApplication</ProjectType>
+        <AllPackageLibs>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclribbon.lib;vclimg.lib</AllPackageLibs>
+        <SanitizedProjectName>FileOptimizer</SanitizedProjectName>
+        <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+        <DynamicRTL>true</DynamicRTL>
+        <UsePackages>true</UsePackages>
+        <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
+        <FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
+        <BCC_wpar>false</BCC_wpar>
+        <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+        <BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
+        <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
+        <PackageImports>adortl;bcbie;bcbofficexp;bcbsmp;bdertl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapFireDAC;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbbde;inetdbxpress;Intraweb;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;svn;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldbx;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <PackageImports>adortl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapFireDAC;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;Intraweb;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
+        <BCC_PCHName_Clang>FileOptimizerPCH1.h</BCC_PCHName_Clang>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <BCC_MonitorGlobalAndStackData>true</BCC_MonitorGlobalAndStackData>
+        <BCC_MonitorInlinePtrAccess>true</BCC_MonitorInlinePtrAccess>
+        <ILINK_SelectedWarnings>false</ILINK_SelectedWarnings>
+        <ILINK_AllWarnings>true</ILINK_AllWarnings>
+        <BCC_MonitorThis>true</BCC_MonitorThis>
+        <TASM_AllWarnings>true</TASM_AllWarnings>
+        <BCC_SelectedWarnings>false</BCC_SelectedWarnings>
+        <BCC_AllWarnings>true</BCC_AllWarnings>
+        <TASM_SelectedWarnings>false</TASM_SelectedWarnings>
+        <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
+        <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <Defines>_DEBUG;$(Defines)</Defines>
+        <BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+        <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+        <DCC_Define>DEBUG</DCC_Define>
+        <BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+        <TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+        <BCC_StackFrames>true</BCC_StackFrames>
+        <ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+        <TASM_Debugging>Full</TASM_Debugging>
+        <BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+        <BCC_EnableCPPExceptions>true</BCC_EnableCPPExceptions>
+        <BCC_DisableFramePtrElimOpt>true</BCC_DisableFramePtrElimOpt>
+        <BCC_DisableSpellChecking>true</BCC_DisableSpellChecking>
+        <CLANG_UnwindTables>true</CLANG_UnwindTables>
+        <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <ILINK_LibraryPath>$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <LinkPackageImports>rtl.bpi;vcl.bpi;vclactnband.bpi;vclx.bpi;vclribbon.bpi;vclimg.bpi</LinkPackageImports>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <LinkPackageImports>rtl.bpi;vcl.bpi;vclactnband.bpi;vclx.bpi;vclribbon.bpi;vclimg.bpi</LinkPackageImports>
+        <ILINK_LibraryPath>$(BDS)\lib\win64\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_MinimumEnumSize>4</DCC_MinimumEnumSize>
+        <BCC_OptimizeJumps>true</BCC_OptimizeJumps>
+        <BCC_PentiumInstructionScheduling>true</BCC_PentiumInstructionScheduling>
+        <BCC_LoopInductionReduction>true</BCC_LoopInductionReduction>
+        <BCC_EliminateDeadStore>true</BCC_EliminateDeadStore>
+        <BCC_ExpandIntrinsics>true</BCC_ExpandIntrinsics>
+        <BCC_OptimizeVariables>true</BCC_OptimizeVariables>
+        <BCC_EliminateDuplicateExpressions>true</BCC_EliminateDuplicateExpressions>
+        <BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
+        <BCC_StringsInWriteableDataSeg>true</BCC_StringsInWriteableDataSeg>
+        <ILINK_MapFileType>None</ILINK_MapFileType>
+        <ILINK_LinkwithIntebaseTogo>false</ILINK_LinkwithIntebaseTogo>
+        <DynamicRTL>false</DynamicRTL>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <UsePackages>false</UsePackages>
+        <BCC_ZeroLengthEmptyBaseClass>true</BCC_ZeroLengthEmptyBaseClass>
+        <BCC_IntegerTypeEnums>true</BCC_IntegerTypeEnums>
+        <BCC_MergeDuplicateStrings>true</BCC_MergeDuplicateStrings>
+        <ILINK_ImageChecksum>true</ILINK_ImageChecksum>
+        <ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
+        <ILINK_LinkwithMidas>false</ILINK_LinkwithMidas>
+        <BCC_MemberPtrKind>Smallest</BCC_MemberPtrKind>
+        <ILINK_LinkwithRegEx>false</ILINK_LinkwithRegEx>
+        <ILINK_LinkwithSQL>false</ILINK_LinkwithSQL>
+        <DCC_IOChecking>false</DCC_IOChecking>
+        <ILINK_LinkwithSQLite>false</ILINK_LinkwithSQLite>
+        <BCC_DataAlignment>Paragraph</BCC_DataAlignment>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <ILINK_LinkwithIndy>false</ILINK_LinkwithIndy>
+        <BCC_StringsInReadOnlyDataSeg>true</BCC_StringsInReadOnlyDataSeg>
+        <ILINK_LinkwithZLib>false</ILINK_LinkwithZLib>
+        <BCC_EnableRTTI>false</BCC_EnableRTTI>
+        <BCC_InstructionSet>6</BCC_InstructionSet>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <ILINK_FastTLS>true</ILINK_FastTLS>
+        <Defines>NDEBUG;$(Defines)</Defines>
+        <TASM_Debugging>None</TASM_Debugging>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <BCC_UserSuppliedOptions>-O2 -OS -OI=100</BCC_UserSuppliedOptions>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclribbon.lib;vclimg.lib</LinkPackageStatics>
+        <ILINK_LibraryPath>$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <Debugger_RunParams>&quot;C:\PROYECTOS\FileOptimizer\_Tests\_ - copia&quot;</Debugger_RunParams>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclribbon.lib;vclimg.lib</LinkPackageStatics>
+        <ILINK_LibraryPath>$(BDS)\lib\win64\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_ImageChecksum>true</ILINK_ImageChecksum>
+        <UsePackages>false</UsePackages>
+        <BCC_UserSuppliedOptions>-O3 -fno-rtti</BCC_UserSuppliedOptions>
+        <ILINK_FastTLS>true</ILINK_FastTLS>
+        <DynamicRTL>false</DynamicRTL>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <BCC_PCHName_Clang>FileOptimizerPCH1.h</BCC_PCHName_Clang>
+    </PropertyGroup>
+    <ItemGroup>
+        <LibFiles Include="C:\Program Files (x86)\Embarcadero\Studio\14.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>6</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <CppCompile Include="FileOptimizer.cpp">
+            <BuildOrder>0</BuildOrder>
+        </CppCompile>
+        <PCHCompile Include="FileOptimizerPCH1.h">
+            <BuildOrder>1</BuildOrder>
+            <PCH>true</PCH>
+        </PCHCompile>
+        <LibFiles Include="Source\asmlib.lib" Condition="'$(Platform)'=='Win32'">
+            <BuildOrder>7</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <CppCompile Include="Source\clsUtil.cpp">
+            <DependentOn>Source\clsUtil.h</DependentOn>
+            <BuildOrder>2</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="Source\cppAbout.cpp">
+            <Form>frmAbout</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Source\cppAbout.h</DependentOn>
+            <BuildOrder>3</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="Source\cppMain.cpp">
+            <Form>frmMain</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Source\cppMain.h</DependentOn>
+            <BuildOrder>4</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="Source\cppOptions.cpp">
+            <Form>frmOptions</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Source\cppOptions.h</DependentOn>
+            <BuildOrder>5</BuildOrder>
+        </CppCompile>
+        <FormResources Include="Source\cppAbout.dfm"/>
+        <FormResources Include="Source\cppOptions.dfm"/>
+        <FormResources Include="Source\cppMain.dfm"/>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+        <Borland.ProjectType>CppVCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <CPlusPlusBuilder.Personality>
+                <ProjectProperties>
+                    <ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+                    <ProjectProperties Name="ManagePaths">True</ProjectProperties>
+                    <ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+                    <ProjectProperties Name="IndexFiles">False</ProjectProperties>
+                </ProjectProperties>
+                <Source>
+                    <Source Name="MainSource">FileOptimizer.cpp</Source>
+                </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp200.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k200.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k200.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp200.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </CPlusPlusBuilder.Personality>
+            <Deployment/>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">True</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Cpp.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+</Project>

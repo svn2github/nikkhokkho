@@ -1,0 +1,119 @@
+﻿Build started 28/10/2013 15:22:23.
+     1>Project "C:\PROYECTOS\FileOptimizer\Source\jpegoptim\win32\libjpeg.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (jpegoptim.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /nologo /W3 /WX- /O1 /Oy /GT /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_DEPRECATE /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /GF /Gm- /MT /GS- /Gy /arch:SSE2 /fp:fast /fp:except- /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc120.pdb" /Gd /TC /errorReport:prompt ..\libjpeg\ansi2knr.c ..\libjpeg\ckconfig.c ..\libjpeg\jaricom.c ..\libjpeg\jcapimin.c ..\libjpeg\jcapistd.c ..\libjpeg\jcarith.c ..\libjpeg\jccoefct.c ..\libjpeg\jccolor.c ..\libjpeg\jcdctmgr.c ..\libjpeg\jchuff.c ..\libjpeg\jcinit.c ..\libjpeg\jcmainct.c ..\libjpeg\jcmarker.c ..\libjpeg\jcmaster.c ..\libjpeg\jcomapi.c ..\libjpeg\jcparam.c ..\libjpeg\jcphuff.c ..\libjpeg\jcprepct.c ..\libjpeg\jcsample.c ..\libjpeg\jctrans.c ..\libjpeg\jdapimin.c ..\libjpeg\jdapistd.c ..\libjpeg\jdarith.c ..\libjpeg\jdatadst.c ..\libjpeg\jdatasrc.c ..\libjpeg\jdcoefct.c ..\libjpeg\jdcolor.c ..\libjpeg\jddctmgr.c ..\libjpeg\jdhuff.c ..\libjpeg\jdinput.c ..\libjpeg\jdmainct.c ..\libjpeg\jdmarker.c ..\libjpeg\jdmaster.c ..\libjpeg\jdmerge.c ..\libjpeg\jdphuff.c ..\libjpeg\jdpostct.c ..\libjpeg\jdsample.c ..\libjpeg\jdtrans.c ..\libjpeg\jerror.c ..\libjpeg\jfdctflt.c ..\libjpeg\jfdctfst.c ..\libjpeg\jfdctint.c ..\libjpeg\jidctflt.c ..\libjpeg\jidctfst.c ..\libjpeg\jidctint.c ..\libjpeg\jidctred.c ..\libjpeg\jmemansi.c ..\libjpeg\jmemmgr.c ..\libjpeg\jmemname.c ..\libjpeg\jmemnobs.c ..\libjpeg\jquant1.c ..\libjpeg\jquant2.c ..\libjpeg\jutils.c
+     1>cl : Command line warning D9002: ignoring unknown option '/arch:SSE2'
+         ansi2knr.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\ansi2knr.c': No such file or directory
+         ckconfig.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\ckconfig.c': No such file or directory
+         jaricom.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jaricom.c': No such file or directory
+         jcapimin.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcapimin.c': No such file or directory
+         jcapistd.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcapistd.c': No such file or directory
+         jcarith.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcarith.c': No such file or directory
+         jccoefct.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jccoefct.c': No such file or directory
+         jccolor.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jccolor.c': No such file or directory
+         jcdctmgr.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcdctmgr.c': No such file or directory
+         jchuff.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jchuff.c': No such file or directory
+         jcinit.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcinit.c': No such file or directory
+         jcmainct.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcmainct.c': No such file or directory
+         jcmarker.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcmarker.c': No such file or directory
+         jcmaster.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcmaster.c': No such file or directory
+         jcomapi.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcomapi.c': No such file or directory
+         jcparam.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcparam.c': No such file or directory
+         jcphuff.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcphuff.c': No such file or directory
+         jcprepct.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcprepct.c': No such file or directory
+         jcsample.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jcsample.c': No such file or directory
+         jctrans.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jctrans.c': No such file or directory
+         Compiling...
+         jdapimin.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdapimin.c': No such file or directory
+         jdapistd.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdapistd.c': No such file or directory
+         jdarith.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdarith.c': No such file or directory
+         jdatadst.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdatadst.c': No such file or directory
+         jdatasrc.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdatasrc.c': No such file or directory
+         jdcoefct.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdcoefct.c': No such file or directory
+         jdcolor.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdcolor.c': No such file or directory
+         jddctmgr.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jddctmgr.c': No such file or directory
+         jdhuff.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdhuff.c': No such file or directory
+         jdinput.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdinput.c': No such file or directory
+         jdmainct.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdmainct.c': No such file or directory
+         jdmarker.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdmarker.c': No such file or directory
+         jdmaster.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdmaster.c': No such file or directory
+         jdmerge.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdmerge.c': No such file or directory
+         jdphuff.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdphuff.c': No such file or directory
+         jdpostct.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdpostct.c': No such file or directory
+         jdsample.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdsample.c': No such file or directory
+         jdtrans.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jdtrans.c': No such file or directory
+         jerror.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jerror.c': No such file or directory
+         jfdctflt.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jfdctflt.c': No such file or directory
+         Compiling...
+         jfdctfst.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jfdctfst.c': No such file or directory
+         jfdctint.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jfdctint.c': No such file or directory
+         jidctflt.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jidctflt.c': No such file or directory
+         jidctfst.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jidctfst.c': No such file or directory
+         jidctint.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jidctint.c': No such file or directory
+         jidctred.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jidctred.c': No such file or directory
+         jmemansi.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jmemansi.c': No such file or directory
+         jmemmgr.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jmemmgr.c': No such file or directory
+         jmemname.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jmemname.c': No such file or directory
+         jmemnobs.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jmemnobs.c': No such file or directory
+         jquant1.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jquant1.c': No such file or directory
+         jquant2.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jquant2.c': No such file or directory
+         jutils.c
+     1>c1 : fatal error C1083: Cannot open source file: '..\libjpeg\jutils.c': No such file or directory
+     1>Done Building Project "C:\PROYECTOS\FileOptimizer\Source\jpegoptim\win32\libjpeg.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.46

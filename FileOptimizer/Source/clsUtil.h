@@ -1,0 +1,66 @@
+// ---------------------------------------------------------------------------
+#ifndef clsUtilH
+#define clsUtilH
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#if !defined(_max)
+	#define max(a,b) (((a) > (b)) ? (a) : (b))
+#endif
+#if !defined(_min)
+	#define min(a,b) (((a) < (b)) ? (a) : (b))
+#endif
+
+#if defined(_DEBUG)
+	//For some reason BCC64 gaves an error with __FUNC__
+	#if defined(_WIN64)
+		#define Log(piLevel, pacValue) (clsUtil::LogAdd(_T(__FILE__), __LINE__, _T(""), piLevel, pacValue, 5))
+	#else
+		#define Log(piLevel, pacValue) (clsUtil::LogAdd(_T(__FILE__), __LINE__, _T(__FUNC__), piLevel, pacValue, 5))
+	#endif
+#else
+	#if defined(_WIN64)
+		#define Log(piLevel, pacValue) (clsUtil::LogAdd(_T(__FILE__), __LINE__, _T(""), piLevel, pacValue, gudtOptions.iLogLevel))
+	#else
+		#define Log(piLevel, pacValue) (clsUtil::LogAdd(_T(__FILE__), __LINE__, _T(__FUNC__), piLevel, pacValue, gudtOptions.iLogLevel))
+	#endif
+#endif
+
+
+// ---------------------------------------------------------------------------
+class clsUtil
+{
+	public:
+		static const TCHAR * __fastcall ReplaceString(const TCHAR *pacString, const TCHAR *pacSearch, const TCHAR *pacReplace);
+		static int __fastcall MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, int piType);
+		static HANDLE __fastcall FindProcess(const TCHAR *pacProcess);
+		static unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
+		static bool __fastcall ExistsFile(const TCHAR *pacFile);
+		static unsigned int __fastcall SizeFile(const TCHAR *pacFile);
+		static bool __fastcall ReadFile(const TCHAR *pacFile, void *pvData, unsigned int *piSize);
+		static bool __fastcall WriteFile(const TCHAR *pacFile, void *pvData, unsigned int piSize);
+		static bool __fastcall GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtModified);
+		static bool __fastcall SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtModified);
+		static bool __fastcall DownloadFile(const TCHAR *pacUrl, void *pvData, unsigned int piSize);
+		static const TCHAR * __fastcall ExeVersion(const TCHAR *pacFile);
+		static const TCHAR * __fastcall GetIniPath(void);
+		static const TCHAR * __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
+		static int __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault = 0);
+		static float __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, float pfDefault = 0);
+		static bool __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault = false );
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue = _T(""));
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue);
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue);
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, float pfValue);
+		static const TCHAR * __fastcall GetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName);
+		static void __fastcall SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue);
+		static const TCHAR * __fastcall GetLogPath(void);
+		static void __fastcall LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel);
+		static bool __fastcall LoadForm(TForm *pfrmForm);
+		static bool __fastcall SaveForm(TForm *pfrmForm);
+		static bool __fastcall CopyToRecycleBin(const TCHAR *pacSource);
+		static bool __fastcall SetTaskListProgress(unsigned int piCompleted, unsigned int piTotal);
+};
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#endif

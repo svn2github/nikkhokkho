@@ -1,0 +1,445 @@
+- Crash when changing ribbon style http://www.techques.com/question/1-1511092/Access-violation-if-i-try-to-change-the-ribbon-style-using-a-TRibbonCombobox
+
+- Los no procesados se quedan en Pending
+
+- Mirar PNGCrush http://sourceforge.net/projects/pmt/files/pngcrush-executables/1.7.73/
+
+- Comprimir ZIP distribución con Zopfli
+
+- Los que no llevan temporal, que automaticamente se cree uno, se optmize ese, y luego se reemplace (si no pueden generarse archivos  más grandes).En RunPlugin.
+
+- Generar nombre de archivo temporal único cada vez.
+
+- Cambiar MenuClick por act.
+
+
+
+Log levels en el combo:
+0: None.
+
+1: Critical
+2: Error
+3: Warning
+4: Information
+
+
+- PNG transparency: http://encode.ru/threads/1260-CryoPNG-short-introduction
+
+- OptiPNG-ZopFli https://github.com/sayurin/optipng-zopfli (Jose)
+
+- The ability to specify an output directory (Runner112).
+
+
+- Preferencias pestaña others con metadata.
+
+- Lanzar plugins com childs para que mueran automaticamente al cerrar?
+
+- FLAC optimization with flaccl or fpFLAC (DotDotDot).
+
+- pngcrush http://sourceforge.net/projects/pmt/files/pngcrush-executables/1.7.52/
+
+- Is it possible to add by FileOptimizer in the Gui a menu 
+"Windows Explorer integration" 
+-> add FileOptimizer to (all/selected) supported file extensions (Graphic file formats, PE (exe, dll,...), archives, documents, others
+-> add FileOptimizer to Send To Menu (Chris)
+
+- Add a shortcut to the send to menu -> FileOptimizer64 and for 32bit user FileOptimizer (right click submenu) %APPDATA%\Microsoft\Windows\SendTo By all supported file types vie Regkeys to the right click explorer menu will be also OK (Recon)
+
+- In Setup Version with user selection to ask, by portable version as attached Registry Key next to the program files of FileOptimizer. Best solution adding it into the Program by self and in the gui a menu like 'integrate File Optimizer to SendTo Menu' or to 'integrate to all supported formats' open with File Optimizer.
+And solution to compress Bipmaps to RLE Compressed BMP's (best settings see Hypersnap Screenshot program save as -> bmp -> subformat-> RLE Compressed -> Bits per Pixel -> Select Best -> Palette Optimized)
+I need for doing this Hypersnap cause can not find another program who can open bmp and quick convert to RLE with this settings. MAny times needed for example inno setup only support bmp by creating installer in the setup interface same by al possible SFX modules by compression tools such as FreeARC by the sfx file can save up to 50% size or inside programs with ressource hacker / PE Explorer replacing bmp's in executables and co or by Visual Studio by self. This is a highly needed feature (Recon)
+
+
+ El archivo no se podrá arrastrar en estos dos casos:
+1. iniciar el programa por primera vez (es decir, con el theme "Windows" por defecto)
+2. abrir las opciones, y elegir como theme "Metropolis black"
+3. Intentar arrastrar un archivo.
+y:
+1.Abrir el programa con el theme "Metropolis seleccionado"
+2.2 cambiar al theme "Windows"
+3. intentar arrastrar un archivo
+
+- Single click to preview files, or remove underline (Dr. Bhavesh).
+- Make sure PNG keeps metadata when kee metadata is set.
+- Version written also on exit, and checked on load.
+
+- imagew jpeg loseless, miff?
+- Animación de prograso tipo ... o \|/ en el wait del runprocess
+- Multithread
+- Idiomas
+
+
+- Improved CHM compression by recompressing contents recursively with Keytools (maadjordan) http://encode.ru/threads/936-Suggestions-for-Preprocessors-filters-or-file-specific-compression?p=17803&viewfull=1#post17803
+- Improved ZIP compression by recompressing contents recursively (maadjordan) http://encode.ru/threads/1589-FileOptimizer?p=30522&viewfull=1#post30522
+
+- Systray
+-          Meter todos los archivos en un array y de ahí volvar al grid.
+-          Menú contextual de cancel donde está el optimize, que ponga una variable global, y se use en vez del visible.
+ndo 
+
+
+
+
+- AdvanceCOMP 1.19 - http://advancemame.sourceforge.net
+- APNG Optimizer 1.2 - http://sourceforge.net/projects/apng/
+- CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
+- DeflOpt 2.07 - http://www.walbeehm.com/download/
+- defluff 0.3.2 - http://j-o.users.sourceforge.net
+- Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
+- Flasm 1.62 - http://flasm.sourceforge.net
+- Gifsicle 1.83 - http://www.lcdf.org/gifsicle/
+- Ghostcript 9.14 - http://www.ghostscript.com
+- GNU Strip 2.24 - http://www.gnu.org/software/binutils/
+- ImageMagick 6.8.9.0 - http://www.imagemagick.org
+- ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
+- jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
+- jpegoptim 1.3.1 - http://www.kokkonen.net/tjko/projects.html
+- jpegtran 9 - http://jpegclub.org/jpegtran/
+- jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
+- libwebp 0.4.0 - https://developers.google.com/speed/webp
+- MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
+- mozjpeg 1.01 - https://github.com/mozilla/mozjpeg
+- OptiPNG Hg 20121021 - http://optipng.sourceforge.net
+- PCXLite 1.0 - http://sol.gfxile.net/code.html
+- PngOptimizer 2.3 - http://psydk.org/PngOptimizer
+- PETrim 2.93 - http://pecompact.com/pesuite.php
+- PNGOUT 02/20/2013 - http://advsys.net/ken/utils.htm
+- pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
+- pngwolf - http://bjoern.hoehrmann.de/pngwolf
+- rehuff - http://wiki.xiph.org/Rehuff
+- tidy-html5 c63cc39 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
+- TruePNG 0.4.1.2 - http://x128.ho.ua/pngutils.html
+- ZLib 1.2.8 - http://www.zlib.net
+- zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
+
+
+6.80 - YYYY
+- Added Nokia Refocus/SmartCam .NAR and Opera extensions .OEX extensions to the ZIP tool chain (Jaff).
+- Added .JPE and THM extension to the JPEG tool chain (Jaff).
+- Added the /y switch on TruePNG implemented in 6.70 which will cause it to ask for overwriting existing file each time the plugin was used.
+- Fixed a cosmetic problem were skipped files were counted sometimes in the stats as producing a size saving.
+
+
+6.70 - 2014/04/27
+- Faster PDF compression upgrading to Ghostcript 9.14.
+- Improved deflate compression by better combining deflopt and defluff.
+- Improved JPEG compression ratio including jhead.
+- Improved PNG compression ratio including TruePNG.
+- Improved GIF compression ratio upgrading to gifsicle 1.83 (custom build).
+- Upgraded jpegoptim to 1.3.1 (custom build with libjpeg 9).
+- jsmin build is now faster in both Win32 and Win64 versions.
+- Updated to ImageMagick 6.8.9.0.
+- Fixed a bug introduced in 6.50 that could cause files with extensions longer than 3 characters to not be processed.
+- Some minor optimizations and code cleanup.
+
+6.60 - 2014/04/26
+- Fixes extra title bar on Metropolis and Windows themes (trlkly).
+- Reenabled jpegtranas as in 5.90 because sometimes it is better than mozjpeg (webfork).
+- Installer now transparentlly detects OS bitness, and extracts only 32 or 64 bit binaries (trlkly).
+- Unpacked mozjpeg plugin to avoid antivirus false positives (Ryan Hietpas).
+- Installer version now properly registers on Add/Remove Programs.
+- Upgraded to C++ Builder XE6.
+- Project cleanup.
+
+6.50 - 2014/04/15
+- Added HTML optimization support with tidy-html5 (Metallicow).
+- Added CSS optimization support with TidyCSS.
+- Added JS optimization support with jsmin (custom built).
+- Added DCX to the PCX tool chain.
+- Added ini option HTMLEnableTidy=false to enable tidy-html5 when processing HTML files. When activated HTML files will be optimized, and be visually equal to the original, but may prevent the to be edited.
+- Added ini option CSSEnableTidy=false to enable CSSTidy when processing CSS files. When activated CSS files will be optimized, and be visually equal to the original, but may prevent the to be edited.
+- Added ini option CSSTemplate=low to set compression template in CSTidy, ranging from low (safer and less compression), to highest.
+- Added ini option JSEnableJSMin=false to enable jsmin when processing JS files. When activated JS files will be optimized, and be visually equal to the original, but may prevent the to be edited.
+- Added EXE options tab.
+- Added HTML options tab.
+- Added CSS options tab.
+- Added JS options tab.
+- Excecute plugins passing short file names to avoid path size limitations.
+- Enhanced General options tab with DoNotUseRecycleBin (DotDotDot).
+- Added a Stop command to give up any pending optimization.
+- Implemented a donate button in the website and in the application. Contribute with the amount you consider my work deserves.
+- Reorganized help file with different sections (webfork).
+- Added tooltips in ribbon buttons.
+- Make about Window close with ESC and RETURN.
+- Totally rewritten Messagebox management for increased accessibility and flexiility.
+- Optimized internal icons.
+- Replaced 7-Zip SFX installer with NSIS 3.00a2 installer (including shortcuts and uninstaller).
+- Faster JPEG compression upgrading to mozjpeg 1.01 r43.
+- Updated strip to 2.24.
+- Upgraded to WinCHM 4.43.
+
+
+
+6.00 - 2014/04/06
+- Added PCX optimization support with PCXLite (no404error).
+- Do not allow adding the same file more than once (mario lópez)
+- Improved GIF compression ratio upgrading to gifsicle 1.82 (custom build).
+- Compiled gifsicle with Visual C++ 2013.
+- Improved JPEG compression replacing jpegtran with mozjpeg.
+- Improved GZ, MNG, PNG, and ZIP compression ratio updating to AdvanceCOMP 1.19.
+- Improved WEBP compression ratio updating to libwebp 0.4.0.
+- libwebp changed to without WIC codes to reduce external dependencies.
+- Upgraded ImageWorsener to 1.2.0.
+- Upgraded to zRecompress 2.12.
+- Updated to ImageMagick 6.8.8.10.
+- Fixed remove selected files out of bounds error.
+- Windows 8.1 compatibility enhancements.
+- Better performance updating to ASMLib 2.34.
+- Upgraded to WinCHM 4.35.
+- Upgraded distributions to 7-Zip 9.32.
+
+5.90 - 2013/09/11
+- Added ini option EXEDisablePETrim=false to disable PETrim when processing EXE files. Resulting executables will be larger, but it will prevent broking some SFX and installers as well as stripping digital signatures (Ascend4nt).
+- Added ini option DoNotUseRecycleBin=false to prevent copying original files to your Recycle Bin. Be aware that enabling such option will prevent recovering original files (Runner112).
+- Much improved WebP optimization by using cwebp and dwebp in libwebp (Runner112).
+- Improved PDF compression upgrading to Ghostcript 9.10.
+- Updated to ImageMagick 6.8.6.9.
+
+
+5.80 - 2013/07/30
+- Added JNG to the JPEG tool chain.
+- Implemented generic .aai .avs .dcx .pcc .pcx .fits .jp2 .jpc .hdr .hrz .mif .miff .mtv .otb .p7 .palm .pdb .pbm .pcd .pcds .pfm .pgm .picon .pic .pict .pnm .ppm .psb .psd .sun .vicar .viff .wbmp .xbm .xpm .xwd to the ImageMagic tool chain.
+- Updated to ImageMagick 6.8.6.7.
+- Better performance updating to ASMLib 2.31.
+- Included vcomp100.dll required by ImageMagick (Kolpotoru).
+- Upgraded to C++ Builder XE4 Update 1.
+
+
+5.70 - 2013/06/19
+- Improved PNG compression ratio and speed updating to PngOptimizer 2.3.
+- Upgraded Gifsicle to 1.71 (custom build).
+- Added support for Gifsicle x64 too (custom build).
+- Upgraded jpegoptim to 1.3.1 beta (custom build with libjpeg 9).
+- Prevented zRecompress generating larger files.
+- Closing windows is now more responsive.
+- Some minor optimizations and code cleanup.
+
+
+5.60 - 2013/05/01
+- Added ICO PNG optimization support with ImageMagick.
+- Added TIFF/FAX ZIP optimization support with ImageMagick.
+- Added DIB format to the BMP chain.
+- Updated ImageMagick to 6.8.5.3.
+- Upgraded to C++ Builder XE4.
+
+5.50 - 2013/04/06
+- Added BMP optimization support with ImageMagick (Chris Recon).
+- Improved GZ, MNG, PNG, and ZIP compression ratio updating to AdvanceCOMP 1.17.
+- Improved PNG compression updating pngwolf to pngwolf + zopfli (custom built http://encode.ru/threads/1689-Google-Compress-Data-More-Densely-with-Zopfli).
+- Improved PNG compression speed removing advdef which makes no sense together with advpng.
+- Improved JPEG compression updating to jpegtran 9.
+- Improved GIF and JPEG compression updating to ImageMagick 6.8.4.6.
+- Prevent optimizing Inno Setup EXE files because they get broken with strip and PETrim http://forum.bitsum.com/index.php/topic,2438.0.html (Mario).
+- Dynamic window title and application caption to show progress information (Jaff).
+- Original size and Optimized size columns are now right aligned for better legibility (DotDotDot).
+- Fixes some number formatting issues (Jaff).
+- Some minor cosmetic and usability improvements.
+- Other minor stability and performance improvements.
+
+5.10 - 2013/02/25
+- Improved PNG compression updating to PNGOUT 02/20/2013.
+- Window properties were not properly loaded (Dr. Bhavesh).
+- Make the minimized status of the ribbon permanent.
+- Remove horizontal scrollbar in files grid (Dr. Bhavesh).
+- Using a theme different that Windows, make drag&drop not work (Mario).
+- Process Priority=Realtime and Checkforupdates=Never were not restored properly (Mario).
+- Shorten manifest description (Dr. Bhavesh).
+- Make ribbon load faster/refresh better (Dr. Bhavesh).
+
+5.00 - 2013/02/17
+- Improved GIF compression by adding ImageMagick.
+- Improved JPEG compression by adding ImageMagick.
+- Improved PDF compression upgrading to Ghostcript 9.07.
+- EXE compression is now safer by removing /StripFixups:Y in PETrim.
+- Upgraded ImageWorsener to 1.1.0.
+- Upgraded Gifsicle to 1.70.
+- New ribbon interface, just for those complaining about ugly interface. For the rest, the tradicional context menu is still available, and ribbon can be minimized to save screen space.
+- Implemented remove selected files option.
+- Total bytes saved are now shown when finishing the optimization.
+- Solved an issue with Add files dialog in Windows XP and older, by switching from TFileOpenDialog to TOpenDialog.
+- Fixed a Windows Vista incompatibility (lastMonkey).
+- Fixed a bug that caused the program to confirm more than one time to exit when process where still active.
+- Solved some issues optimizing OBJ/o and LIB/A files.
+- Prevented empty log creation in x64 build when LogLevel=0 (n6333373).
+- Prevented optimized files being larger that original ones in some rare scenarios.
+- Some minor cosmetic and usability improvements.
+- Other minor stability and performance improvements.
+- Upgraded to C++ Builder XE3 Update 2.
+
+4.00 - 2013/01/20
+- Added OBJ (OBJ, O, LIB and A) optimization support with strip.
+- Improved EXE and DLL compression by adding strip.
+- Added context menu for Add files.
+- Added context menu for Exit.
+- Added context menu for About.
+- Added ini option PDFProfile=ebook|screen|printer|prepress|default to set PDF recompression profile settings.
+- Added ini option LogLevel=0 to log output.
+- General performance improvements by using ASMLb 2.30.
+- Win64 performance improvements.
+- Win64 portability enhancements.
+- Other minor cosmetic and usability improvements.
+- Distribution size reduced by using 7-Zip archives/SFX.
+
+3.00 - 2012/12/30
+- Added native Win64 support (FileOptimizer64.exe).
+- Added ini option KeepAttributes=false to keep file attributes and timestamp after optimization.
+- Added ability to optimize read-only and system files.
+- Included 64 bit plugins (Ghostcript, ImageWorsener, jpegoptim, MP3packer, PngOptimizer, zRecompress).
+- Win64 portability improvements.
+- Upgraded to C++ Builder XE3 Update 1.
+
+2.30 - 2012/12/01
+- Improved GIF compression ratio upgrading to gifsicle 1.68.
+- Compiled gifsicle with Visual C++ 2012 Update 1 (Windows XP and later compatible).
+- Upgraded to zRecompress 2.11 (Windows XP and later compatible).
+- Compiled jpegoptim with Visual C++ 2012 Update 1 (Windows XP and later compatible).
+- Improved BMP and WEBP compression ratio upgrading to ImageWorsener 1.0.0.
+- Added BMP optimization support with ImageWorsener.
+- Fixed a null pointer exception in Windows XP and 2003 introduced in 2.00.
+- Fixed a bug that allowed to add files with no extension at all.
+- Upgraded to C++ Builder XE3 Update 1.
+
+2.20 - 2012/11/03
+- Improved PNG and APNG compression ratio upgrading to OptiPNG Hg 20121021.
+- Other minor stability and performance improvements.
+
+2.10 - 2012/09/26
+- Added Microsoft OLE Compound Files (DOC, PPT, XLS, CHM, Thumbs.db, StickyNotes.snt, ...) optimization support with Document Press (maadjordan).
+- Improved Office and Office 2007+ compression ratio by adding some additional file extensions
+- Allow dragging files even if FileOptimizer is elevated, and source process is not.
+- Added theme support (Windows, Luna -Office 2007 like-, Metropolis UI Black -Windows 8 Metro like-).
+- Added ini option Theme=Windows|Luna|Metropolis UI Black to set additional themes.
+- Improved WINE compatibility and appearance.
+- Slightly improved command line argument handling.
+- Switched back to flat Deflate on ZIP distribution file because of Deflate64 incompatibilities with Windows XP built-in ZIP extractor.
+
+2.00 - 2012/09/23
+- Improved PNG and APNG compression ratio upgrading to OptiPNG Hg 20120916.
+- Improved PNG and APNG compression ratio upgrading to PngOptimizer 2.2.
+- Improved APNG compression ratio upgrading to APNG Optimizer 1.2.
+- Added ini option Level=9 to set recompression ratio for GIF, GZ, MNG, PNG, APNG, ZIP.
+- Automatically copy processed files to Recycle Bin so you can easily restore its original versions if required.
+- Added ability to preview files in grid by double clicking them.
+- Implemented Windows 7 and later taskbar progress.
+- Allow files grid interaction even while optimizing is in progress.
+- Improved grid status column formating to make sorting more natural.
+- Improved visual appearance on rare color scheme combinations and themes.
+- Enhanced statusbar progress display.
+- Tweaked main window components in order to better fit in low screen resolutions.
+- Constrained main window minimun width and height to avoid component misplacing.
+- Enhanced and updated CHM help file.
+- Upgraded to C++ Builder XE3.
+- Main executable file is not packed anymore due to buggy antivirus raising false positives.
+- Slightly reduced ZIP distribution file by using Deflate64.
+
+1.70 - 2012/09/07
+- Improved PNG, APNG, ZIP and GZ compression ratio including defluff (m^2).
+- Improved PNG and APNG compression ratio upgrading to OptiPNG Hg 20120824.
+- It is possible to add files in several batches, until Optimize option is choosen.
+- Updated autoupdate functionality to new home at http://nikkhokkho.sourceforge.net
+
+1.65 - 2012/09/03
+- Improved APNG compression ratio enabling PngOptimizer.
+- Improved MP3 compression ratio upgrading to MP3packer 2.04.
+- Disabled grid selection to avoid confusion about Optimize and Delete operating against all items, or only selected ones.
+- Clarified that FileOptimizer will overwrite existing files, and advise to create a backup.
+- Ask user consent before enabling automatic check for updates (Skye).
+- Better Win64 compatibility by dynamically loading Wow64DisableWow64FsRedirection.
+- Better file type extension detection.
+- Improved Windows XP and older appearance by tweaking grid odd color.
+- Added ini option ProcessPriority=IDLE_PRIORITY_CLASS to set default process priority
+- Added ini option CheckForUpdates to enable/disable automatic check for supdates functionality.
+- Added ini option GZCopyMetadata=false to enable copying GZ metadata.
+- Added ini option MP3CopyMetadata=false to enable copying MP3 metadata.
+- Added ini option ZIPCopyMetadata=false to enable copying ZIP metadata.
+- Programmatically modify process priority (jdeleca).
+- Detect number of cores in preparation for a future multithreaded version (jdeleca).
+
+1.60 - 2012/08/28
+- Added OGG optimization support with rehuff (jethro).
+- Implemented automatic update check.
+- Added ini option JPEGCopyMetadata=false to enable copying JPEG metadata (Stephan Busch).
+- Added ini option JPEGUseArithmeticEncoding=false to enable JPEG arithmetic encoding instead of Huffman.
+- Added ini option PNGCopyMetadata=false to enable copying PNG metadata.
+- Dynamically load Vista and later COMCTL32.DLL, so FileOptimizer works again under Windows XP (Robert Bass / Barry).
+
+1.51 - 2012/08/26
+- Properly clean temporary file, so in extreme scenarios plugin invocation works as espected (Stephan Busch).
+
+1.50 - 2012/08/25
+- Added BMP optimization support with ImageWorsener.
+- Added OGV optimization support with rehuff_theora (Stephan Busch).
+- Added WEBP optimization support with ImageWorsener.
+- Improved JPEG compression ratio instructing jpegtran to generate progressive images (Stephan Busch).
+- Improved PNG compression by adding pngwolf (m^2).
+- Improved PNG compression by adding pngrewrite (Stephan Busch).
+- Improved PNG compression by adding advdef (Stephan Busch).
+- Improved PNG compression by adding ImageWorsener.
+- Upgraded to AdvanceCOMP 1.16 Beta (maadjordan).
+- Removed advzip and DeflOpt from TIFF tool chain, since they have no effect, even on deflated TIFF (Stephan Busch).
+
+1.40 - 2012/08/20
+- Added MP3 recompression support.
+- Improved ZIP compression ration upgrading to zRecompress 2.10.
+- Improved APNG compression ratio by using PngOut and OptiPNG with them too.
+- Improved PNG compression ratio including PngOptimizer.
+- Improved PNG compression ratio by using tweaking OptiPNG parameters.
+- Improved JPEG compression ratio and speed updating to jpegoptim 1.2.4 (custom built with libjpeg 8d).
+- Assured that APNG files with PNG extension are properly detected regardless of the extension (maadjordan).
+- Removed 3dm and sis from the ZIP chain since they are in fact deflate (maadjordan).
+- Files grid column widths are now stored in the INI file in order to be permanent across executions.
+- Some internal code simplification and refactorization.
+
+1.30 - 2012/08/19
+- Improved SWF and GZ compression ratio by adding my brand new zRecompress.
+- Extended ZIP support to .3dm .odt .sis.
+- Gathered PNGOut redistribution permission from Ardfry Imaging, LLC.
+
+1.20 - 2012/08/16
+- Added DLL optimization support.
+- Improved PNG compression ratio by tweaking PNGOut and OptiPNG parameters.
+- Improved MNG compression ratio by tweaking advmng parameters.
+- Improved PDF compression ratio by tweaking Ghostcript parameters.
+- Improved EXE compression ratio and speed by replacing GNU strip and StripReloc with PETrim.
+- Improved GIF compression ratio and speed updating to Gifsicle 1.6.7 (custom built).
+- Improved ZIP and GZ compression ratio and speed updating to ZLib 1.2.7.
+- Slightly improved compression speed by launching plugins in quiet mode when available.
+- Disabled by default JPEG arithmetic encoding, and enabled huffman optimization again, due to incompatibilities with some programs and popular request. This causes file size to reduce less.
+- Bundled with CHM help file.
+- Grid contents can be sorted ascending and descending by clicking on column headers.
+- Better default grid columns width and number format.
+- Colored rows in files grid to make it easy to read.
+- Status bar with global progress and other informations.
+- Better Win64 compatibility.
+- Prevent dragging files to the grid when there are already files.
+- Gracefully exit even if there are plugin processes running.
+- Make sure that resulting APNG, JPEG, PDF, and TIFF files are always smaller than original ones before overwritting them.
+
+1.10 - 2012/08/13
+- Added EXE optimization support.
+- Added TIFF recompression support.
+- Speedup ZIP and GZ compression by splitting it in separated paths.
+- Speedup PNG compression by removing Pngcrush.
+- Improved ZIP and GZ compression ratio and speed updating to ZLib 1.2.5.
+- Improved PNG compression ratio by tweaking PNGOut parameters.
+- Improved JPEG compression ratio by tweaking jpegtran parameters.
+- Added support for Ghostcript x64 too.
+- Extended ZIP support to .epub and .cbz
+- Ability to automate file optimization by invoking FileOptimizer with one or more command line parameters, supporting folders to recurse or files.
+- Stability and perfomance improvements on grid handling code.
+- During compression FileOptimizer is now more responsiveness.
+
+1.00 - 2012/08/11
+- Added PDF recompression support.
+- Added SWF recompression support.
+- Added APNG recompression support.
+- Improved JPEG compression ratio including jpegtran.
+- Improved PNG/MNG/APNG compression including pngcrush..
+- Extended PNG support to .ico.
+- Extended ZIP support to .air .apk .appx .docm .docx .dwfx .ipa .jar .mpp .oxps .pptm .pptx .pub .vsd .xlsm .xlsx .xps .zip.
+
+0.90 - 2012/08/09
+- Initial feature complete private beta.
+
+
+

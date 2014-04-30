@@ -1,0 +1,44 @@
+zRecompress R2.11               (c) Copyright 2012 by Javier Gutierrez Chamorro
+                            http://guti.isgreat.org/static.php?page=zRecompress
+** An efficient deflate recompressor supporting SWF, GZ and its derivatives ***
+**                      Builtin support for Zlib and LZMA                   ***
+
+
+INTRODUCTION
+zRecompress is a deflate and LZMA recompressor, that currently supports GZ and SWF file formats.
+
+Among GZ, almost all derivatives such as GZ, TGZ and SVGZ should be supported.
+
+It is usually able to reduce the size, because it brute forces the recompression in order to find optimal ettings. Additionally the builtin deflate engine comes from 7-Zip (Igor Pavlov), and is more efficient than usual one such as Zlib. All recompression is performed in memory, so overhead is reduced to the minimum, except for CPU load.
+
+For GZ files, metadata is trimmed to the minimum mandatory, allowing it to squeeze a few additional bytes.
+
+You can chain it with other deflate recompressors, for GZ, the optimum is normally advdef (Andrea Mazzoleni), zRecompress and DeflOpt (Ben Jos Walbeehm). For SWF, it is flasm (Igor Kogan), and then zRecompress.
+
+
+USAGE
+zRecompress.exe <-tswf|-tswf-deflate|-t-swf-lzma|-tgz> <File>
+
+Commands:
+-tswf:         Recompress <File> as a SWF, keeping original compression scheme.
+               Best compatibility.
+-tswf-deflate: Recompress <File> as a SWF, using always deflate compression
+               scheme.
+-tswf-lzma:    Recompress <File> as a SWF, using always LZMA compression scheme.
+
+               Best compression ratio
+File:          File does not support wildcards, but paths does. Quote it if
+               containing spaces.
+
+Examples:
+               zRecompress.exe -tswf-lzma Movie.swf
+
+
+TECHNICAL DETAILS
+zRecompress uses the LZMA SDK for compressing and decompressing LZMA files, and the 7-Zip modified source that comes in AdvanceCOMP for deflate. Deflating is an old implementation from 2003, based on an old 7-Zip source based on version 3 circa 2003. I am not able to upgrade it, so it will not be changed until LZMA SDK comes with deflate support. Inflates are always done by ZLib for compatibility and easy to use reasons.
+
+Brute force relies on the number of passes for deflate, and lc, lp and pb
+
+Even if it is currently not used, there is also a brutefoce deflate implementation using Zlib, and trying different strategies.
+
+Program can be enhanced adding support for other deflated files like ZIP, PNG, APNG, MNG, PDF, ...
