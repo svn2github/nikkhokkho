@@ -325,8 +325,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	FILETIME udtFileCreated, udtFileModified;
 	String sFlags;
 	String sExtension;
-	TCHAR acTmpFile[MAX_PATH];
-	String sPluginsDirectory, sTmpFile, sShortFile;
+	TCHAR acTmpFile[MAX_PATH];	//To be deleted when migrated to RunPluginNew;
+	String sPluginsDirectory;
+	String sTmpFile, sShortFile; //To be deleted when migrated to RunPluginNew;
+	Stromg sInputFile;
 
 
 	gbProcess = true;
@@ -344,7 +346,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 	_stprintf(acTmpFile, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + ".tmp").c_str());
 	sTmpFile = GetShortName(acTmpFile);
-
+	
 	iSavedBytes = 0;
 	iTotalBytes = 0;
 	iRows = grdFiles->RowCount;
@@ -357,8 +359,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		grdFiles->Row = iCount;
 		Application->ProcessMessages();
 
+
+		sInputFile = grdFiles->Cells[0][iCount];
 		//We want the full extension for the LFN
-		sExtension = " " + GetExtension(grdFiles->Cells[0][iCount]).LowerCase() + " ";
+		sExtension = " " + GetExtension(sInputFile).LowerCase() + " ";
 		sShortFile = GetShortName(grdFiles->Cells[0][iCount]);
 
 		if (!gudtOptions.bDoNotUseRecycleBin)
@@ -382,9 +386,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "-strip ";
 			}
-			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile);
 
-			iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile);
 		}
 		// CSS: CSSTidy
 		if (PosEx(sExtension, KS_EXTENSION_CSS) > 0)
