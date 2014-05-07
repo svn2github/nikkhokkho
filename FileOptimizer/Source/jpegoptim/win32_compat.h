@@ -23,7 +23,7 @@ extern "C" {
 #define realpath(N,R) _fullpath((R),(N),MAXPATHLEN)
 #define ftruncate(fildes,length) open(fildes, O_TRUNC|O_WRONLY)
 
-//#define round(x) ((int) (x))
+#define round(x) ((int) (x))
 #define getuid(x) 0
 #define geteuid() 0
 #define chown(outfname,st_uid,st_gid) 0

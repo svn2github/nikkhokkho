@@ -202,15 +202,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include=".\basename.c" />
-    <ClCompile Include=".\dirent.c" />
     <ClCompile Include="..\getopt.c" />
     <ClCompile Include="..\getopt1.c" />
+    <ClCompile Include="..\jpegdest.c" />
     <ClCompile Include="..\jpegoptim.c" />
+    <ClCompile Include="..\misc.c" />
+    <ClCompile Include="basename.c" />
+    <ClCompile Include="dirent.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include=".\dirent.h" />
     <ClInclude Include="..\getopt.h" />
+    <ClInclude Include="dirent.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="libjpeg.vcxproj">

@@ -101,7 +101,7 @@ ndo
 - ImageMagick 6.8.9.0 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
-- jpegoptim 1.3.1 - http://www.kokkonen.net/tjko/projects.html
+- jpegoptim 1.4.0 beta - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - libwebp 0.4.0 - https://developers.google.com/speed/webp
@@ -124,6 +124,7 @@ ndo
 XXXX - YYYY
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Updated TruePNG to 0.4.2.1.
+- Updated jpegoptim to 1.4.0 beta (custom built).
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
 - Improved GUI drawing performance.
 - Some code base preparation in order to implement a new run plugin mecanism that will be easier to maintain.
