@@ -207,12 +207,9 @@
     <ClCompile Include="..\jpegdest.c" />
     <ClCompile Include="..\jpegoptim.c" />
     <ClCompile Include="..\misc.c" />
-    <ClCompile Include="basename.c" />
-    <ClCompile Include="dirent.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\getopt.h" />
-    <ClInclude Include="dirent.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="libjpeg.vcxproj">

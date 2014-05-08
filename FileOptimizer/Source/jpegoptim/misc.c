@@ -5,11 +5,15 @@
  *
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <dirent.h>
-//#include <unistd.h>
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -41,14 +45,14 @@ long file_size(FILE *fp)
 }
 
 
-int is_directory(const char *path)
+int is_directory(const char *pathname)
 {
-  DIR *dir;
+  struct stat buf;
 
-  if (!path) return 0;
-  if (!(dir = opendir(path))) return 0;
-  closedir(dir);
-  return 1;
+  if (!pathname) return 0;
+  if (stat(pathname,&buf) != 0) return 0;
+  if (S_ISDIR(buf.st_mode)) return 1;
+  return 0;
 }
 
 
@@ -99,6 +103,26 @@ char *splitdir(const char *pathname, char *buf, int buflen)
   return buf;
 }
 
+char *splitname(const char *pathname, char *buf, int buflen)
+{
+  const char *s = NULL;
+  int size = 0;
+
+  if (!pathname || !buf || buflen < 2) return NULL;
+
+  if ((s = strrchr(pathname,DIR_SEPARATOR_C))) {
+    s++;
+  } else {
+    s=pathname;
+  }
+
+  size=strlen(s);
+  if (size >= buflen) return NULL;
+  if (size > 0) memcpy(buf,s,size);
+  buf[size]=0;
+
+  return buf;
+}
 
 void fatal(const char *format, ...)
 {
