@@ -328,7 +328,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	TCHAR acTmpFile[MAX_PATH];	//To be deleted when migrated to RunPluginNew;
 	String sPluginsDirectory;
 	String sTmpFile, sShortFile; //To be deleted when migrated to RunPluginNew;
-	Stromg sInputFile;
+	String sInputFile;
 
 
 	gbProcess = true;
@@ -387,17 +387,18 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags += "-strip ";
 			}
 			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
-			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile);
+			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			//iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
-			iError = RunPluginNew(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile);
+			iError = RunPluginNew(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// CSS: CSSTidy
 		if (PosEx(sExtension, KS_EXTENSION_CSS) > 0)
 		{
 			if (gudtOptions.bCSSEnableTidy)
 			{
-				iError = RunPlugin(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"" + sShortFile + "\" --template=" + gudtOptions.acCSSTemplate + " \"" + acTmpFile + " \"").c_str(), sPluginsDirectory, acTmpFile);
+				//iError = RunPlugin(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"" + sShortFile + "\" --template=" + gudtOptions.acCSSTemplate + " \"" + acTmpFile + " \"").c_str(), sPluginsDirectory, acTmpFile);
+				iError = RunPluginNew(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"%INPUTFILE%\" --template=" + gudtOptions.acCSSTemplate + " \"\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 		}
 		// DLL: PETrim, strip
@@ -405,10 +406,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		{
 			if (!gudtOptions.bEXEDisablePETrim)
 			{
-				iError = RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				//iError = RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				iError = RunPluginNew(iCount, "PETrim", (sPluginsDirectory + "petrim.exe \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
-
-			iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// EXE: PETrim, strip
 		if (PosEx(sExtension, KS_EXTENSION_EXE) > 0)
@@ -417,10 +419,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				if (!gudtOptions.bEXEDisablePETrim)
 				{
-					iError = RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe /StripFixups:Y \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+					//iError = RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe /StripFixups:Y \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+					iError = RunPluginNew(iCount, "PETrim", (sPluginsDirectory + "petrim.exe /StripFixups:Y \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				}
-
-				iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				iError = RunPluginNew(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			else
 			{
@@ -1145,7 +1148,7 @@ int __fastcall TfrmMain::RunPluginNew(int piCurrent, String psStatus, String psC
 	sTmpInputFile = acTmp;
 	
 	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "Output" + GetExtension(psInputFile)).c_str());
-	sTmpInputFile = acTmp;
+	sTmpOutputFile = acTmp;
 	
 	sInputFile = psInputFile;
 	sOutputFile = psOutputFile;
@@ -1159,21 +1162,22 @@ int __fastcall TfrmMain::RunPluginNew(int piCurrent, String psStatus, String psC
 	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
 	
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
-	if ((PosEx(psCommandLine, "%OUTPUTFILE%") == NULL) && (PosEx(psCommandLine, "%TMPOUTPUTFILE%") == NULL))
+	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 	{
-		CopyFile(sInputFile.c_str(), sTmpOutputFile.c_str(), false);
-		sInputFile = sTmpOutputFile;
+		CopyFile(sInputFile.c_str(), sTmpInputFile.c_str(), false);
+		//sInputFile = sTmpOutputFile;
 	}
 
 	sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
 	sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
 	sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
 
 	iError = RunProcess(sCommandLine.c_str(), psDirectory.c_str(), NULL, 0, true);
 	Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
 
-	if (PosEx(psCommandLine, "%TMPOUTPUTFILE%") != 0)
+	//We did get a TMP output file, so if smaller, make it overwrite input file
+	if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 	{
 		iSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
 		if ((iSizeNew > 0) && (iSizeNew < iSize))
@@ -1182,13 +1186,13 @@ int __fastcall TfrmMain::RunPluginNew(int piCurrent, String psStatus, String psC
 			CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str(), false);
 		}
 	}
-	else if ((PosEx(psCommandLine, "%OUTPUTFILE%") == 0) && (PosEx(psCommandLine, "%TMPOUTPUTFILE%") == 0))
+	else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 	{
-		iSizeNew = clsUtil::SizeFile(sInputFile.c_str());
+		iSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
 		if ((iSizeNew > 0) && (iSizeNew < iSize))
 		{
 			iSize = iSizeNew;
-			CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str(), false);
+			CopyFile(sTmpInputFile.c_str(), sInputFile.c_str(), false);
 			//sInputFile = sTmpOutputFile;
 		}
 	}	

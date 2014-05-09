@@ -123,11 +123,13 @@ ndo
 
 XXXX - YYYY
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
+- Added OCX extension to the DLL toolchain.
 - Updated TruePNG to 0.4.2.1.
 - Updated jpegoptim to 1.4.0 beta (custom built).
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
 - Improved GUI drawing performance.
 - Some code base preparation in order to implement a new run plugin mecanism that will be easier to maintain.
+- Small installer improvements.
 - Source code migrated to a subversion repositoryrepository.
 
 
