@@ -486,7 +486,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		{
 			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 		}
-		// JPEG: jhead ImageMagick, jpegoptim, jpegtran, mozjpegtran
+		// JPEG: jhead jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtension, KS_EXTENSION_JPG) > 0)
 		{
 			sFlags = "";
@@ -495,7 +495,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");		
 				sFlags += "-strip ";
 			}
-			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 
 			sFlags = "";
 			if (!gudtOptions.bJPEGCopyMetadata)

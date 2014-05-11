@@ -1,5 +1,3 @@
-- Investigate why ImageMagick does some lossy JPEG conversion (deluge).
-
 - Integrate installer with Explorer Send To.
 
 - Add Information option on cotnext menu.
@@ -125,7 +123,8 @@ ndo
 
 XXXX - YYYY
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
-- Added OCX extension to the DLL toolchain.
+- Added OCX and VBX extensions to the DLL toolchain.
+- Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Updated TruePNG to 0.4.2.1 (Jaff).
 - Updated jpegoptim to 1.4.0 beta (custom built) (Jaff).
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).

@@ -30,7 +30,7 @@
 
 #define KS_EXTENSION_BMP	_T(" .bmp .dib ")
 #define KS_EXTENSION_CSS	_T(" .css ")
-#define KS_EXTENSION_DLL	_T(" .dll .bpl .drv .lzl .ocx .sys ")
+#define KS_EXTENSION_DLL	_T(" .dll .bpl .drv .lzl .ocx .sys .vbx ")
 #define KS_EXTENSION_EXE	_T(" .exe .scr ")
 #define KS_EXTENSION_GIF	_T(" .gif ")
 #define KS_EXTENSION_GZ		_T(" .gz .tgz .svgz ")
