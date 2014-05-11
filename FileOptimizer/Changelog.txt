@@ -1,3 +1,5 @@
+- Investigate why ImageMagick does some lossy JPEG conversion (deluge).
+
 - Integrate installer with Explorer Send To.
 
 - Add Information option on cotnext menu.
