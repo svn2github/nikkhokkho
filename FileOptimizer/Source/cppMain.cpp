@@ -439,7 +439,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "-strip ";
 			}
-			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -coalesce -layers optimize " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -coalesce -layers optimize " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -coalesce -layers optimize " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 3 / 9, 3);
@@ -484,7 +485,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		// ICO: ImageMagick
 		if (PosEx(sExtension, KS_EXTENSION_ICO) > 0)
 		{
-			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// JPEG: jhead jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtension, KS_EXTENSION_JPG) > 0)
@@ -502,7 +504,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "--strip-all ";
 			}
-			iError = RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
 			if (gudtOptions.bJPEGUseArithmeticEncoding)
@@ -521,9 +524,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "-copy none ";
 			}
-			iError = RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
-			iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"" + acTmpFile + "\" -progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"" + acTmpFile + "\" -progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// JS: jsmin
 		if (PosEx(sExtension, KS_EXTENSION_JS) > 0)
@@ -581,7 +586,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "-strip ";
 			}
-			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// PDF: ghostcript
 		if (PosEx(sExtension, KS_EXTENSION_PDF) > 0)
@@ -707,23 +713,26 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			DeleteFile(acTmpFile);
 
 		}
-		// TIFF: jhead, imagemagick, jpegoptim, jpegtran, mozjpegtran
+		// TIFF: jhead, ImageMagick, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtension, KS_EXTENSION_TIF) > 0)
 		{
 			sFlags = "";
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
+				//iError = RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");		
 				iError = RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");		
 				sFlags += "-strip ";
 			}
-			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
 				sFlags += "--strip-all ";
 			}
-			iError = RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
 			if (gudtOptions.bJPEGUseArithmeticEncoding)
@@ -742,9 +751,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "-copy none ";
 			}
-			iError = RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
-			iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"" + acTmpFile + "\" -progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"" + acTmpFile + "\" -progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// WEBP: dwebp + cwebp, ImageWorsener
 		if (PosEx(sExtension, KS_EXTENSION_WEBP) > 0)
@@ -797,7 +808,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "-strip ";
 			}
-			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 
 		if (gudtOptions.bKeepAttributes)
