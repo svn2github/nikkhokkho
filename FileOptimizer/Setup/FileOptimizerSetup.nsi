@@ -52,7 +52,7 @@ Section "Files"
 
 	SetOutPath $INSTDIR
 	File ..\Win32\Release\*.chm
-
+	CreateDirectory "$SMPROGRAMS\${APP_NAME}";
 	${If} ${RunningX64}
 		File ..\Win32\Release\*64.exe
 		SetOutPath $INSTDIR\Plugins64
