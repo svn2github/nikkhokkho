@@ -60,14 +60,19 @@ struct udtOptions
 {
 	bool bCSSEnableTidy;
 	TCHAR acCSSTemplate[64];
+	bool bBMPCopyMetadata;
 	bool bEXEDisablePETrim;
+	bool bGIFCopyMetadata;
 	bool bGZCopyMetadata;
 	bool bHTMLEnableTidy;
 	bool bJPEGCopyMetadata;
 	bool bJPEGUseArithmeticEncoding;
 	bool bJSEnableJSMin;
-	bool bPNGCopyMetadata;
+	bool bMiscCopyMetadata;
 	bool bMP3CopyMetadata;
+	bool bPCXCopyMetadata;
+	bool bPNGCopyMetadata;
+	bool bTIFFCopyMetadata;
 	bool bZIPCopyMetadata;
 	TCHAR acPDFProfile[64];
 	bool bDoNotUseRecycleBin;

@@ -38,16 +38,21 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	grdFiles->ColWidths[1] = clsUtil::GetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[1]);
 	grdFiles->ColWidths[2] = clsUtil::GetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[2]);
 	grdFiles->ColWidths[3] = clsUtil::GetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[3]);
+	>gudtOptions.bBMPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("BMPCopyMetadata"), false);
 	gudtOptions.bCSSEnableTidy = clsUtil::GetIni(_T("Options"), _T("CSSEnableTidy"), false);
 	_tcscpy(gudtOptions.acCSSTemplate, clsUtil::GetIni(_T("Options"), _T("CSSTemplate"), _T("low")));
 	gudtOptions.bEXEDisablePETrim = clsUtil::GetIni(_T("Options"), _T("EXEDisablePETrim"), false);
+	gudtOptions.bGIFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GIFCopyMetadata"), false);
 	gudtOptions.bGZCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GZCopyMetadata"), false);
 	gudtOptions.bHTMLEnableTidy = clsUtil::GetIni(_T("Options"), _T("HTMLEnableTidy"), false);
 	gudtOptions.bJPEGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("JPEGCopyMetadata"), false);
 	gudtOptions.bJPEGUseArithmeticEncoding = clsUtil::GetIni(_T("Options"), _T("JPEGUseArithmeticEncoding"), false);
 	gudtOptions.bJSEnableJSMin = clsUtil::GetIni(_T("Options"), _T("JSEnableJSMin"), false);
+	gudtOptions.bMiscCopyMetadata = clsUtil::GetIni(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = clsUtil::GetIni(_T("Options"), _T("MP3CopyMetadata"), false);
+	gudtOptions.bPCXCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PCXCopyMetadata"), false);
 	gudtOptions.bPNGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PNGCopyMetadata"), false);
+	>gudtOptions.bTIFFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("TIFFCopyMetadata"), false);
 	gudtOptions.bZIPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("ZIPCopyMetadata"), false);
 	_tcscpy(gudtOptions.acPDFProfile, clsUtil::GetIni(_T("Options"), _T("PDFProfile"), _T("ebook")));
 	gudtOptions.bKeepAttributes = clsUtil::GetIni(_T("Options"), _T("KeepAttributes"), false);
@@ -87,16 +92,21 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[1]);
 	clsUtil::SetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[2]);
 	clsUtil::SetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[3]);
+	clsUtil::SetIni(_T("Options"), _T("BMPCopyMetadata"), gudtOptions.bBMPCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("CSSEnableTidy"), gudtOptions.bCSSEnableTidy);
 	clsUtil::SetIni(_T("Options"), _T("CSSTemplate"), gudtOptions.acCSSTemplate);
 	clsUtil::SetIni(_T("Options"), _T("EXEDisablePETrim"), gudtOptions.bEXEDisablePETrim);
+	clsUtil::SetIni(_T("Options"), _T("GIFCopyMetadata"), gudtOptions.bGIFCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("GZCopyMetadata"), gudtOptions.bGZCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("HTMLEnableTidy"), gudtOptions.bHTMLEnableTidy);
 	clsUtil::SetIni(_T("Options"), _T("JPEGCopyMetadata"), gudtOptions.bJPEGCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("JPEGUseArithmeticEncoding"), gudtOptions.bJPEGUseArithmeticEncoding);
 	clsUtil::SetIni(_T("Options"), _T("JSEnableJSMin"), gudtOptions.bJSEnableJSMin);
+	clsUtil::SetIni(_T("Options"), _T("MiscCopyMetadata"), gudtOptions.bMiscCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("MP3CopyMetadata"), gudtOptions.bMP3CopyMetadata);
+	clsUtil::SetIni(_T("Options"), _T("PCXCopyMetadata"), gudtOptions.bPCXCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("PNGCopyMetadata"), gudtOptions.bPNGCopyMetadata);
+	clsUtil::SetIni(_T("Options"), _T("TIFFCopyMetadata"), gudtOptions.bTIFFCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("ZIPCopyMetadata"), gudtOptions.bZIPCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("PDFProfile"), gudtOptions.acPDFProfile);
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin);
@@ -382,7 +392,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		if (PosEx(sExtension, KS_EXTENSION_BMP) > 0)
 		{
 			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
+			if (!gudtOptions.bBMPCopyMetadata)
 			{
 				sFlags += "-strip ";
 			}
@@ -400,6 +410,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//iError = RunPlugin(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"" + sShortFile + "\" --template=" + gudtOptions.acCSSTemplate + " \"" + acTmpFile + " \"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPluginNew(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"%INPUTFILE%\" --template=" + gudtOptions.acCSSTemplate + " \"\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
+			else
+			{
+				grdFiles->Cells[2][iCount] = grdFiles->Cells[1][iCount];
+				grdFiles->Cells[3][iCount] = "Done (100%).";
+			}
 		}
 		// DLL: PETrim, strip
 		if (PosEx(sExtension, KS_EXTENSION_DLL) > 0)
@@ -410,7 +425,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPluginNew(iCount, "PETrim", (sPluginsDirectory + "petrim.exe \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-			iError = RunPluginNew(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+			iError = RunPluginNew(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// EXE: PETrim, strip
 		if (PosEx(sExtension, KS_EXTENSION_EXE) > 0)
@@ -423,7 +438,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					iError = RunPluginNew(iCount, "PETrim", (sPluginsDirectory + "petrim.exe /StripFixups:Y \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				}
 				//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-				iError = RunPluginNew(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				iError = RunPluginNew(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			else
 			{
@@ -435,7 +450,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		if (PosEx(sExtension, KS_EXTENSION_GIF) > 0)
 		{
 			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
+			if (!gudtOptions.bGIFCopyMetadata)
 			{
 				sFlags += "-strip ";
 			}
@@ -445,7 +460,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 3 / 9, 3);
 			sFlags += "-O" + (String) iLevel + " ";
-			iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// GZ: advdef, zRecompress, deflopt, defluff, deflopt
 		if (PosEx(sExtension, KS_EXTENSION_GZ) > 0)
@@ -453,26 +469,24 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 			sFlags += "-i " + (String) iLevel + " ";
-			iError = RunPlugin(iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
-			CopyFile(grdFiles->Cells[0][iCount].c_str(), acTmpFile, false);
-			iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, "");
-			if (clsUtil::SizeFile(sShortFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[1][iCount]))
-			{
-				CopyFile(acTmpFile, grdFiles->Cells[0][iCount].c_str(), false);
-			}
-			DeleteFile(acTmpFile);
+			//iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
 			if (gudtOptions.bGZCopyMetadata)
 			{
 				sFlags += "/c ";
 			}
-			iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat " + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 
-			iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// HTML: tidy-html5
 		if (PosEx(sExtension, KS_EXTENSION_HTML) > 0)
@@ -480,6 +494,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (gudtOptions.bHTMLEnableTidy)
 			{
 				iError = RunPlugin(iCount, "tidy-html5", (sPluginsDirectory + "tidy.exe -config tidy.config -quiet -output \"" + acTmpFile + "\" \"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			}
+			else
+			{
+				grdFiles->Cells[2][iCount] = grdFiles->Cells[1][iCount];
+				grdFiles->Cells[3][iCount] = "Done (100%).";
 			}
 		}			
 		// ICO: ImageMagick
@@ -535,7 +554,13 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		{
 			if (gudtOptions.bJSEnableJSMin)
 			{
-				iError = RunPlugin(iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+				//iError = RunPlugin(iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+				iError = RunPluginNew(iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+			}
+			else
+			{
+				grdFiles->Cells[2][iCount] = grdFiles->Cells[1][iCount];
+				grdFiles->Cells[3][iCount] = "Done (100%).";
 			}
 		}
 		// MNG: advmng
@@ -544,7 +569,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 			sFlags += "-i " + (String) iLevel + " ";
-			iError = RunPlugin(iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// MP3: MP3packer
 		if (PosEx(sExtension, KS_EXTENSION_MP3) > 0)
@@ -559,7 +585,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		// OBJ: strip
 		if (PosEx(sExtension, KS_EXTENSION_OBJ) > 0)
 		{
-			iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// OGG: rehuff
 		if (PosEx(sExtension, KS_EXTENSION_OGG) > 0)
@@ -582,7 +609,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			iError = RunPlugin(iCount, "PCXLite", (sPluginsDirectory + "PCXLite.exe \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 
 			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
+			if (!gudtOptions.bPCXCopyMetadata)
 			{
 				sFlags += "-strip ";
 			}
@@ -672,19 +699,22 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				//iError = RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				iError = RunPluginNew(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 				sFlags = "";
 				if (gudtOptions.bPNGCopyMetadata)
 				{
 					sFlags += "/k ";
 				}
-				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				iError = RunPluginNew(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat " + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 			if (!bIsAPNG)
 			{
-				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+				iError = RunPluginNew(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 		}
 		// SWF: flasm, zRecompress
@@ -704,20 +734,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			}
 			DeleteFile(StringReplace(grdFiles->Cells[0][iCount], ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 
-			CopyFile(grdFiles->Cells[0][iCount].c_str(), acTmpFile, false);
-			iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, "");
-			if (clsUtil::SizeFile(sShortFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[1][iCount]))
-			{
-				CopyFile(acTmpFile, grdFiles->Cells[0][iCount].c_str(), false);
-			}
-			DeleteFile(acTmpFile);
-
+			//iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+			
 		}
 		// TIFF: jhead, ImageMagick, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtension, KS_EXTENSION_TIF) > 0)
 		{
 			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
+			if (!gudtOptions.bTIFFCopyMetadata)
 			{
 				//iError = RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");		
 				iError = RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");		
@@ -727,7 +752,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			iError = RunPluginNew(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
+			if (!gudtOptions.bTIFFCopyMetadata)
 			{
 				sFlags += "--strip-all ";
 			}
@@ -735,7 +760,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			iError = RunPluginNew(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
-			if (gudtOptions.bJPEGUseArithmeticEncoding)
+			if (gudtOptions.bTIFFUseArithmeticEncoding)
 			{
 				sFlags += "-arithmetic ";
 			}
@@ -743,7 +768,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags += "-optimize ";
 			}
-			if (gudtOptions.bJPEGCopyMetadata)
+			if (gudtOptions.bTIFFCopyMetadata)
 			{
 				sFlags += "-copy all ";
 			}
@@ -787,24 +812,27 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 			sFlags += "-i " + (String) iLevel + " ";
-			iError = RunPlugin(iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
 			if (gudtOptions.bZIPCopyMetadata)
 			{
 				sFlags += "/c ";
 			}
-			iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat " + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 			
-			iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+			iError = RunPluginNew(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// MISC: ImageMagick
 		if (PosEx(sExtension, KS_EXTENSION_MISC) > 0)
 		{
 			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
+			if (!gudtOptions.bMiscCopyMetadata)
 			{
 				sFlags += "-strip ";
 			}
