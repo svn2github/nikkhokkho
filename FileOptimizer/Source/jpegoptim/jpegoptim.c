@@ -6,7 +6,7 @@
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: d1ccfc988b035e1b406ce6b259b9811cc246d84f $
+ * $Id: 3294c746daf62ea2022151031d1499ac9fe3c4a1 $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -17,7 +17,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-//#include <dirent.h>
+#include <dirent.h>
 #if HAVE_GETOPT_H && HAVE_GETOPT_LONG
 #include <getopt.h>
 #else
@@ -34,7 +34,8 @@
 #include "jpegoptim.h"
 
 
-#define VERSIO "1.4.0beta"
+#define VERSIO "1.4.0"
+
 #define LOG_FH (logs_to_stdout ? stdout : stderr)
 
 #define FREE_LINE_BUF(buf,lines)  {				\
@@ -57,7 +58,7 @@ struct my_error_mgr {
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: d1ccfc988b035e1b406ce6b259b9811cc246d84f $";
+const char *rcsid = "$Id: 3294c746daf62ea2022151031d1499ac9fe3c4a1 $";
 
 
 int verbose_mode = 0;
@@ -194,10 +195,10 @@ void print_version()
   cinfo.err = jpeg_std_error(&jcerr);
   cinfo.err->msg_code=JMSG_VERSION;
   COPY_JPEG_ERRSTR(&cinfo,jmsg_buf);
-  printf("\nlibjpeg version: %s  ",jmsg_buf);
+  printf("\nlibjpeg version: %s\n",jmsg_buf);
   cinfo.err->msg_code=JMSG_COPYRIGHT;
   COPY_JPEG_ERRSTR(&cinfo,jmsg_buf);
-  printf("(%s)\n",jmsg_buf);
+  printf("%s\n",jmsg_buf);
 }
 
 
@@ -289,10 +290,7 @@ int main(int argc, char **argv)
   struct my_error_mgr jcerr,jderr;
   JSAMPARRAY buf = NULL;
   jvirt_barray_ptr *coef_arrays = NULL;
-  jpeg_saved_marker_ptr exif_marker = NULL;
-  jpeg_saved_marker_ptr iptc_marker = NULL;
-  jpeg_saved_marker_ptr icc_marker = NULL;
-  jpeg_saved_marker_ptr xmp_marker = NULL;
+  char marker_str[256];
   char tmpfilename[MAXPATHLEN],tmpdir[MAXPATHLEN];
   char newname[MAXPATHLEN], dest_path[MAXPATHLEN];
   volatile int i;
@@ -505,16 +503,14 @@ int main(int argc, char **argv)
     retry_point:
       
       if (!is_file(argv[i],&file_stat)) {
-	if (!quiet_mode) {
-	  if (is_directory(argv[i])) 
-	    warn("skipping directory: %s",argv[i]);
-	  else
-	    warn("skipping special file: %s",argv[i]); 
-	}
+	if (is_directory(argv[i])) 
+	  warn("skipping directory: %s",argv[i]);
+	else
+	  warn("skipping special file: %s",argv[i]); 
 	continue;
       }
       if ((infile=fopen(argv[i],"r"))==NULL) {
-	if (!quiet_mode) warn("cannot open file: %s", argv[i]);
+	warn("cannot open file: %s", argv[i]);
 	continue;
       }
     }
@@ -542,35 +538,34 @@ int main(int argc, char **argv)
    jpeg_stdio_src(&dinfo, infile);
    jpeg_read_header(&dinfo, TRUE); 
 
-   /* check for Exif/IPTC markers */
-   exif_marker=NULL;
-   iptc_marker=NULL;
-   icc_marker=NULL;
-   xmp_marker=NULL;
+   /* check for Exif/IPTC/ICC/XMP markers */
+   marker_str[0]=0;
    marker_in_count=0;
    marker_in_size=0;
    cmarker=dinfo.marker_list;
+
    while (cmarker) {
      marker_in_count++;
      marker_in_size+=cmarker->data_length;
 
-     if (cmarker->marker == EXIF_JPEG_MARKER) {
-       if (!memcmp(cmarker->data,EXIF_IDENT_STRING,EXIF_IDENT_STRING_SIZE)) 
-	 exif_marker=cmarker;
-     }
-     if (cmarker->marker == IPTC_JPEG_MARKER) {
-       iptc_marker=cmarker;
-     }
-     if (cmarker->marker == ICC_JPEG_MARKER) {
-       if (!memcmp(cmarker->data,ICC_IDENT_STRING,ICC_IDENT_STRING_SIZE)) 
-	 icc_marker=cmarker;
-     }
-     if (cmarker->marker == XMP_JPEG_MARKER) {
-       if (!memcmp(cmarker->data,XMP_IDENT_STRING,XMP_IDENT_STRING_SIZE)) 
-	 xmp_marker=cmarker;
-     }
+     if (cmarker->marker == EXIF_JPEG_MARKER &&
+	 !memcmp(cmarker->data,EXIF_IDENT_STRING,EXIF_IDENT_STRING_SIZE))
+       strncat(marker_str,"Exiff ",sizeof(marker_str)-strlen(marker_str)-1);
+
+     if (cmarker->marker == IPTC_JPEG_MARKER)
+       strncat(marker_str,"IPTC ",sizeof(marker_str)-strlen(marker_str)-1);
+
+     if (cmarker->marker == ICC_JPEG_MARKER &&
+	 !memcmp(cmarker->data,ICC_IDENT_STRING,ICC_IDENT_STRING_SIZE))
+       strncat(marker_str,"ICC ",sizeof(marker_str)-strlen(marker_str)-1);
+
+     if (cmarker->marker == XMP_JPEG_MARKER &&
+	 !memcmp(cmarker->data,XMP_IDENT_STRING,XMP_IDENT_STRING_SIZE)) 
+       strncat(marker_str,"XMP ",sizeof(marker_str)-strlen(marker_str)-1);
+
      cmarker=cmarker->next;
    }
+
 
    if (verbose_mode > 1) 
      fprintf(LOG_FH,"%d markers found in input file (total size %d bytes)\n",
@@ -581,10 +576,7 @@ int main(int argc, char **argv)
 	     (dinfo.progressive_mode?'P':'N'));
 
      if (!csv) {
-       if (exif_marker) fprintf(LOG_FH,"Exif ");
-       if (iptc_marker) fprintf(LOG_FH,"IPTC ");
-       if (icc_marker) fprintf(LOG_FH,"ICC ");
-       if (xmp_marker) fprintf(LOG_FH,"XMP ");
+       fprintf(LOG_FH,marker_str);
        if (dinfo.saw_Adobe_marker) fprintf(LOG_FH,"Adobe ");
        if (dinfo.saw_JFIF_marker) fprintf(LOG_FH,"JFIF ");
      }
@@ -626,7 +618,7 @@ int main(int argc, char **argv)
 
    if (dest && !noaction) {
      if (file_exists(newname) && !overwrite_mode) {
-       fprintf(stderr,"target file already exists: %s\n",newname);
+       warn("target file already exists: %s\n",newname);
        jpeg_abort_decompress(&dinfo);
        if (buf) FREE_LINE_BUF(buf,dinfo.output_height);
        continue;
@@ -808,22 +800,23 @@ int main(int argc, char **argv)
 
 	if (outfname) {
 	  /* preserve file mode */
-	  if (chmod(outfname,(file_stat.st_mode & 0777)) != 0) {
-	    if (!quiet_mode) warn("failed to set output file mode"); 
-	  }
+	  if (chmod(outfname,(file_stat.st_mode & 0777)) != 0) 
+	    warn("failed to set output file mode"); 
+
 	  /* preserve file group (and owner if run by root) */
-	  if (chown(outfname,(geteuid()==0 ? file_stat.st_uid : -1),file_stat.st_gid) != 0) {
-	      if (!quiet_mode) warn("failed to reset output file group/owner");
-	  }
+	  if (chown(outfname,
+		    (geteuid()==0 ? file_stat.st_uid : -1),
+		    file_stat.st_gid) != 0)
+	    warn("failed to reset output file group/owner");
+
 	  
 	  if (preserve_mode) {
 	    /* preserve file modification time */
 	    struct utimbuf time_save;
 	    time_save.actime=file_stat.st_atime;
 	    time_save.modtime=file_stat.st_mtime;
-	    if (utime(outfname,&time_save) != 0) {
-	      if (!quiet_mode) warn("failed to reset output file time/date");
-	    }
+	    if (utime(outfname,&time_save) != 0) 
+	      warn("failed to reset output file time/date");
 	  }
 
 	  if (verbose_mode > 1 && !quiet_mode) 
