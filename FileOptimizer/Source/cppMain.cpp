@@ -38,7 +38,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	grdFiles->ColWidths[1] = clsUtil::GetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[1]);
 	grdFiles->ColWidths[2] = clsUtil::GetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[2]);
 	grdFiles->ColWidths[3] = clsUtil::GetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[3]);
-	>gudtOptions.bBMPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("BMPCopyMetadata"), false);
+	gudtOptions.bBMPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("BMPCopyMetadata"), false);
 	gudtOptions.bCSSEnableTidy = clsUtil::GetIni(_T("Options"), _T("CSSEnableTidy"), false);
 	_tcscpy(gudtOptions.acCSSTemplate, clsUtil::GetIni(_T("Options"), _T("CSSTemplate"), _T("low")));
 	gudtOptions.bEXEDisablePETrim = clsUtil::GetIni(_T("Options"), _T("EXEDisablePETrim"), false);
@@ -52,7 +52,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bMP3CopyMetadata = clsUtil::GetIni(_T("Options"), _T("MP3CopyMetadata"), false);
 	gudtOptions.bPCXCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PCXCopyMetadata"), false);
 	gudtOptions.bPNGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PNGCopyMetadata"), false);
-	>gudtOptions.bTIFFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("TIFFCopyMetadata"), false);
+	gudtOptions.bTIFFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("TIFFCopyMetadata"), false);
 	gudtOptions.bZIPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("ZIPCopyMetadata"), false);
 	_tcscpy(gudtOptions.acPDFProfile, clsUtil::GetIni(_T("Options"), _T("PDFProfile"), _T("ebook")));
 	gudtOptions.bKeepAttributes = clsUtil::GetIni(_T("Options"), _T("KeepAttributes"), false);
@@ -760,7 +760,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			iError = RunPluginNew(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
-			if (gudtOptions.bTIFFUseArithmeticEncoding)
+			if (gudtOptions.bTIFFCopyMetadata)
 			{
 				sFlags += "-arithmetic ";
 			}
