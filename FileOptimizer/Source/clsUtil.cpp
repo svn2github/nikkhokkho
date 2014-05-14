@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall clsUtil::ReplaceString(const TCHAR *pacString, const TCHAR *pacSearch, const TCHAR *pacReplace)
 {
@@ -39,6 +40,7 @@ const TCHAR * __fastcall clsUtil::ReplaceString(const TCHAR *pacString, const TC
 	}
 	return newstr;
 }
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -376,6 +378,7 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, void *pvData, unsigned 
 }
 
 
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtModified)
 {
@@ -529,17 +532,19 @@ int __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, int
 }
 
 
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-float __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, float pfDefault)
+double __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault)
 {
 	TCHAR acDefault[2048];
 	TCHAR acRes[2048];
 
 
-	_stprintf(acDefault, _T("%f"), pfDefault);
+	_stprintf(acDefault, _T("%f"), pdDefault);
 	GetPrivateProfileString(pacSection, pacKey, acDefault, acRes, sizeof(acRes), GetIniPath());
 	return (_ttof(acRes));
 }
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -562,11 +567,13 @@ bool __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 }
 
 
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue)
 {
 	WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath());
 }
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -587,6 +594,7 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 }
 
 
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue)
 {
@@ -600,12 +608,12 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, in
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, float pfValue)
+void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue)
 {
 	TCHAR acValue[2048];
 
 
-	_stprintf(acValue, _T("%f"), pfValue);
+	_stprintf(acValue, _T("%f"), pdValue);
 	WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 }
 
@@ -715,6 +723,7 @@ bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
 	SetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), (int) pfrmForm->DefaultMonitor);
 	return(true);
 }
+
 
 
 // ---------------------------------------------------------------------------

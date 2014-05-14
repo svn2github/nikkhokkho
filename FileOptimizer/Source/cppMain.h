@@ -180,8 +180,8 @@ private: // User declarations
 	String __fastcall GetExtension (String psFilename);
 	String __inline FormatNumberThousand (int piNumber);
 	int __inline ParseNumberThousand (String psNumber);
-	int __fastcall RunPlugin(int piCurrent, String psStatus, String psProcess, String psDirectory, String psTmpName);
-	int __fastcall RunPluginNew(int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile);
+	int __fastcall RunPluginOld(int piCurrent, String psStatus, String psProcess, String psDirectory, String psTmpName);
+	int __fastcall RunPlugin(int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile);
 	unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
 	void __fastcall WMDropFiles(TWMDropFiles &udtMessage);
 	void __fastcall AddFiles(const TCHAR *pacFile);
