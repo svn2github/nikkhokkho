@@ -127,13 +127,14 @@ XXXX - YYYY
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
+- Brand new plugin execution, easier to mantain, and also more efficient.
 - Updated TruePNG to 0.4.2.1 (Jaff).
 - Updated jpegoptim to 1.4.0 (custom built) (Jaff).
 - Updated ImageMagick to 6.8.9.1.
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
 - Improved GUI drawing performance.
-- Some code base preparation in order to implement a new run plugin mecanism that will be easier to maintain.
+- Updated to NSIS 3.0 beta 0.
 - Small installer/uninstaller improvements.
 - Source code migrated to a subversion repository at http://sourceforge.net/p/nikkhokkho/code/HEAD/tree/.
 
