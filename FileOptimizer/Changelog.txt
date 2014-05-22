@@ -125,7 +125,7 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-XXXX - YYYY
+7.00 - YYYY
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
@@ -136,6 +136,7 @@ XXXX - YYYY
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
 - Improved GUI drawing performance.
+- Internal build number now matches subversion repository revision.
 - Updated to NSIS 3.0 beta 0.
 - Small installer/uninstaller improvements.
 - Source code migrated to a subversion repository at http://sourceforge.net/p/nikkhokkho/code/HEAD/tree/.

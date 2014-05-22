@@ -64,7 +64,7 @@
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <VerInfo_Build>324</VerInfo_Build>
         <TASM_ImpureCodeCheck>true</TASM_ImpureCodeCheck>
-        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=6.8.0.329;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2014 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2014 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimize.exe;ProductName=File Optimizer;ProductVersion=6.8.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=7.0.0.23;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2014 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2014 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimize.exe;ProductName=File Optimizer;ProductVersion=7.0.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
         <BRCC_EnableMultiByte>true</BRCC_EnableMultiByte>
         <IncludePath>Source\;$(IncludePath)</IncludePath>
         <TASM_Passes>9</TASM_Passes>
