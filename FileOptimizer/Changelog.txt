@@ -1,3 +1,5 @@
+- Option to display: 1) only filename, 2a) full path+filename, 2b) driveletter + “:\”+partial path + filename, 2c) driveletter + “:\”+partial path if fits+”…” last part of filename) (Jaff)
+
 - Add GUI options for bBMPCopyMetadata, bGIFCopyMetadata, bMiscCopyMetadata, bPCXCopyMetadata, bTIFFCopyMetadata
 
 - Integrate installer with Explorer Send To.
