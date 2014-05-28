@@ -6,7 +6,7 @@
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: 3294c746daf62ea2022151031d1499ac9fe3c4a1 $
+ * $Id: 954484226e55cf941d2a92891935e3f2912ed6f1 $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -17,7 +17,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#include <dirent.h>
+//#include <dirent.h>
 #if HAVE_GETOPT_H && HAVE_GETOPT_LONG
 #include <getopt.h>
 #else
@@ -34,7 +34,7 @@
 #include "jpegoptim.h"
 
 
-#define VERSIO "1.4.0"
+#define VERSIO "1.4.1"
 
 #define LOG_FH (logs_to_stdout ? stdout : stderr)
 
@@ -45,20 +45,16 @@
     buf=NULL;							\
   }
 
-#define COPY_JPEG_ERRSTR(jptr,buf) {			   \
-    ((jptr)->err->format_message)((j_common_ptr)jptr,buf); \
-    buf[JMSG_LENGTH_MAX-1]=0;				   \
-  }
-
 #define STRNCPY(dest,src,n) { strncpy(dest,src,n); dest[n-1]=0; }
 
 struct my_error_mgr {
   struct jpeg_error_mgr pub;
   jmp_buf setjmp_buffer;   
+  int     jump_set;
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: 3294c746daf62ea2022151031d1499ac9fe3c4a1 $";
+const char *rcsid = "$Id: 954484226e55cf941d2a92891935e3f2912ed6f1 $";
 
 
 int verbose_mode = 0;
@@ -123,17 +119,24 @@ METHODDEF(void)
 my_error_exit (j_common_ptr cinfo)
 {
   my_error_ptr myerr = (my_error_ptr)cinfo->err;
+
   (*cinfo->err->output_message) (cinfo);
-  longjmp(myerr->setjmp_buffer,1);
+  if (myerr->jump_set) 
+    longjmp(myerr->setjmp_buffer,1);
+  else
+    fatal("fatal error");
 }
 
 METHODDEF(void)
 my_output_message (j_common_ptr cinfo)
 {
-  char buffer[JMSG_LENGTH_MAX];
+  char buffer[JMSG_LENGTH_MAX+1];
 
-  COPY_JPEG_ERRSTR(cinfo,buffer);
-  if (verbose_mode) fprintf(LOG_FH," (%s) ",buffer);
+  if (verbose_mode) {
+    (*cinfo->err->format_message)((j_common_ptr)cinfo,buffer);
+    buffer[sizeof(buffer)-1]=0;
+    fprintf(LOG_FH," (%s) ",buffer);
+  }
   global_error_counter++;
 }
 
@@ -185,20 +188,18 @@ void print_usage(void)
 
 void print_version() 
 {
-  struct jpeg_error_mgr jcerr;
-  struct jpeg_compress_struct cinfo;
-  char jmsg_buf[JMSG_LENGTH_MAX];
+  struct jpeg_error_mgr jcerr, *err;
+
   
   printf(PROGRAMNAME " v%s  %s\n",VERSIO,HOST_TYPE);
   printf("Copyright (c) 1996-2014  Timo Kokkonen.\n");
 
-  cinfo.err = jpeg_std_error(&jcerr);
-  cinfo.err->msg_code=JMSG_VERSION;
-  COPY_JPEG_ERRSTR(&cinfo,jmsg_buf);
-  printf("\nlibjpeg version: %s\n",jmsg_buf);
-  cinfo.err->msg_code=JMSG_COPYRIGHT;
-  COPY_JPEG_ERRSTR(&cinfo,jmsg_buf);
-  printf("%s\n",jmsg_buf);
+  if (!(err=jpeg_std_error(&jcerr)))
+    fatal("jpeg_std_error() failed");
+
+  printf("\nlibjpeg version: %s\n%s\n",
+	 err->jpeg_message_table[JMSG_VERSION],
+	 err->jpeg_message_table[JMSG_COPYRIGHT]);
 }
 
 
@@ -296,7 +297,7 @@ int main(int argc, char **argv)
   volatile int i;
   int c,j, tmpfd, searchcount, searchdone;
   int opt_index = 0;
-  long insize,outsize,lastsize;
+  long insize = 0, outsize = 0, lastsize = 0;
   int oldquality;
   double ratio;
   struct stat file_stat;
@@ -324,12 +325,14 @@ int main(int argc, char **argv)
   jpeg_create_decompress(&dinfo);
   jderr.pub.error_exit=my_error_exit;
   jderr.pub.output_message=my_output_message;
+  jderr.jump_set = 0;
 
   /* initialize compression object */
   cinfo.err = jpeg_std_error(&jcerr.pub);
   jpeg_create_compress(&cinfo);
   jcerr.pub.error_exit=my_error_exit;
   jcerr.pub.output_message=my_output_message;
+  jcerr.jump_set = 0;
 
 
   if (argc<2) {
@@ -448,7 +451,7 @@ int main(int argc, char **argv)
     i++;
   }
 
-  if (stdin_mode) stdout_mode=1;
+  if (stdin_mode) { stdout_mode=1; force=1; }
   if (stdout_mode) { logs_to_stdout=0; }
 
   if (all_normal && all_progressive)
@@ -523,7 +526,10 @@ int main(int argc, char **argv)
      if (!quiet_mode || csv) 
        fprintf(LOG_FH,csv ? ",,,,,error\n" : " [ERROR]\n");
      decompress_err_count++;
+     jderr.jump_set=0;
      continue;
+   } else {
+     jderr.jump_set=1;
    }
 
    if (!retry && (!quiet_mode || csv)) {
@@ -576,14 +582,15 @@ int main(int argc, char **argv)
 	     (dinfo.progressive_mode?'P':'N'));
 
      if (!csv) {
-       fprintf(LOG_FH,marker_str);
+       fprintf(LOG_FH,"%s",marker_str);
        if (dinfo.saw_Adobe_marker) fprintf(LOG_FH,"Adobe ");
        if (dinfo.saw_JFIF_marker) fprintf(LOG_FH,"JFIF ");
      }
      fflush(LOG_FH);
    }
 
-   insize=file_size(infile);
+   if ((insize=file_size(infile)) < 0)
+     fatal("failed to stat() input file");
 
   /* decompress the file */
    if (quality>=0 && !retry) {
@@ -634,7 +641,10 @@ int main(int argc, char **argv)
      if (!quiet_mode) fprintf(LOG_FH," [Compress ERROR]\n");
      if (buf) FREE_LINE_BUF(buf,dinfo.output_height);
      compress_err_count++;
+     jcerr.jump_set=0;
      continue;
+   } else {
+     jcerr.jump_set=1;
    }
 
 
@@ -792,7 +802,8 @@ int main(int argc, char **argv)
 
 
 	  if (verbose_mode > 1 && !quiet_mode) 
-	    fprintf(LOG_FH,"writing %ld bytes to temporary file: %s\n",outbuffersize,outfname);
+	    fprintf(LOG_FH,"writing %lu bytes to temporary file: %s\n",
+		    (long unsigned int)outbuffersize, outfname);
 	  if (fwrite(outbuffer,outbuffersize,1,outfile) != 1)
 	    fatal("write failed to temporary file");
 	  fclose(outfile);

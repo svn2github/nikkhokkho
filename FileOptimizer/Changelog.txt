@@ -107,7 +107,7 @@ ndo
 - ImageMagick 6.8.9.1 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
-- jpegoptim 1.4.0 - http://www.kokkonen.net/tjko/projects.html
+- jpegoptim 1.4.1 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - libwebp 0.4.0 - https://developers.google.com/speed/webp
@@ -133,7 +133,7 @@ ndo
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
 - Updated TruePNG to 0.4.2.1 (Jaff).
-- Updated jpegoptim to 1.4.0 (custom built) (Jaff).
+- Updated jpegoptim to 1.4.1 (custom built) (Jaff).
 - Updated ImageMagick to 6.8.9.1.
 - Updated PngOptimizer to 2.4.1.
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
