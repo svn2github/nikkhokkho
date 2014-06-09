@@ -104,7 +104,7 @@ ndo
 - Gifsicle 1.83 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.14 - http://www.ghostscript.com
 - GNU Strip 2.24 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.8.9.1 - http://www.imagemagick.org
+- ImageMagick 6.8.9.3 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.1 - http://www.kokkonen.net/tjko/projects.html
@@ -134,7 +134,7 @@ ndo
 - Brand new plugin execution, easier to mantain, and also more efficient.
 - Updated TruePNG to 0.4.2.1 (Jaff).
 - Updated jpegoptim to 1.4.1 (custom built) (Jaff).
-- Updated ImageMagick to 6.8.9.1.
+- Updated ImageMagick to 6.8.9.3.
 - Updated PngOptimizer to 2.4.1.
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
