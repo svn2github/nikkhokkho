@@ -1,3 +1,5 @@
+- Update jpegoptim and remove binmode.obj from linker.
+
 - Look for some SVG optimizer not based on Python nor Ruby, or try to wrap them onto standalone executables.
 
 - Option to display: 1) only filename, 2a) full path+filename, 2b) driveletter + “:\”+partial path + filename, 2c) driveletter + “:\”+partial path if fits+”…” last part of filename) (Jaff)
