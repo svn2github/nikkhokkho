@@ -6,7 +6,7 @@
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: 954484226e55cf941d2a92891935e3f2912ed6f1 $
+ * $Id: 16692f06d6feb2e66e286ae7e6441c01cf285a85 $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -17,7 +17,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-//#include <dirent.h>
+#include <dirent.h>
 #if HAVE_GETOPT_H && HAVE_GETOPT_LONG
 #include <getopt.h>
 #else
@@ -34,7 +34,7 @@
 #include "jpegoptim.h"
 
 
-#define VERSIO "1.4.1"
+#define VERSIO "1.4.2beta"
 
 #define LOG_FH (logs_to_stdout ? stdout : stderr)
 
@@ -54,7 +54,7 @@ struct my_error_mgr {
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: 954484226e55cf941d2a92891935e3f2912ed6f1 $";
+const char *rcsid = "$Id: 16692f06d6feb2e66e286ae7e6441c01cf285a85 $";
 
 
 int verbose_mode = 0;
@@ -512,7 +512,7 @@ int main(int argc, char **argv)
 	  warn("skipping special file: %s",argv[i]); 
 	continue;
       }
-      if ((infile=fopen(argv[i],"r"))==NULL) {
+      if ((infile=fopen(argv[i],"rb"))==NULL) {
 	warn("cannot open file: %s", argv[i]);
 	continue;
       }
@@ -556,7 +556,7 @@ int main(int argc, char **argv)
 
      if (cmarker->marker == EXIF_JPEG_MARKER &&
 	 !memcmp(cmarker->data,EXIF_IDENT_STRING,EXIF_IDENT_STRING_SIZE))
-       strncat(marker_str,"Exiff ",sizeof(marker_str)-strlen(marker_str)-1);
+       strncat(marker_str,"Exif ",sizeof(marker_str)-strlen(marker_str)-1);
 
      if (cmarker->marker == IPTC_JPEG_MARKER)
        strncat(marker_str,"IPTC ",sizeof(marker_str)-strlen(marker_str)-1);
@@ -795,7 +795,7 @@ int main(int argc, char **argv)
 	  snprintf(tmpfilename,sizeof(tmpfilename),
 		   "%sjpegoptim-%d-%d.%d.tmp", tmpdir, (int)getuid(), (int)getpid(),time(NULL));
 	  tmpfd=0;
-	  if ((outfile=fopen(tmpfilename,"w"))==NULL) 
+	  if ((outfile=fopen(tmpfilename,"wb"))==NULL) 
 #endif
 	    fatal("error opening temporary file: %s",tmpfilename);
 	  outfname=tmpfilename;
