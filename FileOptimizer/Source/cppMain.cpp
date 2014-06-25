@@ -441,6 +441,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				grdFiles->Cells[3][iCount] = "Done (100%).";
 			}
 		}
+		// FLAC: FLACOut
+		if (PosEx(sExtension, KS_EXTENSION_FLAC) > 0)
+		{
+			iError = RunPlugin(iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+		}
 		// GIF: ImageMagick, gifsicle
 		if (PosEx(sExtension, KS_EXTENSION_GIF) > 0)
 		{
