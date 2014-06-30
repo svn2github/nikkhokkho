@@ -71,7 +71,7 @@
 #define PACKAGE_NAME "gifsicle"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "gifsicle 1.83"
+#define PACKAGE_STRING "gifsicle 1.84"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "gifsicle"
@@ -80,7 +80,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.83"
+#define PACKAGE_VERSION "1.84"
 
 /* Pathname separator character ('/' on Unix). */
 #define PATHNAME_SEPARATOR '\\'
@@ -109,7 +109,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.83 (Windows)"
+#define VERSION "1.84 (Windows)"
 
 /* Define if X is not available. */
 #define X_DISPLAY_MISSING 1
@@ -148,6 +148,16 @@ char *strerror(int errno);
 }
 /* Get rid of a possible inline macro under C++. */
 # define inline inline
+#endif
+
+/* Need _setmode under MS-DOS, to set stdin/stdout to binary mode */
+/* Need _fsetmode under OS/2 for the same reason */
+/* Windows has _isatty and _snprintf, not the normal versions */
+#if defined(_MSDOS) || defined(_WIN32) || defined(__EMX__) || defined(__DJGPP__)
+# include <fcntl.h>
+# include <io.h>
+# define isatty _isatty
+# define snprintf _snprintf
 #endif
 
 #endif /* GIFSICLE_CONFIG_H */

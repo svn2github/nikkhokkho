@@ -100,7 +100,7 @@ ndo
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
 - FLACOUT 06/24/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
-- Gifsicle 1.83 - http://www.lcdf.org/gifsicle/
+- Gifsicle 1.84 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.14 - http://www.ghostscript.com
 - GNU Strip 2.24 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.8.9.4 - http://www.imagemagick.org
@@ -130,6 +130,7 @@ ndo
 - Added FLAC compression using FLACOUT (DotDotDot).
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
+- Improved GIF compression ratio upgrading to gifsicle 1.84 (custom build).
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
 - Updated TruePNG to 0.4.2.1 (Jaff).
