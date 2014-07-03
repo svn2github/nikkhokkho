@@ -98,7 +98,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
-- FLACOUT 06/24/2014 - http://advsys.net/ken/utils.htm 
+- FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.84 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.14 - http://www.ghostscript.com
