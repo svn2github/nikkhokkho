@@ -139,6 +139,7 @@ ndo
 - Updated PngOptimizer to 2.4.1.
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
+- Remove Control+Alt+X accelerator in installer shortcuts (AdamDobay).
 - Improved GUI drawing performance.
 - Internal build number now matches subversion repository revision.
 - Updated to NSIS 3.0 beta 0.

@@ -58,15 +58,15 @@ Section "Files"
 		SetOutPath $INSTDIR\Plugins64
 		File /r ..\Win32\Release\Plugins64\*.*
 		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME}"
-		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "CONTROL|ALT|x" "Launch ${APP_NAME}"
-		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "CONTROL|ALT|x" "Launch ${APP_NAME}"
+		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME}"
+		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME}"
 	${Else}
 		File ..\Win32\Release\*32.exe
 		SetOutPath $INSTDIR\Plugins32
 		File /r ..\Win32\Release\Plugins32\*.*
 		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME} x86"
-		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "CONTROL|ALT|x" "Launch ${APP_NAME} x86"
-		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "CONTROL|ALT|x" "Launch ${APP_NAME} x86"
+		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME} x86"
+		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME} x86"
 	${EndIf}
 
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
