@@ -57,23 +57,23 @@ Section "Files"
 		File ..\Win32\Release\*64.exe
 		SetOutPath $INSTDIR\Plugins64
 		File /r ..\Win32\Release\Plugins64\*.*
-		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME}"
-		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME}"
-		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME}"
+		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
+		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
+		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 	${Else}
 		File ..\Win32\Release\*32.exe
 		SetOutPath $INSTDIR\Plugins32
 		File /r ..\Win32\Release\Plugins32\*.*
-		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME} x86"
-		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME} x86"
-		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "Launch ${APP_NAME} x86"
+		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME} x86"
+		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME} x86"
+		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME} x86"
 	${EndIf}
 
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
 
-	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Help.lnk" "$INSTDIR\${APP_NAME}.chm" "" "" "" SW_SHOWNORMAL "" "View ${APP_NAME} Help"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Help.lnk" "$INSTDIR\${APP_NAME}.chm" "" "" "" SW_SHOWNORMAL "" "${APP_NAME} Help"
 	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "" "" SW_SHOWNORMAL "" "Uninstall ${APP_NAME}"
-	CreateShortCut "$FAVORITES\${APP_NAME} Home Page.lnk" "${APP_WEB}" "" "" "" "" "" "Visit ${APP_NAME} Home Page"
+	CreateShortCut "$FAVORITES\${APP_NAME} Home Page.lnk" "${APP_WEB}" "" "" "" "" "" "${APP_NAME} Home Page"
 
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}" "DisplayName" "${APP_NAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}" "Publisher" "${APP_COMPANY}"
