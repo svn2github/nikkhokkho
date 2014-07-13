@@ -145,6 +145,7 @@ ndo
 - Updated to NSIS 3.0 beta 0.
 - Removed Launch wording in installer shortcuts (David Mártínez).
 - Small installer/uninstaller improvements.
+- Upgraded to C++ Builder XE6 Update 1.
 - Source code migrated to a subversion repository at http://sourceforge.net/p/nikkhokkho/code/HEAD/tree/.
 
 
