@@ -111,7 +111,7 @@ ndo
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - libwebp 0.4.0 - https://developers.google.com/speed/webp
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
-- mozjpeg 1.01 - https://github.com/mozilla/mozjpeg
+- mozjpeg 2.00 - https://github.com/mozilla/mozjpeg
 - OptiPNG Hg 20121021 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
@@ -133,6 +133,7 @@ ndo
 - Improved GIF compression ratio upgrading to gifsicle 1.84 (custom build).
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
+- Updated mozjpeg to 2.00.
 - Updated TruePNG to 0.4.2.1 (Jaff).
 - Updated jpegoptim to 1.4.2 beta (custom built) (Jaff).
 - Updated ImageMagick to 6.8.9.5.
@@ -172,7 +173,7 @@ ndo
 
 6.60 - 2014/04/26
 - Fixes extra title bar on Metropolis and Windows themes (trlkly).
-- Reenabled jpegtranas as in 5.90 because sometimes it is better than mozjpeg (webfork).
+- Reenabled jpegtran as as in 5.90 because sometimes it is better than mozjpeg (webfork).
 - Installer now transparentlly detects OS bitness, and extracts only 32 or 64 bit binaries (trlkly).
 - Unpacked mozjpeg plugin to avoid antivirus false positives (Ryan Hietpas).
 - Installer version now properly registers on Add/Remove Programs.
