@@ -378,8 +378,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		if (gudtOptions.bKeepAttributes)
 		{
 			clsUtil::GetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
+			iFileAttributes = GetFileAttributes(sInputFile.c_str());
 		}
-		iFileAttributes = GetFileAttributes(sInputFile.c_str());
 		SetFileAttributes(sInputFile.c_str(), FILE_ATTRIBUTE_NORMAL);
 
 		//Each extension can correspond to more than one engine, so use if instead of else if
@@ -872,11 +872,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 		if (gudtOptions.bKeepAttributes)
 		{
-			clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
-			if (iFileAttributes !=  INVALID_FILE_ATTRIBUTES)
+			if (iFileAttributes != INVALID_FILE_ATTRIBUTES)
 			{
 				SetFileAttributes(sInputFile.c_str(), iFileAttributes);
 			}
+			clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
 		}
 		//Make sure the file was indeed processed because asuming we got gains. This is to solve Pending items being counted as 0 bytes
 		if (grdFiles->Cells[2][iCount] != "")
