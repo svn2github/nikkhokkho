@@ -135,7 +135,7 @@ ndo
 - Improved GIF compression ratio upgrading to gifsicle 1.84 (custom build).
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
-- Updated mozjpeg to 2.00.
+- Updated mozjpeg to 2.00 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
 - Updated TruePNG to 0.4.2.1 (Jaff).
 - Updated jpegoptim to 1.4.2 beta (custom built) (Jaff).
 - Updated ImageMagick to 6.8.9.6.
