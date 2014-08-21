@@ -1,3 +1,5 @@
+- Column sorting is not working properly.
+
 - Wrong percent of saving calculation https://www.dropbox.com/s/8l9n9q52hs4g6fk/FileOptimizer.png (Juan).
 
 - Keep file attributes is not restoring file timestamp (ksf)
