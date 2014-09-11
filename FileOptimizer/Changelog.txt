@@ -1,4 +1,13 @@
-- Integrate Leanify: https://github.com/JayXon/Leanify
+- Add Leanify tar, cbt
+- Add Leanify gft
+- Add Leanify ico
+- Add Leanify jpg
+- Add Leanify lua
+- Add Leanify exe
+- Add Leanify png
+- Add Leanify rdb
+- Add Leanify xml (.xml, .xsl, .xslt)
+
 
 - Column sorting is not working properly.
 
@@ -117,6 +126,7 @@ ndo
 - jpegoptim 1.4.2 beta - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
+- Leanify 0.4.1 - https://github.com/JayXon/Leanify
 - libwebp 0.4.1 - http://www.webmproject.org
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mozjpeg 2.00 - https://github.com/mozilla/mozjpeg
@@ -136,6 +146,7 @@ ndo
 
 7.00 - YYYY
 - Added FLAC compression using FLACOUT (DotDotDot).
+- Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
 - Improved GIF compression ratio upgrading to gifsicle 1.84 (custom build).

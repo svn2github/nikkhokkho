@@ -463,9 +463,17 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			//iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 			iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
-		// GZ: advdef, zRecompress, deflopt, defluff, deflopt
+		// GZ: Leanify , advdef, zRecompress, deflopt, defluff, deflopt
 		if (PosEx(sExtension, KS_EXTENSION_GZ) > 0)
 		{
+			if (gudtOptions.bGZCopyMetadata)
+			{
+				sFlags = "";
+				iLevel = min(gudtOptions.iLevel * 20 / 9, 20) + 1;
+				sFlags += "-i " + (String) iLevel + " ";
+				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+			}
+			
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 			sFlags += "-i " + (String) iLevel + " ";
@@ -739,7 +747,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 		}
-		// SWF: flasm, zRecompress
+		// SWF: Leanfy, flasm, zRecompress
 		if (PosEx(sExtension, KS_EXTENSION_SWF) > 0)
 		{
 			//ToDo: TEST
@@ -761,7 +769,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 			//iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, "");
 			iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-			
+
+			sFlags = "";
+			iLevel = min(gudtOptions.iLevel * 20 / 9, 20) + 1;
+			sFlags += "-i " + (String) iLevel + " ";
+			iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// TIFF: jhead, ImageMagick, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtension, KS_EXTENSION_TIF) > 0)
@@ -835,9 +847,14 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			//iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 			iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
-		// ZIP: advzip, deflopt, defluff, deflopt
+		// ZIP: Leanify, advzip, deflopt, defluff, deflopt
 		if (PosEx(sExtension, KS_EXTENSION_ZIP) > 0)
 		{
+			sFlags = "";
+			iLevel = min(gudtOptions.iLevel * 20 / 9, 20) + 1;
+			sFlags += "-i " + (String) iLevel + " ";
+			iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+		
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 			sFlags += "-i " + (String) iLevel + " ";
