@@ -1,3 +1,8 @@
+Add INI option XMLEnableTidy=false and XML tab on GUI.
+Add skipped text to not processed files.
+Remove obsolete plugins with Leanify; ADV*, zRecompress, ...
+Speedup cancel optimization.
+
 - Add Leanify tar, cbt
 - Add Leanify gft
 - Add Leanify ico
