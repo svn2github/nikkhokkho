@@ -1,3 +1,4 @@
+Tune Leanify iterations to be faster.
 Add INI option XMLEnableTiny=false and XML tab on GUI.
 Add skipped text to not processed files.
 Remove obsolete plugins with Leanify; ADV*, zRecompress, ...
