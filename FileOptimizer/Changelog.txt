@@ -135,7 +135,7 @@ ndo
 - Leanify 0.4.1 - https://github.com/JayXon/Leanify
 - libwebp 0.4.1 - http://www.webmproject.org
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
-- mozjpeg 2.00 - https://github.com/mozilla/mozjpeg
+- mozjpeg 2.10 - https://github.com/mozilla/mozjpeg
 - OptiPNG Hg 20121021 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
@@ -159,7 +159,7 @@ ndo
 - Improved WEBP compression ratio updating to libwebp 0.4.1.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
-- Updated mozjpeg to 2.00 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
+- Updated mozjpeg to 2.10 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
 - Updated TruePNG to 0.4.2.1 (Jaff).
 - Updated jpegoptim to 1.4.2 beta (custom built) (Jaff).
 - Updated ImageMagick to 6.8.9.7.
