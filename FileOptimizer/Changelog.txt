@@ -1,3 +1,7 @@
+- After closing FileOptimizer did not start again unless .ini file is deleted (d4k0)
+- Hang with a epub file (tobijdc)
+- Migrate from OptiPNG Hg to regular OptiPNG (d4k0).
+
 Tune Leanify iterations to be faster.
 Add INI option XMLEnableTiny=false and XML tab on GUI.
 Add skipped text to not processed files.
@@ -132,7 +136,7 @@ ndo
 - jpegoptim 1.4.2 beta - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.1 - https://github.com/JayXon/Leanify
+- Leanify 0.4.2 - https://github.com/JayXon/Leanify
 - libwebp 0.4.1 - http://www.webmproject.org
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mozjpeg 2.10 - https://github.com/mozilla/mozjpeg
