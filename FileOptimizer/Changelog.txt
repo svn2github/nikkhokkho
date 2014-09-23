@@ -128,7 +128,7 @@ ndo
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.84 - http://www.lcdf.org/gifsicle/
-- Ghostcript 9.14 - http://www.ghostscript.com
+- Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.24 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.8.9.7 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
@@ -161,6 +161,7 @@ ndo
 - Added OCX and VBX extensions to the DLL toolchain.
 - Improved GIF compression ratio upgrading to gifsicle 1.84 (custom build).
 - Improved WEBP compression ratio updating to libwebp 0.4.1.
+- Upgraded to Ghostcript 9.15.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
 - Updated mozjpeg to 2.10 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
