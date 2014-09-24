@@ -469,7 +469,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (gudtOptions.bGZCopyMetadata)
 			{
 				sFlags = "";
-				iLevel = min(gudtOptions.iLevel * 20 / 9, 20) + 1;
+				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
 				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
@@ -511,11 +511,16 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				grdFiles->Cells[3][iCount] = "Done (100%).";
 			}
 		}			
-		// ICO: ImageMagick
+		// ICO: ImageMagick, Leanify
 		if (PosEx(sExtension, KS_EXTENSION_ICO) > 0)
 		{
 			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 			iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+
+			sFlags = "";
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			sFlags += "-i " + (String) iLevel + " ";
+			iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
 		// JPEG: jhead jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtension, KS_EXTENSION_JPG) > 0)
@@ -645,7 +650,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " -dCompatibilityLevel=1.5 -sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			#endif
 		}
-		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, advpng, deflopt, defluff, deflopt
+		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, advpng, deflopt, defluff, deflopt
 		if (PosEx(sExtension, KS_EXTENSION_PNG) > 0)
 		{
 			bool bIsAPNG;
@@ -711,6 +716,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 
+			sFlags = "";
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			sFlags += "-i " + (String) iLevel + " ";
+			iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+
 			if (!bIsAPNG)
 			{
 				sFlags = "";
@@ -771,7 +781,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 			sFlags = "";
-			iLevel = min(gudtOptions.iLevel * 20 / 9, 20) + 1;
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			sFlags += "-i " + (String) iLevel + " ";
+			iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+		}
+		// TAR: Leanify
+		if (PosEx(sExtension, KS_EXTENSION_TAR) > 0)
+		{
+			sFlags = "";
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-i " + (String) iLevel + " ";
 			iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		}
@@ -851,7 +869,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		if (PosEx(sExtension, KS_EXTENSION_ZIP) > 0)
 		{
 			sFlags = "";
-			iLevel = min(gudtOptions.iLevel * 20 / 9, 20) + 1;
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-i " + (String) iLevel + " ";
 			iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 		
@@ -895,13 +913,26 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			}
 			clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
 		}
+
 		//Make sure the file was indeed processed because asuming we got gains. This is to solve Pending items being counted as 0 bytes
 		if (grdFiles->Cells[2][iCount] != "")
 		{
 			iTotalBytes += (ParseNumberThousand(grdFiles->Cells[1][iCount]));
 			iSavedBytes += (ParseNumberThousand(grdFiles->Cells[1][iCount]) - ParseNumberThousand(grdFiles->Cells[2][iCount]));
 		}
+
+		//If file was not processed, mark it as skipped
+		if (grdFiles->Cells[3][iCount] == "Pending")
+		{
+			grdFiles->Cells[3][iCount] == "Skipped";
+		}
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
+
+		//Abort for loop if operation is cancelled
+		if (mbCancel)
+		{
+			break;
+		}
 	}
 
 	//grdFiles->Enabled = true;

@@ -1,20 +1,12 @@
-- After closing FileOptimizer did not start again unless .ini file is deleted (d4k0)
 - Hang with a epub file (tobijdc)
-- Migrate from OptiPNG Hg to regular OptiPNG (d4k0).
 
-Tune Leanify iterations to be faster.
 Add INI option XMLEnableTiny=false and XML tab on GUI.
-Add skipped text to not processed files.
-Remove obsolete plugins with Leanify; ADV*, zRecompress, ...
-Speedup cancel optimization.
+Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
 
-- Add Leanify tar, cbt
 - Add Leanify gft
-- Add Leanify ico
 - Add Leanify jpg
 - Add Leanify lua
 - Add Leanify exe
-- Add Leanify png
 - Add Leanify rdb
 - Add Leanify xml (.xml, .xsl, .xslt)
 
@@ -157,6 +149,7 @@ ndo
 7.00 - YYYY
 - Added FLAC compression using FLACOUT (DotDotDot).
 - Integrated Leanify compression for GZ, SWF and ZIP formats.
+- Added TAR support with Leanify.
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
 - Improved GIF compression ratio upgrading to gifsicle 1.84 (custom build).
@@ -171,6 +164,10 @@ ndo
 - Updated PngOptimizer to 2.4.1.
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
+- Added Leanify to PNG and ICO tool chains.
+- Fixed reopening FileOptimizer when closed minimized from the taskbar (d4k0).
+- Skipped files now have the Skipped status in the Status column instead of Pending.
+- Cancel optimization is now faster.
 - Remove Control+Alt+X accelerator in installer shortcuts (AdamDobay).
 - Improved GUI drawing performance.
 - Internal build number now matches subversion repository revision.

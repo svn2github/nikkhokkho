@@ -699,11 +699,20 @@ void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *p
 // ---------------------------------------------------------------------------
 bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 {
+	int iWindowState;
+
+
 	pfrmForm->Left = GetIni(pfrmForm->Name.c_str(), _T("Left"), pfrmForm->Left);
 	pfrmForm->Top = GetIni(pfrmForm->Name.c_str(), _T("Top"), pfrmForm->Top);
 	pfrmForm->Width = GetIni(pfrmForm->Name.c_str(), _T("Width"), pfrmForm->Width);
 	pfrmForm->Height = GetIni(pfrmForm->Name.c_str(), _T("Height"), pfrmForm->Height);
-	pfrmForm->WindowState = (TWindowState) GetIni(pfrmForm->Name.c_str(), _T("WindowState"), (int) pfrmForm->WindowState);
+	iWindowState = GetIni(pfrmForm->Name.c_str(), _T("WindowState"), (int) pfrmForm->WindowState);
+	//We do not want to reopen FileOptimizer in minimized state
+	if (iWindowState == wsMinimized)
+	{
+		iWindowState = wsNormal;
+	}
+	pfrmForm->WindowState = (TWindowState) iWindowState;
 	pfrmForm->DefaultMonitor = (TDefaultMonitor) GetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), pfrmForm->DefaultMonitor);
 	return(true);
 }
