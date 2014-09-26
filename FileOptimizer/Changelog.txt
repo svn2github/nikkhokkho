@@ -1,3 +1,8 @@
+- The priority settings don't seem to work properly (set to high, it still runs sub programs at low) (A user).
+
+- If one runs FileOptimizer once, then removes some files (from their directory – not from the list) that are on the list, then when one runs the program it counts them as being optimized for their full size (so if I removed a file of 300 kb, it would add 300 kb to the optimization gain though it really hadn't gained that) (A user).
+
+
 - Hang with a epub file (tobijdc)
 
 Add INI option XMLEnableTiny=false and XML tab on GUI.
