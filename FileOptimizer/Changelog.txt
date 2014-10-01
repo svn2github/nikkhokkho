@@ -151,7 +151,7 @@ ndo
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
 - tidy-html5 c63cc39 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
-- TruePNG 0.4.2.1 - http://x128.ho.ua/pngutils.html
+- TruePNG 0.5.0.0 - http://x128.ho.ua/pngutils.html
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
@@ -168,7 +168,7 @@ ndo
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
 - Updated mozjpeg to 2.10 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
-- Updated TruePNG to 0.4.2.1 (Jaff).
+- Updated TruePNG to 0.5.0.0 (Jaff).
 - Updated jpegoptim to 1.4.2 beta (custom built) (Jaff).
 - Updated ImageMagick to 6.8.9.8.
 - Updated PngOptimizer to 2.4.1.
