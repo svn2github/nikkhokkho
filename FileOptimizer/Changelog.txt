@@ -182,7 +182,7 @@ ndo
 - Improved GUI drawing performance.
 - Internal build number now matches subversion repository revision.
 - Better performance updating to ASMLib 2.35.
-- Updated to NSIS 3.0 beta 0.
+- Updated to NSIS 3.0 beta 1.
 - Removed Launch wording in installer shortcuts (David Mártínez).
 - Slight WINE compatibility improvements (Jesus Alcaras).
 - Small installer/uninstaller improvements.
