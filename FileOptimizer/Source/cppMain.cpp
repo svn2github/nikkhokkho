@@ -1439,7 +1439,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSI.wShowWindow = SW_HIDE;
 		memset(&udtPI, 0, sizeof(udtPI));
 
-		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, true, NULL, NULL, (TCHAR *) pacDirectory, &udtSI,
+		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI,
 				&udtPI))
 		{
 			_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);
@@ -1457,7 +1457,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSI.wShowWindow = SW_HIDE;
 		memset(&udtPI, 0, sizeof(udtPI));
 
-		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory,
+		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory,
 				&udtSI, &udtPI))
 		{
 			//_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);

@@ -201,7 +201,7 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 		udtSI.wShowWindow = SW_HIDE;
 		memset(&udtPI, 0, sizeof(udtPI));
 
-		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, true, NULL, NULL, (TCHAR *) pacDirectory, &udtSI,
+		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory, &udtSI,
 				&udtPI))
 		{
 			//_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);
