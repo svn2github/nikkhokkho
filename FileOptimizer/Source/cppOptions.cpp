@@ -11,8 +11,7 @@ TfrmOptions *frmOptions;
 
 
 //---------------------------------------------------------------------------
-__fastcall TfrmOptions::TfrmOptions(TComponent* Owner)
-	: TForm(Owner)
+__fastcall TfrmOptions::TfrmOptions(TComponent* Owner): TForm(Owner)
 {
 }
 

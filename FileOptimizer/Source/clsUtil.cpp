@@ -714,7 +714,7 @@ bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 	}
 	pfrmForm->WindowState = (TWindowState) iWindowState;
 	pfrmForm->DefaultMonitor = (TDefaultMonitor) GetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), pfrmForm->DefaultMonitor);
-	return(true);
+	return (true);
 }
 
 
@@ -728,7 +728,7 @@ bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
 	SetIni(pfrmForm->Name.c_str(), _T("Height"), pfrmForm->Height);
 	SetIni(pfrmForm->Name.c_str(), _T("WindowState"), (int) pfrmForm->WindowState);
 	SetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), (int) pfrmForm->DefaultMonitor);
-	return(true);
+	return (true);
 }
 
 
@@ -760,12 +760,12 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 		DeleteFile(acSource);
 		MoveFile(acDestination, acSource);
 		DeleteFile(acDestination);
-		return(true);
+		return (true);
 	}
 	else
 	{
 		DeleteFile(acDestination);
-		return(false);
+		return (false);
 	}
 }
 
@@ -797,11 +797,11 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 					pTaskList->SetProgressState(Application->MainForm->Handle, TBPF_NORMAL);
 					pTaskList->SetProgressValue(Application->MainForm->Handle, piCompleted, piTotal);
 				}
-				return(true);
+				return (true);
 			}
 			pTaskList->Release();
 		}
 	}
-	return(false);
+	return (false);
 }
 

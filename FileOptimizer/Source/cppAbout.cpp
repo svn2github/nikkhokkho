@@ -12,8 +12,7 @@ TfrmAbout *frmAbout;
 
 
 //---------------------------------------------------------------------------
-__fastcall TfrmAbout::TfrmAbout(TComponent* Owner)
-	: TForm(Owner)
+__fastcall TfrmAbout::TfrmAbout(TComponent* Owner): TForm(Owner)
 {
 }
 
@@ -75,7 +74,7 @@ void __fastcall TfrmAbout::FormKeyPress(TObject *Sender, System::WideChar &Key)
 int __fastcall TfrmAbout::GetFileVersionField(TCHAR *fn, TCHAR *info, TCHAR *ret, int len)
 {
 	DWORD hVersion;
-	DWORD vis=GetFileVersionInfoSize(fn,&hVersion);
+	DWORD vis = GetFileVersionInfoSize(fn,&hVersion);
 
 
 	if (vis==0)

@@ -928,7 +928,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		//If file was not processed, mark it as skipped
 		if (grdFiles->Cells[3][iCount] == "Pending")
 		{
-			grdFiles->Cells[3][iCount] == "Skipped";
+			grdFiles->Cells[3][iCount] = "Skipped";
 		}
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
 
@@ -975,9 +975,9 @@ void __fastcall TfrmMain::mnuFilesAddClick(TObject *Sender)
 	if (dlgAddFiles->Execute())
 	{
 		TStrings *strFiles = dlgAddFiles->Files;
-		for (iCount=strFiles->Count; iCount>0; iCount--)
+		for (iCount = strFiles->Count; iCount > 0; iCount--)
 		{
-			AddFiles(strFiles->Strings[iCount-1].c_str());
+			AddFiles(strFiles->Strings[iCount - 1].c_str());
 		}
 	}
 }
@@ -1004,8 +1004,8 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 	iSelectedRow2 = grdFiles->Selection.Bottom;
 
 	iCols = grdFiles->ColCount;
-	iRows = grdFiles->RowCount;
-	for (iRow = iSelectedRow2; iRow < iRows - 1; iRow++)
+	iRows = grdFiles->RowCount - 1;
+	for (iRow = iSelectedRow2; iRow < iRows; iRow++)
 	{
 		for (iCol = 0; iCol < iCols; iCol++)
 		{
@@ -1156,7 +1156,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
 
 
-	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*)&udtFileAttribute))
+	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*) &udtFileAttribute))
 	{
 		if (udtFileAttribute.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
@@ -1215,7 +1215,7 @@ int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psP
 	if (gbStop)
 	{
 		//Close();
-		return(0);
+		return (0);
 	}
 
 	if (psTmpName != "")
@@ -1246,7 +1246,7 @@ int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psP
 	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
 	grdFiles->Cells[3][piCurrent] = grdFiles->Cells[3][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
 
-	return(iError);
+	return (iError);
 }
 
 
@@ -1263,7 +1263,7 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psComm
 	if (gbStop)
 	{
 		//Close();
-		return(0);
+		return (0);
 	}
 
 	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "Input" + GetExtension(psInputFile)).c_str());
@@ -1326,7 +1326,7 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psComm
 	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
 	grdFiles->Cells[3][piCurrent] = grdFiles->Cells[3][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
 
-	return(iError);
+	return (iError);
 }
 
 
@@ -1379,7 +1379,7 @@ String __fastcall TfrmMain::GetExtension (String psFilename)
 			break;
 		}
 	}
-	return(sRes);
+	return (sRes);
 }
 
 
@@ -1394,7 +1394,7 @@ String __inline TfrmMain::FormatNumberThousand (int piNumber)
 	{
 		sRes = "0";
 	}
-	return(sRes);
+	return (sRes);
 }
 
 
@@ -1402,7 +1402,7 @@ String __inline TfrmMain::FormatNumberThousand (int piNumber)
 //---------------------------------------------------------------------------
 int __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
-	return(StrToIntDef(StringReplace(psNumber, FormatSettings.ThousandSeparator, "", TReplaceFlags() << rfReplaceAll), 0));
+	return (StrToIntDef(StringReplace(psNumber, FormatSettings.ThousandSeparator, "", TReplaceFlags() << rfReplaceAll), 0));
 }
 
 
@@ -1420,7 +1420,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 
 	if (gbStop)
 	{
-		return(0);
+		return (0);
 	}
 
 	Screen->Cursor = crAppStart;
@@ -1439,10 +1439,9 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSI.wShowWindow = SW_HIDE;
 		memset(&udtPI, 0, sizeof(udtPI));
 
-		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI,
-				&udtPI))
+		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI, &udtPI))
 		{
-			_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);
+			//_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);
 		}
 	}
 	else
@@ -1457,8 +1456,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSI.wShowWindow = SW_HIDE;
 		memset(&udtPI, 0, sizeof(udtPI));
 
-		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory,
-				&udtSI, &udtPI))
+		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI, &udtPI))
 		{
 			//_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);
 			//MsgBox(NULL, acTmp, _T("Error"), MB_OK | MB_ICONASTERISK);
@@ -1512,7 +1510,7 @@ String __fastcall TfrmMain::GetShortName(String psLongName)
 	TCHAR acShortFile[MAX_PATH];
 
 	GetShortPathName(psLongName.c_str(), acShortFile, sizeof(acShortFile));
-	return((String) acShortFile);
+	return ((String) acShortFile);
 }
 
 
@@ -1569,7 +1567,7 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 			delete acBuffer;
 		}
 	}
-	return(bRes);
+	return (bRes);
 }
 
 
@@ -1597,7 +1595,7 @@ bool __fastcall TfrmMain::IsInnoSetup(const TCHAR *pacFile)
 		}
 		delete acBuffer;
 	}
-	return(bRes);
+	return (bRes);
 }
 
 
@@ -1666,7 +1664,7 @@ bool __fastcall TfrmMain::IsManagedNet(const TCHAR *pacFile)
 		//cleanup
 		CloseHandle(hFile);
 	}
-	return(bIsManagedNet);
+	return (bIsManagedNet);
 }
 
 
