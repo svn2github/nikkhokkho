@@ -1,9 +1,6 @@
 
 - The priority settings don't seem to work properly (set to high, it still runs sub programs at low) (A user).
 
-- If one runs FileOptimizer once, then removes some files (from their directory – not from the list) that are on the list, then when one runs the program it counts them as being optimized for their full size (so if I removed a file of 300 kb, it would add 300 kb to the optimization gain though it really hadn't gained that) (A user).
-
-
 - Hang with a epub file (tobijdc)
 
 Add INI option ZipNoRecurse=false and on GUI to prevent Leanify inside ZIP files.
@@ -35,21 +32,15 @@ Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
 
 - Integrate installer with Explorer Send To.
 
-- Add Information option on cotnext menu.
-
-- Seguir con la generalización de RunPlugin.
+- Add Information option on context menu.
 
 - Icono para el menú contextual de Help es diferente al de Help.
 
 - Crash when changing ribbon style http://www.techques.com/question/1-1511092/Access-violation-if-i-try-to-change-the-ribbon-style-using-a-TRibbonCombobox
 
-- Los no procesados se quedan en Pending
-
 - Mirar PNGCrush http://sourceforge.net/projects/pmt/files/pngcrush-executables/1.7.73/
 
 - Comprimir ZIP distribución con Zopfli
-
-- Los que no llevan temporal, que automaticamente se cree uno, se optmize ese, y luego se reemplace (si no pueden generarse archivos  más grandes).En RunPlugin.
 
 - Generar nombre de archivo temporal único cada vez.
 
@@ -185,6 +176,7 @@ ndo
 - Updated to NSIS 3.0 beta 1.
 - Removed Launch wording in installer shortcuts (David Mártínez).
 - Slight WINE compatibility improvements (Jesus Alcaras).
+- Make sure file still was not deleted before processing (A user).
 - Small installer/uninstaller improvements.
 - Upgraded to C++ Builder XE7.
 - Source code migrated to a subversion repository at http://sourceforge.net/p/nikkhokkho/code/HEAD/tree/.
