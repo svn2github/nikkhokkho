@@ -52,6 +52,15 @@ static inline kcolor kc_make8g(int a0, int a1, int a2) {
     return x;
 }
 
+/* return the kcolor representation of `*gfc` (no gamma transformation) */
+static inline kcolor kc_makegfc(const Gif_Color* gfc) {
+    kcolor kc;
+    kc.a[0] = (gfc->gfc_red << 8) + gfc->gfc_red;
+    kc.a[1] = (gfc->gfc_green << 8) + gfc->gfc_green;
+    kc.a[2] = (gfc->gfc_blue << 8) + gfc->gfc_blue;
+    return kc;
+}
+
 /* return the gamma transformation of `*gfc` */
 static inline kcolor kc_makegfcg(const Gif_Color* gfc) {
     return kc_make8g(gfc->gfc_red, gfc->gfc_green, gfc->gfc_blue);
@@ -68,15 +77,7 @@ static inline kacolor kac_transparent() {
 const char* kc_debug_str(kcolor x);
 
 /* set `*x` to the reverse gamma transformation of `*x` */
-static inline void kc_revgamma_transform(kcolor* x) {
-    int d;
-    for (d = 0; d != 3; ++d) {
-        int c = gamma_tables[1][x->a[d] >> 7];
-        while (c < 0x7F80 && x->a[d] >= gamma_tables[0][(c + 0x80) >> 7])
-            c += 0x80;
-        x->a[d] = c;
-    }
-}
+void kc_revgamma_transform(kcolor* x);
 
 /* return the reverse gramma transformation of `*x` as a Gif_Color */
 static inline Gif_Color kc_togfcg(const kcolor* x) {
@@ -208,7 +209,7 @@ typedef struct kchist {
 void kchist_init(kchist* kch);
 void kchist_cleanup(kchist* kch);
 void kchist_make(kchist* kch, Gif_Stream* gfs, uint32_t* ntransp);
-void kchist_add(kchist* kch, kcolor color, kchist_count_t count);
+kchistitem* kchist_add(kchist* kch, kcolor color, kchist_count_t count);
 void kchist_compress(kchist* kch);
 
 

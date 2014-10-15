@@ -117,7 +117,7 @@ ndo
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
-- Gifsicle 1.84 - http://www.lcdf.org/gifsicle/
+- Gifsicle 1.86 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.24 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.8.9.8 - http://www.imagemagick.org
@@ -150,7 +150,7 @@ ndo
 - Added TAR support with Leanify.
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
-- Improved GIF compression ratio upgrading to gifsicle 1.84 (custom build).
+- Improved GIF compression ratio upgrading to gifsicle 1.86 (custom build).
 - Improved WEBP compression ratio updating to libwebp 0.4.1.
 - Upgraded to Ghostcript 9.15.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).

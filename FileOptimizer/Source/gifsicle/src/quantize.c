@@ -149,6 +149,16 @@ void kc_set_gamma(int type, double gamma) {
 #endif
 }
 
+void kc_revgamma_transform(kcolor* x) {
+    int d;
+    for (d = 0; d != 3; ++d) {
+        int c = gamma_tables[1][x->a[d] >> 7];
+        while (c < 0x7F80 && x->a[d] >= gamma_tables[0][(c + 0x80) >> 7])
+            c += 0x80;
+        x->a[d] = c;
+    }
+}
+
 #if 0
 static void kc_test_gamma() {
     int x, y, z;
@@ -193,9 +203,10 @@ void kchist_cleanup(kchist* kch) {
     kch->h = NULL;
 }
 
-void kchist_add(kchist* kch, kcolor k, kchist_count_t count) {
+kchistitem* kchist_add(kchist* kch, kcolor k, kchist_count_t count) {
     unsigned hash1, hash2 = 0;
     kacolor ka;
+    kchistitem *khi;
     ka.k = k;
     ka.a[3] = 0;
 
@@ -206,8 +217,11 @@ void kchist_add(kchist* kch, kcolor k, kchist_count_t count) {
              | ((ka.a[1] & 0x7FE0) << 5)
              | ((ka.a[2] & 0x7FE0) >> 5)) % kch->capacity;
 
-    while (kch->h[hash1].count
-           && memcmp(&kch->h[hash1].ka, &ka, sizeof(ka)) != 0) {
+    while (1) {
+        khi = &kch->h[hash1];
+        if (!khi->count
+            || memcmp(&khi->ka, &ka, sizeof(ka)) == 0)
+            break;
         if (!hash2) {
             hash2 = (((ka.a[0] & 0x03FF) << 20)
                      | ((ka.a[1] & 0x03FF) << 10)
@@ -219,13 +233,14 @@ void kchist_add(kchist* kch, kcolor k, kchist_count_t count) {
             hash1 -= kch->capacity;
     }
 
-    if (!kch->h[hash1].count) {
-        kch->h[hash1].ka = ka;
+    if (!khi->count) {
+        khi->ka = ka;
         ++kch->n;
     }
-    kch->h[hash1].count += count;
-    if (kch->h[hash1].count < count)
-        kch->h[hash1].count = (kchist_count_t) -1;
+    khi->count += count;
+    if (khi->count < count)
+        khi->count = (kchist_count_t) -1;
+    return khi;
 }
 
 static void kchist_grow(kchist* kch) {

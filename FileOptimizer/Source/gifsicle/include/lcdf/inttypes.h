@@ -22,7 +22,7 @@ typedef unsigned __int32 uint32_t;
 
 #ifndef HAVE_UINTPTR_T
 # if SIZEOF_VOID_P == SIZEOF_UNSIGNED_LONG
-typedef unsigned long uintptr_t;
+//typedef unsigned long uintptr_t;
 # elif SIZEOF_VOID_P == SIZEOF_UNSIGNED_INT
 typedef unsigned int uintptr_t;
 # endif

@@ -17,7 +17,6 @@
 #include <ctype.h>
 #include <assert.h>
 #include <errno.h>
-
 #if HAVE_UNISTD_H
 # include <unistd.h>
 #endif
@@ -188,6 +187,8 @@ static const char *output_option_types[] = {
 #define GRAY_OPT		369
 #define RESIZE_METHOD_OPT	370
 #define RESIZE_COLORS_OPT	371
+#define NO_APP_EXTENSIONS_OPT	372
+#define SAME_APP_EXTENSIONS_OPT 373
 
 #define LOOP_TYPE		(Clp_ValFirstUser)
 #define DISPOSAL_TYPE		(Clp_ValFirstUser + 1)
@@ -206,6 +207,7 @@ const Clp_Option options[] = {
 
   { "append", 0, APPEND_OPT, 0, 0 },
   { "app-extension", 'x', APP_EXTENSION_OPT, Clp_ValString, 0 },
+  { "no-app-extensions", 0, NO_APP_EXTENSIONS_OPT, 0, 0 },
 
   { "background", 'B', BACKGROUND_OPT, COLOR_TYPE, Clp_Negate },
   { "batch", 'b', 'b', 0, 0 },
@@ -234,6 +236,7 @@ const Clp_Option options[] = {
   { "explode", 'e', 'e', 0, 0 },
   { "explode-by-name", 'E', 'E', 0, 0 },
   { "extension", 0, EXTENSION_OPT, Clp_ValString, 0 },
+  { "no-extension", 0, NO_EXTENSIONS_OPT, 0, 0 },
   { "no-extensions", 'x', NO_EXTENSIONS_OPT, 0, 0 },
   { "extension-info", 0, EXTENSION_INFO_OPT, 0, Clp_Negate },
 
@@ -285,6 +288,7 @@ const Clp_Option options[] = {
   { "rotate-270", 0, ROTATE_270_OPT, 0, 0 },
   { "no-rotate", 0, NO_ROTATE_OPT, 0, 0 },
 
+  { "same-app-extensions", 0, SAME_APP_EXTENSIONS_OPT, 0, 0 },
   { "same-background", 0, SAME_BACKGROUND_OPT, 0, 0 },
   { "same-bg", 0, SAME_BACKGROUND_OPT, 0, 0 },
   { "same-clip", 0, SAME_CROP_OPT, 0, 0 },
@@ -546,9 +550,9 @@ open_giffile(const char *name)
     }
 #endif
 #if defined(_MSDOS) || defined(_WIN32)
-#include <fcntl.h>
-#include <io.h>
-	_setmode(_fileno(stdin), _O_BINARY);
+	#include <fcntl.h>
+	#include <io.h>
+    _setmode(_fileno(stdin), _O_BINARY);
 #elif defined(__DJGPP__)
     setmode(fileno(stdin), O_BINARY);
 #elif defined(__EMX__)
@@ -924,12 +928,12 @@ merge_and_write_frames(const char *outfile, int f1, int f2)
     || active_output_data.colormap_fixed;
   warn_local_colormaps = !colormap_change;
 
-  compress_immediately = 1;
-  if (!active_output_data.conserve_memory
-      && (active_output_data.scaling
-	  || (active_output_data.optimizing & GT_OPT_MASK)
-	  || colormap_change))
-    compress_immediately = 0;
+  if (!(active_output_data.scaling
+        || (active_output_data.optimizing & GT_OPT_MASK)
+        || colormap_change))
+    compress_immediately = 1;
+  else
+    compress_immediately = active_output_data.conserve_memory;
 
   out = merge_frame_interval(frames, f1, f2, &active_output_data,
 			     compress_immediately, &huge_stream);
@@ -1159,6 +1163,7 @@ initialize_def_frame(void)
   def_frame.explode_by_name = 0;
 
   def_frame.no_extensions = 0;
+  def_frame.no_app_extensions = 0;
   def_frame.extensions = 0;
 
   def_frame.flip_horizontal = 0;
@@ -1613,8 +1618,16 @@ main(int argc, char *argv[])
       def_frame.no_extensions = 1;
       break;
 
+    case NO_APP_EXTENSIONS_OPT:
+      def_frame.no_app_extensions = 1;
+      break;
+
      case SAME_EXTENSIONS_OPT:
       def_frame.no_extensions = 0;
+      break;
+
+    case SAME_APP_EXTENSIONS_OPT:
+      def_frame.no_app_extensions = 0;
       break;
 
      case EXTENSION_OPT:
@@ -1910,7 +1923,7 @@ main(int argc, char *argv[])
 
      case CONSERVE_MEMORY_OPT:
       MARK_CH(output, CH_MEMORY);
-      def_output_data.conserve_memory = !clp->negated;
+      def_output_data.conserve_memory = clp->negated ? -1 : 1;
       break;
 
      case MULTIFILE_OPT:
