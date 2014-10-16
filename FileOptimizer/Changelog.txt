@@ -1,3 +1,5 @@
+- ImageMagick does GIF quantization loosing quality sometimes. Consider removing it if does not get fixed (Vivil).
+
 - Hang with a epub file (tobijdc)
 
 Add INI option ZipNoRecurse=false and on GUI to prevent Leanify inside ZIP files.
