@@ -464,8 +464,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 3 / 9, 3);
 				sFlags += "-O" + (String) iLevel + " ";
+				if (!gudtOptions.bGIFCopyMetadata)
+				{
+					sFlags += "--no-comments --no-extensions --no-names ";
+				}
 				//iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-				iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" --crop-transparency " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// GZ: Leanify , advdef, zRecompress, deflopt, defluff, deflopt
 			if (PosEx(sExtension, KS_EXTENSION_GZ) > 0)

@@ -153,6 +153,7 @@ ndo
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
 - Improved GIF compression ratio upgrading to gifsicle 1.86 (custom build).
+- Better GIF compression ratio adding --crop-transparency and if metadata should be removed --no-comments --no-extensions --no-names (Vivid).
 - Improved WEBP compression ratio updating to libwebp 0.4.1.
 - Upgraded to Ghostcript 9.15.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
