@@ -1,3 +1,6 @@
+- Use zopfli --i1 --gzip for GZIP optimization
+
+
 - ImageMagick does GIF quantization loosing quality sometimes. Consider removing it if does not get fixed (Vivil).
 
 - Consider using ZopfliPNG for better PNG results, maybe as substitute for advpng (Vivil).
