@@ -1607,7 +1607,7 @@ bool __fastcall TfrmMain::IsInnoSetup(const TCHAR *pacFile)
 bool __fastcall TfrmMain::IsManagedNet(const TCHAR *pacFile)
 {
 	bool bIsManagedNet = false; //variable that indicates if managed or not.
-	HANDLE hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		//succeeded
