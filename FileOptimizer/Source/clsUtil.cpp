@@ -706,9 +706,9 @@ bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 	pfrmForm->Height = GetIni(pfrmForm->Name.c_str(), _T("Height"), pfrmForm->Height);
 	iWindowState = GetIni(pfrmForm->Name.c_str(), _T("WindowState"), (int) pfrmForm->WindowState);
 	//We do not want to reopen FileOptimizer in minimized state
-	if (iWindowState == wsMinimized)
+	if (iWindowState == (int) wsMinimized)
 	{
-		iWindowState = wsNormal;
+		iWindowState = (int) wsNormal;
 	}
 	pfrmForm->WindowState = (TWindowState) iWindowState;
 	pfrmForm->DefaultMonitor = (TDefaultMonitor) GetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), pfrmForm->DefaultMonitor);

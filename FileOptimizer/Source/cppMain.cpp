@@ -370,7 +370,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		sInputFile = grdFiles->Cells[0][iCount];
 		
 		//Check file still exists
-		if (clsUtil::ExistsFile(sInputFile.c_str())
+		if (clsUtil::ExistsFile(sInputFile.c_str()))
 		{			
 			sExtension = " " + GetExtension(sInputFile).LowerCase() + " ";
 
@@ -937,7 +937,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
 
 		//Abort for loop if operation is cancelled
-		if (mbCancel)
+		if (gbStop)
 		{
 			break;
 		}
