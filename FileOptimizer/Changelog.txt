@@ -117,7 +117,7 @@ ndo
 
 
 - AdvanceCOMP 1.19 - http://advancemame.sourceforge.net
-- APNG Optimizer 1.2 - http://sourceforge.net/projects/apng/
+- APNG Optimizer 1.3 - http://sourceforge.net/projects/apng/
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
@@ -163,6 +163,7 @@ ndo
 - Upgraded to Ghostcript 9.15.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
+- Updated APNG Optimizer to 1.3.
 - Updated mozjpeg to 2.10 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
 - Updated TruePNG to 0.5.0.0 (Jaff).
 - Updated jpegoptim to 1.4.2 beta (custom built) (Jaff).
