@@ -474,7 +474,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			// GZ: Leanify , advdef, zRecompress, deflopt, defluff, deflopt
 			if (PosEx(sExtension, KS_EXTENSION_GZ) > 0)
 			{
-				if (gudtOptions.bGZCopyMetadata)
+				if (!gudtOptions.bGZCopyMetadata)
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
@@ -1472,11 +1472,16 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		do
 		{
 			Application->ProcessMessages();
-			WaitForSingleObject(udtPI.hProcess, 100);
-			GetExitCodeProcess(udtPI.hProcess, &lExitCode);
 			if (gbStop)
 			{
 				TerminateProcess(udtPI.hProcess, 0);
+			}
+			if (GetExitCodeProcess(udtPI.hProcess, &lExitCode))
+			{
+				if ((lExitCode == STILL_ACTIVE) && (WaitForSingleObject(udtPI.hProcess, 100) == WAIT_OBJECT_0))
+				{
+					lExitCode = 0;
+				}
 			}
 		}
 		while (lExitCode == STILL_ACTIVE);
