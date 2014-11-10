@@ -1,5 +1,6 @@
-- Use zopfli --i1 --gzip for GZIP optimization
+- When executing Leanify plugin, it finishes but FileOptimizer does not know it C:\PROGRA~1\FILEOP~1\PLUGIN~1\leanify.exe -q -i 9 "C:\Users\Username~1\AppData\Local\Temp\FileOptimizerInput.png" (IDLauncher, d4k0)
 
+- Use zopfli --i1 --gzip for GZIP optimization
 
 - ImageMagick does GIF quantization loosing quality sometimes. Consider removing it if does not get fixed (Vivil).
 
