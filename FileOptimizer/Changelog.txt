@@ -1,3 +1,5 @@
+- Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
+
 - Running jpg > arith jpg and then result file again into arith jpg reduces it further (necros).
 - Make png option to strip iend chunk (end-of-image marker) used in entropymine.com/jason/tweakpng/, same goes to jpg with jstrip option to remove JFIF header (necros)
 - Add m7zRepacker (for 7-Zip V9.20) // V1.0.32.301 // (C) 2010-2011 Mario Scholz to optimize 7z archives (necros)
