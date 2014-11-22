@@ -1,4 +1,5 @@
 - Investigate if C++ Builder XE7 can generate Windows XP compatible executables (Jaff).
+Windows 7 or later required according to http://www.embarcadero.com/es/products/cbuilder/faq
 
 - Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
 
