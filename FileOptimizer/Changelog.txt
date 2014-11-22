@@ -159,6 +159,7 @@ ndo
 - Added FLAC compression using FLACOUT (DotDotDot).
 - Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Added TAR support with Leanify.
+- Added DWF extension to the ZIP tool chain (maadjordan).
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
 - Improved GIF compression ratio upgrading to gifsicle 1.86 (custom build).
