@@ -34,7 +34,7 @@
 #define KS_EXTENSION_EXE	_T(" .exe .scr ")
 #define KS_EXTENSION_FLAC	_T(" .flac ")
 #define KS_EXTENSION_GIF	_T(" .gif ")
-#define KS_EXTENSION_GZ		_T(" .gz .tgz .svgz ")
+#define KS_EXTENSION_GZ		_T(" .gz .tgz .svgz .vlt ")
 #define KS_EXTENSION_HTML	_T(" .htm .html .mht .mhtml .xhtml .xml .sgml ")
 #define KS_EXTENSION_ICO	_T(" .ico ")
 #define KS_EXTENSION_JPG	_T(" .jfi .jif .jfif .jng .jpe .jpg .jpeg .thm ")
@@ -52,7 +52,7 @@
 #define KS_EXTENSION_TAR	_T(" .tar .cbt ")
 #define KS_EXTENSION_TIF	_T(" .fax .tif .tiff .ptif .ptiff ")
 #define KS_EXTENSION_WEBP	_T(" .webp ")
-#define KS_EXTENSION_ZIP	_T(" .air .apk .appx .cbz .docm .docx .dotx .dotm .dwf .dwfx .epub .ipa .jar .mpp .nar .odb .odf .odg .odp .ods .odt .oex .oxps .ppam .potm .potx .ppsm .ppsx .pptm .pptx .pub .sldm .sldx .vdx .vtx .vsx .xap .xlam .xlsm .xlsx .xltm .xltx .xpi .xps .zip ")
+#define KS_EXTENSION_ZIP	_T(" .air .apk .appx .cbz .docm .docx .dotx .dotm .dwf .dwfx .epub .itz .ipa .jar .ksf .mdz .miz .mmip .mpp .msz .nar .odb .odf .odg .odp .ods .odt .oex .osk .oxps .ppam .potm .potx .ppsm .ppsx .pptm .pptx .pub .rmskin .s3z .sldm .sldx .vdx .vtx .vsx .wal .wmz .wsz .xap .xlam .xlsm .xlsx .xltm .xltx .xmz .xpi .xps .zip ")
 #define KS_EXTENSION_MISC	_T(" .aai .avs .fits .jp2 .jpc .hdr .hrz .mif .miff .mtv .otb .p7 .palm .pdb .pbm .pcd .pcds .pfm .pgm .picon .pic .pict .pnm .ppm .psb .psd .sun .vicar .viff .wbmp .xbm .xpm .xwd ")
 #define KS_EXTENSION_ALL    (StringReplace((KS_EXTENSION_BMP KS_EXTENSION_CSS KS_EXTENSION_DLL KS_EXTENSION_EXE KS_EXTENSION_FLAC KS_EXTENSION_GIF KS_EXTENSION_GZ KS_EXTENSION_HTML KS_EXTENSION_ICO KS_EXTENSION_JPG KS_EXTENSION_JS KS_EXTENSION_MNG KS_EXTENSION_MP3 KS_EXTENSION_OBJ KS_EXTENSION_OGG KS_EXTENSION_OGV KS_EXTENSION_OLE KS_EXTENSION_PCX KS_EXTENSION_PDF KS_EXTENSION_PNG KS_EXTENSION_SWF KS_EXTENSION_TAR KS_EXTENSION_TIF KS_EXTENSION_WEBP KS_EXTENSION_ZIP KS_EXTENSION_MISC), "  ", " ", TReplaceFlags() << rfReplaceAll))
 

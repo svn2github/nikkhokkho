@@ -163,6 +163,8 @@ ndo
 - Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Added TAR support with Leanify.
 - Added DWF extension to the ZIP tool chain (maadjordan).
+- Added .ksf, .wsz, .wal, .wmz, .mdz, .miz, .s3z, .xmz, .itz, .osk, .rmskin, .mmip, .msz extensions to the ZIP toolchain (Jaff).
+- Added .vlt extension to the GZ toolchain (Jaff).
 - Launch TruePNG before PNGOut to improve PNG compression (trlkly).
 - Added OCX and VBX extensions to the DLL toolchain.
 - Improved GIF compression ratio upgrading to gifsicle 1.86 (custom build).
