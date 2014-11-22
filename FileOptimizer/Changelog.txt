@@ -1,3 +1,5 @@
+- Investigate if C++ Builder XE7 can generate Windows XP compatible executables (Jaff).
+
 - Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
 
 - Running jpg > arith jpg and then result file again into arith jpg reduces it further (necros).
