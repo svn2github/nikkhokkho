@@ -123,7 +123,7 @@ ndo
 
 
 
-- AdvanceCOMP 1.19 - http://advancemame.sourceforge.net
+- AdvanceCOMP 1.20 beta - http://advancemame.sourceforge.net
 - APNG Optimizer 1.3 - http://sourceforge.net/projects/apng/
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
@@ -171,12 +171,13 @@ ndo
 - Better GIF compression ratio adding --crop-transparency and if metadata should be removed --no-comments --no-extensions --no-names (Vivid).
 - Unpacked TruePNG.exe to avoid false positives with Symantec AVs (LayZee).
 - Improved WEBP compression ratio updating to libwebp 0.4.2.
+- Improved GZ, MNG, PNG, and ZIP compression ratio updating to AdvanceCOMP 1.20 beta.
 - Upgraded to Ghostcript 9.15.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
 - Updated APNG Optimizer to 1.3.
 - Updated mozjpeg to 2.10 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
-- Updated TruePNG to 0.5.0.1 (Jaff).
+- Updated TruePNG to 0.5.0.2 (Jaff).
 - Updated jpegoptim to 1.4.2 beta (custom built) (Jaff).
 - Updated ImageMagick to 6.9.0.0.
 - Updated PngOptimizer to 2.4.1.
