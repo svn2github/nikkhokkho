@@ -162,6 +162,7 @@ ndo
 - Added FLAC compression using FLACOUT (DotDotDot).
 - Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Added TAR support with Leanify.
+- Updated Leanify 0.4.2 binaries with Windows XP compatibility. Thanks JayXon.
 - Added DWF extension to the ZIP tool chain (maadjordan).
 - Added .ksf, .wsz, .wal, .wmz, .mdz, .miz, .s3z, .xmz, .itz, .osk, .rmskin, .mmip, .msz extensions to the ZIP toolchain (Jaff).
 - Added .vlt extension to the GZ toolchain (Jaff).
