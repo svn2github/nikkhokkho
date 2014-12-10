@@ -1,5 +1,9 @@
-- Investigate if C++ Builder XE7 can generate Windows XP compatible executables (Jaff).
-Windows 7 or later required according to http://www.embarcadero.com/es/products/cbuilder/faq
+- Integrate mp4v2 (Francisco Eirea Bito-on)
+Seria para optimizar archivos de musica mp4, osea .m4a / ACC .
+Tratase de eliminar los free atoms de un archivo.
+Para eso puedes usar mp4v2 library https://code.google.com/p/mp4v2/
+De la libreria necesitaras: libmp4v2.dll y mp4file.exe.
+Para usar: mp4file --optimize archivo.m4a
 
 - Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
 
