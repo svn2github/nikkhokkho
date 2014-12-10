@@ -22,7 +22,7 @@
 #endif
 #ifndef M_PI
 /* -std=c89 does not define M_PI */
-# define M_PI		3.14159265358979323846
+# define M_PI           3.14159265358979323846
 #endif
 
 
@@ -32,7 +32,7 @@
 
 Gt_ColorTransform *
 append_color_transform(Gt_ColorTransform *list,
-		       color_transform_func func, void *data)
+                       color_transform_func func, void *data)
 {
   Gt_ColorTransform *trav;
   Gt_ColorTransform *xform = Gif_New(Gt_ColorTransform);
@@ -76,7 +76,7 @@ apply_color_transforms(Gt_ColorTransform *list, Gif_Stream *gfs)
       xform->func(gfs->global, xform->data);
     for (i = 0; i < gfs->nimages; i++)
       if (gfs->images[i]->local)
-	xform->func(gfs->images[i]->local, xform->data);
+        xform->func(gfs->images[i]->local, xform->data);
   }
 }
 
@@ -98,20 +98,20 @@ color_change_transformer(Gif_Colormap *gfcm, void *thunk)
   for (i = 0; i < gfcm->ncol; i++)
     for (change = first_change; change; change = change->next) {
       if (!change->old_color.haspixel)
-	have = GIF_COLOREQ(&gfcm->col[i], &change->old_color);
+        have = GIF_COLOREQ(&gfcm->col[i], &change->old_color);
       else
-	have = (change->old_color.pixel == (uint32_t)i);
+        have = (change->old_color.pixel == (uint32_t)i);
 
       if (have) {
-	gfcm->col[i] = change->new_color;
-	break;			/* ignore remaining color changes */
+        gfcm->col[i] = change->new_color;
+        break;                  /* ignore remaining color changes */
       }
     }
 }
 
 Gt_ColorTransform *
 append_color_change(Gt_ColorTransform *list,
-		    Gif_Color old_color, Gif_Color new_color)
+                    Gif_Color old_color, Gif_Color new_color)
 {
   Gt_ColorTransform *xform;
   Gt_ColorChange *change = Gif_New(Gt_ColorChange);
@@ -211,26 +211,27 @@ pipe_color_transformer(Gif_Colormap *gfcm, void *thunk)
  **/
 
 void
-combine_crop(Gt_Crop *dstcrop, const Gt_Crop *srccrop, const Gif_Image *gfi)
+combine_crop(Gt_Crop* dstcrop, const Gt_Crop* srccrop, const Gif_Image* gfi)
 {
-    dstcrop->x = srccrop->x - gfi->left;
-    dstcrop->y = srccrop->y - gfi->top;
-    dstcrop->w = srccrop->w;
-    dstcrop->h = srccrop->h;
+    int cl = srccrop->x - gfi->left, cr = cl + srccrop->w,
+        ct = srccrop->y - gfi->top, cb = ct + srccrop->h,
+        dl = cl > 0 ? cl : 0, dr = cr < gfi->width ? cr : gfi->width,
+        dt = ct > 0 ? ct : 0, db = cb < gfi->height ? cb : gfi->height;
 
-    /* Check that the rectangle actually intersects with the image. */
-    if (dstcrop->x < 0)
-	dstcrop->w += dstcrop->x, dstcrop->x = 0;
-    if (dstcrop->y < 0)
-	dstcrop->h += dstcrop->y, dstcrop->y = 0;
-    if (dstcrop->w > 0 && dstcrop->x + dstcrop->w > gfi->width)
-	dstcrop->w = gfi->width - dstcrop->x;
-    if (dstcrop->h > 0 && dstcrop->y + dstcrop->h > gfi->height)
-	dstcrop->h = gfi->height - dstcrop->y;
-    if (dstcrop->w < 0)
+    if (dl < dr) {
+        dstcrop->x = dl;
+        dstcrop->w = dr - dl;
+    } else {
+        dstcrop->x = (cl <= 0 ? 0 : srccrop->w - 1) + (srccrop->left_offset - gfi->left);
         dstcrop->w = 0;
-    if (dstcrop->h < 0)
+    }
+    if (dt < db) {
+        dstcrop->y = dt;
+        dstcrop->h = db - dt;
+    } else {
+        dstcrop->y = (ct <= 0 ? 0 : srccrop->h - 1) + (srccrop->top_offset - gfi->top);
         dstcrop->h = 0;
+    }
 }
 
 int
@@ -238,38 +239,31 @@ crop_image(Gif_Image* gfi, Gt_Frame* fr, int preserve_total_crop)
 {
     Gt_Crop c;
     int j;
-    uint8_t **img;
 
     combine_crop(&c, fr->crop, gfi);
 
+    fr->left_offset = fr->crop->left_offset;
+    fr->top_offset = fr->crop->top_offset;
+
     if (c.w > 0 && c.h > 0) {
-        img = Gif_NewArray(uint8_t *, c.h + 1);
+        uint8_t** old_img = gfi->img;
+        gfi->img = Gif_NewArray(uint8_t *, c.h + 1);
         for (j = 0; j < c.h; j++)
-            img[j] = gfi->img[c.y + j] + c.x;
-        img[c.h] = 0;
-
-        fr->left_offset = fr->crop->left_offset;
-        fr->top_offset = fr->crop->top_offset;
-        gfi->left += c.x - fr->left_offset;
-        gfi->top += c.y - fr->top_offset;
-
-    } else if (preserve_total_crop) {
-        c.w = c.h = 1;
-        img = Gif_NewArray(uint8_t*, c.h + 1);
-        img[0] = gfi->img[0];
-        img[1] = 0;
-        gfi->transparent = img[0][0];
-
-    } else {
-        /* Empty image */
-        c.w = c.h = 0;
-        img = 0;
+            gfi->img[j] = old_img[c.y + j] + c.x;
+        gfi->img[c.h] = 0;
+        Gif_DeleteArray(old_img);
+        gfi->width = c.w;
+        gfi->height = c.h;
+    } else if (preserve_total_crop)
+        Gif_MakeImageEmpty(gfi);
+    else {
+        Gif_DeleteArray(gfi->img);
+        gfi->img = 0;
+        gfi->width = gfi->height = 0;
     }
 
-    Gif_DeleteArray(gfi->img);
-    gfi->img = img;
-    gfi->width = c.w;
-    gfi->height = c.h;
+    gfi->left += c.x - fr->left_offset;
+    gfi->top += c.y - fr->top_offset;
     return gfi->img != 0;
 }
 
@@ -294,7 +288,7 @@ flip_image(Gif_Image* gfi, Gt_Frame *fr, int is_vert)
       memcpy(buffer, img[y], width);
       trav = img[y] + width - 1;
       for (x = 0; x < width; x++)
-	*trav-- = buffer[x];
+        *trav-- = buffer[x];
     }
     gfi->left = fr->stream->screen_width - (gfi->left + width);
     if (fr->crop)
@@ -331,7 +325,7 @@ rotate_image(Gif_Image* gfi, Gt_Frame* fr, int rotation)
   if (rotation == 1) {
     for (x = 0; x < width; x++)
       for (y = height - 1; y >= 0; y--)
-	*trav++ = img[y][x];
+        *trav++ = img[y][x];
     x = gfi->left;
     gfi->left = fr->stream->screen_height - (gfi->top + height);
     gfi->top = x;
@@ -344,7 +338,7 @@ rotate_image(Gif_Image* gfi, Gt_Frame* fr, int rotation)
   } else {
     for (x = width - 1; x >= 0; x--)
       for (y = 0; y < height; y++)
-	*trav++ = img[y][x];
+        *trav++ = img[y][x];
     y = gfi->top;
     gfi->top = fr->stream->screen_width - (gfi->left + width);
     gfi->left = y;
@@ -390,16 +384,14 @@ static void kcscreen_init(kcscreen* kcs, Gif_Stream* gfs, int sw, int sh) {
     kcs->height = sh <= 0 ? gfs->screen_height : sh;
     sz = (unsigned) kcs->width * kcs->height;
     kcs->data = Gif_NewArray(kacolor, sz);
-    if (gfs->nimages > 0 && gfs->images[0]->transparent >= 0) {
-        kcs->bg.a[0] = kcs->bg.a[1] = kcs->bg.a[2] = kcs->bg.a[3] = 0;
-        for (i = 0; i != sz; ++i)
-            kcs->data[i] = kcs->bg;
-    } else {
+    if ((gfs->nimages == 0 || gfs->images[0]->transparent < 0)
+        && gfs->global && gfs->background < gfs->global->ncol) {
         kcs->bg.k = kc_makegfcg(&gfs->global->col[gfs->background]);
         kcs->bg.a[3] = KC_MAX;
-        for (i = 0; i != sz; ++i)
-            kcs->data[i] = kcs->bg;
-    }
+    } else
+        kcs->bg.a[0] = kcs->bg.a[1] = kcs->bg.a[2] = kcs->bg.a[3] = 0;
+    for (i = 0; i != sz; ++i)
+        kcs->data[i] = kcs->bg;
 }
 
 /* free memory associated with `kcs` */
