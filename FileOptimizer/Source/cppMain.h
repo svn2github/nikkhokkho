@@ -41,7 +41,7 @@
 #define KS_EXTENSION_JS		_T(" .js .json ")
 #define KS_EXTENSION_MNG	_T(" .mng ")
 #define KS_EXTENSION_MP3	_T(" .mp3 ")
-#define KS_EXTENSION_MP4	_T(" .mp4 .mpa .m4b, .m4p, .m4r .m4v .acc ")
+#define KS_EXTENSION_MP4	_T(" .mp4 .m4a .m4b, .m4p, .m4r .m4v .acc ")
 #define KS_EXTENSION_OBJ	_T(" .obj .o .lib .a ")
 #define KS_EXTENSION_OGG	_T(" .ogg ")
 #define KS_EXTENSION_OGV	_T(" .ogv ")
