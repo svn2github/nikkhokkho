@@ -609,6 +609,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//iError = RunPlugin(iCount, "MP3packer", (sPluginsDirectory + "mp3packer.exe " + sFlags + "-z -a \"\" -A -f \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "MP3packer", (sPluginsDirectory + "mp3packer.exe " + sFlags + "-z -a \"\" -A -f \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
+			// MP4: mp4v2
+			if (PosEx(sExtension, KS_EXTENSION_MP4) > 0)
+			{
+				iError = RunPlugin(iCount, "mp4v2", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+			}
 			// OBJ: strip
 			if (PosEx(sExtension, KS_EXTENSION_OBJ) > 0)
 			{

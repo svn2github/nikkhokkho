@@ -1,3 +1,5 @@
+mp4file --optimize -q archivo.m4a
+
 - Integrate mp4v2 (Francisco Eirea Bito-on)
 Seria para optimizar archivos de musica mp4, osea .m4a / ACC .
 Tratase de eliminar los free atoms de un archivo.
@@ -146,8 +148,9 @@ ndo
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.2 - https://github.com/JayXon/Leanify
 - libwebp 0.4.2 - http://www.webmproject.org
-- MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
+- MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
+- mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
 - OptiPNG Hg 20121021 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
@@ -164,6 +167,7 @@ ndo
 
 7.00 - YYYY
 - Added FLAC compression using FLACOUT (DotDotDot).
+- Added MP4 compression (.mp4 .mpa .m4b, .m4p, .m4r .m4v .acc) using mp4v2 (Francisco Eirea Bito-on).
 - Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Added TAR support with Leanify.
 - Updated Leanify 0.4.2 binaries with Windows XP compatibility. Thanks JayXon.
