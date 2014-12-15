@@ -159,7 +159,8 @@ ndo
 7.00 - YYYY
 - Added FLAC compression using FLACOUT (DotDotDot).
 - Added MP4 compression (.mp4 .m4a .m4b, .m4p, .m4r .m4v .acc) using mp4v2 (Francisco Eirea Bito-on).
-- Integrated Leanify compression for GZ, SWF and ZIP formats.
+- Added Autodesk Revit (.rvt) and Solidworks formats (.sldprt, .slddrw, .sldasm) to the OLE tool chain (maadjordan).
+- Added eDrawings (easm) to the ZIP tool chain (maadjordan).- Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Added TAR support with Leanify.
 - Updated Leanify 0.4.2 binaries with Windows XP compatibility. Thanks JayXon.
 - Added DWF extension to the ZIP tool chain (maadjordan).
