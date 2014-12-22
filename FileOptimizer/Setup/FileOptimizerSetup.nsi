@@ -20,7 +20,7 @@ Unicode true
 !define APP_NAME 	"FileOptimizer"
 !define APP_DESCRIPTION	"Lossless file size optimizer"
 !define APP_COMPANY	"Javier Gutiérrez Chamorro (Guti)"
-!define APP_COPYRIGHT	"© Copyright 2012-2014 by Javier Gutiérrez Chamorro (Guti)"
+!define APP_COPYRIGHT	"© Copyright 2012-2015 by Javier Gutiérrez Chamorro (Guti)"
 !define APP_WEB		"http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer"
 !define APP_VERSION 	"7.0.0.0"
 
