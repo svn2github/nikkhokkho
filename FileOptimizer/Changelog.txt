@@ -134,7 +134,7 @@ ndo
 - ImageMagick 6.9.0.0 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
-- jpegoptim 1.4.2 beta - http://www.kokkonen.net/tjko/projects.html
+- jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.2 - https://github.com/JayXon/Leanify
@@ -179,7 +179,7 @@ ndo
 - Updated APNG Optimizer to 1.3.
 - Updated mozjpeg to 3.00 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
 - Updated TruePNG to 0.5.0.2 (Jaff).
-- Updated jpegoptim to 1.4.2 beta (custom built) (Jaff).
+- Updated jpegoptim to 1.4.2 (custom built) (Jaff).
 - Updated ImageMagick to 6.9.0.0.
 - Updated PngOptimizer to 2.4.1.
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
