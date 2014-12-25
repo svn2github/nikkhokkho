@@ -199,6 +199,7 @@ ndo
 - Launched plugins now do with the same process priority as FileOptimizer (A user).
 - Small installer/uninstaller improvements.
 - Upgraded to C++ Builder XE7.
+- Upgraded distributions to 7-Zip 9.35.
 - Source code migrated to a subversion repository at http://sourceforge.net/p/nikkhokkho/code/HEAD/tree/.
 
 
