@@ -202,6 +202,7 @@ ndo
 - Small installer/uninstaller improvements.
 - Upgraded to C++ Builder XE7.
 - Upgraded distributions to 7-Zip 9.35.
+- cppcheck sanity fixes (Armin).
 - Source code migrated to a subversion repository at http://sourceforge.net/p/nikkhokkho/code/HEAD/tree/.
 
 

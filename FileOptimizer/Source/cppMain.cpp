@@ -1578,7 +1578,7 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 				}
 				while (iPos < iSize);
 			}
-			delete acBuffer;
+			delete[] acBuffer;
 		}
 	}
 	return (bRes);
@@ -1607,7 +1607,7 @@ bool __fastcall TfrmMain::IsInnoSetup(const TCHAR *pacFile)
 				break;                
 			}    
 		}
-		delete acBuffer;
+		delete[] acBuffer;
 	}
 	return (bRes);
 }
