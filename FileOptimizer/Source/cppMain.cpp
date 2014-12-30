@@ -1424,7 +1424,6 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 	PROCESS_INFORMATION udtPI;
 	SECURITY_ATTRIBUTES udtSA;
 	HANDLE hRead, hWrite;
-	TCHAR acTmp[2048];
 
 
 	if (gbStop)
