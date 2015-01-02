@@ -130,7 +130,7 @@ ndo
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
-- GNU Strip 2.24 - http://www.gnu.org/software/binutils/
+- GNU Strip 2.25 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.9.0.2 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
@@ -259,7 +259,7 @@ ndo
 - Optimized internal icons.
 - Replaced 7-Zip SFX installer with NSIS 3.00a2 installer (including shortcuts and uninstaller).
 - Faster JPEG compression upgrading to mozjpeg 1.01 r43.
-- Updated strip to 2.24.
+- Updated strip to 2.25.
 - Upgraded to WinCHM 4.43.
 
 
