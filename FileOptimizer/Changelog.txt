@@ -11,7 +11,7 @@
 
 - Hang with a epub file (tobijdc)
 
-Add INI option ZipNoRecurse=false and on GUI to prevent Leanify inside ZIP files.
+Add INI option ZIPRecurse=false and on GUI to prevent Leanify inside ZIP files.
 
 Add INI option XMLEnableTiny=false and XML tab on GUI.
 
@@ -131,7 +131,7 @@ ndo
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.9.0.2 - http://www.imagemagick.org
+- ImageMagick 6.9.0.4 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
@@ -182,7 +182,7 @@ ndo
 - Updated mozjpeg to 3.00 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
 - Updated TruePNG to 0.5.0.3 (Jaff).
 - Updated jpegoptim to 1.4.2 (custom built) (Jaff).
-- Updated ImageMagick to 6.9.0.2.
+- Updated ImageMagick to 6.9.0.4.
 - Updated PngOptimizer to 2.4.1.
 - Added ini options bBMPCopyMetadata=false, bGIFCopyMetadata=false, bMiscCopyMetadata=false, bPCXCopyMetadata=false, bTIFFCopyMetadata=false to control copying metadata for other filetypes.
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
