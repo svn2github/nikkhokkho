@@ -189,6 +189,7 @@ ndo
 - Added Leanify to PNG and ICO tool chains.
 - Fixed reopening FileOptimizer when closed minimized from the taskbar (d4k0).
 - Skipped files now have the Skipped status in the Status column instead of Pending.
+- Support Android 9-patch images by only allowing pngwolf, defluff and leanify to process them, and thus disabling advpng, deflopt, optipng, pngoptimizer, pngout, pngrewrite and truepng which seem to broke them (Tomasz W.).
 - Cancel optimization is now faster.
 - Remove Control+Alt+X accelerator in installer shortcuts (AdamDobay).
 - Improved GUI drawing performance.

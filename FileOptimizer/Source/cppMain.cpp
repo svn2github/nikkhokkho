@@ -667,7 +667,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (PosEx(sExtension, KS_EXTENSION_PNG) > 0)
 			{
 				bool bIsAPNG;
+				bool bIs9Patch;
 
+				//Android 9-patch images get broken with advpng, deflopt, optipng, pngoptimizer, pngout, pngrewrite and truepng. Only pngwolf, defluff and leanify seem to be safe. At the moment, detect them by extension .9.png.
+				bIs9Patch = (PosEx(sInputFile, ".9.png") == sInputFile.Length - 6);
 				bIsAPNG = IsAPNG(sInputFile.c_str());
 
 				if (bIsAPNG)
@@ -677,9 +680,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 
 				//iError = RunPlugin(iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-				iError = RunPlugin(iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				if (!bIs9Patch)
+				{
+					iError = RunPlugin(iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				}
 
-				if (!bIsAPNG)
+				if ((!bIsAPNG) && (!bIs9Patch))
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 3 / 9, 3) + 1;
@@ -696,37 +702,44 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					iError = RunPlugin(iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				}
 
-				sFlags = "";
-				if (gudtOptions.bPNGCopyMetadata)
+				if (!bIs9Patch)
 				{
-					sFlags += "/k1 ";
-				}
-				else
-				{
-					sFlags += "/kacTL,fcTL,fdAT ";
-				}
-				iLevel = max((gudtOptions.iLevel * 3 / 9) - 3, 0);
-				sFlags += "/s" + (String) iLevel + " ";
-				//iError = RunPlugin(iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
-				iError = RunPlugin(iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-
-				sFlags = "";
-				iLevel = min(gudtOptions.iLevel * 6 / 9, 6);
-				sFlags += "-o" + (String) iLevel + " ";
-				if (bIsAPNG)
-				{
-					// For some reason -strip all -protect acTL,fcTL,fdAT is not keeping APNG chunks
-					//iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-					iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-				}
-				else
-				{
-					if (!gudtOptions.bPNGCopyMetadata)
+					sFlags = "";
+					if (gudtOptions.bPNGCopyMetadata)
 					{
-						sFlags += "-strip all ";
+						sFlags += "/k1 ";
 					}
-					//iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-					iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					else
+					{
+						sFlags += "/kacTL,fcTL,fdAT ";
+					}
+					iLevel = max((gudtOptions.iLevel * 3 / 9) - 3, 0);
+					sFlags += "/s" + (String) iLevel + " ";
+					//iError = RunPlugin(iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+					iError = RunPlugin(iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				}
+
+
+				if (!bIs9Patch)
+				{
+					sFlags = "";
+					iLevel = min(gudtOptions.iLevel * 6 / 9, 6);
+					sFlags += "-o" + (String) iLevel + " ";
+					if (bIsAPNG)
+					{
+						// For some reason -strip all -protect acTL,fcTL,fdAT is not keeping APNG chunks
+						//iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+						iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					}
+					else
+					{
+						if (!gudtOptions.bPNGCopyMetadata)
+						{
+							sFlags += "-strip all ";
+						}
+						//iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+						iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					}
 				}
 
 				sFlags = "";
@@ -742,29 +755,39 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					//iError = RunPlugin(iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"" + sShortFile + "\" --out=\"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 					iError = RunPlugin(iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
-					//iError = RunPlugin(iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
-					iError = RunPlugin(iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					if (!bIs9Patch)
+					{
+						//iError = RunPlugin(iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+						iError = RunPlugin(iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					}
 
 					//iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"" + grdFiles->Cells[0][iCount] + "\" \"" + acTmpFile + "\"").c_str(), acPluginsDirectory, acTmpFile);
 
-					sFlags = "";
-					iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-					sFlags += "-i " + (String) iLevel + " ";
-					//iError = RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-					iError = RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-
-					sFlags = "";
-					if (gudtOptions.bPNGCopyMetadata)
+					if (!bIs9Patch)
 					{
-						sFlags += "/k ";
+						sFlags = "";
+						iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
+						sFlags += "-i " + (String) iLevel + " ";
+						//iError = RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+						iError = RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 					}
-					//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
-					iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+
+					if (!bIs9Patch)
+					{
+						sFlags = "";
+						if (gudtOptions.bPNGCopyMetadata)
+						{
+							sFlags += "/k ";
+						}
+						//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
+						iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					}
 				}
+				
 				//iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat " + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				
-				if (!bIsAPNG)
+				if ((!bIsAPNG) && (!bIs9Patch))
 				{
 					//iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 					iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
