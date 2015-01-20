@@ -381,7 +381,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 			if (gudtOptions.bKeepAttributes)
 			{
-				clsUtil::GetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
+				//If get timestamp fails, set to null
+				if (!clsUtil::GetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified))
+				{
+					memset(udtFileCreated, 0, sizeof(udtFileCreated));
+					memset(udtFileModified, 0, sizeof(udtFileCreated));
+				}
 				iFileAttributes = GetFileAttributes(sInputFile.c_str());
 			}
 			SetFileAttributes(sInputFile.c_str(), FILE_ATTRIBUTE_NORMAL);
@@ -947,7 +952,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					SetFileAttributes(sInputFile.c_str(), iFileAttributes);
 				}
-				clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
+				//Restore timestamp if we were able to get it
+				if ((udtFileCreated.dwLowDateTime != 0) && (udtFileCreated.dwLowDateTime != 0))
+				{
+					clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
+				}
 			}
 
 			//Make sure the file was indeed processed because asuming we got gains. This is to solve Pending items being counted as 0 bytes
