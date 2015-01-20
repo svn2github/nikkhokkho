@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.10. 20/01/2015. FileOptimizer. Minor tweaks and fixes
  3.00. 23/09/2012. FileOptimizer. Added LoadForm, SaveForm, CopyToRecycleBin, SetTaskListProgress
  2.00. 09/08/2012. FileOptimizer. Added clsUtil static class wrapper, optimized SizeFile, mapped to TCHAR and merged clsPreferences common functions
  1.00. 18/08/2011. TBClamAV. Initial version-
@@ -387,7 +388,7 @@ bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 	hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		bRes = GetFileTime(hFile, pudtCreated, pudtModified, NULL);
+		bRes = GetFileTime(hFile, pudtCreated, NULL, pudtModified);
 		CloseHandle(hFile);
 	}
 	return (bRes);
@@ -405,7 +406,7 @@ bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 	hFile = CreateFile(pacFile, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		bRes = SetFileTime(hFile, pudtCreated, pudtModified, NULL);
+		bRes = SetFileTime(hFile, pudtCreated, NULL, pudtModified);
 		CloseHandle(hFile);
 	}
 	return (bRes);

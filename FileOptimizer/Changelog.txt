@@ -30,8 +30,6 @@ Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
 
 - Wrong percent of saving calculation https://www.dropbox.com/s/8l9n9q52hs4g6fk/FileOptimizer.png (Juan).
 
-- Keep file attributes is not restoring file timestamp (ksf)
-
 - Look for some SVG optimizer not based on Python nor Ruby, or try to wrap them onto standalone executables.
 
 - Option to display: 1) only filename, 2a) full path+filename, 2b) driveletter + “:\”+partial path + filename, 2c) driveletter + “:\”+partial path if fits+”…” last part of filename) (Jaff)
@@ -188,6 +186,7 @@ ndo
 - Do not suffix shortcuts on the installed with x86 or x64, since only once will be available (trlkly).
 - Added Leanify to PNG and ICO tool chains.
 - Fixed reopening FileOptimizer when closed minimized from the taskbar (d4k0).
+- Fixed Keep file attributes not properly restoring file modification timestamp (Tomasz W. and ksf).
 - Skipped files now have the Skipped status in the Status column instead of Pending.
 - Support Android 9-patch images by only allowing pngwolf, defluff and leanify to process them, and thus disabling advpng, deflopt, optipng, pngoptimizer, pngout, pngrewrite and truepng which seem to broke them (Tomasz W.).
 - Cancel optimization is now faster.

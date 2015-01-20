@@ -384,8 +384,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//If get timestamp fails, set to null
 				if (!clsUtil::GetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified))
 				{
-					memset(udtFileCreated, 0, sizeof(udtFileCreated));
-					memset(udtFileModified, 0, sizeof(udtFileCreated));
+					memset(&udtFileCreated, 0, sizeof(udtFileCreated));
+					memset(&udtFileModified, 0, sizeof(udtFileModified));
 				}
 				iFileAttributes = GetFileAttributes(sInputFile.c_str());
 			}
@@ -675,7 +675,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				bool bIs9Patch;
 
 				//Android 9-patch images get broken with advpng, deflopt, optipng, pngoptimizer, pngout, pngrewrite and truepng. Only pngwolf, defluff and leanify seem to be safe. At the moment, detect them by extension .9.png.
-				bIs9Patch = (PosEx(sInputFile, ".9.png") == sInputFile.Length - 6);
+				bIs9Patch = EndsStr(".9.png", sInputFile);
 				bIsAPNG = IsAPNG(sInputFile.c_str());
 
 				if (bIsAPNG)
@@ -953,7 +953,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					SetFileAttributes(sInputFile.c_str(), iFileAttributes);
 				}
 				//Restore timestamp if we were able to get it
-				if ((udtFileCreated.dwLowDateTime != 0) && (udtFileCreated.dwLowDateTime != 0))
+				if ((udtFileCreated.dwLowDateTime != 0) && (udtFileCreated.dwHighDateTime != 0))
 				{
 					clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
 				}
