@@ -332,7 +332,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	int iError;
 	int iLevel;
 	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes;
-	FILETIME udtFileCreated, udtFileModified;
+	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sFlags;
 	String sExtension;
 	TCHAR acTmpFile[MAX_PATH];
@@ -382,10 +382,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (gudtOptions.bKeepAttributes)
 			{
 				//If get timestamp fails, set to null
-				if (!clsUtil::GetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified))
+				if (!clsUtil::GetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileAccessed, &udtFileModified))
 				{
 					memset(&udtFileCreated, 0, sizeof(udtFileCreated));
-					memset(&udtFileModified, 0, sizeof(udtFileModified));
+					//memset(&udtFileAccessed, 0, sizeof(udtFileAccessed));
+					//memset(&udtFileModified, 0, sizeof(udtFileModified));
 				}
 				iFileAttributes = GetFileAttributes(sInputFile.c_str());
 			}
@@ -955,7 +956,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//Restore timestamp if we were able to get it
 				if ((udtFileCreated.dwLowDateTime != 0) && (udtFileCreated.dwHighDateTime != 0))
 				{
-					clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileModified);
+					clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileAccessed, &udtFileModified);
 				}
 			}
 

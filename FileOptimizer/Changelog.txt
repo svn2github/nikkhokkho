@@ -161,7 +161,7 @@ ndo
 - Added SVG extension to GZ/SVG tool chain.
 - Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Added TAR support with Leanify.
-- Updated Leanify 0.4.2 binaries with Windows XP compatibility. Thanks JayXon.
+- Updated Leanify 0.4.2 daily binaries with Windows XP compatibility. Thanks JayXon.
 - Added DWF extension to the ZIP tool chain (maadjordan).
 - Added .ksf, .wsz, .wal, .wmz, .mdz, .miz, .s3z, .xmz, .itz, .osk, .rmskin, .mmip, .msz extensions to the ZIP toolchain (Jaff).
 - Added .vlt extension to the GZ toolchain (Jaff).
@@ -175,6 +175,7 @@ ndo
 - Upgraded to Ghostcript 9.15.
 - Removed ImageMagick from the JPEG toolchain because it can cause quality loss (deluge).
 - Brand new plugin execution, easier to mantain, and also more efficient.
+- Enhanced keep file attributes option to also restore file last access time.
 - Updated APNG Optimizer to 1.3.
 - Updated mozjpeg to 3.00 which improves compression ratio, and fixes Photoshop incompatibilities (Lard).
 - Updated TruePNG to 0.5.0.3 (Jaff).

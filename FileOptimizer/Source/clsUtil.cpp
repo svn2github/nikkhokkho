@@ -379,7 +379,7 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, void *pvData, unsigned 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtModified)
+bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtAccessed, FILETIME *pudtModified)
 {
 	HANDLE hFile;
 	bool bRes = false;
@@ -388,7 +388,7 @@ bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 	hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		bRes = GetFileTime(hFile, pudtCreated, NULL, pudtModified);
+		bRes = GetFileTime(hFile, pudtCreated, pudtAccessed, pudtModified);
 		CloseHandle(hFile);
 	}
 	return (bRes);
@@ -397,7 +397,7 @@ bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtModified)
+bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtAccessed, FILETIME *pudtModified)
 {
 	HANDLE hFile;
 	bool bRes = false;
@@ -406,7 +406,7 @@ bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 	hFile = CreateFile(pacFile, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		bRes = SetFileTime(hFile, pudtCreated, NULL, pudtModified);
+		bRes = SetFileTime(hFile, pudtCreated, pudtAccessed, pudtModified);
 		CloseHandle(hFile);
 	}
 	return (bRes);

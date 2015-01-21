@@ -39,8 +39,8 @@ class clsUtil
 		static unsigned int __fastcall SizeFile(const TCHAR *pacFile);
 		static bool __fastcall ReadFile(const TCHAR *pacFile, void *pvData, unsigned int *piSize);
 		static bool __fastcall WriteFile(const TCHAR *pacFile, void *pvData, unsigned int piSize);
-		static bool __fastcall GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtModified);
-		static bool __fastcall SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtModified);
+		static bool __fastcall GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated = NULL, FILETIME *pudtAccessed  = NULL, FILETIME *pudtModified  = NULL);
+		static bool __fastcall SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated = NULL, FILETIME *pudtAccessed = NULL, FILETIME *pudtModified = NULL);
 		static bool __fastcall DownloadFile(const TCHAR *pacUrl, void *pvData, unsigned int piSize);
 		static const TCHAR * __fastcall ExeVersion(const TCHAR *pacFile);
 		static const TCHAR * __fastcall GetIniPath(void);
