@@ -34,7 +34,7 @@
 #define KS_EXTENSION_EXE	_T(" .exe .scr ")
 #define KS_EXTENSION_FLAC	_T(" .flac ")
 #define KS_EXTENSION_GIF	_T(" .gif ")
-#define KS_EXTENSION_GZ		_T(" .gz .tgz .svgz .vlt ")
+#define KS_EXTENSION_GZ		_T(" .gz .tgz .svg .svgz .vlt ")
 #define KS_EXTENSION_HTML	_T(" .htm .html .mht .mhtml .xhtml .xml .sgml ")
 #define KS_EXTENSION_ICO	_T(" .ico ")
 #define KS_EXTENSION_JPG	_T(" .jfi .jif .jfif .jng .jpe .jpg .jpeg .thm ")

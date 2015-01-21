@@ -30,8 +30,6 @@ Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
 
 - Wrong percent of saving calculation https://www.dropbox.com/s/8l9n9q52hs4g6fk/FileOptimizer.png (Juan).
 
-- Look for some SVG optimizer not based on Python nor Ruby, or try to wrap them onto standalone executables.
-
 - Option to display: 1) only filename, 2a) full path+filename, 2b) driveletter + “:\”+partial path + filename, 2c) driveletter + “:\”+partial path if fits+”…” last part of filename) (Jaff)
 
 - Add GUI options for bBMPCopyMetadata, bGIFCopyMetadata, bMiscCopyMetadata, bPCXCopyMetadata, bTIFFCopyMetadata
@@ -160,6 +158,7 @@ ndo
 - Added Autodesk Revit (.rvt) and Solidworks formats (.sldprt, .slddrw, .sldasm) to the OLE tool chain (maadjordan).
 - Added .BSZ .GRS .ITA .MVZ .PK3 .R2SKIN .STZ .WBA extensions to ZIP toolchain (Jaff).
 - Added eDrawings (easm) to the ZIP tool chain (maadjordan).
+- Added SVG extension to GZ/SVG tool chain.
 - Integrated Leanify compression for GZ, SWF and ZIP formats.
 - Added TAR support with Leanify.
 - Updated Leanify 0.4.2 binaries with Windows XP compatibility. Thanks JayXon.
