@@ -6,7 +6,7 @@
         <AppType>Application</AppType>
         <MainSource>FileOptimizer.cpp</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
     </PropertyGroup>
@@ -62,7 +62,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Build>328</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=7.0.0.352;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2015 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2015 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=7.0.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=7.0.0.1128;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2015 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2015 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=7.0.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
         <VerInfo_MajorVer>7</VerInfo_MajorVer>
         <VCL_Custom_Styles>Luna|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\15.0\Styles\Luna.vsf;&quot;Metropolis UI Black|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\15.0\Styles\MetropolisUIBlack.vsf&quot;</VCL_Custom_Styles>
         <TASM_FloatingPoint>Real</TASM_FloatingPoint>
@@ -125,10 +125,18 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <BCC_AllWarnings>true</BCC_AllWarnings>
+        <BCC_SelectedWarnings>false</BCC_SelectedWarnings>
+        <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
+        <VerInfo_Build>1128</VerInfo_Build>
         <LinkPackageImports>rtl.bpi;vcl.bpi;vclactnband.bpi;vclx.bpi;vclribbon.bpi;vclimg.bpi</LinkPackageImports>
         <ILINK_LibraryPath>$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <BCC_AllWarnings>true</BCC_AllWarnings>
+        <BCC_SelectedWarnings>false</BCC_SelectedWarnings>
+        <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
+        <VerInfo_Build>1128</VerInfo_Build>
         <LinkPackageImports>rtl.bpi;vcl.bpi;vclactnband.bpi;vclx.bpi;vclribbon.bpi;vclimg.bpi</LinkPackageImports>
         <ILINK_LibraryPath>$(BDS)\lib\win64\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
@@ -182,7 +190,7 @@
         <BCC_ExpandIntrinsics>true</BCC_ExpandIntrinsics>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_Build>352</VerInfo_Build>
+        <VerInfo_Build>1128</VerInfo_Build>
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <ILINK_ImageChecksum>true</ILINK_ImageChecksum>
         <BCC_UserSuppliedOptions>-O3 -fno-rtti</BCC_UserSuppliedOptions>
