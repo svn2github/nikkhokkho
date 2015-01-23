@@ -1912,7 +1912,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 {
 	String sText;
 
-	sText = "FileOptimizer is a lossless (no quality loss) file size optimizer that supports";
+	sText = "FileOptimizer is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: ";
 	sText += StringReplace(StringReplace(KS_EXTENSION_ALL.UpperCase(), ".", ", ", TReplaceFlags() << rfReplaceAll), " ,", ",", TReplaceFlags() << rfReplaceAll);
 	sText += ",... file formats among others.";
 	clsUtil::MsgBox(NULL, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
