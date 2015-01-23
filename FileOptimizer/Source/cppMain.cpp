@@ -384,9 +384,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//If get timestamp fails, set to null
 				if (!clsUtil::GetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileAccessed, &udtFileModified))
 				{
-					memset(&udtFileCreated, 0, sizeof(udtFileCreated));
-					//memset(&udtFileAccessed, 0, sizeof(udtFileAccessed));
-					//memset(&udtFileModified, 0, sizeof(udtFileModified));
+					udtFileCreated.dwLowDateTime = 0;
+					udtFileCreated.dwHighDateTime = 0;
+					/* udtFileAccessed.dwLowDateTime = 0;
+					udtFileAccessed.dwHighDateTime = 0;
+					udtFileModified.dwLowDateTime = 0;
+					udtFileModified.dwHighDateTime = 0; */
 				}
 				iFileAttributes = GetFileAttributes(sInputFile.c_str());
 			}
