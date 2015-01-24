@@ -696,7 +696,7 @@ void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *p
 
 
 // ---------------------------------------------------------------------------
-bool __fastcall clsUtil::LoadForm(const TForm *pfrmForm)
+bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 {
 	int iWindowState;
 
@@ -719,7 +719,7 @@ bool __fastcall clsUtil::LoadForm(const TForm *pfrmForm)
 
 
 // ---------------------------------------------------------------------------
-bool __fastcall clsUtil::SaveForm(const TForm *pfrmForm)
+bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
 {
 	SetIni(pfrmForm->Name.c_str(), _T("Left"), pfrmForm->Left);
 	SetIni(pfrmForm->Name.c_str(), _T("Top"), pfrmForm->Top);

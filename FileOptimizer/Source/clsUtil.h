@@ -56,8 +56,8 @@ class clsUtil
 		static void __fastcall SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue);
 		static const TCHAR * __fastcall GetLogPath(void);
 		static void __fastcall LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel);
-		static bool __fastcall LoadForm(const TForm *pfrmForm);
-		static bool __fastcall SaveForm(const TForm *pfrmForm);
+		static bool __fastcall LoadForm(TForm *pfrmForm);
+		static bool __fastcall SaveForm(TForm *pfrmForm);
 		static bool __fastcall CopyToRecycleBin(const TCHAR *pacSource);
 		static bool __fastcall SetTaskListProgress(unsigned int piCompleted, unsigned int piTotal);
 };

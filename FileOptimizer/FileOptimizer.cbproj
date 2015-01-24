@@ -6,8 +6,8 @@
         <AppType>Application</AppType>
         <MainSource>FileOptimizer.cpp</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -209,7 +209,6 @@
         </CppCompile>
         <PCHCompile Include="FileOptimizerPCH1.h">
             <BuildOrder>1</BuildOrder>
-            <PCH>true</PCH>
         </PCHCompile>
         <LibFiles Include="Source\asmlib.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>6</BuildOrder>
