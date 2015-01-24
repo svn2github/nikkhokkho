@@ -667,19 +667,19 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
 				{
-					sFlags += "-dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
+					sFlags += "-dPDFSETTINGS=/prepress -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
 				}
 				else if (_tcscmp(gudtOptions.acPDFProfile, _T("100 dpi")) == 0)
 				{
-					sFlags += "-dDownsampleColorImages=true -dColorImageResolution=100 -dDownsampleGrayImages=true -dGrayImageResolution=100 -dDownsampleMonoImages=true -dMonoImageResolution=100 ";
+					sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=100 -dDownsampleGrayImages=true -dGrayImageResolution=100 -dDownsampleMonoImages=true -dMonoImageResolution=100 ";
 				}	
 				else if (_tcscmp(gudtOptions.acPDFProfile, _T("200 dpi")) == 0)
 				{
-					sFlags += "-dDownsampleColorImages=true -dColorImageResolution=200 -dDownsampleGrayImages=true -dGrayImageResolution=200 -dDownsampleMonoImages=true -dMonoImageResolution=200 ";
+					sFlags += "-dPDFSETTINGS=/printer -dDownsampleColorImages=true -dColorImageResolution=200 -dDownsampleGrayImages=true -dGrayImageResolution=200 -dDownsampleMonoImages=true -dMonoImageResolution=200 ";
 				}
 				else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
 				{
-					sFlags += "-dDownsampleColorImages=true -dColorImageResolution=600 -dDownsampleGrayImages=true -dGrayImageResolution=600 -dDownsampleMonoImages=true -dMonoImageResolution=600 ";
+					sFlags += "-dPDFSETTINGS=/prepress -dDownsampleColorImages=true -dColorImageResolution=600 -dDownsampleGrayImages=true -dGrayImageResolution=600 -dDownsampleMonoImages=true -dMonoImageResolution=600 ";
 				}					
 				//Built in downsample modes: screen, ebook, printer, prepress
 				else
