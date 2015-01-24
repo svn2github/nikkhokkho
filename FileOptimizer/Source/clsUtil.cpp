@@ -342,7 +342,7 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, void *pvData, unsigned int piSize)
+bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, unsigned int piSize)
 {
 	unsigned long lSize;
 	HANDLE hFile;
@@ -397,7 +397,7 @@ bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtAccessed, FILETIME *pudtModified)
+bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, const FILETIME *pudtCreated, const FILETIME *pudtAccessed, const FILETIME *pudtModified)
 {
 	HANDLE hFile;
 	bool bRes = false;
@@ -696,7 +696,7 @@ void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *p
 
 
 // ---------------------------------------------------------------------------
-bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
+bool __fastcall clsUtil::LoadForm(const TForm *pfrmForm)
 {
 	int iWindowState;
 
@@ -719,7 +719,7 @@ bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 
 
 // ---------------------------------------------------------------------------
-bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
+bool __fastcall clsUtil::SaveForm(const TForm *pfrmForm)
 {
 	SetIni(pfrmForm->Name.c_str(), _T("Left"), pfrmForm->Left);
 	SetIni(pfrmForm->Name.c_str(), _T("Top"), pfrmForm->Top);

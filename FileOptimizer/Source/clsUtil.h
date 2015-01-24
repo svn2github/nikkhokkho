@@ -38,9 +38,9 @@ class clsUtil
 		static bool __fastcall ExistsFile(const TCHAR *pacFile);
 		static unsigned int __fastcall SizeFile(const TCHAR *pacFile);
 		static bool __fastcall ReadFile(const TCHAR *pacFile, void *pvData, unsigned int *piSize);
-		static bool __fastcall WriteFile(const TCHAR *pacFile, void *pvData, unsigned int piSize);
+		static bool __fastcall WriteFile(const TCHAR *pacFile, const void *pvData, unsigned int piSize);
 		static bool __fastcall GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated = NULL, FILETIME *pudtAccessed  = NULL, FILETIME *pudtModified  = NULL);
-		static bool __fastcall SetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated = NULL, FILETIME *pudtAccessed = NULL, FILETIME *pudtModified = NULL);
+		static bool __fastcall SetFileTimestamp(const TCHAR *pacFile, const FILETIME *pudtCreated = NULL, const FILETIME *pudtAccessed = NULL, const FILETIME *pudtModified = NULL);
 		static bool __fastcall DownloadFile(const TCHAR *pacUrl, void *pvData, unsigned int piSize);
 		static const TCHAR * __fastcall ExeVersion(const TCHAR *pacFile);
 		static const TCHAR * __fastcall GetIniPath(void);
@@ -56,8 +56,8 @@ class clsUtil
 		static void __fastcall SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue);
 		static const TCHAR * __fastcall GetLogPath(void);
 		static void __fastcall LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel);
-		static bool __fastcall LoadForm(TForm *pfrmForm);
-		static bool __fastcall SaveForm(TForm *pfrmForm);
+		static bool __fastcall LoadForm(const TForm *pfrmForm);
+		static bool __fastcall SaveForm(const TForm *pfrmForm);
 		static bool __fastcall CopyToRecycleBin(const TCHAR *pacSource);
 		static bool __fastcall SetTaskListProgress(unsigned int piCompleted, unsigned int piTotal);
 };
