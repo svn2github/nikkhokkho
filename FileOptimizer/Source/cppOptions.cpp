@@ -101,23 +101,38 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkJSEnableJSMin->Checked = gudtOptions.bJSEnableJSMin;
 	chkMP3CopyMetadata->Checked = gudtOptions.bMP3CopyMetadata;
 
-	if (_tcscmp(gudtOptions.acPDFProfile, _T("screen")) == 0)
+	if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 0;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("ebook")) == 0)
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("screen")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 1;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("printer")) == 0)
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("100 dpi")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 2;
-	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("prepress")) == 0)
+	}	
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("ebook")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 3;
 	}
-
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("200 dpi")) == 0)
+	{
+		cboPDFProfile->ItemIndex = 4;
+	}
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("printer")) == 0)
+	{
+		cboPDFProfile->ItemIndex = 5;
+	}
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("prepress")) == 0)
+	{
+		cboPDFProfile->ItemIndex = 6;
+	}
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
+	{
+		cboPDFProfile->ItemIndex = 7;
+	}
 	chkPNGCopyMetadata->Checked = gudtOptions.bPNGCopyMetadata;
 	chkZIPCopyMetadata->Checked = gudtOptions.bZIPCopyMetadata;
 }
@@ -211,21 +226,36 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 
 	if (cboPDFProfile->ItemIndex == 0)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("screen"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("none"));
 	}
 	else if (cboPDFProfile->ItemIndex == 1)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("ebook"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("screen"));
 	}
 	else if (cboPDFProfile->ItemIndex == 2)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("printer"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("100 dpi"));
 	}
 	else if (cboPDFProfile->ItemIndex == 3)
 	{
+		_tcscpy(gudtOptions.acPDFProfile, _T("ebook"));
+	}
+	else if (cboPDFProfile->ItemIndex == 4)
+	{
+		_tcscpy(gudtOptions.acPDFProfile, _T("200 dpi"));
+	}
+	else if (cboPDFProfile->ItemIndex == 5)
+	{
+		_tcscpy(gudtOptions.acPDFProfile, _T("printer"));
+	}
+	else if (cboPDFProfile->ItemIndex == 6)
+	{
 		_tcscpy(gudtOptions.acPDFProfile, _T("prepress"));
 	}
-
+	else if (cboPDFProfile->ItemIndex == 7)
+	{
+		_tcscpy(gudtOptions.acPDFProfile, _T("600 dpi"));
+	}
 	gudtOptions.bPNGCopyMetadata = chkPNGCopyMetadata->Checked;
 	gudtOptions.bZIPCopyMetadata = chkZIPCopyMetadata->Checked;
 

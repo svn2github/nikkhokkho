@@ -1,5 +1,6 @@
 - Keep file timestamps is still not working (Tomasz W.).
 - rehuff corrupt OGG files when run several times (Tomasz W.).
+- Add PDF -Optimize=true -ConvertCMYKImagesToRGB=true -ColorConversionStrategy=/sRGB -ColorImageDownsampleType=/Bicubic -GrayImageDownsampleType=/Bicubic -MonoImageDownsampleType=/Bicubic
 
 - Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
 
@@ -156,6 +157,9 @@ ndo
 
 
 XXXX - YYY
+- Added more PDF profiles, including without downsampling, 100 dpi, 200 dpi and 600 dpi (stratos chatzi).
+- Slightly smaller PDF recompression by using dDetectDuplicateImages=true Ghostcript switch.
+- Minor source code improvements.
 
 
 7.00 - 2015/01/21

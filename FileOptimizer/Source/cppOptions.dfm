@@ -707,10 +707,14 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 0
         Items.Strings = (
+          'None: No downsampling'
           'Screen: 72 dpi'
+          '100 dpi'
           'Ebook: 150 dpi'
+          '200 dpi'
           'Printer: 300 dpi'
-          'Prepress: 300 dpi and color preserve')
+          'Prepress: 300 dpi and color preserve'
+          '600 dpi')
       end
     end
     object pagPNG: TTabSheet

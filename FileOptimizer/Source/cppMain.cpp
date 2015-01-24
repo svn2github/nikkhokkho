@@ -664,12 +664,35 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			// PDF: ghostcript
 			if (PosEx(sExtension, KS_EXTENSION_PDF) > 0)
 			{
+				sFlags = "";
+				if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
+				{
+					sFlags += "-dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
+				}
+				else if (_tcscmp(gudtOptions.acPDFProfile, _T("100 dpi")) == 0)
+				{
+					sFlags += "-dDownsampleColorImages=true -dColorImageResolution=100 -dDownsampleGrayImages=true -dGrayImageResolution=100 -dDownsampleMonoImages=true -dMonoImageResolution=100 ";
+				}	
+				else if (_tcscmp(gudtOptions.acPDFProfile, _T("200 dpi")) == 0)
+				{
+					sFlags += "-dDownsampleColorImages=true -dColorImageResolution=200 -dDownsampleGrayImages=true -dGrayImageResolution=200 -dDownsampleMonoImages=true -dMonoImageResolution=200 ";
+				}
+				else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
+				{
+					sFlags += "-dDownsampleColorImages=true -dColorImageResolution=600 -dDownsampleGrayImages=true -dGrayImageResolution=600 -dDownsampleMonoImages=true -dMonoImageResolution=600 ";
+				}					
+				//Built in downsample modes: screen, ebook, printer, prepress
+				else
+				{
+					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
+				}
+				
 				#if defined(_WIN64)
 					//iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " -dCompatibilityLevel=1.5 -sOutputFile=\"" + acTmpFile + "\" \"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
-					iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " -dCompatibilityLevel=1.5 -sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				#else
 					//iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " -dCompatibilityLevel=1.5 -sOutputFile=\"" + acTmpFile + "\" \"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
-					iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " -dCompatibilityLevel=1.5 -sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				#endif
 			}
 			// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, advpng, deflopt, defluff, deflopt
