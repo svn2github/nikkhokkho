@@ -383,8 +383,7 @@ object frmOptions: TfrmOptions
         Width = 281
         Height = 17
         Hint = 
-          'Keep original readonly, system, and archive attributes in additi' +
-          'on to timestamp'
+          'Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps'
         Caption = '&Keep file attributes'
         ParentShowHint = False
         ShowHint = True
