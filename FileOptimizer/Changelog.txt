@@ -151,7 +151,7 @@ ndo
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
 - tidy-html5 c63cc39 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
-- TruePNG 0.5.0.3 - http://x128.ho.ua/pngutils.html
+- TruePNG 0.5.0.4 - http://x128.ho.ua/pngutils.html
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
@@ -159,6 +159,7 @@ ndo
 XXXX - YYY
 - Added more PDF profiles, including without downsampling, 100 dpi, 200 dpi and 600 dpi (stratos chatzi).
 - Slightly smaller PDF recompression by using dDetectDuplicateImages=true Ghostcript switch.
+- Updated TruePNG to 0.5.0.4.
 - Minor source code improvements.
 
 
