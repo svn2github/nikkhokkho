@@ -1,3 +1,4 @@
+- Add an option to exclude folders/files that contain an specified substring (Tomasz W.).
 - Keep file timestamps is still not working (Tomasz W.).
 - rehuff corrupt OGG files when run several times (Tomasz W.).
 - Add PDF -Optimize=true -ConvertCMYKImagesToRGB=true -ColorConversionStrategy=/sRGB -ColorImageDownsampleType=/Bicubic -GrayImageDownsampleType=/Bicubic -MonoImageDownsampleType=/Bicubic
