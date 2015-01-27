@@ -598,6 +598,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					grdFiles->Cells[3][iCount] = "Done (100%).";
 				}
 			}
+			// MKV: mkclean
+			if (PosEx(sExtension, KS_EXTENSION_MKV) > 0)
+			{
+				iError = RunPlugin(iCount, "mkclean", (sPluginsDirectory + "mkclean --optimize --unsafe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+			}		
 			// MNG: advmng
 			if (PosEx(sExtension, KS_EXTENSION_MNG) > 0)
 			{

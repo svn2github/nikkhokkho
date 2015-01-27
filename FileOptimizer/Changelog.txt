@@ -140,6 +140,7 @@ ndo
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.2 - https://github.com/JayXon/Leanify
 - libwebp 0.4.2 - http://www.webmproject.org
+- mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
@@ -158,6 +159,7 @@ ndo
 
 
 XXXX - YYY
+- Added Matroska support with mkclean for .mkv, .mka, and .mks file extensions (SpanishDogg).
 - Added more PDF profiles, including without downsampling, 100 dpi, 200 dpi and 600 dpi (stratos chatzi).
 - Slightly smaller PDF recompression by using dDetectDuplicateImages=true Ghostcript switch.
 - Updated TruePNG to 0.5.0.4.
