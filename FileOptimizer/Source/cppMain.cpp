@@ -601,7 +601,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			// MKV: mkclean
 			if (PosEx(sExtension, KS_EXTENSION_MKV) > 0)
 			{
-				iError = RunPlugin(iCount, "mkclean", (sPluginsDirectory + "mkclean.exe --optimize --unsafe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				iError = RunPlugin(iCount, "mkclean", (sPluginsDirectory + "mkclean.exe --optimize --unsafe --quiet \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}		
 			// MNG: advmng
 			if (PosEx(sExtension, KS_EXTENSION_MNG) > 0)
