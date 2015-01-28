@@ -972,7 +972,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//Limit ZIP no recurse to ZIP extension
 				if ((!gudtOptions.bZIPRecurse) && (GetExtension(sInputFile).LowerCase() == ".zip"))
 				{
-					sFlags += "-d 0 ";
+					//sFlags += "-d 0 ";
+					sFlags += "-f ";
 				}
 				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			
