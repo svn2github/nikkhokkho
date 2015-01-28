@@ -1,8 +1,3 @@
-- Add option paged hint the list of supported extensions.
-- Add preference option for ExcludeMask (Tomasz W.).
-- Add preference option for ZIPRecurse.
-- Add preference option for XMLEnableLeanify.
-- Add preference option for LUAEnableLeanify.
 - rehuff corrupt OGG files when run several times (Tomasz W.).
 
 - Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
@@ -140,6 +135,13 @@ XXXX - YYY
 - Added INI option ZIPRecurse=false prevent Leanify inside ZIP files.
 - Added INI option XMLEnableLeanify=false enable Leanify on XML files.
 - Added INI option LUAEnableLeanify=false enable Leanify on LUA files.
+- Implemented Restore defaults in options dialog to return to factory settings.
+- Add preference option for ExcludeMask (Tomasz W.).
+- Add option for ZIPRecurse.
+- Added LUA options tab.
+- Added XML options tab.
+- Add hints on Options pages with supported file types.
+- Made options dialog accept it faster by preventing changing the theme if not modified.
 - Added Leanify to the JPEG tool chain.
 - Added Leanify to the EXE tool chain.
 - Added .rdb and .gft extensions to the ZIP tool chain.

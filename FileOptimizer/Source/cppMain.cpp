@@ -114,7 +114,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("TIFFCopyMetadata"), gudtOptions.bTIFFCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("XMLEnableLeanify"), gudtOptions.bXMLEnableLeanify);
 	clsUtil::SetIni(_T("Options"), _T("ZIPCopyMetadata"), gudtOptions.bZIPCopyMetadata);
-	clsUtil::SetIni(_T("Options"), _T("ZIRecurse"), gudtOptions.bZIPRecurse);
+	clsUtil::SetIni(_T("Options"), _T("ZIPRecurse"), gudtOptions.bZIPRecurse);
 	clsUtil::SetIni(_T("Options"), _T("PDFProfile"), gudtOptions.acPDFProfile);
 	clsUtil::SetIni(_T("Options"), _T("KeepAttributes"), gudtOptions.bKeepAttributes);
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin);
@@ -379,7 +379,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		
 		//Check file still exists and is not to be excluded
 		if ((clsUtil::ExistsFile(sInputFile.c_str())) &&
-			(PosEx(((String) gudtOptions.acExcludeFilter).UpperCase(), sInputFile.UpperCase()) == 0))
+			(PosEx(((String) gudtOptions.acExcludeMask).UpperCase(), sInputFile.UpperCase()) == 0))
 		{			
 			sExtension = " " + GetExtension(sInputFile).LowerCase() + " ";
 
@@ -1823,34 +1823,37 @@ bool __fastcall TfrmMain::IsManagedNet(const TCHAR *pacFile)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 {
-	//Prevent flickering
-	LockWindowUpdate(Handle);	
-
-	RefreshStatus();
-
-	if (pacTheme[0] != NULL)
+	//Check if something changed to avoid applying if unneeded
+	if (TStyleManager::ActiveStyle->Name != (String) pacTheme)
 	{
-		TStyleManager::TrySetStyle(pacTheme, false);
-	}
+		//Prevent flickering
+		LockWindowUpdate(Handle);
 
-	if (_tcscmp(pacTheme, _T("Metropolis UI Black")) == 0)
-	{
-		mgrMain->Style = RibbonObsidianStyle;
-	}
-	else if (_tcscmp(pacTheme, _T("Luna")) == 0)
-	{
-		mgrMain->Style = RibbonLunaStyle;
-	}
-	else
-	{
-		mgrMain->Style = NULL; //XPStyle
-	}
-	//rbnMain->UseCustomFrame = (_tcscmp(pacTheme, _T("Luna")) == 0);
+		//RefreshStatus();
 
-	RefreshStatus();
+		if (pacTheme[0] != NULL)
+		{
+			TStyleManager::TrySetStyle(pacTheme, false);
+		}
+		if (_tcscmp(pacTheme, _T("Metropolis UI Black")) == 0)
+		{
+			mgrMain->Style = RibbonObsidianStyle;
+		}
+		else if (_tcscmp(pacTheme, _T("Luna")) == 0)
+		{
+			mgrMain->Style = RibbonLunaStyle;
+		}
+		else
+		{
+			mgrMain->Style = NULL; //XPStyle
+		}
+		//rbnMain->UseCustomFrame = (_tcscmp(pacTheme, _T("Luna")) == 0);
 
-	//Reenable form updates
-	LockWindowUpdate(NULL);	
+		RefreshStatus();
+
+		//Reenable form updates
+		LockWindowUpdate(NULL);
+	}
 }
 
 

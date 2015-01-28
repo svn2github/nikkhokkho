@@ -21,9 +21,12 @@ __published: // IDE-managed Components
 	TTabSheet *pagGZ;
 	TTabSheet *pagHTML;
 	TTabSheet *pagJPEG;
-	TTabSheet *pagJS;	
+	TTabSheet *pagJS;
+	TTabSheet *pagLUA;
+	TTabSheet *pagMP3;
 	TTabSheet *pagPNG;
 	TTabSheet *pagPDF;
+	TTabSheet *pagXML;
 	TTabSheet *pagZIP;
 	TLabel *lblOptimizationLevel;
 	TComboBox *cboOptimizationLevel;
@@ -36,35 +39,39 @@ __published: // IDE-managed Components
 	TLabel *lblLogLevel;
 	TComboBox *cboLogLevel;
 	TCheckBox *chkKeepAttributes;
+	TCheckBox *chkDoNotUseRecycleBin;	
+	TLabel *lblExcludeMask;
+	TEdit *txtExcludeMask;
 	TCheckBox *chkCSSEnableTidy;
+	TLabel *lblCSSTemplate;
+	TComboBox *cboCSSTemplate;
 	TCheckBox *chkEXEDisablePETrim;
 	TCheckBox *chkGZCopyMetadata;
 	TCheckBox *chkHTMLEnableTidy;
 	TCheckBox *chkJPEGCopyMetadata;
 	TCheckBox *chkJPEGUseArithmeticEncoding;
 	TCheckBox *chkJSEnableJSMin;
+	TCheckBox *chkLUAEnableLeanify;
 	TCheckBox *chkMP3CopyMetadata;
 	TLabel *lblPDFProfile;
 	TComboBox *cboPDFProfile;
 	TCheckBox *chkPNGCopyMetadata;
+	TCheckBox *chkXMLEnableLeanify;
 	TCheckBox *chkZIPCopyMetadata;
+	TCheckBox *chkZIPRecurse;
 	TButton *butOK;
 	TButton *butCancel;
 	TButton *butRestoreDefaults;
-	
-
 	TShape *shpDialogBackground;
 	TLabel *lblTitle;
 	TImage *imgDialogPicture;
 	TShape *shpDialogLineG1;
 	TLabel *lblDescription;
-	TCheckBox *chkDoNotUseRecycleBin;
-	TLabel *lblCSSTemplate;
-	TComboBox *cboCSSTemplate;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);
 	void __fastcall chkCSSEnableTidyClick(TObject *Sender);
+	void __fastcall butRestoreDefaultsClick(TObject *Sender);
 private: // User declarations
 public: // User declarations
 	__fastcall TfrmOptions(TComponent* Owner);

@@ -4,7 +4,7 @@ object frmOptions: TfrmOptions
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Options'
-  ClientHeight = 384
+  ClientHeight = 406
   ClientWidth = 567
   Color = clWindow
   Font.Charset = DEFAULT_CHARSET
@@ -224,7 +224,7 @@ object frmOptions: TfrmOptions
   OnCreate = FormCreate
   DesignSize = (
     567
-    384)
+    406)
   PixelsPerInch = 96
   TextHeight = 13
   object shpDialogBackground: TShape
@@ -259,7 +259,7 @@ object frmOptions: TfrmOptions
     Left = 519
     Top = 0
     Width = 48
-    Height = 384
+    Height = 406
     Align = alRight
     Anchors = [akTop, akRight]
     AutoSize = True
@@ -324,12 +324,16 @@ object frmOptions: TfrmOptions
     Left = 0
     Top = 65
     Width = 557
-    Height = 256
+    Height = 303
     ActivePage = pagGeneral
     Align = alCustom
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
     object pagGeneral: TTabSheet
       Caption = '&General'
+      ParentShowHint = False
+      ShowHint = True
       object lblOptimizationLevel: TLabel
         Left = 7
         Top = 22
@@ -377,13 +381,25 @@ object frmOptions: TfrmOptions
         Caption = '&Log level'
         FocusControl = cboLogLevel
       end
+      object lblExcludeMask: TLabel
+        Left = 7
+        Top = 196
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Exclude mask'
+        FocusControl = txtExcludeMask
+        ParentShowHint = False
+        ShowHint = False
+      end
       object chkKeepAttributes: TCheckBox
         Left = 7
         Top = 148
         Width = 281
         Height = 17
         Hint = 
-          'Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps'
+          'Keep original readonly, system, hidden and archive attributes as' +
+          ' well as creation and modification timestamps'
         Caption = '&Keep file attributes'
         ParentShowHint = False
         ShowHint = True
@@ -488,6 +504,20 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 6
+      end
+      object txtExcludeMask: TEdit
+        Left = 168
+        Top = 196
+        Width = 145
+        Height = 21
+        Hint = 
+          'Files containing this mask (substring) on name or path will be e' +
+          'xcluded from optimization'
+        AutoSize = False
+        HideSelection = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 7
       end
     end
     object pagCSS: TTabSheet
@@ -666,6 +696,23 @@ object frmOptions: TfrmOptions
         TabOrder = 0
       end
     end
+    object pagLUA: TTabSheet
+      Caption = '&LUA'
+      ImageIndex = 12
+      object chkLUAEnableLeanify: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 
+          'Enable Leanify. Results in smaller files, but can happen they ar' +
+          'e not editable anymore.'
+        Caption = '&Enable Leanify'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+    end
     object pagMP3: TTabSheet
       Caption = '&MP3'
       ImageIndex = 8
@@ -731,6 +778,23 @@ object frmOptions: TfrmOptions
         TabOrder = 0
       end
     end
+    object pagXML: TTabSheet
+      Caption = '&XML'
+      ImageIndex = 11
+      object chkXMLEnableLeanify: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 
+          'Enable Leanify. Results in smaller files, but can happen they ar' +
+          'e not editable anymore.'
+        Caption = '&Enable Leanify'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+    end
     object pagZIP: TTabSheet
       Caption = '&ZIP'
       ImageIndex = 9
@@ -745,33 +809,54 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 0
       end
+      object chkZIPRecurse: TCheckBox
+        Left = 7
+        Top = 41
+        Width = 281
+        Height = 17
+        Hint = 'Enable optimization inside archives (recursive optimization)'
+        Caption = '&Recurse'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+      end
     end
   end
   object butRestoreDefaults: TButton
     Left = 8
-    Top = 332
+    Top = 374
     Width = 89
     Height = 25
+    Hint = 'Restore all options to its factory settings values'
     Caption = '&Restore defaults'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 3
+    OnClick = butRestoreDefaultsClick
   end
   object butOK: TButton
     Left = 400
-    Top = 332
+    Top = 374
     Width = 75
     Height = 25
+    Hint = 'Accept and apply all changes made to options'
     Caption = '&OK'
     Default = True
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 2
     OnClick = butOKClick
   end
   object butCancel: TButton
     Left = 481
-    Top = 332
+    Top = 374
     Width = 75
     Height = 25
+    Hint = 'Discard any changes made to options'
     Cancel = True
     Caption = '&Cancel'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 1
     OnClick = butCancelClick
   end
