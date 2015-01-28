@@ -48,12 +48,15 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bJPEGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("JPEGCopyMetadata"), false);
 	gudtOptions.bJPEGUseArithmeticEncoding = clsUtil::GetIni(_T("Options"), _T("JPEGUseArithmeticEncoding"), false);
 	gudtOptions.bJSEnableJSMin = clsUtil::GetIni(_T("Options"), _T("JSEnableJSMin"), false);
+	gudtOptions.bLUAEnableLeanify = clsUtil::GetIni(_T("Options"), _T("LUAEnableLeanify"), false);
 	gudtOptions.bMiscCopyMetadata = clsUtil::GetIni(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = clsUtil::GetIni(_T("Options"), _T("MP3CopyMetadata"), false);
 	gudtOptions.bPCXCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PCXCopyMetadata"), false);
 	gudtOptions.bPNGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PNGCopyMetadata"), false);
 	gudtOptions.bTIFFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("TIFFCopyMetadata"), false);
+	gudtOptions.bXMLEnableLeanify = clsUtil::GetIni(_T("Options"), _T("XMLEnableLeanify"), false);
 	gudtOptions.bZIPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("ZIPCopyMetadata"), false);
+	gudtOptions.bZIPRecurse = clsUtil::GetIni(_T("Options"), _T("ZIPRecurse"), false);
 	_tcscpy(gudtOptions.acPDFProfile, clsUtil::GetIni(_T("Options"), _T("PDFProfile"), _T("ebook")));
 	gudtOptions.bKeepAttributes = clsUtil::GetIni(_T("Options"), _T("KeepAttributes"), false);
 	gudtOptions.bDoNotUseRecycleBin = clsUtil::GetIni(_T("Options"), _T("DoNotUseRecycleBin"), false);
@@ -103,12 +106,15 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("JPEGCopyMetadata"), gudtOptions.bJPEGCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("JPEGUseArithmeticEncoding"), gudtOptions.bJPEGUseArithmeticEncoding);
 	clsUtil::SetIni(_T("Options"), _T("JSEnableJSMin"), gudtOptions.bJSEnableJSMin);
+	clsUtil::SetIni(_T("Options"), _T("LUAEnableLeanify"), gudtOptions.bLUAEnableLeanify);
 	clsUtil::SetIni(_T("Options"), _T("MiscCopyMetadata"), gudtOptions.bMiscCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("MP3CopyMetadata"), gudtOptions.bMP3CopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("PCXCopyMetadata"), gudtOptions.bPCXCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("PNGCopyMetadata"), gudtOptions.bPNGCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("TIFFCopyMetadata"), gudtOptions.bTIFFCopyMetadata);
+	clsUtil::SetIni(_T("Options"), _T("XMLEnableLeanify"), gudtOptions.bXMLEnableLeanify);
 	clsUtil::SetIni(_T("Options"), _T("ZIPCopyMetadata"), gudtOptions.bZIPCopyMetadata);
+	clsUtil::SetIni(_T("Options"), _T("ZIRecurse"), gudtOptions.bZIPRecurse);
 	clsUtil::SetIni(_T("Options"), _T("PDFProfile"), gudtOptions.acPDFProfile);
 	clsUtil::SetIni(_T("Options"), _T("KeepAttributes"), gudtOptions.bKeepAttributes);
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin);
@@ -373,7 +379,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		
 		//Check file still exists and is not to be excluded
 		if ((clsUtil::ExistsFile(sInputFile.c_str())) &&
-			(PosEx(gudtOptions.acExcludeFilter, sInputFile) == 0))
+			(PosEx(((String) gudtOptions.acExcludeFilter).UpperCase(), sInputFile.UpperCase()) == 0))
 		{			
 			sExtension = " " + GetExtension(sInputFile).LowerCase() + " ";
 
@@ -421,11 +427,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					//iError = RunPlugin(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"" + sShortFile + "\" --template=" + gudtOptions.acCSSTemplate + " \"" + acTmpFile + " \"").c_str(), sPluginsDirectory, acTmpFile);
 					iError = RunPlugin(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"%INPUTFILE%\" --template=" + gudtOptions.acCSSTemplate + " \"\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				}
-				else
-				{
-					grdFiles->Cells[2][iCount] = grdFiles->Cells[1][iCount];
-					grdFiles->Cells[3][iCount] = "Done (100%).";
-				}
 			}
 			// DLL: PETrim, strip
 			if (PosEx(sExtension, KS_EXTENSION_DLL) > 0)
@@ -438,9 +439,14 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 				iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
-			// EXE: PETrim, strip
+			// EXE: Leanify, PETrim, strip
 			if (PosEx(sExtension, KS_EXTENSION_EXE) > 0)
 			{
+				sFlags = "";
+				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				sFlags += "-i " + (String) iLevel + " ";
+				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+
 				if (!IsInnoSetup(sInputFile.c_str()))
 				{
 					if (!gudtOptions.bEXEDisablePETrim)
@@ -450,11 +456,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					}
 					//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 					iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-				}
-				else
-				{
-					grdFiles->Cells[2][iCount] = grdFiles->Cells[1][iCount];
-					grdFiles->Cells[3][iCount] = "Done (100%).";
 				}
 			}
 			// FLAC: FLACOut
@@ -493,7 +494,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					sFlags += "-i " + (String) iLevel + " ";
 					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				}
-				
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
@@ -525,11 +525,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					//iError = RunPlugin(iCount, "tidy-html5", (sPluginsDirectory + "tidy.exe -config tidy.config -quiet -output \"" + acTmpFile + "\" \"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 					iError = RunPlugin(iCount, "tidy-html5", (sPluginsDirectory + "tidy.exe -config tidy.config -quiet -output \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\" ").c_str(), sPluginsDirectory, sInputFile, "");
 				}
-				else
-				{
-					grdFiles->Cells[2][iCount] = grdFiles->Cells[1][iCount];
-					grdFiles->Cells[3][iCount] = "Done (100%).";
-				}
 			}			
 			// ICO: ImageMagick, Leanify
 			if (PosEx(sExtension, KS_EXTENSION_ICO) > 0)
@@ -537,14 +532,24 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
-				sFlags = "";
-				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				if (gudtOptions.bPNGCopyMetadata)
+				{
+					sFlags = "";
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					sFlags += "-i " + (String) iLevel + " ";
+					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				}
 			}
-			// JPEG: jhead jpegoptim, jpegtran, mozjpegtran
+			// JPEG: Leanify, jhead jpegoptim, jpegtran, mozjpegtran
 			if (PosEx(sExtension, KS_EXTENSION_JPG) > 0)
 			{
+				if (!gudtOptions.bJPEGCopyMetadata)
+				{
+					sFlags = "";
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					sFlags += "-i " + (String) iLevel + " ";
+					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				}				
 				sFlags = "";
 				if (!gudtOptions.bJPEGCopyMetadata)
 				{
@@ -595,12 +600,18 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					//iError = RunPlugin(iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 					iError = RunPlugin(iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				}
-				else
-				{
-					grdFiles->Cells[2][iCount] = grdFiles->Cells[1][iCount];
-					grdFiles->Cells[3][iCount] = "Done (100%).";
-				}
 			}
+			// LUA: Leanify
+			if (PosEx(sExtension, KS_EXTENSION_LUA) > 0)
+			{
+				if (gudtOptions.bLUAEnableLeanify)
+				{
+					sFlags = "";
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					sFlags += "-i " + (String) iLevel + " ";
+					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				}
+			}						
 			// MKV: mkclean
 			if (PosEx(sExtension, KS_EXTENSION_MKV) > 0)
 			{
@@ -675,24 +686,24 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
 				{
-					sFlags += "-dPDFSETTINGS=/prepress -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
+					sFlags += "-dPDFSETTINGS=/prepress -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
 				}
 				else if (_tcscmp(gudtOptions.acPDFProfile, _T("100 dpi")) == 0)
 				{
-					sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=100 -dDownsampleGrayImages=true -dGrayImageResolution=100 -dDownsampleMonoImages=true -dMonoImageResolution=100 ";
+					sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=100 -dDownsampleGrayImages=true -dGrayImageResolution=100 -dDownsampleMonoImages=true -dMonoImageResolution=100 -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
 				}	
 				else if (_tcscmp(gudtOptions.acPDFProfile, _T("200 dpi")) == 0)
 				{
-					sFlags += "-dPDFSETTINGS=/printer -dDownsampleColorImages=true -dColorImageResolution=200 -dDownsampleGrayImages=true -dGrayImageResolution=200 -dDownsampleMonoImages=true -dMonoImageResolution=200 ";
+					sFlags += "-dPDFSETTINGS=/printer -dDownsampleColorImages=true -dColorImageResolution=200 -dDownsampleGrayImages=true -dGrayImageResolution=200 -dDownsampleMonoImages=true -dMonoImageResolution=200 -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
 				}
 				else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
 				{
-					sFlags += "-dPDFSETTINGS=/prepress -dDownsampleColorImages=true -dColorImageResolution=600 -dDownsampleGrayImages=true -dGrayImageResolution=600 -dDownsampleMonoImages=true -dMonoImageResolution=600 ";
+					sFlags += "-dPDFSETTINGS=/prepress -dDownsampleColorImages=true -dColorImageResolution=600 -dDownsampleGrayImages=true -dGrayImageResolution=600 -dDownsampleMonoImages=true -dMonoImageResolution=600 -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
 				}					
 				//Built in downsample modes: screen, ebook, printer, prepress
 				else
 				{
-					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
+					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
 				}
 				
 				#if defined(_WIN64)
@@ -913,6 +924,17 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"" + acTmpFile + "\" -progressive " + sFlags + "\"" + sShortFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
+			// XML: Leanify
+			if (PosEx(sExtension, KS_EXTENSION_XML) > 0)
+			{
+				if (gudtOptions.bXMLEnableLeanify)
+				{
+					sFlags = "";
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					sFlags += "-i " + (String) iLevel + " ";
+					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				}
+			}			
 			// WEBP: dwebp + cwebp, ImageWorsener
 			if (PosEx(sExtension, KS_EXTENSION_WEBP) > 0)
 			{
@@ -947,6 +969,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
+				//Limit ZIP no recurse to ZIP extension
+				if ((!gudtOptions.bZIPRecurse) && (GetExtension(sInputFile).LowerCase() == ".zip"))
+				{
+					sFlags += "-d 0 ";
+				}
 				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			
 				sFlags = "";

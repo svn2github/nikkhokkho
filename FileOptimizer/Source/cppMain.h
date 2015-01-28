@@ -39,10 +39,11 @@
 #define KS_EXTENSION_ICO	_T(" .ico ")
 #define KS_EXTENSION_JPG	_T(" .jfi .jif .jfif .jng .jpe .jpg .jpeg .thm ")
 #define KS_EXTENSION_JS		_T(" .js .json ")
+#define KS_EXTENSION_LUA	_T(" .lua .luac ")
 #define KS_EXTENSION_MKV	_T(" .mkv .mka .mks ")
 #define KS_EXTENSION_MNG	_T(" .mng ")
 #define KS_EXTENSION_MP3	_T(" .mp3 ")
-#define KS_EXTENSION_MP4	_T(" .mp4 .3gp .m4a .m4b, .m4p, .m4r .m4v .acc ")
+#define KS_EXTENSION_MP4	_T(" .mp4 .3gp .m4a .m4b .m4p .m4r .m4v .acc ")
 #define KS_EXTENSION_OBJ	_T(" .obj .o .lib .a ")
 #define KS_EXTENSION_OGG	_T(" .ogg ")
 #define KS_EXTENSION_OGV	_T(" .ogv ")
@@ -54,9 +55,10 @@
 #define KS_EXTENSION_TAR	_T(" .tar .cbt ")
 #define KS_EXTENSION_TIF	_T(" .fax .tif .tiff .ptif .ptiff ")
 #define KS_EXTENSION_WEBP	_T(" .webp ")
-#define KS_EXTENSION_ZIP	_T(" .air .apk .appx .bsz .cbz .docm .docx .dotx .dotm .dwf .dwfx .easm .epub .grs .itz .ipa .jar .ita .ksf .mdz .miz .mmip .mvz .mpp .msz .nar .odb .odf .odg .odp .ods .odt .oex .osk .oxps .pk3 .ppam .potm .potx .ppsm .ppsx .pptm .pptx .pub .r2skin .rmskin .s3z .sldm .sldx .stz .vdx .vtx .vsx .wal .wba .wmz .wsz .xap .xlam .xlsm .xlsx .xltm .xltx .xmz .xpi .xps .zip ")
+#define KS_EXTENSION_XML	_T(" .xml .fb2 .xsl .xslt .xhtml ")
+#define KS_EXTENSION_ZIP	_T(" .air .apk .appx .bsz .cbz .docm .docx .dotx .dotm .dwf .dwfx .easm .epub .grs .itz .ipa .jar .ita .ksf .mdz .miz .mmip .mvz .mpp .msz .nar .odb .odf .odg .odp .ods .odt .oex .osk .oxps .pk3 .ppam .potm .potx .ppsm .ppsx .pptm .pptx .pub .r2skin .rdb .rmskin .s3z .sldm .sldx .stz .vdx .vtx .vsx .wal .wba .wmz .wsz .xap .xlam .xlsm .xlsx .xltm .xltx .xmz .xpi .xps .zip ")
 #define KS_EXTENSION_MISC	_T(" .aai .avs .fits .jp2 .jpc .hdr .hrz .mif .miff .mtv .otb .p7 .palm .pdb .pbm .pcd .pcds .pfm .pgm .picon .pic .pict .pnm .ppm .psb .psd .sun .vicar .viff .wbmp .xbm .xpm .xwd ")
-#define KS_EXTENSION_ALL    (StringReplace((KS_EXTENSION_BMP KS_EXTENSION_CSS KS_EXTENSION_DLL KS_EXTENSION_EXE KS_EXTENSION_FLAC KS_EXTENSION_GIF KS_EXTENSION_GZ KS_EXTENSION_HTML KS_EXTENSION_ICO KS_EXTENSION_JPG KS_EXTENSION_JS KS_EXTENSION_MKV KS_EXTENSION_MNG KS_EXTENSION_MP3 KS_EXTENSION_MP4 KS_EXTENSION_OBJ KS_EXTENSION_OGG KS_EXTENSION_OGV KS_EXTENSION_OLE KS_EXTENSION_PCX KS_EXTENSION_PDF KS_EXTENSION_PNG KS_EXTENSION_SWF KS_EXTENSION_TAR KS_EXTENSION_TIF KS_EXTENSION_WEBP KS_EXTENSION_ZIP KS_EXTENSION_MISC), "  ", " ", TReplaceFlags() << rfReplaceAll))
+#define KS_EXTENSION_ALL    (StringReplace((KS_EXTENSION_BMP KS_EXTENSION_CSS KS_EXTENSION_DLL KS_EXTENSION_EXE KS_EXTENSION_FLAC KS_EXTENSION_GIF KS_EXTENSION_GZ KS_EXTENSION_HTML KS_EXTENSION_ICO KS_EXTENSION_JPG KS_EXTENSION_JS KS_EXTENSION_MKV KS_EXTENSION_MNG KS_EXTENSION_MP3 KS_EXTENSION_MP4 KS_EXTENSION_OBJ KS_EXTENSION_OGG KS_EXTENSION_OGV KS_EXTENSION_OLE KS_EXTENSION_PCX KS_EXTENSION_PDF KS_EXTENSION_PNG KS_EXTENSION_SWF KS_EXTENSION_TAR KS_EXTENSION_TIF KS_EXTENSION_WEBP KS_EXTENSION_XML KS_EXTENSION_ZIP KS_EXTENSION_MISC), "  ", " ", TReplaceFlags() << rfReplaceAll))
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,13 +74,16 @@ struct udtOptions
 	bool bJPEGCopyMetadata;
 	bool bJPEGUseArithmeticEncoding;
 	bool bJSEnableJSMin;
+	bool bLUAEnableLeanify;
 	bool bMiscCopyMetadata;
 	bool bMP3CopyMetadata;
 	bool bPCXCopyMetadata;
 	TCHAR acPDFProfile[64];
 	bool bPNGCopyMetadata;
 	bool bTIFFCopyMetadata;
+	bool bXMLEnableLeanify;
 	bool bZIPCopyMetadata;
+	bool bZIPRecurse;
 	bool bDoNotUseRecycleBin;
 	bool bKeepAttributes;
 	TCHAR acExcludeMask[128];

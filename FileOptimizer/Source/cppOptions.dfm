@@ -471,10 +471,10 @@ object frmOptions: TfrmOptions
         TabOrder = 5
         Items.Strings = (
           '0: None'
-          '1: Information'
-          '2: Warning'
-          '3: Error'
-          '4: Critical')
+          '1: Critical'
+          '2: Error'
+          '3: Warning'
+          '4: Information')
       end
       object chkDoNotUseRecycleBin: TCheckBox
         Left = 7

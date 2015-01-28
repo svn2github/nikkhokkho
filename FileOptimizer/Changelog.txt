@@ -1,6 +1,9 @@
+- Add option paged hint the list of supported extensions.
 - Add preference option for ExcludeMask (Tomasz W.).
+- Add preference option for ZIPRecurse.
+- Add preference option for XMLEnableLeanify.
+- Add preference option for LUAEnableLeanify.
 - rehuff corrupt OGG files when run several times (Tomasz W.).
-- Add PDF -Optimize=true -ConvertCMYKImagesToRGB=true -ColorConversionStrategy=/sRGB -ColorImageDownsampleType=/Bicubic -GrayImageDownsampleType=/Bicubic -MonoImageDownsampleType=/Bicubic
 
 - Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
 
@@ -13,22 +16,7 @@
 
 - Consider using ZopfliPNG for better PNG results, maybe as substitute for advpng (Vivil).
 
-- Hang with a epub file (tobijdc)
-
-Add INI option ZIPRecurse=false and on GUI to prevent Leanify inside ZIP files.
-
-Add INI option XMLEnableTiny=false and XML tab on GUI.
-
-
-Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
-
-- Add Leanify gft
-- Add Leanify jpg
-- Add Leanify lua
-- Add Leanify exe
-- Add Leanify rdb
-- Add Leanify xml (.xml, .xsl, .xslt)
-
+- Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
 
 - Column sorting is not working properly.
 
@@ -46,31 +34,17 @@ Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
 
 - Crash when changing ribbon style http://www.techques.com/question/1-1511092/Access-violation-if-i-try-to-change-the-ribbon-style-using-a-TRibbonCombobox
 
-- Mirar PNGCrush http://sourceforge.net/projects/pmt/files/pngcrush-executables/1.7.73/
-
 - Comprimir ZIP distribución con Zopfli
 
 - Generar nombre de archivo temporal único cada vez.
 
 - Cambiar MenuClick por act.
 
-
-
-Log levels en el combo:
-0: None.
-
-1: Critical
-2: Error
-3: Warning
-4: Information
-
-
 - PNG transparency: http://encode.ru/threads/1260-CryoPNG-short-introduction
 
 - OptiPNG-ZopFli https://github.com/sayurin/optipng-zopfli (Jose)
 
 - The ability to specify an output directory (Runner112).
-
 
 - Preferencias pestaña others con metadata.
 
@@ -110,7 +84,6 @@ y:
 
 
 - Improved CHM compression by recompressing contents recursively with Keytools (maadjordan) http://encode.ru/threads/936-Suggestions-for-Preprocessors-filters-or-file-specific-compression?p=17803&viewfull=1#post17803
-- Improved ZIP compression by recompressing contents recursively (maadjordan) http://encode.ru/threads/1589-FileOptimizer?p=30522&viewfull=1#post30522
 
 - Systray
 -          Meter todos los archivos en un array y de ahí volvar al grid.
@@ -159,9 +132,19 @@ ndo
 
 XXXX - YYY
 - Added Matroska support with mkclean for .mkv, .mka, and .mks file extensions (SpanishDogg).
+- Added XML (.xml, .fb2 .xsl, .xslt) support with Leanify.
+- Added LUA (.lua .luac) support with Leanify.
 - Added more PDF profiles, including without downsampling, 100 dpi, 200 dpi and 600 dpi (stratos chatzi).
-- Added ini option ExcludeMask="" to specify paths (folder/files) that contain it as substring will be excluded (Tomasz W.).
+- Added INI option ExcludeMask="" to specify paths (folder/files) that contain it as substring will be excluded (Tomasz W.).
+- Added INI option ZIPRecurse=false prevent Leanify inside ZIP files.
+- Added INI option XMLEnableLeanify=false enable Leanify on XML files.
+- Added INI option LUAEnableLeanify=false enable Leanify on LUA files.
+- Added Leanify to the JPEG tool chain.
+- Added Leanify to the EXE tool chain.
+- Added .rdb and .gft extensions to the ZIP tool chain.
 - Slightly smaller PDF recompression by using dDetectDuplicateImages=true Ghostcript switch.
+- Fixed log levels in Options dialog.
+- Better quality and smaller PDF by adding -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic.
 - Updated TruePNG to 0.5.0.4.
 - Upgraded distributions to 7-Zip 9.38.
 - Minor source code improvements.
@@ -219,8 +202,6 @@ XXXX - YYY
 - Upgraded distributions to 7-Zip 9.35.
 - cppcheck sanity fixes (Armin).
 - Source code migrated to a subversion repository at http://sourceforge.net/p/nikkhokkho/code/HEAD/tree/.
-
-
 
 6.80 - 2014/04/28
 - Added Nokia Refocus/SmartCam .NAR and Opera extensions .OEX extensions to the ZIP tool chain (Jaff).
