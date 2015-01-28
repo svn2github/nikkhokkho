@@ -75,12 +75,13 @@ struct udtOptions
 	bool bMiscCopyMetadata;
 	bool bMP3CopyMetadata;
 	bool bPCXCopyMetadata;
+	TCHAR acPDFProfile[64];
 	bool bPNGCopyMetadata;
 	bool bTIFFCopyMetadata;
 	bool bZIPCopyMetadata;
-	TCHAR acPDFProfile[64];
 	bool bDoNotUseRecycleBin;
 	bool bKeepAttributes;
+	TCHAR acExcludeMask[128];
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;
