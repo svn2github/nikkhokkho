@@ -188,6 +188,7 @@ private: // User declarations
 		VCL_MESSAGE_HANDLER(WM_DROPFILES, TWMDropFiles, WMDropFiles)
 	END_MESSAGE_MAP(TComponent)
 	String __fastcall GetExtension (String psFilename);
+	String __fastcall GetFilename (String psFilename);
 	String __inline FormatNumberThousand (int piNumber);
 	int __inline ParseNumberThousand (String psNumber);
 	int __fastcall RunPluginOld(int piCurrent, String psStatus, String psProcess, String psDirectory, String psTmpName);

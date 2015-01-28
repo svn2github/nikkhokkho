@@ -1370,10 +1370,10 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psComm
 		return (0);
 	}
 
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "Input" + GetExtension(psInputFile)).c_str());
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + GetFilename(psInputFile)).c_str());
 	sTmpInputFile = acTmp;
 	
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "Output" + GetExtension(psInputFile)).c_str());
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + GetFilename(psInputFile)).c_str());
 	sTmpOutputFile = acTmp;
 	
 	sInputFile = psInputFile;
@@ -1469,6 +1469,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 //---------------------------------------------------------------------------
 String __fastcall TfrmMain::GetExtension (String psFilename)
 {
+	/*
 	int iSource;
 	TCHAR *pacSource;
 	String sRes = "";
@@ -1482,6 +1483,48 @@ String __fastcall TfrmMain::GetExtension (String psFilename)
 			sRes = &pacSource[iSource];
 			break;
 		}
+	}
+	return (sRes);
+	*/
+	TCHAR *pacSource;
+	String sRes = "";
+
+	pacSource = _tcsrchr(psFilename.c_str(), '.');
+	if (pacSource)
+	{
+		sRes = pacSource;
+	}
+	return (sRes);
+}
+
+
+//---------------------------------------------------------------------------
+String __fastcall TfrmMain::GetFilename (String psFilename)
+{
+	/*
+	int iSource;
+	TCHAR *pacSource;
+	String sRes = "";
+
+
+	pacSource = psFilename.c_str();
+	for (iSource = psFilename.Length(); iSource >= 0; iSource--)
+	{
+		if (pacSource[iSource] == '\\')
+		{
+			sRes = &pacSource[iSource + 1];
+			break;
+		}
+	}
+	return (sRes);
+	*/
+	TCHAR *pacSource;
+	String sRes = "";
+
+	pacSource = _tcsrchr(psFilename.c_str(), '\\');
+	if (pacSource)
+	{
+		sRes = (pacSource + 1);
 	}
 	return (sRes);
 }
