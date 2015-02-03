@@ -101,7 +101,7 @@ ndo
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.9.0.4 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
-- jhead 2.97 - http://www.sentex.net/~mwandel/jhead/
+- jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
@@ -147,6 +147,7 @@ XXXX - YYY
 - Added .rdb and .gft extensions to the ZIP tool chain.
 - Slightly smaller PDF recompression by using dDetectDuplicateImages=true Ghostcript switch.
 - Fixed log levels in Options dialog.
+- Updated to jHead 3.00.
 - Better quality and smaller PDF by adding -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic.
 - Updated TruePNG to 0.5.0.4.
 - Upgraded distributions to 7-Zip 9.38.
