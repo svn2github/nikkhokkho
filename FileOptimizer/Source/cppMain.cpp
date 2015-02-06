@@ -463,7 +463,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				iError = RunPlugin(iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
-			// GIF: ImageMagick, gifsicle
+			// GIF: gifsicle
 			if (PosEx(sExtension, KS_EXTENSION_GIF) > 0)
 			{
 				sFlags = "";
@@ -472,7 +472,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					sFlags += "-strip ";
 				}
 				//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -coalesce -layers optimize " + sFlags + "\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
-				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -coalesce -layers optimize " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -coalesce -layers optimize " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 3 / 9, 3);

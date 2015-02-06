@@ -7,8 +7,6 @@
 - Add m7zRepacker (for 7-Zip V9.20) // V1.0.32.301 // (C) 2010-2011 Mario Scholz to optimize 7z archives (necros)
 - Use zopfli --i1 --gzip for GZIP optimization
 
-- ImageMagick does GIF quantization loosing quality sometimes. Consider removing it if does not get fixed (Vivil).
-
 - Consider using ZopfliPNG for better PNG results, maybe as substitute for advpng (Vivil).
 
 - Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
@@ -135,6 +133,7 @@ XXXX - YYY
 - Added INI option ZIPRecurse=false prevent Leanify inside ZIP files.
 - Added INI option XMLEnableLeanify=false enable Leanify on XML files.
 - Added INI option LUAEnableLeanify=false enable Leanify on LUA files.
+- Disabled ImageMagick for GIF optimization because in some cases it does quantization, and so on, causes quality loss (Vivil).
 - Implemented Restore defaults in options dialog to return to factory settings.
 - Add preference option for ExcludeMask (Tomasz W.).
 - Add option for ZIPRecurse.
