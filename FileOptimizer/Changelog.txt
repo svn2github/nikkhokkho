@@ -1,3 +1,5 @@
+- Password protected PDF files generate empty PDF files after optimization (sambufalo).
+
 - rehuff corrupt OGG files when run several times (Tomasz W.).
 
 - Add huffmix.exe, pngzopfli.exe and zopfli.exe to the PNG chain (telegenesis)
