@@ -543,13 +543,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			// JPEG: Leanify, jhead jpegoptim, jpegtran, mozjpegtran
 			if (PosEx(sExtension, KS_EXTENSION_JPG) > 0)
 			{
-				if (!gudtOptions.bJPEGCopyMetadata)
+				sFlags = "";
+				if (gudtOptions.bJPEGCopyMetadata)
 				{
-					sFlags = "";
-					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-					sFlags += "-i " + (String) iLevel + " ";
-					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-				}				
+					sFlags += "--keep-exif ";
+				}
+				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				sFlags += "-i " + (String) iLevel + " ";
+				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				
 				sFlags = "";
 				if (!gudtOptions.bJPEGCopyMetadata)
 				{
