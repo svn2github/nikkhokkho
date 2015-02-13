@@ -492,8 +492,13 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					sFlags += "-i " + (String) iLevel + " ";
+					if (gudtOptions.bJPEGCopyMetadata)
+					{
+						sFlags += "--keep-exif ";
+					}
 					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				}
+				
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
@@ -878,6 +883,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (PosEx(sExtension, KS_EXTENSION_TAR) > 0)
 			{
 				sFlags = "";
+				if (gudtOptions.bJPEGCopyMetadata)
+				{
+					sFlags += "--keep-exif ";
+				}
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
 				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
@@ -969,6 +978,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (PosEx(sExtension, KS_EXTENSION_ZIP) > 0)
 			{
 				sFlags = "";
+				if (gudtOptions.bJPEGCopyMetadata)
+				{
+					sFlags += "--keep-exif ";
+				}
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
 				//Limit ZIP no recurse to ZIP extension
