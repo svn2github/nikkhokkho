@@ -270,11 +270,11 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::ExistsFile(const TCHAR *pacFile)
 {
-	int iAttributes;
+	unsigned int iAttributes;
 
 
 	iAttributes = GetFileAttributes(pacFile);
-	return (iAttributes != -1);
+	return (iAttributes != INVALID_FILE_ATTRIBUTES);
 }
 
 

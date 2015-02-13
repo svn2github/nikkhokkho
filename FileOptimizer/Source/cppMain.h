@@ -64,9 +64,9 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 struct udtOptions
 {
+	bool bBMPCopyMetadata;
 	bool bCSSEnableTidy;
 	TCHAR acCSSTemplate[64];
-	bool bBMPCopyMetadata;
 	bool bEXEDisablePETrim;
 	bool bGIFCopyMetadata;
 	bool bGZCopyMetadata;
