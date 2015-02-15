@@ -1,3 +1,6 @@
+
+
+
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
 
 - rehuff corrupt OGG files when run several times (Tomasz W.).
@@ -136,6 +139,9 @@ XXXX - YYY
 - Added INI option XMLEnableLeanify=false enable Leanify on XML files.
 - Added INI option LUAEnableLeanify=false enable Leanify on LUA files.
 - Allow optimizing JPEG files when copy metadata is enabled by using new --keep-exif switch as well as inside ZIP files (Jaff).
+- Added .DEB, and .IPK file extensions to the GZ tool chain (maadjordan).
+- Added .FXG and .KML file extensions to the XML tool chain (maadjordan).
+- Added .BAR, .FXG .IPSW, .KMZ, and .SWC file extensions to the ZIP tool chain (maadjordan).
 - Disabled ImageMagick for GIF optimization because in some cases it does quantization, and so on, causes quality loss (Vivil).
 - Implemented Restore defaults in options dialog to return to factory settings.
 - Add preference option for ExcludeMask (Tomasz W.).
