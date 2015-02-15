@@ -509,8 +509,7 @@ object frmOptions: TfrmOptions
         Width = 145
         Height = 21
         Hint = 
-          'Files containing this mask (substring) on name or path will be e' +
-          'xcluded from optimization'
+          'Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded'
         AutoSize = False
         HideSelection = False
         ParentShowHint = False

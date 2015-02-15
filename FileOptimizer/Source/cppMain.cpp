@@ -377,10 +377,22 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 		sInputFile = grdFiles->Cells[0][iCount];
 		
+		bool bExcluded = false;
+		TCHAR *acToken = _tcstok(((String) gudtOptions.acExcludeMask).UpperCase().c_str(), _T(";"));
+		while (acToken)
+		{
+			if (PosEx((String) acToken, sInputFile.UpperCase()) != 0)
+			{
+				bExcluded = true;
+				break;
+			}
+		    acToken = _tcstok(NULL, _T(";"));
+		}		
+
+		
 		//Check file still exists and is not to be excluded
-		if ((clsUtil::ExistsFile(sInputFile.c_str())) &&
-			(PosEx(((String) gudtOptions.acExcludeMask).UpperCase(), sInputFile.UpperCase()) == 0))
-		{			
+		if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
+		{
 			sExtension = " " + GetExtension(sInputFile).LowerCase() + " ";
 
 			if (!gudtOptions.bDoNotUseRecycleBin)
