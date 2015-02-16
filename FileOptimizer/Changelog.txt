@@ -99,7 +99,7 @@ ndo
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.9.0.5 - http://www.imagemagick.org
+- ImageMagick 6.9.0.6 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
@@ -115,7 +115,7 @@ ndo
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
 - PETrim 2.93 - http://pecompact.com/pesuite.php
-- PNGOUT 02/20/2013 - http://advsys.net/ken/utils.htm
+- PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -155,7 +155,8 @@ XXXX - YYY
 - Slightly smaller PDF recompression by using dDetectDuplicateImages=true Ghostcript switch.
 - Fixed log levels in Options dialog.
 - Updated to jHead 3.00.
-- Updated ImageMagick to 6.9.0.5.
+- Updated ImageMagick to 6.9.0.6.
+- Updated PNGOUT to 02/13/2015.
 - Better quality and smaller PDF by adding -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic.
 - Updated TruePNG to 0.5.0.4.
 - Upgraded distributions to 7-Zip 9.38.
