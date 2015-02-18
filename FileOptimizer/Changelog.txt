@@ -131,6 +131,7 @@ XXXX - YYY
 - Added LUA (.lua .luac) support with Leanify.
 - Allow concurrent executions of different FileOptimizer instances over different file sets.
 - Added more PDF profiles, including without downsampling, 100 dpi, 200 dpi and 600 dpi (stratos chatzi).
+- Added 250 dpi setting for PDF (Special).
 - Added INI option ExcludeMask="" to specify paths (folder/files) that contain it as substring will be excluded (Tomasz W.).
 - Exclusion list can now optionally contain more than one substrings if separated by semicolon (;).
 - Added INI option ZIPRecurse=false prevent Leanify inside ZIP files.

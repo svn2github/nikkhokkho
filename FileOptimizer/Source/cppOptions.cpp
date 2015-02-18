@@ -137,17 +137,21 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboPDFProfile->ItemIndex = 4;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("printer")) == 0)
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("250 dpi")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 5;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("prepress")) == 0)
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("printer")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 6;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("prepress")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 7;
+	}
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
+	{
+		cboPDFProfile->ItemIndex = 8;
 	}
 	chkPNGCopyMetadata->Checked = gudtOptions.bPNGCopyMetadata;
 	chkXMLEnableLeanify->Checked = gudtOptions.bXMLEnableLeanify;
@@ -266,13 +270,17 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	}
 	else if (cboPDFProfile->ItemIndex == 5)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("printer"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("250 dpi"));
 	}
 	else if (cboPDFProfile->ItemIndex == 6)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("prepress"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("printer"));
 	}
 	else if (cboPDFProfile->ItemIndex == 7)
+	{
+		_tcscpy(gudtOptions.acPDFProfile, _T("prepress"));
+	}
+	else if (cboPDFProfile->ItemIndex == 8)
 	{
 		_tcscpy(gudtOptions.acPDFProfile, _T("600 dpi"));
 	}

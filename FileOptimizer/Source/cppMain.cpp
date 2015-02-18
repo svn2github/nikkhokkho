@@ -715,6 +715,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "-dPDFSETTINGS=/printer -dDownsampleColorImages=true -dColorImageResolution=200 -dDownsampleGrayImages=true -dGrayImageResolution=200 -dDownsampleMonoImages=true -dMonoImageResolution=200 -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
 				}
+				else if (_tcscmp(gudtOptions.acPDFProfile, _T("250 dpi")) == 0)
+				{
+					sFlags += "-dPDFSETTINGS=/printer -dDownsampleColorImages=true -dColorImageResolution=250 -dDownsampleGrayImages=true -dGrayImageResolution=250 -dDownsampleMonoImages=true -dMonoImageResolution=250 -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
+				}
 				else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
 				{
 					sFlags += "-dPDFSETTINGS=/prepress -dDownsampleColorImages=true -dColorImageResolution=600 -dDownsampleGrayImages=true -dGrayImageResolution=600 -dDownsampleMonoImages=true -dMonoImageResolution=600 -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";

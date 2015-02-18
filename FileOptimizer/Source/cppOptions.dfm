@@ -755,6 +755,7 @@ object frmOptions: TfrmOptions
           '100 dpi'
           'Ebook: 150 dpi'
           '200 dpi'
+          '250 dpi'
           'Printer: 300 dpi'
           'Prepress: 300 dpi and color preserve'
           '600 dpi')
