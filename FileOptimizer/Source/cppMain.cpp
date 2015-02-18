@@ -323,7 +323,7 @@ void __fastcall TfrmMain::grdFilesDblClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *Panel, const TRect &Rect)
 {
-	if (Panel == stbMain->Panels->Items[1])
+	if (Panel == StatusBar->Panels->Items[1])
 	{
 		pgbProgress->Top = Rect.top;
 		pgbProgress->Left = Rect.left;
