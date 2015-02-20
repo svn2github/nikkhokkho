@@ -126,6 +126,9 @@ ndo
 
 
 XXXX - YYY
+-
+
+7.10 - 2015/02/20
 - Added Matroska support with mkclean for .mkv, .mka, and .mks file extensions (SpanishDogg).
 - Added XML (.xml, .fb2 .xsl, .xslt) support with Leanify.
 - Added LUA (.lua .luac) support with Leanify.
@@ -162,7 +165,6 @@ XXXX - YYY
 - Updated TruePNG to 0.5.0.4.
 - Upgraded distributions to 7-Zip 9.38.
 - Minor source code improvements.
-
 
 7.00 - 2015/01/21
 - Added FLAC compression using FLACOUT (DotDotDot).
