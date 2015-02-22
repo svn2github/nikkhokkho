@@ -1,5 +1,7 @@
 - Add new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
 
+- Sorting by column is broken: It looks like column sorting is broken when clicking on 'File' or 'Status'. If I click on 'File' it appears that files are sorted randomly. It's not sorting on path or file name, although it does change the order when I click on it (Nico919).
+
 - Add custom PDF profile to allow specifying desired downscaling DPI (stratos chatzi, Special, Newtomic).
 
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
@@ -16,8 +18,6 @@
 - Consider using ZopfliPNG for better PNG results, maybe as substitute for advpng (Vivil).
 
 - Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
-
-- Column sorting is not working properly.
 
 - Wrong percent of saving calculation https://www.dropbox.com/s/8l9n9q52hs4g6fk/FileOptimizer.png (Juan).
 
