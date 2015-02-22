@@ -1,3 +1,7 @@
+- Add new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
+
+- Add custom PDF profile to allow specifying desired downscaling DPI (stratos chatzi, Special, Newtomic).
+
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
 
 - rehuff corrupt OGG files when run several times (Tomasz W.).
