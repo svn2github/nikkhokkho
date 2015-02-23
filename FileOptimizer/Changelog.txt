@@ -132,7 +132,8 @@ ndo
 
 
 XXXX - YYY
--
+- Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
+
 
 7.10 - 2015/02/20
 - Added Matroska support with mkclean for .mkv, .mka, and .mks file extensions (SpanishDogg).
