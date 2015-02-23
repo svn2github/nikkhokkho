@@ -4,6 +4,8 @@
 
 - Add custom PDF profile to allow specifying desired downscaling DPI (stratos chatzi, Special, Newtomic).
 
+- An option for a beep or sound to play when an operation is finished, PNG's and large PDF's can take quite a bit of time to complete, it would be nice to minimize, forget, but also to get notified in someway telling you that it's finished (Special).
+
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
 
 - rehuff corrupt OGG files when run several times (Tomasz W.).
