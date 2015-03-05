@@ -112,7 +112,7 @@ ndo
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.2 - https://github.com/JayXon/Leanify
-- libwebp 0.4.2 - http://www.webmproject.org
+- libwebp 0.4.3 RC1 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
@@ -133,6 +133,8 @@ ndo
 
 XXXX - YYY
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
+- Updated libwebp to 0.4.3 RC1.
+
 
 
 7.10 - 2015/02/20
