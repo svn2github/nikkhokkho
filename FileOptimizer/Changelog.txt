@@ -133,6 +133,7 @@ ndo
 
 XXXX - YYY
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
+- Fixed wrong percentage calculation for big files due to integer overflow (Dmitry).
 - Updated libwebp to 0.4.3 RC1.
 
 
