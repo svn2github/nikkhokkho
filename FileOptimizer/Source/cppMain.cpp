@@ -1077,7 +1077,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	//grdFiles->Enabled = true;
 	if (iTotalBytes != 0)
 	{
-		iPercentBytes = ((long long) iSavedBytes) * 100 / iTotalBytes;
+		iPercentBytes = ((unsigned long long) iSavedBytes) * 100 / iTotalBytes;
 	}
 	else
 	{
@@ -1377,7 +1377,7 @@ int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psP
 		DeleteFile(psTmpName.c_str());
 	}
 
-	iPercent = (((long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[1][piCurrent]);
+	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[1][piCurrent]);
 	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
 	grdFiles->Cells[3][piCurrent] = grdFiles->Cells[3][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
 
@@ -1457,7 +1457,7 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psComm
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 
-	iPercent = (((long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[1][piCurrent]);
+	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[1][piCurrent]);
 	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
 	grdFiles->Cells[3][piCurrent] = grdFiles->Cells[3][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
 
@@ -1901,7 +1901,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 	{
 		if (piTotalBytes != 0)
 		{
-			iPercentBytes = ((long long) piSavedBytes) * 100 / piTotalBytes;
+			iPercentBytes = ((unsigned long long) piSavedBytes) * 100 / piTotalBytes;
 		}
 		else
 		{
