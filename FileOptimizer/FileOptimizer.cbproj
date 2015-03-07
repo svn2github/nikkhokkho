@@ -7,7 +7,7 @@
         <MainSource>FileOptimizer.cpp</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -129,7 +129,7 @@
         <BCC_SelectedWarnings>false</BCC_SelectedWarnings>
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <VerInfo_Build>1128</VerInfo_Build>
-        <LinkPackageImports>rtl.bpi;vcl.bpi;vclactnband.bpi;vclx.bpi;vclribbon.bpi;vclimg.bpi</LinkPackageImports>
+        <LinkPackageImports>rtl.bpi;vcl.bpi;vclactnband.bpi;vclx.bpi;vclribbon.bpi;vclimg.bpi;VclSmp.bpi</LinkPackageImports>
         <ILINK_LibraryPath>$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
@@ -196,7 +196,7 @@
         <BCC_UserSuppliedOptions>-O3 -fno-rtti</BCC_UserSuppliedOptions>
         <ILINK_LibraryPath>$(BDS)\lib\win64\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
-        <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclribbon.lib;vclimg.lib</LinkPackageStatics>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclribbon.lib;vclimg.lib;VclSmp.lib</LinkPackageStatics>
         <BCC_PCHName_Clang>FileOptimizerPCH1.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <ItemGroup>
@@ -209,7 +209,6 @@
         </CppCompile>
         <PCHCompile Include="FileOptimizerPCH1.h">
             <BuildOrder>1</BuildOrder>
-            <PCH>true</PCH>
         </PCHCompile>
         <LibFiles Include="Source\asmlib.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>6</BuildOrder>
