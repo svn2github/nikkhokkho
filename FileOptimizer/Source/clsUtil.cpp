@@ -323,14 +323,14 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 				if (pacBuffer != NULL)
 				{
 					memcpy(pvData, pacBuffer, lSize);
-					UnmapViewOfFile(pacBuffer);
+					bRes = UnmapViewOfFile(pacBuffer);
 				}
 				CloseHandle(hMapping);
 			}
 			// Use regular IO
 			else
 			{
-				::ReadFile(hFile, pvData, (unsigned long) piSize, &lSize, NULL);
+				bRes = ::ReadFile(hFile, pvData, (unsigned long) piSize, &lSize, NULL);
 			}
 		}
 		*piSize = lSize;
@@ -362,14 +362,14 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, uns
 			if (pacBuffer != NULL)
 			{
 				memcpy(pacBuffer, pvData, piSize);
-				UnmapViewOfFile(pacBuffer);
+				bRes = UnmapViewOfFile(pacBuffer);
 			}
 			CloseHandle(hMapping);
 		}
 		// Use regular IO
 		else
 		{
-			::WriteFile(hFile, pvData, piSize, &lSize, NULL);
+			bRes = ::WriteFile(hFile, pvData, piSize, &lSize, NULL);
 		}
 	}
 	CloseHandle(hFile);

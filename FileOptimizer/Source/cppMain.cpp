@@ -346,7 +346,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sFlags;
-	String sExtension;
+	String sExtensionByContent;
 	TCHAR acTmpFile[MAX_PATH];
 	String sPluginsDirectory;
 	//String sTmpFile, sShortFile; //To be deleted when migrated to RunPluginNew;
@@ -397,7 +397,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		//Check file still exists and is not to be excluded
 		if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
 		{
-			sExtension = " " + GetExtension(sInputFile).LowerCase() + " ";
+			sExtensionByContent = " " + GetExtensionByContent(sInputFile).LowerCase() + " ";
 
 			if (!gudtOptions.bDoNotUseRecycleBin)
 			{
@@ -422,7 +422,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 			//Each extension can correspond to more than one engine, so use if instead of else if
 			// BMP: ImageMagick, ImageWorsener
-			if (PosEx(sExtension, KS_EXTENSION_BMP) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_BMP) > 0)
 			{
 				sFlags = "";
 				if (!gudtOptions.bBMPCopyMetadata)
@@ -436,7 +436,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// CSS: CSSTidy
-			if (PosEx(sExtension, KS_EXTENSION_CSS) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_CSS) > 0)
 			{
 				if (gudtOptions.bCSSEnableTidy)
 				{
@@ -445,7 +445,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}
 			// DLL: PETrim, strip
-			if (PosEx(sExtension, KS_EXTENSION_DLL) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_DLL) > 0)
 			{
 				if (!gudtOptions.bEXEDisablePETrim)
 				{
@@ -456,7 +456,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// EXE: Leanify, PETrim, strip
-			if (PosEx(sExtension, KS_EXTENSION_EXE) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_EXE) > 0)
 			{
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
@@ -475,12 +475,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}
 			// FLAC: FLACOut
-			if (PosEx(sExtension, KS_EXTENSION_FLAC) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_FLAC) > 0)
 			{
 				iError = RunPlugin(iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// GIF: gifsicle
-			if (PosEx(sExtension, KS_EXTENSION_GIF) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_GIF) > 0)
 			{
 				sFlags = "";
 				if (!gudtOptions.bGIFCopyMetadata)
@@ -501,7 +501,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" --crop-transparency " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// GZ: Leanify , advdef, zRecompress, deflopt, defluff, deflopt
-			if (PosEx(sExtension, KS_EXTENSION_GZ) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_GZ) > 0)
 			{
 				if (!gudtOptions.bGZCopyMetadata)
 				{
@@ -539,7 +539,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// HTML: tidy-html5
-			if (PosEx(sExtension, KS_EXTENSION_HTML) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_HTML) > 0)
 			{
 				if (gudtOptions.bHTMLEnableTidy)
 				{
@@ -548,7 +548,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}			
 			// ICO: ImageMagick, Leanify
-			if (PosEx(sExtension, KS_EXTENSION_ICO) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_ICO) > 0)
 			{
 				//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
@@ -562,7 +562,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}
 			// JPEG: Leanify, jhead jpegoptim, jpegtran, mozjpegtran
-			if (PosEx(sExtension, KS_EXTENSION_JPG) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_JPG) > 0)
 			{
 				sFlags = "";
 				if (gudtOptions.bJPEGCopyMetadata)
@@ -616,7 +616,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// JS: jsmin
-			if (PosEx(sExtension, KS_EXTENSION_JS) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0)
 			{
 				if (gudtOptions.bJSEnableJSMin)
 				{
@@ -625,7 +625,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}
 			// LUA: Leanify
-			if (PosEx(sExtension, KS_EXTENSION_LUA) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_LUA) > 0)
 			{
 				if (gudtOptions.bLUAEnableLeanify)
 				{
@@ -636,12 +636,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}						
 			// MKV: mkclean
-			if (PosEx(sExtension, KS_EXTENSION_MKV) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_MKV) > 0)
 			{
 				iError = RunPlugin(iCount, "mkclean", (sPluginsDirectory + "mkclean.exe --optimize --unsafe --quiet \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}		
 			// MNG: advmng
-			if (PosEx(sExtension, KS_EXTENSION_MNG) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_MNG) > 0)
 			{
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
@@ -650,7 +650,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// MP3: MP3packer
-			if (PosEx(sExtension, KS_EXTENSION_MP3) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_MP3) > 0)
 			{
 				sFlags = "";
 				if (!gudtOptions.bMP3CopyMetadata)
@@ -661,36 +661,36 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "MP3packer", (sPluginsDirectory + "mp3packer.exe " + sFlags + "-z -a \"\" -A -f \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// MP4: mp4v2
-			if (PosEx(sExtension, KS_EXTENSION_MP4) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_MP4) > 0)
 			{
 				iError = RunPlugin(iCount, "mp4v2", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// OBJ: strip
-			if (PosEx(sExtension, KS_EXTENSION_OBJ) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_OBJ) > 0)
 			{
 				//iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 				iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// OGG: rehuff
-			if (PosEx(sExtension, KS_EXTENSION_OGG) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_OGG) > 0)
 			{
 				//iError = RunPlugin(iCount, "rehuff", (sPluginsDirectory + "rehuff.exe \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "rehuff", (sPluginsDirectory + "rehuff.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// OGV: rehuff_theora
-			if (PosEx(sExtension, KS_EXTENSION_OGV) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_OGV) > 0)
 			{
 				//iError = RunPlugin(iCount, "rehuff_theora", (sPluginsDirectory + "rehuff_theora.exe \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "rehuff_theora", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// Microsoft OLE Compound Files: Document Press
-			if (PosEx(sExtension, KS_EXTENSION_OLE) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_OLE) > 0)
 			{
 				//iError = RunPlugin(iCount, "Document Press", (sPluginsDirectory + "docprc.exe -opt \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 				iError = RunPlugin(iCount, "Document Press", (sPluginsDirectory + "docprc.exe -opt \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// PCX: PCXLite, ImageMagick
-			if (PosEx(sExtension, KS_EXTENSION_PCX) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_PCX) > 0)
 			{
 				//iError = RunPlugin(iCount, "PCXLite", (sPluginsDirectory + "PCXLite.exe \"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 				iError = RunPlugin(iCount, "PCXLite", (sPluginsDirectory + "PCXLite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
@@ -704,7 +704,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// PDF: ghostcript
-			if (PosEx(sExtension, KS_EXTENSION_PDF) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
 			{
 				sFlags = "";
 				if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
@@ -742,7 +742,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				#endif
 			}
 			// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, advpng, deflopt, defluff, deflopt
-			if (PosEx(sExtension, KS_EXTENSION_PNG) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_PNG) > 0)
 			{
 				bool bIsAPNG;
 				bool bIs9Patch;
@@ -872,7 +872,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}
 			// SWF: Leanfy, flasm, zRecompress
-			if (PosEx(sExtension, KS_EXTENSION_SWF) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_SWF) > 0)
 			{
 				//ToDo: TEST
 				//iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
@@ -900,7 +900,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// TAR: Leanify
-			if (PosEx(sExtension, KS_EXTENSION_TAR) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_TAR) > 0)
 			{
 				sFlags = "";
 				if (gudtOptions.bJPEGCopyMetadata)
@@ -912,7 +912,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// TIFF: jhead, ImageMagick, jpegoptim, jpegtran, mozjpegtran
-			if (PosEx(sExtension, KS_EXTENSION_TIF) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_TIF) > 0)
 			{
 				sFlags = "";
 				if (!gudtOptions.bTIFFCopyMetadata)
@@ -956,7 +956,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// XML: Leanify
-			if (PosEx(sExtension, KS_EXTENSION_XML) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_XML) > 0)
 			{
 				if (gudtOptions.bXMLEnableLeanify)
 				{
@@ -967,7 +967,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 			}			
 			// WEBP: dwebp + cwebp, ImageWorsener
-			if (PosEx(sExtension, KS_EXTENSION_WEBP) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_WEBP) > 0)
 			{
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
@@ -995,7 +995,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// ZIP: Leanify, advzip, deflopt, defluff, deflopt
-			if (PosEx(sExtension, KS_EXTENSION_ZIP) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_ZIP) > 0)
 			{
 				sFlags = "";
 				if (gudtOptions.bJPEGCopyMetadata)
@@ -1005,7 +1005,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
 				//Limit ZIP no recurse to ZIP extension
-				if ((!gudtOptions.bZIPRecurse) && (GetExtension(sInputFile).LowerCase() == ".zip"))
+				if ((!gudtOptions.bZIPRecurse) && (sExtensionByContent.LowerCase() == ".zip"))
 				{
 					//sFlags += "-d 0 ";
 					sFlags += "-f ";
@@ -1033,7 +1033,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 			}
 			// MISC: ImageMagick
-			if (PosEx(sExtension, KS_EXTENSION_MISC) > 0)
+			if (PosEx(sExtensionByContent, KS_EXTENSION_MISC) > 0)
 			{
 				sFlags = "";
 				if (!gudtOptions.bMiscCopyMetadata)
@@ -1289,7 +1289,7 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 {
 	unsigned int iRow, iRows, iSize;
-	String sExtension;
+	String sExtension, sExtensionByContent;
 	HANDLE hFindFile;
 	WIN32_FIND_DATA udtFindFileData;
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
@@ -1327,7 +1327,8 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			if (iSize > 0)
 			{
 				sExtension = " " + GetExtension(pacFile).LowerCase() + " ";
-				if (PosEx(sExtension, KS_EXTENSION_ALL) > 0)
+				sExtensionByContent = " " + GetExtensionByContent(pacFile).LowerCase() + " ";
+				if (PosEx(sExtensionByContent, KS_EXTENSION_ALL) > 0)
 				{
 					grdFiles->Cells[KI_GRID_FILE][iRows] = pacFile;
 					grdFiles->Cells[KI_GRID_EXTENSION][iRows] = sExtension;
@@ -1499,6 +1500,88 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	{
 		clsUtil::MsgBox(NULL, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONINFORMATION);
 	}
+}
+
+
+
+//---------------------------------------------------------------------------
+String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
+{
+	String sRes = "";
+	unsigned char acBuffer[1024];
+	unsigned int iSize;
+
+	iSize = sizeof(acBuffer);
+	if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))
+	{
+		//Check BMP
+		if ((memcmp(acBuffer, "BM", 2) == 0) || (memcmp(acBuffer, "BA", 2) == 0) || (memcmp(acBuffer, "CI", 2) == 0) || (memcmp(acBuffer, "CP", 2) == 0) || (memcmp(acBuffer, "IC", 2) == 0) || (memcmp(acBuffer, "PT", 2) == 0))
+		{
+			sRes = ".bmp";
+		}
+		//Check EXE
+		//Check DLL
+		else if ((memcmp(acBuffer, "MZ", 2) == 0) || (memcmp(acBuffer, "ZM", 2) == 0))
+		{
+			sRes = ".dll";
+		}
+		//Check FLAC
+		//Check GIF
+		else if (memcmp(acBuffer, "GIF8", 4) == 0)
+		{
+			sRes = ".gif";
+		}
+		//Check GZ
+		else if (memcmp(acBuffer, "\x1f\x08b", 2) == 0)
+		{
+			sRes = ".gz";
+		}
+		//Check ICO
+		//Check JPEG
+		else if (memcmp(acBuffer, "\xFF\xD8", 2) == 0)
+		{
+			sRes = ".jpg";
+		}
+		//Check MKV
+		//Check MNG
+		//Check MP3
+		//Check MP4
+		//Check OBJ
+		//Check OGG
+		//Check OGV
+		//Check OLE
+		//Check PCX
+		else if ((acBuffer[0] == 10) && (acBuffer[2] == 1) && (acBuffer[64] == 0) && (acBuffer[74] == 0))
+		{
+			sRes = ".pcx";
+		}
+		//Check PDF
+		//Check PNG
+		else if (memcmp(acBuffer, "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", 8) == 0)
+		{
+			sRes = ".png";
+		}
+		//Check SWF
+		if ((memcmp(acBuffer, "FWs", 3) == 0) || (memcmp(acBuffer, "CWS", 3) == 0) || (memcmp(acBuffer, "ZWS", 3) == 0))
+		{
+			sRes = ".swf";
+		}
+		//Check TAR
+		//Check TIF
+		//Check WEBP
+		//Check ZIP
+		else if (memcmp(acBuffer, "\x50\x04b\x03\x04", 4) == 0)
+		{
+			sRes = ".zip";
+		}
+	}
+
+	//Falback to detect it by extension
+	if ((sRes == ""))
+	{
+		sRes = GetExtension(psFilename);
+	}
+	return(sRes);
 }
 
 
