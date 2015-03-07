@@ -10,6 +10,7 @@
 #include <Vcl.ComCtrls.hpp>
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Graphics.hpp>
+#include <Vcl.Samples.Spin.hpp>
 //---------------------------------------------------------------------------
 class TfrmOptions : public TForm
 {
@@ -67,11 +68,14 @@ __published: // IDE-managed Components
 	TImage *imgDialogPicture;
 	TShape *shpDialogLineG1;
 	TLabel *lblDescription;
+	TSpinEdit *spnPDFCustomDPI;
+	TLabel *lblPDFCustomDPI;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);
 	void __fastcall chkCSSEnableTidyClick(TObject *Sender);
 	void __fastcall butRestoreDefaultsClick(TObject *Sender);
+	void __fastcall cboPDFProfileChange(TObject *Sender);
 private: // User declarations
 public: // User declarations
 	__fastcall TfrmOptions(TComponent* Owner);

@@ -1,5 +1,3 @@
-- Add custom PDF profile to allow specifying desired downscaling DPI (stratos chatzi, Special, Newtomic).
-
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
 
 - rehuff corrupt OGG files when run several times (Tomasz W.).
@@ -125,6 +123,7 @@ ndo
 
 XXXX - YYY
 - FileOptimizer is now able to partially detect file types by its contents instead of file extensions (BMP, DLL, GIF, GZ, JPG, PCX, PDF, PNG, SWF, and ZIP). More to come later.
+- Added custom PDF profile to allow specifying desired downsampling DPI (stratos chatzi, Special, Newtomic).
 - Added new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
 - Added INI option BeepWhenDone=false to beep and notify used when optimization is complete (Special).
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).

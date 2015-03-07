@@ -91,8 +91,8 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	cboLogLevel->ItemIndex = gudtOptions.iLogLevel;
 
 	chkKeepAttributes->Checked = gudtOptions.bKeepAttributes;
-    chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
-    txtExcludeMask->Text = gudtOptions.acExcludeMask;
+	chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
+	txtExcludeMask->Text = gudtOptions.acExcludeMask;
 
 	chkCSSEnableTidy->Checked = gudtOptions.bCSSEnableTidy;
 	if (_tcscmp(gudtOptions.acCSSTemplate, _T("low")) == 0)
@@ -125,34 +125,25 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboPDFProfile->ItemIndex = 1;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("100 dpi")) == 0)
-	{
-		cboPDFProfile->ItemIndex = 2;
-	}	
 	else if (_tcscmp(gudtOptions.acPDFProfile, _T("ebook")) == 0)
 	{
-		cboPDFProfile->ItemIndex = 3;
-	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("200 dpi")) == 0)
-	{
-		cboPDFProfile->ItemIndex = 4;
-	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("250 dpi")) == 0)
-	{
-		cboPDFProfile->ItemIndex = 5;
+		cboPDFProfile->ItemIndex = 2;
 	}
 	else if (_tcscmp(gudtOptions.acPDFProfile, _T("printer")) == 0)
 	{
-		cboPDFProfile->ItemIndex = 6;
+		cboPDFProfile->ItemIndex = 3;
 	}
 	else if (_tcscmp(gudtOptions.acPDFProfile, _T("prepress")) == 0)
 	{
-		cboPDFProfile->ItemIndex = 7;
+		cboPDFProfile->ItemIndex = 4;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("600 dpi")) == 0)
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("Custom")) == 0)
 	{
-		cboPDFProfile->ItemIndex = 8;
+		cboPDFProfile->ItemIndex = 5;
 	}
+	spnPDFCustomDPI->Value = gudtOptions.iPDFCustomDPI;
+	cboPDFProfileChange(NULL);
+
 	chkPNGCopyMetadata->Checked = gudtOptions.bPNGCopyMetadata;
 	chkXMLEnableLeanify->Checked = gudtOptions.bXMLEnableLeanify;
 	chkZIPCopyMetadata->Checked = gudtOptions.bZIPCopyMetadata;
@@ -258,32 +249,22 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	}
 	else if (cboPDFProfile->ItemIndex == 2)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("100 dpi"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("ebook"));
 	}
 	else if (cboPDFProfile->ItemIndex == 3)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("ebook"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("printer"));
 	}
 	else if (cboPDFProfile->ItemIndex == 4)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("200 dpi"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("prepress"));
 	}
 	else if (cboPDFProfile->ItemIndex == 5)
 	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("250 dpi"));
+		_tcscpy(gudtOptions.acPDFProfile, _T("Custom"));
 	}
-	else if (cboPDFProfile->ItemIndex == 6)
-	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("printer"));
-	}
-	else if (cboPDFProfile->ItemIndex == 7)
-	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("prepress"));
-	}
-	else if (cboPDFProfile->ItemIndex == 8)
-	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("600 dpi"));
-	}
+	gudtOptions.iPDFCustomDPI = spnPDFCustomDPI->Value;
+
 	gudtOptions.bPNGCopyMetadata = chkPNGCopyMetadata->Checked;
 	gudtOptions.bXMLEnableLeanify = chkXMLEnableLeanify->Checked;
 	gudtOptions.bZIPCopyMetadata = chkZIPCopyMetadata->Checked;
@@ -302,6 +283,12 @@ void __fastcall TfrmOptions::chkCSSEnableTidyClick(TObject *Sender)
 }
 
 
+//---------------------------------------------------------------------------
+void __fastcall TfrmOptions::cboPDFProfileChange(TObject *Sender)
+{
+	spnPDFCustomDPI->Enabled = (cboPDFProfile->ItemIndex == 5);
+}
+
 
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::butCancelClick(TObject *Sender)
@@ -318,5 +305,7 @@ void __fastcall TfrmOptions::butRestoreDefaultsClick(TObject *Sender)
 	frmMain->FormCreate(Sender);
 	FormCreate(Sender);
 }
+
+
 //---------------------------------------------------------------------------
 

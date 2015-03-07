@@ -351,6 +351,8 @@ object frmOptions: TfrmOptions
         AutoSize = False
         Caption = '&Process priority'
         FocusControl = cboProcessPriority
+        ParentShowHint = False
+        ShowHint = False
       end
       object lblCheckForUpdates: TLabel
         Left = 7
@@ -360,6 +362,8 @@ object frmOptions: TfrmOptions
         AutoSize = False
         Caption = '&Check for updates'
         FocusControl = cboCheckForUpdates
+        ParentShowHint = False
+        ShowHint = False
       end
       object lblTheme: TLabel
         Left = 7
@@ -369,6 +373,8 @@ object frmOptions: TfrmOptions
         AutoSize = False
         Caption = '&Theme'
         FocusControl = cboTheme
+        ParentShowHint = False
+        ShowHint = False
       end
       object lblLogLevel: TLabel
         Left = 7
@@ -378,6 +384,8 @@ object frmOptions: TfrmOptions
         AutoSize = False
         Caption = '&Log level'
         FocusControl = cboLogLevel
+        ParentShowHint = False
+        ShowHint = False
       end
       object lblExcludeMask: TLabel
         Left = 7
@@ -509,7 +517,9 @@ object frmOptions: TfrmOptions
         Width = 145
         Height = 21
         Hint = 
-          'Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded'
+          'Files containing this mask (substring) on name or path will be e' +
+          'xcluded from optimization. You can use semicolon (;) to specify ' +
+          'more than one substring being excluded'
         AutoSize = False
         HideSelection = False
         ParentShowHint = False
@@ -739,6 +749,17 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = False
       end
+      object lblPDFCustomDPI: TLabel
+        Left = 7
+        Top = 49
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Custom DPI'
+        FocusControl = spnPDFCustomDPI
+        ParentShowHint = False
+        ShowHint = False
+      end
       object cboPDFProfile: TComboBox
         Left = 168
         Top = 22
@@ -749,16 +770,30 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
+        OnChange = cboPDFProfileChange
         Items.Strings = (
           'None: No downsampling'
           'Screen: 72 dpi'
-          '100 dpi'
           'Ebook: 150 dpi'
-          '200 dpi'
-          '250 dpi'
           'Printer: 300 dpi'
           'Prepress: 300 dpi and color preserve'
-          '600 dpi')
+          'Custom')
+      end
+      object spnPDFCustomDPI: TSpinEdit
+        Left = 168
+        Top = 49
+        Width = 121
+        Height = 22
+        Hint = 
+          'When custom profile is choosen, it allows you to specify a custo' +
+          'm DPI for downsampling images'
+        Increment = 50
+        MaxValue = 3000
+        MinValue = 50
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        Value = 50
       end
     end
     object pagPNG: TTabSheet

@@ -86,6 +86,7 @@ struct udtOptions
 	bool bMP3CopyMetadata;
 	bool bPCXCopyMetadata;
 	TCHAR acPDFProfile[64];
+	int iPDFCustomDPI;
 	bool bPNGCopyMetadata;
 	bool bTIFFCopyMetadata;
 	bool bXMLEnableLeanify;
