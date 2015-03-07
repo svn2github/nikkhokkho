@@ -1,7 +1,5 @@
 - Add custom PDF profile to allow specifying desired downscaling DPI (stratos chatzi, Special, Newtomic).
 
-- An option for a beep or sound to play when an operation is finished, PNG's and large PDF's can take quite a bit of time to complete, it would be nice to minimize, forget, but also to get notified in someway telling you that it's finished (Special).
-
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
 
 - rehuff corrupt OGG files when run several times (Tomasz W.).
@@ -126,8 +124,9 @@ ndo
 
 
 XXXX - YYY
-- FileOptimizer is now able to partially detect file types by its contents instead of file extensions (BMP, DLL, GIF, GZ, JPG, PCX, PNG, SWF, and ZIP). More to come later.
-- Add new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
+- FileOptimizer is now able to partially detect file types by its contents instead of file extensions (BMP, DLL, GIF, GZ, JPG, PCX, PDF, PNG, SWF, and ZIP). More to come later.
+- Added new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
+- Added INI option BeepWhenDone=false to beep and notify used when optimization is complete (Special).
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
 - Fixed wrong percentage calculation for big files due to integer overflow (Dmitry, Juan).
 - Fixed grid column sorting not working properly for certain types (Nico919).

@@ -62,6 +62,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bKeepAttributes = clsUtil::GetIni(_T("Options"), _T("KeepAttributes"), false);
 	gudtOptions.bDoNotUseRecycleBin = clsUtil::GetIni(_T("Options"), _T("DoNotUseRecycleBin"), false);
 	_tcscpy(gudtOptions.acExcludeMask, clsUtil::GetIni(_T("Options"), _T("ExcludeMask"), _T("")));
+	gudtOptions.bBeepWhenDone = clsUtil::GetIni(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.iLevel = clsUtil::GetIni(_T("Options"), _T("Level"), 9);
 	gudtOptions.iProcessPriority = clsUtil::GetIni(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
@@ -121,6 +122,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("KeepAttributes"), gudtOptions.bKeepAttributes);
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin);
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask);
+	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone);
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel);
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority);
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates);
@@ -1092,6 +1094,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
 	gbProcess = false;
 	RefreshStatus(false);
+
+	if (gudtOptions.bBeepWhenDone)
+	{
+		FlashWindow(Handle, false);
+		MessageBeep(0xFFFFFFFF);
+	}
 }
 
 
@@ -1556,6 +1564,10 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			sRes = ".pcx";
 		}
 		//Check PDF
+		else if (memcmp(acBuffer, "%PDF-", 5) == 0)
+		{
+			sRes = ".pdf";
+		}
 		//Check PNG
 		else if (memcmp(acBuffer, "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", 8) == 0)
 		{

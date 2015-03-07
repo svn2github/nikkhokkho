@@ -94,6 +94,7 @@ struct udtOptions
 	bool bDoNotUseRecycleBin;
 	bool bKeepAttributes;
 	TCHAR acExcludeMask[128];
+	bool bBeepWhenDone;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;
