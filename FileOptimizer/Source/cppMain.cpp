@@ -34,10 +34,11 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	clsUtil::LoadForm(this);
 	rbnMain->Minimized = clsUtil::GetIni(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
-	grdFiles->ColWidths[0] = clsUtil::GetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[0]);
-	grdFiles->ColWidths[1] = clsUtil::GetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[1]);
-	grdFiles->ColWidths[2] = clsUtil::GetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[2]);
-	grdFiles->ColWidths[3] = clsUtil::GetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[3]);
+	grdFiles->ColWidths[KI_GRID_FILE] = clsUtil::GetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
+	grdFiles->ColWidths[KI_GRID_EXTENSION] = clsUtil::GetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
+	grdFiles->ColWidths[KI_GRID_ORIGINAL] = clsUtil::GetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
+	grdFiles->ColWidths[KI_GRID_OPTIMIZED] = clsUtil::GetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[KI_GRID_OPTIMIZED]);
+	grdFiles->ColWidths[KI_GRID_STATUS] = clsUtil::GetIni(Name.c_str(), _T("Col4Width"), grdFiles->ColWidths[KI_GRID_STATUS]);
 	gudtOptions.bBMPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("BMPCopyMetadata"), false);
 	gudtOptions.bCSSEnableTidy = clsUtil::GetIni(_T("Options"), _T("CSSEnableTidy"), false);
 	_tcscpy(gudtOptions.acCSSTemplate, clsUtil::GetIni(_T("Options"), _T("CSSTemplate"), _T("low")));
@@ -92,10 +93,11 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 {
 	clsUtil::SaveForm(this);
 	clsUtil::SetIni(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
-	clsUtil::SetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[0]);
-	clsUtil::SetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[1]);
-	clsUtil::SetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[2]);
-	clsUtil::SetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[3]);
+	clsUtil::SetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
+	clsUtil::SetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
+	clsUtil::SetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
+	clsUtil::SetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[KI_GRID_OPTIMIZED]);
+	clsUtil::SetIni(Name.c_str(), _T("Col4Width"), grdFiles->ColWidths[KI_GRID_STATUS]);
 	clsUtil::SetIni(_T("Options"), _T("BMPCopyMetadata"), gudtOptions.bBMPCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("CSSEnableTidy"), gudtOptions.bCSSEnableTidy);
 	clsUtil::SetIni(_T("Options"), _T("CSSTemplate"), gudtOptions.acCSSTemplate);
@@ -181,10 +183,11 @@ void __fastcall TfrmMain::FormResize(TObject *Sender)
 	//Prevent flickering
 	LockWindowUpdate(Handle);	
 
-	grdFiles->ColWidths[0] = grdFiles->Width >> 1;
-	grdFiles->ColWidths[1] = (grdFiles->Width - grdFiles->ColWidths[0]) / 3;
-	grdFiles->ColWidths[2] = (grdFiles->Width - grdFiles->ColWidths[0]) / 3;
-	grdFiles->ColWidths[3] = (grdFiles->Width - grdFiles->ColWidths[0]) / 3;
+	grdFiles->ColWidths[KI_GRID_FILE] = grdFiles->Width >> 1;
+	grdFiles->ColWidths[KI_GRID_EXTENSION] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
+	grdFiles->ColWidths[KI_GRID_ORIGINAL] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
+	grdFiles->ColWidths[KI_GRID_OPTIMIZED] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
+	grdFiles->ColWidths[KI_GRID_STATUS] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);	
@@ -204,7 +207,7 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 		grdFiles->Canvas->Brush->Color = clWindow;
 	}
 
-	if ((ARow > 0) && (ACol == 0))
+	if ((ARow > 0) && (ACol == KI_GRID_FILE))
 	{
 		grdFiles->Canvas->Font->Color = clHotLight;
 		grdFiles->Canvas->Font->Style = grdFiles->Canvas->Font->Style << fsUnderline;
@@ -214,7 +217,7 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 	grdFiles->Canvas->FillRect(Rect);
 
 	//Left aligned
-	if ((ACol == 0) || (ACol == 3))
+	if ((ACol == KI_GRID_FILE) || (ACol == KI_GRID_EXTENSION) || (ACol == KI_GRID_STATUS))
 	{
 		grdFiles->Canvas->TextRect(Rect, Rect.left + 4, Rect.top + 4, grdFiles->Cells[ACol][ARow]);
 	}
@@ -252,15 +255,15 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		String sValue;
 		for (iRow = 1; iRow < iRows; iRow++)
 		{
-			if ((iSortField == 1) || (iSortField == 2))
+			if ((iSortField == KI_GRID_ORIGINAL) || (iSortField == KI_GRID_OPTIMIZED))
 			{
-				sValue = FormatFloat("0000000000", ParseNumberThousand(grdFiles->Cells[1][iRow]));
+				sValue = FormatFloat("0000000000", ParseNumberThousand(grdFiles->Cells[iSortField][iRow]));
 			}
 			else
 			{
-				sValue = grdFiles->Cells[1][iRow];
+				sValue = grdFiles->Cells[iSortField][iRow];
 			}
-			sValue += "|" + grdFiles->Cells[0][iRow] + "|" + grdFiles->Cells[1][iRow] + "|" + grdFiles->Cells[2][iRow] + "|" + grdFiles->Cells[3][iRow];
+			sValue += "|" + grdFiles->Cells[KI_GRID_FILE][iRow] + "|" + grdFiles->Cells[KI_GRID_EXTENSION][iRow] + "|" + grdFiles->Cells[KI_GRID_ORIGINAL][iRow] + "|" + grdFiles->Cells[KI_GRID_OPTIMIZED][iRow]  + "|" + grdFiles->Cells[KI_GRID_STATUS][iRow];
 			lstTemp->Add(sValue);
 		}
 
@@ -277,10 +280,11 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			{
 				asValue = SplitString(lstTemp->Strings[iRows - iRow - 1], "|");
 			}
-			grdFiles->Cells[0][iRow] = asValue[1];
-			grdFiles->Cells[1][iRow] = asValue[2];
-			grdFiles->Cells[2][iRow] = asValue[3];
-			grdFiles->Cells[3][iRow] = asValue[4];
+			grdFiles->Cells[KI_GRID_FILE][iRow] = asValue[1];
+			grdFiles->Cells[KI_GRID_EXTENSION][iRow] = asValue[2];
+			grdFiles->Cells[KI_GRID_ORIGINAL][iRow] = asValue[3];
+			grdFiles->Cells[KI_GRID_OPTIMIZED][iRow] = asValue[4];
+			grdFiles->Cells[KI_GRID_STATUS][iRow] = asValue[5];
 		}
 		delete lstTemp;
 	}
@@ -312,9 +316,9 @@ void __fastcall TfrmMain::grdFilesDblClick(TObject *Sender)
 
 	iRow = grdFiles->Row;
 	iCol = grdFiles->Col;
-	if ((iRow > 0) && (iCol == 0))
+	if ((iRow > 0) && (iCol == KI_GRID_FILE))
 	{
-		ShellExecute(NULL, _T("open"), grdFiles->Cells[0][iRow].c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+		ShellExecute(NULL, _T("open"), grdFiles->Cells[KI_GRID_FILE][iRow].c_str(), _T(""), _T(""), SW_SHOWNORMAL);
 	}
 }
 
@@ -367,7 +371,9 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	iRows = grdFiles->RowCount;
 	for (iCount = 1; iCount < iRows; iCount++)
 	{
-		stbMain->Panels->Items[0]->Text = "Processing " + grdFiles->Cells[0][iCount] + "...";
+		sInputFile = grdFiles->Cells[KI_GRID_FILE][iCount];
+
+		stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
 		pgbProgress->Position = iCount;
 		clsUtil::SetTaskListProgress(pgbProgress->Position, pgbProgress->Max);
@@ -375,8 +381,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		Application->ProcessMessages();
 
 
-		sInputFile = grdFiles->Cells[0][iCount];
-		
 		bool bExcluded = false;
 		TCHAR *acToken = _tcstok(((String) gudtOptions.acExcludeMask).UpperCase().c_str(), _T(";"));
 		while (acToken)
@@ -386,10 +390,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				bExcluded = true;
 				break;
 			}
-		    acToken = _tcstok(NULL, _T(";"));
-		}		
+			acToken = _tcstok(NULL, _T(";"));
+		}
 
-		
+
 		//Check file still exists and is not to be excluded
 		if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
 		{
@@ -397,7 +401,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 			if (!gudtOptions.bDoNotUseRecycleBin)
 			{
-				clsUtil::CopyToRecycleBin(grdFiles->Cells[0][iCount].c_str());
+				clsUtil::CopyToRecycleBin(sInputFile.c_str());
 			}
 
 			if (gudtOptions.bKeepAttributes)
@@ -873,19 +877,19 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//ToDo: TEST
 				//iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 				iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[1][iCount]))
+				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
-					CopyFile(StringReplace(grdFiles->Cells[0][iCount], ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), grdFiles->Cells[0][iCount].c_str(), false);
+					CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
 				}
-				DeleteFile(StringReplace(grdFiles->Cells[0][iCount], ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
+				DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 
 				//iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"" + sShortFile + "\"").c_str(), sPluginsDirectory, "");
 				iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
-				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[1][iCount]))
+				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
-					CopyFile(StringReplace(grdFiles->Cells[0][iCount], ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), grdFiles->Cells[0][iCount].c_str(), false);
+					CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), grdFiles->Cells[0][iCount].c_str(), false);
 				}
-				DeleteFile(StringReplace(grdFiles->Cells[0][iCount], ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
+				DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 
 				//iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, "");
 				iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
@@ -982,7 +986,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					iError = RunPlugin(iCount, "cwebp", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "");
 					if (clsUtil::SizeFile(acTmpFile) < clsUtil::SizeFile(sInputFile.c_str()))
 					{
-						CopyFile(acTmpFile, grdFiles->Cells[0][iCount].c_str(), false);
+						CopyFile(acTmpFile, sInputFile.c_str(), false);
 					}
 				}
 				DeleteFile(acTmpFileWebp);
@@ -1054,16 +1058,16 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			}
 
 			//Make sure the file was indeed processed because asuming we got gains. This is to solve Pending items being counted as 0 bytes
-			if (grdFiles->Cells[2][iCount] != "")
+			if (grdFiles->Cells[KI_GRID_OPTIMIZED][iCount] != "")
 			{
-				iTotalBytes += (ParseNumberThousand(grdFiles->Cells[1][iCount]));
-				iSavedBytes += (ParseNumberThousand(grdFiles->Cells[1][iCount]) - ParseNumberThousand(grdFiles->Cells[2][iCount]));
+				iTotalBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]));
+				iSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
 			}
 		}
 		//If file was not processed, mark it as skipped
-		if (grdFiles->Cells[3][iCount] == "Pending")
+		if (grdFiles->Cells[KI_GRID_STATUS][iCount] == "Pending")
 		{
-			grdFiles->Cells[3][iCount] = "Skipped";
+			grdFiles->Cells[KI_GRID_STATUS][iCount] = "Skipped";
 		}
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
 
@@ -1313,7 +1317,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			//Check if already added
 			for (iRow = 1; iRow < iRows; iRow++)
 			{
-				if (grdFiles->Cells[0][iRow] == pacFile)
+				if (grdFiles->Cells[KI_GRID_FILE][iRow] == pacFile)
 				{
 					return;
 				}
@@ -1325,10 +1329,11 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				sExtension = " " + GetExtension(pacFile).LowerCase() + " ";
 				if (PosEx(sExtension, KS_EXTENSION_ALL) > 0)
 				{
-					grdFiles->Cells[0][iRows] = pacFile;
-					grdFiles->Cells[1][iRows] = FormatNumberThousand(iSize);
-					grdFiles->Cells[2][iRows] = "";
-					grdFiles->Cells[3][iRows] = "Pending";
+					grdFiles->Cells[KI_GRID_FILE][iRows] = pacFile;
+					grdFiles->Cells[KI_GRID_EXTENSION][iRows] = sExtension;
+					grdFiles->Cells[KI_GRID_ORIGINAL][iRows] = FormatNumberThousand(iSize);
+					grdFiles->Cells[KI_GRID_OPTIMIZED][iRows] = "";
+					grdFiles->Cells[KI_GRID_STATUS][iRows] = "Pending";
 					grdFiles->RowCount++;
 				}
 			}
@@ -1357,11 +1362,11 @@ int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psP
 	{
 		DeleteFile(psTmpName.c_str());
 	}
-	sShortFile = GetShortName(grdFiles->Cells[0][piCurrent]);
+	sShortFile = GetShortName(grdFiles->Cells[KI_GRID_FILE][piCurrent]);
 
-	grdFiles->Cells[3][piCurrent] = "Running " + psStatus + "...";
+	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = "Running " + psStatus + "...";
 	iSize = clsUtil::SizeFile(sShortFile.c_str());
-	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
+	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
 
 	iError = RunProcess(psProcess.c_str(), psDirectory.c_str(), NULL, 0, true);
 	Log(3, ("Return: " + ((String) iError) + ". Process: " + psProcess).c_str());
@@ -1372,14 +1377,14 @@ int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psP
 		if ((iSizeTmp > 0) && (iSizeTmp < iSize))
 		{
 			iSize = iSizeTmp;
-			CopyFile(psTmpName.c_str(), grdFiles->Cells[0][piCurrent].c_str(), false);
+			CopyFile(psTmpName.c_str(), grdFiles->Cells[KI_GRID_FILE][piCurrent].c_str(), false);
 		}
 		DeleteFile(psTmpName.c_str());
 	}
 
-	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[1][piCurrent]);
-	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
-	grdFiles->Cells[3][piCurrent] = grdFiles->Cells[3][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
+	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
+	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
+	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = grdFiles->Cells[KI_GRID_STATUS][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
 
 	return (iError);
 }
@@ -1414,9 +1419,9 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psComm
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 	
-	grdFiles->Cells[3][piCurrent] = "Running " + psStatus + "...";
+	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = "Running " + psStatus + "...";
 	iSize = clsUtil::SizeFile(sInputFile.c_str());
-	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
+	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
 	
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
 	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
@@ -1457,9 +1462,9 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psComm
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 
-	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[1][piCurrent]);
-	grdFiles->Cells[2][piCurrent] = FormatNumberThousand(iSize);
-	grdFiles->Cells[3][piCurrent] = grdFiles->Cells[3][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
+	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
+	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
+	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = grdFiles->Cells[KI_GRID_STATUS][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
 
 	return (iError);
 }
@@ -1948,11 +1953,12 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 			}
 			else
 			{
-				grdFiles->ColCount = 4;
-				grdFiles->Cells[0][0] = "File";
-				grdFiles->Cells[1][0] = "Original size";
-				grdFiles->Cells[2][0] = "Optimized size";
-				grdFiles->Cells[3][0] = "Status";
+				grdFiles->ColCount = 5;
+				grdFiles->Cells[KI_GRID_FILE][0] = "File";
+				grdFiles->Cells[KI_GRID_EXTENSION][0] = "Extension";
+				grdFiles->Cells[KI_GRID_ORIGINAL][0] = "Original size";
+				grdFiles->Cells[KI_GRID_OPTIMIZED][0] = "Optimized size";
+				grdFiles->Cells[KI_GRID_STATUS][0] = "Status";
 
 				stbMain->Panels->Items[0]->Text = "";
 				stbMain->Hint = stbMain->Panels->Items[0]->Text;

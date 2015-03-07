@@ -1,6 +1,4 @@
-- Add new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
-
-- Sorting by column is broken: It looks like column sorting is broken when clicking on 'File' or 'Status'. If I click on 'File' it appears that files are sorted randomly. It's not sorting on path or file name, although it does change the order when I click on it (Nico919).
+- Detect file type by contents instead of extensions.
 
 - Add custom PDF profile to allow specifying desired downscaling DPI (stratos chatzi, Special, Newtomic).
 
@@ -132,8 +130,10 @@ ndo
 
 
 XXXX - YYY
+- Add new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
 - Fixed wrong percentage calculation for big files due to integer overflow (Dmitry).
+- Fixed grid column sorting not working properly for certain types (Nico919).
 - Updated libwebp to 0.4.3 RC1.
 
 

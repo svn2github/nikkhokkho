@@ -28,6 +28,13 @@
 #define KS_APP_URL			_T("http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer")
 #define KS_APP_UPDATE_URL	_T("http://nikkhokkho.sourceforge.net/images/FileOptimizerVersion.txt")
 
+/* Grid columns */
+#define KI_GRID_FILE		0
+#define KI_GRID_EXTENSION	1
+#define KI_GRID_ORIGINAL	2
+#define KI_GRID_OPTIMIZED	3
+#define KI_GRID_STATUS		4
+
 #define KS_EXTENSION_BMP	_T(" .bmp .dib ")
 #define KS_EXTENSION_CSS	_T(" .css ")
 #define KS_EXTENSION_DLL	_T(" .dll .bpl .cpl .drv .lzl .ocx .sys .vbx ")
