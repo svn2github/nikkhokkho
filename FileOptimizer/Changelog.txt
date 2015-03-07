@@ -95,7 +95,7 @@ ndo
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.9.0.6 - http://www.imagemagick.org
+- ImageMagick 6.9.0.10 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
@@ -130,6 +130,7 @@ XXXX - YYY
 - Fixed wrong percentage calculation for big files due to integer overflow (Dmitry, Juan).
 - Fixed grid column sorting not working properly for certain types (Nico919).
 - Updated libwebp to 0.4.3 RC1.
+- Updated ImageMagick to 6.9.0.10.
 
 
 
