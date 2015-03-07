@@ -401,7 +401,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		//Check file still exists and is not to be excluded
 		if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
 		{
-			sExtensionByContent = " " + GetExtensionByContent(sInputFile).LowerCase() + " ";
+			sExtensionByContent = " " + GetExtensionByContent(sInputFile) + " ";
 
 			if (!gudtOptions.bDoNotUseRecycleBin)
 			{
@@ -1321,8 +1321,8 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			//We will only add files with more than 0 bytes
 			if (iSize > 0)
 			{
-				sExtension = " " + GetExtension(pacFile).LowerCase() + " ";
-				sExtensionByContent = " " + GetExtensionByContent(pacFile).LowerCase() + " ";
+				sExtension = " " + GetExtension(pacFile) + " ";
+				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
 				if (PosEx(sExtensionByContent, KS_EXTENSION_ALL) > 0)
 				{
 					grdFiles->Cells[KI_GRID_FILE][iRows] = pacFile;
@@ -1503,7 +1503,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 {
 	String sRes = "";
-	unsigned char acBuffer[1024];
+	unsigned char acBuffer[128];
 	unsigned int iSize;
 
 	iSize = sizeof(acBuffer);
@@ -1610,7 +1610,7 @@ String __fastcall TfrmMain::GetExtension (String psFilename)
 	pacSource = _tcsrchr(psFilename.c_str(), '.');
 	if (pacSource)
 	{
-		sRes = pacSource;
+		sRes = _tcslwr(pacSource);
 	}
 	return (sRes);
 }
