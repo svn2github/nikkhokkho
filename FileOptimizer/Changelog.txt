@@ -1,3 +1,5 @@
+- Reengineer optimization levels so performance is according to the format.
+
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
 
 - rehuff corrupt OGG files when run several times (Tomasz W.).
@@ -131,6 +133,7 @@ XXXX - YYY
 - Fixed grid column sorting not working properly for certain types (Nico919).
 - Updated libwebp to 0.4.3 RC1.
 - Updated ImageMagick to 6.9.0.10.
+- Some minor optimizations and code cleanup.
 
 
 
