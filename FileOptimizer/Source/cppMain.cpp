@@ -202,13 +202,17 @@ void __fastcall TfrmMain::FormResize(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect, TGridDrawState State)
 {
-	if (ARow & 1)
+	if (ARow == 0)
+	{
+		grdFiles->Canvas->Brush->Color = clWindow;
+	}
+	else if (ARow & 1)
 	{
 		grdFiles->Canvas->Brush->Color = clGradientInactiveCaption;
 	}
 	else
 	{
-		grdFiles->Canvas->Brush->Color = clWindow;
+		grdFiles->Canvas->Brush->Color = clGradientActiveCaption;
 	}
 
 	if ((ARow > 0) && (ACol == KI_GRID_FILE))
