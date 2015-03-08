@@ -129,6 +129,7 @@ XXXX - YYY
 - Added new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
 - Added INI option BeepWhenDone=false to beep and notify used when optimization is complete (Special).
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
+- Better handling of obsolete .INI preferences.
 - Fixed wrong percentage calculation for big files due to integer overflow (Dmitry, Juan).
 - Fixed grid column sorting not working properly for certain types (Nico919).
 - Updated libwebp to 0.4.3 RC1.

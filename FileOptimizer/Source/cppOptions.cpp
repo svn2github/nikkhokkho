@@ -36,11 +36,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 
 	cboOptimizationLevel->ItemIndex = gudtOptions.iLevel;
 
-	if (gudtOptions.iProcessPriority == IDLE_PRIORITY_CLASS)
-	{
-		cboProcessPriority->ItemIndex = 0;
-	}
-	else if (gudtOptions.iProcessPriority == BELOW_NORMAL_PRIORITY_CLASS)
+	if (gudtOptions.iProcessPriority == BELOW_NORMAL_PRIORITY_CLASS)
 	{
 		cboProcessPriority->ItemIndex = 1;
 	}
@@ -60,26 +56,28 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboProcessPriority->ItemIndex = 5;
 	}
+	else //IDLE_PRIORITY_CLASS
+	{
+		cboProcessPriority->ItemIndex = 0;
+	}
+	
 
 	//Check for updates
 	if (gudtOptions.iCheckForUpdates < 0)
 	{
 		cboCheckForUpdates->ItemIndex = 0;
 	}
-	else if (gudtOptions.iCheckForUpdates == 1)
-	{
-		cboCheckForUpdates->ItemIndex = 1;
-	}
 	else if (gudtOptions.iCheckForUpdates == 0)
 	{
 		cboCheckForUpdates->ItemIndex = 2;
 	}
-
-	if (_tcscmp(gudtOptions.acTheme, _T("Windows")) == 0)
+	else //iCheckForUpdates == 1
 	{
-		cboTheme->ItemIndex = 0;
+		cboCheckForUpdates->ItemIndex = 1;
 	}
-	else if (_tcscmp(gudtOptions.acTheme, _T("Metropolis UI Black")) == 0)
+	
+
+	if (_tcscmp(gudtOptions.acTheme, _T("Metropolis UI Black")) == 0)
 	{
 		cboTheme->ItemIndex = 1;
 	}
@@ -87,6 +85,11 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboTheme->ItemIndex = 2;
 	}
+	else //Windows
+	{
+		cboTheme->ItemIndex = 0;
+	}
+	
 
 	cboLogLevel->ItemIndex = gudtOptions.iLogLevel;
 
@@ -95,11 +98,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	txtExcludeMask->Text = gudtOptions.acExcludeMask;
 
 	chkCSSEnableTidy->Checked = gudtOptions.bCSSEnableTidy;
-	if (_tcscmp(gudtOptions.acCSSTemplate, _T("low")) == 0)
-	{
-		cboCSSTemplate->ItemIndex = 0;
-	}
-	else if (_tcscmp(gudtOptions.acCSSTemplate, _T("high")) == 0)
+	if (_tcscmp(gudtOptions.acCSSTemplate, _T("high")) == 0)
 	{
 		cboCSSTemplate->ItemIndex = 1;
 	}
@@ -107,6 +106,11 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboCSSTemplate->ItemIndex = 2;
 	}
+	else //low
+	{
+		cboCSSTemplate->ItemIndex = 0;
+	}
+	
 
 	chkEXEDisablePETrim->Checked = gudtOptions.bEXEDisablePETrim;
 	chkGZCopyMetadata->Checked = gudtOptions.bGZCopyMetadata;
@@ -125,10 +129,6 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboPDFProfile->ItemIndex = 1;
 	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("ebook")) == 0)
-	{
-		cboPDFProfile->ItemIndex = 2;
-	}
 	else if (_tcscmp(gudtOptions.acPDFProfile, _T("printer")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 3;
@@ -141,6 +141,11 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboPDFProfile->ItemIndex = 5;
 	}
+	else //ebook
+	{
+		cboPDFProfile->ItemIndex = 2;
+	}
+	
 	spnPDFCustomDPI->Value = gudtOptions.iPDFCustomDPI;
 	cboPDFProfileChange(NULL);
 
@@ -159,11 +164,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 
 	gudtOptions.iLevel = cboOptimizationLevel->ItemIndex;
 
-	if (cboProcessPriority->ItemIndex == 0)
-	{
-		gudtOptions.iProcessPriority = IDLE_PRIORITY_CLASS;
-	}
-	else if (cboProcessPriority->ItemIndex == 1)
+	if (cboProcessPriority->ItemIndex == 1)
 	{
 		gudtOptions.iProcessPriority = BELOW_NORMAL_PRIORITY_CLASS;
 	}
@@ -183,25 +184,27 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		gudtOptions.iProcessPriority = REALTIME_PRIORITY_CLASS;
 	}
+	else //0
+	{
+		gudtOptions.iProcessPriority = IDLE_PRIORITY_CLASS;
+	}
+	
 
 	if (cboCheckForUpdates->ItemIndex == 0)
 	{
 		gudtOptions.iCheckForUpdates = -1;
 	}
-	else if (cboCheckForUpdates->ItemIndex == 1)
-	{
-		gudtOptions.iCheckForUpdates = 1;
-	}
 	else if (cboCheckForUpdates->ItemIndex == 2)
 	{
 		gudtOptions.iCheckForUpdates = 0;
 	}
-
-	if (cboTheme->ItemIndex == 0)
+	else //1
 	{
-		_tcscpy(gudtOptions.acTheme, _T("Windows"));
+		gudtOptions.iCheckForUpdates = 1;
 	}
-	else if (cboTheme->ItemIndex == 1)
+	
+
+	if (cboTheme->ItemIndex == 1)
 	{
 		_tcscpy(gudtOptions.acTheme, _T("Metropolis UI Black"));
 	}
@@ -209,6 +212,11 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		_tcscpy(gudtOptions.acTheme, _T("Luna"));
 	}
+	else //0
+	{
+		_tcscpy(gudtOptions.acTheme, _T("Windows"));
+	}
+	
 
 
 	gudtOptions.iLogLevel = cboLogLevel->ItemIndex;
@@ -217,11 +225,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	_tcscpy(gudtOptions.acExcludeMask, txtExcludeMask->Text.c_str());
 
 	gudtOptions.bCSSEnableTidy = chkCSSEnableTidy->Checked;
-	if (cboCSSTemplate->ItemIndex == 0)
-	{
-		_tcscpy(gudtOptions.acCSSTemplate, _T("low"));
-	}
-	else if (cboCSSTemplate->ItemIndex == 1)
+	if (cboCSSTemplate->ItemIndex == 1)
 	{
 		_tcscpy(gudtOptions.acCSSTemplate, _T("high"));
 	}
@@ -229,6 +233,11 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		_tcscpy(gudtOptions.acCSSTemplate, _T("highest"));
 	}
+	else //0
+	{
+		_tcscpy(gudtOptions.acCSSTemplate, _T("low"));
+	}
+
 
 	gudtOptions.bEXEDisablePETrim = chkEXEDisablePETrim->Checked;
 	gudtOptions.bGZCopyMetadata = chkGZCopyMetadata->Checked;
@@ -247,10 +256,6 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		_tcscpy(gudtOptions.acPDFProfile, _T("screen"));
 	}
-	else if (cboPDFProfile->ItemIndex == 2)
-	{
-		_tcscpy(gudtOptions.acPDFProfile, _T("ebook"));
-	}
 	else if (cboPDFProfile->ItemIndex == 3)
 	{
 		_tcscpy(gudtOptions.acPDFProfile, _T("printer"));
@@ -263,6 +268,11 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		_tcscpy(gudtOptions.acPDFProfile, _T("Custom"));
 	}
+	else //2
+	{
+		_tcscpy(gudtOptions.acPDFProfile, _T("ebook"));
+	}
+	
 	gudtOptions.iPDFCustomDPI = spnPDFCustomDPI->Value;
 
 	gudtOptions.bPNGCopyMetadata = chkPNGCopyMetadata->Checked;

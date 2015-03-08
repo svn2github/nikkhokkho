@@ -245,6 +245,9 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 	iRows = grdFiles->RowCount;
 	if (iRows > 1)
 	{
+		Screen->Cursor = crAppStart;
+		Application->ProcessMessages();
+		
 		if (ACol == iSortField)
 		{
 			iSortOrder = (iSortOrder + 1) & 1;
@@ -291,6 +294,9 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			grdFiles->Cells[KI_GRID_STATUS][iRow] = asValue[5];
 		}
 		delete lstTemp;
+		
+		RefreshStatus();
+		Screen->Cursor = crDefault;
 	}
 }
 
@@ -1108,11 +1114,16 @@ void __fastcall TfrmMain::mnuFilesAddClick(TObject *Sender)
 	//Add files
 	if (dlgAddFiles->Execute())
 	{
+		Screen->Cursor = crAppStart;
+		Application->ProcessMessages();
+		
 		TStrings *strFiles = dlgAddFiles->Files;
 		for (iCount = strFiles->Count; iCount > 0; iCount--)
 		{
 			AddFiles(strFiles->Strings[iCount - 1].c_str());
 		}
+		RefreshStatus();
+		Screen->Cursor = crDefault;
 	}
 }
 
