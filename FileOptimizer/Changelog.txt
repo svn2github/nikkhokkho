@@ -17,8 +17,6 @@
 
 - Add GUI options for bBMPCopyMetadata, bGIFCopyMetadata, bMiscCopyMetadata, bPCXCopyMetadata, bTIFFCopyMetadata
 
-- Integrate installer with Explorer Send To.
-
 - Add Information option on context menu.
 
 - Icono para el menú contextual de Help es diferente al de Help.
@@ -127,6 +125,7 @@ XXXX - YYY
 - Added new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
 - Added INI option BeepWhenDone=false to beep and notify used when optimization is complete (Special).
 - Added INI option FilenameFormat=0 (0: full path+filename; 1: only filename). (To Do: 2: driveletter + “:\”+partial path + filename; 3: driveletter + “:\”+partial path if fits+”...” last part of filename) to specify how File grid column is displayed (Jaff).
+- Integrated installer with Explorer Send To.
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
 - Better handling of obsolete .INI preferences.
 - Improved alternate colors in grid to look better on different Windows color schemes.

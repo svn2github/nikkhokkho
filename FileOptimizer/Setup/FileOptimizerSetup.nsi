@@ -60,13 +60,15 @@ Section "Files"
 		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
+		CreateShortCut "$SENDTO\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 	${Else}
 		File ..\Win32\Release\*32.exe
 		SetOutPath $INSTDIR\Plugins32
 		File /r ..\Win32\Release\Plugins32\*.*
-		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME} x86"
-		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME} x86"
-		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME} x86"
+		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
+		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
+		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
+		CreateShortCut "$SENDTO\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 	${EndIf}
 
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -111,6 +113,7 @@ Section "Uninstall"
 	Delete "$PROFILE\${APP_NAME}.ini"
 	Delete "$DESKTOP\${APP_NAME}.lnk"
 	Delete "$QUICKLAUNCH\${APP_NAME}.lnk"
+	Delete "$SENDTO\${APP_NAME}.lnk"
 	Delete "$FAVORITES\${APP_NAME} Home Page.lnk"
 	DeleteRegKey HKCU "Software\${APP_NAME}"	;Not needed because we do not write on the registry.
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
