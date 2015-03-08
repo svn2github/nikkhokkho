@@ -5,6 +5,7 @@
 #include <string.h>
 #include <mem.h>
 #include <StrUtils.hpp>
+#include <SysUtils.hpp>
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -68,6 +69,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iProcessPriority = clsUtil::GetIni(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
 	gudtOptions.iLogLevel = clsUtil::GetIni(_T("Options"), _T("LogLevel"), 0);
+	gudtOptions.iFilenameFormat = clsUtil::GetIni(_T("Options"), _T("FilenameFormat"), 0);
 	_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows")));
 	//_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
@@ -129,6 +131,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority);
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates);
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel);
+	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat);
 	clsUtil::SetIni(_T("Options"), _T("Theme"), gudtOptions.acTheme);
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion);
 }
@@ -280,7 +283,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			{
 				sValue = grdFiles->Cells[iSortField][iRow];
 			}
-			sValue += "|" + GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 0) + "|" + grdFiles->Cells[KI_GRID_EXTENSION][iRow] + "|" + grdFiles->Cells[KI_GRID_ORIGINAL][iRow] + "|" + grdFiles->Cells[KI_GRID_OPTIMIZED][iRow] + "|" + grdFiles->Cells[KI_GRID_STATUS][iRow];
+			sValue += "|" + grdFiles->Cells[KI_GRID_FILE][iRow] + "|" + grdFiles->Cells[KI_GRID_EXTENSION][iRow] + "|" + grdFiles->Cells[KI_GRID_ORIGINAL][iRow] + "|" + grdFiles->Cells[KI_GRID_OPTIMIZED][iRow] + "|" + grdFiles->Cells[KI_GRID_STATUS][iRow];
 			lstTemp->Add(sValue);
 		}
 
@@ -297,8 +300,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			{
 				asValue = SplitString(lstTemp->Strings[iRows - iRow - 1], "|");
 			}
-			//ToDo: Add custom formating
-			grdFiles->Cells[KI_GRID_FILE][iRow] = asValue[1] + "|" + asValue[1];
+			grdFiles->Cells[KI_GRID_FILE][iRow] = asValue[1];
 			grdFiles->Cells[KI_GRID_EXTENSION][iRow] = asValue[2];
 			grdFiles->Cells[KI_GRID_ORIGINAL][iRow] = asValue[3];
 			grdFiles->Cells[KI_GRID_OPTIMIZED][iRow] = asValue[4];
@@ -1287,8 +1289,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				if (PosEx(sExtensionByContent, KS_EXTENSION_ALL) > 0)
 				{
 					//We store the name to show concatenated with the full name
-					//ToDo: Add custom formating
-					grdFiles->Cells[KI_GRID_FILE][iRows] = (String) pacFile + "|" + (String) pacFile;
+					grdFiles->Cells[KI_GRID_FILE][iRows] = SetCellFileValue(pacFile);
 					grdFiles->Cells[KI_GRID_EXTENSION][iRows] = sExtension;
 					grdFiles->Cells[KI_GRID_ORIGINAL][iRows] = FormatNumberThousand(iSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][iRows] = "";
@@ -1988,9 +1989,9 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 	actStop->Enabled = mnuFilesStop->Enabled;
 	actClear->Enabled = mnuFilesClear->Enabled;
 	actRemove->Enabled = mnuFilesRemove->Enabled;
-	
+
 	//Reenable form updates
-	LockWindowUpdate(NULL);	
+	LockWindowUpdate(NULL);
 }
 
 
@@ -1999,13 +2000,46 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
-	if (PosEx("|", psValue) > 0)
+	TStringDynArray asValue;
+
+	asValue = SplitString(psValue, "\n");
+	if (asValue.Length > piPos)
 	{
-		TStringDynArray asValue;
-		asValue = SplitString(psValue, "|");
 		psValue = asValue[piPos];
 	}
 	return(psValue);
+}
+
+
+
+//---------------------------------------------------------------------------
+String __fastcall TfrmMain::SetCellFileValue(String psValue)
+{
+	String sRes = "";
+
+
+	//only filename
+	if (gudtOptions.iFilenameFormat == 1)
+	{
+		sRes = ExtractFileName(psValue);
+	}
+	//ToDo: driveletter + “:\”+partial path + filename
+	else if (gudtOptions.iFilenameFormat == 2)
+	{
+		sRes = psValue;
+	}
+	//ToDo: driveletter + “:\”+partial path if fits+”...” last part of filename
+	else if (gudtOptions.iFilenameFormat == 3)
+	{
+		sRes = psValue;
+	}
+	//full path+filename
+	else
+	{
+		sRes = psValue;
+	}
+	sRes += "\n" + psValue;
+	return(sRes);
 }
 
 

@@ -100,6 +100,7 @@ struct udtOptions
 	int iProcessPriority;
 	int iCheckForUpdates;
 	int iLogLevel;
+	int iFilenameFormat;
 	TCHAR acTheme[64];
 	TCHAR acVersion[16];
 };
@@ -212,6 +213,7 @@ private: // User declarations
 	bool __fastcall IsInnoSetup(const TCHAR *pacFile);
 	bool __fastcall IsManagedNet(const TCHAR *pacFile);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
+	String __fastcall SetCellFileValue(String psValue);
 
 public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);
