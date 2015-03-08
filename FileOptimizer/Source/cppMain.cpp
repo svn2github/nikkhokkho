@@ -205,6 +205,7 @@ void __fastcall TfrmMain::FormResize(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect, TGridDrawState State)
 {
+	grdFiles->Rows[ARow]->BeginUpdate();
 	if (ARow == 0)
 	{
 		grdFiles->Canvas->Brush->Color = clBtnFace;
@@ -243,6 +244,7 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 	{
 		grdFiles->Canvas->TextRect(Rect, Rect.right - Canvas->TextWidth(sValue) - 4, Rect.top + 4, sValue);
 	}
+	grdFiles->Rows[ARow]->EndUpdate();
 }
 
 
@@ -300,11 +302,13 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			{
 				asValue = SplitString(lstTemp->Strings[iRows - iRow - 1], "|");
 			}
+			grdFiles->Rows[iRow]->BeginUpdate();
 			grdFiles->Cells[KI_GRID_FILE][iRow] = asValue[1];
 			grdFiles->Cells[KI_GRID_EXTENSION][iRow] = asValue[2];
 			grdFiles->Cells[KI_GRID_ORIGINAL][iRow] = asValue[3];
 			grdFiles->Cells[KI_GRID_OPTIMIZED][iRow] = asValue[4];
 			grdFiles->Cells[KI_GRID_STATUS][iRow] = asValue[5];
+			grdFiles->Rows[iRow]->EndUpdate();
 		}
 		delete lstTemp;
 		
@@ -1068,7 +1072,7 @@ void __fastcall TfrmMain::mnuFilesAddClick(TObject *Sender)
 	{
 		Screen->Cursor = crAppStart;
 		Application->ProcessMessages();
-		
+
 		TStrings *strFiles = dlgAddFiles->Files;
 		for (iCount = strFiles->Count; iCount > 0; iCount--)
 		{
@@ -1104,10 +1108,12 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 	iRows = grdFiles->RowCount - 1;
 	for (iRow = iSelectedRow2; iRow < iRows; iRow++)
 	{
+		grdFiles->Rows[iRow]->BeginUpdate();
 		for (iCol = 0; iCol < iCols; iCol++)
 		{
 			grdFiles->Cells[iCol][iRow] = grdFiles->Cells[iCol][iRow + 1];
 		}
+		grdFiles->Rows[iRow]->EndUpdate();
 	}
 	grdFiles->RowCount -= (iSelectedRow2 - iSelectedRow1 + 1);
 	RefreshStatus();
@@ -1289,64 +1295,19 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				if (PosEx(sExtensionByContent, KS_EXTENSION_ALL) > 0)
 				{
 					//We store the name to show concatenated with the full name
+					grdFiles->Rows[iRows]->BeginUpdate();
 					grdFiles->Cells[KI_GRID_FILE][iRows] = SetCellFileValue(pacFile);
 					grdFiles->Cells[KI_GRID_EXTENSION][iRows] = sExtension;
 					grdFiles->Cells[KI_GRID_ORIGINAL][iRows] = FormatNumberThousand(iSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][iRows] = "";
 					grdFiles->Cells[KI_GRID_STATUS][iRows] = "Pending";
+					grdFiles->Rows[iRows]->EndUpdate();
 					grdFiles->RowCount++;
 				}
 			}
 		}
 	}
 	RefreshStatus();
-}
-
-
-
-// ---------------------------------------------------------------------------
-int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psProcess, String psDirectory, String psTmpName)
-{
-	int iError;
-	unsigned int iSize, iSizeTmp, iPercent;
-	String sShortFile;
-
-
-	if (gbStop)
-	{
-		//Close();
-		return (0);
-	}
-
-	if (psTmpName != "")
-	{
-		DeleteFile(psTmpName.c_str());
-	}
-	sShortFile = GetShortName(GetCellValue(grdFiles->Cells[KI_GRID_FILE][piCurrent], 1));
-
-	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = "Running " + psStatus + "...";
-	iSize = clsUtil::SizeFile(sShortFile.c_str());
-	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
-
-	iError = RunProcess(psProcess.c_str(), psDirectory.c_str(), NULL, 0, true);
-	Log(3, ("Return: " + ((String) iError) + ". Process: " + psProcess).c_str());
-
-	if (psTmpName != "")
-	{
-		iSizeTmp = clsUtil::SizeFile(psTmpName.c_str());
-		if ((iSizeTmp > 0) && (iSizeTmp < iSize))
-		{
-			iSize = iSizeTmp;
-			CopyFile(psTmpName.c_str(), GetCellValue(grdFiles->Cells[KI_GRID_FILE][piCurrent], 1).c_str(), false);
-		}
-		DeleteFile(psTmpName.c_str());
-	}
-
-	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
-	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
-	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = grdFiles->Cells[KI_GRID_STATUS][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
-
-	return (iError);
 }
 
 
@@ -1966,11 +1927,13 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 			else
 			{
 				grdFiles->ColCount = 5;
+				grdFiles->Rows[0]->BeginUpdate();
 				grdFiles->Cells[KI_GRID_FILE][0] = "File";
 				grdFiles->Cells[KI_GRID_EXTENSION][0] = "Extension";
 				grdFiles->Cells[KI_GRID_ORIGINAL][0] = "Original size";
 				grdFiles->Cells[KI_GRID_OPTIMIZED][0] = "Optimized size";
 				grdFiles->Cells[KI_GRID_STATUS][0] = "Status";
+				grdFiles->Rows[0]->EndUpdate();
 
 				stbMain->Panels->Items[0]->Text = "";
 				stbMain->Hint = stbMain->Panels->Items[0]->Text;

@@ -44,13 +44,8 @@
 - Is it possible to add by FileOptimizer in the Gui a menu 
 "Windows Explorer integration" 
 -> add FileOptimizer to (all/selected) supported file extensions (Graphic file formats, PE (exe, dll,...), archives, documents, others
--> add FileOptimizer to Send To Menu (Chris)
 
-- Add a shortcut to the send to menu -> FileOptimizer64 and for 32bit user FileOptimizer (right click submenu) %APPDATA%\Microsoft\Windows\SendTo By all supported file types vie Regkeys to the right click explorer menu will be also OK (Recon)
-
-- In Setup Version with user selection to ask, by portable version as attached Registry Key next to the program files of FileOptimizer. Best solution adding it into the Program by self and in the gui a menu like 'integrate File Optimizer to SendTo Menu' or to 'integrate to all supported formats' open with File Optimizer.
-And solution to compress Bipmaps to RLE Compressed BMP's (best settings see Hypersnap Screenshot program save as -> bmp -> subformat-> RLE Compressed -> Bits per Pixel -> Select Best -> Palette Optimized)
-I need for doing this Hypersnap cause can not find another program who can open bmp and quick convert to RLE with this settings. MAny times needed for example inno setup only support bmp by creating installer in the setup interface same by al possible SFX modules by compression tools such as FreeARC by the sfx file can save up to 50% size or inside programs with ressource hacker / PE Explorer replacing bmp's in executables and co or by Visual Studio by self. This is a highly needed feature (Recon)
+- I need for doing this Hypersnap cause can not find another program who can open bmp and quick convert to RLE with this settings. MAny times needed for example inno setup only support bmp by creating installer in the setup interface same by al possible SFX modules by compression tools such as FreeARC by the sfx file can save up to 50% size or inside programs with ressource hacker / PE Explorer replacing bmp's in executables and co or by Visual Studio by self. This is a highly needed feature (Recon)
 
 
  El archivo no se podrá arrastrar en estos dos casos:
@@ -125,7 +120,7 @@ XXXX - YYY
 - Added new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
 - Added INI option BeepWhenDone=false to beep and notify used when optimization is complete (Special).
 - Added INI option FilenameFormat=0 (0: full path+filename; 1: only filename). (To Do: 2: driveletter + “:\”+partial path + filename; 3: driveletter + “:\”+partial path if fits+”...” last part of filename) to specify how File grid column is displayed (Jaff).
-- Integrated installer with Explorer Send To.
+- Integrated installer with Explorer Send To (Chris, Recon).
 - Added .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .INK, .NBK, .NOTEBOOK and *.XNK file extensions to the ZIP tool chain (maadjordan).
 - Better handling of obsolete .INI preferences.
 - Improved alternate colors in grid to look better on different Windows color schemes.
