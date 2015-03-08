@@ -211,6 +211,7 @@ private: // User declarations
 	bool __fastcall IsAPNG(const TCHAR *pacFile);
 	bool __fastcall IsInnoSetup(const TCHAR *pacFile);
 	bool __fastcall IsManagedNet(const TCHAR *pacFile);
+	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 
 public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);

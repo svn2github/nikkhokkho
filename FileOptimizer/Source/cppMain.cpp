@@ -228,15 +228,17 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 	Rect.left -= 2;
 	grdFiles->Canvas->FillRect(Rect);
 
+	String sValue = GetCellValue(grdFiles->Cells[ACol][ARow], 0);
+
 	//Left aligned
 	if ((ACol == KI_GRID_FILE) || (ACol == KI_GRID_EXTENSION) || (ACol == KI_GRID_STATUS))
 	{
-		grdFiles->Canvas->TextRect(Rect, Rect.left + 4, Rect.top + 4, grdFiles->Cells[ACol][ARow]);
+		grdFiles->Canvas->TextRect(Rect, Rect.left + 4, Rect.top + 4, sValue);
 	}
 	//Right aligned
 	else
 	{
-		grdFiles->Canvas->TextRect(Rect, Rect.right - Canvas->TextWidth(grdFiles->Cells[ACol][ARow]) - 4, Rect.top + 4, grdFiles->Cells[ACol][ARow]);
+		grdFiles->Canvas->TextRect(Rect, Rect.right - Canvas->TextWidth(sValue) - 4, Rect.top + 4, sValue);
 	}
 }
 
@@ -255,7 +257,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 	{
 		Screen->Cursor = crAppStart;
 		Application->ProcessMessages();
-		
+
 		if (ACol == iSortField)
 		{
 			iSortOrder = (iSortOrder + 1) & 1;
@@ -278,7 +280,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			{
 				sValue = grdFiles->Cells[iSortField][iRow];
 			}
-			sValue += "|" + grdFiles->Cells[KI_GRID_FILE][iRow] + "|" + grdFiles->Cells[KI_GRID_EXTENSION][iRow] + "|" + grdFiles->Cells[KI_GRID_ORIGINAL][iRow] + "|" + grdFiles->Cells[KI_GRID_OPTIMIZED][iRow]  + "|" + grdFiles->Cells[KI_GRID_STATUS][iRow];
+			sValue += "|" + GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 0) + "|" + grdFiles->Cells[KI_GRID_EXTENSION][iRow] + "|" + grdFiles->Cells[KI_GRID_ORIGINAL][iRow] + "|" + grdFiles->Cells[KI_GRID_OPTIMIZED][iRow] + "|" + grdFiles->Cells[KI_GRID_STATUS][iRow];
 			lstTemp->Add(sValue);
 		}
 
@@ -295,7 +297,8 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			{
 				asValue = SplitString(lstTemp->Strings[iRows - iRow - 1], "|");
 			}
-			grdFiles->Cells[KI_GRID_FILE][iRow] = asValue[1];
+			//ToDo: Add custom formating
+			grdFiles->Cells[KI_GRID_FILE][iRow] = asValue[1] + "|" + asValue[1];
 			grdFiles->Cells[KI_GRID_EXTENSION][iRow] = asValue[2];
 			grdFiles->Cells[KI_GRID_ORIGINAL][iRow] = asValue[3];
 			grdFiles->Cells[KI_GRID_OPTIMIZED][iRow] = asValue[4];
@@ -318,7 +321,7 @@ void __fastcall TfrmMain::grdFilesMouseMove(TObject *Sender, TShiftState Shift, 
 	if ((iRow >= 0) && (iCol >=0))
 	{
 		Application->CancelHint();
-		grdFiles->Hint = grdFiles->Cells[iCol][iRow];
+		grdFiles->Hint = GetCellValue(grdFiles->Cells[iCol][iRow], 1);
 	}
 }
 
@@ -333,7 +336,7 @@ void __fastcall TfrmMain::grdFilesDblClick(TObject *Sender)
 	iCol = grdFiles->Col;
 	if ((iRow > 0) && (iCol == KI_GRID_FILE))
 	{
-		ShellExecute(NULL, _T("open"), grdFiles->Cells[KI_GRID_FILE][iRow].c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
 	}
 }
 
@@ -385,7 +388,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	iRows = grdFiles->RowCount;
 	for (iCount = 1; iCount < iRows; iCount++)
 	{
-		sInputFile = grdFiles->Cells[KI_GRID_FILE][iCount];
+		sInputFile = GetCellValue(grdFiles->Cells[KI_GRID_FILE][iCount], 1);
 
 		stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
@@ -1270,7 +1273,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			//Check if already added
 			for (iRow = 1; iRow < iRows; iRow++)
 			{
-				if (grdFiles->Cells[KI_GRID_FILE][iRow] == pacFile)
+				if (GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1) == pacFile)
 				{
 					return;
 				}
@@ -1283,7 +1286,9 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
 				if (PosEx(sExtensionByContent, KS_EXTENSION_ALL) > 0)
 				{
-					grdFiles->Cells[KI_GRID_FILE][iRows] = pacFile;
+					//We store the name to show concatenated with the full name
+					//ToDo: Add custom formating
+					grdFiles->Cells[KI_GRID_FILE][iRows] = (String) pacFile + "|" + (String) pacFile;
 					grdFiles->Cells[KI_GRID_EXTENSION][iRows] = sExtension;
 					grdFiles->Cells[KI_GRID_ORIGINAL][iRows] = FormatNumberThousand(iSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][iRows] = "";
@@ -1316,7 +1321,7 @@ int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psP
 	{
 		DeleteFile(psTmpName.c_str());
 	}
-	sShortFile = GetShortName(grdFiles->Cells[KI_GRID_FILE][piCurrent]);
+	sShortFile = GetShortName(GetCellValue(grdFiles->Cells[KI_GRID_FILE][piCurrent], 1));
 
 	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = "Running " + psStatus + "...";
 	iSize = clsUtil::SizeFile(sShortFile.c_str());
@@ -1331,7 +1336,7 @@ int __fastcall TfrmMain::RunPluginOld(int piCurrent, String psStatus, String psP
 		if ((iSizeTmp > 0) && (iSizeTmp < iSize))
 		{
 			iSize = iSizeTmp;
-			CopyFile(psTmpName.c_str(), grdFiles->Cells[KI_GRID_FILE][piCurrent].c_str(), false);
+			CopyFile(psTmpName.c_str(), GetCellValue(grdFiles->Cells[KI_GRID_FILE][piCurrent], 1).c_str(), false);
 		}
 		DeleteFile(psTmpName.c_str());
 	}
@@ -1988,6 +1993,20 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 	LockWindowUpdate(NULL);	
 }
 
+
+
+//---------------------------------------------------------------------------
+String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
+{
+	//Decode the information in cell separating the value to show, with the value to parse
+	if (PosEx("|", psValue) > 0)
+	{
+		TStringDynArray asValue;
+		asValue = SplitString(psValue, "|");
+		psValue = asValue[piPos];
+	}
+	return(psValue);
+}
 
 
 
