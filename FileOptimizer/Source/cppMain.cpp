@@ -1514,7 +1514,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			sRes = ".swf";
 		}
 		//Check TAR
-		else if (memcmp($acBuffer[257], "\x75\x73\x74\x61\x72", 5) == 0)
+		else if (memcmp(&acBuffer[257], "\x75\x73\x74\x61\x72", 5) == 0)
 		{
 			sRes = ".tar";
 		}	
