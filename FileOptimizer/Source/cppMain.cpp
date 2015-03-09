@@ -1428,7 +1428,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 {
 	String sRes = "";
-	unsigned char acBuffer[128];
+	unsigned char acBuffer[512];
 	unsigned int iSize;
 
 	iSize = sizeof(acBuffer);
@@ -1446,30 +1446,53 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			sRes = ".dll";
 		}
 		//Check FLAC
+		else if (memcmp(acBuffer, "fLaC", 4) == 0)
+		{
+			sRes = ".flac";
+		}
 		//Check GIF
 		else if (memcmp(acBuffer, "GIF8", 4) == 0)
 		{
 			sRes = ".gif";
 		}
 		//Check GZ
-		else if (memcmp(acBuffer, "\x1f\x08b", 2) == 0)
+		else if (memcmp(acBuffer, "\x1F\x8B", 2) == 0)
 		{
 			sRes = ".gz";
 		}
 		//Check ICO
+		else if (memcmp(acBuffer, "\x00\x00\x01\x00", 4) == 0)
+		{
+			sRes = ".ico";
+		}
 		//Check JPEG
-		else if (memcmp(acBuffer, "\xFF\xD8", 2) == 0)
+		else if (memcmp(acBuffer, "\xFF\xD8\xFF", 3) == 0)
 		{
 			sRes = ".jpg";
 		}
 		//Check MKV
+		else if (memcmp(acBuffer, ".RTS", 4) == 0)
+		{
+			sRes = ".mkv";
+		}
 		//Check MNG
 		//Check MP3
+		else if (memcmp(acBuffer, "ID3", 3) == 0)
+		{
+			sRes = ".mp3";
+		}
 		//Check MP4
+		else if (memcmp(&acBuffer[3], "ftyp", 4) == 0)
+		{
+			sRes = ".mp4";
+		}
 		//Check OBJ
 		//Check OGG
 		//Check OGV
-		//Check OLE
+		else if (memcmp(&acBuffer[3], "OggS", 4) == 0)
+		{
+			sRes = ".ogg";
+		}
 		//Check PCX
 		else if ((acBuffer[0] == 10) && (acBuffer[2] == 1) && (acBuffer[64] == 0) && (acBuffer[74] == 0))
 		{
@@ -1486,15 +1509,23 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			sRes = ".png";
 		}
 		//Check SWF
-		if ((memcmp(acBuffer, "FWs", 3) == 0) || (memcmp(acBuffer, "CWS", 3) == 0) || (memcmp(acBuffer, "ZWS", 3) == 0))
+		else if ((memcmp(acBuffer, "FWS", 3) == 0) || (memcmp(acBuffer, "CWS", 3) == 0) || (memcmp(acBuffer, "ZWS", 3) == 0))
 		{
 			sRes = ".swf";
 		}
 		//Check TAR
+		else if (memcmp($acBuffer[257], "\x75\x73\x74\x61\x72", 5) == 0)
+		{
+			sRes = ".tar";
+		}	
 		//Check TIF
+		else if ((memcmp(acBuffer, "\x0C\xED", 2) == 0) || (memcmp(acBuffer, "\x49\x20\x49", 3) == 0) || (memcmp(acBuffer, "\x49\x49\x2A\x00", 4) == 0) || (memcmp(acBuffer, "\x4D\x4D\x00\x2B", 4) == 0))
+		{
+			sRes = ".tif";
+		}
 		//Check WEBP
 		//Check ZIP
-		else if (memcmp(acBuffer, "\x50\x04b\x03\x04", 4) == 0)
+		else if (memcmp(acBuffer, "\x50\x4B\x03\x04", 4) == 0)
 		{
 			sRes = ".zip";
 		}
