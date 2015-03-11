@@ -1,3 +1,5 @@
+- Deduplicate extensions and sort them alphabetically in Information window.
+
 - Reengineer optimization levels so performance is according to the format.
 
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
