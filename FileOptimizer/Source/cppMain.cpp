@@ -1434,6 +1434,8 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	iSize = sizeof(acBuffer);
 	if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))
 	{
+		//ToDo: Optimize to use regular comparisons instead of memcmp for short comparisons.
+		
 		//Check BMP
 		if ((memcmp(acBuffer, "BM", 2) == 0) || (memcmp(acBuffer, "BA", 2) == 0) || (memcmp(acBuffer, "CI", 2) == 0) || (memcmp(acBuffer, "CP", 2) == 0) || (memcmp(acBuffer, "IC", 2) == 0) || (memcmp(acBuffer, "PT", 2) == 0))
 		{
@@ -1487,8 +1489,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			sRes = ".mp4";
 		}
 		//Check OBJ
-		//Check OGG
-		//Check OGV
+		//Check OGG / Check OGV
 		else if (memcmp(&acBuffer[3], "OggS", 4) == 0)
 		{
 			sRes = ".ogg";
@@ -1524,6 +1525,10 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			sRes = ".tif";
 		}
 		//Check WEBP
+		else if (memcmp(&acBuffer[7], "WEBP", 8) == 0)
+		{
+			sRes = ".webp";
+		}	
 		//Check ZIP
 		else if (memcmp(acBuffer, "\x50\x4B\x03\x04", 4) == 0)
 		{
