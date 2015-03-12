@@ -2110,11 +2110,47 @@ void __fastcall TfrmMain::actAboutExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 {
-	String sText;
+	unsigned int iExtension, iExtensionLen;
+	String sExtension;
+	String sText = "";
+	
+	
+	//Get all supported extensions
+	TStringDynArray asExtension;
+	asExtension = SplitString(KS_EXTENSION_ALL.UpperCase(), " ");
+	iExtensionLen = asExtension.Length;
+	
+	//Sort them alphabetically
+	TStringList *lstTemp = new TStringList();
+	for (iExtension = 0; iCont < iExtensionLen; iExtension++)
+	{
+		lstTemp->Add(asExtension[iExtension]);
+	}
+	lstTemp->Sort();
+	
+	
+	for (iExtension = 0; iExtension < iExtensionLen; iExtension++)
+	{
+		sExtension = StringReplace(lstTemp->Strings[iExtension], ".", " ", TReplaceFlags() << rfReplaceAll);
 
-	sText = "FileOptimizer is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: ";
-	sText += StringReplace(StringReplace(KS_EXTENSION_ALL.UpperCase(), ".", ", ", TReplaceFlags() << rfReplaceAll), " ,", ",", TReplaceFlags() << rfReplaceAll);
-	sText += ",... file formats among others.";
+		//Check if we already have it
+		if (PosEx(sExtension, sText) <= 0)
+		{
+			//Check if it is not the last extension
+			if ((iExtension != (iExtensionLen - 1))
+			{
+				sText += sExtension + ", ";
+			}
+			else
+			{
+				sText += " and " + sExtension + " file formats among others.";
+			}
+		}
+	}
+	delete lstTemp;
+	
+	sText = KS_APP_NAME + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
+
 	clsUtil::MsgBox(NULL, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
 }
 
