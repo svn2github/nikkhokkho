@@ -101,7 +101,7 @@ ndo
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.2.40 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/)
-- libwebp 0.4.3 RC1 - http://www.webmproject.org
+- libwebp 0.4.3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
@@ -132,7 +132,7 @@ XXXX - YYY
 - Improved alternate colors in grid to look better on different Windows color schemes.
 - Fixed wrong percentage calculation for big files due to integer overflow (Dmitry, Juan).
 - Fixed grid column sorting not working properly for certain types (Nico919).
-- Updated libwebp to 0.4.3 RC1.
+- Updated libwebp to 0.4.3.
 - Updated ImageMagick to 6.9.0.10.
 - Updated Leanify 0.4.2.40 daily binaries.
 - Some minor optimizations and code cleanup.
