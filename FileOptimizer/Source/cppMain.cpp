@@ -2122,7 +2122,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	
 	//Sort them alphabetically
 	TStringList *lstTemp = new TStringList();
-	for (iExtension = 0; iCont < iExtensionLen; iExtension++)
+	for (iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
 		lstTemp->Add(asExtension[iExtension]);
 	}
@@ -2137,7 +2137,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		if (PosEx(sExtension, sText) <= 0)
 		{
 			//Check if it is not the last extension
-			if ((iExtension != (iExtensionLen - 1))
+			if (iExtension != (iExtensionLen - 1))
 			{
 				sText += sExtension + ", ";
 			}
@@ -2149,7 +2149,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	}
 	delete lstTemp;
 	
-	sText = KS_APP_NAME + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
+	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
 
 	clsUtil::MsgBox(NULL, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
 }

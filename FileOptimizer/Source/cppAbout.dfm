@@ -7,6 +7,7 @@ object frmAbout: TfrmAbout
   ClientHeight = 389
   ClientWidth = 425
   Color = clWhite
+  DoubleBuffered = True
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
   Font.Height = -11

@@ -7,6 +7,7 @@ object frmMain: TfrmMain
   Color = clWindow
   Constraints.MinHeight = 450
   Constraints.MinWidth = 715
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
