@@ -1526,7 +1526,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			sRes = ".tif";
 		}
 		//Check WEBP
-		else if (memcmp(&acBuffer[7], "WEBP", 8) == 0)
+		else if (memcmp(&acBuffer[7], "WEBP", 4) == 0)
 		{
 			sRes = ".webp";
 		}	

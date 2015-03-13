@@ -120,7 +120,7 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-XXXX - YYY
+7.20 - 2015/03/13
 - FileOptimizer is now able to partially detect file types by its contents instead of file extensions (BMP, DLL, FLAC, GIF, GZ, JPG, MKV, MP3, MP4, PCX, PDF, PNG, SWF, TIFF, WEBP, and ZIP). More to come later.
 - Added custom PDF profile to allow specifying desired downsampling DPI (stratos chatzi, Special, Newtomic).
 - Added new column extension between file and original on the grid to allow sorting by filetypes (Nico919).
@@ -137,8 +137,6 @@ XXXX - YYY
 - Updated ImageMagick to 6.9.0.10.
 - Updated Leanify 0.4.2.40 daily binaries.
 - Some minor optimizations and code cleanup.
-
-
 
 7.10 - 2015/02/20
 - Added Matroska support with mkclean for .mkv, .mka, and .mks file extensions (SpanishDogg).
