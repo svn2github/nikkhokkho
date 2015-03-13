@@ -96,6 +96,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 {
 	clsUtil::SaveForm(this);
+
 	clsUtil::SetIni(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
 	clsUtil::SetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
 	clsUtil::SetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
@@ -2113,26 +2114,30 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	unsigned int iExtension, iExtensionLen;
 	String sExtension;
 	String sText = "";
-	
-	
+
+
 	//Get all supported extensions
 	TStringDynArray asExtension;
 	asExtension = SplitString(KS_EXTENSION_ALL.UpperCase(), " ");
 	iExtensionLen = asExtension.Length;
-	
+
 	//Sort them alphabetically
 	TStringList *lstTemp = new TStringList();
 	for (iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
-		lstTemp->Add(asExtension[iExtension]);
+		sExtension = asExtension[iExtension];
+		//Dont push it if empty extension
+		if (sExtension.Length() > 1)
+		{
+			lstTemp->Add(sExtension);
+		}
 	}
 	lstTemp->Sort();
-	
-	
+
+	iExtensionLen = lstTemp->Count;
 	for (iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
-		sExtension = StringReplace(lstTemp->Strings[iExtension], ".", " ", TReplaceFlags() << rfReplaceAll);
-
+		sExtension = lstTemp->Strings[iExtension];
 		//Check if we already have it
 		if (PosEx(sExtension, sText) <= 0)
 		{
@@ -2143,7 +2148,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 			}
 			else
 			{
-				sText += " and " + sExtension + " file formats among others.";
+				sText += "and " + sExtension + " file formats among others.";
 			}
 		}
 	}
