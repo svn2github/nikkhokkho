@@ -667,7 +667,7 @@ unsigned int __fastcall clsUtil::Serialize (void *pacBuffer, unsigned int piSize
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSize)
 {
-	int iBuffer;
+	unsigned int iBuffer;
 	unsigned char iNibbleL, iNibbleH;
 
 

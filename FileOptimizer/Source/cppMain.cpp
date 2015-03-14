@@ -1319,7 +1319,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------
-int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile)
+int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile)
 {
 	int iError;
 	unsigned int iSize, iSizeNew;
