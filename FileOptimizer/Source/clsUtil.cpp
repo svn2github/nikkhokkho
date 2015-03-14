@@ -655,9 +655,9 @@ unsigned int __fastcall clsUtil::Serialize (void *pacBuffer, unsigned int piSize
 
 	for (iBuffer = piSize - 1; iBuffer >= 0; iBuffer--)
 	{
-		iByte = (unsigned char *) pacBuffer[iBuffer];
-		(unsigned char *) pacBuffer[iBuffer << 1] = (iByte & 15) + '0';
-		(unsigned char *) pacBuffer[(iBuffer << 1) + 1] = (iByte >> 4) + '0';
+		iByte = ((unsigned char *) pacBuffer)[iBuffer];
+		((unsigned char *) pacBuffer)[iBuffer << 1] = (iByte & 15) + '0';
+		((unsigned char *) pacBuffer)[(iBuffer << 1) + 1] = (iByte >> 4) + '0';
 	}
 	return(piSize << 1);
 }
@@ -673,8 +673,8 @@ unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSi
 
 	for (iBuffer = 0; iBuffer < piSize; iBuffer+=2)
 	{
-		iNibbleL = (unsigned char *) pacBuffer[iBuffer] - '0';
-		iNibbleH = (unsigned char *) pacBuffer[iBuffer + 1] - '0';
+		iNibbleL = ((unsigned char *) pacBuffer)[iBuffer] - '0';
+		iNibbleH = ((unsigned char *) pacBuffer)[iBuffer + 1] - '0';
 
 		//Do a simple integrity check
 		if ((iNibbleL > 15) || (iNibbleH > 15))
@@ -683,7 +683,7 @@ unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSi
 		}
 		else
 		{
-			(unsigned char *) pacBuffer[iBuffer >> 1] = iNibbleL + (iNibbleH << 4);
+			((unsigned char *) pacBuffer)[iBuffer >> 1] = iNibbleL + (iNibbleH << 4);
 		}
 	}
 	return(piSize >> 1);

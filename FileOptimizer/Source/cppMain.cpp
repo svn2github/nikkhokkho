@@ -368,7 +368,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	unsigned int iCount, iRows;
 	int iError;
 	int iLevel;
-	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes;
+	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes, iPercent;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sFlags;
 	String sExtensionByContent;
@@ -1021,6 +1021,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		{
 			grdFiles->Cells[KI_GRID_STATUS][iCount] = "Skipped";
 		}
+		else
+		{
+			iPercent = (((unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
+			grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercent);
+		}
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
 
 		//Abort for loop if operation is cancelled
@@ -1033,7 +1038,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	//grdFiles->Enabled = true;
 	if (iTotalBytes != 0)
 	{
-		iPercentBytes = ((unsigned long long) iSavedBytes) * 100 / iTotalBytes;
+		iPercentBytes = ((unsigned long long) iTotalBytes - iSavedBytes) * 100 / iTotalBytes;
 	}
 	else
 	{
@@ -1317,7 +1322,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile)
 {
 	int iError;
-	unsigned int iSize, iSizeNew, iPercent;
+	unsigned int iSize, iSizeNew;
 	String sInputFile, sOutputFile, sTmpInputFile, sTmpOutputFile, sCommandLine;
 	TCHAR acTmp[MAX_PATH];
 
@@ -1384,9 +1389,8 @@ int __fastcall TfrmMain::RunPlugin(int piCurrent, String psStatus, String psComm
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 
-	iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
+	//iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
 	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
-	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = grdFiles->Cells[KI_GRID_STATUS][piCurrent].sprintf(_T("Done (%3d%%)."), iPercent);
 
 	return (iError);
 }
@@ -1910,13 +1914,13 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 
 
 	//Prevent flickering
-	LockWindowUpdate(Handle);	
+	LockWindowUpdate(Handle);
 
 	if (gbProcess)
 	{
 		if (piTotalBytes != 0)
 		{
-			iPercentBytes = ((unsigned long long) piSavedBytes) * 100 / piTotalBytes;
+			iPercentBytes = ((unsigned long long) piTotalBytes - piSavedBytes) * 100 / piTotalBytes;
 		}
 		else
 		{
