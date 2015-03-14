@@ -1,3 +1,5 @@
+- The ability to specify an output directory (Runner112).
+
 - Optimize GetExtensionByContent to use regular comparisons instead of memcmp for short comparisons.
 
 - Make quick access customized buttons permanent in ribbon, as well as its visibility and size (Newatomic).
@@ -31,15 +33,11 @@
 
 - Comprimir ZIP distribución con Zopfli
 
-- Generar nombre de archivo temporal único cada vez.
-
 - Cambiar MenuClick por act.
 
 - PNG transparency: http://encode.ru/threads/1260-CryoPNG-short-introduction
 
 - OptiPNG-ZopFli https://github.com/sayurin/optipng-zopfli (Jose)
-
-- The ability to specify an output directory (Runner112).
 
 - Preferencias pestaña others con metadata.
 
