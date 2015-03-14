@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.20. 14/03/2015. FileOptimizer. Added Serialize and Unserialize
  3.10. 20/01/2015. FileOptimizer. Minor tweaks and fixes
  3.00. 23/09/2012. FileOptimizer. Added LoadForm, SaveForm, CopyToRecycleBin, SetTaskListProgress
  2.00. 09/08/2012. FileOptimizer. Added clsUtil static class wrapper, optimized SizeFile, mapped to TCHAR and merged clsPreferences common functions
@@ -641,6 +642,51 @@ void __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const T
 	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey);
 	RegQueryValueEx(hKey, pacName, NULL, NULL, (BYTE *) pacValue, NULL);
 	RegCloseKey(hKey);
+}
+
+
+
+// ---------------------------------------------------------------------------
+unsigned int __fastcall clsUtil::Serialize (void *pacBuffer, unsigned int piSize)
+{
+	int iBuffer;
+	unsigned char iByte;
+
+
+	for (iBuffer = piSize - 1; iBuffer >= 0; iBuffer--)
+	{
+		iByte = (unsigned char *) pacBuffer[iBuffer];
+		(unsigned char *) pacBuffer[iBuffer << 1] = (iByte & 15) + '0';
+		(unsigned char *) pacBuffer[(iBuffer << 1) + 1] = (iByte >> 4) + '0';
+	}
+	return(piSize << 1);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSize)
+{
+	int iBuffer;
+	unsigned char iNibbleL, iNibbleH;
+
+
+	for (iBuffer = 0; iBuffer < piSize; iBuffer+=2)
+	{
+		iNibbleL = (unsigned char *) pacBuffer[iBuffer] - '0';
+		iNibbleH = (unsigned char *) pacBuffer[iBuffer + 1] - '0';
+
+		//Do a simple integrity check
+		if ((iNibbleL > 15) || (iNibbleH > 15))
+		{
+			return(0);
+		}
+		else
+		{
+			(unsigned char *) pacBuffer[iBuffer >> 1] = iNibbleL + (iNibbleH << 4);
+		}
+	}
+	return(piSize >> 1);
 }
 
 
