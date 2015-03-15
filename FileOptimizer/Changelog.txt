@@ -119,7 +119,9 @@ ndo
 
 
 XX - YYYY
+- Default optimization level is now 5: Normal, instead of 9: Best.
 - Fixed wrong percent calculation (Dmitry).
+- Minor optimizations.
 
 
 7.20 - 2015/03/13
