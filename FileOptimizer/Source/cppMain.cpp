@@ -1933,7 +1933,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 
 
 	//Prevent flickering
-	LockWindowUpdate(Handle);
+	//LockWindowUpdate(Handle);
 
 	if (gbProcess)
 	{
@@ -2014,7 +2014,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 	actRemove->Enabled = mnuFilesRemove->Enabled;
 
 	//Reenable form updates
-	LockWindowUpdate(NULL);
+	//LockWindowUpdate(NULL);
 }
 
 
