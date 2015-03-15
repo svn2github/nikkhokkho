@@ -368,7 +368,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	unsigned int iCount, iRows;
 	int iError;
 	int iLevel;
-	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes, iPercent;
+	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sFlags;
 	String sExtensionByContent;
@@ -1023,8 +1023,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		}
 		else
 		{
-			iPercent = (((unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
-			grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercent);
+			iPercentBytes = (((unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
+			grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 		}
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
 
