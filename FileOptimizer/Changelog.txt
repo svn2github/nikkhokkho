@@ -1,5 +1,7 @@
 - The ability to specify an output directory (Runner112).
 
+- Add Information option on context menu.
+
 - Optimize GetExtensionByContent to use regular comparisons instead of memcmp for short comparisons.
 
 - Make quick access customized buttons permanent in ribbon, as well as its visibility and size (Newatomic).
@@ -24,8 +26,6 @@
 - Remove obsolete plugins with Leanify; ADV*, mozjpegtran, zRecompress, ...
 
 - Add GUI options for bBMPCopyMetadata, bGIFCopyMetadata, bMiscCopyMetadata, bPCXCopyMetadata, bTIFFCopyMetadata
-
-- Add Information option on context menu.
 
 - Icono para el menú contextual de Help es diferente al de Help.
 
