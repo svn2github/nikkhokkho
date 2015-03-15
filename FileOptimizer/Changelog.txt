@@ -119,10 +119,12 @@ ndo
 
 
 XX - YYYY
-- Default optimization level is now 5: Normal, instead of 9: Best.
-- Fixed wrong percent calculation (Dmitry).
-- Minor optimizations.
 
+
+7.30 - 2015/03/15
+- Default optimization level is now 5: Normal, instead of 9: Best.
+- Fixed wrong percent calculation (Dmitry, Spotted Cow).
+- Minor optimizations.
 
 7.20 - 2015/03/13
 - FileOptimizer is now able to partially detect file types by its contents instead of file extensions (BMP, DLL, FLAC, GIF, GZ, JPG, MKV, MP3, MP4, PCX, PDF, PNG, SWF, TIFF, WEBP, and ZIP). More to come later.
