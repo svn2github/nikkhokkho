@@ -1599,7 +1599,26 @@ String __inline TfrmMain::FormatNumberThousand (int piNumber)
 //---------------------------------------------------------------------------
 int __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
-	return (StrToIntDef(StringReplace(psNumber, FormatSettings.ThousandSeparator, "", TReplaceFlags() << rfReplaceAll), 0));
+	//return (StrToIntDef(StringReplace(psNumber, FormatSettings.ThousandSeparator, "", TReplaceFlags() << rfReplaceAll), 0));
+	unsigned int iCount, iNumberLen, iResPos;
+	TCHAR *acNumber, acRes[64];
+
+
+	acNumber = psNumber.c_str();
+	iNumberLen = _tcslen(acNumber);
+
+	iResPos = 0;
+	for (iCount = 0; iCount < iNumberLen; iCount++)
+	{
+		//If it is a digit, we add it to the result
+		if (_istdigit(acNumber[iCount]))
+		{
+			acRes[iResPos] = acNumber[iCount];
+			iResPos++;
+		}
+	}
+	acRes[iResPos] = NULL;
+	return(_ttoi(acRes));
 }
 
 

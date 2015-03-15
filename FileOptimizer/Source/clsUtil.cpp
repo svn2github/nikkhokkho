@@ -416,6 +416,32 @@ bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, const FILETIME *
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::DirectoryCreate(String psDirectory)
+{
+	bool bRes;
+	unsigned int iCount, iDirectoryLen;
+	TCHAR *acDirectory;
+
+
+	acDirectory = psDirectory.c_str();
+	iDirectoryLen = _tcslen(acDirectory);
+
+	for (iCount = 0; iCount < iDirectoryLen; iCount++)
+	{
+		//If found a backslash we try to create that component (it should end with \
+		if (acDirectory[iCount] == '\\')
+		{
+			acDirectory[iCount] = NULL;
+			bRes = (CreateDirectory(acDirectory, NULL) != 0);
+			acDirectory[iCount] = '\\';
+		}
+	}
+	return(bRes);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigned int piSize)
 {
 	bool bRes = false;
