@@ -20,8 +20,7 @@ const TCHAR * __fastcall clsUtil::ReplaceString(const TCHAR *pacString, const TC
 	/*
 	 char acRes[1024];
 
-	 AnsiString s = StringReplace(pacString, pacSearch, pacReplace, TReplaceFlags() << rfReplaceAll);
-	 strcpy(acRes, s.c_str());
+	 strcpy(acRes, StringReplace(pacString, pacSearch, pacReplace, TReplaceFlags() << rfReplaceAll).c_str());
 	 return(acRes);
 	 */
 

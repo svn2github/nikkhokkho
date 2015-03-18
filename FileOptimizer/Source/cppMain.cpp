@@ -846,16 +846,20 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
-					CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
+					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
+					CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), false);
 				}
-				DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
+				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
+				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
 
 				iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
-					CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
+					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
+					CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), false);
 				}
-				DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
+				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
+				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
 
 				iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
 
@@ -1357,10 +1361,17 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		//sInputFile = sTmpOutputFile;
 	}
 
-	sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
+	//sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%INPUTFILE%"), sInputFile.c_str());
+	
+	//sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%OUTPUTFILE%"), sOutputFile.c_str());
+	
+	//sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%TMPINPUTFILE%"), sTmpInputFile.c_str());
+	
+	//sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%TMPOUTPUTFILE%"), sTmpOutputFile.c_str());
 
 	iError = RunProcess(sCommandLine.c_str(), psDirectory.c_str(), NULL, 0, true);
 	Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
