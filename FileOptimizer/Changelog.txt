@@ -1,3 +1,5 @@
+- En rollover de grid poner el hint de su string y sin showparenthint.
+
 - The ability to specify an output directory (Runner112).
 
 - Add Information option on context menu.
