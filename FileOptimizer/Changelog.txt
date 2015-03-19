@@ -98,7 +98,7 @@ ndo
 - jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.2.41 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.2.42 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.4.3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
@@ -119,7 +119,7 @@ ndo
 
 
 XX - YYYY
-- Updated Leanify 0.4.2.41 daily binaries.
+- Updated Leanify 0.4.2.42 daily binaries.
 
 
 7.30 - 2015/03/15
