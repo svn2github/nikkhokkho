@@ -109,7 +109,7 @@ ndo
 - OptiPNG Hg 20121021 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
-- PETrim 2.93 - http://pecompact.com/pesuite.php
+- PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
@@ -127,6 +127,7 @@ XX - YYYY
 7.30 - 2015/03/15
 - Default optimization level is now 5: Normal, instead of 9: Best.
 - Fixed wrong percent calculation (Dmitry, Spotted Cow).
+- Updated PETrim to 4.00 Beta.
 - Minor optimizations.
 
 7.20 - 2015/03/13
