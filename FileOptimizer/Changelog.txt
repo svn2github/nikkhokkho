@@ -92,7 +92,7 @@ ndo
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
-- Ghostcript 9.15 - http://www.ghostscript.com
+- Ghostcript 9.16 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.9.0.10 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
@@ -123,6 +123,7 @@ ndo
 XX - YYYY
 - Updated Leanify 0.4.2.42 daily binaries.
 - Updated APNG Optimizer to 1.4.
+- Upgraded to Ghostcript 9.16.
 
 
 7.30 - 2015/03/15
