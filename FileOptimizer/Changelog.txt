@@ -84,7 +84,7 @@ ndo
 
 
 - AdvanceCOMP 1.20 beta - http://advancemame.sourceforge.net
-- APNG Optimizer 1.3 - http://sourceforge.net/projects/apng/
+- APNG Optimizer 1.4 - http://sourceforge.net/projects/apng/
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
@@ -122,6 +122,7 @@ ndo
 
 XX - YYYY
 - Updated Leanify 0.4.2.42 daily binaries.
+- Updated APNG Optimizer to 1.4.
 
 
 7.30 - 2015/03/15
