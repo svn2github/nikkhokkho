@@ -4,7 +4,7 @@
  3.10. 20/01/2015. FileOptimizer. Minor tweaks and fixes
  3.00. 23/09/2012. FileOptimizer. Added LoadForm, SaveForm, CopyToRecycleBin, SetTaskListProgress
  2.00. 09/08/2012. FileOptimizer. Added clsUtil static class wrapper, optimized SizeFile, mapped to TCHAR and merged clsPreferences common functions
- 1.00. 18/08/2011. TBClamAV. Initial version-
+ 1.00. 18/08/2011. TBClamAV. Initial version
  */
 // ---------------------------------------------------------------------------
 #include "FileOptimizerPCH1.h"
