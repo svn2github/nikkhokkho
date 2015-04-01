@@ -1610,7 +1610,7 @@ String __inline TfrmMain::FormatNumberThousand (int piNumber)
 //---------------------------------------------------------------------------
 int __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
-	//return (StrToIntDef(StringReplace(psNumber, FormatSettings.ThousandSeparator, "", TReplaceFlags() << rfReplaceAll), 0));
+	//return (StrToIntDef(clsUtil::ReplaceString(psNumber.c_str(), FormatSettings.ThousandSeparator.c_str(), _T("")), 0));
 	unsigned int iCount, iNumberLen, iResPos;
 	TCHAR *acNumber, acRes[64];
 

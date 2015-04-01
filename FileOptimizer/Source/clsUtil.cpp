@@ -17,13 +17,9 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall clsUtil::ReplaceString(const TCHAR *pacString, const TCHAR *pacSearch, const TCHAR *pacReplace)
 {
+	 return(StringReplace(pacString, pacSearch, pacReplace, TReplaceFlags() << rfReplaceAll).c_str());
+
 	/*
-	 char acRes[1024];
-
-	 strcpy(acRes, StringReplace(pacString, pacSearch, pacReplace, TReplaceFlags() << rfReplaceAll).c_str());
-	 return(acRes);
-	 */
-
 	TCHAR *tok;
 	TCHAR *newstr;
 	TCHAR *oldstr;
@@ -40,6 +36,7 @@ const TCHAR * __fastcall clsUtil::ReplaceString(const TCHAR *pacString, const TC
 		delete oldstr;
 	}
 	return newstr;
+	*/
 }
 
 
