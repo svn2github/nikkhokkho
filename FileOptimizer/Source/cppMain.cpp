@@ -1330,10 +1330,10 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		return (0);
 	}
 
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + GetFilename(psInputFile)).c_str());
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + (String) piCurrent + "_" + GetFilename(psInputFile)).c_str());
 	sTmpInputFile = acTmp;
 	
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + GetFilename(psInputFile)).c_str());
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + (String) piCurrent + "_" + GetFilename(psInputFile)).c_str());
 	sTmpOutputFile = acTmp;
 	
 	sInputFile = psInputFile;
