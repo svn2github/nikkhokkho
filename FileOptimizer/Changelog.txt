@@ -1,5 +1,3 @@
-- Fixed removal of range selection of files (Dmitry).
-
 - Review Ghostcript with none profile.
 
 - En rollover de grid poner el hint de su string y sin showparenthint.
@@ -104,7 +102,7 @@ ndo
 - jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.2.42 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.2.43 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.4.3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
@@ -126,7 +124,8 @@ ndo
 
 XX - YYYY
 - We are now checking returned errorlevels from plugins to avoid corruption such as in password protected PDF (sambufalo).
-- Updated Leanify 0.4.2.42 daily binaries.
+- Fixed removal of range selection of files (Dmitry).
+- Updated Leanify 0.4.2.43 daily binaries.
 - Updated APNG Optimizer to 1.4.
 - Upgraded to Ghostcript 9.16.
 
