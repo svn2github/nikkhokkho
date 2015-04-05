@@ -128,6 +128,8 @@ XX - YYYY
 - Updated Leanify 0.4.2.43 daily binaries.
 - Updated APNG Optimizer to 1.4.
 - Upgraded to Ghostcript 9.16.
+- Upgraded distributions to 7-Zip 15.00.
+- Some minor optimizations and code cleanup.
 
 
 7.30 - 2015/03/15
