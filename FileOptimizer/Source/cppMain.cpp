@@ -1319,6 +1319,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin, int piErrorMax)
 {
 	int iError;
+	unsigned int iRandom;
 	unsigned int iSize, iSizeNew;
 	String sInputFile, sOutputFile, sTmpInputFile, sTmpOutputFile, sCommandLine;
 	TCHAR acTmp[MAX_PATH];
@@ -1330,10 +1331,15 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		return (0);
 	}
 
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + (String) piCurrent + "_" + GetFilename(psInputFile)).c_str());
+
+	//Avoid temporary name collisions across different instances
+	srand();
+	iRandom = rand() % 10000;
+	
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(psInputFile)).c_str());
 	sTmpInputFile = acTmp;
 	
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + (String) piCurrent + "_" + GetFilename(psInputFile)).c_str());
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + (String) iRandom + "_" + GetFilename(psInputFile)).c_str());
 	sTmpOutputFile = acTmp;
 	
 	sInputFile = psInputFile;
