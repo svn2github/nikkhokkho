@@ -1106,13 +1106,11 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 {
 	int iRow, iRows;
 	int iSelectedRow1, iSelectedRow2;
-	int iCols;
 
 
 	iSelectedRow1 = grdFiles->Selection.Top;
 	iSelectedRow2 = grdFiles->Selection.Bottom;
 
-	iCols = grdFiles->ColCount;
 	iRows = grdFiles->RowCount - 1;
 	for (iRow = iSelectedRow1; iRow < iRows; iRow++)
 	{
