@@ -1106,7 +1106,7 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 {
 	int iRow, iRows;
 	int iSelectedRow1, iSelectedRow2;
-	int iCol, iCols;
+	int iCols;
 
 
 	iSelectedRow1 = grdFiles->Selection.Top;
@@ -1114,13 +1114,10 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 
 	iCols = grdFiles->ColCount;
 	iRows = grdFiles->RowCount - 1;
-	for (iRow = iSelectedRow2; iRow < iRows; iRow++)
+	for (iRow = iSelectedRow1; iRow < iRows; iRow++)
 	{
 		grdFiles->Rows[iRow]->BeginUpdate();
-		for (iCol = 0; iCol < iCols; iCol++)
-		{
-			grdFiles->Cells[iCol][iRow] = grdFiles->Cells[iCol][iRow + 1];
-		}
+		grdFiles->Rows[iRow] = grdFiles->Rows[iRow + (iSelectedRow2 - iSelectedRow1 + 1)];
 		grdFiles->Rows[iRow]->EndUpdate();
 	}
 	grdFiles->RowCount -= (iSelectedRow2 - iSelectedRow1 + 1);
