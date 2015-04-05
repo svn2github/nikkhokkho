@@ -163,8 +163,7 @@ __published: // IDE-managed Components
 	void __fastcall FormResize(TObject *Sender);
 	void __fastcall tmrMainTimer(TObject *Sender);
 	void __fastcall stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *Panel, const TRect &Rect);
-	void __fastcall grdFilesDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
-		  TGridDrawState State);
+	void __fastcall grdFilesDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect, TGridDrawState State);
 	void __fastcall grdFilesFixedCellClick(TObject *Sender, int ACol, int ARow);
 	void __fastcall grdFilesMouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
 	void __fastcall mnuFilesHelpClick(TObject *Sender);
@@ -202,7 +201,7 @@ private: // User declarations
 	String __fastcall GetFilename (String psFilename);
 	String __inline FormatNumberThousand (int piNumber);
 	int __inline ParseNumberThousand (String psNumber);
-	int __fastcall RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile);
+	int __fastcall RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin = INT_MIN, int piErrorMax = INT_MAX);
 	unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
 	void __fastcall WMDropFiles(TWMDropFiles &udtMessage);
 	void __fastcall AddFiles(const TCHAR *pacFile);

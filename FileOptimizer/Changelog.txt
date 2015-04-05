@@ -1,3 +1,7 @@
+- Fixed removal of range selection of files (Dmitry).
+
+- Review Ghostcript with none profile.
+
 - En rollover de grid poner el hint de su string y sin showparenthint.
 
 - The ability to specify an output directory (Runner112).
@@ -121,6 +125,7 @@ ndo
 
 
 XX - YYYY
+- We are now checking returned errorlevels from plugins to avoid corruption such as in password protected PDF (sambufalo).
 - Updated Leanify 0.4.2.42 daily binaries.
 - Updated APNG Optimizer to 1.4.
 - Upgraded to Ghostcript 9.16.

@@ -366,7 +366,6 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 {
 	unsigned int iCount, iRows;
-	int iError;
 	int iLevel;
 	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
@@ -453,16 +452,16 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "-strip ";
 				}
-				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// CSS: CSSTidy
 			if (PosEx(sExtensionByContent, KS_EXTENSION_CSS) > 0)
 			{
 				if (gudtOptions.bCSSEnableTidy)
 				{
-					iError = RunPlugin(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"%INPUTFILE%\" --template=" + gudtOptions.acCSSTemplate + " \"\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "CSSTidy", (sPluginsDirectory + "csstidy.exe \"%INPUTFILE%\" --template=" + gudtOptions.acCSSTemplate + " \"\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// DLL: PETrim, strip
@@ -470,9 +469,9 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				if (!gudtOptions.bEXEDisablePETrim)
 				{
-					iError = RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
-				iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// EXE: Leanify, PETrim, strip
 			if (PosEx(sExtensionByContent, KS_EXTENSION_EXE) > 0)
@@ -481,21 +480,21 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				iLevel = 9;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				if (!IsInnoSetup(sInputFile.c_str()))
 				{
 					if (!gudtOptions.bEXEDisablePETrim)
 					{
-						iError = RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe /StripFixups:Y \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+						RunPlugin(iCount, "PETrim", (sPluginsDirectory + "petrim.exe /StripFixups:Y \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
-					iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// FLAC: FLACOut
 			if (PosEx(sExtensionByContent, KS_EXTENSION_FLAC) > 0)
 			{
-				iError = RunPlugin(iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// GIF: gifsicle
 			if (PosEx(sExtensionByContent, KS_EXTENSION_GIF) > 0)
@@ -514,7 +513,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "--no-comments --no-extensions --no-names ";
 				}
-				iError = RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" --crop-transparency " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" --crop-transparency " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// GZ: Leanify , advdef, zRecompress, deflopt, defluff, deflopt
 			if (PosEx(sExtensionByContent, KS_EXTENSION_GZ) > 0)
@@ -528,46 +527,46 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					{
 						sFlags += "--keep-exif ";
 					}
-					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
-				
+
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				if (gudtOptions.bGZCopyMetadata)
 				{
 					sFlags += "/c ";
 				}
-				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// HTML: tidy-html5
 			if (PosEx(sExtensionByContent, KS_EXTENSION_HTML) > 0)
 			{
 				if (gudtOptions.bHTMLEnableTidy)
 				{
-					iError = RunPlugin(iCount, "tidy-html5", (sPluginsDirectory + "tidy.exe -config tidy.config -quiet -output \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\" ").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "tidy-html5", (sPluginsDirectory + "tidy.exe -config tidy.config -quiet -output \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\" ").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// ICO: ImageMagick, Leanify
 			if (PosEx(sExtensionByContent, KS_EXTENSION_ICO) > 0)
 			{
-				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				if (gudtOptions.bPNGCopyMetadata)
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					sFlags += "-i " + (String) iLevel + " ";
-					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// JPEG: Leanify, jhead jpegoptim, jpegtran, mozjpegtran
@@ -581,12 +580,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				iLevel = 9;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				if (!gudtOptions.bJPEGCopyMetadata)
 				{
-					iError = RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					sFlags += "-strip ";
 				}
 
@@ -598,7 +597,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "--strip-all ";
 				}
-				iError = RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				if (gudtOptions.bJPEGUseArithmeticEncoding)
@@ -617,16 +616,16 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "-copy none ";
 				}
-				iError = RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// JS: jsmin
 			if (PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0)
 			{
 				if (gudtOptions.bJSEnableJSMin)
 				{
-					iError = RunPlugin(iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// LUA: Leanify
@@ -638,13 +637,13 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					iLevel = 9;
 					sFlags += "-i " + (String) iLevel + " ";
-					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// MKV: mkclean
 			if (PosEx(sExtensionByContent, KS_EXTENSION_MKV) > 0)
 			{
-				iError = RunPlugin(iCount, "mkclean", (sPluginsDirectory + "mkclean.exe --optimize --unsafe --quiet \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "mkclean", (sPluginsDirectory + "mkclean.exe --optimize --unsafe --quiet \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// MNG: advmng
 			if (PosEx(sExtensionByContent, KS_EXTENSION_MNG) > 0)
@@ -652,7 +651,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// MP3: MP3packer
 			if (PosEx(sExtensionByContent, KS_EXTENSION_MP3) > 0)
@@ -662,44 +661,44 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "-t -s ";
 				}
-				iError = RunPlugin(iCount, "MP3packer", (sPluginsDirectory + "mp3packer.exe " + sFlags + "-z -a \"\" -A -f \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "MP3packer", (sPluginsDirectory + "mp3packer.exe " + sFlags + "-z -a \"\" -A -f \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// MP4: mp4v2
 			if (PosEx(sExtensionByContent, KS_EXTENSION_MP4) > 0)
 			{
-				iError = RunPlugin(iCount, "mp4v2", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "mp4v2", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// OBJ: strip
 			if (PosEx(sExtensionByContent, KS_EXTENSION_OBJ) > 0)
 			{
-				iError = RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// OGG: rehuff
 			if (PosEx(sExtensionByContent, KS_EXTENSION_OGG) > 0)
 			{
-				iError = RunPlugin(iCount, "rehuff", (sPluginsDirectory + "rehuff.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "rehuff", (sPluginsDirectory + "rehuff.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// OGV: rehuff_theora
 			if (PosEx(sExtensionByContent, KS_EXTENSION_OGV) > 0)
 			{
-				iError = RunPlugin(iCount, "rehuff_theora", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "rehuff_theora", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// Microsoft OLE Compound Files: Document Press
 			if (PosEx(sExtensionByContent, KS_EXTENSION_OLE) > 0)
 			{
-				iError = RunPlugin(iCount, "Document Press", (sPluginsDirectory + "docprc.exe -opt \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "Document Press", (sPluginsDirectory + "docprc.exe -opt \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// PCX: PCXLite, ImageMagick
 			if (PosEx(sExtensionByContent, KS_EXTENSION_PCX) > 0)
 			{
-				iError = RunPlugin(iCount, "PCXLite", (sPluginsDirectory + "PCXLite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "PCXLite", (sPluginsDirectory + "PCXLite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				if (!gudtOptions.bPCXCopyMetadata)
 				{
 					sFlags += "-strip ";
 				}
-				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// PDF: ghostcript
 			if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
@@ -717,9 +716,9 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 
 				#if defined(_WIN64)
-					iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#else
-					iError = RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#endif
 			}
 			// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, advpng, deflopt, defluff, deflopt
@@ -734,12 +733,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 				if (bIsAPNG)
 				{
-					iError = RunPlugin(iCount, "apngopt", (sPluginsDirectory + "apngopt.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "apngopt", (sPluginsDirectory + "apngopt.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
 				if (!bIs9Patch)
 				{
-					iError = RunPlugin(iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
 				if ((!bIsAPNG) && (!bIs9Patch))
@@ -755,7 +754,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					{
 						sFlags += "/md remove all ";
 					}
-					iError = RunPlugin(iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
 				if (!bIs9Patch)
@@ -771,7 +770,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					}
 					iLevel = max((gudtOptions.iLevel * 3 / 9) - 3, 0);
 					sFlags += "/s" + (String) iLevel + " ";
-					iError = RunPlugin(iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
 
@@ -783,7 +782,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					if (bIsAPNG)
 					{
 						// For some reason -strip all -protect acTL,fcTL,fdAT is not keeping APNG chunks
-						iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+						RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
 					else
 					{
@@ -791,25 +790,25 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 						{
 							sFlags += "-strip all ";
 						}
-						iError = RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+						RunPlugin(iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
 				}
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				if (!bIsAPNG)
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 					sFlags += "--zopfli-iterations=" + (String) iLevel + " ";
-					iError = RunPlugin(iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 					if (!bIs9Patch)
 					{
-						iError = RunPlugin(iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+						RunPlugin(iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
 
 					//iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"" + grdFiles->Cells[0][iCount] + "\" \"" + acTmpFile + "\"").c_str(), acPluginsDirectory, acTmpFile);
@@ -819,7 +818,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 						sFlags = "";
 						iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 						sFlags += "-i " + (String) iLevel + " ";
-						iError = RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+						RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
 
 					if (!bIs9Patch)
@@ -829,21 +828,21 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 						{
 							sFlags += "/k ";
 						}
-						iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+						RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
 				}
 
-				iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				if ((!bIsAPNG) && (!bIs9Patch))
 				{
-					iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// SWF: Leanfy, flasm, zRecompress
 			if (PosEx(sExtensionByContent, KS_EXTENSION_SWF) > 0)
 			{
-				iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
@@ -852,7 +851,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
 
-				iError = RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
@@ -861,12 +860,12 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
 
-				iError = RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// TAR: Leanify
 			if (PosEx(sExtensionByContent, KS_EXTENSION_TAR) > 0)
@@ -878,7 +877,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// TIFF: jhead, ImageMagick, jpegoptim, jpegtran, mozjpegtran
 			if (PosEx(sExtensionByContent, KS_EXTENSION_TIF) > 0)
@@ -886,17 +885,17 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				if (!gudtOptions.bTIFFCopyMetadata)
 				{
-					iError = RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					sFlags += "-strip ";
 				}
-				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				if (!gudtOptions.bTIFFCopyMetadata)
 				{
 					sFlags += "--strip-all ";
 				}
-				iError = RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "jpegoptim", (sPluginsDirectory + "jpegoptim.exe -o -q --all-progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				if (gudtOptions.bTIFFCopyMetadata)
@@ -915,9 +914,9 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "-copy none ";
 				}
-				iError = RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// XML: Leanify
 			if (PosEx(sExtensionByContent, KS_EXTENSION_XML) > 0)
@@ -928,7 +927,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					iLevel = 9;
 					sFlags += "-i " + (String) iLevel + " ";
-					iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 			// WEBP: dwebp + cwebp, ImageWorsener
@@ -942,10 +941,9 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				_tcscpy(acTmpFileWebp, acTmpFile);
 				_tcscat(acTmpFileWebp, _T(".png"));
 
-				iError = RunPlugin(iCount, "dwebp", (sPluginsDirectory + "dwebp.exe -mt \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "");
-				if (iError == 0)
+				if (RunPlugin(iCount, "dwebp", (sPluginsDirectory + "dwebp.exe -mt \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0) == 0)
 				{
-					iError = RunPlugin(iCount, "cwebp", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "");
+					RunPlugin(iCount, "cwebp", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					if (clsUtil::SizeFile(acTmpFile) < clsUtil::SizeFile(sInputFile.c_str()))
 					{
 						CopyFile(acTmpFile, sInputFile.c_str(), false);
@@ -953,7 +951,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				}
 				DeleteFile(acTmpFileWebp);
 
-				iError = RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// ZIP: Leanify, advzip, deflopt, defluff, deflopt
 			if (PosEx(sExtensionByContent, KS_EXTENSION_ZIP) > 0)
@@ -971,23 +969,23 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					//sFlags += "-d 0 ";
 					sFlags += "-f ";
 				}
-				iError = RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
-				iError = RunPlugin(iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
 				if (gudtOptions.bZIPCopyMetadata)
 				{
 					sFlags += "/c ";
 				}
-				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				iError = RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			// MISC: ImageMagick
 			if (PosEx(sExtensionByContent, KS_EXTENSION_MISC) > 0)
@@ -997,7 +995,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "-strip ";
 				}
-				iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "");
+				RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 
 			if (gudtOptions.bKeepAttributes)
@@ -1323,7 +1321,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------
-int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile)
+int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin, int piErrorMax)
 {
 	int iError;
 	unsigned int iSize, iSizeNew;
@@ -1376,26 +1374,30 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	iError = RunProcess(sCommandLine.c_str(), psDirectory.c_str(), NULL, 0, true);
 	Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
 
-	//We did get a TMP output file, so if smaller, make it overwrite input file
-	if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
+	//Check exit errorlevel
+	if ((iError >= piErrorMin) && (iError <= piErrorMax))
 	{
-		iSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
-		if ((iSizeNew > 0) && (iSizeNew < iSize))
+		//We did get a TMP output file, so if smaller, make it overwrite input file
+		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
-			iSize = iSizeNew;
-			CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str(), false);
+			iSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
+			if ((iSizeNew > 0) && (iSizeNew < iSize))
+			{
+				iSize = iSizeNew;
+				CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str(), false);
+			}
 		}
+		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
+		{
+			iSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
+			if ((iSizeNew > 0) && (iSizeNew < iSize))
+			{
+				iSize = iSizeNew;
+				CopyFile(sTmpInputFile.c_str(), sInputFile.c_str(), false);
+				//sInputFile = sTmpOutputFile;
+			}
+		}	
 	}
-	else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
-	{
-		iSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
-		if ((iSizeNew > 0) && (iSizeNew < iSize))
-		{
-			iSize = iSizeNew;
-			CopyFile(sTmpInputFile.c_str(), sInputFile.c_str(), false);
-			//sInputFile = sTmpOutputFile;
-		}
-	}	
 
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
