@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.25. 05/04/2015. FileOptimizer. Added Random
  3.20. 14/03/2015. FileOptimizer. Added Serialize and Unserialize
  3.10. 20/01/2015. FileOptimizer. Minor tweaks and fixes
  3.00. 23/09/2012. FileOptimizer. Added LoadForm, SaveForm, CopyToRecycleBin, SetTaskListProgress
@@ -12,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -709,6 +711,17 @@ unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSi
 		}
 	}
 	return(piSize >> 1);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int __fastcall clsUtil::Random(int piMin, int piMax)
+{
+	static int iSeed = clock();
+
+	iSeed = 36969 * (iSeed & 32767) + (iSeed >> 16);
+	return((iSeed % (piMax - piMin)) + piMin);
 }
 
 

@@ -1331,10 +1331,8 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		return (0);
 	}
 
-
 	//Avoid temporary name collisions across different instances
-	srand();
-	iRandom = rand() % 10000;
+	iRandom = clsUtil::Random(0, 9999);
 	
 	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(psInputFile)).c_str());
 	sTmpInputFile = acTmp;
