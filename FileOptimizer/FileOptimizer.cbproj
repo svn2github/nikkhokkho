@@ -95,6 +95,8 @@
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <VerInfo_Build>1206</VerInfo_Build>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <ILINK_LibraryPath>C:\PROYECTOS\FileOptimizer\Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <BCC_PCHName_Clang>FileOptimizerPCH1.h</BCC_PCHName_Clang>
@@ -165,6 +167,10 @@
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
+        <ILINK_FastTLS>true</ILINK_FastTLS>
+        <VerInfo_Build>1206</VerInfo_Build>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
         <BCC_InstructionSet>6</BCC_InstructionSet>
         <BCC_EnableRTTI>false</BCC_EnableRTTI>
         <BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
@@ -190,7 +196,9 @@
         <BCC_ExpandIntrinsics>true</BCC_ExpandIntrinsics>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_Build>1128</VerInfo_Build>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <ILINK_FastTLS>true</ILINK_FastTLS>
+        <VerInfo_Build>1206</VerInfo_Build>
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <ILINK_ImageChecksum>true</ILINK_ImageChecksum>
         <BCC_UserSuppliedOptions>-O3 -fno-rtti</BCC_UserSuppliedOptions>
@@ -266,10 +274,10 @@
                     <Source Name="MainSource">FileOptimizer.cpp</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k210.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp210.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k210.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp210.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k220.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp220.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="1">
@@ -745,13 +753,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>
