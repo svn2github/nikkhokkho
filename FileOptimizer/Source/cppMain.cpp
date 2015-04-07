@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mem.h>
-#include <StrUtils.hpp>
-#include <SysUtils.hpp>
+#include <System.StrUtils.hpp>
+#include <System.SysUtils.hpp>
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
