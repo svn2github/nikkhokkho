@@ -123,6 +123,9 @@ ndo
 
 
 XX - YYYY
+
+
+7.40 - 2015/04/10
 - We are now checking returned errorlevels from plugins to avoid corruption such as in password protected PDF (sambufalo).
 - Fixed removal of range selection of files (Dmitry).
 - Make sure temporary filenames have no collisions even if original files are named the same across different folders (Dmitry).
