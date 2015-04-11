@@ -1,8 +1,14 @@
+- Make installer delete not used x86/x64 binaries.
+
+- Update CHM help.
+
 - Review Ghostcript with none profile.
 
 - En rollover de grid poner el hint de su string y sin showparenthint.
 
 - The ability to specify an output directory (Runner112).
+
+- Truncate filenames in cell draw.
 
 - Add Information option on context menu.
 
