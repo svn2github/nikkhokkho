@@ -369,8 +369,8 @@ object frmAbout: TfrmAbout
         'rro (Guti).'
       ''
       
-        'Copyright (C) 2012- Javier Guti'#233'rrez Chamorro (Guti). All rights' +
-        ' reserved.'
+        'Copyright '#169' 2012- Javier Guti'#233'rrez Chamorro (Guti). All rights r' +
+        'eserved.'
       ''
       
         'This software is provided "as-is," without any express or implie' +

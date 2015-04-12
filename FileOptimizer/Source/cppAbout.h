@@ -15,10 +15,10 @@ class TfrmAbout : public TForm
 __published:	// IDE-managed Components
 	TImage *imgAbout;
 	TButton *butClose;
-	TMemo *mmoLicense;
 	TLabel *lblProduct;
 	TLabel *lblCopyright;
 	TLabel *lblDetail;
+	TMemo *mmoLicense;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCloseClick(TObject *Sender);
 	void __fastcall lblCopyrightClick(TObject *Sender);
