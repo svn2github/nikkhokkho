@@ -1,3 +1,14 @@
+- Revert to ghostcript 9.15 since Ghostcript 9.16 crashes with errorlevel 0 (everything OK), when source file name has extended characters. It worked properly on 9.15:
+Execution stack:
+   %interp_exit   .runexec2   --nostringval--   --nostringval--   --nostringval-
+-   2   %stopped_push   --nostringval--   --nostringval--   --nostringval--   fa
+lse   1   %stopped_push
+Dictionary stack:
+   --dict:1206/1684(ro)(G)--   --dict:0/20(G)--   --dict:78/200(L)--
+Current allocation mode is local
+Last OS error: No such file or directory
+GPL Ghostscript 9.16: Unrecoverable error, exit code 1
+
 - Make installer delete not used x86/x64 binaries.
 
 - Update CHM help.
@@ -9,6 +20,15 @@
 - The ability to specify an output directory (Runner112).
 
 - Truncate filenames in cell draw.
+
+- Add ffmpeg
+	KS_EXTENSION_MP4
+	KS_EXTENSION_MPEG: AVI, MPG, MPEG
+	KS_EXTENSION_FLV: FLV
+	KS_EXTENSION_WMV: WMV, WMA 
+	KS_EXTENSION_RM: RV, RA, RM, RMVB, RAM. SMIL
+	ffmpeg.exe -i INPUT -vcodec copy -acodec copy OUTPUT
+
 
 - Add Information option on context menu.
 
