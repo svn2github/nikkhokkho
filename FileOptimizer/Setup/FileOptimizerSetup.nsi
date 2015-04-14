@@ -108,7 +108,7 @@ SectionEnd
 
 ; -------------------------------------------------------------------------------------------------
 Section "Uninstall"
-	RMDir /r "$INSTDIR"
+	RmDir /r "$INSTDIR"
 	RmDir /r "$SMPROGRAMS\${APP_NAME}"
 	Delete "$PROFILE\${APP_NAME}.ini"
 	Delete "$DESKTOP\${APP_NAME}.lnk"
