@@ -1,14 +1,3 @@
-- Revert to ghostcript 9.15 since Ghostcript 9.16 crashes with errorlevel 0 (everything OK), when source file name has extended characters. It worked properly on 9.15:
-Execution stack:
-   %interp_exit   .runexec2   --nostringval--   --nostringval--   --nostringval-
--   2   %stopped_push   --nostringval--   --nostringval--   --nostringval--   fa
-lse   1   %stopped_push
-Dictionary stack:
-   --dict:1206/1684(ro)(G)--   --dict:0/20(G)--   --dict:78/200(L)--
-Current allocation mode is local
-Last OS error: No such file or directory
-GPL Ghostscript 9.16: Unrecoverable error, exit code 1
-
 - Make installer delete not used x86/x64 binaries.
 
 - Update CHM help.
@@ -120,7 +109,7 @@ ndo
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
-- Ghostcript 9.16 - http://www.ghostscript.com
+- Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.9.1.1 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
@@ -149,6 +138,7 @@ ndo
 
 
 XX - YYYY
+- Revert to ghostcript 9.15 since Ghostcript 9.16 crashes with errorlevel 0 (everything OK), when source file name has extended characters. It worked properly on 9.15.
 
 
 7.40 - 2015/04/10
