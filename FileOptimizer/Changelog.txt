@@ -1,3 +1,5 @@
+- Add support for files larger that 4 GB (Spotted Cow).
+
 - Make installer delete not used x86/x64 binaries.
 
 - Update CHM help.

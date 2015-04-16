@@ -36,7 +36,7 @@ class clsUtil
 		static HANDLE __fastcall FindProcess(const TCHAR *pacProcess);
 		static unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
 		static bool __fastcall ExistsFile(const TCHAR *pacFile);
-		static unsigned int __fastcall SizeFile(const TCHAR *pacFile);
+		static unsigned long long __fastcall SizeFile(const TCHAR *pacFile);
 		static bool __fastcall ReadFile(const TCHAR *pacFile, void *pvData, unsigned int *piSize);
 		static bool __fastcall WriteFile(const TCHAR *pacFile, const void *pvData, unsigned int piSize);
 		static bool __fastcall GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated = NULL, FILETIME *pudtAccessed  = NULL, FILETIME *pudtModified  = NULL);

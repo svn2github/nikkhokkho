@@ -280,7 +280,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		{
 			if ((iSortField == KI_GRID_ORIGINAL) || (iSortField == KI_GRID_OPTIMIZED))
 			{
-				sValue = FormatFloat("0000000000", ParseNumberThousand(grdFiles->Cells[iSortField][iRow]));
+				sValue = FormatDouble("0000000000000000000", ParseNumberThousand(grdFiles->Cells[iSortField][iRow]));
 			}
 			else
 			{
@@ -843,7 +843,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (PosEx(sExtensionByContent, KS_EXTENSION_SWF) > 0)
 			{
 				RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
 					CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), false);
@@ -852,7 +852,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
 
 				RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned int) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
 					CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), false);
@@ -1255,7 +1255,8 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 {
-	unsigned int iRow, iRows, iSize;
+	unsigned int iRow, iRows;
+	unsigned long long lSize;
 	String sExtension, sExtensionByContent;
 	HANDLE hFindFile;
 	WIN32_FIND_DATA udtFindFileData;
@@ -1289,9 +1290,9 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					return;
 				}
 			}
-			iSize = clsUtil::SizeFile(pacFile);
+			lSize = clsUtil::SizeFile(pacFile);
 			//We will only add files with more than 0 bytes
-			if (iSize > 0)
+			if (lSize > 0)
 			{
 				sExtension = " " + GetExtension(pacFile) + " ";
 				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
@@ -1301,7 +1302,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					grdFiles->Rows[iRows]->BeginUpdate();
 					grdFiles->Cells[KI_GRID_FILE][iRows] = SetCellFileValue(pacFile);
 					grdFiles->Cells[KI_GRID_EXTENSION][iRows] = sExtension;
-					grdFiles->Cells[KI_GRID_ORIGINAL][iRows] = FormatNumberThousand(iSize);
+					grdFiles->Cells[KI_GRID_ORIGINAL][iRows] = FormatNumberThousand(lSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][iRows] = "";
 					grdFiles->Cells[KI_GRID_STATUS][iRows] = "Pending";
 					grdFiles->Rows[iRows]->EndUpdate();
@@ -1320,7 +1321,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 {
 	int iError;
 	unsigned int iRandom;
-	unsigned int iSize, iSizeNew;
+	unsigned long long lSize, lSizeNew;
 	String sInputFile, sOutputFile, sTmpInputFile, sTmpOutputFile, sCommandLine;
 	TCHAR acTmp[MAX_PATH];
 
@@ -1348,8 +1349,8 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	DeleteFile(sTmpOutputFile.c_str());
 	
 	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = "Running " + psStatus + "...";
-	iSize = clsUtil::SizeFile(sInputFile.c_str());
-	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
+	lSize = clsUtil::SizeFile(sInputFile.c_str());
+	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(lSize);
 	
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
 	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
@@ -1379,19 +1380,19 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		//We did get a TMP output file, so if smaller, make it overwrite input file
 		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
-			iSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
-			if ((iSizeNew > 0) && (iSizeNew < iSize))
+			lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
+			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
-				iSize = iSizeNew;
+				lSize = lSizeNew;
 				CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str(), false);
 			}
 		}
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 		{
-			iSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
-			if ((iSizeNew > 0) && (iSizeNew < iSize))
+			lSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
+			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
-				iSize = iSizeNew;
+				lSize = lSizeNew;
 				CopyFile(sTmpInputFile.c_str(), sInputFile.c_str(), false);
 				//sInputFile = sTmpOutputFile;
 			}
@@ -1402,7 +1403,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	DeleteFile(sTmpOutputFile.c_str());
 
 	//iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
-	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(iSize);
+	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(lSize);
 
 	return (iError);
 }
@@ -1594,11 +1595,11 @@ String __fastcall TfrmMain::GetFilename (String psFilename)
 
 
 //---------------------------------------------------------------------------
-String __inline TfrmMain::FormatNumberThousand (int piNumber)
+String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 {
 	String sRes;
 
-	sRes = FormatFloat("###,###,###,###,###", piNumber);
+	sRes = FormatDouble("###,###,###,###,###,###,###", plNumber);
 	if (sRes == "")
 	{
 		sRes = "0";
@@ -1609,7 +1610,7 @@ String __inline TfrmMain::FormatNumberThousand (int piNumber)
 
 
 //---------------------------------------------------------------------------
-int __inline TfrmMain::ParseNumberThousand (String psNumber)
+long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
 	//return (StrToIntDef(clsUtil::ReplaceString(psNumber.c_str(), FormatSettings.ThousandSeparator.c_str(), _T("")), 0));
 	unsigned int iCount, iNumberLen, iResPos;
@@ -1630,7 +1631,7 @@ int __inline TfrmMain::ParseNumberThousand (String psNumber)
 		}
 	}
 	acRes[iResPos] = NULL;
-	return(_ttoi(acRes));
+	return(_tstoll(acRes));
 }
 
 
@@ -1767,7 +1768,7 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 
 
 	bRes = false;
-	iSize = clsUtil::SizeFile(pacFile);
+	iSize = (unsigned int) clsUtil::SizeFile(pacFile);
 	if (iSize > 0)
 	{
 		acBuffer = new unsigned char[iSize];

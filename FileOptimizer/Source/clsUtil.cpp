@@ -279,17 +279,17 @@ bool __fastcall clsUtil::ExistsFile(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-unsigned int __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
+unsigned long long __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
 {
-	unsigned int iSize = 0;
+	unsigned long long lSize = 0;
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
 
 
 	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*)&udtFileAttribute))
 	{
-		iSize = udtFileAttribute.nFileSizeLow;
+		lSize = (udtFileAttribute.nFileSizeHigh << 32) + udtFileAttribute.nFileSizeLow;
 	}
-	return (iSize);
+	return (lSize);
 }
 
 
