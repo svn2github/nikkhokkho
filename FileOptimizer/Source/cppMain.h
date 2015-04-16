@@ -23,6 +23,7 @@
 #include <Vcl.ActnMenus.hpp>
 #include <Vcl.RibbonActnMenus.hpp>
 #include <Vcl.RibbonObsidianStyleActnCtrls.hpp>
+#include <System.ImageList.hpp>
 
 
 #define KS_APP_URL			_T("http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer")

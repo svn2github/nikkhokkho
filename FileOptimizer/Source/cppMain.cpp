@@ -280,7 +280,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		{
 			if ((iSortField == KI_GRID_ORIGINAL) || (iSortField == KI_GRID_OPTIMIZED))
 			{
-				sValue = FormatDouble("0000000000000000000", ParseNumberThousand(grdFiles->Cells[iSortField][iRow]));
+				sValue = FormatFloat("0000000000000000000", ParseNumberThousand(grdFiles->Cells[iSortField][iRow]));
 			}
 			else
 			{
@@ -1599,7 +1599,7 @@ String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 {
 	String sRes;
 
-	sRes = FormatDouble("###,###,###,###,###,###,###", plNumber);
+	sRes = FormatFloat("###,###,###,###,###,###,###", plNumber);
 	if (sRes == "")
 	{
 		sRes = "0";
@@ -1631,7 +1631,7 @@ long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 		}
 	}
 	acRes[iResPos] = NULL;
-	return(_tstoll(acRes));
+	return(_ttoi64(acRes));
 }
 
 
