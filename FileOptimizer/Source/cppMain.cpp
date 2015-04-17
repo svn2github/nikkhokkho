@@ -1025,7 +1025,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		}
 		else
 		{
-			iPercentBytes = (((unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
+			//iPercentBytes = (((unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
+			iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100);
 			grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 		}
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
@@ -1040,7 +1041,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	//grdFiles->Enabled = true;
 	if (iTotalBytes != 0)
 	{
-		iPercentBytes = ((unsigned long long) iTotalBytes - iSavedBytes) * 100 / iTotalBytes;
+		//iPercentBytes = ((unsigned long long) iTotalBytes - iSavedBytes) * 100 / iTotalBytes;
+		iPercentBytes = ((unsigned int) ((double) (iTotalBytes - iSavedBytes) / iTotalBytes * 100));
 	}
 	else
 	{
@@ -1952,7 +1954,9 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 	{
 		if (piTotalBytes != 0)
 		{
-			iPercentBytes = ((unsigned long long) piTotalBytes - piSavedBytes) * 100 / piTotalBytes;
+			//iPercentBytes = ((unsigned long long) piTotalBytes - piSavedBytes) * 100 / piTotalBytes;
+			iPercentBytes = ((unsigned int) ((double) (piTotalBytes - piSavedBytes) / piTotalBytes * 100));
+			
 		}
 		else
 		{
