@@ -827,7 +827,7 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 	_tcscpy(acDestination, acSource);
 	_tcscat(acDestination, _T(".tmp"));
 
-	CopyFile(acSource, acDestination, false);
+	CopyFileEx(acSource, acDestination, NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 
 	memset(&udtFileOp, 0, sizeof(udtFileOp));
 	udtFileOp.wFunc = FO_DELETE;

@@ -846,7 +846,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-					CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), false);
+					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 				}
 				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
@@ -855,7 +855,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-					CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), false);
+					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 				}
 				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
@@ -946,7 +946,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					RunPlugin(iCount, "cwebp", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					if (clsUtil::SizeFile(acTmpFile) < clsUtil::SizeFile(sInputFile.c_str()))
 					{
-						CopyFile(acTmpFile, sInputFile.c_str(), false);
+						CopyFileEx(acTmpFile, sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 					}
 				}
 				DeleteFile(acTmpFileWebp);
@@ -1357,7 +1357,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
 	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 	{
-		CopyFile(sInputFile.c_str(), sTmpInputFile.c_str(), false);
+		CopyFileEx(sInputFile.c_str(), sTmpInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 		//sInputFile = sTmpOutputFile;
 	}
 
@@ -1386,7 +1386,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
-				CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str(), false);
+				CopyFileEx(sTmpOutputFile.c_str(), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 			}
 		}
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
@@ -1395,7 +1395,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
-				CopyFile(sTmpInputFile.c_str(), sInputFile.c_str(), false);
+				CopyFileEx(sTmpInputFile.c_str(), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 				//sInputFile = sTmpOutputFile;
 			}
 		}	
