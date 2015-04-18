@@ -821,6 +821,7 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 	TCHAR acSource[MAX_PATH], acDestination[MAX_PATH];
 
 
+	Application->ProcessMessages();
 	// ShFileOperation expect strings ending in double NULL
 	memset(acSource, 0, sizeof(acSource));
 	_tcscpy(acSource, pacSource);

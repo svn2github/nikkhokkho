@@ -424,6 +424,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 			if (!gudtOptions.bDoNotUseRecycleBin)
 			{
+				grdFiles->Cells[KI_GRID_STATUS][iCount] = "Copying to Recyclebin...";
 				clsUtil::CopyToRecycleBin(sInputFile.c_str());
 			}
 
@@ -1353,6 +1354,8 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	grdFiles->Cells[KI_GRID_STATUS][piCurrent] = "Running " + psStatus + "...";
 	lSize = clsUtil::SizeFile(sInputFile.c_str());
 	grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent] = FormatNumberThousand(lSize);
+
+	Application->ProcessMessages();
 	
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
 	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
