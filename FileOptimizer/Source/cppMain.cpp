@@ -1027,7 +1027,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		else
 		{
 			//iPercentBytes = (((unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
-			iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100);
+			iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 			grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 		}
 		RefreshStatus(true, iTotalBytes, iSavedBytes);
@@ -1299,7 +1299,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			{
 				sExtension = " " + GetExtension(pacFile) + " ";
 				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
-				if (PosEx(sExtensionByContent, KS_EXTENSION_ALL) > 0)
+				if (sExtensionByContent != "")
 				{
 					//We store the name to show concatenated with the full name
 					grdFiles->Rows[iRows]->BeginUpdate();
@@ -1450,119 +1450,124 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 //---------------------------------------------------------------------------
 String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 {
-	String sRes = "";
+	String sRes;
 	unsigned char acBuffer[512];
 	unsigned int iSize;
 
-	iSize = sizeof(acBuffer);
-	if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))
-	{
-		//ToDo: Optimize to use regular comparisons instead of memcmp for short comparisons.
-		
-		//Check BMP
-		if ((memcmp(acBuffer, "BM", 2) == 0) || (memcmp(acBuffer, "BA", 2) == 0) || (memcmp(acBuffer, "CI", 2) == 0) || (memcmp(acBuffer, "CP", 2) == 0) || (memcmp(acBuffer, "IC", 2) == 0) || (memcmp(acBuffer, "PT", 2) == 0))
-		{
-			sRes = ".bmp";
-		}
-		//Check EXE
-		//Check DLL
-		else if ((memcmp(acBuffer, "MZ", 2) == 0) || (memcmp(acBuffer, "ZM", 2) == 0))
-		{
-			sRes = ".dll";
-		}
-		//Check FLAC
-		else if (memcmp(acBuffer, "fLaC", 4) == 0)
-		{
-			sRes = ".flac";
-		}
-		//Check GIF
-		else if (memcmp(acBuffer, "GIF8", 4) == 0)
-		{
-			sRes = ".gif";
-		}
-		//Check GZ
-		else if (memcmp(acBuffer, "\x1F\x8B", 2) == 0)
-		{
-			sRes = ".gz";
-		}
-		//Check ICO
-		else if (memcmp(acBuffer, "\x00\x00\x01\x00", 4) == 0)
-		{
-			sRes = ".ico";
-		}
-		//Check JPEG
-		else if (memcmp(acBuffer, "\xFF\xD8\xFF", 3) == 0)
-		{
-			sRes = ".jpg";
-		}
-		//Check MKV
-		else if (memcmp(acBuffer, ".RTS", 4) == 0)
-		{
-			sRes = ".mkv";
-		}
-		//Check MNG
-		//Check MP3
-		else if (memcmp(acBuffer, "ID3", 3) == 0)
-		{
-			sRes = ".mp3";
-		}
-		//Check MP4
-		else if (memcmp(&acBuffer[3], "ftyp", 4) == 0)
-		{
-			sRes = ".mp4";
-		}
-		//Check OBJ
-		//Check OGG / Check OGV
-		else if (memcmp(&acBuffer[3], "OggS", 4) == 0)
-		{
-			sRes = ".ogg";
-		}
-		//Check PCX
-		else if ((acBuffer[0] == 10) && (acBuffer[2] == 1) && (acBuffer[64] == 0) && (acBuffer[74] == 0))
-		{
-			sRes = ".pcx";
-		}
-		//Check PDF
-		else if (memcmp(acBuffer, "%PDF-", 5) == 0)
-		{
-			sRes = ".pdf";
-		}
-		//Check PNG
-		else if (memcmp(acBuffer, "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", 8) == 0)
-		{
-			sRes = ".png";
-		}
-		//Check SWF
-		else if ((memcmp(acBuffer, "FWS", 3) == 0) || (memcmp(acBuffer, "CWS", 3) == 0) || (memcmp(acBuffer, "ZWS", 3) == 0))
-		{
-			sRes = ".swf";
-		}
-		//Check TAR
-		else if (memcmp(&acBuffer[257], "\x75\x73\x74\x61\x72", 5) == 0)
-		{
-			sRes = ".tar";
-		}	
-		//Check TIF
-		else if ((memcmp(acBuffer, "\x0C\xED", 2) == 0) || (memcmp(acBuffer, "\x49\x20\x49", 3) == 0) || (memcmp(acBuffer, "\x49\x49\x2A\x00", 4) == 0) || (memcmp(acBuffer, "\x4D\x4D\x00\x2B", 4) == 0))
-		{
-			sRes = ".tif";
-		}
-		//Check WEBP
-		else if (memcmp(&acBuffer[7], "WEBP", 4) == 0)
-		{
-			sRes = ".webp";
-		}	
-		//Check ZIP
-		else if (memcmp(acBuffer, "\x50\x4B\x03\x04", 4) == 0)
-		{
-			sRes = ".zip";
-		}
-	}
 
-	//Falback to detect it by extension
-	if ((sRes == ""))
+	sRes = GetExtension(psFilename);
+
+	//If file extension is not known, get it by analyzing file contents
+	if (PosEx(sRes, KS_EXTENSION_ALL) <= 0)
 	{
-		sRes = GetExtension(psFilename);
+		iSize = sizeof(acBuffer);
+		if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))
+		{
+			//ToDo: Optimize to use regular comparisons instead of memcmp for short comparisons.
+
+			//Check BMP
+			if ((memcmp(acBuffer, "BM", 2) == 0) || (memcmp(acBuffer, "BA", 2) == 0) || (memcmp(acBuffer, "CI", 2) == 0) || (memcmp(acBuffer, "CP", 2) == 0) || (memcmp(acBuffer, "IC", 2) == 0) || (memcmp(acBuffer, "PT", 2) == 0))
+			{
+				sRes = ".bmp";
+			}
+			//Check EXE
+			//Check DLL
+			else if ((memcmp(acBuffer, "MZ", 2) == 0) || (memcmp(acBuffer, "ZM", 2) == 0))
+			{
+				sRes = ".dll";
+			}
+			//Check FLAC
+			else if (memcmp(acBuffer, "fLaC", 4) == 0)
+			{
+				sRes = ".flac";
+			}
+			//Check GIF
+			else if (memcmp(acBuffer, "GIF8", 4) == 0)
+			{
+				sRes = ".gif";
+			}
+			//Check GZ
+			else if (memcmp(acBuffer, "\x1F\x8B", 2) == 0)
+			{
+				sRes = ".gz";
+			}
+			//Check ICO
+			else if (memcmp(acBuffer, "\x00\x00\x01\x00", 4) == 0)
+			{
+				sRes = ".ico";
+			}
+			//Check JPEG
+			else if (memcmp(acBuffer, "\xFF\xD8\xFF", 3) == 0)
+			{
+				sRes = ".jpg";
+			}
+			//Check MKV
+			else if (memcmp(acBuffer, ".RTS", 4) == 0)
+			{
+				sRes = ".mkv";
+			}
+			//Check MNG
+			//Check MP3
+			else if (memcmp(acBuffer, "ID3", 3) == 0)
+			{
+				sRes = ".mp3";
+			}
+			//Check MP4
+			else if (memcmp(&acBuffer[3], "ftyp", 4) == 0)
+			{
+				sRes = ".mp4";
+			}
+			//Check OBJ
+			//Check OGG / Check OGV
+			else if (memcmp(&acBuffer[3], "OggS", 4) == 0)
+			{
+				sRes = ".ogg";
+			}
+			//Check PCX
+			else if ((acBuffer[0] == 10) && (acBuffer[2] == 1) && (acBuffer[64] == 0) && (acBuffer[74] == 0))
+			{
+				sRes = ".pcx";
+			}
+			//Check PDF
+			else if (memcmp(acBuffer, "%PDF-", 5) == 0)
+			{
+				sRes = ".pdf";
+			}
+			//Check PNG
+			else if (memcmp(acBuffer, "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", 8) == 0)
+			{
+				sRes = ".png";
+			}
+			//Check SWF
+			else if ((memcmp(acBuffer, "FWS", 3) == 0) || (memcmp(acBuffer, "CWS", 3) == 0) || (memcmp(acBuffer, "ZWS", 3) == 0))
+			{
+				sRes = ".swf";
+			}
+			//Check TAR
+			else if (memcmp(&acBuffer[257], "\x75\x73\x74\x61\x72", 5) == 0)
+			{
+				sRes = ".tar";
+			}
+			//Check TIF
+			else if ((memcmp(acBuffer, "\x0C\xED", 2) == 0) || (memcmp(acBuffer, "\x49\x20\x49", 3) == 0) || (memcmp(acBuffer, "\x49\x49\x2A\x00", 4) == 0) || (memcmp(acBuffer, "\x4D\x4D\x00\x2B", 4) == 0))
+			{
+				sRes = ".tif";
+			}
+			//Check WEBP
+			else if (memcmp(&acBuffer[7], "WEBP", 4) == 0)
+			{
+				sRes = ".webp";
+			}
+			//Check ZIP
+			else if (memcmp(acBuffer, "\x50\x4B\x03\x04", 4) == 0)
+			{
+				sRes = ".zip";
+			}
+			//Unsupported extension
+			{
+                sRes = "";
+            }
+		}
 	}
 	return(sRes);
 }
