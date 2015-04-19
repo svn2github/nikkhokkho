@@ -844,7 +844,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (PosEx(sExtensionByContent, KS_EXTENSION_SWF) > 0)
 			{
 				RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+				if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
 					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
@@ -853,7 +853,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
 
 				RunPlugin(iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				if (clsUtil::SizeFile(sInputFile.c_str()) >= (unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+				if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
 					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
@@ -1015,7 +1015,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			//Make sure the file was indeed processed because asuming we got gains. This is to solve Pending items being counted as 0 bytes
 			if (grdFiles->Cells[KI_GRID_OPTIMIZED][iCount] != "")
 			{
-				iTotalBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]));
+				iTotalBytes += ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
 				iSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
 			}
 		}
@@ -1026,7 +1026,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		}
 		else
 		{
-			//iPercentBytes = (((unsigned long long) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
 			iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 			grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 		}
@@ -1620,7 +1619,7 @@ String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 
 
 //---------------------------------------------------------------------------
-long long __inline TfrmMain::ParseNumberThousand (String psNumber)
+unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
 	//return (StrToIntDef(clsUtil::ReplaceString(psNumber.c_str(), FormatSettings.ThousandSeparator.c_str(), _T("")), 0));
 	unsigned int iCount, iNumberLen, iResPos;
@@ -1641,7 +1640,7 @@ long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 		}
 	}
 	acRes[iResPos] = NULL;
-	return(_ttoi64(acRes));
+	return((unsigned long long) _ttoi64(acRes));
 }
 
 
