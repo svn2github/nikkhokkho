@@ -13,95 +13,97 @@ html,body {
 
 </head>
 
-<body><STRONG>Frequently Asked Questions (FAQ)</STRONG> <BR><EM>Why are 
-several downloads available?</EM> <BR>  Available 
-downloads come separated in a binaries (executables) form, suitable for x86 and 
-x64 architectures, and in a source code archive. Both are usually available in 
-several package formats. 
-<P></P>
-<P><EM>What is the sense of FileOptimizer, if standalone tools are already 
-available? </EM><BR><EM>Indeed you can manually execute the commandline tools 
-that FileOptimizer uses as plugins, but this will be probably less comfortable. 
-Specially if you consider you will need to execute one or another depending on 
-the file format, and to chain some of them to obtain best results.</EM>         
-           
-              
-             </P>
-<P><EM>What is different in FileOptimizer compared to similar tools? 
-</EM><BR><EM>General idea on tools like PNGGauntlet, ImageOptim, 
-RIOT, etc is esentially the same.<BR>FileOptimizer is built-in with lots of 
-plugins that allow it to handle a big variety of file formats. Optimized files 
-are usually smaller than in competing products, or comparable at worst. It is 
-easy to use, and at the same time easy to automate. Is a native Win32 
-application, being compact and fast, and works portable with no external 
-dependencies nor access to the system registry. Finally it is free and 
-opensource.<BR>At the moment, it is not much mature, lacks some features, and is 
-not configurable at all.</EM>     
-            </P>
-<P><EM>Are optimized files identical to the original ones? <BR></EM>Optimized files, will look 
-identical to the original ones, but internally they will be different in order 
-to achieve the size reduction.<BR>For images, bit depth 
-reduction is used when possible. For instance an image encoded with 24 bit color 
-depth could be resampled to 8 bit color depth if 256 colors of less are used. 
-Quality should not be affected after the transformation. </P>
-<P><EM>Have the optimized files same degree of compatibility as the original 
-ones? <BR></EM>Generally yes, they have the same degree of compatibility. The 
-exception is JPEG images, when you have enabled the &lt;i&gt;User arithmetic encoding&lt;/i&gt; 
-option. It generates smallest files with the same quality, but require 
-recent software to render them. </P>
-<P><EM>Will optimized files load faster? </EM><BR><EM>Definitively yes, optimized files are 
-smaller, less information needs to be transferred from the internet, of from the 
-local disk, and will load faster in a direct proportion with the size 
-reduction.<BR>Decompression speed of the optimized files is also proportional to 
-the size reduction, because used compression algorithms are asymmetric (slow 
-compression and fast decompression).</EM>            
-         
-   </P>
-<P><EM>Does optimized files work on other platforms than Windows? <BR></EM>Yes, 
-since they are the same format as the original ones, they will continue to work, 
-no matter if they are rendered in a web browser, an Android or iOS application, 
-or any other desktop program. </P>
-<P><EM>Why is the recompression process so slow? </EM><BR><EM>The speed of the 
-recompression depends on the particular format of the file.<BR>Noticeably PNG 
-processing is the slowest, because the brute-force recompression to squeeze 
-them. As oposite, PDF and JPEG files should be encoded pretty fast.</EM>  
-          
-            </P>
-<P><EM>Does it work on other platforms than Windows? <BR></EM>FileOptimizer is reported to work in 
-some environments under UNIX based operating systems with Wine.<BR>For other platforms, you will need to install a virtual machine such 
-as VirtualBox with Windows XP or later. </P>
-<P><EM>Why a particular format is not supported? </EM><BR><EM>Even if I do my best to add new 
-format support to FileOptimizer, I may have missed some.<BR>If the format to add 
-has available a Windows commandline tool to optimize it, it can be easily 
-integrated on FileOptimizer, so please, let me know.</EM>  
-               
-         </P>
-<P><EM>How can I disable a particular plugin? <BR></EM>Simply remove the desired plugin from 
-the Plugins32 and Plugins64 folder, and FileOptimizer will not use it. </P>
-<P><EM>Can I prevent certain file formats to be processed? <BR></EM>If they are supported by 
-FileOptimizer, unless you could remove all the plugins used to treat this 
-format, it will not be possible.<BR>The workaround would be 
-to not add those type of files.&nbsp;</P>
-<P><EM>I can appreciate some quality loss on PDF 
-optimization. Why? <BR></EM>PDF are recompressed with no loss of quality, but 
-images can be downsampled, and so on, allow certain lost of quality, specially 
-at high zoom levels. You can control it under Options -&gt; PDF -&gt; Profile.</P>
-<P><EM>How is the command line syntax? 
-</EM><BR>FileOptimizer command line arguments work like: 
-<BR>C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe 
-"C:\PROYECTOS\FileOptimizer\_Tests\_ - copia"\<BR>&nbsp;Where:<BR>&nbsp;- 
-C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe: Is the full path 
-where FileOptimizer executable is.<BR>&nbsp;- 
-"C:\PROYECTOS\FileOptimizer\_Tests\_ - copia"\: Is the full path of the folder 
-to recursively process. Be aware enclosing it with double quotes as in the 
-example, which is Windows mandatory if the folder contains spaces, or extended 
-characters.<BR>&nbsp;Alternatively you can specify only one single file instead 
-of a 
-folder:<BR>&nbsp;C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe 
-"C:\PROYECTOS\FileOptimizer\_Tests\_ - 
-copia\av-214_.zip"<BR>&nbsp;Where:<BR>&nbsp;- 
-C:\PROYECTOS\FileOptimizer\Win32\Release\FileOptimizer64.exe: Is the full path 
-where FileOptimizer executable is.<BR>&nbsp;- 
-"C:\PROYECTOS\FileOptimizer\_Tests\_ - copia\av-214_.zip": Is the full path of 
-the file to process.</FONT></P></body>
+<body>
+<p>
+<b>Frequently Asked Questions (FAQ)</b>
+<br /><i>Why are several downloads available?</i>
+<br />Available downloads come separated in a binaries (executables) form, suitable for x86 and x64 architectures, and in a source code archive. Both are usually available in several package formats.
+<br />
+<br /><i>What is the sense of FileOptimizer, if standalone tools are already available?</i>
+<br />Indeed you can manually execute the commandline tools that FileOptimizer uses as plugins, but this will be probably less comfortable. Specially if you consider you will need to execute one or another depending on the file format, and to chain some of them to obtain best results.
+<br />
+<br /><i>What is different in FileOptimizer compared to similar tools?</i>
+<br />General idea on tools like PNGGauntlet, ImageOptim, RIOT, etc is essentially the same.
+<br />FileOptimizer is built-in with lots of plugins that allow it to handle a big variety of file formats. Optimized files are usually smaller than in competing products, or comparable at worst. It is easy to use, and at the same time easy to automate. Is a native Win32 application, being compact and fast, and works portable with no external dependencies nor access to the system registry. Finally it is free and open source.
+<br />At the moment, it is not much mature, lacks some features, and is not configurable at all.
+<br />
+<br /><i>Are optimized files identical to the original ones?</i>
+<br />Optimized files, will look identical to the original ones, but internally they will be different in order to achieve the size reduction.
+<br />For images, bit depth reduction is used when possible. For instance an image encoded with 24 bit color depth could be resampled to 8 bit color depth if 256 colors of less are used. Quality should not be affected after the transformation.
+<br />
+<br /><i>Why are original file stamps not preserved after optimization?</i>
+<br />FileOptimizer supports restoring original file attributes once it has been recompressed. This includes creation, and modification timestamps, but also read-only, system, archive and hidden attributes. To enable it, mark the checkbox &quot;Keep file attributes&quot; under &quot;Options -&gt; General&quot;.
+<br />
+<br /><i>Have the optimized files same degree of compatibility as the original ones?</i>
+<br />Generally yes, they have the same degree of compatibility. The exception is JPEG images, when you have enabled the <i>User arithmetic encoding</i> option. It generates smallest files with the same quality, but require recent software to render them.
+<br />
+<br /><i>Will optimized files load faster?</i>
+<br />Definitively yes, optimized files are smaller, less information needs to be transferred from the internet, of from the local disk, and will load faster in a direct proportion with the size reduction.
+<br />Decompression speed of the optimized files is also proportional to the size reduction, because used compression algorithms are asymmetric (slow compression and fast decompression).
+<br />
+<br /><i>Does optimized files work on other platforms than Windows?</i>
+<br />Yes, since they are the same format as the original ones, they will continue to work, no matter if they are rendered in a web browser, an Android or iOS application, or any other desktop program.
+<br />
+<br /><i>Why is the recompression process so slow?</i>
+<br />The speed of the recompression depends on the particular format of the file.
+<br />Noticeably PNG processing is the slowest, because the brute-force recompression to squeeze them. As oposite, PDF and JPEG files should be encoded pretty fast.
+<br />
+<br /><i>Does it work on other platforms than Windows?</i>
+<br />FileOptimizer is reported to work in some environments under UNIX based operating systems with Wine.
+<br />For other platforms, you will need to install a virtual machine such as VirtualBox with Windows XP or later.
+<br />
+<br /><i>Why a particular format is not supported?</i>
+<br />Even if I do my best to add new format support to FileOptimizer, I may have missed some.
+<br />If the format to add has available a Windows command-line tool to optimize it, it can be easily integrated on FileOptimizer, so please, let me know.
+<br />
+<br /><i>How can I disable a particular plugin?</i>
+<br />Simply remove the desired plugin from the Plugins32 and Plugins64 folder, and FileOptimizer will not use it.
+<br />
+<br /><i>Can I prevent certain file formats from being processed?</i>
+<br />If they are supported by FileOptimizer, unless you could remove all the plugins used to treat this format, it will not be possible.
+<br />The workaround would be to not add those type of files.
+<br />
+<br /><i>I can appreciate some quality loss on PDF optimization. Why?</i>
+<br />PDF are recompressed with no loss of quality, but images can be downsampled, and so on, allow certain lost of quality, specially at high zoom levels. You can control it under Options -&gt; PDF -&gt; Profile.
+<br />
+<br /><i>How is the command line syntax?</i>
+<br />FileOptimizer command line arguments work like:
+<br />C:&#92;PROYECTOS&#92;FileOptimizer&#92;Win32&#92;Release&#92;FileOptimizer64.exe "C:&#92;PROYECTOS&#92;FileOptimizer&#92;_Tests&#92;_ - copia"&#92;<br/>
+Where:<br/>
+- C:&#92;PROYECTOS&#92;FileOptimizer&#92;Win32&#92;Release&#92;FileOptimizer64.exe: Is the full path where FileOptimizer executable is.<br/>
+- "C:&#92;PROYECTOS&#92;FileOptimizer&#92;_Tests&#92;_ - copia"&#92;: Is the full path of the folder to recursively process. Be aware enclosing it with double quotes as in the example, which is Windows mandatory if the folder contains spaces, or extended characters.<br/>
+Alternatively you can specify only one single file instead of a folder:<br/>
+C:&#92;PROYECTOS&#92;FileOptimizer&#92;Win32&#92;Release&#92;FileOptimizer64.exe "C:&#92;PROYECTOS&#92;FileOptimizer&#92;_Tests&#92;_ - copia&#92;av-214_.zip"<br/>
+Where:<br/>
+- C:&#92;PROYECTOS&#92;FileOptimizer&#92;Win32&#92;Release&#92;FileOptimizer64.exe: Is the full path where FileOptimizer executable is.<br/>
+- "C:&#92;PROYECTOS&#92;FileOptimizer&#92;_Tests&#92;_ - copia&#92;av-214_.zip": Is the full path of the file to process.
+<br />
+<br /><i>Why my HTML, CSS or JS files are not optimized being them supported?</i>
+<br />As of version 6.50, optimization of CSS, HTML, Javascript and its derivatives is supported. They follow the same lossless concept as other formats, so once compressed they will render and look exactly the same as the original, but with a reduced file size.
+<br />Unfortunately those optimizations may cause your files to not be editable anymore by WYSIWYG tools such as Dreamweaver, and to avoid risks they are disabled by default.
+<br />To enable them, simply go to <i>Options-&gt;CSS-&gt;Enable Tidy</i>; <i>Options-&gt;HTML-&gt;Enable Tidy</i> and <i>Options-&gt;JS-&gt;Enable JSMin</i>.
+<br />
+<br /><i>Why there is a donate button being the program free?</i>
+<br />FileOptimizer is free either for personal and commercial usage. I have spent hundreds of hours in creating, developing, researching, supporting, testing and maintaining it, so if you consider a donation is worth my effort, it is highly appreciated, but not mandatory. Program will work as the full version without any limitations, no matter if you have donated or not.
+<br />
+<br /><i>How much should I donate?</i>
+<br />There is no minimum nor maximum in the donations. Simply consider the benefit it is reporting to you, and how the compensation you will give to the future of FileOptimizer should be. Donations of even 1 euro, are welcome the same as 1000 euro.
+<br />
+<br /><i>Where is latest source code?</i>
+<br />Source code for releases is available in the <i>Download section</i> above.
+<br />Latest deveolpment code is available in the <a href="https://sourceforge.net/p/nikkhokkho/code/HEAD/tree/trunk/FileOptimizer/" target="_blank" >SVN repository</a>.
+<br />
+<br /><i>Where can I send suggestions, comments and bug reports?</i>
+<br />Better place for easily followup comments, suggestions and bug reports is on the <a href="https://sourceforge.net/p/nikkhokkho/discussion/" target="_blank" >Discussion page at Sourceforge</a>.
+<br />
+<br /><i>How can I contribute the project?</i>
+<br />If you want to contribute and actively participate in the evolution of FileOptimizer, your help is highly appreciated.
+<br />You can donate money, or send patches and improvements in the source code, or even send suggestions, or bug reports.
+<br />
+<br /><i>Why is FileOptimizer available in warez portals?</i>
+<br />Recently I have found some Torrent sites, as well as warez portals offering repackaged FileOptimizer distributions.
+<br />Be warned that those sites usually include malware in their packages, mostly adware to give them incomes with no effort nor credit to the original authors, so if you opt to get elsewhere, you are not only underestimating my work, but also putting your PC in risk.
+<br />Obviously, the author, me, has no relationship with those sites, and what is more important, I am not seeing any advantage on pirating a software which is already free.
+<br />Remember that FileOptimizer is free, and open source, being always available as direct download from its official page: http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer
+</P></body>
 </html>
