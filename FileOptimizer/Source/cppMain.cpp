@@ -704,22 +704,27 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			// PDF: ghostcript
 			if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
 			{
-				sFlags = "";
+				sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
 				//Custom mode
 				if (_tcscmp(gudtOptions.acPDFProfile, _T("Custom")) == 0)
 				{
-					sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleGrayImages=true -dGrayImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleMonoImages=true -dMonoImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
+					sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dColorImageDownsampleType=/Bicubic -dDownsampleGrayImages=true -dGrayImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dGrayImageDownsampleType=/Bicubic -dDownsampleMonoImages=true -dMonoImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dMonoImageDownsampleType=/Bicubic ";
 				}
+				//No downsampling
+				else if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
+				{
+					sFlags += "-dPDFSETTINGS=/default -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
+				}				
 				//Built in downsample modes: screen, ebook, printer, prepress
 				else
 				{
-					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic ";
+					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
 				}
 
 				#if defined(_WIN64)
-					RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#else
-					RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#endif
 			}
 			// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, advpng, deflopt, defluff, deflopt
