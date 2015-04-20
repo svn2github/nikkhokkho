@@ -143,6 +143,7 @@ XX - YYYY
 - Add support for files larger than 4 GB, now up to 4 TB (Spotted Cow).
 - Speedup file copies by using CopyFileEx.
 - Updated help file.
+- PNGOUT and FLACOUT has been unpacked to avoid false positives by scary antivirus.
 - Revert to ghostcript 9.15 since Ghostcript 9.16 crashes with errorlevel 0 (everything OK), when source file name has extended characters. It worked properly on 9.15.
 
 
