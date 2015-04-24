@@ -130,6 +130,9 @@ ndo
 
 
 XX - YYYY
+
+
+7.50 - 2015/04/24
 - Add support for files larger than 4 GB, now up to 4 TB (Spotted Cow).
 - Speedup file copies by using CopyFileEx.
 - Updated help file.
@@ -138,7 +141,6 @@ XX - YYYY
 - Revert to ghostcript 9.15 since Ghostcript 9.16 crashes with errorlevel 0 (everything OK), when source file name has extended characters. It worked properly on 9.15.
 - Updated ImageMagick to 6.9.12.
 - Some minor optimizations and code cleanup.
-
 
 7.40 - 2015/04/10
 - We are now checking returned errorlevels from plugins to avoid corruption such as in password protected PDF (sambufalo).
