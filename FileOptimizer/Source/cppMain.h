@@ -97,6 +97,7 @@ struct udtOptions
 	bool bKeepAttributes;
 	TCHAR acExcludeMask[128];
 	bool bBeepWhenDone;
+	bool bAlwaysOnTop;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;

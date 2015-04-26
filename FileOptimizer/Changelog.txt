@@ -1,4 +1,3 @@
-- Add INI option AlwaysOnTop=false (hairycactus).
 - Make sure that 32 bit PNG images with few colors, keep transparency when converted to 8 bit PNG files (Newtomic).
 
 - En rollover de grid poner el hint de su string y sin showparenthint.
@@ -133,6 +132,7 @@ ndo
 
 
 XX - YYYY
+- Added INI option AlwaysOnTop=false to specify if FileOptimizer main Windows should stay always on top (hairycactus).
 - Updated Leanify 0.4.2.44 daily binaries.
 - Adding files not working for the x64 edition due to some aggressive optimizations in C++ Builder with -O3 (hairycactus).
 

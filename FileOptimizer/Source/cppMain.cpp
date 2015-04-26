@@ -65,6 +65,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bDoNotUseRecycleBin = clsUtil::GetIni(_T("Options"), _T("DoNotUseRecycleBin"), false);
 	_tcscpy(gudtOptions.acExcludeMask, clsUtil::GetIni(_T("Options"), _T("ExcludeMask"), _T("")));
 	gudtOptions.bBeepWhenDone = clsUtil::GetIni(_T("Options"), _T("BeepWhenDone"), false);
+	gudtOptions.bAlwaysOnTop = clsUtil::GetIni(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.iLevel = clsUtil::GetIni(_T("Options"), _T("Level"), 5);
 	gudtOptions.iProcessPriority = clsUtil::GetIni(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
@@ -75,6 +76,14 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
 	_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), acPath));
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
+	else
+	{
+		FormStyle = fsNormal;
+	}
 
 	FormResize(Sender);
 	pgbProgress->Parent = stbMain;
@@ -128,6 +137,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin);
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask);
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone);
+	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop);
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel);
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority);
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates);
