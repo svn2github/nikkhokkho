@@ -132,11 +132,12 @@ ndo
 
 
 XX - YYYY
+
+
+7.60 - 2015/04/26
 - Added INI option AlwaysOnTop=false to specify if FileOptimizer main Windows should stay always on top (hairycactus).
 - Updated Leanify 0.4.2.44 daily binaries.
 - Adding files not working for the x64 edition due to some aggressive optimizations in C++ Builder with -O3 (hairycactus).
-
-
 
 7.50 - 2015/04/24
 - Add support for files larger than 4 GB, now up to 4 TB (Spotted Cow).
