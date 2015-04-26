@@ -285,9 +285,9 @@ unsigned long long __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
 
 
-	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*)&udtFileAttribute))
+	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*) &udtFileAttribute))
 	{
-		lSize = (udtFileAttribute.nFileSizeHigh << 32) + udtFileAttribute.nFileSizeLow;
+		lSize = (unsigned long long) udtFileAttribute.nFileSizeLow + (udtFileAttribute.nFileSizeHigh << 32);
 	}
 	return (lSize);
 }

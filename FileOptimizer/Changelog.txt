@@ -1,6 +1,5 @@
 - Add INI option AlwaysOnTop=false (hairycactus).
 - Make sure that 32 bit PNG images with few colors, keep transparency when converted to 8 bit PNG files (Newtomic).
-- Adding files not working for the x64 edition in Windows 7 SP1 (hairycactus).
 
 - En rollover de grid poner el hint de su string y sin showparenthint.
 
@@ -113,7 +112,7 @@ ndo
 - jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.2.43 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.2.44 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.4.3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
@@ -134,6 +133,9 @@ ndo
 
 
 XX - YYYY
+- Updated Leanify 0.4.2.44 daily binaries.
+- Adding files not working for the x64 edition due to some aggressive optimizations in C++ Builder with -O3 (hairycactus).
+
 
 
 7.50 - 2015/04/24
