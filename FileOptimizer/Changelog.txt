@@ -1,3 +1,7 @@
+- Add INI option AlwaysOnTop=false (hairycactus).
+- Make sure that 32 bit PNG images with few colors, keep transparency when converted to 8 bit PNG files (Newtomic).
+- Adding files not working for the x64 edition in Windows 7 SP1 (hairycactus).
+
 - En rollover de grid poner el hint de su string y sin showparenthint.
 
 - The ability to specify an output directory (Runner112).
