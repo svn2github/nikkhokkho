@@ -1,4 +1,4 @@
-- Make child windows open on top, when always on top is checked (hairycactus).
+- Make child windows open on top, when always on top is checked (hairycactus). Form1.ShowModal;
 
 - Make sure that 32 bit PNG images with few colors, keep transparency when converted to 8 bit PNG files (Newtomic).
 
