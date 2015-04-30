@@ -1348,20 +1348,20 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		//Close();
 		return (0);
 	}
-
-	//Avoid temporary name collisions across different instances
-	iRandom = clsUtil::Random(0, 9999);
-	
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(psInputFile)).c_str());
-	sTmpInputFile = acTmp;
-	
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + (String) iRandom + "_" + GetFilename(psInputFile)).c_str());
-	sTmpOutputFile = acTmp;
 	
 	sInputFile = psInputFile;
 	sOutputFile = psOutputFile;
 	sCommandLine = psCommandLine;
 
+	//Avoid temporary name collisions across different instances
+	iRandom = clsUtil::Random(0, 9999);
+	
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
+	sTmpInputFile = acTmp;
+	
+	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
+	sTmpOutputFile = acTmp;
+	
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 	
