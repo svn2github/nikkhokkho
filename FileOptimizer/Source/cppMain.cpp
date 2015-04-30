@@ -980,7 +980,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				sFlags += "-i " + (String) iLevel + " ";
 				//Limit ZIP no recurse to ZIP extension
-				if ((!gudtOptions.bZIPRecurse) && (sExtensionByContent.LowerCase() == ".zip"))
+				if ((!gudtOptions.bZIPRecurse) && (sExtensionByContent == ".zip"))
 				{
 					//sFlags += "-d 0 ";
 					sFlags += "-f ";
