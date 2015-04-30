@@ -1,5 +1,3 @@
-- Optimized file extensions are converted to lower case. ie: JPG to jpg (Marilyn Phillip).
-
 - Make child windows open on top, when always on top is checked (hairycactus). Form1.ShowModal;
 
 - Make sure that 32 bit PNG images with few colors, keep transparency when converted to 8 bit PNG files (Newtomic).
@@ -136,6 +134,7 @@ ndo
 
 
 XX - YYYY
+- Optimized file extensions were converted to lowercase. ie: JPG to jpg (Marilyn Phillip).
 
 
 7.60 - 2015/04/26
