@@ -1587,19 +1587,23 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 }
 
 
+
 //---------------------------------------------------------------------------
 String __fastcall TfrmMain::GetExtension (String psFilename)
 {
-	TCHAR *pacSource;
-	String sRes = "";
+	TCHAR acRes[MAX_PATH];
+    TCHAR *pacDot;
 
-	pacSource = _tcsrchr(psFilename.c_str(), '.');
-	if (pacSource)
+
+	pacDot = _tcsrchr(psFilename.c_str(), '.');
+	if (pacDot)
 	{
-		sRes = _tcslwr(pacSource);
+		_tcscpy(acRes, pacDot);
+		_tcslwr(acRes);
 	}
-	return (sRes);
+	return ((String) acRes);
 }
+
 
 
 //---------------------------------------------------------------------------
