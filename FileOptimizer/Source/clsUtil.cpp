@@ -475,10 +475,9 @@ const TCHAR * __fastcall clsUtil::ExeVersion(const TCHAR *pacFile)
 	TCHAR *pacVersionData;
 	void *a;
 	VS_FIXEDFILEINFO udtVersionInfo;
-	TCHAR acRes[2048];
+	TCHAR acRes[2048] = _T("");
 
 
-	acRes[0] = NULL;
 	iVersionSize = GetFileVersionInfoSize(pacFile, 0);
 	pacVersionData = new TCHAR[iVersionSize];
 	if (pacVersionData)

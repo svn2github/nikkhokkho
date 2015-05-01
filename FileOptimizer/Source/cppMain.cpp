@@ -1592,7 +1592,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 String __fastcall TfrmMain::GetExtension (String psFilename)
 {
 	//return (ExtractFileExt(psFilename));
-	TCHAR acRes[MAX_PATH];
+	TCHAR acRes[MAX_PATH] = _T("");
 	TCHAR *pacDot;
 
 
