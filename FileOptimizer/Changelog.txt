@@ -135,6 +135,8 @@ ndo
 
 XX - YYYY
 - Optimized file extensions were converted to lowercase. ie: JPG to jpg (Marilyn Phillip).
+- Updated to cppcheck 1.69.
+- Minor optimizations.
 
 
 7.60 - 2015/04/26
