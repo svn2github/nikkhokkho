@@ -1172,7 +1172,7 @@ void __fastcall TfrmMain::mnuFilesAboutClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::mnuFilesDonateClick(TObject *Sender)
 {
-	ShellExecute(NULL, _T("open"), _T("http://nikkhokkho.sourceforge.net/images/FileOptimizerDonate.html"), _T(""), _T(""), SW_SHOWMAXIMIZED);
+	ShellExecute(NULL, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
 }
 
 
@@ -1341,6 +1341,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	unsigned long long lSize, lSizeNew;
 	String sInputFile, sOutputFile, sTmpInputFile, sTmpOutputFile, sCommandLine;
 	TCHAR acTmp[MAX_PATH];
+	TCHAR acTempPath[MAX_PATH] = _T("");
 
 
 	if (gbStop)
@@ -1348,18 +1349,19 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		//Close();
 		return (0);
 	}
-	
+
 	sInputFile = psInputFile;
 	sOutputFile = psOutputFile;
 	sCommandLine = psCommandLine;
 
 	//Avoid temporary name collisions across different instances
 	iRandom = clsUtil::Random(0, 9999);
-	
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
+
+	GetTempPath(sizeof(acTempPath), acTempPath);
+	_stprintf(acTmp, _T("%s%s"), acTempPath, (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
 	sTmpInputFile = acTmp;
-	
-	_stprintf(acTmp, _T("%s\\%s"), _tgetenv(_T("TEMP")), (Application->Name + "_Output_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
+
+	_stprintf(acTmp, _T("%s%s"), acTempPath, (Application->Name + "_Output_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
 	sTmpOutputFile = acTmp;
 	
 	DeleteFile(sTmpInputFile.c_str());
@@ -1942,7 +1944,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 
 		//RefreshStatus();
 
-		if (pacTheme != _T(""))
+		if (pacTheme[0] != NULL)
 		{
 			TStyleManager::TrySetStyle(pacTheme, false);
 		}

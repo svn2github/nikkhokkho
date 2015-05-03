@@ -506,7 +506,7 @@ const TCHAR * __fastcall clsUtil::GetIniPath(void)
 
 
 	// Check if we already have it cached
-	if (acPath == _T(""))
+	if (acPath[0] == NULL)
 	{
 		GetModuleFileName(NULL, acTmp, sizeof(acTmp) - 1);
 		*_tcsrchr(acTmp, '.') = NULL;
@@ -734,7 +734,7 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 
 
 	// Check if we already have it cached
-	if (acPath == _T(""))
+	if (acPath[0] == NULL)
 	{
 		GetModuleFileName(NULL, acTmp, sizeof(acTmp) - 1);
 		*_tcsrchr(acTmp, '.') = NULL;
