@@ -1942,7 +1942,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 
 		//RefreshStatus();
 
-		if (pacTheme[0] != NULL)
+		if (pacTheme != _T(""))
 		{
 			TStyleManager::TrySetStyle(pacTheme, false);
 		}
