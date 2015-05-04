@@ -198,17 +198,21 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::FormResize(TObject *Sender)
 {
-	//Prevent flickering
-	LockWindowUpdate(Handle);	
+	//Rescale form only if in normal status or maximized. If minimized don't do anything
+	if ((WindowState == wsNormal) || (WindowState == wsMaximized))
+	{
+		//Prevent flickering
+		LockWindowUpdate(Handle);	
 
-	grdFiles->ColWidths[KI_GRID_FILE] = grdFiles->Width >> 1;
-	grdFiles->ColWidths[KI_GRID_EXTENSION] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
-	grdFiles->ColWidths[KI_GRID_ORIGINAL] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
-	grdFiles->ColWidths[KI_GRID_OPTIMIZED] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
-	grdFiles->ColWidths[KI_GRID_STATUS] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
+		grdFiles->ColWidths[KI_GRID_FILE] = grdFiles->Width >> 1;
+		grdFiles->ColWidths[KI_GRID_EXTENSION] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
+		grdFiles->ColWidths[KI_GRID_ORIGINAL] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
+		grdFiles->ColWidths[KI_GRID_OPTIMIZED] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
+		grdFiles->ColWidths[KI_GRID_STATUS] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
 
-	//Reenable form updates
-	LockWindowUpdate(NULL);	
+		//Reenable form updates
+		LockWindowUpdate(NULL);	
+	}
 }
 
 
