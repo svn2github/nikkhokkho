@@ -1,6 +1,3 @@
-Form->PopupMode = pmAuto 
-Application->ModalPopupMode = pmExplicit
-
 - Less JPEG compression ration in 7.50 and 7.60 (Jaff).
 
 - Deletes files instead of processing them. https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/ced9a3af/ (Vivil).

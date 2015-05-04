@@ -180,7 +180,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 		while (FindNextFile(hFindFile, &udtFindFileData) != 0);
 		FindClose(hFindFile);
 
-		if ((bRunning) && (clsUtil::MsgBox(NULL, ("Optimization are still being running. Do you want to stop them, and exit " + Application->Name + "?").c_str(), _T("Exit"), MB_YESNO | MB_ICONQUESTION) == ID_NO))
+		if ((bRunning) && (clsUtil::MsgBox(Handle, ("Optimization are still being running. Do you want to stop them, and exit " + Application->Name + "?").c_str(), _T("Exit"), MB_YESNO | MB_ICONQUESTION) == ID_NO))
 		{
 			CanClose = false;
 		}
@@ -198,11 +198,16 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::FormResize(TObject *Sender)
 {
-	//Rescale form only if in normal status or maximized. If minimized don't do anything
-	if ((WindowState == wsNormal) || (WindowState == wsMaximized))
+	static unsigned int iOldWidth = 0;
+
+
+	//Recalculate column widths only if window width changed
+	if (iOldWidth != Width)
 	{
+		iOldWidth = Width;
+
 		//Prevent flickering
-		LockWindowUpdate(Handle);	
+		LockWindowUpdate(Handle);
 
 		grdFiles->ColWidths[KI_GRID_FILE] = grdFiles->Width >> 1;
 		grdFiles->ColWidths[KI_GRID_EXTENSION] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
@@ -211,7 +216,7 @@ void __fastcall TfrmMain::FormResize(TObject *Sender)
 		grdFiles->ColWidths[KI_GRID_STATUS] = (grdFiles->Width - grdFiles->ColWidths[KI_GRID_FILE]) >> 2;
 
 		//Reenable form updates
-		LockWindowUpdate(NULL);	
+		LockWindowUpdate(NULL);
 	}
 }
 
@@ -1149,19 +1154,8 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 void __fastcall TfrmMain::mnuFilesOptionsClick(TObject *Sender)
 {
 	frmOptions = new TfrmOptions(Application);
-	//Set child window as on top, of current window already is
-	if (FormStyle == fsStayOnTop)
-	{
-		FormStyle = fsNormal;
-		frmOptions->FormStyle = fsStayOnTop;
-	}
+	frmOptions->PopupParent = this;
 	frmOptions->ShowModal();
-	delete frmOptions;
-
-	if (gudtOptions.bAlwaysOnTop)
-	{
-		FormStyle = fsStayOnTop;
-	}
 }
 
 
@@ -1178,19 +1172,9 @@ void __fastcall TfrmMain::mnuFilesHelpClick(TObject *Sender)
 void __fastcall TfrmMain::mnuFilesAboutClick(TObject *Sender)
 {
 	frmAbout = new TfrmAbout(Application);
-	//Set child window as on top, of current window already is
-	if (FormStyle == fsStayOnTop)
-	{
-		FormStyle = fsNormal;
-		frmAbout->FormStyle = fsStayOnTop;
-	}
+	frmAbout->PopupParent = this;
 	frmAbout->ShowModal();
 	delete frmAbout;
-
-	if (gudtOptions.bAlwaysOnTop)
-	{
-		FormStyle = fsStayOnTop;
-	}
 }
 
 
@@ -1225,7 +1209,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		tmrMain->Enabled = false;
 		if (gudtOptions.iCheckForUpdates < 0)
 		{
-			gudtOptions.iCheckForUpdates = (clsUtil::MsgBox(NULL, ("Do you want " + Application->Name + " to automatically check for updates?").c_str(), _T("Check for updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES);
+			gudtOptions.iCheckForUpdates = (clsUtil::MsgBox(Handle, ("Do you want " + Application->Name + " to automatically check for updates?").c_str(), _T("Check for updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES);
 		}
 		else if (gudtOptions.iCheckForUpdates == 1)
 		{
@@ -1471,19 +1455,19 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 		if (_tcscmp(acBuffer, clsUtil::ExeVersion(acPath)) > 0)
 		{
-			if (clsUtil::MsgBox(NULL, (Application->Name + " version " + (String) acBuffer + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
+			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + (String) acBuffer + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
 				ShellExecute(NULL, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 			}
 		}
 		else if (!pbSilent)
 		{
-			clsUtil::MsgBox(NULL, ("You already have latest " + Application->Name + " version.").c_str(), _T("Check updates"), MB_OK|MB_ICONINFORMATION);
+			clsUtil::MsgBox(Handle, ("You already have latest " + Application->Name + " version.").c_str(), _T("Check updates"), MB_OK|MB_ICONINFORMATION);
 		}
 	}
 	else if (!pbSilent)
 	{
-		clsUtil::MsgBox(NULL, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONINFORMATION);
+		clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONINFORMATION);
 	}
 }
 
@@ -2251,7 +2235,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	
 	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
 
-	clsUtil::MsgBox(NULL, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
+	clsUtil::MsgBox(Handle, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
 }
 
 
