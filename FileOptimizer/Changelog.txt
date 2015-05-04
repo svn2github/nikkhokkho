@@ -1,8 +1,9 @@
+Form->PopupMode = pmAuto 
+Application->ModalPopupMode = pmExplicit
+
 - Less JPEG compression ration in 7.50 and 7.60 (Jaff).
 
 - Deletes files instead of processing them. https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/ced9a3af/ (Vivil).
-
-- Make child windows open on top, when always on top is checked (hairycactus). Form1.ShowModal;
 
 - Make sure that 32 bit PNG images with few colors, keep transparency when converted to 8 bit PNG files (Newtomic).
 
@@ -138,6 +139,7 @@ ndo
 
 
 XX - YYYY
+- Make child windows open on top, when always on top is checked (hairycactus).
 - Do not reset column widths after minimizing window (Jaff).
 - Use TMP if TEMP is not available or else use current directory to avoid issues when reading them (xezz).
 - Optimized file extensions were converted to lowercase. ie: JPG to jpg (Marilyn Phillip).

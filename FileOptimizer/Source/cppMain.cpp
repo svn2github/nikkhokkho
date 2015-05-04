@@ -1149,6 +1149,11 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 void __fastcall TfrmMain::mnuFilesOptionsClick(TObject *Sender)
 {
 	frmOptions = new TfrmOptions(Application);
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		frmOptions->FormStyle = fsStayOnTop;
+	}
 	frmOptions->ShowModal();
 	delete frmOptions;
 }
@@ -1167,6 +1172,11 @@ void __fastcall TfrmMain::mnuFilesHelpClick(TObject *Sender)
 void __fastcall TfrmMain::mnuFilesAboutClick(TObject *Sender)
 {
 	frmAbout = new TfrmAbout(Application);
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		frmAbout->FormStyle = fsStayOnTop;
+	}
 	frmAbout->ShowModal();
 	delete frmAbout;
 }
