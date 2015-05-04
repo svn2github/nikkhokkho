@@ -30,18 +30,6 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 
 	try
 	{
-		Screen->Cursor = crAppStart;
-
-		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
-		SetMinimumBlockAlignment(mba16Byte);
-
-		Application->Initialize();
-		Application->Name = "FileOptimizer";
-		Application->Title = Application->Name;
-		Application->HelpFile = Application->Name + ".chm";
-		Application->MainFormOnTaskBar = true;
-
-
 		hMutex = CreateMutex(NULL, false, Application->Name.c_str());
 		if (GetLastError() == ERROR_ALREADY_EXISTS)
 		{
@@ -50,6 +38,10 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 				return (1);
 			}
 		}
+
+		Screen->Cursor = crAppStart;
+		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
+		SetMinimumBlockAlignment(mba16Byte);
 
         // Disable file system redirection on Win64 environments
 		hDLL = LoadLibrary(_T("kernel32.dll"));
@@ -79,6 +71,12 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			FreeLibrary(hDLL);
 			//hDLL = NULL;
 		}
+
+		Application->Initialize();
+		Application->Name = "FileOptimizer";
+		Application->Title = Application->Name;
+		Application->HelpFile = Application->Name + ".chm";
+		Application->MainFormOnTaskBar = true;
 
 		Application->CreateForm(__classid(TfrmMain), &frmMain);
 		Screen->Cursor = crDefault;

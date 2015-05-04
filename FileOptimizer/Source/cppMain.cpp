@@ -1152,10 +1152,16 @@ void __fastcall TfrmMain::mnuFilesOptionsClick(TObject *Sender)
 	//Set child window as on top, of current window already is
 	if (FormStyle == fsStayOnTop)
 	{
+		FormStyle = fsNormal;
 		frmOptions->FormStyle = fsStayOnTop;
 	}
 	frmOptions->ShowModal();
 	delete frmOptions;
+
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
 }
 
 
@@ -1175,10 +1181,16 @@ void __fastcall TfrmMain::mnuFilesAboutClick(TObject *Sender)
 	//Set child window as on top, of current window already is
 	if (FormStyle == fsStayOnTop)
 	{
+		FormStyle = fsNormal;
 		frmAbout->FormStyle = fsStayOnTop;
 	}
 	frmAbout->ShowModal();
 	delete frmAbout;
+
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
 }
 
 
