@@ -318,7 +318,7 @@ unsigned long long __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
 
 	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*) &udtFileAttribute))
 	{
-		lSize = (unsigned long long) udtFileAttribute.nFileSizeLow + (udtFileAttribute.nFileSizeHigh << 32);
+		lSize = ((unsigned long long) udtFileAttribute.nFileSizeHigh << 32) + udtFileAttribute.nFileSizeLow;
 	}
 	return (lSize);
 }
@@ -447,17 +447,17 @@ bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, const FILETIME *
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::DirectoryCreate(String psDirectory)
 {
-	bool bRes;
+	bool bRes = false;
 	unsigned int iCount, iDirectoryLen;
 	TCHAR *acDirectory;
 
 
 	acDirectory = psDirectory.c_str();
-	iDirectoryLen = _tcslen(acDirectory);
+	iDirectoryLen = (unsigned int) _tcslen(acDirectory);
 
 	for (iCount = 0; iCount < iDirectoryLen; iCount++)
 	{
-		//If found a backslash we try to create that component (it should end with \
+		//If found a backslash we try to create that component (it should end with backslash
 		if (acDirectory[iCount] == '\\')
 		{
 			acDirectory[iCount] = NULL;
@@ -586,7 +586,7 @@ int __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, int
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-long long __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long pDefault)
+long long __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault)
 {
 	TCHAR acDefault[2048];
 	TCHAR acRes[2048];
@@ -735,7 +735,7 @@ unsigned int __fastcall clsUtil::Serialize (void *pacBuffer, unsigned int piSize
 	unsigned char iByte;
 
 
-	for (iBuffer = piSize - 1; iBuffer >= 0; iBuffer--)
+	for (iBuffer = (int) piSize - 1; iBuffer >= 0; iBuffer--)
 	{
 		iByte = ((unsigned char *) pacBuffer)[iBuffer];
 		((unsigned char *) pacBuffer)[iBuffer << 1] = (iByte & 15) + '0';
@@ -765,7 +765,7 @@ unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSi
 		}
 		else
 		{
-			((unsigned char *) pacBuffer)[iBuffer >> 1] = iNibbleL + (iNibbleH << 4);
+			((unsigned char *) pacBuffer)[iBuffer >> 1] = (unsigned char) iNibbleL + (iNibbleH << 4);
 		}
 	}
 	return(piSize >> 1);
@@ -886,7 +886,7 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 	_tcscpy(acDestination, acSource);
 	_tcscat(acDestination, _T(".tmp"));
 
-	CopyFileEx(acSource, acDestination, NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+	CopyFileEx(acSource, acDestination, NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 
 	memset(&udtFileOp, 0, sizeof(udtFileOp));
 	udtFileOp.wFunc = FO_DELETE;

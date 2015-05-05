@@ -48,7 +48,7 @@ class clsUtil
 		static const TCHAR * __fastcall GetIniPath(void);
 		static const TCHAR * __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
 		static int __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault = 0);
-		static long long __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long pDefault = 0);
+		static long long __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault = 0);
 		static double __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault = 0);
 		static bool __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault = false );
 		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue = _T(""));

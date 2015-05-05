@@ -202,9 +202,9 @@ void __fastcall TfrmMain::FormResize(TObject *Sender)
 
 
 	//Recalculate column widths only if window width changed
-	if (iOldWidth != Width)
+	if (iOldWidth != (unsigned int) Width)
 	{
-		iOldWidth = Width;
+		iOldWidth = (unsigned int) Width;
 
 		//Prevent flickering
 		LockWindowUpdate(Handle);
@@ -277,7 +277,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 	unsigned int iRows;
 
 
-	iRows = grdFiles->RowCount;
+	iRows = (unsigned int) grdFiles->RowCount;
 	if (iRows > 1)
 	{
 		Screen->Cursor = crAppStart;
@@ -386,7 +386,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 {
 	unsigned int iCount, iRows;
 	int iLevel;
-	unsigned int iFileAttributes, iSavedBytes, iTotalBytes, iPercentBytes;
+	unsigned int iFileAttributes, iPercentBytes;
+	unsigned long long lSavedBytes, lTotalBytes;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sFlags;
 	String sExtensionByContent;
@@ -408,8 +409,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	#endif
 	sPluginsDirectory = GetShortName(acTmpFile);
 
-	iSavedBytes = 0;
-	iTotalBytes = 0;
+	lSavedBytes = 0;
+	lTotalBytes = 0;
 	iRows = grdFiles->RowCount;
 	for (iCount = 1; iCount < iRows; iCount++)
 	{
@@ -871,7 +872,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 				}
 				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
@@ -880,7 +881,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
 					//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+					CopyFileEx(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 				}
 				//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 				DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
@@ -971,7 +972,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					RunPlugin(iCount, "cwebp", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					if (clsUtil::SizeFile(acTmpFile) < clsUtil::SizeFile(sInputFile.c_str()))
 					{
-						CopyFileEx(acTmpFile, sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+						CopyFileEx(acTmpFile, sInputFile.c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 					}
 				}
 				DeleteFile(acTmpFileWebp);
@@ -1039,8 +1040,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			//Make sure the file was indeed processed because asuming we got gains. This is to solve Pending items being counted as 0 bytes
 			if (grdFiles->Cells[KI_GRID_OPTIMIZED][iCount] != "")
 			{
-				iTotalBytes += ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
-				iSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
+				lTotalBytes += ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
+				lSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
 			}
 		}
 		//If file was not processed, mark it as skipped
@@ -1053,7 +1054,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 			grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 		}
-		RefreshStatus(true, iTotalBytes, iSavedBytes);
+		RefreshStatus(true, lTotalBytes, lSavedBytes);
 
 		//Abort for loop if operation is cancelled
 		if (gbStop)
@@ -1063,17 +1064,17 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	}
 
 	//grdFiles->Enabled = true;
-	if (iTotalBytes != 0)
+	if (lTotalBytes != 0)
 	{
-		//iPercentBytes = ((unsigned long long) iTotalBytes - iSavedBytes) * 100 / iTotalBytes;
-		iPercentBytes = ((unsigned int) ((double) (iTotalBytes - iSavedBytes) / iTotalBytes * 100));
+		//iPercentBytes = ((unsigned long long) lTotalBytes - lSavedBytes) * 100 / lTotalBytes;
+		iPercentBytes = ((unsigned int) ((double) (lTotalBytes - lSavedBytes) / lTotalBytes * 100));
 	}
 	else
 	{
 		iPercentBytes = 0;
 	}
 
-	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(iSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
+	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
 	gbProcess = false;
 	RefreshStatus(false);
@@ -1386,7 +1387,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
 	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 	{
-		CopyFileEx(sInputFile.c_str(), sTmpInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+		CopyFileEx(sInputFile.c_str(), sTmpInputFile.c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 		//sInputFile = sTmpOutputFile;
 	}
 
@@ -1415,7 +1416,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
-				CopyFileEx(sTmpOutputFile.c_str(), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+				CopyFileEx(sTmpOutputFile.c_str(), sInputFile.c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 			}
 		}
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
@@ -1424,7 +1425,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
-				CopyFileEx(sTmpInputFile.c_str(), sInputFile.c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+				CopyFileEx(sTmpInputFile.c_str(), sInputFile.c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 				//sInputFile = sTmpOutputFile;
 			}
 		}	
@@ -1989,7 +1990,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piTotalBytes, unsigned int piSavedBytes)
+void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned long long plTotalBytes, unsigned long long plSavedBytes)
 {
 	unsigned int iPercentBytes;
 
@@ -1999,17 +2000,17 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piT
 
 	if (gbProcess)
 	{
-		if (piTotalBytes != 0)
+		if (plTotalBytes != 0)
 		{
 			//iPercentBytes = ((unsigned long long) piTotalBytes - piSavedBytes) * 100 / piTotalBytes;
-			iPercentBytes = ((unsigned int) ((double) (piTotalBytes - piSavedBytes) / piTotalBytes * 100));
-			
+			iPercentBytes = ((unsigned int) ((double) (plTotalBytes - plSavedBytes) / plTotalBytes * 100));
+
 		}
 		else
 		{
 			iPercentBytes = 0;
 		}
-		stbMain->Panels->Items[0]->Text = FormatNumberThousand(grdFiles->Row) + " / " + FormatNumberThousand(grdFiles->RowCount - 1) + " files. " + FormatNumberThousand(piSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
+		stbMain->Panels->Items[0]->Text = FormatNumberThousand(grdFiles->Row) + " / " + FormatNumberThousand(grdFiles->RowCount - 1) + " files. " + FormatNumberThousand(plSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
 		Caption = stbMain->Hint + " - " + Application->Name;
 		Application->Title = Caption;
@@ -2090,7 +2091,7 @@ String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 	TStringDynArray asValue;
 
 	asValue = SplitString(psValue, "\n");
-	if (asValue.Length > piPos)
+	if ((unsigned int) asValue.Length > piPos)
 	{
 		psValue = asValue[piPos];
 	}

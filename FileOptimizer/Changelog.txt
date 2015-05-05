@@ -145,7 +145,7 @@ XX - YYYY
 - File extensions were converted to lowercase. ie: JPG to jpg (Marilyn Phillip).
 - Updated jpegoptim to 1.4.3 beta (custom built).
 - Updated to cppcheck 1.69.
-- Minor optimizations.
+- Some minor optimizations and code cleanup.
 
 
 7.60 - 2015/04/26
