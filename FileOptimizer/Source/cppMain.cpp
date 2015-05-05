@@ -1853,12 +1853,12 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 bool __fastcall TfrmMain::IsSFX(const TCHAR *pacFile)
 {
 	bool bRes;
-	unsigned int iSize, iPos;
+	unsigned int iSize;
 	unsigned char *acBuffer;
 
 	
 	bRes = false;
-	iSize = 128 * 1024;
+	iSize = 256 * 1024;
 	acBuffer = new unsigned char[iSize];
 	if (acBuffer)
 	{
@@ -1870,7 +1870,7 @@ bool __fastcall TfrmMain::IsSFX(const TCHAR *pacFile)
 			bRes = true;
 		}
 		//Check if it is a RAR SFX
-		if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x52\x61\x72\x21\x1A\x07", 6) != NULL)
+		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x52\x61\x72\x21\x1A\x07", 6) != NULL)
 		{
 			bRes = true;
 		}
