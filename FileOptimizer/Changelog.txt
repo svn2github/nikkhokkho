@@ -1,4 +1,4 @@
-- Add EXE SFX detections (SvenBent).
+- Implement a Statistic section in INI file: Total time, total opens, total files processed, total Mbytes porcessed, total Mbytes saved, ...
 
 - Less JPEG compression ration in 7.50 and 7.60 (Jaff).
 
@@ -138,6 +138,8 @@ ndo
 
 
 XX - YYYY
+- Added MNG files detection by content.
+- Added WinRAR SFX detection to exclude processing like we did with Inno Setup (SvenBent).
 - Make child windows open on top, when always on top is checked (hairycactus).
 - Do not reset column widths after minimizing window (Jaff).
 - Use TMP if TEMP is not available or else use current directory to avoid issues when reading them (xezz).

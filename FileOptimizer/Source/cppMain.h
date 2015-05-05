@@ -211,7 +211,7 @@ private: // User declarations
 	void __fastcall CheckForUpdates(bool pbSilent = true);
 	String __fastcall GetShortName(String psLongName);
 	bool __fastcall IsAPNG(const TCHAR *pacFile);
-	bool __fastcall IsInnoSetup(const TCHAR *pacFile);
+	bool __fastcall IsSFX(const TCHAR *pacFile);
 	bool __fastcall IsManagedNet(const TCHAR *pacFile);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 	String __fastcall SetCellFileValue(String psValue);

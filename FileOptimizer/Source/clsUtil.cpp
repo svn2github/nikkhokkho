@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 /*
- 3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni
+ 3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni. Added MemMem
  3.25. 05/04/2015. FileOptimizer. Added Random
  3.20. 14/03/2015. FileOptimizer. Added Serialize and Unserialize
  3.10. 20/01/2015. FileOptimizer. Minor tweaks and fixes
@@ -40,6 +40,36 @@ const TCHAR * __fastcall clsUtil::ReplaceString(const TCHAR *pacString, const TC
 	}
 	return newstr;
 	*/
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len)
+{
+	unsigned char *bf = (unsigned char *) buf;
+	unsigned char *bs = (unsigned char *) byte_sequence;
+	unsigned char *p  = bf;
+
+	while (byte_sequence_len <= (buf_len - (p - bf)))
+	{
+		unsigned int b = *bs & 0xFF;
+		if ((p = (unsigned char *) memchr(p, b, buf_len - (p - bf))) != NULL)
+		{
+			if ((memcmp(p, byte_sequence, byte_sequence_len)) == 0)
+			{
+			return (p);
+			}
+			else  
+			{
+				p++;
+			}
+		}
+		else  
+		{
+			break;
+		}
+	}
+	return (NULL);
 }
 
 

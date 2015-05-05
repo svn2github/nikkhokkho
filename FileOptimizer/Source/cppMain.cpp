@@ -502,7 +502,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				if (!IsInnoSetup(sInputFile.c_str()))
+				if (!IsSFX(sInputFile.c_str()))
 				{
 					if (!gudtOptions.bEXEDisablePETrim)
 					{
@@ -1533,6 +1533,10 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 				sRes = ".mkv";
 			}
 			//Check MNG
+			else if (memcmp(acBuffer, "\x8A\x4D\x4E\x47\x0D\x0A\x1A\x0A", 8) == 0)
+			{
+				sRes = ".mng";
+			}
 			//Check MP3
 			else if (memcmp(acBuffer, "ID3", 3) == 0)
 			{
@@ -1846,7 +1850,7 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall TfrmMain::IsInnoSetup(const TCHAR *pacFile)
+bool __fastcall TfrmMain::IsSFX(const TCHAR *pacFile)
 {
 	bool bRes;
 	unsigned int iSize, iPos;
@@ -1859,14 +1863,18 @@ bool __fastcall TfrmMain::IsInnoSetup(const TCHAR *pacFile)
 	if (acBuffer)
 	{
 		clsUtil::ReadFile(pacFile, acBuffer, &iSize);
-		for (iPos = 0; iPos < iSize - 10; iPos++)
+		
+		//Check if it is an Inno Setup Installer
+		if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "Inno Setup", 10) != NULL)
 		{
-			if (memcmp((const void *) &acBuffer[iPos], (const void *) "Inno Setup", 10) == 0)
-			{
-				bRes = true;
-				break;                
-			}    
+			bRes = true;
 		}
+		//Check if it is a RAR SFX
+		if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x52\x61\x72\x21\x1A\x07", 6) != NULL)
+		{
+			bRes = true;
+		}
+		
 		delete[] acBuffer;
 	}
 	return (bRes);
