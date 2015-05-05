@@ -47,11 +47,13 @@ class clsUtil
 		static const TCHAR * __fastcall GetIniPath(void);
 		static const TCHAR * __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
 		static int __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault = 0);
+		static long long __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long pDefault = 0);
 		static double __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault = 0);
 		static bool __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault = false );
 		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue = _T(""));
 		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue);
 		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue);
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue);
 		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue);
 		static unsigned int __fastcall Serialize (void *pacBuffer, unsigned int piSize);
 		static unsigned int __fastcall Unserialize (void *pacBuffer, unsigned int piSize);

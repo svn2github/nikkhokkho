@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni
  3.25. 05/04/2015. FileOptimizer. Added Random
  3.20. 14/03/2015. FileOptimizer. Added Serialize and Unserialize
  3.10. 20/01/2015. FileOptimizer. Minor tweaks and fixes
@@ -555,6 +556,20 @@ int __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, int
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+long long __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long pDefault)
+{
+	TCHAR acDefault[2048];
+	TCHAR acRes[2048];
+
+
+	_i64tot(plDefault, acDefault, 10);
+	GetPrivateProfileString(pacSection, pacKey, acDefault, acRes, sizeof(acRes), GetIniPath());
+	return (_ttoi64(acRes));
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 double __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault)
 {
 	TCHAR acDefault[2048];
@@ -625,6 +640,20 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, in
 	_itot(piValue, acValue, 10);
 	WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 }
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue)
+{
+	TCHAR acValue[2048];
+
+
+	_i64tot(plValue, acValue, 10);
+	WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+}
+
+
 
 
 
