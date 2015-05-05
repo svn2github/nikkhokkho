@@ -1,12 +1,12 @@
 /*******************************************************************
  * JPEGoptim
- * Copyright (c) Timo Kokkonen, 1996-2014.
+ * Copyright (c) Timo Kokkonen, 1996-2015.
  * All Rights Reserved.
  *
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: 1c976e4b5a675cd4c9b0ab13e683edffaaa12ad2 $
+ * $Id: 89e2178835170be0f0a69ecccbd58d8a712a7428 $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,7 +34,9 @@
 #include "jpegoptim.h"
 
 
-#define VERSIO "1.4.2"
+#define VERSIO "1.4.3beta"
+#define COPYRIGHT  "Copyright (c) 1996-2015, Timo Kokkonen"
+
 
 #define LOG_FH (logs_to_stdout ? stdout : stderr)
 
@@ -54,7 +56,7 @@ struct my_error_mgr {
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: 1c976e4b5a675cd4c9b0ab13e683edffaaa12ad2 $";
+const char *rcsid = "$Id: 89e2178835170be0f0a69ecccbd58d8a712a7428 $";
 
 
 int verbose_mode = 0;
@@ -145,8 +147,7 @@ my_output_message (j_common_ptr cinfo)
 
 void print_usage(void) 
 {
-  fprintf(stderr,PROGRAMNAME " v" VERSIO 
-	  "  Copyright (c) Timo Kokkonen, 1996-2014.\n"); 
+  fprintf(stderr,PROGRAMNAME " v" VERSIO "  " COPYRIGHT "\n");
 
   fprintf(stderr,
 	  "Usage: " PROGRAMNAME " [options] <filenames> \n\n"
@@ -197,7 +198,7 @@ void print_version()
 
   
   printf(PROGRAMNAME " v%s  %s\n",VERSIO,HOST_TYPE);
-  printf("Copyright (c) 1996-2014  Timo Kokkonen.\n");
+  printf(COPYRIGHT "\n");
 
   if (!(err=jpeg_std_error(&jcerr)))
     fatal("jpeg_std_error() failed");
@@ -488,6 +489,7 @@ int main(int argc, char **argv)
   do {
     if (stdin_mode) {
       infile=stdin;
+      set_filemode_binary(infile);
     } else {
       if (!argv[i][0]) continue;
       if (argv[i][0]=='-') continue;
@@ -627,14 +629,13 @@ int main(int argc, char **argv)
      fflush(LOG_FH);
    }
 
-   fclose(infile);
-   infile=NULL;
      
 
    if (dest && !noaction) {
      if (file_exists(newname) && !overwrite_mode) {
        warn("target file already exists: %s\n",newname);
        jpeg_abort_decompress(&dinfo);
+       fclose(infile);
        if (buf) FREE_LINE_BUF(buf,dinfo.output_height);
        continue;
      }
@@ -646,6 +647,7 @@ int main(int argc, char **argv)
      
      jpeg_abort_compress(&cinfo);
      jpeg_abort_decompress(&dinfo);
+     fclose(infile);
      if (!quiet_mode) fprintf(LOG_FH," [Compress ERROR]\n");
      if (buf) FREE_LINE_BUF(buf,dinfo.output_height);
      compress_err_count++;
@@ -743,7 +745,7 @@ int main(int argc, char **argv)
        
      } else {
        int newquality;
-       int dif = round(abs(oldquality-quality)/2.0);
+       int dif = floor((abs(oldquality-quality)/2.0)+0.5);
        if (osize > tsize) {
 	 newquality=quality-dif;
 	 if (dif < 1) { newquality--; searchdone=1; }
@@ -766,6 +768,7 @@ int main(int argc, char **argv)
 
    if (buf) FREE_LINE_BUF(buf,dinfo.output_height);
    jpeg_finish_decompress(&dinfo);
+   fclose(infile);
 
 
    if (quality>=0 && outsize>=insize && !retry && !stdin_mode) {
@@ -788,6 +791,7 @@ int main(int argc, char **argv)
 
 	if (stdout_mode) {
 	  outfname=NULL;
+	  set_filemode_binary(stdout);
 	  if (fwrite(outbuffer,outbuffersize,1,stdout) != 1)
 	    fatal("write failed to stdout");
 	} else {

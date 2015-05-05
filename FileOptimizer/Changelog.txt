@@ -114,7 +114,7 @@ ndo
 - ImageMagick 6.9.12 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
-- jpegoptim 1.4.2 - http://www.kokkonen.net/tjko/projects.html
+- jpegoptim 1.4.3 beta - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.2.44 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
@@ -143,7 +143,8 @@ XX - YYYY
 - Make child windows open on top, when always on top is checked (hairycactus).
 - Do not reset column widths after minimizing window (Jaff).
 - Use TMP if TEMP is not available or else use current directory to avoid issues when reading them (xezz).
-- Optimized file extensions were converted to lowercase. ie: JPG to jpg (Marilyn Phillip).
+- File extensions were converted to lowercase. ie: JPG to jpg (Marilyn Phillip).
+- Updated jpegoptim to 1.4.3 beta (custom built).
 - Updated to cppcheck 1.69.
 - Minor optimizations.
 
