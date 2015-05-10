@@ -1,6 +1,3 @@
-- Make higher compression profiles, optimize better at a cost of extra processing time (SvenBent).
-9*9*9/25
-
 - Implement a Statistic section in INI file: Total time, total opens, total files processed, total Mbytes porcessed, total Mbytes saved, ...
 
 - Deletes files instead of processing them. https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/ced9a3af/ (Vivil).
@@ -140,7 +137,8 @@ ndo
 
 
 XX - YYYY
-- Add optional lossy PNG recompression support with pngquant 2.4.0 (Jack Cherng).
+- Added a new PNG option to optionalally allow lossy PNG recompression support with pngquant 2.4.0 (Jack Cherng).
+- Made higher compression profiles, optimize better at a cost of extra processing time. Now on best setting, we are using 30 zopfli iterations instead of 9 (SvenBent).
 - Added MNG files detection by content.
 - Added WinRAR SFX detection to exclude processing like we did with Inno Setup (SvenBent).
 - Fixed regression on files with uppercase extensions, compression ratio was less than in 7.40 and before. (Jaff).

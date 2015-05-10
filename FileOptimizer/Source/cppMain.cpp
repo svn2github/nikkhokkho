@@ -545,6 +545,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "-i " + (String) iLevel + " ";
 					if (gudtOptions.bJPEGCopyMetadata)
 					{
@@ -555,6 +556,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -588,6 +590,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "-i " + (String) iLevel + " ";
 					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
@@ -673,6 +676,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -826,6 +830,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -833,6 +838,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "--zopfli-iterations=" + (String) iLevel + " ";
 					RunPlugin(iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -847,6 +853,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					{
 						sFlags = "";
 						iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
+						iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 						sFlags += "-i " + (String) iLevel + " ";
 						RunPlugin(iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
@@ -894,6 +901,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -906,6 +914,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					sFlags += "--keep-exif ";
 				}
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -992,6 +1001,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					sFlags += "--keep-exif ";
 				}
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				//Limit ZIP no recurse to ZIP extension
 				if ((!gudtOptions.bZIPRecurse) && (sExtensionByContent == ".zip"))
@@ -1003,6 +1013,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
