@@ -69,6 +69,7 @@ __published: // IDE-managed Components
 	TLabel *lblDescription;
 	TSpinEdit *spnPDFCustomDPI;
 	TLabel *lblPDFCustomDPI;
+	TCheckBox *chkPNGAllowLossy;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);

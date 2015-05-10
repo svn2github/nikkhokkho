@@ -90,6 +90,7 @@ struct udtOptions
 	TCHAR acPDFProfile[64];
 	int iPDFCustomDPI;
 	bool bPNGCopyMetadata;
+	bool bPNGAllowLossy;
 	bool bTIFFCopyMetadata;
 	bool bXMLEnableLeanify;
 	bool bZIPCopyMetadata;

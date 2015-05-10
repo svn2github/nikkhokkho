@@ -150,6 +150,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	cboPDFProfileChange(NULL);
 
 	chkPNGCopyMetadata->Checked = gudtOptions.bPNGCopyMetadata;
+	chkPNGAllowLossy->Checked = gudtOptions.bPNGAllowLossy;
 	chkXMLEnableLeanify->Checked = gudtOptions.bXMLEnableLeanify;
 	chkZIPCopyMetadata->Checked = gudtOptions.bZIPCopyMetadata;
 	chkZIPRecurse->Checked = gudtOptions.bZIPRecurse;
@@ -276,6 +277,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.iPDFCustomDPI = spnPDFCustomDPI->Value;
 
 	gudtOptions.bPNGCopyMetadata = chkPNGCopyMetadata->Checked;
+	gudtOptions.bPNGAllowLossy = chkPNGAllowLossy->Checked;
 	gudtOptions.bXMLEnableLeanify = chkXMLEnableLeanify->Checked;
 	gudtOptions.bZIPCopyMetadata = chkZIPCopyMetadata->Checked;
 	gudtOptions.bZIPRecurse = chkZIPRecurse->Checked;

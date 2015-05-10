@@ -129,6 +129,7 @@ ndo
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
+- pngquant 2.4.0 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -139,6 +140,7 @@ ndo
 
 
 XX - YYYY
+- Add optional lossy PNG recompression support with pngquant 2.4.0 (Jack Cherng).
 - Added MNG files detection by content.
 - Added WinRAR SFX detection to exclude processing like we did with Inno Setup (SvenBent).
 - Fixed regression on files with uppercase extensions, compression ratio was less than in 7.40 and before. (Jaff).
