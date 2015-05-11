@@ -1,3 +1,7 @@
+- Multithreading support: 
+	* http://op.htmsoft.com/articles/Articlea1-2-1.html
+	* http://elvex.ugr.es/decsai/builder/threads/
+
 - Implement a Statistic section in INI file: Total time, total opens, total files processed, total Mbytes porcessed, total Mbytes saved, ...
 
 - Deletes files instead of processing them. https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/ced9a3af/ (Vivil).
