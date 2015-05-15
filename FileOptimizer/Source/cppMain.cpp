@@ -501,7 +501,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			{
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				iLevel = 9;
+				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -603,8 +604,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "--keep-exif ";
 				}
-				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				iLevel = 9;
+				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -660,8 +661,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				if (gudtOptions.bLUAEnableLeanify)
 				{
 					sFlags = "";
-					//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-					iLevel = 9;
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "-i " + (String) iLevel + " ";
 					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
@@ -746,7 +747,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
 				}
-
 				#if defined(_WIN64)
 					RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#else
@@ -964,7 +964,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				{
 					sFlags = "";
 					//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-					iLevel = 9;
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "-i " + (String) iLevel + " ";
 					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
