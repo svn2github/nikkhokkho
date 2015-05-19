@@ -122,7 +122,7 @@ ndo
 - Leanify 0.4.2.45 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.4.3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
-- mozjpeg 3.00 - https://github.com/mozilla/mozjpeg
+- mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
 - OptiPNG Hg 20121021 - http://optipng.sourceforge.net
@@ -142,6 +142,8 @@ ndo
 
 XX - YYYY
 - Updated Leanify 0.4.2.45 daily binaries.
+- Updated mozjpeg to 3.10.
+
 
 7.70 - 2015/05/17
 - Added a new PNG option to optionalally allow lossy PNG recompression support with pngquant 2.4.0 (Jack Cherng).
