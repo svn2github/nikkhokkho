@@ -1,3 +1,4 @@
+- Add a technical section on the help file and website to detail how optimizations works, and lossless (alex).
 - Add INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all files is done (guindos98).
 - On Windows XP, log seems fine, but files get not processed and finally the original file deleted (Vivil).
 
@@ -144,6 +145,7 @@ ndo
 
 
 XX - YYYY
+- Fixed an incompatibility with Windows XP introduced in 7.50 by unsupported COPY_FILE_NO_BUFFERING flag that makes CopyFileEx API function fail (Vivil).
 - Updated Leanify 0.4.2.45 daily binaries.
 - Updated mozjpeg to 3.10.
 
