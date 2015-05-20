@@ -498,6 +498,23 @@ bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigne
 }
 
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestination)
+{
+	bool bRes;
+	
+	//Try copying file with faster no buffering only available in Windows XP
+	bRes = CopyFileEx(pacSource, pacDestination, NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+	if (!bRes)
+	{
+		//Try copying file with buffering
+		bRes = CopyFileEx(pacSource, pacDestination, NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION);
+	}
+	return(bRes);
+}
+
+
+
 
 // --------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall clsUtil::ExeVersion(const TCHAR *pacFile)
@@ -886,7 +903,7 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 	_tcscpy(acDestination, acSource);
 	_tcscat(acDestination, _T(".tmp"));
 
-	CopyFileEx(acSource, acDestination, NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION/*|COPY_FILE_NO_BUFFERING*/);
+	CopyFile(acSource, acDestination);
 
 	memset(&udtFileOp, 0, sizeof(udtFileOp));
 	udtFileOp.wFunc = FO_DELETE;

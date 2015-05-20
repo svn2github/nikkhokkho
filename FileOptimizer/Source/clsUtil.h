@@ -44,6 +44,7 @@ class clsUtil
 		static bool __fastcall SetFileTimestamp(const TCHAR *pacFile, const FILETIME *pudtCreated = NULL, const FILETIME *pudtAccessed = NULL, const FILETIME *pudtModified = NULL);
 		static bool __fastcall DirectoryCreate(String psDirectory);
 		static bool __fastcall DownloadFile(const TCHAR *pacUrl, void *pvData, unsigned int piSize);
+		bool __fastcall CopyFile(const TCHAR *pacSource, const TCHAR *pacDestination);
 		static const TCHAR * __fastcall ExeVersion(const TCHAR *pacFile);
 		static const TCHAR * __fastcall GetIniPath(void);
 		static const TCHAR * __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
