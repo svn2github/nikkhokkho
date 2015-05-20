@@ -6,7 +6,7 @@
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: 89e2178835170be0f0a69ecccbd58d8a712a7428 $
+ * $Id: be21505b98c3a351e818bfceb3abaa4115b8153b $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -17,7 +17,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-//#include <dirent.h>
 #if HAVE_GETOPT_H && HAVE_GETOPT_LONG
 #include <getopt.h>
 #else
@@ -34,7 +33,7 @@
 #include "jpegoptim.h"
 
 
-#define VERSIO "1.4.3beta"
+#define VERSIO "1.4.3"
 #define COPYRIGHT  "Copyright (c) 1996-2015, Timo Kokkonen"
 
 
@@ -56,7 +55,7 @@ struct my_error_mgr {
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: 89e2178835170be0f0a69ecccbd58d8a712a7428 $";
+const char *rcsid = "$Id: be21505b98c3a351e818bfceb3abaa4115b8153b $";
 
 
 int verbose_mode = 0;

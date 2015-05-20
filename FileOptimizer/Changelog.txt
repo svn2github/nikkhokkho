@@ -120,7 +120,7 @@ ndo
 - ImageMagick 6.9.12 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
-- jpegoptim 1.4.3 beta - http://www.kokkonen.net/tjko/projects.html
+- jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.2.45 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
@@ -148,6 +148,7 @@ XX - YYYY
 - Fixed an incompatibility with Windows XP introduced in 7.50 by unsupported COPY_FILE_NO_BUFFERING flag that makes CopyFileEx API function fail (Vivil).
 - Updated Leanify 0.4.2.45 daily binaries.
 - Updated mozjpeg to 3.10.
+- Updated jpegoptim to 1.4.3 (custom built).
 
 
 7.70 - 2015/05/17
