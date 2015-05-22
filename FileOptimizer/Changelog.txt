@@ -138,7 +138,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
-- tidy-html5 c63cc39 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
+- tidy-html5 4.9.26-26-g9785399 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
 - TruePNG 0.5.0.4 - http://x128.ho.ua/pngutils.html
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
@@ -146,7 +146,8 @@ ndo
 
 XX - YYYY
 - Fixed an incompatibility with Windows XP introduced in 7.50 by unsupported COPY_FILE_NO_BUFFERING flag that makes CopyFileEx API function fail (Vivil).
-- Updated Leanify 0.4.2.45 daily binaries.
+- Updated tidy-html5 to 4.9.26-26-g9785399.
+- Updated Leanify to 0.4.2.45 daily binaries.
 - Updated mozjpeg to 3.10.
 - Updated jpegoptim to 1.4.3 (custom built).
 
