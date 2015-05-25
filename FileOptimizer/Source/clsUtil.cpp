@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 /*
- 3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni. Added MemMem
+ 3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni. Added MemMem, CopyFile
  3.25. 05/04/2015. FileOptimizer. Added Random
  3.20. 14/03/2015. FileOptimizer. Added Serialize and Unserialize
  3.10. 20/01/2015. FileOptimizer. Minor tweaks and fixes
