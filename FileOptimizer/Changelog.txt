@@ -117,7 +117,7 @@ ndo
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.9.12 - http://www.imagemagick.org
+- ImageMagick 6.9.13 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
@@ -146,6 +146,7 @@ ndo
 
 XX - YYYY
 - Fixed an incompatibility with Windows XP introduced in 7.50 by unsupported COPY_FILE_NO_BUFFERING flag that makes CopyFileEx API function fail (Vivil).
+- Updated ImageMagick to 6.9.13.
 - Updated tidy-html5 to 4.9.26-26-g9785399.
 - Updated Leanify to 0.4.2.45 daily binaries.
 - Updated mozjpeg to 3.10.
