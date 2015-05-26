@@ -596,9 +596,16 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
-			// JPEG: Leanify, jhead jpegoptim, jpegtran, mozjpegtran
+			// JPEG: jhead, Leanify, jpegoptim, jpegtran, mozjpegtran
 			if (PosEx(sExtensionByContent, KS_EXTENSION_JPG) > 0)
 			{
+				sFlags = "";
+				if (!gudtOptions.bJPEGCopyMetadata)
+				{
+					RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -autorot -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					sFlags += "-strip ";
+				}
+				
 				sFlags = "";
 				if (gudtOptions.bJPEGCopyMetadata)
 				{
@@ -608,13 +615,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-
-				sFlags = "";
-				if (!gudtOptions.bJPEGCopyMetadata)
-				{
-					RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					sFlags += "-strip ";
-				}
 
 				//Seems to cause some loss of quality
 				//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);

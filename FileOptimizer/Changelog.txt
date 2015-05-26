@@ -146,6 +146,7 @@ ndo
 
 XX - YYYY
 - Fixed an incompatibility with Windows XP introduced in 7.50 by unsupported COPY_FILE_NO_BUFFERING flag that makes CopyFileEx API function fail (Vivil).
+- Keep rotation on EXIF rotated JPEG images, even if metadata is stripped (Jaff).
 - Updated ImageMagick to 6.9.13.
 - Updated tidy-html5 to 4.9.26-26-g9785399.
 - Updated Leanify to 0.4.2.45 daily binaries.
