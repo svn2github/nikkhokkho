@@ -150,7 +150,7 @@ XX - YYYY
 - Fixed lossy PNG optimization was performed even if "allow lossy" was unchecked (guindos98, alex, Newtomic).
 - Keep rotation on EXIF rotated JPEG images, even if metadata is stripped (Jaff).
 - Updated ImageMagick to 6.9.13.
-- Updated tidy-html5 to 4.9.26-26-g9785399.
+- Updated tidy-html5 to 4.9.26-26-g9785399 patched to be Windows XP compatible.
 - Updated Leanify to 0.4.2.45 daily binaries.
 - Updated mozjpeg to 3.10.
 - Updated jpegoptim to 1.4.3 (custom built).
