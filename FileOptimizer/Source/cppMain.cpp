@@ -770,7 +770,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 				if (!bIs9Patch)
 				{
-					RunPlugin(iCount, "pngquant", (sPluginsDirectory + "pngquant.exe --speed 1 256 --ext .png --force \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					if (bPNGAllowLossy)
+					{
+						RunPlugin(iCount, "pngquant", (sPluginsDirectory + "pngquant.exe --speed 1 256 --ext .png --force \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					}
 
 					RunPlugin(iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
