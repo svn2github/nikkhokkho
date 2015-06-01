@@ -508,7 +508,7 @@ bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestin
 	if (!bRes)
 	{
 		//Try copying file with buffering
-		bRes = CopyFile(pacSource, pacDestination, false);
+		bRes = ::CopyFile(pacSource, pacDestination, false);
 	}
 	return(bRes);
 }

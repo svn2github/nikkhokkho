@@ -119,7 +119,7 @@ ndo
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.9.13 - http://www.imagemagick.org
+- ImageMagick 6.9.14 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
@@ -146,16 +146,20 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-XX - YYYY
+XXXXXX - YYYYYYYY
+
+
+7.80 - 2015/06/01
 - Fixed an incompatibility with Windows XP introduced in 7.50 by unsupported COPY_FILE_NO_BUFFERING flag that makes CopyFileEx API function fail (Vivil).
 - Fixed lossy PNG optimization was performed even if "allow lossy" was unchecked (guindos98, alex, Newtomic).
+- Tested over mapped and unmapped network shares.
 - Keep rotation on EXIF rotated JPEG images, even if metadata is stripped (Jaff).
-- Updated ImageMagick to 6.9.13.
+- Updated ImageMagick to 6.9.14.
 - Updated tidy-html5 to 4.9.26-26-g9785399 patched to be Windows XP compatible.
 - Updated Leanify to 0.4.2.45 daily binaries.
 - Updated mozjpeg to 3.10.
 - Updated jpegoptim to 1.4.3 (custom built).
-
+- Upgraded distributions to 7-Zip 15.03.
 
 7.70 - 2015/05/17
 - Added a new PNG option to optionalally allow lossy PNG recompression support with pngquant 2.4.0 (Jack Cherng).
