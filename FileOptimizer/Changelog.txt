@@ -1,3 +1,4 @@
+- Tune Ghostcript arguments http://encode.ru/threads/1589-FileOptimizer?p=44121&viewfull=1#post44121 (Necros).
 - Add INI setting for specifying which drive/folder to use for temporary files (Newtomic).
 - Add INI setting for optional independent compression levels for each file type (Newtomic).
 - Add a technical section on the help file and website to detail how optimizations works, and lossless (alex).
