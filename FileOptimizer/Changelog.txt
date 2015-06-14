@@ -120,7 +120,7 @@ ndo
 - Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.9.14 - http://www.imagemagick.org
+- ImageMagick 6.9.15 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
@@ -149,6 +149,7 @@ ndo
 
 XXXXXX - YYYYYYYY
 - Updated Leanify to 0.4.2.49 daily binaries.
+- Updated ImageMagick to 6.9.15.
 
 
 7.80 - 2015/06/01
