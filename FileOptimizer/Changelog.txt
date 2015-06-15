@@ -148,6 +148,7 @@ ndo
 
 
 XXXXXX - YYYYYYYY
+- Do not convert SVG to SVGZ (JoeW).
 - Updated Leanify to 0.4.2.51 daily binaries.
 - Updated ImageMagick to 6.9.15.
 
