@@ -148,6 +148,7 @@ ndo
 
 
 XXXXXX - YYYYYYYY
+- Better JPEG optimizations by allowing to run jhead when metadata should be copied too (Jaff).
 - Do not convert SVG to SVGZ (JoeW).
 - Updated Leanify to 0.4.2.52 daily binaries.
 - Updated ImageMagick to 6.9.15.

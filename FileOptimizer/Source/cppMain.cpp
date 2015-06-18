@@ -600,11 +600,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (PosEx(sExtensionByContent, KS_EXTENSION_JPG) > 0)
 			{
 				sFlags = "";
-				if (!gudtOptions.bJPEGCopyMetadata)
+				if (gudtOptions.bJPEGCopyMetadata)
 				{
-					RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -autorot -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					sFlags += "-strip ";
+					sFrags += "-autorot -zt -q ";
 				}
+				else
+				{
+					sFrags += "-autorot -purejpg -di -dx -dt -zt -q ";
+				}	
+				RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);		
 				
 				sFlags = "";
 				if (gudtOptions.bJPEGCopyMetadata)
@@ -925,11 +929,16 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			if (PosEx(sExtensionByContent, KS_EXTENSION_TIF) > 0)
 			{
 				sFlags = "";
-				if (!gudtOptions.bTIFFCopyMetadata)
+				if (gudtOptions.bTIFFCopyMetadata)
 				{
-					RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe -purejpg -di -dx -dt -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					sFlags += "-strip ";
+					sFrags += "-autorot -zt -q ";
 				}
+				else
+				{
+					sFrags += "-autorot -purejpg -di -dx -dt -zt -q ";
+				}	
+				RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);		
+
 				RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				sFlags = "";
