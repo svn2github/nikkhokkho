@@ -117,7 +117,7 @@ ndo
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
-- Gifsicle 1.87 - http://www.lcdf.org/gifsicle/
+- Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
 - GNU Strip 2.25 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.9.16 - http://www.imagemagick.org
@@ -152,6 +152,7 @@ XXXXXX - YYYYYYYY
 - Do not convert SVG to SVGZ (JoeW).
 - Updated Leanify to 0.4.2.58 daily binaries.
 - Updated ImageMagick to 6.9.16 with HDRI support.
+- Updated gifsicle to 1.88 (custom build).
 
 
 7.80 - 2015/06/01

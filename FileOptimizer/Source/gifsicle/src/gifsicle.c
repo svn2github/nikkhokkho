@@ -17,6 +17,8 @@
 #include <ctype.h>
 #include <assert.h>
 #include <errno.h>
+#include <io.h>
+#include <fcntl.h>
 #if HAVE_UNISTD_H
 # include <unistd.h>
 #endif
@@ -51,6 +53,7 @@ int nested_mode = 0;
 
 static int infoing = 0;
 int verbosing = 0;
+static int no_ignore_errors = 0;
 
 
 #define CHANGED(next, flag)     (((next) & (1<<(flag))) != 0)
@@ -189,6 +192,7 @@ static const char *output_option_types[] = {
 #define RESIZE_COLORS_OPT       371
 #define NO_APP_EXTENSIONS_OPT   372
 #define SAME_APP_EXTENSIONS_OPT 373
+#define IGNORE_ERRORS_OPT       374
 
 #define LOOP_TYPE               (Clp_ValFirstUser)
 #define DISPOSAL_TYPE           (Clp_ValFirstUser + 1)
@@ -249,6 +253,7 @@ const Clp_Option options[] = {
 
   { "help", 'h', HELP_OPT, 0, 0 },
 
+  { "ignore-errors", 0, IGNORE_ERRORS_OPT, 0, Clp_Negate },
   { "info", 'I', INFO_OPT, 0, Clp_Negate },
   { "insert-before", 0, INSERT_OPT, FRAME_SPEC_TYPE, 0 },
   { "interlace", 'i', 'i', 0, Clp_Negate },
@@ -463,7 +468,7 @@ static int gifread_error_count;
 
 static void
 gifread_error(Gif_Stream* gfs, Gif_Image* gfi,
-              int is_error, const char *message)
+              int is_error, const char* message)
 {
   static int last_is_error = 0;
   static char last_landmark[256];
@@ -495,7 +500,9 @@ gifread_error(Gif_Stream* gfs, Gif_Image* gfi,
           || strcmp(landmark, last_landmark) != 0)) {
     const char* etype = last_is_error ? "read error: " : "";
     void (*f)(const char*, const char*, ...) = last_is_error ? lerror : lwarning;
-    if (same_error_count == 1)
+    if (gfi && gfi->user_flags)
+      /* error already reported */;
+    else if (same_error_count == 1)
       f(last_landmark, "%s%s", etype, last_message);
     else if (same_error_count > 0)
       f(last_landmark, "%s%s (%d times)", etype, last_message, same_error_count);
@@ -511,7 +518,8 @@ gifread_error(Gif_Stream* gfs, Gif_Image* gfi,
     strcpy(last_landmark, landmark);
     last_is_error = is_error;
     if (different_error_count == 11) {
-      error(0, "(plus more errors; is this GIF corrupt?)");
+      if (!(gfi && gfi->user_flags))
+        error(0, "(plus more errors; is this GIF corrupt?)");
       different_error_count++;
     }
   } else
@@ -519,13 +527,16 @@ gifread_error(Gif_Stream* gfs, Gif_Image* gfi,
 
   {
     unsigned long missing;
-    if (message && sscanf(message, "missing %lu pixels", &missing) == 1
-        && missing > 10000) {
+    if (message && sscanf(message, "missing %lu pixel", &missing) == 1
+        && missing > 10000 && no_ignore_errors) {
       gifread_error(gfs, 0, -1, 0);
       lerror(landmark, "fatal error: too many missing pixels, giving up");
       exit(1);
     }
   }
+
+  if (gfi && is_error < 0)
+    gfi->user_flags |= 1;
 }
 
 struct StoredFile {
@@ -550,9 +561,7 @@ open_giffile(const char *name)
     }
 #endif
 #if defined(_MSDOS) || defined(_WIN32)
-#include <fcntl.h>
-#include <io.h>
-	_setmode(_fileno(stdin), _O_BINARY);
+    _setmode(_fileno(stdin), _O_BINARY);
 #elif defined(__DJGPP__)
     setmode(fileno(stdin), O_BINARY);
 #elif defined(__EMX__)
@@ -1322,7 +1331,6 @@ main(int argc, char *argv[])
      32-bit Windows and Makefile.w64 for 64-bit Windows. */
   static_assert(sizeof(unsigned int) == SIZEOF_UNSIGNED_INT, "unsigned int has the wrong size.");
   static_assert(sizeof(unsigned long) == SIZEOF_UNSIGNED_LONG, "unsigned long has the wrong size.");
-  //static_assert(sizeof(void*) == SIZEOF_VOID_P, "void* has the wrong size.");
 
   clp = Clp_NewParser(argc, (const char * const *)argv, sizeof(options) / sizeof(options[0]), options);
 
@@ -1919,6 +1927,10 @@ main(int argc, char *argv[])
 
      case WARNINGS_OPT:
       no_warnings = clp->negated;
+      break;
+
+     case IGNORE_ERRORS_OPT:
+      no_ignore_errors = clp->negated;
       break;
 
      case CONSERVE_MEMORY_OPT:
