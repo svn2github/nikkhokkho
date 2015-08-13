@@ -153,6 +153,7 @@ XXXXXX - YYYYYYYY
 - Updated Leanify to 0.4.2.63 daily binaries.
 - Updated ImageMagick to 6.9.1.10 with HDRI support.
 - Updated gifsicle to 1.88 (custom build).
+- Updated to NSIS 3.0 beta 2.
 - Upgraded distributions to 7-Zip 15.06.
 
 
