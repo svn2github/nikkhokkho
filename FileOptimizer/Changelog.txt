@@ -149,6 +149,7 @@ ndo
 
 XXXXXX - YYYYYYYY
 - Tested to be compatible on new Microsoft Windows 10.
+- Better PNG optimizations by allowing tunning TruePNG parameters, including remove metadata and lossy recompression.
 - Better JPEG optimizations by allowing to run jhead when metadata should be copied too (Jaff).
 - Do not convert SVG to SVGZ (JoeW).
 - Updated Leanify to 0.4.2.64 daily binaries.

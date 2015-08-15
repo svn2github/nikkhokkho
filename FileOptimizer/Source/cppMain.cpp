@@ -793,9 +793,13 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 					}
 					else
 					{
-						sFlags += "/md remove all ";
+						sFlags += "/md remove all /g0 ";
 					}
-					RunPlugin(iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					if (gudtOptions.bPNGAllowLossy)
+					{
+						sFlags += "/l ";
+					}
+					RunPlugin(iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
 				if (!bIs9Patch)
