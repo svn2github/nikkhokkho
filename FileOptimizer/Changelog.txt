@@ -158,6 +158,7 @@ XXXXXX - YYYYYYYY
 - Updated TruePNG to 0.6.0.0.
 - Updated strip to 2.25.1.
 - Updated to NSIS 3.0 beta 2.
+- Updated custom builds with Visual C++ 2015 (gifsicle, jpegoptim, jsmin).
 - Upgraded distributions to 7-Zip 15.06.
 
 

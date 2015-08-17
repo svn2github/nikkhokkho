@@ -146,7 +146,8 @@ char *strerror(int errno);
 
 
 #ifdef _MSC_VER
-#define snprintf _snprintf
+//#define snprintf _snprintf
+#define _fputc fputc
 #endif // _MSC_VER
 
 #endif /* GIFSICLE_CONFIG_H */
