@@ -119,7 +119,7 @@ ndo
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.15 - http://www.ghostscript.com
-- GNU Strip 2.25 - http://www.gnu.org/software/binutils/
+- GNU Strip 2.25.1 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.9.2.0 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
@@ -156,6 +156,7 @@ XXXXXX - YYYYYYYY
 - Updated ImageMagick to 6.9.2.0 with HDRI support.
 - Updated gifsicle to 1.88 (custom build).
 - Updated TruePNG to 0.6.0.0.
+- Updated strip to 2.25.1.
 - Updated to NSIS 3.0 beta 2.
 - Upgraded distributions to 7-Zip 15.06.
 
