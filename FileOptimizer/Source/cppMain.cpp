@@ -602,11 +602,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				if (gudtOptions.bJPEGCopyMetadata)
 				{
-					sFrags += "-autorot -zt -q ";
+					sFlags += "-autorot -zt -q ";
 				}
 				else
 				{
-					sFrags += "-autorot -purejpg -di -dx -dt -zt -q ";
+					sFlags += "-autorot -purejpg -di -dx -dt -zt -q ";
 				}	
 				RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);		
 				
@@ -935,11 +935,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 				sFlags = "";
 				if (gudtOptions.bTIFFCopyMetadata)
 				{
-					sFrags += "-autorot -zt -q ";
+					sFlags += "-autorot -zt -q ";
 				}
 				else
 				{
-					sFrags += "-autorot -purejpg -di -dx -dt -zt -q ";
+					sFlags += "-autorot -purejpg -di -dx -dt -zt -q ";
 				}	
 				RunPlugin(iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);		
 

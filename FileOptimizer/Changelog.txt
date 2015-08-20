@@ -148,6 +148,9 @@ ndo
 
 
 XXXXXX - YYYYYYYY
+
+
+7.90 - 2015/08/20
 - Tested to be compatible on new Microsoft Windows 10.
 - Better PNG optimizations by allowing tunning TruePNG parameters, including remove metadata and lossy recompression.
 - Better JPEG optimizations by allowing to run jhead when metadata should be copied too (Jaff).
@@ -160,7 +163,6 @@ XXXXXX - YYYYYYYY
 - Updated to NSIS 3.0 beta 2.
 - Updated custom builds with Visual C++ 2015 (gifsicle, jpegoptim, jsmin).
 - Upgraded distributions to 7-Zip 15.06.
-
 
 7.80 - 2015/06/01
 - Fixed an incompatibility with Windows XP introduced in 7.50 by unsupported COPY_FILE_NO_BUFFERING flag that makes CopyFileEx API function fail (Vivil).
