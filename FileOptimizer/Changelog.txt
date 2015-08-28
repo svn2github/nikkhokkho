@@ -1,4 +1,3 @@
-- Bug missing Bluetooth DLL files: http://qc.embarcadero.com/wc/qcmain.aspx?d=128031
 - Tune Ghostcript arguments http://encode.ru/threads/1589-FileOptimizer?p=44121&viewfull=1#post44121 (Necros).
 - Add INI setting for specifying which drive/folder to use for temporary files (Newtomic).
 - Add INI setting for optional independent compression levels for each file type (Newtomic).
@@ -149,6 +148,7 @@ ndo
 
 
 XXXXXX - YYYYYYYY
+- Prevent missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 
 
 7.90 - 2015/08/20
