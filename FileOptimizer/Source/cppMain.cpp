@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <mem.h>
 #include <System.StrUtils.hpp>
 #include <System.SysUtils.hpp>
@@ -1477,6 +1478,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 {
+	unsigned int iBuffer, iBufferLen;
 	TCHAR acPath[MAX_PATH];
 	TCHAR acBuffer[512];
 
@@ -1485,6 +1487,21 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	if (clsUtil::DownloadFile(KS_APP_UPDATE_URL, acPath, sizeof(acPath)))
 	{
 		mbstowcs(acBuffer, (char *) acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
+		
+		//Check we only got number and punctuation digits to detect router errors returning HTML
+		iBufferLen = _tcslen(acBuffer);
+		for (iBuffer = 0; iBuffer < iBufferLen; iBuffer++)
+		{
+			if ((!_istdigit(acBuffer[iBuffer]) && (!_istpuncta(cBuffer[iBuffer])))
+			{
+				if (!pbSilent)
+				{
+					clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONINFORMATION);
+				}
+				return;
+			}
+		}
+		
 		GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 		if (_tcscmp(acBuffer, clsUtil::ExeVersion(acPath)) > 0)
 		{
