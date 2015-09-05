@@ -150,6 +150,7 @@ ndo
 XXXXXX - YYYYYYYY
 - Prevent missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Make check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
+- Updated to cppcheck 1.70.
 
 
 7.90 - 2015/08/20
