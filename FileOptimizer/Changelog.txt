@@ -137,7 +137,7 @@ ndo
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
-- pngquant 2.4.0 - http://www.pngquant.org
+- pngquant 2.5.1 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -150,6 +150,7 @@ ndo
 XXXXXX - YYYYYYYY
 - Prevent missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Make check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
+- Updated pngquant to 2.5.1.
 - Updated to cppcheck 1.70.
 
 
