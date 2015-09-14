@@ -8,6 +8,8 @@
 #include <System.StrUtils.hpp>
 #include <System.SysUtils.hpp>
 #include <System.Threading.hpp>
+#include <System.Diagnostics.hpp>
+#include <System.SyncObjs.hpp>
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
