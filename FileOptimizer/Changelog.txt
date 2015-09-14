@@ -1,3 +1,7 @@
+- Upgrade to C++ Builder 10.
+- Use bcc32c for x64.
+- Try -O3
+
 - Parallel Programming Library (PPL)
 //http://docwiki.embarcadero.com/Libraries/Seattle/en/System.SyncObjs.TInterlocked_Methods
 #include "System.Threading.hpp"
