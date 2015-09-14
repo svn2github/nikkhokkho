@@ -7,6 +7,7 @@
 #include <mem.h>
 #include <System.StrUtils.hpp>
 #include <System.SysUtils.hpp>
+#include <System.Threading.hpp>
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
