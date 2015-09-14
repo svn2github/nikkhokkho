@@ -1,3 +1,20 @@
+- Parallel Programming Library (PPL)
+//http://docwiki.embarcadero.com/Libraries/Seattle/en/System.SyncObjs.TInterlocked_Methods
+#include "System.Threading.hpp"
+
+
+TParallel::For(NULL, 1, Max, MyIteratorEvent);
+void __fastcall TFormThreading::MyIteratorEvent(TObject *Sender,int AIndex)
+{
+	if(IsPrime(AIndex))
+	{
+		TInterlocked::Increment(Tot);
+	};
+}
+
+
+
+
 - Tune Ghostcript arguments http://encode.ru/threads/1589-FileOptimizer?p=44121&viewfull=1#post44121 (Necros).
 - Add INI setting for specifying which drive/folder to use for temporary files (Newtomic).
 - Add INI setting for optional independent compression levels for each file type (Newtomic).
