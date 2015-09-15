@@ -20,7 +20,6 @@ void __fastcall TFormThreading::MyIteratorEvent(TObject *Sender,int AIndex)
 
 
 - Tune Ghostcript arguments http://encode.ru/threads/1589-FileOptimizer?p=44121&viewfull=1#post44121 (Necros).
-- Add INI setting for specifying which drive/folder to use for temporary files (Newtomic).
 - Add INI setting for optional independent compression levels for each file type (Newtomic).
 - Add a technical section on the help file and website to detail how optimizations works, and lossless (alex).
 - Add INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all files is done (guindos98).
@@ -171,6 +170,7 @@ ndo
 XXXXXX - YYYYYYYY
 - Prevent missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Make check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
+- Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults (Newtomic). 
 - Updated ImageMagick to 6.9.2.1 with HDRI support.
 - Updated pngquant to 2.5.1.
 - Updated to cppcheck 1.70.

@@ -78,6 +78,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iFilenameFormat = clsUtil::GetIni(_T("Options"), _T("FilenameFormat"), 0);
 	_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows")));
 	//_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
+	_tcscpy(gudtOptions.acTempDriectory, clsUtil::GetIni(_T("Options"), _T("TempDirectory"), _T("")));
+	
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
 	_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), acPath));
@@ -150,6 +152,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel);
 	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat);
 	clsUtil::SetIni(_T("Options"), _T("Theme"), gudtOptions.acTheme);
+	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory);
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion);
 }
 
@@ -1416,8 +1419,25 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 
 	//Avoid temporary name collisions across different instances
 	iRandom = clsUtil::Random(0, 9999);
-
-	GetTempPath(sizeof(acTempPath), acTempPath);
+	
+	//Use specified option temp directory if exists
+	if (gudtOptions.acTempDriectory[0] != NULL)
+	{
+		//Add final slash if it has not
+		if (gudtOptions.acTempDriectory[_tcslen(gudtOptions.acTempDriectory) - 1) != '\\')
+		{
+			_tcscat(gudtOptions.acTempDriectory, "\\");
+		}
+		_tcscpy(acTempPath, gudtOptions.acTempDriectory);
+	}
+	else
+	{
+		GetTempPath(sizeof(acTempPath), acTempPath);
+	}
+	
+	//Create temporary directory just in case it did not existed
+	clsUtil::DirectoryCreate(gudtOptions.acTempDriectory);
+	
 	_stprintf(acTmp, _T("%s%s"), acTempPath, (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
 	sTmpInputFile = acTmp;
 

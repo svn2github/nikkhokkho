@@ -107,6 +107,7 @@ struct udtOptions
 	int iFilenameFormat;
 	TCHAR acTheme[64];
 	TCHAR acVersion[16];
+	TCHAR acTempDriectory[MAX_PATH];
 };
 
 extern struct udtOptions gudtOptions;
