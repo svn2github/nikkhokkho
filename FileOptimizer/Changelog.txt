@@ -170,7 +170,7 @@ ndo
 XXXXXX - YYYYYYYY
 - Prevent missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Make check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
-- Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults (Newtomic). 
+- Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic). 
 - Updated ImageMagick to 6.9.2.1 with HDRI support.
 - Updated pngquant to 2.5.1.
 - Updated to cppcheck 1.70.

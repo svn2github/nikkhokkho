@@ -1424,9 +1424,9 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	if (gudtOptions.acTempDriectory[0] != NULL)
 	{
 		//Add final slash if it has not
-		if (gudtOptions.acTempDriectory[_tcslen(gudtOptions.acTempDriectory) - 1) != '\\')
+		if (gudtOptions.acTempDriectory[_tcslen(gudtOptions.acTempDriectory) - 1] != '\\')
 		{
-			_tcscat(gudtOptions.acTempDriectory, "\\");
+			_tcscat(gudtOptions.acTempDriectory, _T("\\"));
 		}
 		_tcscpy(acTempPath, gudtOptions.acTempDriectory);
 	}
@@ -1528,7 +1528,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		iBufferLen = _tcslen(acBuffer);
 		for (iBuffer = 0; iBuffer < iBufferLen; iBuffer++)
 		{
-			if ((!_istdigit(acBuffer[iBuffer]) && (!_istpuncta(cBuffer[iBuffer])))
+			if ((!_istdigit(acBuffer[iBuffer])) && (!_istpuncta(cBuffer[iBuffer])))
 			{
 				if (!pbSilent)
 				{
