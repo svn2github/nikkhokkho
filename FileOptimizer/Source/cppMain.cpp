@@ -8,7 +8,6 @@
 #include <System.StrUtils.hpp>
 #include <System.SysUtils.hpp>
 #include <System.Threading.hpp>
-#include <System.Diagnostics.hpp>
 #include <System.SyncObjs.hpp>
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -78,7 +77,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iFilenameFormat = clsUtil::GetIni(_T("Options"), _T("FilenameFormat"), 0);
 	_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows")));
 	//_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
-	_tcscpy(gudtOptions.acTempDriectory, clsUtil::GetIni(_T("Options"), _T("TempDirectory"), _T("")));
+	_tcscpy(gudtOptions.acTempDirectory, clsUtil::GetIni(_T("Options"), _T("TempDirectory"), _T("")));
 	
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
@@ -390,6 +389,7 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 }
 
 
+unsigned int iPercentBytes;
 unsigned long long lSavedBytes, lTotalBytes;
 String sPluginsDirectory;
 
@@ -398,7 +398,6 @@ String sPluginsDirectory;
 void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 {
 	unsigned int iCount, iRows;
-	unsigned int iPercentBytes;
 	TCHAR acTmpFile[MAX_PATH];
 
 
@@ -450,7 +449,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 
 //---------------------------------------------------------------------------
-void __fastcall mnuFilesOptimizeFor(TObject *Sender,int AIndex)
+void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 {
 	int iLevel;
 	unsigned int iFileAttributes;
@@ -1037,15 +1036,15 @@ void __fastcall mnuFilesOptimizeFor(TObject *Sender,int AIndex)
 			sFlags += "-m " + (String) iLevel + " ";
 
 			TCHAR acTmpFileWebp[MAX_PATH];
-			_tcscpy(acTmpFileWebp, acTmpFile);
+			_tcscpy(acTmpFileWebp, sInputFile.c_str());
 			_tcscat(acTmpFileWebp, _T(".png"));
 
 			if (RunPlugin(iCount, "dwebp", (sPluginsDirectory + "dwebp.exe -mt \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0) == 0)
 			{
 				RunPlugin(iCount, "cwebp", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				if (clsUtil::SizeFile(acTmpFile) < clsUtil::SizeFile(sInputFile.c_str()))
+				if (clsUtil::SizeFile(acTmpFileWebp) < clsUtil::SizeFile(sInputFile.c_str()))
 				{
-					clsUtil::CopyFile(acTmpFile, sInputFile.c_str());
+					clsUtil::CopyFile(acTmpFileWebp, sInputFile.c_str());
 				}
 			}
 			DeleteFile(acTmpFileWebp);
@@ -1134,7 +1133,8 @@ void __fastcall mnuFilesOptimizeFor(TObject *Sender,int AIndex)
 	//Abort for loop if operation is cancelled
 	if (gbStop)
 	{
-		break; //TIteratorStateEvent.Break()
+		//break; //TIteratorStateEvent.Break()
+		return;
 	}
 }
 
@@ -1421,14 +1421,14 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	iRandom = clsUtil::Random(0, 9999);
 	
 	//Use specified option temp directory if exists
-	if (gudtOptions.acTempDriectory[0] != NULL)
+	if (gudtOptions.acTempDirectory[0] != NULL)
 	{
 		//Add final slash if it has not
-		if (gudtOptions.acTempDriectory[_tcslen(gudtOptions.acTempDriectory) - 1] != '\\')
+		if (gudtOptions.acTempDirectory[_tcslen(gudtOptions.acTempDirectory) - 1] != '\\')
 		{
-			_tcscat(gudtOptions.acTempDriectory, _T("\\"));
+			_tcscat(gudtOptions.acTempDirectory, _T("\\"));
 		}
-		_tcscpy(acTempPath, gudtOptions.acTempDriectory);
+		_tcscpy(acTempPath, gudtOptions.acTempDirectory);
 	}
 	else
 	{
@@ -1436,7 +1436,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	}
 	
 	//Create temporary directory just in case it did not existed
-	clsUtil::DirectoryCreate(gudtOptions.acTempDriectory);
+	clsUtil::DirectoryCreate(gudtOptions.acTempDirectory);
 	
 	_stprintf(acTmp, _T("%s%s"), acTempPath, (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
 	sTmpInputFile = acTmp;
@@ -1528,7 +1528,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		iBufferLen = _tcslen(acBuffer);
 		for (iBuffer = 0; iBuffer < iBufferLen; iBuffer++)
 		{
-			if ((!_istdigit(acBuffer[iBuffer])) && (!_istpuncta(cBuffer[iBuffer])))
+			if ((!_istdigit(acBuffer[iBuffer])) && (!_istpunct(acBuffer[iBuffer])))
 			{
 				if (!pbSilent)
 				{

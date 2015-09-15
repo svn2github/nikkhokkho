@@ -107,7 +107,7 @@ struct udtOptions
 	int iFilenameFormat;
 	TCHAR acTheme[64];
 	TCHAR acVersion[16];
-	TCHAR acTempDriectory[MAX_PATH];
+	TCHAR acTempDirectory[MAX_PATH];
 };
 
 extern struct udtOptions gudtOptions;
@@ -222,7 +222,7 @@ public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);
 	void __fastcall RefreshStatus(bool pbUpdateStatusBar = true, unsigned long long plTotalBytes = 0, unsigned long long plSavedBytes = 0);
 	void __fastcall UpdateTheme(const TCHAR *pacTheme);
-	void __fastcall mnuFilesOptimizeFor(TObject *Sender,int AIndex);
+	void __fastcall mnuFilesOptimizeFor(TObject *Sender, int iCount);
 };
 
 // ---------------------------------------------------------------------------

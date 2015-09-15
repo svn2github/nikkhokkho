@@ -1,6 +1,5 @@
-- Upgrade to C++ Builder 10.
-- Use bcc32c for x64.
-- Try -O3
+- Add Windows 10 theme.
+
 
 - Parallel Programming Library (PPL)
 //C:\Users\Public\Documents\Embarcadero\Studio\15.0\Samples\CPP\RTL\Parallel Library
@@ -169,9 +168,11 @@ ndo
 
 
 XXXXXX - YYYYYYYY
+- Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 - Prevent missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Make check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
 - Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic). 
+- Updated to C++ Builder 10 Seattle.
 - Updated ImageMagick to 6.9.2.1 with HDRI support.
 - Updated pngquant to 2.5.1.
 - Updated to cppcheck 1.70.
