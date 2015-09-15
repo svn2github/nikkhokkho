@@ -476,7 +476,7 @@ void __fastcall mnuFilesOptimizeFor(TObject *Sender,int AIndex)
 		if (PosEx((String) acToken, sInputFile.UpperCase()) != 0)
 		{
 			bExcluded = true;
-			break;		//TIteratorStateEvent.Break
+			break;
 		}
 		acToken = _tcstok(NULL, _T(";"));
 	}
@@ -1134,7 +1134,7 @@ void __fastcall mnuFilesOptimizeFor(TObject *Sender,int AIndex)
 	//Abort for loop if operation is cancelled
 	if (gbStop)
 	{
-		break; //TIteratorStateEvent.Break
+		break; //TIteratorStateEvent.Break()
 	}
 }
 
