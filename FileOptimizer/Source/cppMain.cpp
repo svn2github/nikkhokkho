@@ -1,15 +1,7 @@
 // ---------------------------------------------------------------------------
 #include "FileOptimizerPCH1.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <mem.h>
-#include <VersionHelpers.h>
-#include <System.StrUtils.hpp>
-#include <System.SysUtils.hpp>
-#include <System.Threading.hpp>
-#include <System.SyncObjs.hpp>
+
+
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
