@@ -155,10 +155,11 @@ XXXXXX - YYYYYYYY
 - Removed custom window frame, because it was always looked black with C++ Builder 10.
 - Made check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
 - Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic). 
-- Updated to C++ Builder 10 Seattle.
 - Updated ImageMagick to 6.9.2.1 with HDRI support.
 - Updated pngquant to 2.5.1.
 - Updated to cppcheck 1.70.
+- Updated to C++ Builder 10 Seattle.
+- Some minor optimizations and code cleanup.
 
 
 7.90 - 2015/08/20
