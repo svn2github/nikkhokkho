@@ -26,7 +26,7 @@ __fastcall TfrmMain::TfrmMain(TComponent* Owner) : TForm(Owner)
 void __fastcall TfrmMain::FormCreate(TObject *Sender)
 {
 	TCHAR acPath[MAX_PATH];
-	SYSTEM_INFO udtSystemInfo;
+	//SYSTEM_INFO udtSystemInfo;
 
 
 	clsUtil::LoadForm(this);
@@ -82,6 +82,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
+
 	_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), acPath));
 	if (gudtOptions.bAlwaysOnTop)
 	{
@@ -92,16 +93,21 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 		FormStyle = fsNormal;
 	}
 
-	FormResize(Sender);
-	pgbProgress->Parent = stbMain;
-	mnuFilesClearClick(NULL);
-
 	//Hide recent documents in ribbon application menu
 	rbnMain->ApplicationMenu->Caption = " ";
 	rbnMain->ApplicationMenu->CommandType = ctCommands;
 
+	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, sizeof(acPath) / sizeof(TCHAR));
+	rbnMain->Caption = acPath;
+
+	pgbProgress->Parent = stbMain;
+	mnuFilesClearClick(NULL);
+
+	FormResize(Sender);
+
+
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
-	GetSystemInfo(&udtSystemInfo);
+	//GetSystemInfo(&udtSystemInfo);
 	//udtSystemInfo.dwNumberOfProcessors;
 
 	UpdateTheme(gudtOptions.acTheme);
@@ -437,7 +443,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
-	gbProcess = false;
+
 	RefreshStatus(false);
 
 	if (gudtOptions.bBeepWhenDone)
@@ -445,6 +451,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 		FlashWindow(Handle, false);
 		MessageBeep(0xFFFFFFFF);
 	}
+	gbProcess = false;
 }
 
 
