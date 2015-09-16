@@ -480,7 +480,8 @@ object frmOptions: TfrmOptions
         Items.Strings = (
           'Windows'
           'Metropolis UI Black'
-          'Luna')
+          'Luna',
+          'Windows 10')
       end
       object cboLogLevel: TComboBox
         Left = 168

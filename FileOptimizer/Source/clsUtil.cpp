@@ -932,15 +932,10 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 {
 	ITaskbarList3 *pTaskList = NULL;
 	HRESULT hRes;
-	OSVERSIONINFO udtVersion;
 
 
 	// In 7 or newer use new TaskDialog
-	memset(&udtVersion, 0, sizeof(OSVERSIONINFO));
-	udtVersion.dwOSVersionInfoSize = sizeof(udtVersion);
-	GetVersionEx(&udtVersion);
-	if ((udtVersion.dwMajorVersion > 6) || ((udtVersion.dwMajorVersion == 6) && (udtVersion.dwMinorVersion >= 1)))
-	//if (LOBYTE(LOWORD(GetVersion())) >= 6)
+	if (IsWindows7OrGreater())
 	{
 		hRes = ::CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void **) &pTaskList);
 		if (pTaskList)

@@ -5,6 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <mem.h>
+#include <VersionHelpers.h>
 #include <System.StrUtils.hpp>
 #include <System.SysUtils.hpp>
 #include <System.Threading.hpp>
@@ -75,7 +76,15 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
 	gudtOptions.iLogLevel = clsUtil::GetIni(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = clsUtil::GetIni(_T("Options"), _T("FilenameFormat"), 0);
-	_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows")));
+	//Use Windows 10 theme by default on Windows 10 and newer
+	if (!IsWindows10OrGreater())
+	{
+		_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows 10")));
+	}
+	else
+	{
+		_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows")));
+	}
 	//_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
 	_tcscpy(gudtOptions.acTempDirectory, clsUtil::GetIni(_T("Options"), _T("TempDirectory"), _T("")));
 	
@@ -2052,6 +2061,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 		{
 			TStyleManager::TrySetStyle(pacTheme, false);
 		}
+		
 		if (_tcscmp(pacTheme, _T("Metropolis UI Black")) == 0)
 		{
 			mgrMain->Style = RibbonObsidianStyle;

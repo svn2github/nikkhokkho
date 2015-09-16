@@ -1,4 +1,5 @@
-- Add Windows 10 theme.
+- Ribbon frame is always black.
+- Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
 
 - Parallel Programming Library (PPL)
@@ -168,7 +169,7 @@ ndo
 
 
 XXXXXX - YYYYYYYY
-- Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
+- Added Windows 10 theme, enabled by default on Windows 10 or later.
 - Prevent missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Make check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
 - Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic). 
