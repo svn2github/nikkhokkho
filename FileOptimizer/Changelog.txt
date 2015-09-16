@@ -1,24 +1,6 @@
 - Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
 
-- Parallel Programming Library (PPL)
-//C:\Users\Public\Documents\Embarcadero\Studio\15.0\Samples\CPP\RTL\Parallel Library
-//http://docwiki.embarcadero.com/RADStudio/XE8/en/Tutorial:_Using_the_For_Loop_from_the_Parallel_Programming_Library
-#include "System.Threading.hpp"
-
-
-TParallel::For(NULL, 1, Max, MyIteratorEvent);
-void __fastcall TFormThreading::MyIteratorEvent(TObject *Sender,int AIndex)
-{
-	if(IsPrime(AIndex))
-	{
-		TInterlocked::Increment(Tot);
-	};
-}
-
-
-
-
 - Tune Ghostcript arguments http://encode.ru/threads/1589-FileOptimizer?p=44121&viewfull=1#post44121 (Necros).
 - Add INI setting for optional independent compression levels for each file type (Newtomic).
 - Add a technical section on the help file and website to detail how optimizations works, and lossless (alex).

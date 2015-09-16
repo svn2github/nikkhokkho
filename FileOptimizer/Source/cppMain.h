@@ -217,12 +217,13 @@ private: // User declarations
 	bool __fastcall IsManagedNet(const TCHAR *pacFile);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 	String __fastcall SetCellFileValue(String psValue);
+	void __fastcall mnuFilesOptimizeFor(TObject *Sender, int AIndex);
+	void __fastcall mnuFilesOptimizeForThread(TObject *Sender, int AIndex, TParallel::TLoopState *LoopState);
 
 public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);
 	void __fastcall RefreshStatus(bool pbUpdateStatusBar = true, unsigned long long plTotalBytes = 0, unsigned long long plSavedBytes = 0);
 	void __fastcall UpdateTheme(const TCHAR *pacTheme);
-	void __fastcall mnuFilesOptimizeFor(TObject *Sender, int iCount);
 };
 
 // ---------------------------------------------------------------------------

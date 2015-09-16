@@ -424,10 +424,27 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	lSavedBytes = 0;
 	lTotalBytes = 0;
 	iRows = grdFiles->RowCount;
-	
-	for (iCount = 1; iCount < iRows; iCount++)
+
+
+	//Use multithreaded parallel for (PPL)
+	if (false)
 	{
-		mnuFilesOptimizeFor(this, iCount);
+		TParallel::For(this, 1, iRows - 1, mnuFilesOptimizeForThread);
+	}
+	//Use regular for loop
+	else
+	{
+		for (iCount = 1; iCount < iRows; iCount++)
+		{
+			if (!gbStop)
+			{
+				mnuFilesOptimizeFor(NULL, iCount);
+			}
+			else
+			{
+				break;
+			}
+		}
 	}
 
 	//grdFiles->Enabled = true;
@@ -455,6 +472,17 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 }
 
 
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::mnuFilesOptimizeForThread(TObject *Sender, int AIndex, TParallel::TLoopState *LoopState)
+{
+	mnuFilesOptimizeFor(Sender, AIndex);
+	if (gbStop)
+	{
+	    LoopState->Break();
+	}
+}
+
+
 
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
@@ -464,9 +492,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags, sExtensionByContent;
 
-	
 
 	sInputFile = GetCellValue(grdFiles->Cells[KI_GRID_FILE][iCount], 1);
+
+	//Add Syncrhonize
+	//http://docwiki.embarcadero.com/RADStudio/Seattle/en/Using_the_Main_VCL_Thread
 
 	stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
@@ -1141,7 +1171,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 	//Abort for loop if operation is cancelled
 	if (gbStop)
 	{
-		//break; //TIteratorStateEvent.Break()
 		return;
 	}
 }
