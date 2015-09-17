@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <mem.h>
 #include <time.h>
+#include <limits.h>
 #include <vcl.h>
 #include <tchar.h>
 #include <Tlhelp32.h>

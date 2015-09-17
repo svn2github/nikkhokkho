@@ -217,7 +217,7 @@ private: // User declarations
 	bool __fastcall IsManagedNet(const TCHAR *pacFile);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 	String __fastcall SetCellFileValue(String psValue);
-	void __fastcall OptimizeProgressThread(unsigned int piCurrentFile = UINT_MAX, unsigned int piProcessedFiles = UINT_MAX, unsigned int piTotalFiles = UINT_MAX, unsigned long long plSavedBytes = ULLONG_MAX, unsigned long long plTotalBytes  = ULLONG_MAX, String psFileStatusText = "NULL", String psWindowCaptionText = "NULL", String psStatusbarText = "NULL");
+	void __fastcall OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress);
 	void __fastcall OptimizeProgressVCL(void);
 	void __fastcall mnuFilesOptimizeFor(TObject *Sender, int AIndex);
 	void __fastcall mnuFilesOptimizeForThread(TObject *Sender, int AIndex, TParallel::TLoopState *LoopState);

@@ -397,7 +397,7 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 
 
 //---------------------------------------------------------------------------
-struct
+struct udtOptimizeProgress
 {
 	unsigned int iCurrentFile;
 	unsigned int iProcessedFiles;
@@ -407,9 +407,8 @@ struct
 	String sFileStatusText;
 	String sWindowCaptionText;
 	String sStatusbarText;
-	String sPluginsDirectory;
-	CRITICAL_SECTION udtCriticalSection;
 } mudtOptimizeProgress;
+CRITICAL_SECTION mudtCriticalSection;
 
 
 //---------------------------------------------------------------------------
@@ -419,48 +418,16 @@ String sPluginsDirectory;
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::OptimizeProgressThread(unsigned int piCurrentFile, unsigned int piProcessedFiles, unsigned int piTotalFiles, unsigned long long plSavedBytes, unsigned long long plTotalBytes, String psFileStatusText, String psWindowCaptionText, String psStatusbarText)
+void __fastcall TfrmMain::OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress)
 {
-	EnterCriticalSection(&mudtOptimizeProgress.udtCriticalSection);
+	EnterCriticalSection(&mudtCriticalSection);
+	memcpy(&mudtOptimizeProgress, &pudtOptimizeProgress, sizeof(mudtOptimizeProgress));
 
-	//Selectively fill the structure, or keep previous values if not specified
-	if (piCurrentFile != UINT_MAX)
-	{	
-		mudtOptimizeProgress.iCurrentFile = piCurrentFile;
-	}
-	if (piProcessedFiles != UINT_MAX)
-	{	
-		mudtOptimizeProgress.iProcessedFiles = piProcessedFiles;
-	}
-	if (piTotalFiles != ULLONG_MAX)
-	{	
-		mudtOptimizeProgress.iTotalFiles = piTotalFiles;
-	}
-	if (plSavedBytes != ULLONG_MAX)
-	{	
-		mudtOptimizeProgress.lSavedBytes = plSavedBytes;
-	}
-	if (plTotalBytes != ULLONG_MAX)
-	{	
-		mudtOptimizeProgress.lTotalBytes = plTotalBytes;
-	}
-	if (psFileStatusText != "NULL")
-	{	
-		mudtOptimizeProgress.sFileStatusText = psFileStatusText;
-	}
-	if (psWindowCaptionText != "NULL")
-	{	
-		mudtOptimizeProgress.sWindowCaptionText = psWindowCaptionText;
-	}
-	if (psStatusbarText != "NULL")
-	{	
-		mudtOptimizeProgress.sStatusbarText = psStatusbarText;
-	}
-	
 	//http://docwiki.embarcadero.com/RADStudio/Seattle/en/Using_the_Main_VCL_Thread
-	Synchronize((TThreadMethod) OptimizeProgressVCL);
-	
-	LeaveCriticalSection(&mudtOptimizeProgress.udtCriticalSection);
+	//TThread::Synchronize((TThreadMethod) OptimizeProgressVCL);
+	//Synchronize((TThreadMethod) OptimizeProgressVCL);
+
+	LeaveCriticalSection(&mudtCriticalSection);
 }
 
 
@@ -469,13 +436,20 @@ void __fastcall TfrmMain::OptimizeProgressThread(unsigned int piCurrentFile, uns
 void __fastcall TfrmMain::OptimizeProgressVCL(void)
 {
 	//Status bar text
-	stbMain->Panels->Items[0]->Text = mudtOptimizeProgress.sStatusbarText;
-	stbMain->Hint = stbMain->Panels->Items[0]->Text;
+	if (mudtOptimizeProgress.sStatusbarText != "NULL")
+	{	
+		stbMain->Panels->Items[0]->Text = mudtOptimizeProgress.sStatusbarText;
+		stbMain->Hint = stbMain->Panels->Items[0]->Text;
+	}
 	
 	//Progress
-	pgbProgress->Position = mudtOptimizeProgress.iCurrentFile;
-	clsUtil::SetTaskListProgress(pgbProgress->Position, pgbProgress->Max);
-	grdFiles->Row = mudtOptimizeProgress.iCurrentFile;
+	if (mudtOptimizeProgress.iCurrentFile != UINT_MAX)
+	{	
+		pgbProgress->Position = mudtOptimizeProgress.iCurrentFile;
+		clsUtil::SetTaskListProgress(pgbProgress->Position, pgbProgress->Max);
+		grdFiles->Row = mudtOptimizeProgress.iCurrentFile;
+	}
+	
 	Application->ProcessMessages();
 	
 	//RunPlugin
@@ -511,7 +485,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	iRows = grdFiles->RowCount;
 
 
-	InitializeCriticalSection(&mudtOptimizeProgress.udtCriticalSection);
+	InitializeCriticalSection(&mudtCriticalSection);
 
 	//Use multithreaded parallel for (PPL)
 	if ((false) && (iRows > 2))
@@ -582,6 +556,19 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 
 	sInputFile = GetCellValue(grdFiles->Cells[KI_GRID_FILE][iCount], 1);
+
+	struct udtOptimizeProgress a =
+	{
+			UINT_MAX, //unsigned int iCurrentFile;
+			UINT_MAX, //unsigned int iProcessedFiles;
+			UINT_MAX, //unsigned int iTotalFiles;
+			ULLONG_MAX, //unsigned long long lSavedBytes;
+			ULLONG_MAX, //unsigned long long lTotalBytes;
+			"NULL", //String sFileStatusText;
+			"NULL", //String sWindowCaptionText;
+			"NULL", //String sStatusbarText;
+	};
+	OptimizeProgressThread(a);
 
 	stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
