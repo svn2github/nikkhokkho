@@ -396,7 +396,29 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 }
 
 
-unsigned int iPercentBytes;
+//---------------------------------------------------------------------------
+struct
+{
+	unsigned int iCurrentFile;
+	unsigned int iProcessedFiles;
+	unsigned int iTotalFiles;
+	unsigned long long lSavedBytes;
+	unsigned long long lTotalBytes;
+	String sWindowCaptionText;
+	String sStatusbarText;
+	String sPluginsDirectory;
+} mudtOptimizeProgress;
+
+/*
+CRITICAL_SECTION mudtCriticalSection;
+InitializeCriticalSection(&mudtCriticalSection);
+
+EnterCriticalSection(&mudtCriticalSection);
+...
+LeaveCriticalSection(&mudtCriticalSection);
+*/
+
+//---------------------------------------------------------------------------
 unsigned long long lSavedBytes, lTotalBytes;
 String sPluginsDirectory;
 
@@ -405,6 +427,7 @@ String sPluginsDirectory;
 void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 {
 	unsigned int iCount, iRows;
+	unsigned int iPercentBytes;
 	TCHAR acTmpFile[MAX_PATH];
 
 
@@ -489,6 +512,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 {
 	int iLevel;
 	unsigned int iFileAttributes;
+	unsigned int iPercentBytes;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags, sExtensionByContent;
 
