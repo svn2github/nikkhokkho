@@ -404,23 +404,85 @@ struct
 	unsigned int iTotalFiles;
 	unsigned long long lSavedBytes;
 	unsigned long long lTotalBytes;
+	String sFileStatusText;
 	String sWindowCaptionText;
 	String sStatusbarText;
 	String sPluginsDirectory;
+	CRITICAL_SECTION udtCriticalSection;
 } mudtOptimizeProgress;
 
-/*
-CRITICAL_SECTION mudtCriticalSection;
-InitializeCriticalSection(&mudtCriticalSection);
-
-EnterCriticalSection(&mudtCriticalSection);
-...
-LeaveCriticalSection(&mudtCriticalSection);
-*/
 
 //---------------------------------------------------------------------------
 unsigned long long lSavedBytes, lTotalBytes;
 String sPluginsDirectory;
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::OptimizeProgressThread(unsigned int piCurrentFile, unsigned int piProcessedFiles, unsigned int piTotalFiles, unsigned long long plSavedBytes, unsigned long long plTotalBytes, String psFileStatusText, String psWindowCaptionText, String psStatusbarText)
+{
+	EnterCriticalSection(&mudtOptimizeProgress.udtCriticalSection);
+
+	//Selectively fill the structure, or keep previous values if not specified
+	if (piCurrentFile != UINT_MAX)
+	{	
+		mudtOptimizeProgress.iCurrentFile = piCurrentFile;
+	}
+	if (piProcessedFiles != UINT_MAX)
+	{	
+		mudtOptimizeProgress.iProcessedFiles = piProcessedFiles;
+	}
+	if (piTotalFiles != ULLONG_MAX)
+	{	
+		mudtOptimizeProgress.iTotalFiles = piTotalFiles;
+	}
+	if (plSavedBytes != ULLONG_MAX)
+	{	
+		mudtOptimizeProgress.lSavedBytes = plSavedBytes;
+	}
+	if (plTotalBytes != ULLONG_MAX)
+	{	
+		mudtOptimizeProgress.lTotalBytes = plTotalBytes;
+	}
+	if (psFileStatusText != "NULL")
+	{	
+		mudtOptimizeProgress.sFileStatusText = psFileStatusText;
+	}
+	if (psWindowCaptionText != "NULL")
+	{	
+		mudtOptimizeProgress.sWindowCaptionText = psWindowCaptionText;
+	}
+	if (psStatusbarText != "NULL")
+	{	
+		mudtOptimizeProgress.sStatusbarText = psStatusbarText;
+	}
+	
+	//http://docwiki.embarcadero.com/RADStudio/Seattle/en/Using_the_Main_VCL_Thread
+	Synchronize((TThreadMethod) OptimizeProgressVCL);
+	
+	LeaveCriticalSection(&mudtOptimizeProgress.udtCriticalSection);
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::OptimizeProgressVCL(void)
+{
+	//Status bar text
+	stbMain->Panels->Items[0]->Text = mudtOptimizeProgress.sStatusbarText;
+	stbMain->Hint = stbMain->Panels->Items[0]->Text;
+	
+	//Progress
+	pgbProgress->Position = mudtOptimizeProgress.iCurrentFile;
+	clsUtil::SetTaskListProgress(pgbProgress->Position, pgbProgress->Max);
+	grdFiles->Row = mudtOptimizeProgress.iCurrentFile;
+	Application->ProcessMessages();
+	
+	//RunPlugin
+	
+	//RefreshStatus
+	
+}
 
 
 //---------------------------------------------------------------------------
@@ -449,8 +511,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	iRows = grdFiles->RowCount;
 
 
+	InitializeCriticalSection(&mudtOptimizeProgress.udtCriticalSection);
+
 	//Use multithreaded parallel for (PPL)
-	if (false)
+	if ((false) && (iRows > 2))
 	{
 		TParallel::For(this, 1, iRows - 1, mnuFilesOptimizeForThread);
 	}
@@ -518,9 +582,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 
 	sInputFile = GetCellValue(grdFiles->Cells[KI_GRID_FILE][iCount], 1);
-
-	//Add Syncrhonize
-	//http://docwiki.embarcadero.com/RADStudio/Seattle/en/Using_the_Main_VCL_Thread
 
 	stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
