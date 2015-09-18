@@ -421,11 +421,22 @@ String sPluginsDirectory;
 void __fastcall TfrmMain::OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress)
 {
 	EnterCriticalSection(&mudtCriticalSection);
-	memcpy(&mudtOptimizeProgress, &pudtOptimizeProgress, sizeof(mudtOptimizeProgress));
+	
+	//memcpy(&mudtOptimizeProgress, &pudtOptimizeProgress, sizeof(mudtOptimizeProgress));
+	mudtOptimizeProgress.iCurrentFile = pudtOptimizeProgress.iCurrentFile;
+	mudtOptimizeProgress.iProcessedFiles = pudtOptimizeProgress.XXiProcessedFiles
+	mudtOptimizeProgress.iTotalFiles = pudtOptimizeProgress.iTotalFiles;
+	mudtOptimizeProgress.lSavedBytes = pudtOptimizeProgress.XXlSavedBytes
+	mudtOptimizeProgress.lTotalBytes = pudtOptimizeProgress.lTotalBytes;
+	mudtOptimizeProgress.sFileStatusText = pudtOptimizeProgress.sFileStatusText;
+	mudtOptimizeProgress.sWindowCaptionText = pudtOptimizeProgress.sWindowCaptionText;
+	mudtOptimizeProgress.sStatusbarText = pudtOptimizeProgress.sStatusbarText;
+
 
 	//http://docwiki.embarcadero.com/RADStudio/Seattle/en/Using_the_Main_VCL_Thread
 	//TThread::Synchronize((TThreadMethod) OptimizeProgressVCL);
-	//Synchronize((TThreadMethod) OptimizeProgressVCL);
+	//Use a timer to refresh?
+
 
 	LeaveCriticalSection(&mudtCriticalSection);
 }
