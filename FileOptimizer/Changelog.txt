@@ -1,5 +1,9 @@
 - Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
+- Use JPEG archive (maadjordan): https://github.com/danielgtaylor/jpeg-archive/releases (maadjordan).
+
+- Add Huffmix PNG compression (Stephan Busch).
+
 
 - Tune Ghostcript arguments http://encode.ru/threads/1589-FileOptimizer?p=44121&viewfull=1#post44121 (Necros).
 - Add INI setting for optional independent compression levels for each file type (Newtomic).
