@@ -1,3 +1,5 @@
+- Add include mask, similar to exclude mask, to limit processing to particular file extensions (Tomasz W.).
+
 - Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
 - Use JPEG archive (maadjordan): https://github.com/danielgtaylor/jpeg-archive/releases (maadjordan).
