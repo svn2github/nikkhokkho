@@ -126,7 +126,7 @@ ndo
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
-- Ghostcript 9.15 - http://www.ghostscript.com
+- Ghostcript 9.18 - http://www.ghostscript.com
 - GNU Strip 2.25.1 - http://www.gnu.org/software/binutils/
 - ImageMagick 6.9.2.3 - http://www.imagemagick.org
 - ImageWorsener 1.2.0 - http://entropymine.com/imageworsener
@@ -160,7 +160,8 @@ XXXXXX - YYYYYYYY
 - Prevented missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Removed custom window frame, because it was always looked black with C++ Builder 10.
 - Made check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
-- Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic). 
+- Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic).
+- Upgraded to Ghostcript 9.18.
 - Updated ImageMagick to 6.9.2.3 with HDRI support.
 - Updated pngquant to 2.5.1.
 - Updated Leanify to 0.4.2.70 daily binaries.
