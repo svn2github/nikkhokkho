@@ -134,7 +134,7 @@ ndo
 - jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.2.72 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.2.74 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.4.3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
@@ -164,7 +164,7 @@ XXXXXX - YYYYYYYY
 - Upgraded to Ghostcript 9.18.
 - Updated ImageMagick to 6.9.2.3 with HDRI support.
 - Updated pngquant to 2.5.1.
-- Updated Leanify to 0.4.2.72 daily binaries.
+- Updated Leanify to 0.4.2.74 daily binaries.
 - Updated TruePNG to 0.6.1.5.
 - Updated to cppcheck 1.70.
 - Updated to C++ Builder 10 Seattle.
