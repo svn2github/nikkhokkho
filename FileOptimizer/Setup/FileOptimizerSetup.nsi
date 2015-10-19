@@ -48,7 +48,7 @@ FunctionEnd
 
 ; -------------------------------------------------------------------------------------------------
 Section "Files"
-	CreateDirectory "$SMPROGRAMS\FileOptimizer"
+	CreateDirectory "$SMPROGRAMS\${APP_NAME}"
 
 	SetOutPath $INSTDIR
 	File ..\Win32\Release\*.chm

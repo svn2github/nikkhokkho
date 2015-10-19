@@ -1,3 +1,5 @@
+- Add context menu Open containing folder (Special)
+
 - Add include mask, similar to exclude mask, to limit processing to particular file extensions (Tomasz W.).
 
 - Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
@@ -169,6 +171,7 @@ XXXXXX - YYYYYYYY
 - Updated tidy-html5 to 4.9.26-191-gb4efe74 patched to be Windows XP compatible.
 - Updated to cppcheck 1.70.
 - Updated to C++ Builder 10 Seattle.
+- Improved setup.
 - Some minor optimizations and code cleanup.
 
 
