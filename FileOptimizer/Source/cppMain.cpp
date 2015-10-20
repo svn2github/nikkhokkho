@@ -424,9 +424,9 @@ void __fastcall TfrmMain::OptimizeProgressThread(struct udtOptimizeProgress pudt
 	
 	//memcpy(&mudtOptimizeProgress, &pudtOptimizeProgress, sizeof(mudtOptimizeProgress));
 	mudtOptimizeProgress.iCurrentFile = pudtOptimizeProgress.iCurrentFile;
-	mudtOptimizeProgress.iProcessedFiles = pudtOptimizeProgress.XXiProcessedFiles
+	mudtOptimizeProgress.iProcessedFiles = pudtOptimizeProgress.iProcessedFiles;
 	mudtOptimizeProgress.iTotalFiles = pudtOptimizeProgress.iTotalFiles;
-	mudtOptimizeProgress.lSavedBytes = pudtOptimizeProgress.XXlSavedBytes
+	mudtOptimizeProgress.lSavedBytes = pudtOptimizeProgress.lSavedBytes;
 	mudtOptimizeProgress.lTotalBytes = pudtOptimizeProgress.lTotalBytes;
 	mudtOptimizeProgress.sFileStatusText = pudtOptimizeProgress.sFileStatusText;
 	mudtOptimizeProgress.sWindowCaptionText = pudtOptimizeProgress.sWindowCaptionText;
