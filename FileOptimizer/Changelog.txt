@@ -1,3 +1,5 @@
+- ZIPRecurse=false does same as ZIPRecurse=true (Special).
+
 - Add context menu Open containing folder (Special)
 
 - Add include mask, similar to exclude mask, to limit processing to particular file extensions (Tomasz W.).
