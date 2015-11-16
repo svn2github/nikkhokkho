@@ -174,10 +174,11 @@ XXXXXX - YYYYYYYY
 - Updated tidy-html5 to 4.9.26-191-gb4efe74 patched to be Windows XP compatible.
 - Updated libwebp to 0.4.4.
 - Updated ImageWorsener to 1.3.0.
-- Updated to cppcheck 1.70.
+- Updated to cppcheck 1.71.
 - Updated to C++ Builder 10 Seattle.
 - Improved setup.
 - Some minor optimizations and code cleanup.
+- Upgraded distributions to 7-Zip 15.11.
 
 
 7.90 - 2015/08/20
