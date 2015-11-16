@@ -165,6 +165,7 @@ XXXXXX - YYYYYYYY
 - Removed custom window frame, because it was always looked black with C++ Builder 10.
 - Made check for updates detect faulty routers and switches returning HTML content when no valid data connection exists (Armin Mueller).
 - Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic).
+- Prevented Windows message about "Program not responding" when adding lots of files (Zulfikar Raditya Hernanta).
 - Upgraded to Ghostcript 9.18.
 - Updated ImageMagick to 6.9.2.5 with HDRI support.
 - Updated pngquant to 2.5.1.

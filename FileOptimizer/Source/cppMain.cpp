@@ -1467,6 +1467,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 	{
 		if (udtFileAttribute.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
+			Application->ProcessMessages();
 			hFindFile = FindFirstFile((((String) pacFile) + "\\*.*").c_str(), &udtFindFileData);
 			do
 			{
