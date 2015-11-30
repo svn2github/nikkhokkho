@@ -132,7 +132,7 @@ ndo
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
 - Ghostcript 9.18 - http://www.ghostscript.com
 - GNU Strip 2.25.1 - http://www.gnu.org/software/binutils/
-- ImageMagick 6.9.2.6 - http://www.imagemagick.org
+- ImageMagick 6.9.2.7 - http://www.imagemagick.org
 - ImageWorsener 1.3.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
@@ -167,7 +167,7 @@ XXXXXX - YYYYYYYY
 - Added INI option TempDirectory="" to specify FileOptimizer temporary folder to use. If empty, it will use system defaults. Set it to a fast SSD drive or ramdisk to increase performance (Newtomic).
 - Prevented Windows message about "Program not responding" when adding lots of files (Zulfikar Raditya Hernanta).
 - Upgraded to Ghostcript 9.18.
-- Updated ImageMagick to 6.9.2.6 with HDRI support.
+- Updated ImageMagick to 6.9.2.7 with HDRI support.
 - Updated pngquant to 2.5.1.
 - Updated Leanify to 0.4.3.
 - Updated TruePNG to 0.6.1.7.
