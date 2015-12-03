@@ -1,3 +1,5 @@
+- Integrate with http://my.mobfox.com/request.php?rt=api&s=24c1cfb187f5bb92b191e8394440c287&v=2.0&i=178.190.64.146&m=live or http://nikkhokkho.sourceforge.net/images/FileOptimizerMobFox.html
+
 - ZIPRecurse=false does same as ZIPRecurse=true (Special).
 
 - Add context menu Open containing folder (Special)
