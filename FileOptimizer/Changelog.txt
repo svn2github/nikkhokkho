@@ -176,6 +176,7 @@ XXXXXX - YYYYYYYY
 - Updated ImageWorsener to 1.3.0.
 - Updated to cppcheck 1.71.
 - Updated to C++ Builder 10 Seattle.
+- Better performance updating to ASMLib 2.36.
 - Improved setup.
 - Some minor optimizations and code cleanup.
 - Upgraded distributions to 7-Zip 15.11.
