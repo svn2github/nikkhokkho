@@ -702,7 +702,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			RunPlugin(iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -o \"%TMPOUTPUTFILE%\" --crop-transparency " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// GZ: Leanify , advdef, zRecompress, deflopt, defluff, deflopt
+		// GZ: Leanify, ect, advdef, zRecompress, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_GZ) > 0)
 		{
 			if (!gudtOptions.bGZCopyMetadata)
@@ -717,6 +717,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				}
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
+			
+			sFlags = "";
+			if (!gudtOptions.bGZCopyMetadata)
+			{
+				sFlags = "-strip ";
+			}
+			iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
+			sFlags += "-M" + (String) iLevel + " ";
+			RunPlugin(iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
@@ -759,7 +768,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
-		// JPEG: jhead, Leanify, jpegoptim, jpegtran, mozjpegtran
+		// JPEG: jhead, Leanify, ect, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtensionByContent, KS_EXTENSION_JPG) > 0)
 		{
 			sFlags = "";
@@ -782,7 +791,16 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin(iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-
+			
+			sFlags = "";
+			if (!gudtOptions.bJPEGCopyMetadata)
+			{
+				sFlags = "-strip ";
+			}
+			iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
+			sFlags += "-M" + (String) iLevel + " ";
+			RunPlugin(iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			
 			//Seems to cause some loss of quality
 			//iError = RunPlugin(iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 
@@ -920,7 +938,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin(iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			#endif
 		}
-		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, advpng, deflopt, defluff, deflopt
+		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, advpng, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PNG) > 0)
 		{
 			bool bIsAPNG;
@@ -963,6 +981,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 					sFlags += "/l ";
 				}
 				RunPlugin(iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				
+				sFlags = "";
+				if (!gudtOptions.bPNGCopyMetadata)
+				{
+					sFlags = "-strip ";
+				}
+				iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
+				sFlags += "-M" + (String) iLevel + " ";
+				RunPlugin(iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 
 			if (!bIs9Patch)
@@ -1172,7 +1199,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 			RunPlugin(iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// ZIP: Leanify, advzip, deflopt, defluff, deflopt
+		// ZIP: Leanify, ect, advzip, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_ZIP) > 0)
 		{
 			sFlags = "";
