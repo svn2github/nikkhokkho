@@ -579,7 +579,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			"NULL", //String sWindowCaptionText;
 			"NULL", //String sStatusbarText;
 	};
-	OptimizeProgressThread(a);
+	//OptimizeProgressThread(a);
 
 	stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;

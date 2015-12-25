@@ -159,7 +159,7 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-XXXXXX - YYYYYYYY
+8.00 - 2015/12/25
 - Added Windows 10 theme, enabled by default on Windows 10 or later.
 - Prevented missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug (trlkly).
 - Removed custom window frame, because it was always looked black with C++ Builder 10.
@@ -179,8 +179,7 @@ XXXXXX - YYYYYYYY
 - Better performance updating to ASMLib 2.36.
 - Improved setup.
 - Some minor optimizations and code cleanup.
-- Upgraded distributions to 7-Zip 15.11.
-
+- Upgraded distributions to 7-Zip 15.12.
 
 7.90 - 2015/08/20
 - Tested to be compatible on new Microsoft Windows 10.
