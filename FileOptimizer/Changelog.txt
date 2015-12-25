@@ -1,3 +1,6 @@
+ECT -M5 -strip -progressive -quiet 
+https://github.com/fhanau/Efficient-Compression-Tool
+
 - ZIPRecurse=false does same as ZIPRecurse=true (Special).
 
 - Add context menu Open containing folder (Special)
@@ -157,6 +160,10 @@ ndo
 - TruePNG 0.6.1.8 - http://x128.ho.ua/pngutils.html
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
+
+
+
+XXXXX - YYYYYYY
 
 
 8.00 - 2015/12/25
