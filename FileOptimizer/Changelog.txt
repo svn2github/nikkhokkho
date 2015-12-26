@@ -1,3 +1,5 @@
+- IsWindows10OrGreater returning false on Windows 10.
+
 - Faster and slighly larger 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
 - ZIPRecurse=false does same as ZIPRecurse=true (Special).
@@ -161,6 +163,7 @@ ndo
 
 
 XXXXX - YYYYYYY
+- Better High DPI compatibility.
 
 
 8.10 - 2015/12/26
