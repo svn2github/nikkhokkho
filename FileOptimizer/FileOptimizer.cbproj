@@ -59,13 +59,13 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <Custom_Styles>Luna|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\Luna.vsf;&quot;Metropolis UI Black|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\MetropolisUIBlack.vsf&quot;;Windows10|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\Windows10.vsf</Custom_Styles>
-        <VerInfo_MinorVer>9</VerInfo_MinorVer>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>1387</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=8.0.0.1387;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2016 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2016 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=8.0.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
-        <VerInfo_MajorVer>7</VerInfo_MajorVer>
+        <VerInfo_Build>1392</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=8.1.0.1392;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2016 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2016 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=8.1.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
+        <VerInfo_MajorVer>8</VerInfo_MajorVer>
         <VCL_Custom_Styles>Luna|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\Luna.vsf;&quot;Metropolis UI Black|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\MetropolisUIBlack.vsf&quot;</VCL_Custom_Styles>
         <TASM_FloatingPoint>Real</TASM_FloatingPoint>
         <RunBCCOutOfProcess>true</RunBCCOutOfProcess>
@@ -90,7 +90,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <BCC_PCHCache>true</BCC_PCHCache>
-        <ILINK_LibraryPath>C:\Program Files (x86)\Embarcadero\Studio\17.0\lib\win32\release\psdk\;C:\PROYECTOS\FileOptimizer\Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>C:\Program Files (x86)\Embarcadero\Studio\17.0\lib\win32\release\;C:\PROYECTOS\FileOptimizer\Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <PackageImports>adortl;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CloudService;CustomIPTransport;DataSnapClient;DataSnapCommon;DataSnapConnectors;DatasnapConnectorsFreePascal;DataSnapFireDAC;DataSnapIndy10ServerTransport;DataSnapNativeClient;DataSnapProviderClient;DataSnapServer;DataSnapServerMidas;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXDb2Driver;DBXFirebirdDriver;DBXInformixDriver;DBXInterBaseDriver;DBXMSSQLDriver;DBXMySQLDriver;DBXOdbcDriver;DBXOracleDriver;DBXSqliteDriver;DBXSybaseASADriver;DBXSybaseASEDriver;dsnap;dsnapcon;dsnapxml;emsclient;emsclientfiredac;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;frx21;frxDB21;frxe21;frxTee21;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;Intraweb;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;svn;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
@@ -126,14 +126,13 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_MajorVer>8</VerInfo_MajorVer>
-        <VerInfo_MinorVer>0</VerInfo_MinorVer>
         <BCC_MonitorInlinePtrAccess>true</BCC_MonitorInlinePtrAccess>
         <BCC_MonitorGlobalAndStackData>true</BCC_MonitorGlobalAndStackData>
         <BCC_MonitorThis>true</BCC_MonitorThis>
         <BCC_AllWarnings>true</BCC_AllWarnings>
         <BCC_SelectedWarnings>false</BCC_SelectedWarnings>
         <LinkPackageImports>rtl.bpi;vcl.bpi;vclactnband.bpi;vclx.bpi;vclribbon.bpi;vclimg.bpi;VclSmp.bpi</LinkPackageImports>
+        <ILINK_LibraryPath>$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <BCC_AllWarnings>true</BCC_AllWarnings>
@@ -166,12 +165,11 @@
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
-        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
         <VerInfo_MajorVer>8</VerInfo_MajorVer>
-        <VerInfo_MinorVer>0</VerInfo_MinorVer>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <BCC_EnableRTTI>false</BCC_EnableRTTI>
-        <BCC_UserSuppliedOptions>-O4</BCC_UserSuppliedOptions>
+        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
+        <BCC_UserSuppliedOptions>-O2 -OS -OI=100</BCC_UserSuppliedOptions>
         <ILINK_FastTLS>true</ILINK_FastTLS>
         <BCC_CallingConvention>fastcall</BCC_CallingConvention>
         <BCC_ExtendedErrorInfo>false</BCC_ExtendedErrorInfo>
@@ -195,8 +193,6 @@
         <BCC_ExpandIntrinsics>true</BCC_ExpandIntrinsics>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_MajorVer>8</VerInfo_MajorVer>
-        <VerInfo_MinorVer>0</VerInfo_MinorVer>
         <BCC_UserSuppliedOptions>-O4</BCC_UserSuppliedOptions>
         <ILINK_FastTLS>true</ILINK_FastTLS>
         <ILINK_ImageChecksum>true</ILINK_ImageChecksum>
@@ -205,7 +201,7 @@
         <BCC_PCHName_Clang>FileOptimizerPCH1.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <ItemGroup>
-        <LibFiles Include="C:\Program Files (x86)\Embarcadero\Studio\17.0\lib\win32\release\psdk\wininet.lib" Condition="'$(Platform)'=='Win32'">
+        <LibFiles Include="C:\Program Files (x86)\Embarcadero\Studio\17.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>7</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
@@ -352,12 +348,6 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Program Files (x86)\Embarcadero\Studio\17.0\lib\win32\release\psdk\wininet.lib" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName=".\Win32\Debug\FileOptimizer.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>FileOptimizer.exe</RemoteName>
@@ -380,6 +370,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="C:\Program Files (x86)\Embarcadero\Studio\17.0\lib\win32\release\wininet.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64230mt.dll" Class="DependencyModule">
                     <Platform Name="Win64">
                         <Overwrite>true</Overwrite>
@@ -395,12 +391,27 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -754,27 +765,12 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>

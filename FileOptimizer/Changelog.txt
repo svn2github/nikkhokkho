@@ -1,3 +1,5 @@
+- Faster and slighly larger 32 bit version thanks to be migrated to CLang backend (64 bit already was).
+
 - ZIPRecurse=false does same as ZIPRecurse=true (Special).
 
 - Add context menu Open containing folder (Special)
@@ -158,14 +160,14 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-
 XXXXX - YYYYYYY
-- Faster and smaller 32 bit version thanks to be migrated to CLang backend (64 bit already was).
+
+
+8.10 - 2015/12/26
 - Enhanced GZ, JPEG and PNG compression by adding ECT 0.1 by Felix Hanau.
 - Fixed Windows 10 theme (d4k0).
 - Workedarround a bug in C++ Builder Seattle that made executables require BORLANDMM.DLL -https://forums.embarcadero.com/thread.jspa?messageID=706835- (d4k0).
 - Fixed a problem with disabled menu items after optimization (d4k0).
-
 
 8.00 - 2015/12/25
 - Added Windows 10 theme, enabled by default on Windows 10 or later.
