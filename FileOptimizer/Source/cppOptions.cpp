@@ -87,7 +87,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboTheme->ItemIndex = 2;
 	}
-	else if (_tcscmp(gudtOptions.acTheme, _T("Windows 10")) == 0)
+	else if (_tcscmp(gudtOptions.acTheme, _T("Windows10")) == 0)
 	{
 		cboTheme->ItemIndex = 3;
 	}
@@ -221,7 +221,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	}
 	else if (cboTheme->ItemIndex == 3)
 	{
-		_tcscpy(gudtOptions.acTheme, _T("Windows 10"));
+		_tcscpy(gudtOptions.acTheme, _T("Windows10"));
 	}
 	else //0
 	{

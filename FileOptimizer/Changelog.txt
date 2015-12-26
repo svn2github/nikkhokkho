@@ -1,6 +1,3 @@
-ECT -M5 -strip -progressive -quiet 
-https://github.com/fhanau/Efficient-Compression-Tool
-
 - ZIPRecurse=false does same as ZIPRecurse=true (Special).
 
 - Add context menu Open containing folder (Special)
@@ -130,6 +127,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
+- ECT 0.1 - https://github.com/fhanau/Efficient-Compression-Tool
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
@@ -164,6 +162,10 @@ ndo
 
 
 XXXXX - YYYYYYY
+- Enhanced GZ, JPEG and PNG compression by adding ECT 0.1 by Felix Hanau.
+- Fixed Windows 10 theme (d4k0).
+- Workedarround a bug in C++ Builder Seattle that made executables require BORLANDMM.DLL -https://forums.embarcadero.com/thread.jspa?messageID=706835- (d4k0).
+- Fixed a problem with disabled menu items after optimization (d4k0).
 
 
 8.00 - 2015/12/25

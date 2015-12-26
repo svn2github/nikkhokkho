@@ -78,6 +78,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		Application->HelpFile = Application->Name + ".chm";
 		Application->MainFormOnTaskBar = true;
 
+		TStyleManager::TrySetStyle("Windows10");
 		Application->CreateForm(__classid(TfrmMain), &frmMain);
 		Screen->Cursor = crDefault;
 		Application->Run();
