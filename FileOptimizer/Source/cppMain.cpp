@@ -75,7 +75,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	}
 	else
 	{
-		_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windowsclear")));
+		_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows")));
 	}
 	//_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
 	_tcscpy(gudtOptions.acTempDirectory, clsUtil::GetIni(_T("Options"), _T("TempDirectory"), _T("")));
@@ -514,7 +514,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 			}
 			else
 			{
-				//break;
+				break;
 			}
 		}
 	}
@@ -2217,9 +2217,6 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 
 		RefreshStatus();
 
-		//Even if we set that before, it seems we should reenable it after theme changes
-		DragAcceptFiles(Handle, !gbProcess);
-
 		//Reenable form updates
 		LockWindowUpdate(NULL);
 	}
@@ -2234,6 +2231,9 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned long lo
 
 	//Prevent flickering
 	//LockWindowUpdate(Handle);
+
+    //ProcessMessages is required before changing DragAcceptFiles
+	Application->ProcessMessages();
 
 	if (gbProcess)
 	{
@@ -2314,8 +2314,6 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned long lo
 	actStop->Enabled = mnuFilesStop->Enabled;
 	actClear->Enabled = mnuFilesClear->Enabled;
 	actRemove->Enabled = mnuFilesRemove->Enabled;
-
-	Application->ProcessMessages();
 
 	//Reenable form updates
 	//LockWindowUpdate(NULL);

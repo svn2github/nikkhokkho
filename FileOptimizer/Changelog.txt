@@ -4,8 +4,6 @@
 
 - Add include mask, similar to exclude mask, to limit processing to particular file extensions (Tomasz W.).
 
-- Faster 32 bit version thanks to be migrated to CLang backend (64 bit already was).
-
 - Use JPEG archive (maadjordan): https://github.com/danielgtaylor/jpeg-archive/releases (maadjordan).
 
 - Add Huffmix PNG compression (Stephan Busch).
@@ -162,6 +160,7 @@ ndo
 
 
 XXXXX - YYYYYYY
+- Faster and smaller 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 - Enhanced GZ, JPEG and PNG compression by adding ECT 0.1 by Felix Hanau.
 - Fixed Windows 10 theme (d4k0).
 - Workedarround a bug in C++ Builder Seattle that made executables require BORLANDMM.DLL -https://forums.embarcadero.com/thread.jspa?messageID=706835- (d4k0).

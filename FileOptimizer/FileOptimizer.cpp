@@ -11,6 +11,10 @@
 
 
 // ---------------------------------------------------------------------------
+USEFORM("Source\cppAbout.cpp", frmAbout);
+USEFORM("Source\cppMain.cpp", frmMain);
+USEFORM("Source\cppOptions.cpp", frmOptions);
+//---------------------------------------------------------------------------
 USEFORM("Source\cppAbout.cpp", frmAbout)
 USEFORM("Source\cppMain.cpp", frmMain)
 USEFORM("Source\cppOptions.cpp", frmOptions)
