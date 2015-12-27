@@ -177,7 +177,7 @@
         <ILINK_FastTLS>true</ILINK_FastTLS>
         <BCC_CallingConvention>fastcall</BCC_CallingConvention>
         <BCC_ExtendedErrorInfo>false</BCC_ExtendedErrorInfo>
-        <ILINK_DelayLoadDll>BLUETOOTHAPIS.DLL;BORLNDMM.DLL;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
+        <ILINK_DelayLoadDll>BLUETOOTHAPIS.DLL;BORLNDMM.DLL;SHCORE.DLL;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
         <BCC_InstructionSet>6</BCC_InstructionSet>
         <BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
         <BCC_IntegerTypeEnums>true</BCC_IntegerTypeEnums>
