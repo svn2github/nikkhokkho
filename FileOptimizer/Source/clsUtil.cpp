@@ -998,7 +998,7 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 
 
 	// In 7 or newer use new TaskDialog
-	if (GetWindowsVersion() >= 700)
+	if (GetWindowsVersion() >= 601)
 	{
 		hRes = ::CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void **) &pTaskList);
 		if (pTaskList)
