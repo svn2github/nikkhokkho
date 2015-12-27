@@ -998,7 +998,7 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 
 
 	// In 7 or newer use new TaskDialog
-	if (IsWindows7OrGreater())
+	if (GetWindowsVersion() >= 700)
 	{
 		hRes = ::CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void **) &pTaskList);
 		if (pTaskList)
@@ -1023,7 +1023,7 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 // ---------------------------------------------------------------------------
 unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 {
-	unsigned int iRes;
+	static unsigned int iWindowsVersion = 0;
 	RTL_OSVERSIONINFOW udtRtlVersionInfo;
 	HMODULE hDLL;
 	typedef NTSTATUS (WINAPI RtlGetVersionType)(RTL_OSVERSIONINFOW *pudtRtlVersionInfo);
@@ -1031,15 +1031,22 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 
 
 	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
-	iRes = 0;
-	if (hDLL = LoadLibrary(_T("NTDLL")))
+	if (iWindowsVersion == 0)
 	{
-		if (RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion"))
+		if (hDLL = LoadLibrary(_T("NTDLL")))
 		{
-			RtlGetVersionProc(&udtRtlVersionInfo);
-			iRes = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
+			if (RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion"))
+			{
+				RtlGetVersionProc(&udtRtlVersionInfo);
+				iWindowsVersion = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
+			}
+			else
+			{
+				iWindowsVersion = GetVersion();
+    			iWindowsVersion = (LOBYTE(LOWORD(iWindowsVersion))) * 100 + (HIBYTE(LOWORD(iWindowsVersion)));
+			}
+			FreeLibrary(hDLL);
 		}
-		FreeLibrary(hDLL);
 	}
-	return(iRes);
+	return(iWindowsVersion);
 }
