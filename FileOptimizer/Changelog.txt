@@ -164,6 +164,7 @@ ndo
 
 XXXXX - YYYYYYY
 - Better High DPI compatibility.
+- Cleanedup JPEG options page glitches (d4k0).
 
 
 8.10 - 2015/12/26

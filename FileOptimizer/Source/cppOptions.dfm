@@ -651,42 +651,6 @@ object frmOptions: TfrmOptions
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object lblFreshclamConfValue: TLabel
-        Left = 193
-        Top = 147
-        Width = 393
-        Height = 13
-        Cursor = crHandPoint
-        AutoSize = False
-        Color = clBtnFace
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHotLight
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsUnderline]
-        ParentColor = False
-        ParentFont = False
-        ParentShowHint = False
-        ShowHint = True
-      end
-      object TLabel
-        Left = 193
-        Top = 165
-        Width = 393
-        Height = 13
-        Cursor = crHandPoint
-        AutoSize = False
-        Color = clBtnFace
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHotLight
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsUnderline]
-        ParentColor = False
-        ParentFont = False
-        ParentShowHint = False
-        ShowHint = True
-      end
       object chkJPEGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
