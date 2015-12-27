@@ -164,8 +164,10 @@ ndo
 
 XXXXX - YYYYYYY
 - Better High DPI compatibility.
+- Use Windows 10 theme by default on Windows 8 and newer.
 - Cleanedup JPEG options page glitches (d4k0).
 - Delay load shcore.dll to avoid a C++ Builder bug on WINE (trlkly).
+- Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
 
 
 8.10 - 2015/12/26

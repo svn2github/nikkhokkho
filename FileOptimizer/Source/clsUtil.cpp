@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.40. 27/12/2015. FileOptimizer. Added GetWindowsVersion since GetVersion on Windows 8.1 or later do not work unless application is manifested
  3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni. Added MemMem, CopyFile
  3.25. 05/04/2015. FileOptimizer. Added Random
  3.20. 14/03/2015. FileOptimizer. Added Serialize and Unserialize
@@ -79,89 +80,92 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 	TaskDialogType *TaskDialogProc;
 
 
-	if ((hDLL = LoadLibrary(_T("COMCTL32.DLL"))) && (TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect")))
+	if (hDLL = LoadLibrary(_T("COMCTL32.DLL")))
 	{
-		memset(&udtFlags, 0, sizeof(udtFlags));
-		udtFlags.cbSize = sizeof(udtFlags);
-		udtFlags.hwndParent = phWnd;
-		udtFlags.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_CAN_BE_MINIMIZED;
+		if (TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect"))
+		{
+			memset(&udtFlags, 0, sizeof(udtFlags));
+			udtFlags.cbSize = sizeof(udtFlags);
+			udtFlags.hwndParent = phWnd;
+			udtFlags.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_CAN_BE_MINIMIZED;
 
-		if ((piType & MB_ABORTRETRYIGNORE) == MB_ABORTRETRYIGNORE)
-		{
-			udtFlags.dwCommonButtons = TDCBF_CANCEL_BUTTON | TDCBF_RETRY_BUTTON | TDCBF_CLOSE_BUTTON;
-			udtFlags.nDefaultButton = IDRETRY;
-			iButton = IDCANCEL;
-		}
-		else if ((piType & MB_CANCELTRYCONTINUE) == MB_CANCELTRYCONTINUE)
-		{
-			udtFlags.dwCommonButtons = TDCBF_CANCEL_BUTTON | TDCBF_RETRY_BUTTON | TDCBF_OK_BUTTON;
-			udtFlags.nDefaultButton = IDRETRY;
-			iButton = IDCANCEL;
-		}
-		else if ((piType & MB_OKCANCEL) == MB_OKCANCEL)
-		{
-			udtFlags.dwCommonButtons = TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON;
-			udtFlags.nDefaultButton = IDOK;
-			iButton = IDCANCEL;
-		}
-		else if ((piType & MB_RETRYCANCEL) == MB_RETRYCANCEL)
-		{
-			udtFlags.dwCommonButtons = TDCBF_RETRY_BUTTON | TDCBF_CANCEL_BUTTON;
-			udtFlags.nDefaultButton = IDRETRY;
-			iButton = IDCANCEL;
-		}
-		else if ((piType & MB_YESNO) == MB_YESNO)
-		{
-			udtFlags.dwCommonButtons = TDCBF_YES_BUTTON | TDCBF_NO_BUTTON;
-			udtFlags.nDefaultButton = IDYES;
-			iButton = IDNO;
-		}
-		else if ((piType & MB_YESNOCANCEL) == MB_YESNOCANCEL)
-		{
-			udtFlags.dwCommonButtons = TDCBF_YES_BUTTON | TDCBF_NO_BUTTON | TDCBF_CANCEL_BUTTON;
-			udtFlags.nDefaultButton = IDYES;
-			iButton = IDCANCEL;
-		}
-		else
-		{
-			udtFlags.dwCommonButtons = TDCBF_OK_BUTTON;
-			udtFlags.nDefaultButton = IDOK;
-			iButton = IDOK;
-		}
+			if ((piType & MB_ABORTRETRYIGNORE) == MB_ABORTRETRYIGNORE)
+			{
+				udtFlags.dwCommonButtons = TDCBF_CANCEL_BUTTON | TDCBF_RETRY_BUTTON | TDCBF_CLOSE_BUTTON;
+				udtFlags.nDefaultButton = IDRETRY;
+				iButton = IDCANCEL;
+			}
+			else if ((piType & MB_CANCELTRYCONTINUE) == MB_CANCELTRYCONTINUE)
+			{
+				udtFlags.dwCommonButtons = TDCBF_CANCEL_BUTTON | TDCBF_RETRY_BUTTON | TDCBF_OK_BUTTON;
+				udtFlags.nDefaultButton = IDRETRY;
+				iButton = IDCANCEL;
+			}
+			else if ((piType & MB_OKCANCEL) == MB_OKCANCEL)
+			{
+				udtFlags.dwCommonButtons = TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON;
+				udtFlags.nDefaultButton = IDOK;
+				iButton = IDCANCEL;
+			}
+			else if ((piType & MB_RETRYCANCEL) == MB_RETRYCANCEL)
+			{
+				udtFlags.dwCommonButtons = TDCBF_RETRY_BUTTON | TDCBF_CANCEL_BUTTON;
+				udtFlags.nDefaultButton = IDRETRY;
+				iButton = IDCANCEL;
+			}
+			else if ((piType & MB_YESNO) == MB_YESNO)
+			{
+				udtFlags.dwCommonButtons = TDCBF_YES_BUTTON | TDCBF_NO_BUTTON;
+				udtFlags.nDefaultButton = IDYES;
+				iButton = IDNO;
+			}
+			else if ((piType & MB_YESNOCANCEL) == MB_YESNOCANCEL)
+			{
+				udtFlags.dwCommonButtons = TDCBF_YES_BUTTON | TDCBF_NO_BUTTON | TDCBF_CANCEL_BUTTON;
+				udtFlags.nDefaultButton = IDYES;
+				iButton = IDCANCEL;
+			}
+			else
+			{
+				udtFlags.dwCommonButtons = TDCBF_OK_BUTTON;
+				udtFlags.nDefaultButton = IDOK;
+				iButton = IDOK;
+			}
 
-		if (((piType & MB_ICONEXCLAMATION) == MB_ICONEXCLAMATION) || ((piType & MB_ICONWARNING) == MB_ICONWARNING))
-		{
-			udtFlags.pszMainIcon = TD_WARNING_ICON;
-		}
-		else if (((piType & MB_ICONINFORMATION) == MB_ICONINFORMATION) || ((piType & MB_ICONASTERISK) == MB_ICONASTERISK))
-		{
-			udtFlags.pszMainIcon = TD_INFORMATION_ICON;
-		}
-		else if (((piType & MB_ICONSTOP) == MB_ICONSTOP) || ((piType & MB_ICONERROR) == MB_ICONERROR) || ((piType & MB_ICONHAND) == MB_ICONHAND))
-		{
-			udtFlags.pszMainIcon = TD_ERROR_ICON;
-		}
-		//else if ((piType & MB_ICONQUESTION) == MB_ICONQUESTION)
-		else
-		{
-			udtFlags.pszMainIcon = NULL;
-		}
+			if (((piType & MB_ICONEXCLAMATION) == MB_ICONEXCLAMATION) || ((piType & MB_ICONWARNING) == MB_ICONWARNING))
+			{
+				udtFlags.pszMainIcon = TD_WARNING_ICON;
+			}
+			else if (((piType & MB_ICONINFORMATION) == MB_ICONINFORMATION) || ((piType & MB_ICONASTERISK) == MB_ICONASTERISK))
+			{
+				udtFlags.pszMainIcon = TD_INFORMATION_ICON;
+			}
+			else if (((piType & MB_ICONSTOP) == MB_ICONSTOP) || ((piType & MB_ICONERROR) == MB_ICONERROR) || ((piType & MB_ICONHAND) == MB_ICONHAND))
+			{
+				udtFlags.pszMainIcon = TD_ERROR_ICON;
+			}
+			//else if ((piType & MB_ICONQUESTION) == MB_ICONQUESTION)
+			else
+			{
+				udtFlags.pszMainIcon = NULL;
+			}
 
-		udtFlags.pszWindowTitle = (TCHAR *) pacTitle;
-		if (_tcslen(pacText) < 256)
-		{
-			udtFlags.pszMainInstruction = (TCHAR *) pacText;
-			//(*TaskDialogProc)(phWnd, NULL, acTitle, acText, L"", udtFlags, (wchar_t *) pcIcon, &iButton);
+			udtFlags.pszWindowTitle = (TCHAR *) pacTitle;
+			if (_tcslen(pacText) < 256)
+			{
+				udtFlags.pszMainInstruction = (TCHAR *) pacText;
+				//(*TaskDialogProc)(phWnd, NULL, acTitle, acText, L"", udtFlags, (wchar_t *) pcIcon, &iButton);
+			}
+			else
+			{
+				udtFlags.pszMainInstruction = (TCHAR *) pacTitle;
+				udtFlags.pszContent = (TCHAR *) pacText;
+				//(*TaskDialogProc)(phWnd, NULL, acTitle, acTitle, acText, udtFlags, (wchar_t *) pcIcon, &iButton);
+			}
+			(*TaskDialogProc)(&udtFlags, &iButton, NULL, NULL);
+			return (iButton);
 		}
-		else
-		{
-			udtFlags.pszMainInstruction = (TCHAR *) pacTitle;
-			udtFlags.pszContent = (TCHAR *) pacText;
-			//(*TaskDialogProc)(phWnd, NULL, acTitle, acTitle, acText, udtFlags, (wchar_t *) pcIcon, &iButton);
-		}
-		(*TaskDialogProc)(&udtFlags, &iButton, NULL, NULL);
 		FreeLibrary(hDLL);
-		return (iButton);
 	}
 	else
 	{
@@ -1015,3 +1019,27 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 	return (false);
 }
 
+
+// ---------------------------------------------------------------------------
+unsigned int __fastcall clsUtil::GetWindowsVersion(void)
+{
+	unsigned int iRes;
+	RTL_OSVERSIONINFOW udtRtlVersionInfo;
+	HMODULE hDLL;
+	typedef NTSTATUS (WINAPI RtlGetVersionType)(RTL_OSVERSIONINFOW *pudtRtlVersionInfo);
+	RtlGetVersionType *RtlGetVersionProc;
+
+
+	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
+	iRes = 0;
+	if (hDLL = LoadLibrary(_T("NTDLL")))
+	{
+		if (RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion"))
+		{
+			RtlGetVersionProc(&udtRtlVersionInfo);
+			iRes = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
+		}
+		FreeLibrary(hDLL);
+	}
+	return(iRes);
+}

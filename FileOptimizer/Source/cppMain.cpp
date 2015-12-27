@@ -68,8 +68,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
 	gudtOptions.iLogLevel = clsUtil::GetIni(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = clsUtil::GetIni(_T("Options"), _T("FilenameFormat"), 0);
-	//Use Windows 10 theme by default on Windows 10 and newer
-	if (IsWindows10OrGreater())
+	//Use Windows 10 theme by default on Windows 8 and newer
+	if (clsUtil::GetWindowsVersion() >= 800)
 	{
 		_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows10")));
 	}
