@@ -1354,8 +1354,20 @@ void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 void __fastcall TfrmMain::mnuFilesOptionsClick(TObject *Sender)
 {
 	frmOptions = new TfrmOptions(Application);
+	
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		FormStyle = fsNormal;
+		frmOptions->FormStyle = fsStayOnTop;
+	}
 	frmOptions->PopupParent = this;
 	frmOptions->ShowModal();
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
+	delete frmOptions;
 }
 
 
@@ -1372,8 +1384,19 @@ void __fastcall TfrmMain::mnuFilesHelpClick(TObject *Sender)
 void __fastcall TfrmMain::mnuFilesAboutClick(TObject *Sender)
 {
 	frmAbout = new TfrmAbout(Application);
+	
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		FormStyle = fsNormal;
+		frmAbout->FormStyle = fsStayOnTop;
+	}
 	frmAbout->PopupParent = this;
 	frmAbout->ShowModal();
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
 	delete frmAbout;
 }
 
