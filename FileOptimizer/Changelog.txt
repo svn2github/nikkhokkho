@@ -1,3 +1,9 @@
+- Window positions not properly restored on launch (hairycactus).
+
+- Crashes with Ghostcript 9.18. Downgrade to 9.15 like FileOptimizer 7.90 (hairycactus).
+
+- Add INI setting DisablePluginMask= to allow excluding execution of certain plugins. For instance DisablePluginMask=leanify;advpng.exe (hairycactus).
+
 - Faster and slighly larger 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
 - ZIPRecurse=false does same as ZIPRecurse=true (Special).
