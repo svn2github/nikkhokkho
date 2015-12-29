@@ -61,6 +61,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bKeepAttributes = clsUtil::GetIni(_T("Options"), _T("KeepAttributes"), false);
 	gudtOptions.bDoNotUseRecycleBin = clsUtil::GetIni(_T("Options"), _T("DoNotUseRecycleBin"), false);
 	_tcscpy(gudtOptions.acExcludeMask, clsUtil::GetIni(_T("Options"), _T("ExcludeMask"), _T("")));
+	_tcscpy(gudtOptions.acDisablePluginMask, clsUtil::GetIni(_T("Options"), _T("DisablePluginMask"), _T("")));
 	gudtOptions.bBeepWhenDone = clsUtil::GetIni(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = clsUtil::GetIni(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.iLevel = clsUtil::GetIni(_T("Options"), _T("Level"), 5);
@@ -150,6 +151,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("KeepAttributes"), gudtOptions.bKeepAttributes);
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin);
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask);
+	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask);
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone);
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop);
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel);
@@ -1583,11 +1585,22 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		//Close();
 		return (0);
 	}
+	
+	//Check if it is an excluded plugins
+	TCHAR *acToken = _tcstok(((String) gudtOptions.acDisablePluginMask).UpperCase().c_str(), _T(";"));
+	while (acToken)
+	{
+		if (PosEx((String) acToken, psCommandLine.UpperCase()) != 0)
+		{
+			return(0;
+		}
+		acToken = _tcstok(NULL, _T(";"));
+	}
 
 	sInputFile = psInputFile;
 	sOutputFile = psOutputFile;
 	sCommandLine = psCommandLine;
-
+	
 	//Avoid temporary name collisions across different instances
 	iRandom = clsUtil::Random(0, 9999);
 	

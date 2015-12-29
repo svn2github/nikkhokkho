@@ -98,6 +98,7 @@ struct udtOptions
 	bool bDoNotUseRecycleBin;
 	bool bKeepAttributes;
 	TCHAR acExcludeMask[128];
+	TCHAR acDisablePluginMask[128];
 	bool bBeepWhenDone;
 	bool bAlwaysOnTop;
 	int iLevel;
