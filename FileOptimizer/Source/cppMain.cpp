@@ -1592,7 +1592,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	{
 		if (PosEx((String) acToken, psCommandLine.UpperCase()) != 0)
 		{
-			return(0;
+			return(0);
 		}
 		acToken = _tcstok(NULL, _T(";"));
 	}
