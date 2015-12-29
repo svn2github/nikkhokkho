@@ -173,6 +173,8 @@ XXXXX - YYYYYYY
 - Delay load shcore.dll to avoid a C++ Builder bug on WINE (trlkly).
 - Make child windows show always on top, even if main window uses AlwaysOnTop=false (hairycactus).
 - Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
+- Revert to Ghostcript 9.15 since Ghostcript 9.18 crashes, and 9.16 has worse compression ratios (hairycactus).
+
 
 
 8.10 - 2015/12/26
