@@ -1278,7 +1278,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 	}
-	RefreshStatus(true, lTotalBytes, lSavedBytes);
+	RefreshStatus(true, iCount, lTotalBytes, lSavedBytes);
 
 	//Abort for loop if operation is cancelled
 	if (gbStop)
@@ -2260,7 +2260,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned long long plTotalBytes, unsigned long long plSavedBytes)
+void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piCurrent, unsigned long long plTotalBytes, unsigned long long plSavedBytes)
 {
 	unsigned int iPercentBytes;
 
@@ -2283,7 +2283,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned long lo
 		{
 			iPercentBytes = 0;
 		}
-		stbMain->Panels->Items[0]->Text = FormatNumberThousand(grdFiles->Row) + " / " + FormatNumberThousand(grdFiles->RowCount - 1) + " files. " + FormatNumberThousand(plSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
+		stbMain->Panels->Items[0]->Text = FormatNumberThousand(piCurrent) + " / " + FormatNumberThousand(grdFiles->RowCount - 1) + " files. " + FormatNumberThousand(plSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
 		Caption = stbMain->Hint + " - " + Application->Name;
 		Application->Title = Caption;

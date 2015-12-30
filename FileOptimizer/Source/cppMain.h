@@ -225,7 +225,7 @@ private: // User declarations
 
 public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);
-	void __fastcall RefreshStatus(bool pbUpdateStatusBar = true, unsigned long long plTotalBytes = 0, unsigned long long plSavedBytes = 0);
+	void __fastcall RefreshStatus(bool pbUpdateStatusBar = true, unsigned int piCurrent = 0, unsigned long long plTotalBytes = 0, unsigned long long plSavedBytes = 0);
 	void __fastcall UpdateTheme(const TCHAR *pacTheme);
 };
 
