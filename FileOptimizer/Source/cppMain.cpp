@@ -1268,8 +1268,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			lSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
 		}
 	}
-	//If file was not processed, mark it as skipped
-	if (grdFiles->Cells[KI_GRID_STATUS][iCount] == "Pending")
+	//If file was not processed, mark it as skipped because not supported extension, or skipped because user preference (do not process JS for instance)
+	if ((grdFiles->Cells[KI_GRID_STATUS][iCount] == "Pending") || (grdFiles->Cells[KI_GRID_STATUS][iCount] == "Copying to Recyclebin..."))
 	{
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = "Skipped";
 	}
