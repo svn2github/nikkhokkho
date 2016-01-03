@@ -80,9 +80,9 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 	TaskDialogType *TaskDialogProc;
 
 
-	if (hDLL = LoadLibrary(_T("COMCTL32.DLL")))
+	if ((hDLL = LoadLibrary(_T("COMCTL32.DLL"))))
 	{
-		if (TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect"))
+		if ((TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect")))
 		{
 			memset(&udtFlags, 0, sizeof(udtFlags));
 			udtFlags.cbSize = sizeof(udtFlags);
@@ -163,9 +163,9 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 				//(*TaskDialogProc)(phWnd, NULL, acTitle, acTitle, acText, udtFlags, (wchar_t *) pcIcon, &iButton);
 			}
 			(*TaskDialogProc)(&udtFlags, &iButton, NULL, NULL);
-			return (iButton);
 		}
 		FreeLibrary(hDLL);
+		return (iButton);
 	}
 	else
 	{
@@ -479,10 +479,9 @@ bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigne
 
 	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
 	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
-	if ((hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL)) != NULL)
+	if ((hInternet = (InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL))) != NULL)
 	{
-		if ((hHttp = InternetOpenUrl(hInternet, pacUrl, NULL, 0,
-					INTERNET_FLAG_EXISTING_CONNECT | INTERNET_FLAG_HYPERLINK, NULL)) != NULL)
+		if ((hHttp = (InternetOpenUrl(hInternet, pacUrl, NULL, 0, INTERNET_FLAG_EXISTING_CONNECT | INTERNET_FLAG_HYPERLINK, NULL))) != NULL)
 		{
 			memset(pvData, 0, piSize);
 			if (InternetReadFile(hHttp, pvData, piSize, &lRead))
@@ -845,7 +844,7 @@ unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSi
 		}
 		else
 		{
-			((unsigned char *) pacBuffer)[iBuffer >> 1] = (unsigned char) iNibbleL + (iNibbleH << 4);
+			((unsigned char *) pacBuffer)[iBuffer >> 1] = (unsigned char) (iNibbleL + (iNibbleH << 4));
 		}
 	}
 	return(piSize >> 1);
@@ -1033,9 +1032,9 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
 	if (iWindowsVersion == 0)
 	{
-		if (hDLL = LoadLibrary(_T("NTDLL")))
+		if ((hDLL = LoadLibrary(_T("NTDLL"))))
 		{
-			if (RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion"))
+			if ((RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion")))
 			{
 				RtlGetVersionProc(&udtRtlVersionInfo);
 				iWindowsVersion = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
