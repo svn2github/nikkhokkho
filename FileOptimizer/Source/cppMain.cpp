@@ -725,7 +725,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags = "-strip ";
 			}
-			iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
+			iLevel = min(gudtOptions.iLevel * 9 / 9, 9) + 1;
 			sFlags += "-M" + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -799,7 +799,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags = "-strip ";
 			}
-			iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
+			iLevel = min(gudtOptions.iLevel * 9 / 9, 9) + 1;
 			sFlags += "-M" + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
@@ -989,7 +989,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags = "-strip ";
 				}
-				iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
+				iLevel = min(gudtOptions.iLevel * 9 / 9, 9) + 1;
 				sFlags += "-M" + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
