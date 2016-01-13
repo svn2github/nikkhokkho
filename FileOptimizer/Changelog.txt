@@ -159,7 +159,7 @@ ndo
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
 - tidy-html5 4.9.26-191-gb4efe74 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
-- TruePNG 0.6.1.8 - http://x128.ho.ua/pngutils.html
+- TruePNG 0.6.1.9 - http://x128.ho.ua/pngutils.html
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
@@ -173,6 +173,7 @@ XXXXX - YYYYYYY
 - Make child windows show always on top, even if main window uses AlwaysOnTop=false (hairycactus).
 - Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
 - Added ECT 0.2 x86 and x64 builds (thanks Felix Hanau).
+- Updated TruePNG to 0.6.1.9.
 - Revert to Ghostcript 9.15 since Ghostcript 9.18 crashes, and 9.16 has worse compression ratios (hairycactus).
 - Updated to cppcheck 1.72.
 - Some minor optimizations and code cleanup.
