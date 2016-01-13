@@ -74,7 +74,7 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, int piType)
 {
 	int iButton = IDOK;
-	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags;
+	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {0};
 	HMODULE hDLL;
 	typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
 	TaskDialogType *TaskDialogProc;
@@ -84,7 +84,7 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 	{
 		if ((TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect")))
 		{
-			memset(&udtFlags, 0, sizeof(udtFlags));
+			//memset(&udtFlags, 0, sizeof(udtFlags));
 			udtFlags.cbSize = sizeof(udtFlags);
 			udtFlags.hwndParent = phWnd;
 			udtFlags.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_CAN_BE_MINIMIZED;
@@ -210,8 +210,8 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 {
 	unsigned long lExitCode;
 	STARTUPINFO udtSI;
-	PROCESS_INFORMATION udtPI;
-	SECURITY_ATTRIBUTES udtSA;
+	PROCESS_INFORMATION udtPI = {0};
+	SECURITY_ATTRIBUTES udtSA = {0};
 	HANDLE hRead, hWrite;
 
 
@@ -223,13 +223,13 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 		udtSA.lpSecurityDescriptor = NULL;
 		CreatePipe(&hRead, &hWrite, &udtSA, 0);
 
-		memset(&udtSI, 0, sizeof(udtSI));
+		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
 		udtSI.hStdInput = hRead;
 		udtSI.hStdOutput = hWrite;
 		udtSI.wShowWindow = SW_HIDE;
-		memset(&udtPI, 0, sizeof(udtPI));
+		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory, &udtSI,
 				&udtPI))
@@ -244,11 +244,11 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 		udtSA.bInheritHandle = true;
 		udtSA.lpSecurityDescriptor = NULL;
 
-		memset(&udtSI, 0, sizeof(udtSI));
+		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESHOWWINDOW;
 		udtSI.wShowWindow = SW_HIDE;
-		memset(&udtPI, 0, sizeof(udtPI));
+		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory,
 				&udtSI, &udtPI))
@@ -782,10 +782,10 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, do
 const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName)
 {
 	HKEY hKey;
-	TCHAR acRes[2048];
+	TCHAR acRes[2048] = {0};
 
 
-	memset(acRes, 0, sizeof(acRes));
+	//memset(acRes, 0, sizeof(acRes));
 	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey);
 	RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) acRes, NULL);
 	RegCloseKey(hKey);
@@ -954,20 +954,20 @@ bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
 bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 {
 	int iRes;
-	SHFILEOPSTRUCT udtFileOp;
-	TCHAR acSource[MAX_PATH], acDestination[MAX_PATH];
+	SHFILEOPSTRUCT udtFileOp = {0};
+	TCHAR acSource[MAX_PATH] = {0}, acDestination[MAX_PATH];
 
 
 	Application->ProcessMessages();
 	// ShFileOperation expect strings ending in double NULL
-	memset(acSource, 0, sizeof(acSource));
+	//memset(acSource, 0, sizeof(acSource));
 	_tcscpy(acSource, pacSource);
 	_tcscpy(acDestination, acSource);
 	_tcscat(acDestination, _T(".tmp"));
 
 	CopyFile(acSource, acDestination);
 
-	memset(&udtFileOp, 0, sizeof(udtFileOp));
+	//memset(&udtFileOp, 0, sizeof(udtFileOp));
 	udtFileOp.wFunc = FO_DELETE;
 	udtFileOp.fFlags = FOF_ALLOWUNDO | FOF_NO_UI;
 	udtFileOp.pFrom = acSource;

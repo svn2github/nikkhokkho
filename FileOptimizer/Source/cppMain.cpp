@@ -1701,10 +1701,10 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	unsigned int iBuffer;
 	size_t iBufferLen;
 	TCHAR acPath[MAX_PATH];
-	TCHAR acBuffer[512];
+	TCHAR acBuffer[512] = {0};
 
 
-	memset(acBuffer, 0, sizeof(acBuffer));
+	//memset(acBuffer, 0, sizeof(acBuffer));
 	if (clsUtil::DownloadFile(KS_APP_UPDATE_URL, acPath, sizeof(acPath)))
 	{
 		mbstowcs(acBuffer, (char *) acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
@@ -1957,8 +1957,8 @@ unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait)
 {
 	unsigned long lExitCode;
-	STARTUPINFO udtSI;
-	PROCESS_INFORMATION udtPI;
+	STARTUPINFO udtSI = {0};
+	PROCESS_INFORMATION udtPI = {0};
 	SECURITY_ATTRIBUTES udtSA;
 	HANDLE hRead, hWrite;
 
@@ -1976,13 +1976,13 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSA.lpSecurityDescriptor = NULL;
 		CreatePipe(&hRead, &hWrite, &udtSA, 0);
 
-		memset(&udtSI, 0, sizeof(udtSI));
+		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
 		udtSI.hStdInput = hRead;
 		udtSI.hStdOutput = hWrite;
 		udtSI.wShowWindow = SW_HIDE;
-		memset(&udtPI, 0, sizeof(udtPI));
+		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI, &udtPI))
 		{
@@ -1995,11 +1995,11 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSA.bInheritHandle = true;
 		udtSA.lpSecurityDescriptor = NULL;
 
-		memset(&udtSI, 0, sizeof(udtSI));
+		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESHOWWINDOW;
 		udtSI.wShowWindow = SW_HIDE;
-		memset(&udtPI, 0, sizeof(udtPI));
+		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI, &udtPI))
 		{
