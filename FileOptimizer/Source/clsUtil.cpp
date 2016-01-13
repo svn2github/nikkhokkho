@@ -73,7 +73,7 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, int piType)
 {
-	int iButton = IDOK;
+	int iButton = NULL;
 	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {0};
 	HMODULE hDLL;
 	typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
@@ -154,23 +154,22 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 			if (_tcslen(pacText) < 256)
 			{
 				udtFlags.pszMainInstruction = (TCHAR *) pacText;
-				//(*TaskDialogProc)(phWnd, NULL, acTitle, acText, L"", udtFlags, (wchar_t *) pcIcon, &iButton);
 			}
 			else
 			{
 				udtFlags.pszMainInstruction = (TCHAR *) pacTitle;
 				udtFlags.pszContent = (TCHAR *) pacText;
-				//(*TaskDialogProc)(phWnd, NULL, acTitle, acTitle, acText, udtFlags, (wchar_t *) pcIcon, &iButton);
 			}
 			(*TaskDialogProc)(&udtFlags, &iButton, NULL, NULL);
 		}
 		FreeLibrary(hDLL);
-		return (iButton);
 	}
-	else
+	//Fallback when library not loaded or TaskDialogIndirect not exists
+	if (iButton == NULL)
 	{
-		return (MessageBox(phWnd, pacText, pacTitle, piType));
+		iButton = MessageBox(phWnd, pacText, pacTitle, piType);
 	}
+	return (iButton);
 }
 
 
@@ -1022,7 +1021,7 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 // ---------------------------------------------------------------------------
 unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 {
-	static unsigned int iWindowsVersion = 0;
+	static unsigned int iWindowsVersion = NULL;
 	RTL_OSVERSIONINFOW udtRtlVersionInfo;
 	HMODULE hDLL;
 	typedef NTSTATUS (WINAPI RtlGetVersionType)(RTL_OSVERSIONINFOW *pudtRtlVersionInfo);
@@ -1030,21 +1029,22 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 
 
 	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
-	if (iWindowsVersion == 0)
+	if (iWindowsVersion == NULL)
 	{
-		if ((hDLL = LoadLibrary(_T("NTDLL"))))
+		if ((hDLL = LoadLibrary(_T("NTDLL.DLL"))))
 		{
 			if ((RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion")))
 			{
 				RtlGetVersionProc(&udtRtlVersionInfo);
 				iWindowsVersion = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
 			}
-			else
-			{
-				iWindowsVersion = GetVersion();
-    			iWindowsVersion = (LOBYTE(LOWORD(iWindowsVersion))) * 100 + (HIBYTE(LOWORD(iWindowsVersion)));
-			}
 			FreeLibrary(hDLL);
+		}
+		//Fallback when library not loaded or RtlGetVersion not exists
+		if (iWindowsVersion == NULL)
+		{
+			iWindowsVersion = GetVersion();
+			iWindowsVersion = (LOBYTE(LOWORD(iWindowsVersion))) * 100 + (HIBYTE(LOWORD(iWindowsVersion)));
 		}
 	}
 	return(iWindowsVersion);
