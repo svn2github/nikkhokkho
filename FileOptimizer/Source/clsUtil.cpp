@@ -74,7 +74,7 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, int piType)
 {
 	int iButton = NULL;
-	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {0};
+	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {};
 	HMODULE hDLL;
 	typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
 	TaskDialogType *TaskDialogProc;
