@@ -48,7 +48,8 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		SetMinimumBlockAlignment(mba16Byte);
 
         // Disable file system redirection on Win64 environments
-		if ((hDLL = LoadLibrary(_T("KERNEL32.DLL"))))
+        hDLL = LoadLibrary(_T("KERNEL32.DLL"));
+		if (hLL)
 		{
 			Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hDLL, "Wow64DisableWow64FsRedirection");
 			if (Wow64DisableWow64FsRedirectionProc)
@@ -60,7 +61,8 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		}
 
 		// Enable drag and drop between non-elevated processes and elevated ones in Vista and later
-		if ((hDLL = LoadLibrary(_T("USER32.DLL"))))
+		hDLL = LoadLibrary(_T("USER32.DLL"));
+		if (hDLL)
 		{
 			ChangeWindowMessageFilterProc = (ChangeWindowMessageFilterType *) GetProcAddress(hDLL, "ChangeWindowMessageFilter");
 			if (ChangeWindowMessageFilterProc)

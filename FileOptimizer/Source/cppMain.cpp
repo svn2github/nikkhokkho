@@ -173,6 +173,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	HANDLE hFindFile;
 	WIN32_FIND_DATA udtFindFileData;
 	TCHAR acPluginsDirectory[MAX_PATH];
+	
 
 	if (!gbStop)
 	{
@@ -359,6 +360,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 void __fastcall TfrmMain::grdFilesMouseMove(TObject *Sender, TShiftState Shift, int X, int Y)
 {
 	int iRow, iCol;
+	
 
 	grdFiles->MouseToCell(X, Y, iCol, iRow);
 	if ((iRow >= 0) && (iCol >=0))
@@ -438,7 +440,6 @@ void __fastcall TfrmMain::OptimizeProgressThread(struct udtOptimizeProgress pudt
 	//http://docwiki.embarcadero.com/RADStudio/Seattle/en/Using_the_Main_VCL_Thread
 	//TThread::Synchronize((TThreadMethod) OptimizeProgressVCL);
 	//Use a timer to refresh?
-
 
 	LeaveCriticalSection(&mudtCriticalSection);
 }
@@ -1914,6 +1915,7 @@ String __fastcall TfrmMain::GetFilename (String psFilename)
 String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 {
 	String sRes;
+	
 
 	sRes = FormatFloat("###,###,###,###,###,###,###", plNumber);
 	if (sRes == "")
@@ -2058,6 +2060,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 String __fastcall TfrmMain::GetShortName(String psLongName)
 {
 	TCHAR acShortFile[MAX_PATH];
+
 
 	GetShortPathName(psLongName.c_str(), acShortFile, sizeof(acShortFile));
 	return ((String) acShortFile);
@@ -2364,6 +2367,7 @@ String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
 	TStringDynArray asValue;
+
 
 	asValue = SplitString(psValue, "\n");
 	if ((unsigned int) asValue.Length > piPos)

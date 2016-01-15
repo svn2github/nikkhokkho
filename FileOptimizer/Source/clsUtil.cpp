@@ -77,12 +77,13 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {};
 	HMODULE hDLL;
 	typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
-	TaskDialogType *TaskDialogProc;
 
 
-	if ((hDLL = LoadLibrary(_T("COMCTL32.DLL"))))
+	hDLL = LoadLibrary(_T("COMCTL32.DLL"));
+	if (hDLL)
 	{
-		if ((TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect")))
+		TaskDialogType *TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect");
+		if (TaskDialogProc)
 		{
 			//memset(&udtFlags, 0, sizeof(udtFlags));
 			udtFlags.cbSize = sizeof(udtFlags);
@@ -499,6 +500,7 @@ bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigne
 bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestination)
 {
 	bool bRes;
+
 	
 	//Try copying file with faster no buffering only available in Windows XP
 	bRes = CopyFileEx(pacSource, pacDestination, NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
@@ -855,6 +857,7 @@ unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSi
 int __fastcall clsUtil::Random(int piMin, int piMax)
 {
 	static int iSeed = clock();
+	
 
 	iSeed = 36969 * (iSeed & 32767) + (iSeed >> 16);
 	return((iSeed % (piMax - piMin)) + piMin);
@@ -899,6 +902,7 @@ void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *p
 	TCHAR acPath[MAX_PATH];
 	FILE *pLog;
 	TCHAR acLevel[][32] = { _T("CRITICAL"), _T("ERROR"), _T("WARNING"), _T("INFORMATION"), _T("NONE") };
+	
 
 	if ((piDesiredLevel) > piLevel)
 	{
@@ -1031,9 +1035,11 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
 	if (iWindowsVersion == NULL)
 	{
-		if ((hDLL = LoadLibrary(_T("NTDLL.DLL"))))
+		hDLL = LoadLibrary(_T("NTDLL.DLL"));
+		if (hDLL)
 		{
-			if ((RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion")))
+			RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion");
+			if (RtlGetVersionProc)
 			{
 				RtlGetVersionProc(&udtRtlVersionInfo);
 				iWindowsVersion = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
