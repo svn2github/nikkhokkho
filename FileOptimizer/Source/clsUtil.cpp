@@ -76,12 +76,12 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 	int iButton = NULL;
 	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {};
 	HMODULE hDLL;
-	typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
 
 
 	hDLL = LoadLibrary(_T("COMCTL32.DLL"));
 	if (hDLL)
 	{
+		typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
 		TaskDialogType *TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect");
 		if (TaskDialogProc)
 		{
@@ -1026,11 +1026,8 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 {
 	static unsigned int iWindowsVersion = NULL;
-	RTL_OSVERSIONINFOW udtRtlVersionInfo;
 	HMODULE hDLL;
-	typedef NTSTATUS (WINAPI RtlGetVersionType)(RTL_OSVERSIONINFOW *pudtRtlVersionInfo);
-	RtlGetVersionType *RtlGetVersionProc;
-
+	
 
 	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
 	if (iWindowsVersion == NULL)
@@ -1038,9 +1035,11 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 		hDLL = LoadLibrary(_T("NTDLL.DLL"));
 		if (hDLL)
 		{
-			RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion");
+			typedef NTSTATUS (WINAPI RtlGetVersionType)(RTL_OSVERSIONINFOW *pudtRtlVersionInfo);
+			RtlGetVersionType *RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion");
 			if (RtlGetVersionProc)
 			{
+				RTL_OSVERSIONINFOW udtRtlVersionInfo;
 				RtlGetVersionProc(&udtRtlVersionInfo);
 				iWindowsVersion = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
 			}

@@ -26,10 +26,6 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 {
 	HANDLE hMutex = NULL;
 	HMODULE hDLL;
-	typedef BOOL (WINAPI Wow64DisableWow64FsRedirectionType)(PVOID *);
-	Wow64DisableWow64FsRedirectionType *Wow64DisableWow64FsRedirectionProc;
-	typedef BOOL (WINAPI ChangeWindowMessageFilterType)(UINT, DWORD);
-	ChangeWindowMessageFilterType *ChangeWindowMessageFilterProc;
 
 
 	try
@@ -51,7 +47,8 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
         hDLL = LoadLibrary(_T("KERNEL32.DLL"));
 		if (hLL)
 		{
-			Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hDLL, "Wow64DisableWow64FsRedirection");
+			typedef BOOL (WINAPI Wow64DisableWow64FsRedirectionType)(PVOID *);
+			Wow64DisableWow64FsRedirectionType *Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hDLL, "Wow64DisableWow64FsRedirection");
 			if (Wow64DisableWow64FsRedirectionProc)
 			{
 				PVOID pOldWin64Redirect;
@@ -64,7 +61,8 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		hDLL = LoadLibrary(_T("USER32.DLL"));
 		if (hDLL)
 		{
-			ChangeWindowMessageFilterProc = (ChangeWindowMessageFilterType *) GetProcAddress(hDLL, "ChangeWindowMessageFilter");
+			typedef BOOL (WINAPI ChangeWindowMessageFilterType)(UINT, DWORD);
+			ChangeWindowMessageFilterType *ChangeWindowMessageFilterProc = (ChangeWindowMessageFilterType *) GetProcAddress(hDLL, "ChangeWindowMessageFilter");
 			if (ChangeWindowMessageFilterProc)
 			{
 				ChangeWindowMessageFilterProc(WM_DROPFILES, MSGFLT_ADD);
