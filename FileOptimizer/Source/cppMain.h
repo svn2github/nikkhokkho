@@ -1,7 +1,5 @@
 // ---------------------------------------------------------------------------
-#ifndef cppMainH
-#define cppMainH
-// ---------------------------------------------------------------------------
+#pragma once
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
@@ -232,4 +230,3 @@ public: // User declarations
 // ---------------------------------------------------------------------------
 extern PACKAGE TfrmMain *frmMain;
 // ---------------------------------------------------------------------------
-#endif

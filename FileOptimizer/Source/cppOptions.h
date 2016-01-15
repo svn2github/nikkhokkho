@@ -1,7 +1,5 @@
 //---------------------------------------------------------------------------
-#ifndef cppOptionsH
-#define cppOptionsH
-//---------------------------------------------------------------------------
+#pragma once
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
@@ -83,4 +81,3 @@ public: // User declarations
 //---------------------------------------------------------------------------
 extern PACKAGE TfrmOptions *frmOptions;
 //---------------------------------------------------------------------------
-#endif

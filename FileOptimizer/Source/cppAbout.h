@@ -1,7 +1,5 @@
 //---------------------------------------------------------------------------
-#ifndef cppAboutH
-#define cppAboutH
-//---------------------------------------------------------------------------
+#pragma once
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
@@ -31,4 +29,3 @@ public:		// User declarations
 //---------------------------------------------------------------------------
 extern PACKAGE TfrmAbout *frmAbout;
 //---------------------------------------------------------------------------
-#endif
