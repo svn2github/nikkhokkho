@@ -171,10 +171,12 @@ XXXXX - YYYYYYY
 - Cleanedup JPEG options page glitches (d4k0).
 - Delay load shcore.dll to avoid a C++ Builder bug on WINE (trlkly).
 - Make child windows show always on top, even if main window uses AlwaysOnTop=false (hairycactus).
+- Make FileOptimizer a true lossless tool by default by setting PDF Profile to none by default (RejZoR).
 - Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
 - Added ECT 0.2 x86 and x64 builds (thanks Felix Hanau).
 - Updated TruePNG to 0.6.1.9.
 - Revert to Ghostcript 9.15 since Ghostcript 9.18 crashes, and 9.16 has worse compression ratios (hairycactus).
+- Updated to NSIS 3.0 beta 3.
 - Updated to cppcheck 1.72.
 - Some minor optimizations and code cleanup.
 

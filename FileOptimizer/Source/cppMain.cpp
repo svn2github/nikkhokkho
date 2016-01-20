@@ -50,7 +50,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bMiscCopyMetadata = clsUtil::GetIni(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = clsUtil::GetIni(_T("Options"), _T("MP3CopyMetadata"), false);
 	gudtOptions.bPCXCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PCXCopyMetadata"), false);
-	_tcscpy(gudtOptions.acPDFProfile, clsUtil::GetIni(_T("Options"), _T("PDFProfile"), _T("ebook")));
+	_tcscpy(gudtOptions.acPDFProfile, clsUtil::GetIni(_T("Options"), _T("PDFProfile"), _T("none")));
 	gudtOptions.iPDFCustomDPI = clsUtil::GetIni(_T("Options"), _T("PDFCustomDPI"), 150);
 	gudtOptions.bPNGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PNGCopyMetadata"), false);
 	gudtOptions.bPNGAllowLossy = clsUtil::GetIni(_T("Options"), _T("PNGAllowLossy"), false);

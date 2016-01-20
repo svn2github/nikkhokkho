@@ -127,13 +127,13 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkLUAEnableLeanify->Checked = gudtOptions.bLUAEnableLeanify;
 	chkMP3CopyMetadata->Checked = gudtOptions.bMP3CopyMetadata;
 
-	if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
-	{
-		cboPDFProfile->ItemIndex = 0;
-	}
-	else if (_tcscmp(gudtOptions.acPDFProfile, _T("screen")) == 0)
+	if (_tcscmp(gudtOptions.acPDFProfile, _T("screen")) == 0)
 	{
 		cboPDFProfile->ItemIndex = 1;
+	}
+	else if (_tcscmp(gudtOptions.acPDFProfile, _T("ebook")) == 0)
+	{
+		cboPDFProfile->ItemIndex = 2;
 	}
 	else if (_tcscmp(gudtOptions.acPDFProfile, _T("printer")) == 0)
 	{
@@ -147,9 +147,10 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboPDFProfile->ItemIndex = 5;
 	}
-	else //ebook
+	//if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
+	else
 	{
-		cboPDFProfile->ItemIndex = 2;
+		cboPDFProfile->ItemIndex = 0;
 	}
 	
 	spnPDFCustomDPI->Value = gudtOptions.iPDFCustomDPI;
