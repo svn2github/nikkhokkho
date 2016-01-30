@@ -169,8 +169,6 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 {
-	bool bRunning;
-	HANDLE hFindFile;
 	WIN32_FIND_DATA udtFindFileData;
 	TCHAR acPluginsDirectory[MAX_PATH];
 	
@@ -185,8 +183,8 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 			_tcscat(acPluginsDirectory, _T("\\Plugins32\\"));
 		#endif
 
-		bRunning = false;
-		hFindFile = FindFirstFile((((String) acPluginsDirectory) + "*.exe").c_str(), &udtFindFileData);
+		bool bRunning = false;
+		HANDLE hFindFile = FindFirstFile((((String) acPluginsDirectory) + "*.exe").c_str(), &udtFindFileData);
 		do
 		{
 			if (clsUtil::FindProcess(udtFindFileData.cFileName))
@@ -289,15 +287,12 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int ARow)
 {
-	static int iSortField = -1;
-	static unsigned int iSortOrder = 0;
-	unsigned int iRow;
-	unsigned int iRows;
-
-
-	iRows = (unsigned int) grdFiles->RowCount;
+	unsigned int iRows = (unsigned int) grdFiles->RowCount;
 	if (iRows > 1)
 	{
+		static int iSortField = -1;
+		static unsigned int iSortOrder = 0;
+		
 		Screen->Cursor = crAppStart;
 		Application->ProcessMessages();
 
@@ -313,7 +308,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 
 		TStringList *lstTemp = new TStringList();
 		String sValue;
-		for (iRow = 1; iRow < iRows; iRow++)
+		for (unsigned int iRow = 1; iRow < iRows; iRow++)
 		{
 			if ((iSortField == KI_GRID_ORIGINAL) || (iSortField == KI_GRID_OPTIMIZED))
 			{
@@ -330,7 +325,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		lstTemp->Sort();
 
 		TStringDynArray asValue;
-		for (iRow = 1; iRow < iRows; iRow++)
+		for (unsigned int iRow = 1; iRow < iRows; iRow++)
 		{
 			if (iSortOrder == 0)
 			{
@@ -374,11 +369,8 @@ void __fastcall TfrmMain::grdFilesMouseMove(TObject *Sender, TShiftState Shift, 
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesDblClick(TObject *Sender)
 {
-	unsigned int iRow, iCol;
-
-
-	iRow = (unsigned int) grdFiles->Row;
-	iCol = (unsigned int) grdFiles->Col;
+	unsigned int iRow = (unsigned int) grdFiles->Row;
+	unsigned int iCol = (unsigned int) grdFiles->Col;
 	if ((iRow > 0) && (iCol == KI_GRID_FILE))
 	{
 		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
@@ -476,8 +468,7 @@ void __fastcall TfrmMain::OptimizeProgressVCL(void)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 {
-	unsigned int iCount, iRows;
-	unsigned int iPercentBytes;
+	unsigned int iCount;
 	TCHAR acTmpFile[MAX_PATH];
 
 
@@ -496,7 +487,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 	lSavedBytes = 0;
 	lTotalBytes = 0;
-	iRows = (unsigned int) grdFiles->RowCount;
+	unsigned int iRows = (unsigned int) grdFiles->RowCount;
 
 
 	InitializeCriticalSection(&mudtCriticalSection);
@@ -524,6 +515,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 
 	gbProcess = false;
 	//grdFiles->Enabled = true;
+	unsigned int iPercentBytes;
 	if (lTotalBytes != 0)
 	{
 		//iPercentBytes = ((unsigned long long) lTotalBytes - lSavedBytes) * 100 / lTotalBytes;
@@ -562,9 +554,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeForThread(TObject *Sender, int AIndex,
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 {
-	int iLevel;
-	unsigned int iFileAttributes;
-	unsigned int iPercentBytes;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags, sExtensionByContent;
 
@@ -616,6 +605,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			clsUtil::CopyToRecycleBin(sInputFile.c_str());
 		}
 
+		unsigned int iFileAttributes;
 		if (gudtOptions.bKeepAttributes)
 		{
 			//If get timestamp fails, set to null
@@ -632,6 +622,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		}
 		SetFileAttributes(sInputFile.c_str(), FILE_ATTRIBUTE_NORMAL);
 
+
+		int iLevel;
 		//Each extension can correspond to more than one engine, so use if instead of else if
 		// BMP: ImageMagick, ImageWorsener
 		if (PosEx(sExtensionByContent, KS_EXTENSION_BMP) > 0)
@@ -1276,7 +1268,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 	}
 	else
 	{
-		iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
+		unsigned int iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 	}
 	RefreshStatus(true, (unsigned int) iCount, lTotalBytes, lSavedBytes);
@@ -1301,9 +1293,6 @@ void __fastcall TfrmMain::mnuFilesStopClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::mnuFilesAddClick(TObject *Sender)
 {
-	int iCount;
-
-
 	//Add files
 	if (dlgAddFiles->Execute())
 	{
@@ -1311,7 +1300,7 @@ void __fastcall TfrmMain::mnuFilesAddClick(TObject *Sender)
 		Application->ProcessMessages();
 
 		TStrings *strFiles = dlgAddFiles->Files;
-		for (iCount = strFiles->Count; iCount > 0; iCount--)
+		for (int iCount = strFiles->Count; iCount > 0; iCount--)
 		{
 			AddFiles(strFiles->Strings[iCount - 1].c_str());
 		}
@@ -1333,15 +1322,11 @@ void __fastcall TfrmMain::mnuFilesClearClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
 {
-	int iRow, iRows;
-	int iSelectedRow1, iSelectedRow2;
+	int iSelectedRow1 = grdFiles->Selection.Top;
+	int iSelectedRow2 = grdFiles->Selection.Bottom;
 
-
-	iSelectedRow1 = grdFiles->Selection.Top;
-	iSelectedRow2 = grdFiles->Selection.Bottom;
-
-	iRows = grdFiles->RowCount - 1;
-	for (iRow = iSelectedRow1; iRow < iRows; iRow++)
+	int iRows = grdFiles->RowCount - 1;
+	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
 	{
 		grdFiles->Rows[iRow]->BeginUpdate();
 		grdFiles->Rows[iRow] = grdFiles->Rows[iRow + (iSelectedRow2 - iSelectedRow1 + 1)];
@@ -1427,9 +1412,6 @@ void __fastcall TfrmMain::mnuFilesExitClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 {
-	unsigned int iCount;
-
-
 	if (tmrMain->Interval >= 30000)
 	{
 		tmrMain->Enabled = false;
@@ -1450,7 +1432,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		{
 			Screen->Cursor = crAppStart;
 			Application->ProcessMessages();
-			for (iCount = 1; iCount < (unsigned int) _argc; iCount++)
+			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
 			{
 				AddFiles(_targv[iCount]);
 			}
@@ -1476,20 +1458,18 @@ void __fastcall TfrmMain::lblCopyrightClick(TObject *Sender)
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 {
-	unsigned int iCount, iFiles;
-	HDROP hDrop;
 	TCHAR acBuffer[MAX_PATH];
 
 
-	hDrop = (HDROP) udtMessage.Drop;
+	HDROP hDrop = (HDROP) udtMessage.Drop;
 	if (hDrop)
 	{
-		iFiles = DragQueryFile(hDrop, -1, NULL, NULL);
+		unsigned int iFiles = DragQueryFile(hDrop, -1, NULL, NULL);
 		if (iFiles > 0)
 		{
 			Screen->Cursor = crAppStart;
 			Application->ProcessMessages();
-			for (iCount = 0; iCount < iFiles; iCount++)
+			for (unsigned int iCount = 0; iCount < iFiles; iCount++)
 			{
 				if (DragQueryFile(hDrop, iCount, acBuffer, sizeof(acBuffer)))
 				{
@@ -1508,10 +1488,7 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 {
-	unsigned int iRow, iRows;
-	unsigned long long lSize;
 	String sExtension, sExtensionByContent;
-	HANDLE hFindFile;
 	WIN32_FIND_DATA udtFindFileData;
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
 
@@ -1521,7 +1498,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		if (udtFileAttribute.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
 			Application->ProcessMessages();
-			hFindFile = FindFirstFile((((String) pacFile) + "\\*.*").c_str(), &udtFindFileData);
+			HANDLE hFindFile = FindFirstFile((((String) pacFile) + "\\*.*").c_str(), &udtFindFileData);
 			do
 			{
 				if ((_tcscmp(udtFindFileData.cFileName, _T(".")) != 0) &&
@@ -1535,16 +1512,16 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		}
 		else
 		{
-			iRows = (unsigned int) grdFiles->RowCount;
+			unsigned int iRows = (unsigned int) grdFiles->RowCount;
 			//Check if already added
-			for (iRow = 1; iRow < iRows; iRow++)
+			for (unsigned int iRow = 1; iRow < iRows; iRow++)
 			{
 				if (GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1) == pacFile)
 				{
 					return;
 				}
 			}
-			lSize = clsUtil::SizeFile(pacFile);
+			unsigned long long lSize = clsUtil::SizeFile(pacFile);
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
 			{
@@ -1573,9 +1550,6 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 // ---------------------------------------------------------------------------
 int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin, int piErrorMax)
 {
-	int iError;
-	unsigned int iRandom;
-	unsigned long long lSize, lSizeNew;
 	String sInputFile, sOutputFile, sTmpInputFile, sTmpOutputFile, sCommandLine;
 	TCHAR acTmp[MAX_PATH];
 	TCHAR acTempPath[MAX_PATH] = _T("");
@@ -1603,7 +1577,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	sCommandLine = psCommandLine;
 	
 	//Avoid temporary name collisions across different instances
-	iRandom = (unsigned int) clsUtil::Random(0, 9999);
+	unsigned int iRandom = (unsigned int) clsUtil::Random(0, 9999);
 	
 	//Use specified option temp directory if exists
 	if (gudtOptions.acTempDirectory[0] != NULL)
@@ -1633,7 +1607,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	DeleteFile(sTmpOutputFile.c_str());
 	
 	grdFiles->Cells[KI_GRID_STATUS][(int) piCurrent] = "Running " + psStatus + "...";
-	lSize = clsUtil::SizeFile(sInputFile.c_str());
+	unsigned long long lSize = clsUtil::SizeFile(sInputFile.c_str());
 	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
 
 	Application->ProcessMessages();
@@ -1657,12 +1631,13 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	//sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
 	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%TMPOUTPUTFILE%"), sTmpOutputFile.c_str());
 
-	iError = (int) RunProcess(sCommandLine.c_str(), psDirectory.c_str(), NULL, 0, true);
+	int iError = (int) RunProcess(sCommandLine.c_str(), psDirectory.c_str(), NULL, 0, true);
 	Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
 
 	//Check exit errorlevel
 	if ((iError >= piErrorMin) && (iError <= piErrorMax))
 	{
+		unsigned long long lSizeNew;
 		//We did get a TMP output file, so if smaller, make it overwrite input file
 		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
@@ -1699,8 +1674,6 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 {
-	unsigned int iBuffer;
-	size_t iBufferLen;
 	TCHAR acPath[MAX_PATH];
 	TCHAR acBuffer[512] = {0};
 
@@ -1711,8 +1684,8 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		mbstowcs(acBuffer, (char *) acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
 		
 		//Check we only got number and punctuation digits to detect router errors returning HTML
-		iBufferLen = _tcslen(acBuffer);
-		for (iBuffer = 0; iBuffer < iBufferLen; iBuffer++)
+		size_t iBufferLen = _tcslen(acBuffer);
+		for (unsigned int iBuffer = 0; iBuffer < iBufferLen; iBuffer++)
 		{
 			if ((!_istdigit(acBuffer[iBuffer])) && (!_istpunct(acBuffer[iBuffer])))
 			{
@@ -1750,7 +1723,6 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 {
 	String sRes;
 	unsigned char acBuffer[512];
-	unsigned int iSize;
 
 
 	sRes = GetExtension(psFilename);
@@ -1758,7 +1730,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	//If file extension is not known, get it by analyzing file contents
 	if (PosEx(sRes, KS_EXTENSION_ALL) <= 0)
 	{
-		iSize = sizeof(acBuffer);
+		unsigned int iSize = sizeof(acBuffer);
 		if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))
 		{
 			//ToDo: Optimize to use regular comparisons instead of memcmp for short comparisons.
@@ -1931,16 +1903,14 @@ String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
 	//return (StrToIntDef(clsUtil::ReplaceString(psNumber.c_str(), FormatSettings.ThousandSeparator.c_str(), _T("")), 0));
-	unsigned int iCount, iResPos;
-	size_t iNumberLen;
 	TCHAR *acNumber, acRes[64];
 
 
 	acNumber = psNumber.c_str();
-	iNumberLen = _tcslen(acNumber);
+	size_t iNumberLen = _tcslen(acNumber);
 
-	iResPos = 0;
-	for (iCount = 0; iCount < iNumberLen; iCount++)
+	unsigned int iResPos = 0;
+	for (unsigned int iCount = 0; iCount < iNumberLen; iCount++)
 	{
 		//If it is a digit, we add it to the result
 		if (_istdigit(acNumber[iCount]))
@@ -2072,8 +2042,6 @@ String __fastcall TfrmMain::GetShortName(String psLongName)
 bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 {
 	#pragma pack(push, 1)
-	bool bRes;
-	unsigned int iSize, iPos;
 	unsigned char *acBuffer;
 	struct
 	{
@@ -2087,15 +2055,15 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 	#pragma pack(pop)
 
 
-	bRes = false;
-	iSize = (unsigned int) clsUtil::SizeFile(pacFile);
+	bool bRes = false;
+	unsigned int iSize = (unsigned int) clsUtil::SizeFile(pacFile);
 	if (iSize > 0)
 	{
 		acBuffer = new unsigned char[iSize];
 		if (acBuffer)
 		{
 			clsUtil::ReadFile(pacFile, acBuffer, &iSize);
-			iPos = 0;
+			unsigned int iPos = 0;
 			memcpy(&udtPNGHeader, &acBuffer[iPos], sizeof(udtPNGHeader));
 			iPos += sizeof(udtPNGHeader);
 			if (memcmp(udtPNGHeader.acSignature, "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", sizeof(udtPNGHeader.acSignature)) == 0)
@@ -2127,13 +2095,11 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall TfrmMain::IsSFX(const TCHAR *pacFile)
 {
-	bool bRes;
-	unsigned int iSize;
+	bool bRes = false;
 	unsigned char *acBuffer;
 
 	
-	bRes = false;
-	iSize = 256 * 1024;
+	unsigned int iSize = 256 * 1024;
 	acBuffer = new unsigned char[iSize];
 	if (acBuffer)
 	{
@@ -2267,9 +2233,6 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piCurrent, unsigned long long plTotalBytes, unsigned long long plSavedBytes)
 {
-	unsigned int iPercentBytes;
-
-
 	//Prevent flickering
 	//LockWindowUpdate(Handle);
 
@@ -2278,6 +2241,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 
 	if (gbProcess)
 	{
+		unsigned int iPercentBytes;
 		if (plTotalBytes != 0)
 		{
 			//iPercentBytes = ((unsigned long long) piTotalBytes - piSavedBytes) * 100 / piTotalBytes;
@@ -2478,7 +2442,6 @@ void __fastcall TfrmMain::actAboutExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 {
-	unsigned int iExtension, iExtensionLen;
 	String sExtension;
 	String sText = "";
 
@@ -2486,11 +2449,11 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	//Get all supported extensions
 	TStringDynArray asExtension;
 	asExtension = SplitString(KS_EXTENSION_ALL.UpperCase(), " ");
-	iExtensionLen = (unsigned int) asExtension.Length;
+	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
 
 	//Sort them alphabetically
 	TStringList *lstTemp = new TStringList();
-	for (iExtension = 0; iExtension < iExtensionLen; iExtension++)
+	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
 		sExtension = asExtension[iExtension];
 		//Dont push it if empty extension
@@ -2502,7 +2465,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	lstTemp->Sort();
 
 	iExtensionLen = (unsigned int) lstTemp->Count;
-	for (iExtension = 0; iExtension < iExtensionLen; iExtension++)
+	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
 		sExtension = lstTemp->Strings[(int) iExtension];
 		//Check if we already have it

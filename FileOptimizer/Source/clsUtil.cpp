@@ -75,10 +75,9 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 {
 	int iButton = NULL;
 	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {};
-	HMODULE hDLL;
 
 
-	hDLL = LoadLibrary(_T("COMCTL32.DLL"));
+	HMODULE hDLL = LoadLibrary(_T("COMCTL32.DLL"));
 	if (hDLL)
 	{
 		typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
@@ -179,16 +178,13 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 HANDLE __fastcall clsUtil::FindProcess(const TCHAR *pacProcess)
 {
 	PROCESSENTRY32 udtEntry;
-	HANDLE hSnapshot;
-	HANDLE hProcess;
-	bool bRes;
 
 
-	hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
+	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
 
 	udtEntry.dwSize = sizeof(PROCESSENTRY32);
-	bRes = Process32First(hSnapshot, &udtEntry);
-	hProcess = NULL;
+	bool bRes = Process32First(hSnapshot, &udtEntry);
+	HANDLE hProcess = NULL;
 	while (bRes)
 	{
 		if (_tcsicmp(udtEntry.szExeFile, pacProcess) == 0)
@@ -299,10 +295,7 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::ExistsFile(const TCHAR *pacFile)
 {
-	unsigned int iAttributes;
-
-
-	iAttributes = GetFileAttributes(pacFile);
+	unsigned int iAttributes = GetFileAttributes(pacFile);
 	return (iAttributes != INVALID_FILE_ATTRIBUTES);
 }
 
@@ -328,13 +321,10 @@ unsigned long long __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
 bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned int *piSize)
 {
 	unsigned long lSize;
-	HANDLE hFile;
-	HANDLE hMapping;
 	bool bRes = false;
-	void *pacBuffer;
 
 
-	hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+	HANDLE hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		lSize = GetFileSize(hFile, NULL);
@@ -345,10 +335,10 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 		if (lSize > 0)
 		{
 			// Use file mapped IO
-			hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, lSize, NULL);
+			HANDLE hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, lSize, NULL);
 			if (hMapping != INVALID_HANDLE_VALUE)
 			{
-				pacBuffer = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, lSize);
+				void *pacBuffer = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, lSize);
 				if (pacBuffer != NULL)
 				{
 					memcpy(pvData, pacBuffer, lSize);
@@ -374,20 +364,17 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, unsigned int piSize)
 {
 	unsigned long lSize;
-	HANDLE hFile;
-	HANDLE hMapping;
 	bool bRes = false;
-	void *pacBuffer;
 
 
-	hFile = CreateFile(pacFile, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_FLAG_WRITE_THROUGH, NULL);
+	HANDLE hFile = CreateFile(pacFile, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_FLAG_WRITE_THROUGH, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		// Use file mapped IO
-		hMapping = CreateFileMapping(hFile, NULL, PAGE_READWRITE, 0, piSize, NULL);
+		HANDLE hMapping = CreateFileMapping(hFile, NULL, PAGE_READWRITE, 0, piSize, NULL);
 		if (hMapping != INVALID_HANDLE_VALUE)
 		{
-			pacBuffer = MapViewOfFile(hMapping, FILE_MAP_WRITE, 0, 0, piSize);
+				void *pacBuffer = MapViewOfFile(hMapping, FILE_MAP_WRITE, 0, 0, piSize);
 			if (pacBuffer != NULL)
 			{
 				memcpy(pacBuffer, pvData, piSize);
@@ -410,11 +397,10 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, uns
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCreated, FILETIME *pudtAccessed, FILETIME *pudtModified)
 {
-	HANDLE hFile;
 	bool bRes = false;
 
 
-	hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		bRes = GetFileTime(hFile, pudtCreated, pudtAccessed, pudtModified);
@@ -428,11 +414,10 @@ bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, const FILETIME *pudtCreated, const FILETIME *pudtAccessed, const FILETIME *pudtModified)
 {
-	HANDLE hFile;
 	bool bRes = false;
 
 
-	hFile = CreateFile(pacFile, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(pacFile, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		bRes = SetFileTime(hFile, pudtCreated, pudtAccessed, pudtModified);
@@ -447,14 +432,13 @@ bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, const FILETIME *
 bool __fastcall clsUtil::DirectoryCreate(String psDirectory)
 {
 	bool bRes = false;
-	unsigned int iCount, iDirectoryLen;
 	TCHAR *acDirectory;
 
 
 	acDirectory = psDirectory.c_str();
-	iDirectoryLen = (unsigned int) _tcslen(acDirectory);
+	unsigned int iDirectoryLen = (unsigned int) _tcslen(acDirectory);
 
-	for (iCount = 0; iCount < iDirectoryLen; iCount++)
+	for (unsigned int iCount = 0; iCount < iDirectoryLen; iCount++)
 	{
 		//If found a backslash we try to create that component (it should end with backslash
 		if (acDirectory[iCount] == '\\')
@@ -473,24 +457,25 @@ bool __fastcall clsUtil::DirectoryCreate(String psDirectory)
 bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigned int piSize)
 {
 	bool bRes = false;
-	HINTERNET hInternet, hHttp;
-	unsigned long lRead;
 
 
 	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
 	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
-	if ((hInternet = (InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL))) != NULL)
+	HINTERNET hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
+	if (hInternet != NULL)
 	{
-		if ((hHttp = (InternetOpenUrl(hInternet, pacUrl, NULL, 0, INTERNET_FLAG_EXISTING_CONNECT | INTERNET_FLAG_HYPERLINK, NULL))) != NULL)
+		HINTERNET hHttp = InternetOpenUrl(hInternet, pacUrl, NULL, 0, INTERNET_FLAG_EXISTING_CONNECT | INTERNET_FLAG_HYPERLINK, NULL);
+		if (hHttp != NULL)
 		{
 			memset(pvData, 0, piSize);
+			unsigned long lRead;
 			if (InternetReadFile(hHttp, pvData, piSize, &lRead))
 			{
 				bRes = true;
 			}
 		}
+		InternetCloseHandle(hHttp);
 	}
-	InternetCloseHandle(hHttp);
 	InternetCloseHandle(hInternet);
 	return (bRes);
 }
@@ -613,7 +598,6 @@ const TCHAR * __fastcall clsUtil::GetIniPath(void)
 {
 	TCHAR acTmp[2048];
 	static TCHAR acPath[MAX_PATH] = _T("");
-	HANDLE hFile;
 
 
 	// Check if we already have it cached
@@ -623,7 +607,7 @@ const TCHAR * __fastcall clsUtil::GetIniPath(void)
 		*_tcsrchr(acTmp, '.') = NULL;
 		_tcscat(acTmp, _T(".ini"));
 		// Check if we can write to that location
-		hFile = CreateFile(acTmp, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		HANDLE hFile = CreateFile(acTmp, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		if (hFile == INVALID_HANDLE_VALUE)
 		{
 			_stprintf(acPath, _T("%s\\%s"), _tgetenv(_T("USERPROFILE")), (Application->Name + ".ini").c_str());
@@ -811,13 +795,9 @@ void __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const T
 // ---------------------------------------------------------------------------
 unsigned int __fastcall clsUtil::Serialize (void *pacBuffer, unsigned int piSize)
 {
-	int iBuffer;
-	unsigned char iByte;
-
-
-	for (iBuffer = (int) piSize - 1; iBuffer >= 0; iBuffer--)
+	for (int iBuffer = (int) piSize - 1; iBuffer >= 0; iBuffer--)
 	{
-		iByte = ((unsigned char *) pacBuffer)[iBuffer];
+		unsigned char iByte = ((unsigned char *) pacBuffer)[iBuffer];
 		((unsigned char *) pacBuffer)[iBuffer << 1] = (iByte & 15) + '0';
 		((unsigned char *) pacBuffer)[(iBuffer << 1) + 1] = (iByte >> 4) + '0';
 	}
@@ -829,14 +809,10 @@ unsigned int __fastcall clsUtil::Serialize (void *pacBuffer, unsigned int piSize
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSize)
 {
-	unsigned int iBuffer;
-	unsigned char iNibbleL, iNibbleH;
-
-
-	for (iBuffer = 0; iBuffer < piSize; iBuffer+=2)
+	for (unsigned int iBuffer = 0; iBuffer < piSize; iBuffer+=2)
 	{
-		iNibbleL = ((unsigned char *) pacBuffer)[iBuffer] - '0';
-		iNibbleH = ((unsigned char *) pacBuffer)[iBuffer + 1] - '0';
+		unsigned char iNibbleL = ((unsigned char *) pacBuffer)[iBuffer] - '0';
+		unsigned char iNibbleH = ((unsigned char *) pacBuffer)[iBuffer + 1] - '0';
 
 		//Do a simple integrity check
 		if ((iNibbleL > 15) || (iNibbleH > 15))
@@ -870,7 +846,6 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 {
 	TCHAR acTmp[2048];
 	static TCHAR acPath[MAX_PATH] = _T("");
-	HANDLE hFile;
 
 
 	// Check if we already have it cached
@@ -880,7 +855,7 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 		*_tcsrchr(acTmp, '.') = NULL;
 		_tcscat(acTmp, _T(".log"));
 		// Check if we can write to that location
-		hFile = CreateFile(acTmp, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		HANDLE hFile = CreateFile(acTmp, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		if (hFile == INVALID_HANDLE_VALUE)
 		{
 			_stprintf(acPath, _T("%s\\%s"), _tgetenv(_T("USERPROFILE")), (Application->Name + ".log").c_str());
@@ -900,14 +875,13 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel)
 {
 	TCHAR acPath[MAX_PATH];
-	FILE *pLog;
 	TCHAR acLevel[][32] = { _T("CRITICAL"), _T("ERROR"), _T("WARNING"), _T("INFORMATION"), _T("NONE") };
 	
 
 	if ((piDesiredLevel) > piLevel)
 	{
 		_tcscpy(acPath, GetLogPath());
-		pLog = _tfopen(acPath, _T("at"));
+		FILE *pLog = _tfopen(acPath, _T("at"));
 		TDateTime dteDate = dteDate.CurrentDateTime();
 		_ftprintf(pLog, _T("[%s %s]	%s	%s	(%d)	%s()	%s\n"), dteDate.DateString().c_str(), dteDate.TimeString().c_str(), acLevel[piLevel], pacFile, piLine, pacFunc, pacValue);
 		fclose(pLog);
@@ -996,13 +970,12 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned int piTotal)
 {
 	ITaskbarList3 *pTaskList = NULL;
-	HRESULT hRes;
 
 
 	// In 7 or newer use new TaskDialog
 	if (GetWindowsVersion() >= 601)
 	{
-		hRes = ::CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void **) &pTaskList);
+		HRESULT hRes = ::CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_ITaskbarList, (void **) &pTaskList);
 		if (pTaskList)
 		{
 			if (SUCCEEDED(hRes))
@@ -1026,13 +999,12 @@ bool __fastcall clsUtil::SetTaskListProgress(unsigned int piCompleted, unsigned 
 unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 {
 	static unsigned int iWindowsVersion = NULL;
-	HMODULE hDLL;
 	
 
 	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
 	if (iWindowsVersion == NULL)
 	{
-		hDLL = LoadLibrary(_T("NTDLL.DLL"));
+		HMODULE hDLL = LoadLibrary(_T("NTDLL.DLL"));
 		if (hDLL)
 		{
 			typedef NTSTATUS (WINAPI RtlGetVersionType)(RTL_OSVERSIONINFOW *pudtRtlVersionInfo);

@@ -45,7 +45,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 
         // Disable file system redirection on Win64 environments
         hDLL = LoadLibrary(_T("KERNEL32.DLL"));
-		if (hLL)
+		if (hDLL)
 		{
 			typedef BOOL (WINAPI Wow64DisableWow64FsRedirectionType)(PVOID *);
 			Wow64DisableWow64FsRedirectionType *Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hDLL, "Wow64DisableWow64FsRedirection");
