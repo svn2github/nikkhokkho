@@ -1,5 +1,7 @@
 //---------------------------------------------------------------------------
 #pragma once
+#ifndef cppAboutH
+#define cppAboutH
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
@@ -29,3 +31,4 @@ public:		// User declarations
 //---------------------------------------------------------------------------
 extern PACKAGE TfrmAbout *frmAbout;
 //---------------------------------------------------------------------------
+#endif

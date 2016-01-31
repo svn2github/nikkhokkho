@@ -395,11 +395,11 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 //---------------------------------------------------------------------------
 static struct udtOptimizeProgress
 {
+	unsigned long long lSavedBytes;
+	unsigned long long lTotalBytes;
 	unsigned int iCurrentFile;
 	unsigned int iProcessedFiles;
 	unsigned int iTotalFiles;
-	unsigned long long lSavedBytes;
-	unsigned long long lTotalBytes;
 	String sFileStatusText;
 	String sWindowCaptionText;
 	String sStatusbarText;

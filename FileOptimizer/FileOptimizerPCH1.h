@@ -1,4 +1,6 @@
 // ---------------------------------------------------------------------------
+#ifndef FileOptimizerPCH1H
+#define FileOptimizerPCH1H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,4 +21,4 @@
 #include "cppOptions.h"
 #include "clsUtil.h"
 #pragma hdrstop
-
+#endif
