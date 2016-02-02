@@ -1,6 +1,3 @@
-- I've noticed that FileOptimizer optimizing one zip file, calls leanify.exe with options: -q --keep-exif -i 30 "myarchive.zip"
-In FileOptimizer ZIP options I have recurse mode not checked (and is not set to "-d 1" as option to be sent to Leanify). Also, do not send option "--keep-exif" for zip files if recurse mode is disabled. (I have indeed copy metadata option checked in ZIP options tab) (Jaff).
-
 - Skipped items
 
 - Window positions not properly restored on launch (hairycactus).
@@ -176,6 +173,7 @@ XXXXX - YYYYYYY
 - Make child windows show always on top, even if main window uses AlwaysOnTop=false (hairycactus).
 - Make FileOptimizer a true lossless tool by default by setting PDF Profile to none by default (RejZoR).
 - Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
+- Fixed ZIP Leanify processing not honoring not recursing (Jaff).
 - Added ECT 0.2 x86 and x64 builds (thanks Felix Hanau).
 - Updated TruePNG to 0.6.1.9.
 - Revert to Ghostcript 9.15 since Ghostcript 9.18 crashes, and 9.16 has worse compression ratios (hairycactus).

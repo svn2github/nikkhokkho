@@ -1206,10 +1206,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			sFlags += "-i " + (String) iLevel + " ";
 			//Limit ZIP no recurse to ZIP extension
-			if ((!gudtOptions.bZIPRecurse) && (sExtensionByContent == ".zip"))
+			if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, ".zip") > 0))
 			{
-				//sFlags += "-d 0 ";
-				sFlags += "-f ";
+				sFlags += "-d 1 ";
+				//sFlags += "-f ";
 			}
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
