@@ -1,3 +1,6 @@
+- I've noticed that FileOptimizer optimizing one zip file, calls leanify.exe with options: -q --keep-exif -i 30 "myarchive.zip"
+In FileOptimizer ZIP options I have recurse mode not checked (and is not set to "-d 1" as option to be sent to Leanify). Also, do not send option "--keep-exif" for zip files if recurse mode is disabled. (I have indeed copy metadata option checked in ZIP options tab) (Jaff).
+
 - Skipped items
 
 - Window positions not properly restored on launch (hairycactus).
