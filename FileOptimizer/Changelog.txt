@@ -131,7 +131,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
-- ECT 0.2 - https://github.com/fhanau/Efficient-Compression-Tool
+- ECT 0.2.1 - https://github.com/fhanau/Efficient-Compression-Tool
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
@@ -174,7 +174,7 @@ XXXXX - YYYYYYY
 - Make FileOptimizer a true lossless tool by default by setting PDF Profile to none by default (RejZoR).
 - Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
 - Fixed ZIP Leanify processing not honoring not recursing (Jaff).
-- Added ECT 0.2 x86 and x64 builds (thanks Felix Hanau).
+- Added ECT 0.2.1 x86 and x64 builds (thanks Felix Hanau).
 - Updated TruePNG to 0.6.1.9.
 - Revert to Ghostcript 9.15 since Ghostcript 9.18 crashes, and 9.16 has worse compression ratios (hairycactus).
 - Updated to NSIS 3.0 beta 3.
