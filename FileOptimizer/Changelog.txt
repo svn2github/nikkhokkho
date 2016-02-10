@@ -174,7 +174,7 @@ XXXXX - YYYYYYY
 - Make FileOptimizer a true lossless tool by default by setting PDF Profile to none by default (RejZoR).
 - Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
 - Fixed ZIP Leanify processing not honoring not recursing (Jaff).
-- Uptated to ECT 0.2.1 x64 build (thanks Felix Hanau).
+- Uptated to ECT 0.2.1 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick to 6.9.3.3 with HDRI support.
 - Updated TruePNG to 0.6.1.9.
 - Revert to Ghostcript 9.15 since Ghostcript 9.18 crashes, and 9.16 has worse compression ratios (hairycactus).
