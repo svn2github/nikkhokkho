@@ -64,6 +64,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcscpy(gudtOptions.acDisablePluginMask, clsUtil::GetIni(_T("Options"), _T("DisablePluginMask"), _T("")));
 	gudtOptions.bBeepWhenDone = clsUtil::GetIni(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = clsUtil::GetIni(_T("Options"), _T("AlwaysOnTop"), false);
+	gudtOptions.bAllowDuplicates = clsUtil::GetIni(_T("Options"), _T("AllowDuplicates"), false);
 	gudtOptions.iLevel = clsUtil::GetIni(_T("Options"), _T("Level"), 5);
 	gudtOptions.iProcessPriority = clsUtil::GetIni(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
@@ -154,6 +155,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask);
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone);
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop);
+	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates);
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel);
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority);
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates);
@@ -337,10 +339,10 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			}
 			grdFiles->Rows[(int) iRow]->BeginUpdate();
 			grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
-			grdFiles->Cells[KI_GRID_EXTENSION][(int)iRow] = asValue[2];
-			grdFiles->Cells[KI_GRID_ORIGINAL][(int)iRow] = asValue[3];
-			grdFiles->Cells[KI_GRID_OPTIMIZED][(int)iRow] = asValue[4];
-			grdFiles->Cells[KI_GRID_STATUS][(int)iRow] = asValue[5];
+			grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
+			grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = asValue[3];
+			grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
+			grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
 			grdFiles->Rows[(int) iRow]->EndUpdate();
 		}
 		delete lstTemp;
@@ -1495,6 +1497,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 
 	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*) &udtFileAttribute))
 	{
+		//If it is a directory, recurse
 		if (udtFileAttribute.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
 			Application->ProcessMessages();
@@ -1509,40 +1512,49 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			}
 			while (FindNextFile(hFindFile, &udtFindFileData) != 0);
 			FindClose(hFindFile);
+			RefreshStatus();
 		}
+		//It it is a file, parse it
 		else
 		{
-			unsigned int iRows = (unsigned int) grdFiles->RowCount;
 			//Check if already added
-			for (unsigned int iRow = 1; iRow < iRows; iRow++)
+			if (!gudtOptions.bAllowDuplicates)
 			{
-				if (GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1) == pacFile)
+				/*
+				for (unsigned int iRow = 1; iRow < iRows; iRow++)
+				{
+					if (GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1) == pacFile)
+					{
+						return;
+					}
+				}*/
+				if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(pacFile) > 1)
 				{
 					return;
 				}
+
 			}
 			unsigned long long lSize = clsUtil::SizeFile(pacFile);
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
 			{
-				sExtension = " " + GetExtension(pacFile) + " ";
 				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
 				if (sExtensionByContent != "")
 				{
+					unsigned int iRows = (unsigned int) grdFiles->RowCount;
 					//We store the name to show concatenated with the full name
 					grdFiles->Rows[(int) iRows]->BeginUpdate();
 					grdFiles->Cells[KI_GRID_FILE][(int) iRows] = SetCellFileValue(pacFile);
-					grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension;
+					grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = GetExtension(pacFile);
 					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
-					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
+					//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
 					grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Pending";
+					grdFiles->RowCount = iRows + 1;
 					grdFiles->Rows[(int) iRows]->EndUpdate();
-					grdFiles->RowCount++;
 				}
 			}
 		}
 	}
-	RefreshStatus();
 }
 
 
@@ -2330,10 +2342,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
-	TStringDynArray asValue;
-
-
-	asValue = SplitString(psValue, "\n");
+	TStringDynArray asValue = SplitString(psValue, "\n");
 	if ((unsigned int) asValue.Length > piPos)
 	{
 		psValue = asValue[piPos];

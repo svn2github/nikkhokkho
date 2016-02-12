@@ -101,6 +101,7 @@ struct udtOptions
 	TCHAR acDisablePluginMask[128];
 	bool bBeepWhenDone;
 	bool bAlwaysOnTop;
+	bool bAllowDuplicates;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;

@@ -1,3 +1,5 @@
+Priit
+
 - Skipped items
 
 - Window positions not properly restored on launch (hairycactus).
@@ -166,6 +168,7 @@ ndo
 
 XXXXX - YYYYYYY
 - Added INI setting DisablePluginMask= to allow excluding execution of certain plugins. For instance DisablePluginMask=leanify;advpng.exe (hairycactus).
+- Added INI setting AllowDuplicates=false to allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids (Priit).
 - Better High DPI compatibility.
 - Use Windows 10 theme by default on Windows 8 and newer.
 - Cleanedup JPEG options page glitches (d4k0).
@@ -174,6 +177,8 @@ XXXXX - YYYYYYY
 - Make FileOptimizer a true lossless tool by default by setting PDF Profile to none by default (RejZoR).
 - Fix Windows 8.1 and later detection, by using RtlGetVersion because old previous functions (GetVersion, IsWin10OrLater, ...) only work for manifested applications.
 - Fixed ZIP Leanify processing not honoring not recursing (Jaff).
+- Adding files to grid is three times faster because of some refreshes removed, and other little tweaks (Priit).
+- Checking for already existing files in the grid, is about 10x faster, by taking advantage of IndexOf (Priit).	
 - Uptated to ECT 0.2.1 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick to 6.9.3.3 with HDRI support.
 - Updated TruePNG to 0.6.1.9.
