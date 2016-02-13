@@ -1517,22 +1517,14 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		//It it is a file, parse it
 		else
 		{
+			String sCellFile = SetCellFileValue(pacFile);
 			//Check if already added
 			if (!gudtOptions.bAllowDuplicates)
 			{
-				/*
-				for (unsigned int iRow = 1; iRow < iRows; iRow++)
-				{
-					if (GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1) == pacFile)
-					{
-						return;
-					}
-				}*/
-				if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(pacFile) > 1)
+				if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
 				{
 					return;
 				}
-
 			}
 			unsigned long long lSize = clsUtil::SizeFile(pacFile);
 			//We will only add files with more than 0 bytes
@@ -1541,13 +1533,13 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
 				if (sExtensionByContent != "")
 				{
-					unsigned int iRows = (unsigned int) grdFiles->RowCount;
 					//We store the name to show concatenated with the full name
+					unsigned int iRows = (unsigned int) grdFiles->RowCount;
 					grdFiles->Rows[(int) iRows]->BeginUpdate();
-					grdFiles->Cells[KI_GRID_FILE][(int) iRows] = SetCellFileValue(pacFile);
+					grdFiles->Cells[KI_GRID_FILE][(int) iRows] = sCellFile;
 					grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = GetExtension(pacFile);
 					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
-					//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
+					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
 					grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Pending";
 					grdFiles->RowCount = iRows + 1;
 					grdFiles->Rows[(int) iRows]->EndUpdate();

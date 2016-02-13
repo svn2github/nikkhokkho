@@ -165,6 +165,9 @@ ndo
 
 
 XXXXX - YYYYYYY
+
+
+8.20 - 2016/02/13
 - Added INI setting DisablePluginMask= to allow excluding execution of certain plugins. For instance DisablePluginMask=leanify;advpng.exe (hairycactus).
 - Added INI setting AllowDuplicates=false to allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids (Priit).
 - Better High DPI compatibility.
@@ -184,7 +187,7 @@ XXXXX - YYYYYYY
 - Updated to NSIS 3.0 beta 3.
 - Updated to cppcheck 1.72.
 - Some minor optimizations and code cleanup.
-
+- Upgraded distributions to 7-Zip 15.14.
 
 8.10 - 2015/12/26
 - Enhanced GZ, JPEG and PNG compression by adding ECT 0.1 by Felix Hanau.
