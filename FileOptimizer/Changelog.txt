@@ -1,3 +1,11 @@
+- Add a Pause/Resume option (Pritt).
+
+- Disable optimize all button until full queued files has been added (Pritt).
+
+- Allow start optimizing while files are being added in background (Pritt).
+
+- Do not touch files if gains are less than X% (Michael Goeller).
+
 - Skipped items
 
 - Window positions not properly restored on launch (hairycactus).
