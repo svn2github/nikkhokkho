@@ -167,13 +167,15 @@ ndo
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
 - tidy-html5 4.9.26-191-gb4efe74 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
-- TruePNG 0.6.1.9 - http://x128.ho.ua/pngutils.html
+- TruePNG 0.6.2.0 - http://x128.ho.ua/pngutils.html
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
 XXXXX - YYYYYYY
 - Updated pngquant to 2.5.2.
+- Updated TruePNG to 0.6.2.0.
+
 
 8.20 - 2016/02/13
 - Added INI setting DisablePluginMask= to allow excluding execution of certain plugins. For instance DisablePluginMask=leanify;advpng.exe (hairycactus).
