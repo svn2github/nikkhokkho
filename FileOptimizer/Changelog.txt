@@ -162,7 +162,7 @@ ndo
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
-- pngquant 2.5.1 - http://www.pngquant.org
+- pngquant 2.5.2 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -173,7 +173,7 @@ ndo
 
 
 XXXXX - YYYYYYY
-
+- Updated pngquant to 2.5.2.
 
 8.20 - 2016/02/13
 - Added INI setting DisablePluginMask= to allow excluding execution of certain plugins. For instance DisablePluginMask=leanify;advpng.exe (hairycactus).
