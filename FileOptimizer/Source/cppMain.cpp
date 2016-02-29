@@ -70,6 +70,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
 	gudtOptions.iLogLevel = clsUtil::GetIni(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = clsUtil::GetIni(_T("Options"), _T("FilenameFormat"), 0);
+	gudtOptions.iLeanifyIterations = clsUtil::GetIni(_T("Options"), _T("LeanifyIterations"), -1);
 	//Use Windows 10 theme by default on Windows 8 and newer
 	if (clsUtil::GetWindowsVersion() >= 602)
 	{
@@ -161,6 +162,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates);
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel);
 	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat);
+	clsUtil::SetIni(_T("Options"), _T("LeanifyIterations"), gudtOptions.iLeanifyIterations);
 	clsUtil::SetIni(_T("Options"), _T("Theme"), gudtOptions.acTheme);
 	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory);
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion);
@@ -661,7 +663,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		{
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -705,7 +715,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				//Overwrite Leanify iterations
+				if (gudtOptions.iLeanifyIterations != -1)
+				{
+					iLevel = gudtOptions.iLeanifyIterations;
+				}
+				else
+				{
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				}
 				sFlags += "-i " + (String) iLevel + " ";
 				if (gudtOptions.bJPEGCopyMetadata)
 				{
@@ -759,7 +777,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				//Overwrite Leanify iterations
+				if (gudtOptions.iLeanifyIterations != -1)
+				{
+					iLevel = gudtOptions.iLeanifyIterations;
+				}
+				else
+				{
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				}
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -784,7 +810,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				sFlags += "--keep-exif ";
 			}
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
@@ -843,7 +877,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				//Overwrite Leanify iterations
+				if (gudtOptions.iLeanifyIterations != -1)
+				{
+					iLevel = gudtOptions.iLeanifyIterations;
+				}
+				else
+				{
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				}
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -1027,7 +1069,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -1098,7 +1148,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1111,7 +1169,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				sFlags += "--keep-exif ";
 			}
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1166,7 +1232,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				//Overwrite Leanify iterations
+				if (gudtOptions.iLeanifyIterations != -1)
+				{
+					iLevel = gudtOptions.iLeanifyIterations;
+				}
+				else
+				{
+					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				}
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -1203,7 +1277,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				sFlags += "--keep-exif ";
 			}
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
 			sFlags += "-i " + (String) iLevel + " ";
 			//Limit ZIP no recurse to ZIP extension
 			if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, ".zip") > 0))

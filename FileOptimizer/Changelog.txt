@@ -173,6 +173,7 @@ ndo
 
 
 XXXXX - YYYYYYY
+- Added INI setting LeanifyIterations=-1 to specify desired Leanify iterations independantly of the compression level. For instance LeanifyIterations=128 will instruct Leanify to always use 128 iterations (necros).
 - Updated pngquant to 2.5.2.
 - Updated TruePNG to 0.6.2.0.
 

@@ -107,6 +107,7 @@ struct udtOptions
 	int iCheckForUpdates;
 	int iLogLevel;
 	int iFilenameFormat;
+	int iLeanifyIterations;
 	TCHAR acTheme[64];
 	TCHAR acVersion[16];
 	TCHAR acTempDirectory[MAX_PATH];
