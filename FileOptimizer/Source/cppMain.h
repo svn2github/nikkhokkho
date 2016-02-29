@@ -77,6 +77,7 @@ struct udtOptions
 	bool bCSSEnableTidy;
 	TCHAR acCSSTemplate[64];
 	bool bEXEDisablePETrim;
+	bool bEXEEnableUPX;
 	bool bGIFCopyMetadata;
 	bool bGZCopyMetadata;
 	bool bHTMLEnableTidy;

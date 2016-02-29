@@ -40,6 +40,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bCSSEnableTidy = clsUtil::GetIni(_T("Options"), _T("CSSEnableTidy"), false);
 	_tcscpy(gudtOptions.acCSSTemplate, clsUtil::GetIni(_T("Options"), _T("CSSTemplate"), _T("low")));
 	gudtOptions.bEXEDisablePETrim = clsUtil::GetIni(_T("Options"), _T("EXEDisablePETrim"), false);
+	gudtOptions.bEXEEnableUPX = clsUtil::GetIni(_T("Options"), _T("EXEEnableUPX"), false);
 	gudtOptions.bGIFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GIFCopyMetadata"), false);
 	gudtOptions.bGZCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GZCopyMetadata"), false);
 	gudtOptions.bHTMLEnableTidy = clsUtil::GetIni(_T("Options"), _T("HTMLEnableTidy"), false);
@@ -132,6 +133,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("CSSEnableTidy"), gudtOptions.bCSSEnableTidy);
 	clsUtil::SetIni(_T("Options"), _T("CSSTemplate"), gudtOptions.acCSSTemplate);
 	clsUtil::SetIni(_T("Options"), _T("EXEDisablePETrim"), gudtOptions.bEXEDisablePETrim);
+	clsUtil::SetIni(_T("Options"), _T("EXEEnableUPX"), gudtOptions.bEXEEnableUPX);
 	clsUtil::SetIni(_T("Options"), _T("GIFCopyMetadata"), gudtOptions.bGIFCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("GZCopyMetadata"), gudtOptions.bGZCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("HTMLEnableTidy"), gudtOptions.bHTMLEnableTidy);
@@ -657,6 +659,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "PETrim", (sPluginsDirectory + "petrim.exe \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			RunPlugin((unsigned int) iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			if (gudtOptions.bEXEEnableUPX)
+			{
+				RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --best \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
 		}
 		// EXE: Leanify, PETrim, strip
 		if (PosEx(sExtensionByContent, KS_EXTENSION_EXE) > 0)
@@ -682,6 +688,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 					RunPlugin((unsigned int) iCount, "PETrim", (sPluginsDirectory + "petrim.exe /StripFixups:Y \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 				RunPlugin((unsigned int) iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				if (gudtOptions.bEXEEnableUPX)
+				{
+					RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --best \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				}
 			}
 		}
 		// FLAC: FLACOut
