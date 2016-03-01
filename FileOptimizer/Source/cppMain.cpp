@@ -743,21 +743,21 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			
 			sFlags = "";
-			if (!gudtOptions.bGZCopyMetadata)
-			{
-				sFlags = "-strip ";
-			}
-			iLevel = min(gudtOptions.iLevel * 9 / 9, 9) + 1;
-			sFlags += "-M" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-
-			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			RunPlugin((unsigned int) iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			
+			sFlags = "";
+			if (!gudtOptions.bGZCopyMetadata)
+			{
+				sFlags = "-strip ";
+			}
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			sFlags += "-M" + (String) iLevel + " ";
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
 			if (gudtOptions.bGZCopyMetadata)
@@ -832,15 +832,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
-			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
-			{
-				sFlags = "-strip ";
-			}
-			iLevel = min(gudtOptions.iLevel * 9 / 9, 9) + 1;
-			sFlags += "-M" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			
 			//Seems to cause some loss of quality
 			//iError = RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 
@@ -871,6 +862,15 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "jpegtran", (sPluginsDirectory + "jpegtran.exe -progressive " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			RunPlugin((unsigned int) iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			
+			sFlags = "";
+			if (!gudtOptions.bJPEGCopyMetadata)
+			{
+				sFlags = "-strip ";
+			}
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			sFlags += "-M" + (String) iLevel + " ";
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// JS: jsmin
 		if (PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0)
@@ -1029,15 +1029,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 					sFlags += "/l ";
 				}
 				RunPlugin((unsigned int) iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				
-				sFlags = "";
-				if (!gudtOptions.bPNGCopyMetadata)
-				{
-					sFlags = "-strip ";
-				}
-				iLevel = min(gudtOptions.iLevel * 9 / 9, 9) + 1;
-				sFlags += "-M" + (String) iLevel + " ";
-				RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 
 			if (!bIs9Patch)
@@ -1054,11 +1045,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				iLevel = max((gudtOptions.iLevel * 3 / 9) - 3, 0);
 				sFlags += "/s" + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			}
 
-
-			if (!bIs9Patch)
-			{
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 6 / 9, 6);
 				sFlags += "-o" + (String) iLevel + " ";
@@ -1102,21 +1089,24 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				if (!bIs9Patch)
 				{
 					RunPlugin((unsigned int) iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				}
 
-				//iError = RunPlugin((unsigned int) iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"" + grdFiles->Cells[0][iCount] + "\" \"" + acTmpFile + "\"").c_str(), acPluginsDirectory, acTmpFile);
+					//iError = RunPlugin((unsigned int) iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"" + grdFiles->Cells[0][iCount] + "\" \"" + acTmpFile + "\"").c_str(), acPluginsDirectory, acTmpFile);
 
-				if (!bIs9Patch)
-				{
 					sFlags = "";
 					//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "-i " + (String) iLevel + " ";
 					RunPlugin((unsigned int) iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				}
-
-				if (!bIs9Patch)
-				{
+	
+					sFlags = "";
+					if (!gudtOptions.bPNGCopyMetadata)
+					{
+						sFlags = "-strip ";
+					}
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+					sFlags += "-M" + (String) iLevel + " ";
+					RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+	
 					sFlags = "";
 					if (gudtOptions.bPNGCopyMetadata)
 					{
