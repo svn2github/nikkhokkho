@@ -676,7 +676,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			else
 			{
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -732,7 +732,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				}
 				else
 				{
-					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				}
 				sFlags += "-i " + (String) iLevel + " ";
 				if (gudtOptions.bJPEGCopyMetadata)
@@ -744,7 +744,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -794,7 +794,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				}
 				else
 				{
-					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				}
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -827,7 +827,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			else
 			{
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -894,7 +894,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				}
 				else
 				{
-					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				}
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -910,7 +910,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		{
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1073,7 +1073,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			else
 			{
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -1082,7 +1082,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				sFlags += "--zopfli-iterations=" + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -1094,7 +1094,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 					sFlags = "";
 					//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "-i " + (String) iLevel + " ";
 					RunPlugin((unsigned int) iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 	
@@ -1155,7 +1155,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			else
 			{
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -1176,7 +1176,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			else
 			{
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -1239,7 +1239,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				}
 				else
 				{
-					iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				}
 				sFlags += "-i " + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -1284,7 +1284,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			else
 			{
-				iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			//Limit ZIP no recurse to ZIP extension
@@ -1297,7 +1297,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-			iLevel = ((iLevel * iLevel * iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
