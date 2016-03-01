@@ -1922,8 +1922,9 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 				sRes = ".zip";
 			}
 			//Unsupported extension
+			else
 			{
-                sRes = "";
+				//Do nothing. Use regular file extension
             }
 		}
 	}
