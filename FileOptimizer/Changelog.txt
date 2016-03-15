@@ -179,6 +179,7 @@ XXXXX - YYYYYYY
 - Added INI setting LeanifyIterations=-1 to specify desired Leanify iterations independantly of the compression level. For instance LeanifyIterations=128 will instruct Leanify to always use 128 iterations (necros).
 - Added stereo extensions: MPO (Multi Picture Object), PNS (PNG Stereo) and JPS (JPEG Stereo).
 - Tweaked ECT invoking to make it get better compression ratios (Jaff).
+- Updated Leanify to 0.4.3.103 daily binaries.
 - Updated pngquant to 2.5.2.
 - Updated TruePNG to 0.6.2.0.
 - Some minor optimizations and code cleanup.
