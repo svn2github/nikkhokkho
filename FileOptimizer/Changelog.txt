@@ -167,7 +167,7 @@ ndo
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
 - tidy-html5 4.9.26-191-gb4efe74 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
-- TruePNG 0.6.2.0 - http://x128.ho.ua/pngutils.html
+- TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
 - UPX 3.91 - http://upx.sourceforge.net
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
@@ -181,7 +181,7 @@ XXXXX - YYYYYYY
 - Tweaked ECT invoking to make it get better compression ratios (Jaff).
 - Updated Leanify to 0.4.3.103 daily binaries.
 - Updated pngquant to 2.5.2.
-- Updated TruePNG to 0.6.2.0.
+- Updated TruePNG to 0.6.2.2.
 - Updated strip to 2.26.
 - Updated Ghostcript to 9.19. Please report any issue if I should revert to 9.15.
 - Some minor optimizations and code cleanup.
