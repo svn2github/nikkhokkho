@@ -157,7 +157,7 @@ ndo
 - mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
-- OptiPNG Hg 20121021 - http://optipng.sourceforge.net
+- OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
@@ -184,6 +184,7 @@ XXXXX - YYYYYYY
 - Updated TruePNG to 0.6.2.2.
 - Updated strip to 2.26.
 - Updated Ghostcript to 9.19. Please report any issue if I should revert to 9.15.
+- Updated OptiPNG to 0.7.6 since Hg 20121021 is discontinued.
 - Some minor optimizations and code cleanup.
 
 
