@@ -179,12 +179,14 @@ XXXXX - YYYYYYY
 - Added INI setting LeanifyIterations=-1 to specify desired Leanify iterations independantly of the compression level. For instance LeanifyIterations=128 will instruct Leanify to always use 128 iterations (necros).
 - Added stereo extensions: MPO (Multi Picture Object), PNS (PNG Stereo) and JPS (JPEG Stereo).
 - Tweaked ECT invoking to make it get better compression ratios (Jaff).
+- Fixed an Embarcadero's VCL bug that caused view modes in add files Windows common dialog show strange strings (JoeW).
 - Updated Leanify to 0.4.3.103 daily binaries.
 - Updated pngquant to 2.5.2.
 - Updated TruePNG to 0.6.2.2.
 - Updated strip to 2.26.
 - Updated Ghostcript to 9.19. Please report any issue if I should revert to 9.15.
 - Updated OptiPNG to 0.7.6 since Hg 20121021 is discontinued.
+- Updated to cppcheck 1.73.
 - Some minor optimizations and code cleanup.
 
 
