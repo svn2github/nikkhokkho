@@ -1028,7 +1028,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "/l ";
 				}
-				RunPlugin((unsigned int) iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				//Disable TruePNG on ICO files because it crashes
+				if (PosEx(sExtensionByContent, KS_EXTENSION_ICO) == 0)
+				{
+					RunPlugin((unsigned int) iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				}
 			}
 
 			if (!bIs9Patch)

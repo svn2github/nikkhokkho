@@ -180,6 +180,7 @@ XXXXX - YYYYYYY
 - Added stereo extensions: MPO (Multi Picture Object), PNS (PNG Stereo) and JPS (JPEG Stereo).
 - Tweaked ECT invoking to make it get better compression ratios (Jaff).
 - Fixed an Embarcadero's VCL bug that caused view modes in add files Windows common dialog show strange strings (JoeW).
+- Disable TruePNG on ICO files because it crashes (TPS).
 - Updated Leanify to 0.4.3.103 daily binaries.
 - Updated pngquant to 2.5.2.
 - Updated TruePNG to 0.6.2.2.
