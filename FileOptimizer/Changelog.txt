@@ -179,6 +179,7 @@ XXXXX - YYYYYYY
 - Added INI setting LeanifyIterations=-1 to specify desired Leanify iterations independantly of the compression level. For instance LeanifyIterations=128 will instruct Leanify to always use 128 iterations (necros).
 - Added stereo extensions: MPO (Multi Picture Object), PNS (PNG Stereo) and JPS (JPEG Stereo).
 - Tweaked ECT invoking to make it get better compression ratios (Jaff).
+- Fixed ECT execution it does not use -Mx but -x instead (fhanau).
 - Fixed an Embarcadero's VCL bug that caused view modes in add files Windows common dialog show strange strings (JoeW).
 - Disable TruePNG on ICO files because it crashes (TPS).
 - Updated Leanify to 0.4.3.103 daily binaries.
