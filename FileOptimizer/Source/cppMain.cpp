@@ -1292,7 +1292,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			//Limit ZIP no recurse to ZIP extension
-			if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, ".zip") > 0))
+			if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, " .zip ") > 0))
 			{
 				sFlags += "-d 1 ";
 				//sFlags += "-f ";
