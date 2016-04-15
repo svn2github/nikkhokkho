@@ -133,7 +133,7 @@ ndo
 
 
 
-- AdvanceCOMP 1.20 beta - http://advancemame.sourceforge.net
+- AdvanceCOMP 1.20 - http://advancemame.sourceforge.net
 - APNG Optimizer 1.4 - http://sourceforge.net/projects/apng/
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
@@ -183,6 +183,7 @@ XXXXX - YYYYYYY
 - Fixed disable ZIP recurse handling in Leanify (Jaff).
 - Fixed an Embarcadero's VCL bug that caused view modes in add files Windows common dialog show strange strings (JoeW).
 - Disable TruePNG on ICO files because it crashes (TPS).
+- Updated AdvanceCOMP to 1.20 (Jaff). 
 - Updated Leanify to 0.4.3.103 daily binaries.
 - Updated pngquant to 2.5.2.
 - Updated TruePNG to 0.6.2.2.
