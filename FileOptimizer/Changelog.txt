@@ -185,6 +185,7 @@ XXXXX - YYYYYYY
 - Fixed ECT execution it does not use -Mx but -x instead (fhanau).
 - Fixed disable ZIP recurse handling in Leanify (Jaff).
 - Fixed an Embarcadero's VCL bug that caused view modes in add files Windows common dialog show strange strings (JoeW).
+- Removed crop-transparency from gifsicle arguments, since it can downsize resulting GIF image, and thus not being lossless (Austin Donisan).
 - Disable TruePNG on ICO files because it crashes (TPS).
 - Updated AdvanceCOMP to 1.20 (Jaff). 
 - Updated Leanify to 0.4.3.103 daily binaries.
