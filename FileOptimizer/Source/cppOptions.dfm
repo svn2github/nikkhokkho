@@ -320,9 +320,9 @@ object frmOptions: TfrmOptions
     ExplicitWidth = 556
   end
   object tabOptions: TPageControl
-    Left = 0
+    Left = -1
     Top = 65
-    Width = 557
+    Width = 567
     Height = 303
     ActivePage = pagGeneral
     Align = alCustom
@@ -333,10 +333,7 @@ object frmOptions: TfrmOptions
       Caption = '&General'
       ParentShowHint = False
       ShowHint = True
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 553
       object lblOptimizationLevel: TLabel
         Left = 7
         Top = 22
@@ -536,10 +533,7 @@ object frmOptions: TfrmOptions
     object pagCSS: TTabSheet
       Caption = '&CSS'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object lblCSSTemplate: TLabel
         Left = 7
         Top = 46
@@ -586,10 +580,7 @@ object frmOptions: TfrmOptions
     object pagEXE: TTabSheet
       Caption = '&EXE'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkEXEDisablePETrim: TCheckBox
         Left = 7
         Top = 22
@@ -607,10 +598,7 @@ object frmOptions: TfrmOptions
     object pagGZ: TTabSheet
       Caption = '&GZ'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkGZCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -626,10 +614,7 @@ object frmOptions: TfrmOptions
     object pagHTML: TTabSheet
       Caption = '&HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkHTMLEnableTidy: TCheckBox
         Left = 7
         Top = 22
@@ -647,10 +632,7 @@ object frmOptions: TfrmOptions
     object pagJPEG: TTabSheet
       Caption = '&JPEG'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkJPEGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -679,10 +661,7 @@ object frmOptions: TfrmOptions
     object pagJS: TTabSheet
       Caption = '&JS'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkJSEnableJSMin: TCheckBox
         Left = 7
         Top = 22
@@ -700,10 +679,7 @@ object frmOptions: TfrmOptions
     object pagLUA: TTabSheet
       Caption = '&LUA'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkLUAEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -721,10 +697,7 @@ object frmOptions: TfrmOptions
     object pagMP3: TTabSheet
       Caption = '&MP3'
       ImageIndex = 8
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkMP3CopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -740,10 +713,7 @@ object frmOptions: TfrmOptions
     object pagPDF: TTabSheet
       Caption = '&PDF'
       ImageIndex = 7
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object lblPDFProfile: TLabel
         Left = 7
         Top = 22
@@ -805,10 +775,7 @@ object frmOptions: TfrmOptions
     object pagPNG: TTabSheet
       Caption = '&PNG'
       ImageIndex = 10
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkPNGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -838,10 +805,7 @@ object frmOptions: TfrmOptions
     object pagXML: TTabSheet
       Caption = '&XML'
       ImageIndex = 11
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkXMLEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -859,10 +823,7 @@ object frmOptions: TfrmOptions
     object pagZIP: TTabSheet
       Caption = '&ZIP'
       ImageIndex = 9
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 549
       object chkZIPCopyMetadata: TCheckBox
         Left = 7
         Top = 22
