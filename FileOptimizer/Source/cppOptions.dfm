@@ -320,7 +320,7 @@ object frmOptions: TfrmOptions
     ExplicitWidth = 556
   end
   object tabOptions: TPageControl
-    Left = -1
+    Left = 0
     Top = 65
     Width = 567
     Height = 303
