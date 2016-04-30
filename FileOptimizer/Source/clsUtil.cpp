@@ -53,7 +53,7 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 		{
 			if ((memcmp(p, byte_sequence, byte_sequence_len)) == 0)
 			{
-			return (p);
+				return (p);
 			}
 			else  
 			{

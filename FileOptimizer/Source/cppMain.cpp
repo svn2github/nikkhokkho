@@ -2210,6 +2210,11 @@ bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 		{
 			bRes = true;
 		}
+		//Check if it is a ZIP SFX
+		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x50\x4B\x03\x04", 4) != NULL)
+		{
+			bRes = true;
+		}
 		
 		delete[] acBuffer;
 	}
