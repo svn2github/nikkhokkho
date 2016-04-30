@@ -175,6 +175,7 @@ ndo
 
 XXXXX - YYYYYYY
 - Added ZIP SFX installer detection.
+- Fixed a bug calling Ghostcript, that ignored parameters after dPDFSETTINGS which should made quality and size better (Skibicki #5).
 
 
 8.30 - 2016/04/30
