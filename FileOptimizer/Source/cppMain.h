@@ -217,8 +217,9 @@ private: // User declarations
 	void __fastcall CheckForUpdates(bool pbSilent = true);
 	String __fastcall GetShortName(String psLongName);
 	bool __fastcall IsAPNG(const TCHAR *pacFile);
-	bool __fastcall IsSFX(const TCHAR *pacFile);
-	bool __fastcall IsManagedNet(const TCHAR *pacFile);
+	bool __fastcall IsEXESFX(const TCHAR *pacFile);
+	bool __fastcall IsZIPSFX(const TCHAR *pacFile);
+	bool __fastcall IsEXEManagedNet(const TCHAR *pacFile);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 	String __fastcall SetCellFileValue(String psValue);
 	void __fastcall OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress);

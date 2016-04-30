@@ -187,6 +187,7 @@ XXXXX - YYYYYYY
 - Fixed an Embarcadero's VCL bug that caused view modes in add files Windows common dialog show strange strings (JoeW).
 - Removed crop-transparency from gifsicle arguments, since it can downsize resulting GIF image, and thus not being lossless (Austin Donisan).
 - Disable TruePNG on ICO files because it crashes (TPS).
+- Avoid using Leanify and advzip on SFX ZIP files due to header being removed (Jaff).
 - Updated AdvanceCOMP to 1.20 (Jaff). 
 - Updated Leanify to 0.4.3.103 daily binaries.
 - Updated pngquant to 2.5.2.

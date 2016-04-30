@@ -681,7 +681,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-			if (!IsSFX(sInputFile.c_str()))
+			if (!IsEXESFX(sInputFile.c_str()))
 			{
 				if (!gudtOptions.bEXEDisablePETrim)
 				{
@@ -990,10 +990,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PNG) > 0)
 		{
 			bool bIsAPNG;
-			bool bIs9Patch;
+			bool bIsPNG9Patch;
 
 			//Android 9-patch images get broken with advpng, deflopt, optipng, pngoptimizer, pngout, pngrewrite and truepng. Only pngwolf, defluff and leanify seem to be safe. At the moment, detect them by extension .9.png.
-			bIs9Patch = EndsStr(".9.png", sInputFile);
+			bIsPNG9Patch = EndsStr(".9.png", sInputFile);
 			bIsAPNG = IsAPNG(sInputFile.c_str());
 
 			if (bIsAPNG)
@@ -1001,7 +1001,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "apngopt", (sPluginsDirectory + "apngopt.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 
-			if (!bIs9Patch)
+			if (!bIsPNG9Patch)
 			{
 				if (gudtOptions.bPNGAllowLossy)
 				{
@@ -1011,7 +1011,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 
-			if ((!bIsAPNG) && (!bIs9Patch))
+			if ((!bIsAPNG) && (!bIsPNG9Patch))
 			{
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 3 / 9, 3) + 1;
@@ -1035,7 +1035,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				}
 			}
 
-			if (!bIs9Patch)
+			if (!bIsPNG9Patch)
 			{
 				sFlags = "";
 				if (gudtOptions.bPNGCopyMetadata)
@@ -1090,7 +1090,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				sFlags += "--zopfli-iterations=" + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-				if (!bIs9Patch)
+				if (!bIsPNG9Patch)
 				{
 					RunPlugin((unsigned int) iCount, "pngrewrite", (sPluginsDirectory + "pngrewrite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -1122,7 +1122,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 			RunPlugin((unsigned int) iCount, "defluff", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-			if ((!bIsAPNG) && (!bIs9Patch))
+			if ((!bIsAPNG) && (!bIsPNG9Patch))
 			{
 				RunPlugin((unsigned int) iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -1275,36 +1275,41 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		// ZIP: Leanify, ect, advzip, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_ZIP) > 0)
 		{
-			sFlags = "";
-			if (gudtOptions.bJPEGCopyMetadata)
+			bool bIsZIPSFX = IsZIPSFX(sInputFile.c_str());
+			
+			if (!bIsZIPSFX)
 			{
-				sFlags += "--keep-exif ";
-			}
-			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			//Overwrite Leanify iterations
-			if (gudtOptions.iLeanifyIterations != -1)
-			{
-				iLevel = gudtOptions.iLeanifyIterations;
-			}
-			else
-			{
+				sFlags = "";
+				if (gudtOptions.bJPEGCopyMetadata)
+				{
+					sFlags += "--keep-exif ";
+				}
+				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				//Overwrite Leanify iterations
+				if (gudtOptions.iLeanifyIterations != -1)
+				{
+					iLevel = gudtOptions.iLeanifyIterations;
+				}
+				else
+				{
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				}
+				sFlags += "-i " + (String) iLevel + " ";
+				//Limit ZIP no recurse to ZIP extension
+				if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, " .zip ") > 0))
+				{
+					sFlags += "-d 1 ";
+					//sFlags += "-f ";
+				}
+				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			
+				sFlags = "";
+				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				sFlags += "-i " + (String) iLevel + " ";
+				RunPlugin((unsigned int) iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
-			sFlags += "-i " + (String) iLevel + " ";
-			//Limit ZIP no recurse to ZIP extension
-			if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, " .zip ") > 0))
-			{
-				sFlags += "-d 1 ";
-				//sFlags += "-f ";
-			}
-			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-
-			sFlags = "";
-			//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-			iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
-			sFlags += "-i " + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "advzip", (sPluginsDirectory + "advzip.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-
+			
 			sFlags = "";
 			if (gudtOptions.bZIPCopyMetadata)
 			{
@@ -2182,7 +2187,7 @@ bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall TfrmMain::IsSFX(const TCHAR *pacFile)
+bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 {
 	bool bRes = false;
 	unsigned char *acBuffer;
@@ -2212,9 +2217,30 @@ bool __fastcall TfrmMain::IsSFX(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall TfrmMain::IsManagedNet(const TCHAR *pacFile)
+bool __fastcall TfrmMain::IsZIPSFX(const TCHAR *pacFile)
 {
-	bool bIsManagedNet = false; //variable that indicates if managed or not.
+	bool bRes = false;
+	unsigned char *acBuffer;
+
+	
+	unsigned int iSize = 1 * 1024;
+	acBuffer = new unsigned char[iSize];
+	if (acBuffer)
+	{
+		clsUtil::ReadFile(pacFile, acBuffer, &iSize);
+		//Assuming it is already a ZIP variant (by extension) check if at zero bytes offset we have ZIP header
+		bRes = (memcmp(acBuffer, "\x50\x4B\x03\x04", 4) != 0);
+		delete[] acBuffer;
+	}
+	return (bRes);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall TfrmMain::IsEXEManagedNet(const TCHAR *pacFile)
+{
+	bool bRes = false; //variable that indicates if managed or not.
 	HANDLE hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
@@ -2263,7 +2289,7 @@ bool __fastcall TfrmMain::IsManagedNet(const TCHAR *pacFile)
 						{
 							//valid address obtained. Suffices to say , this is good enough to identify this as a
 							//valid managed component
-							bIsManagedNet = true;
+							bRes = true;
 						}
 					}
 				}
@@ -2276,7 +2302,7 @@ bool __fastcall TfrmMain::IsManagedNet(const TCHAR *pacFile)
 		//cleanup
 		CloseHandle(hFile);
 	}
-	return (bIsManagedNet);
+	return (bRes);
 }
 
 
