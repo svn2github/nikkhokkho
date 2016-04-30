@@ -176,6 +176,9 @@ ndo
 
 
 XXXXX - YYYYYYY
+
+
+8.30 - 2016/04/30
 - Added UPX to the EXE/DLL tool chain (guindos98, necros).
 - Added INI setting bEXEEnableUPX=false to enable UPX EXE compression. For instance bEXEEnableUPX=true will enable UPX processing (guindos98, necros).
 - Added INI setting LeanifyIterations=-1 to specify desired Leanify iterations independantly of the compression level. For instance LeanifyIterations=128 will instruct Leanify to always use 128 iterations (necros).
@@ -187,7 +190,7 @@ XXXXX - YYYYYYY
 - Fixed an Embarcadero's VCL bug that caused view modes in add files Windows common dialog show strange strings (JoeW).
 - Removed crop-transparency from gifsicle arguments, since it can downsize resulting GIF image, and thus not being lossless (Austin Donisan).
 - Disable TruePNG on ICO files because it crashes (TPS).
-- Avoid using Leanify and advzip on SFX ZIP files due to header being removed (Jaff).
+- Avoid using Advzip on SFX ZIP files due to header being removed (Jaff).
 - Updated AdvanceCOMP to 1.20 (Jaff). 
 - Updated Leanify to 0.4.3.103 daily binaries.
 - Updated pngquant to 2.5.2.
@@ -198,7 +201,6 @@ XXXXX - YYYYYYY
 - Updated ImageMagick to 6.9.3.8 with HDRI support.
 - Updated to cppcheck 1.73.
 - Some minor optimizations and code cleanup.
-
 
 8.20 - 2016/02/13
 - Added INI setting DisablePluginMask= to allow excluding execution of certain plugins. For instance DisablePluginMask=leanify;advpng.exe (hairycactus).

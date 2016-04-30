@@ -1277,32 +1277,33 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		{
 			bool bIsZIPSFX = IsZIPSFX(sInputFile.c_str());
 			
+			sFlags = "";
+			if (gudtOptions.bJPEGCopyMetadata)
+			{
+				sFlags += "--keep-exif ";
+			}
+			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
+			sFlags += "-i " + (String) iLevel + " ";
+			//Limit ZIP no recurse to ZIP extension
+			if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, " .zip ") > 0))
+			{
+				sFlags += "-d 1 ";
+				//sFlags += "-f ";
+			}
+			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+
+			//AdvZip strips header on ZIP files
 			if (!bIsZIPSFX)
 			{
-				sFlags = "";
-				if (gudtOptions.bJPEGCopyMetadata)
-				{
-					sFlags += "--keep-exif ";
-				}
-				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-				//Overwrite Leanify iterations
-				if (gudtOptions.iLeanifyIterations != -1)
-				{
-					iLevel = gudtOptions.iLeanifyIterations;
-				}
-				else
-				{
-					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
-				}
-				sFlags += "-i " + (String) iLevel + " ";
-				//Limit ZIP no recurse to ZIP extension
-				if ((!gudtOptions.bZIPRecurse) && (PosEx(sExtensionByContent, " .zip ") > 0))
-				{
-					sFlags += "-d 1 ";
-					//sFlags += "-f ";
-				}
-				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
