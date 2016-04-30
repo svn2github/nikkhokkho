@@ -1,5 +1,3 @@
-- Separate ZIP files between ZIP, and SFX+ZIP since advzip and leanify, strip information prior to ZIP header.
-
 - Add a Pause/Resume option (Pritt).
 
 - Disable optimize all button until full queued files has been added (Pritt).
