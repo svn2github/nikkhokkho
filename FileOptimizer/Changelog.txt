@@ -1,5 +1,3 @@
-- Disable  Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
-
 - Add a Pause/Resume option (Pritt).
 
 - Disable optimize all button until full queued files has been added (Pritt).
@@ -178,6 +176,7 @@ ndo
 XXXXX - YYYYYYY
 - Added ZIP SFX installer detection.
 - Fixed a bug calling Ghostcript, that ignored parameters after dPDFSETTINGS which should made quality and size better (Skibicki #5).
+- Disable  Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
 
 
 8.30 - 2016/04/30
