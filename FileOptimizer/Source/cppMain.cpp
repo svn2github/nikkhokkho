@@ -1039,7 +1039,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				}
 			}
 
-			if (!bIsPNG9Patch)
+			if ((!bIsAPNG) && (!bIsPNG9Patch))
 			{
 				sFlags = "";
 				if (gudtOptions.bPNGCopyMetadata)
@@ -1053,41 +1053,41 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				iLevel = max((gudtOptions.iLevel * 3 / 9) - 3, 0);
 				sFlags += "/s" + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "PNGOut", (sPluginsDirectory + "pngout.exe /q /y /r /d0 /mincodes0 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-
-				sFlags = "";
-				iLevel = min(gudtOptions.iLevel * 6 / 9, 6);
-				sFlags += "-o" + (String) iLevel + " ";
-				if (bIsAPNG)
-				{
-					// For some reason -strip all -protect acTL,fcTL,fdAT is not keeping APNG chunks
-					RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				}
-				else
-				{
-					if (!gudtOptions.bPNGCopyMetadata)
-					{
-						sFlags += "-strip all ";
-					}
-					RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				}
 			}
-
+			
 			sFlags = "";
-			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-			//Overwrite Leanify iterations
-			if (gudtOptions.iLeanifyIterations != -1)
+			iLevel = min(gudtOptions.iLevel * 6 / 9, 6);
+			if (bIsAPNG)
 			{
-				iLevel = gudtOptions.iLeanifyIterations;
+				sFlags += "-o" + (String) iLevel + " ";
+				// For some reason -strip all -protect acTL,fcTL,fdAT is not keeping APNG chunks
+				RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			else
 			{
-				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				if (!gudtOptions.bPNGCopyMetadata)
+				{
+					sFlags += "-strip all ";
+				}
+				RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
-			sFlags += "-i " + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			if (!bIsAPNG)
 			{
+				sFlags = "";
+				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				//Overwrite Leanify iterations
+				if (gudtOptions.iLeanifyIterations != -1)
+				{
+					iLevel = gudtOptions.iLeanifyIterations;
+				}
+				else
+				{
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				}
+				sFlags += "-i " + (String) iLevel + " ";
+				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30

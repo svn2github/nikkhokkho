@@ -1,3 +1,5 @@
+- Disable  Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
+
 - Add a Pause/Resume option (Pritt).
 
 - Disable optimize all button until full queued files has been added (Pritt).
