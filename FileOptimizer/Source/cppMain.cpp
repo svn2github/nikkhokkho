@@ -639,7 +639,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "-strip ";
 			}
-			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			RunPlugin((unsigned int) iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 -outfmt bmp -compress \"rle\" \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -781,7 +781,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		// ICO: ImageMagick, Leanify
 		if (PosEx(sExtensionByContent, KS_EXTENSION_ICO) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			if (gudtOptions.bPNGCopyMetadata)
 			{
@@ -833,7 +833,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			//Seems to cause some loss of quality
-			//iError = RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			//iError = RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 
 			sFlags = "";
 			if (!gudtOptions.bJPEGCopyMetadata)
@@ -959,7 +959,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "-strip ";
 			}
-			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// PDF: ghostcript
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
@@ -1203,7 +1203,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}	
 			RunPlugin((unsigned int) iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
-			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
 			if (!gudtOptions.bTIFFCopyMetadata)
@@ -1334,7 +1334,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "-strip ";
 			}
-			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "ImageMagick.exe -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 
 		if (gudtOptions.bKeepAttributes)
