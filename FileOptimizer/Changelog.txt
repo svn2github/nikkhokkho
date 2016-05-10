@@ -177,6 +177,7 @@ XXXXX - YYYYYYY
 - Added ZIP SFX installer detection.
 - Fixed a bug calling Ghostcript, that ignored parameters after dPDFSETTINGS which should made quality and size better (Skibicki #5).
 - Disabled Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
+- Disabled ImageWorsener for WEBP, because it is not lossless (Skibicki #9).
 - Added EPRT extension (Solid Works) to ZIP chain (maadjordan).
 - Updated ImageMagick to 7.0.1.1 with HDRI support.
 
