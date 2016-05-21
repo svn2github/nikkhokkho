@@ -179,6 +179,7 @@ XXXXX - YYYYYYY
 - Disabled Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
 - Disabled ImageWorsener for WEBP, because it is not lossless (Skibicki #9).
 - Added EPRT extension (Solid Works) to ZIP chain (maadjordan).
+- Updated donation button to use Paypal.me so it can accept different currencies that euros (JoeW).
 - Updated ImageMagick 7.0.1.5 with HDRI support.
 
 
