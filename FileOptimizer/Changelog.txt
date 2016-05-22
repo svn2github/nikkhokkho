@@ -139,7 +139,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
-- ECT 0.2.1 - https://github.com/fhanau/Efficient-Compression-Tool
+- ECT 0.4 - https://github.com/fhanau/Efficient-Compression-Tool
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm 
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
@@ -180,6 +180,7 @@ XXXXX - YYYYYYY
 - Disabled ImageWorsener for WEBP, because it is not lossless (Skibicki #9).
 - Added EPRT extension (Solid Works) to ZIP chain (maadjordan).
 - Updated donation button to use Paypal.me so it can accept different currencies that euros (JoeW).
+- Updated to ECT 0.4 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.1.5 with HDRI support.
 
 
@@ -220,7 +221,7 @@ XXXXX - YYYYYYY
 - Fixed ZIP Leanify processing not honoring not recursing (Jaff).
 - Adding files to grid is three times faster because of some refreshes removed, and other little tweaks (Priit).
 - Checking for already existing files in the grid, is about 10x faster, by taking advantage of IndexOf (Priit).
-- Uptated to ECT 0.2.1 x86 and x64 optimized builds (thanks Malloc Voidstar).
+- Updated to ECT 0.2.1 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick to 6.9.3.3 with HDRI support.
 - Updated TruePNG to 0.6.1.9.
 - Revert to Ghostcript 9.15 since Ghostcript 9.18 crashes, and 9.16 has worse compression ratios (hairycactus).
