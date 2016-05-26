@@ -2209,6 +2209,16 @@ bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 		{
 			bRes = true;
 		}
+		//Check if it is an InstallShield Wizard
+		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "InstallShield", 13) != NULL)
+		{
+			bRes = true;
+		}
+		//Check if it is an RTPatch Updater
+		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "RTPatch", 7) != NULL)
+		{
+			bRes = true;
+		}
 		//Check if it is a RAR SFX
 		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x52\x61\x72\x21\x1A\x07", 6) != NULL)
 		{
