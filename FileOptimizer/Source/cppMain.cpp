@@ -2214,6 +2214,11 @@ bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 		{
 			bRes = true;
 		}
+		//Check if it is an NSIS
+		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "Nullsoft Install System", 23) != NULL)
+		{
+			bRes = true;
+		}
 		//Check if it is an RTPatch Updater
 		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "RTPatch", 7) != NULL)
 		{

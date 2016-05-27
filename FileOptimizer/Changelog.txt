@@ -176,6 +176,7 @@ ndo
 XXXXX - YYYYYYY
 - Added ZIP SFX installer detection.
 - Added InstallShield Wizard and RTPatch Updater detections to exclude processing like we did with Inno Setup (ThisWillDoIt).
+- Added Nullsoft Install System detections to exclude processing in EXE chain.
 - Fixed a bug calling Ghostcript, that ignored parameters after dPDFSETTINGS which should made quality and size better (Skibicki #5).
 - Disabled Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
 - Disabled ImageWorsener for WEBP, because it is not lossless (Skibicki #9).
