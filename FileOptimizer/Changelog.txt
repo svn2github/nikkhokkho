@@ -1,3 +1,6 @@
+- Lossy JPEG optimization with jpeg-recompress --method smallfry in.jpg out.jpg (freeko2)
+https://github.com/danielgtaylor/jpeg-archive/releases 
+
 - Add a Pause/Resume option (Pritt).
 
 - Disable optimize all button until full queued files has been added (Pritt).
