@@ -180,6 +180,7 @@ XXXXX - YYYYYYY
 - Added ZIP SFX installer detection.
 - Added InstallShield Wizard and RTPatch Updater detections to exclude processing like we did with Inno Setup (ThisWillDoIt).
 - Added Nullsoft Install System detections to exclude processing in EXE chain.
+- Added ECT to the MP3 toolchain to optimize embedded images (Skibicki).
 - Fixed a bug calling Ghostcript, that ignored parameters after dPDFSETTINGS which should made quality and size better (Skibicki #5).
 - Removed genetator metatag from tidy output (JoeW).
 - Disabled Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
