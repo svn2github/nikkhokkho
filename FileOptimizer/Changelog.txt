@@ -190,6 +190,7 @@ XXXXX - YYYYYYY
 - Updated to ECT 0.4 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.1.5 with HDRI support.
 - Updated to NSIS 3.0 RC1.
+- Updated to cppcheck 1.74.
 
 
 8.30 - 2016/04/30
