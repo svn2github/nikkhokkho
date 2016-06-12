@@ -186,11 +186,13 @@ XXXXX - YYYYYYY
 - Disabled Leanify, and PNGout for APNG because the broke optimized files in some cases (Folding Home).
 - Disabled ImageWorsener for WEBP, because it is not lossless (Skibicki #9).
 - Added EPRT extension (Solid Works) to ZIP chain (maadjordan).
+- Added Leanify to the HTML/SVG toolchain when XMLEnableLeanify is enabled (JoeW).
 - Updated donation button to use Paypal.me so it can accept different currencies that euros (JoeW).
 - Updated to ECT 0.4 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.1.5 with HDRI support.
 - Updated to NSIS 3.0 RC1.
 - Updated to cppcheck 1.74.
+- Upgraded distributions to 7-Zip 16.02.
 
 
 8.30 - 2016/04/30
