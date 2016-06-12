@@ -776,10 +776,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			if (gudtOptions.bHTMLEnableTidy)
 			{
 				RunPlugin((unsigned int) iCount, "tidy-html5", (sPluginsDirectory + "tidy.exe -config tidy.config -quiet -output \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\" ").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			}
-			
-			if (gudtOptions.bXMLEnableLeanify)
-			{
+
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				//Overwrite Leanify iterations
