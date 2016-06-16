@@ -83,6 +83,7 @@ struct udtOptions
 	bool bHTMLEnableTidy;
 	bool bJPEGCopyMetadata;
 	bool bJPEGUseArithmeticEncoding;
+	bool bJPEGAllowLossy;
 	bool bJSEnableJSMin;
 	bool bLUAEnableLeanify;
 	bool bMiscCopyMetadata;

@@ -177,6 +177,7 @@ ndo
 
 
 XXXXX - YYYYYYY
+- Added INI setting JPEGAllowLossy=false to enable lossy JPEG optimizations (maadjordan).
 - Added ZIP SFX installer detection.
 - Added InstallShield Wizard and RTPatch Updater detections to exclude processing like we did with Inno Setup (ThisWillDoIt).
 - Added Nullsoft Install System detections to exclude processing in EXE chain.
