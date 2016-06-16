@@ -166,7 +166,7 @@ ndo
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
-- pngquant 2.5.2 - http://www.pngquant.org
+- pngquant 2.7.0a - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -191,6 +191,7 @@ XXXXX - YYYYYYY
 - Added EPRT extension (Solid Works) to ZIP chain (maadjordan).
 - Added Leanify to the HTML/SVG toolchain when HTMLEnableTidy is enabled (JoeW).
 - Updated donation button to use Paypal.me so it can accept different currencies that euros (JoeW).
+- Updated pngquant to 2.7.0a.
 - Updated to ECT 0.4 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.2.0 with HDRI support.
 - Updated to NSIS 3.0 RC1.
