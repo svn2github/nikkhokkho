@@ -151,6 +151,7 @@ ndo
 - ImageMagick 7.0.2.0 - http://www.imagemagick.org
 - ImageWorsener 1.3.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
+- jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
 - jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
@@ -177,6 +178,7 @@ ndo
 
 
 XXXXX - YYYYYYY
+- Added optional JPEG lossy recompression by adding jpeg-recompress (maadjordan).
 - Added INI setting JPEGAllowLossy=false to enable lossy JPEG optimizations (maadjordan).
 - Added ZIP SFX installer detection.
 - Added InstallShield Wizard and RTPatch Updater detections to exclude processing like we did with Inno Setup (ThisWillDoIt).
@@ -194,6 +196,7 @@ XXXXX - YYYYYYY
 - Updated to NSIS 3.0 RC1.
 - Updated to cppcheck 1.74.
 - Upgraded distributions to 7-Zip 16.02.
+- Some minor optimizations and code cleanup.
 
 
 8.30 - 2016/04/30

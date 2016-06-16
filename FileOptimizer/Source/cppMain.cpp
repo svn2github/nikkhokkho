@@ -699,7 +699,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		// FLAC: FLACOut
 		if (PosEx(sExtensionByContent, KS_EXTENSION_FLAC) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// GIF: gifsicle
 		if (PosEx(sExtensionByContent, KS_EXTENSION_GIF) > 0)
@@ -816,9 +816,23 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
-		// JPEG: jhead, Leanify, ect, jpegoptim, jpegtran, mozjpegtran
+		// JPEG: jpeg-recompress, jhead, Leanify, ect, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtensionByContent, KS_EXTENSION_JPG) > 0)
 		{
+			if (gudtOptions.bJPEGAllowLossy)
+			{
+				sFlags = "";
+				if (!gudtOptions.bJPEGCopyMetadata)
+				{
+					sFlags += "--strip ";
+				}
+				if (gudtOptions.iLevel >= 5)
+				{
+					sFlags += "--accurate ";
+				}
+				RunPlugin((unsigned int) iCount, "jpeg-recompress", (sPluginsDirectory + "jpeg-recompress.exe --method ssim --quality veryhigh --min 60 --subsample disable --quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
+			
 			sFlags = "";
 			if (gudtOptions.bJPEGCopyMetadata)
 			{
@@ -1042,24 +1056,24 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 			if ((!bIsAPNG) && (!bIsPNG9Patch))
 			{
-				sFlags = "";
-				iLevel = min(gudtOptions.iLevel * 3 / 9, 3) + 1;
-				sFlags += "/o" + (String) iLevel + " ";
-				if (gudtOptions.bPNGCopyMetadata)
-				{
-					sFlags += "/md keep all ";
-				}
-				else
-				{
-					sFlags += "/md remove all /g0 ";
-				}
-				if (gudtOptions.bPNGAllowLossy)
-				{
-					sFlags += "/l ";
-				}
 				//Disable TruePNG on ICO files because it crashes
 				if (PosEx(sExtensionByContent, KS_EXTENSION_ICO) == 0)
 				{
+					sFlags = "";
+					iLevel = min(gudtOptions.iLevel * 3 / 9, 3) + 1;
+					sFlags += "/o" + (String) iLevel + " ";
+					if (gudtOptions.bPNGCopyMetadata)
+					{
+						sFlags += "/md keep all ";
+					}
+					else
+					{
+						sFlags += "/md remove all /g0 ";
+					}
+					if (gudtOptions.bPNGAllowLossy)
+					{
+						sFlags += "/l ";
+					}
 					RunPlugin((unsigned int) iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
