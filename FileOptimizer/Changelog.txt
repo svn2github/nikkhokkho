@@ -155,7 +155,7 @@ ndo
 - jpegoptim 1.4.3 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.136 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.4.4 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
@@ -190,6 +190,7 @@ XXXXX - YYYYYYY
 - Disabled ImageWorsener for WEBP, because it is not lossless (Skibicki #9).
 - Added EPRT extension (Solid Works) to ZIP chain (maadjordan).
 - Added Leanify to the HTML/SVG toolchain when HTMLEnableTidy is enabled (JoeW).
+- Updated Leanify to 0.4.3.136 daily binaries.
 - Updated donation button to use Paypal.me so it can accept different currencies that euros (JoeW).
 - Updated pngquant to 2.7.0a.
 - Updated to ECT 0.4 x86 and x64 optimized builds (thanks Malloc Voidstar).
