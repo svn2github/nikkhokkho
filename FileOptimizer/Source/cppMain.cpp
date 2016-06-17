@@ -930,6 +930,23 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
+		// MIME: Leanify
+		if (PosEx(sExtensionByContent, KS_EXTENSION_MIME) > 0)
+		{
+			sFlags = "";
+			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			//Overwrite Leanify iterations
+			if (gudtOptions.iLeanifyIterations != -1)
+			{
+				iLevel = gudtOptions.iLeanifyIterations;
+			}
+			else
+			{
+				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+			}
+			sFlags += "-i " + (String) iLevel + " ";
+			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+		}
 		// MKV: mkclean
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MKV) > 0)
 		{

@@ -178,6 +178,7 @@ ndo
 
 
 XXXXX - YYYYYYY
+- Added MIME (.mht .mhtml .eml .emlx .msg .mbx .vcf .vcard) support with Leanify (JoeW).
 - Added optional JPEG lossy recompression by adding jpeg-recompress (maadjordan).
 - Added INI setting JPEGAllowLossy=false to enable lossy JPEG optimizations (maadjordan).
 - Added ZIP SFX installer detection.
