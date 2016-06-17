@@ -570,11 +570,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 	struct udtOptimizeProgress a =
 	{
+			ULLONG_MAX, //unsigned long long lSavedBytes;
+			ULLONG_MAX, //unsigned long long lTotalBytes;
 			UINT_MAX, //unsigned int iCurrentFile;
 			UINT_MAX, //unsigned int iProcessedFiles;
 			UINT_MAX, //unsigned int iTotalFiles;
-			ULLONG_MAX, //unsigned long long lSavedBytes;
-			ULLONG_MAX, //unsigned long long lTotalBytes;
 			"NULL", //String sFileStatusText;
 			"NULL", //String sWindowCaptionText;
 			"NULL", //String sStatusbarText;
