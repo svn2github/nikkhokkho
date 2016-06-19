@@ -175,6 +175,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Fixed some english typos (thanks Armin).
 
 
 8.40 - 2016/06/17
