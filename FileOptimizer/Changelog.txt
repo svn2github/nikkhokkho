@@ -178,6 +178,7 @@ ndo
 X.XX - YYYY/MM/DD
 - Added optional GIF lossy recompression by adding Gifsicle Lossy (thanks to jibz for the binaries).
 - Added INI setting GIFAllowLossy=false to enable lossy GIF optimizations (maadjordan).
+- Switched jpeg-recompress method to SmallFry due to better compression ratios than SSIM, at least until it is patented.
 - Fixed some english typos (thanks Armin).
 
 

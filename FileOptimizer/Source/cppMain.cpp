@@ -852,7 +852,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "--accurate ";
 				}
-				RunPlugin((unsigned int) iCount, "jpeg-recompress", (sPluginsDirectory + "jpeg-recompress.exe --method ssim --quality veryhigh --min 60 --subsample disable --quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "jpeg-recompress", (sPluginsDirectory + "jpeg-recompress.exe --method smallfry --quality veryhigh --min 60 --subsample disable --quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			
 			sFlags = "";
