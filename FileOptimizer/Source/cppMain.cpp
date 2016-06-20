@@ -42,6 +42,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bEXEDisablePETrim = clsUtil::GetIni(_T("Options"), _T("EXEDisablePETrim"), false);
 	gudtOptions.bEXEEnableUPX = clsUtil::GetIni(_T("Options"), _T("EXEEnableUPX"), false);
 	gudtOptions.bGIFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GIFCopyMetadata"), false);
+	gudtOptions.bGIFAllowLossy = clsUtil::GetIni(_T("Options"), _T("GIFAllowLossy"), false);
 	gudtOptions.bGZCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GZCopyMetadata"), false);
 	gudtOptions.bHTMLEnableTidy = clsUtil::GetIni(_T("Options"), _T("HTMLEnableTidy"), false);
 	gudtOptions.bJPEGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("JPEGCopyMetadata"), false);
@@ -136,6 +137,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("EXEDisablePETrim"), gudtOptions.bEXEDisablePETrim);
 	clsUtil::SetIni(_T("Options"), _T("EXEEnableUPX"), gudtOptions.bEXEEnableUPX);
 	clsUtil::SetIni(_T("Options"), _T("GIFCopyMetadata"), gudtOptions.bGIFCopyMetadata);
+	clsUtil::SetIni(_T("Options"), _T("GIFAllowLossy"), gudtOptions.bGIFAllowLossy);
 	clsUtil::SetIni(_T("Options"), _T("GZCopyMetadata"), gudtOptions.bGZCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("HTMLEnableTidy"), gudtOptions.bHTMLEnableTidy);
 	clsUtil::SetIni(_T("Options"), _T("JPEGCopyMetadata"), gudtOptions.bJPEGCopyMetadata);
@@ -701,9 +703,29 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		{
 			RunPlugin((unsigned int) iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// GIF: gifsicle
+		// GIF: gifsicle-lossy, gifsicle
 		if (PosEx(sExtensionByContent, KS_EXTENSION_GIF) > 0)
 		{
+			
+			if (gudtOptions.bGIFAllowLossy)
+			{			
+				sFlags = "";
+				if (!gudtOptions.bGIFCopyMetadata)
+				{
+					sFlags += "-strip ";
+				}
+
+				sFlags = "";
+				//iLevel = min(gudtOptions.iLevel * 3 / 9, 3);
+				iLevel = 3;
+				sFlags += "-O" + (String) iLevel + " ";
+				if (!gudtOptions.bGIFCopyMetadata)
+				{
+					sFlags += "--no-comments --no-extensions --no-names ";
+				}
+				RunPlugin((unsigned int) iCount, "gifsicle-lossy", (sPluginsDirectory + "gifsicle-lossy.exe --lossy=30 -b -w -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
+			
 			sFlags = "";
 			if (!gudtOptions.bGIFCopyMetadata)
 			{

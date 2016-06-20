@@ -80,6 +80,7 @@ struct udtOptions
 	bool bEXEDisablePETrim;
 	bool bEXEEnableUPX;
 	bool bGIFCopyMetadata;
+	bool bGIFAllowLossy;
 	bool bGZCopyMetadata;
 	bool bHTMLEnableTidy;
 	bool bJPEGCopyMetadata;

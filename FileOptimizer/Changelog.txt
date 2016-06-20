@@ -143,6 +143,7 @@ ndo
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
+- Gifsicle Lossy 1.88 - https://kornel.ski/lossygif
 - Ghostscript 9.19 - http://www.ghostscript.com
 - GNU Strip 2.26 - http://www.gnu.org/software/binutils/
 - ImageMagick 7.0.2.0 - http://www.imagemagick.org
@@ -175,6 +176,8 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Added optional GIF lossy recompression by adding Gifsicle Lossy (thanks to jibz for the binaries).
+- Added INI setting GIFAllowLossy=false to enable lossy GIF optimizations (maadjordan).
 - Fixed some english typos (thanks Armin).
 
 
