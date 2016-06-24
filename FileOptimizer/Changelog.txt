@@ -168,7 +168,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf - http://bjoern.hoehrmann.de/pngwolf
 - rehuff - http://wiki.xiph.org/Rehuff
-- tidy-html5 4.9.26-191-gb4efe74 - http://www.paehl.com/open_source/?HTML_Tidy_for_HTML5
+- Tidy 5.1.14 - http://tidy.sourceforge.net
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
 - UPX 3.91 - http://upx.sourceforge.net
 - ZLib 1.2.8 - http://www.zlib.net
@@ -179,6 +179,7 @@ X.XX - YYYY/MM/DD
 - Added optional GIF lossy recompression by adding Gifsicle Lossy (thanks to jibz for the binaries).
 - Added INI setting GIFAllowLossy=false to enable lossy GIF optimizations (maadjordan).
 - Switched jpeg-recompress method to SmallFry due to better compression ratios than SSIM, at least until it is patented.
+- Replaced tidy-html5 4.9.26-191-gb4efe74 with official Tidy 5.1.14 to avoid errors on old Windows versions (maadjordan).
 - Fixed some english typos (thanks Armin).
 
 
