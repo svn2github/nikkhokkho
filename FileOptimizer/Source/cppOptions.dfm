@@ -621,8 +621,8 @@ object frmOptions: TfrmOptions
         Width = 281
         Height = 17
         Hint = 
-          'Enable tidy. Results in smaller files, but can happen they are n' +
-          'ot editable anymore.'
+          'Enable Tidy. Results in smaller files, but can happen they are n' +
+          'ot editable anymore. Note that this applies to both SVG and HTML file types'
         Caption = '&Enable Tidy'
         ParentShowHint = False
         ShowHint = True
