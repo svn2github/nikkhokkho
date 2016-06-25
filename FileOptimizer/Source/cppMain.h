@@ -57,7 +57,7 @@
 #define KS_EXTENSION_OBJ	_T(" .obj .o .lib .a ")
 #define KS_EXTENSION_OGG	_T(" .ogg .oga .ogx ")
 #define KS_EXTENSION_OGV	_T(" .ogg .ogv .ogx ")
-#define KS_EXTENSION_OLE	_T(" .chm .chs .chw .doc .dot .fla .fpx .mdb .mdt .mix .mpd .mpp .mpt .msi .msp .mst .one .ost .pps .ppt .pub .puz .rvt .sldasm .sldprt .slddrw stickynotes.snt thumbs.db .vsd .vst .vss .xl .xlc .xlm .xls .xlw .xsf .xsn ")
+#define KS_EXTENSION_OLE	_T(" .art .chm .chi .chq .chs .chw .doc .dot .fla .fpx .its .lit .max .mce .mdb .mdt .mic .mix .mpd .mpp .mpt .msi .msg .msp .mst .one .ost .pps .ppt .pub .puz .rvt .sldasm .sldprt .slddrw stickynotes.snt thumbs.db .vsd .vst .vss .wiz .xl .xlc .xlm .xls .xlw .xsf .xsn ")
 #define KS_EXTENSION_PCX	_T(" .dcx .pcc .pcx ")
 #define KS_EXTENSION_PDF	_T(" .epdf .pdf ")
 #define KS_EXTENSION_PNG	_T(" .apng .ico .png .pns ")
