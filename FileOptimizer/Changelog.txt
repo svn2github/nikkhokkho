@@ -181,6 +181,7 @@ X.XX - YYYY/MM/DD
 - Switched jpeg-recompress method to SmallFry due to better compression ratios than SSIM, at least until it is patented.
 - Replaced tidy-html5 4.9.26-191-gb4efe74 with official Tidy 5.1.14 to avoid errors on old Windows versions (maadjordan).
 - Added Flash (.fla) format and enhance extension lists to the OLE tool chain (maadjordan).
+- Added Revit FAmily file extensions (.rft, .rfa, .rte) to the OLE tool chain (maadjordan).
 - Clarified via tooltip (hint) that Enable Tidy (HTMLEnableTidy INI setting) in the HTML options tab, applies also to SVG (maadjordan).
 - Fixed some english typos (thanks Armin).
 
