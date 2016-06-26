@@ -1973,6 +1973,12 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			{
 				sRes = ".ogg";
 			}
+			//Check OLE/OLE Beta
+			else if ((memcmp(acBuffer, "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1", 8) == 0) ||
+					(memcmp(acBuffer, "\x0E\x11\xFC\x0D\xD0\xCF\x11\x0E", 8) == 0))
+			{
+				sRes = ".ole";
+			}
 			//Check PCX
 			else if ((acBuffer[0] == 10) && (acBuffer[2] == 1) && (acBuffer[64] == 0) && (acBuffer[74] == 0))
 			{
