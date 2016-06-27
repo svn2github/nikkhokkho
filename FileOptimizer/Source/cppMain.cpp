@@ -1968,6 +1968,11 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 				sRes = ".mp4";
 			}
 			//Check OBJ
+			else if ((memcmp(acBuffer, "\x4C\x01", 2) == 0) ||
+				(acBuffer[0] == 0x80))
+			{
+				sRes = ".obj";
+			}
 			//Check OGG / Check OGV
 			else if (memcmp(&acBuffer[3], "OggS", 4) == 0)
 			{
