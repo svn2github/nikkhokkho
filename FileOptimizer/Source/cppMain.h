@@ -57,7 +57,7 @@
 #define KS_EXTENSION_OBJ	_T(" .obj .o .lib .a ")
 #define KS_EXTENSION_OGG	_T(" .ogg .oga .ogx ")
 #define KS_EXTENSION_OGV	_T(" .ogg .ogv .ogx ")
-#define KS_EXTENSION_OLE	_T(" .art .chm .chi .chq .chs .chw .doc .dot .fla .fpx .its .lit .max .mce .mdb .mdt .mic .mix .mpd .mpp .mpt .msi .msg .msp .mst .ole .ole2 .one .ost .pps .ppt .pub .puz .rfa .rft .rte .rvt .sldasm .sldprt .slddrw stickynotes.snt thumbs.db .vsd .vst .vss .wiz .xl .xlc .xlm .xls .xlw .xsf .xsn ")
+#define KS_EXTENSION_OLE	_T(" .ac .adp .apr .art .chm .chi .chq .chs .chw .db .doc .dot .fla .fpx .its .lit .max .mce .mdb .mdt .mic .mix .mpd .mpp .mpt .msc .msi .msg .msp .mst .mtw .ole .ole2 .one .opt .ost .pps .ppt .pub .puz .rfa .rft .rte .rvt .sldasm .sldprt .slddrw .sou .spo stickynotes.snt thumbs.db .vsd .vst .vss .wiz .wps .xl .xla .xlc .xlm .xls .xlw .xsf .xsn ")
 #define KS_EXTENSION_PCX	_T(" .dcx .pcc .pcx ")
 #define KS_EXTENSION_PDF	_T(" .epdf .pdf ")
 #define KS_EXTENSION_PNG	_T(" .apng .ico .png .pns ")
