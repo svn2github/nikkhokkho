@@ -1043,11 +1043,10 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			}
 			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// PDF: ghostcript
+		// PDF: ghostcript, smpdf
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
-		{
+		{		
 			sFlags = "";
-
 			//Custom mode
 			if (_tcscmp(gudtOptions.acPDFProfile, _T("Custom")) == 0)
 			{
@@ -1071,6 +1070,8 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			#else
 				RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			#endif
+				
+			RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, advpng, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PNG) > 0)
