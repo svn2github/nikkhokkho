@@ -140,7 +140,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
-- ECT 0.5.0.3 - https://github.com/fhanau/Efficient-Compression-Tool
+- ECT 0.6.0.0 - https://github.com/fhanau/Efficient-Compression-Tool
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
@@ -189,7 +189,7 @@ X.XX - YYYY/MM/DD
 - Added more OLE extensions from http://www.filesignatures.net: .ac .adp .apr .db .opt .msc .mtw .wps .spo .sou .xla (maadjordan).
 - Clarified via tooltip (hint) that Enable Tidy (HTMLEnableTidy INI setting) in the HTML options tab, applies also to SVG (maadjordan).
 - Fixed some english typos (thanks Armin).
-- Updated to ECT 0.5.0.3 x86 and x64 optimized builds (thanks Malloc Voidstar).
+- Updated to ECT 0.6.0.0 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.2.4 with HDRI support.
 
 
