@@ -666,7 +666,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			if (gudtOptions.bEXEEnableUPX)
 			{
-				RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --best --no-backup --force --nrv2d --crp-ms=999999 -k \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --best --no-backup --force --crp-ms=999999 \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
 		// EXE: Leanify, PETrim, strip
@@ -695,7 +695,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				if (gudtOptions.bEXEEnableUPX)
 				{
-					RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --best --no-backup --force --nrv2d --crp-ms=999999 -k \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --best --no-backup --force --crp-ms=999999 \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 		}
