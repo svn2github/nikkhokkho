@@ -182,6 +182,7 @@ X.XX - YYYY/MM/DD
 - Added optional GIF lossy recompression by adding Gifsicle Lossy (thanks to jibz for the binaries).
 - Added INI setting GIFAllowLossy=false to enable lossy GIF optimizations (maadjordan).
 - Added ECT multithreading support to make it faster with more than one core/CPU, and improve ratio with --allfilters.
+- Improved UPX compresion adding --nrv2d --crp-ms=999999.
 - Switched jpeg-recompress method to SmallFry due to better compression ratios than SSIM, at least until it is patented.
 - Replaced tidy-html5 4.9.26-191-gb4efe74 with official Tidy 5.1.14 to avoid errors on old Windows versions (maadjordan).
 - Added Flash (.fla) format and enhance extension lists to the OLE tool chain (maadjordan).
