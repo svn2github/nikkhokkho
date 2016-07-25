@@ -192,6 +192,7 @@ X.XX - YYYY/MM/DD
 - Fixed some english typos (thanks Armin).
 - Updated to ECT 0.6.1.0 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.2.5 with HDRI support.
+- Updated to NSIS 3.0.
 
 
 8.40 - 2016/06/17
