@@ -190,6 +190,7 @@ X.XX - YYYY/MM/DD
 - Added more OLE extensions from http://www.filesignatures.net: .ac .adp .apr .db .opt .msc .mtw .wps .spo .sou .xla (maadjordan).
 - Clarified via tooltip (hint) that Enable Tidy (HTMLEnableTidy INI setting) in the HTML options tab, applies also to SVG (maadjordan).
 - Fixed some english typos (thanks Armin).
+- Improved already running instances detection.
 - Updated to ECT 0.6.1.0 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.2.5 with HDRI support.
 - Updated to NSIS 3.0.

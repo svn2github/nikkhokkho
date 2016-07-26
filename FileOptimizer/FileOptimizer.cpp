@@ -30,8 +30,8 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 
 	try
 	{
-		hMutex = CreateMutex(NULL, false, Application->Name.c_str());
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
+		hMutex = CreateMutex(NULL, true, Application->Name.c_str());
+		if ((!hMutex) || (GetLastError() == ERROR_ALREADY_EXISTS))
 		{
 			if (clsUtil::MsgBox(NULL, ("There is one instace of " + Application->Name + " still running.\r\n\r\nDo you want to open another?").c_str(), _T("Still running"), MB_YESNO | MB_ICONQUESTION) == IDNO)
 			{
