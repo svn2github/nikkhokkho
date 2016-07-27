@@ -779,7 +779,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";
 			if (!gudtOptions.bGZCopyMetadata)
 			{
-				sFlags = "-strip ";
+				sFlags += "-s ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
@@ -921,7 +921,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";			
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
-				sFlags = "-strip ";
+				sFlags += "-s ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
@@ -993,11 +993,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";
 			if (!gudtOptions.bMP3CopyMetadata)
 			{
-				sFlags = "-strip ";
+				sFlags += "-s ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);	
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			sFlags = "";
 			if (!gudtOptions.bMP3CopyMetadata)
@@ -1193,7 +1193,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 					sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";
 					if (!gudtOptions.bPNGCopyMetadata)
 					{
-						sFlags = "-strip ";
+						sFlags += "-s ";
 					}
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					sFlags += "-" + (String) iLevel + " ";
