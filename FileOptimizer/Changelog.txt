@@ -177,6 +177,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Made interface fully HDPI aware. Now it reescales according to Windows scaling (@Zeyckler).
 - Added smpdf to the PDF toolchain (necros, maadjordan).
 - Added OLE and OBJ files detection by content.
 - Added optional GIF lossy recompression by adding Gifsicle Lossy (thanks to jibz for the binaries).

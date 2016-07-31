@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'FileOptimizer'
-  ClientHeight = 575
+  ClientHeight = 573
   ClientWidth = 734
   Color = clWindow
   Constraints.MinHeight = 450
@@ -221,14 +221,13 @@ object frmMain: TfrmMain
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
-  Scaled = False
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
   DesignSize = (
     734
-    575)
+    573)
   PixelsPerInch = 96
   TextHeight = 13
   object lblInstructions: TLabel
@@ -338,7 +337,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 181
     Width = 734
-    Height = 375
+    Height = 373
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -371,7 +370,7 @@ object frmMain: TfrmMain
   end
   object stbMain: TStatusBar
     Left = 0
-    Top = 556
+    Top = 554
     Width = 734
     Height = 19
     Panels = <
@@ -664,7 +663,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010A000D00300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A000D00180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000B7818300B781
       8300B7818300B7818300B7818300B7818300B7818300B7818300B7818300B781

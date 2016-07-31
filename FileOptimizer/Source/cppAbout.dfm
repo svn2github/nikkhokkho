@@ -221,7 +221,6 @@ object frmAbout: TfrmAbout
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
-  Scaled = False
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   PixelsPerInch = 96
@@ -303,6 +302,7 @@ object frmAbout: TfrmAbout
       F6CE09095D7AF0EDDFE5EF8FF3299C521633D9D398AB1621B8E74CB2C548690C
       EE20B1006482C403FFD9}
     Proportional = True
+    Stretch = True
   end
   object lblProduct: TLabel
     Left = 8
