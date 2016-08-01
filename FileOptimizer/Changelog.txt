@@ -177,6 +177,9 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+
+
+8.50 - 2016/08/01
 - Made interface fully HDPI aware. Now it reescales according to Windows scaling (@Zeyckler).
 - Added smpdf to the PDF toolchain (necros, maadjordan).
 - Added OLE and OBJ files detection by content.
@@ -196,7 +199,6 @@ X.XX - YYYY/MM/DD
 - Updated to ECT 0.6.1.0 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick 7.0.2.5 with HDRI support.
 - Updated to NSIS 3.0.
-
 
 8.40 - 2016/06/17
 - Added MIME (.mht .mhtml .eml .emlx .msg .mbx .vcf .vcard) support with Leanify (JoeW).
