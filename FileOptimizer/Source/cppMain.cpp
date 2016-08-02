@@ -207,7 +207,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 		while (FindNextFile(hFindFile, &udtFindFileData) != 0);
 		FindClose(hFindFile);
 
-		if ((bRunning) && (clsUtil::MsgBox(Handle, ("Optimization are still being running. Do you want to stop them, and exit " + Application->Name + "?").c_str(), _T("Exit"), MB_YESNO | MB_ICONQUESTION) == ID_NO))
+		if ((bRunning) && (clsUtil::MsgBox(Handle, ("Optimization is still running. Do you want to stop and exit " + Application->Name + "?").c_str(), _T("Exit"), MB_YESNO | MB_ICONQUESTION) == ID_NO))
 		{
 			CanClose = false;
 		}
