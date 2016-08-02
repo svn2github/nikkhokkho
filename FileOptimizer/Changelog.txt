@@ -178,6 +178,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Updated to ECT 0.6.2.0 -ef70e0- x86 and x64 optimized builds (thanks Malloc Voidstar).
+- Reverted multiple instances detection (Special).
 
 
 8.50 - 2016/08/01
