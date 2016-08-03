@@ -1,3 +1,5 @@
+- Add pngwolf-zopfli: https://github.com/jibsen/pngwolf-zopfli/releases/ (TPS).
+
 - Add a Pause/Resume option (Pritt).
 
 - Disable optimize all button until full queued files has been added (Pritt).
