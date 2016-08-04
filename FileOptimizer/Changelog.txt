@@ -1,5 +1,3 @@
-- Add pngwolf-zopfli: https://github.com/jibsen/pngwolf-zopfli/releases/ (TPS).
-
 - Add a Pause/Resume option (Pritt).
 
 - Disable optimize all button until full queued files has been added (Pritt).
@@ -169,7 +167,7 @@ ndo
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.7.0a - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
-- pngwolf - http://bjoern.hoehrmann.de/pngwolf
+- pngwolf-zopli 1.1.0 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
 - Tidy 5.1.14 - http://tidy.sourceforge.net
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
@@ -182,6 +180,7 @@ X.XX - YYYY/MM/DD
 - Updated to ECT 0.6.2.0 -ef70e0- x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Reverted multiple instances detection (Special).
 - Made abort optimization message more clearer (Louis Horvath).
+- Changed from pngwolf to pngwolf-zopfli, which gives higher rations, and a native x64 build (TPS).
 
 
 8.50 - 2016/08/01
