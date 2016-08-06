@@ -181,6 +181,7 @@ X.XX - YYYY/MM/DD
 - Reverted multiple instances detection (Special).
 - Made abort optimization message more clearer (Louis Horvath).
 - Changed from pngwolf to pngwolf-zopfli, which gives higher rations, and a native x64 build (TPS).
+- Updated to cppcheck 1.75.
 
 
 8.50 - 2016/08/01
