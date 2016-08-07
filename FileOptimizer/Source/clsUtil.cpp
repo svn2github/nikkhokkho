@@ -60,7 +60,7 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 				p++;
 			}
 		}
-		else  
+		else
 		{
 			break;
 		}
@@ -73,7 +73,7 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, int piType)
 {
-	int iButton = NULL;
+	int iButton = 0;
 	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {};
 
 
@@ -84,10 +84,10 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 		TaskDialogType *TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect");
 		if (TaskDialogProc)
 		{
-			//memset(&udtFlags, 0, sizeof(udtFlags));
 			udtFlags.cbSize = sizeof(udtFlags);
 			udtFlags.hwndParent = phWnd;
-			udtFlags.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_CAN_BE_MINIMIZED;
+			//udtFlags.hInstance = Application->
+			udtFlags.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_CAN_BE_MINIMIZED | TDF_SIZE_TO_CONTENT;
 
 			if ((piType & MB_ABORTRETRYIGNORE) == MB_ABORTRETRYIGNORE)
 			{
@@ -164,6 +164,7 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 		}
 		FreeLibrary(hDLL);
 	}
+
 	//Fallback when library not loaded or TaskDialogIndirect not exists
 	if (iButton == NULL)
 	{

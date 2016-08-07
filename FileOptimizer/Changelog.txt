@@ -177,9 +177,10 @@ ndo
 
 
 X.XX - YYYY/MM/DD
-- Updated to ECT 0.6.2.0 -ef70e0- x86 and x64 optimized builds (thanks Malloc Voidstar).
+- Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
 - Reverted multiple instances detection (Special).
 - Made abort optimization message more clearer (Louis Horvath).
+- Updated to ECT 0.6.2.0 -ef70e0- x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Changed from pngwolf to pngwolf-zopfli, which gives higher rations, and a native x64 build (TPS).
 - Updated to cppcheck 1.75.
 
