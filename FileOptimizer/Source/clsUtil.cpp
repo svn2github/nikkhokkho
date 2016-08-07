@@ -86,7 +86,6 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 		{
 			udtFlags.cbSize = sizeof(udtFlags);
 			udtFlags.hwndParent = phWnd;
-			//udtFlags.hInstance = Application->
 			udtFlags.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_CAN_BE_MINIMIZED | TDF_SIZE_TO_CONTENT;
 
 			if ((piType & MB_ABORTRETRYIGNORE) == MB_ABORTRETRYIGNORE)
