@@ -181,6 +181,7 @@ X.XX - YYYY/MM/DD
 - Reverted multiple instances detection (Special).
 - Made abort optimization message more clearer (Louis Horvath).
 - Retested in Windows XP RTM, and Windows 10 Anniversary.
+- Simplified ECT multithreading, because it already knows the number of threads to use.
 - Updated Leanify to 0.4.3.149 daily binaries.
 - Updated to ECT 0.6.2.0 -ef70e0- x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Changed from pngwolf to pngwolf-zopfli, which gives higher rations, and a native x64 build (TPS).

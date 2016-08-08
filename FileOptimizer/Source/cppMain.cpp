@@ -9,9 +9,9 @@
 
 
 // ---------------------------------------------------------------------------
-TfrmMain *frmMain;
-struct udtOptions gudtOptions;
-SYSTEM_INFO gudtSystemInfo;
+TfrmMain *frmMain = NULL;
+struct udtOptions gudtOptions  = {};
+//SYSTEM_INFO gudtSystemInfo = {};
 bool gbProcess = false;
 bool gbStop = false;
 
@@ -122,8 +122,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 	
-	memset(&gudtSystemInfo, 0, sizeof(gudtSystemInfo));
-	GetSystemInfo(&gudtSystemInfo);
+	//GetSystemInfo(&gudtSystemInfo);
 	
 	UpdateTheme(gudtOptions.acTheme);
 }
@@ -784,7 +783,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			sFlags = "";
-			sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";
+			sFlags += "--allfilters --mt-deflate ";
 			if (!gudtOptions.bGZCopyMetadata)
 			{
 				sFlags += "-s ";
@@ -926,7 +925,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			sFlags = "";
-			sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";			
+			sFlags += "--allfilters --mt-deflate ";			
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
 				sFlags += "-s ";
@@ -998,7 +997,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MP3) > 0)
 		{
 			sFlags = "";
-			sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";
+			sFlags += "--allfilters --mt-deflate ";
 			if (!gudtOptions.bMP3CopyMetadata)
 			{
 				sFlags += "-s ";
@@ -1198,7 +1197,7 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 					RunPlugin((unsigned int) iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 	
 					sFlags = "";
-					sFlags += "--allfilters --mt-deflate=" + (String) gudtSystemInfo.dwNumberOfProcessors + " ";
+					sFlags += "--allfilters --mt-deflate ";
 					if (!gudtOptions.bPNGCopyMetadata)
 					{
 						sFlags += "-s ";
