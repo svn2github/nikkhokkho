@@ -1,14 +1,10 @@
 - Add a Pause/Resume option (Pritt).
 
-- Disable optimize all button until full queued files has been added (Pritt).
-
 - Allow start optimizing while files are being added in background (Pritt).
 
 - Do not touch files if gains are less than X% (Michael Goeller).
 
 - Skipped items
-
-- Window positions not properly restored on launch (hairycactus).
 
 - Faster and slightly larger 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
@@ -180,8 +176,9 @@ X.XX - YYYY/MM/DD
 - Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
 - Improved single instance detection, because it did not work properly on Vista and later (Special).
 - Made abort optimization message more clearer (Louis Horvath).
-- Retested in Windows XP RTM, and Windows 10 Anniversary.
 - Simplified ECT multithreading, because it already knows the number of threads to use.
+- Fixed main window position not properly restored on launch (hairycactus).
+- Retested in Windows XP RTM, and Windows 10 Anniversary.
 - Updated Leanify to 0.4.3.149 daily binaries.
 - Updated to ECT 0.6.2.0 -ef70e0- x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Changed from pngwolf to pngwolf-zopfli, which gives higher rations, and a native x64 build (TPS).
