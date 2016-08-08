@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.41. 08/08/2016. FileOptimizer. Added ShutdownWindows
  3.40. 27/12/2015. FileOptimizer. Added GetWindowsVersion since GetVersion on Windows 8.1 or later do not work unless application is manifested
  3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni. Added MemMem, CopyFile
  3.25. 05/04/2015. FileOptimizer. Added Random
@@ -219,13 +220,11 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 		udtSA.lpSecurityDescriptor = NULL;
 		CreatePipe(&hRead, &hWrite, &udtSA, 0);
 
-		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
 		udtSI.hStdInput = hRead;
 		udtSI.hStdOutput = hWrite;
 		udtSI.wShowWindow = SW_HIDE;
-		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory, &udtSI,
 				&udtPI))
@@ -240,11 +239,9 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 		udtSA.bInheritHandle = true;
 		udtSA.lpSecurityDescriptor = NULL;
 
-		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESHOWWINDOW;
 		udtSI.wShowWindow = SW_HIDE;
-		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory,
 				&udtSI, &udtPI))
@@ -770,7 +767,6 @@ const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey
 	TCHAR acRes[2048] = {0};
 
 
-	//memset(acRes, 0, sizeof(acRes));
 	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey);
 	RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) acRes, NULL);
 	RegCloseKey(hKey);
@@ -896,8 +892,8 @@ bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 	int iWindowState;
 
 
-	pfrmForm->Left = GetIni(pfrmForm->Name.c_str(), _T("Left"), pfrmForm->Left);
-	pfrmForm->Top = GetIni(pfrmForm->Name.c_str(), _T("Top"), pfrmForm->Top);
+	pfrmForm->Left = GetIni(pfrmForm->Name.c_str(), _T("Left"), (Screen->Width - pfrmForm->Width) >> 1);
+	pfrmForm->Top = GetIni(pfrmForm->Name.c_str(), _T("Top"), (Screen->Height - pfrmForm->Height) >> 1);
 	pfrmForm->Width = GetIni(pfrmForm->Name.c_str(), _T("Width"), pfrmForm->Width);
 	pfrmForm->Height = GetIni(pfrmForm->Name.c_str(), _T("Height"), pfrmForm->Height);
 	iWindowState = GetIni(pfrmForm->Name.c_str(), _T("WindowState"), (int) pfrmForm->WindowState);
@@ -937,14 +933,12 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 
 	Application->ProcessMessages();
 	// ShFileOperation expect strings ending in double NULL
-	//memset(acSource, 0, sizeof(acSource));
 	_tcscpy(acSource, pacSource);
 	_tcscpy(acDestination, acSource);
 	_tcscat(acDestination, _T(".tmp"));
 
 	CopyFile(acSource, acDestination);
 
-	//memset(&udtFileOp, 0, sizeof(udtFileOp));
 	udtFileOp.wFunc = FO_DELETE;
 	udtFileOp.fFlags = FOF_ALLOWUNDO | FOF_NO_UI;
 	udtFileOp.pFrom = acSource;
@@ -1025,4 +1019,35 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 		}
 	}
 	return(iWindowsVersion);
+}
+
+
+// ---------------------------------------------------------------------------
+bool __fastcall clsUtil::ShutdownWindows(void)
+{
+	bool bRes = false;
+	HANDLE hToken; 
+	TOKEN_PRIVILEGES udtTokenPrivileges; 
+
+
+	//Get a token for this process
+	if (OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken)) 
+	{
+		//Get the LUID for the shutdown privilege.
+		LookupPrivilegeValue(NULL, SE_SHUTDOWN_NAME, &udtTokenPrivileges.Privileges[0].Luid); 
+		udtTokenPrivileges.PrivilegeCount = 1;  //One privilege to set    
+		udtTokenPrivileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED; 
+
+		// Get the shutdown privilege for this process. 
+		AdjustTokenPrivileges(hToken, false, &udtTokenPrivileges, 0, (PTOKEN_PRIVILEGES) NULL, 0); 
+		if (GetLastError() == ERROR_SUCCESS) 
+		{
+			//Shut down the system and force all applications to close. 
+			if (ExitWindowsEx(EWX_SHUTDOWN | EWX_FORCE, SHTDN_REASON_MAJOR_OPERATINGSYSTEM | SHTDN_REASON_MINOR_UPGRADE | SHTDN_REASON_FLAG_PLANNED))
+			{
+				bRes = true;
+			}
+		}
+	}
+	return(bRes);
 }

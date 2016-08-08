@@ -8,22 +8,15 @@
 
 - Faster and slightly larger 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
-- ZIPRecurse=false does same as ZIPRecurse=true (Special).
-
 - Add context menu Open containing folder (Special)
 
 - Add include mask, similar to exclude mask, to limit processing to particular file extensions (Tomasz W.).
 
-- Use JPEG archive (maadjordan): https://github.com/danielgtaylor/jpeg-archive/releases (maadjordan).
-
 - Add Huffmix PNG compression (Stephan Busch).
 
 
-- Tune Ghostscript arguments http://encode.ru/threads/1589-FileOptimizer?p=44121&viewfull=1#post44121 (necros).
 - Add INI setting for optional independent compression levels for each file type (Newtomic).
 - Add a technical section on the help file and website to detail how optimizations works, and lossless (alex).
-- Add INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all files is done (guindos98).
-- On Windows XP, log seems fine, but files get not processed and finally the original file deleted (Vivil).
 
 - Multithreading support:
 	* http://op.htmsoft.com/articles/Articlea1-2-1.html
@@ -173,16 +166,18 @@ ndo
 
 
 X.XX - YYYY/MM/DD
-- Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
+- Added INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all queued files is done (guindos98).
 - Improved single instance detection, because it did not work properly on Vista and later (Special).
+- Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
 - Made abort optimization message more clearer (Louis Horvath).
-- Simplified ECT multithreading, because it already knows the number of threads to use.
 - Fixed main window position not properly restored on launch (hairycactus).
+- Simplified ECT multithreading, because it already knows the number of threads to use.
 - Retested in Windows XP RTM, and Windows 10 Anniversary.
 - Updated Leanify to 0.4.3.149 daily binaries.
 - Updated to ECT 0.6.2.0 -ef70e0- x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Changed from pngwolf to pngwolf-zopfli, which gives higher rations, and a native x64 build (TPS).
 - Updated to cppcheck 1.75.
+- Some minor optimizations and code cleanup.
 
 
 8.50 - 2016/08/01

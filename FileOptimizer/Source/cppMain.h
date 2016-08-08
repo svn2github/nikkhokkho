@@ -104,6 +104,7 @@ struct udtOptions
 	TCHAR acExcludeMask[128];
 	TCHAR acDisablePluginMask[128];
 	bool bBeepWhenDone;
+	bool bShutdownWhenDone;
 	bool bAlwaysOnTop;
 	bool bAllowDuplicates;
 	int iLevel;

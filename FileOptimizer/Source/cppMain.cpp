@@ -66,6 +66,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcscpy(gudtOptions.acExcludeMask, clsUtil::GetIni(_T("Options"), _T("ExcludeMask"), _T("")));
 	_tcscpy(gudtOptions.acDisablePluginMask, clsUtil::GetIni(_T("Options"), _T("DisablePluginMask"), _T("")));
 	gudtOptions.bBeepWhenDone = clsUtil::GetIni(_T("Options"), _T("BeepWhenDone"), false);
+	gudtOptions.bShutdownWhenDone = clsUtil::GetIni(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = clsUtil::GetIni(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bAllowDuplicates = clsUtil::GetIni(_T("Options"), _T("AllowDuplicates"), false);
 	gudtOptions.iLevel = clsUtil::GetIni(_T("Options"), _T("Level"), 5);
@@ -169,6 +170,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask);
 	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask);
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone);
+	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone);
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop);
 	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates);
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel);
@@ -553,6 +555,14 @@ void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
 	{
 		FlashWindow(Handle, false);
 		MessageBeep(0xFFFFFFFF);
+	}
+	
+	if (gudtOptions.bShutdownWhenDone)
+	{
+		if (!clsUtil::ShutdownWindows())
+		{
+			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
+		}
 	}
 }
 
@@ -1867,7 +1877,6 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	TCHAR acBuffer[512] = {0};
 
 
-	//memset(acBuffer, 0, sizeof(acBuffer));
 	if (clsUtil::DownloadFile(KS_APP_UPDATE_URL, acPath, sizeof(acPath)))
 	{
 		mbstowcs(acBuffer, (char *) acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
@@ -1880,7 +1889,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			{
 				if (!pbSilent)
 				{
-					clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONINFORMATION);
+					clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
 				}
 				return;
 			}
@@ -1901,7 +1910,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	}
 	else if (!pbSilent)
 	{
-		clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONINFORMATION);
+		clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
 	}
 }
 
@@ -2149,13 +2158,11 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSA.lpSecurityDescriptor = NULL;
 		CreatePipe(&hRead, &hWrite, &udtSA, 0);
 
-		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
 		udtSI.hStdInput = hRead;
 		udtSI.hStdOutput = hWrite;
 		udtSI.wShowWindow = SW_HIDE;
-		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI, &udtPI))
 		{
@@ -2168,11 +2175,9 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 		udtSA.bInheritHandle = true;
 		udtSA.lpSecurityDescriptor = NULL;
 
-		//memset(&udtSI, 0, sizeof(udtSI));
 		udtSI.cb = sizeof(udtSI);
 		udtSI.dwFlags = STARTF_USESHOWWINDOW;
 		udtSI.wShowWindow = SW_HIDE;
-		//memset(&udtPI, 0, sizeof(udtPI));
 
 		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, (unsigned long) gudtOptions.iProcessPriority, NULL, (TCHAR *) pacDirectory, &udtSI, &udtPI))
 		{
