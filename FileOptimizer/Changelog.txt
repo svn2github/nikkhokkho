@@ -178,7 +178,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
-- Reverted multiple instances detection (Special).
+- Improved single instance detection, because it did not work properly on Vista and later (Special).
 - Made abort optimization message more clearer (Louis Horvath).
 - Retested in Windows XP RTM, and Windows 10 Anniversary.
 - Simplified ECT multithreading, because it already knows the number of threads to use.

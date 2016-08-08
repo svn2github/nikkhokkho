@@ -30,9 +30,18 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 
 	try
 	{
-		hMutex = CreateMutex(NULL, true, Application->Name.c_str());
-		//if ((!hMutex) || (GetLastError() == ERROR_ALREADY_EXISTS))
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
+		Application->Initialize();
+		Application->Name = "FileOptimizer";
+		Application->Title = Application->Name;
+		Application->HelpFile = Application->Name + ".chm";
+		Application->MainFormOnTaskBar = true;
+
+		hMutex = OpenMutex(MUTEX_ALL_ACCESS, false, Application->Name.c_str());
+		if (!hMutex)
+		{
+			hMutex = CreateMutex(NULL, false, Application->Name.c_str());
+		}
+		else
 		{
 			if (clsUtil::MsgBox(NULL, ("There is one instace of " + Application->Name + " still running.\r\n\r\nDo you want to open another?").c_str(), _T("Still running"), MB_YESNO | MB_ICONQUESTION) == IDNO)
 			{
@@ -44,8 +53,8 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
 		SetMinimumBlockAlignment(mba16Byte);
 
-        // Disable file system redirection on Win64 environments
-        hDLL = LoadLibrary(_T("KERNEL32.DLL"));
+		// Disable file system redirection on Win64 environments
+		hDLL = LoadLibrary(_T("KERNEL32.DLL"));
 		if (hDLL)
 		{
 			typedef BOOL (WINAPI Wow64DisableWow64FsRedirectionType)(PVOID *);
@@ -73,13 +82,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			FreeLibrary(hDLL);
 		}
 
-		Application->Initialize();
-		Application->Name = "FileOptimizer";
-		Application->Title = Application->Name;
-		Application->HelpFile = Application->Name + ".chm";
-		Application->MainFormOnTaskBar = true;
-
-		TStyleManager::TrySetStyle("Windows10");
+		//TStyleManager::TrySetStyle("Windows");
 		Application->CreateForm(__classid(TfrmMain), &frmMain);
 		Screen->Cursor = crDefault;
 		Application->Run();
@@ -91,7 +94,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 
 	if (hMutex)
 	{
-		CloseHandle(hMutex);
+		ReleaseMutex(hMutex);
 	}
 	return (0);
 }
