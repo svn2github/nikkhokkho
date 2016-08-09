@@ -30,59 +30,59 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 
 	clsUtil::LoadForm(this);
-	rbnMain->Minimized = clsUtil::GetIni(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
-	grdFiles->ColWidths[KI_GRID_FILE] = clsUtil::GetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
-	grdFiles->ColWidths[KI_GRID_EXTENSION] = clsUtil::GetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
-	grdFiles->ColWidths[KI_GRID_ORIGINAL] = clsUtil::GetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
-	grdFiles->ColWidths[KI_GRID_OPTIMIZED] = clsUtil::GetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[KI_GRID_OPTIMIZED]);
-	grdFiles->ColWidths[KI_GRID_STATUS] = clsUtil::GetIni(Name.c_str(), _T("Col4Width"), grdFiles->ColWidths[KI_GRID_STATUS]);
-	gudtOptions.bBMPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("BMPCopyMetadata"), false);
-	gudtOptions.bCSSEnableTidy = clsUtil::GetIni(_T("Options"), _T("CSSEnableTidy"), false);
-	_tcscpy(gudtOptions.acCSSTemplate, clsUtil::GetIni(_T("Options"), _T("CSSTemplate"), _T("low")));
-	gudtOptions.bEXEDisablePETrim = clsUtil::GetIni(_T("Options"), _T("EXEDisablePETrim"), false);
-	gudtOptions.bEXEEnableUPX = clsUtil::GetIni(_T("Options"), _T("EXEEnableUPX"), false);
-	gudtOptions.bGIFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GIFCopyMetadata"), false);
-	gudtOptions.bGIFAllowLossy = clsUtil::GetIni(_T("Options"), _T("GIFAllowLossy"), false);
-	gudtOptions.bGZCopyMetadata = clsUtil::GetIni(_T("Options"), _T("GZCopyMetadata"), false);
-	gudtOptions.bHTMLEnableTidy = clsUtil::GetIni(_T("Options"), _T("HTMLEnableTidy"), false);
-	gudtOptions.bJPEGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("JPEGCopyMetadata"), false);
-	gudtOptions.bJPEGUseArithmeticEncoding = clsUtil::GetIni(_T("Options"), _T("JPEGUseArithmeticEncoding"), false);
-	gudtOptions.bJPEGAllowLossy = clsUtil::GetIni(_T("Options"), _T("JPEGAllowLossy"), false);
-	gudtOptions.bJSEnableJSMin = clsUtil::GetIni(_T("Options"), _T("JSEnableJSMin"), false);
-	gudtOptions.bLUAEnableLeanify = clsUtil::GetIni(_T("Options"), _T("LUAEnableLeanify"), false);
-	gudtOptions.bMiscCopyMetadata = clsUtil::GetIni(_T("Options"), _T("MiscCopyMetadata"), false);
-	gudtOptions.bMP3CopyMetadata = clsUtil::GetIni(_T("Options"), _T("MP3CopyMetadata"), false);
-	gudtOptions.bPCXCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PCXCopyMetadata"), false);
-	_tcscpy(gudtOptions.acPDFProfile, clsUtil::GetIni(_T("Options"), _T("PDFProfile"), _T("none")));
-	gudtOptions.iPDFCustomDPI = clsUtil::GetIni(_T("Options"), _T("PDFCustomDPI"), 150);
-	gudtOptions.bPNGCopyMetadata = clsUtil::GetIni(_T("Options"), _T("PNGCopyMetadata"), false);
-	gudtOptions.bPNGAllowLossy = clsUtil::GetIni(_T("Options"), _T("PNGAllowLossy"), false);
-	gudtOptions.bTIFFCopyMetadata = clsUtil::GetIni(_T("Options"), _T("TIFFCopyMetadata"), false);
-	gudtOptions.bXMLEnableLeanify = clsUtil::GetIni(_T("Options"), _T("XMLEnableLeanify"), false);
-	gudtOptions.bZIPCopyMetadata = clsUtil::GetIni(_T("Options"), _T("ZIPCopyMetadata"), false);
-	gudtOptions.bZIPRecurse = clsUtil::GetIni(_T("Options"), _T("ZIPRecurse"), false);
-	gudtOptions.bKeepAttributes = clsUtil::GetIni(_T("Options"), _T("KeepAttributes"), false);
-	gudtOptions.bDoNotUseRecycleBin = clsUtil::GetIni(_T("Options"), _T("DoNotUseRecycleBin"), false);
-	_tcscpy(gudtOptions.acExcludeMask, clsUtil::GetIni(_T("Options"), _T("ExcludeMask"), _T("")));
-	_tcscpy(gudtOptions.acDisablePluginMask, clsUtil::GetIni(_T("Options"), _T("DisablePluginMask"), _T("")));
-	gudtOptions.bBeepWhenDone = clsUtil::GetIni(_T("Options"), _T("BeepWhenDone"), false);
-	gudtOptions.bShutdownWhenDone = clsUtil::GetIni(_T("Options"), _T("ShutdownWhenDone"), false);
-	gudtOptions.bAlwaysOnTop = clsUtil::GetIni(_T("Options"), _T("AlwaysOnTop"), false);
-	gudtOptions.bAllowDuplicates = clsUtil::GetIni(_T("Options"), _T("AllowDuplicates"), false);
-	gudtOptions.iLevel = clsUtil::GetIni(_T("Options"), _T("Level"), 5);
-	gudtOptions.iProcessPriority = clsUtil::GetIni(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
-	gudtOptions.iCheckForUpdates = clsUtil::GetIni(_T("Options"), _T("CheckForUpdates"), 1);
-	gudtOptions.iLogLevel = clsUtil::GetIni(_T("Options"), _T("LogLevel"), 0);
-	gudtOptions.iFilenameFormat = clsUtil::GetIni(_T("Options"), _T("FilenameFormat"), 0);
-	gudtOptions.iLeanifyIterations = clsUtil::GetIni(_T("Options"), _T("LeanifyIterations"), -1);
+	rbnMain->Minimized = GetOption(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
+	grdFiles->ColWidths[KI_GRID_FILE] = GetOption(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
+	grdFiles->ColWidths[KI_GRID_EXTENSION] = GetOption(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
+	grdFiles->ColWidths[KI_GRID_ORIGINAL] = GetOption(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
+	grdFiles->ColWidths[KI_GRID_OPTIMIZED] = GetOption(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[KI_GRID_OPTIMIZED]);
+	grdFiles->ColWidths[KI_GRID_STATUS] = GetOption(Name.c_str(), _T("Col4Width"), grdFiles->ColWidths[KI_GRID_STATUS]);
+	gudtOptions.bBMPCopyMetadata = GetOption(_T("Options"), _T("BMPCopyMetadata"), false);
+	gudtOptions.bCSSEnableTidy = GetOption(_T("Options"), _T("CSSEnableTidy"), false);
+	_tcscpy(gudtOptions.acCSSTemplate, GetOption(_T("Options"), _T("CSSTemplate"), _T("low")));
+	gudtOptions.bEXEDisablePETrim = GetOption(_T("Options"), _T("EXEDisablePETrim"), false);
+	gudtOptions.bEXEEnableUPX = GetOption(_T("Options"), _T("EXEEnableUPX"), false);
+	gudtOptions.bGIFCopyMetadata = GetOption(_T("Options"), _T("GIFCopyMetadata"), false);
+	gudtOptions.bGIFAllowLossy = GetOption(_T("Options"), _T("GIFAllowLossy"), false);
+	gudtOptions.bGZCopyMetadata = GetOption(_T("Options"), _T("GZCopyMetadata"), false);
+	gudtOptions.bHTMLEnableTidy = GetOption(_T("Options"), _T("HTMLEnableTidy"), false);
+	gudtOptions.bJPEGCopyMetadata = GetOption(_T("Options"), _T("JPEGCopyMetadata"), false);
+	gudtOptions.bJPEGUseArithmeticEncoding = GetOption(_T("Options"), _T("JPEGUseArithmeticEncoding"), false);
+	gudtOptions.bJPEGAllowLossy = GetOption(_T("Options"), _T("JPEGAllowLossy"), false);
+	gudtOptions.bJSEnableJSMin = GetOption(_T("Options"), _T("JSEnableJSMin"), false);
+	gudtOptions.bLUAEnableLeanify = GetOption(_T("Options"), _T("LUAEnableLeanify"), false);
+	gudtOptions.bMiscCopyMetadata = GetOption(_T("Options"), _T("MiscCopyMetadata"), false);
+	gudtOptions.bMP3CopyMetadata = GetOption(_T("Options"), _T("MP3CopyMetadata"), false);
+	gudtOptions.bPCXCopyMetadata = GetOption(_T("Options"), _T("PCXCopyMetadata"), false);
+	_tcscpy(gudtOptions.acPDFProfile, GetOption(_T("Options"), _T("PDFProfile"), _T("none")));
+	gudtOptions.iPDFCustomDPI = GetOption(_T("Options"), _T("PDFCustomDPI"), 150);
+	gudtOptions.bPNGCopyMetadata = GetOption(_T("Options"), _T("PNGCopyMetadata"), false);
+	gudtOptions.bPNGAllowLossy = GetOption(_T("Options"), _T("PNGAllowLossy"), false);
+	gudtOptions.bTIFFCopyMetadata = GetOption(_T("Options"), _T("TIFFCopyMetadata"), false);
+	gudtOptions.bXMLEnableLeanify = GetOption(_T("Options"), _T("XMLEnableLeanify"), false);
+	gudtOptions.bZIPCopyMetadata = GetOption(_T("Options"), _T("ZIPCopyMetadata"), false);
+	gudtOptions.bZIPRecurse = GetOption(_T("Options"), _T("ZIPRecurse"), false);
+	gudtOptions.bKeepAttributes = GetOption(_T("Options"), _T("KeepAttributes"), false);
+	gudtOptions.bDoNotUseRecycleBin = GetOption(_T("Options"), _T("DoNotUseRecycleBin"), false);
+	_tcscpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")));
+	_tcscpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")));
+	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
+	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
+	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
+	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
+	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
+	gudtOptions.iProcessPriority = GetOption(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
+	gudtOptions.iCheckForUpdates = GetOption(_T("Options"), _T("CheckForUpdates"), 1);
+	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
+	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
+	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
 	//Use Windows 10 theme by default on Windows 8 and newer
 	if (clsUtil::GetWindowsVersion() >= 602)
 	{
-		_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows10")));
+		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")));
 	}
 	else
 	{
-		_tcscpy(gudtOptions.acTheme, clsUtil::GetIni(_T("Options"), _T("Theme"), _T("Windows")));
+		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")));
 	}
 
 	//Switch back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary
@@ -91,14 +91,14 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 		_tcscpy(gudtOptions.acTheme, _T("Windows"));
 	}
 
-	//_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
+	//_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
 
-	_tcscpy(gudtOptions.acTempDirectory, clsUtil::GetIni(_T("Options"), _T("TempDirectory"), _T("")));
-	
+	_tcscpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")));
+
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
 
-	_tcscpy(gudtOptions.acVersion, clsUtil::GetIni(_T("Options"), _T("Version"), acPath));
+	_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath));
 	if (gudtOptions.bAlwaysOnTop)
 	{
 		FormStyle = fsStayOnTop;
@@ -122,9 +122,9 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
-	
+
 	//GetSystemInfo(&gudtSystemInfo);
-	
+
 	UpdateTheme(gudtOptions.acTheme);
 }
 
@@ -1631,7 +1631,11 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 			Application->ProcessMessages();
 			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
 			{
-				AddFiles(_targv[iCount]);
+				//Skip options starting with /
+				if (_targv[iCount][0] != '/')
+				{
+					AddFiles(_targv[iCount]);
+				}
 			}
 			RefreshStatus();
 			Screen->Cursor = crDefault;
@@ -2616,6 +2620,149 @@ String __fastcall TfrmMain::SetCellFileValue(String psValue)
 	sRes += "\n" + psValue;
 	return(sRes);
 }
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const TCHAR * __fastcall TfrmMain::GetOptionCommandLine(void)
+{
+	static TCHAR acCommandLine[MAX_PATH] = _T("");
+
+
+	// Check if we already have it cached
+	if (acCommandLine[0] == NULL)
+	{
+		_tcscpy(acCommandLine, GetCommandLine());
+	}
+	return (acCommandLine);
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
+{
+	TCHAR acArgument[MAX_PATH];
+	TCHAR acRes[MAX_PATH] = _T("");
+	TCHAR *pcStart;
+	
+
+	acArgument[0] = '/';
+	_tcscpy(&acArgument[1], pacKey);
+	TCHAR *a = (TCHAR *) GetOptionCommandLine();
+	pcStart = StrStrI(a, acArgument);
+	if (pcStart)
+	{
+		TCHAR *pcEnd = _tcsstr(pcStart + _tcslen(pacKey) + 2, _T(" "));
+		if (pcEnd == NULL)
+		{
+			pcEnd = pcStart + _tcslen(GetOptionCommandLine());
+		}
+		_tcsncpy(acRes, pcStart + _tcslen(pacKey) + 2, pcEnd - pcStart - _tcslen(pacKey) - 2);
+	}
+	return (acRes);
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault)
+{
+	TCHAR acRes[2048];
+
+
+	_tcscpy(acRes, GetOptionArgument(pacKey));
+	if (acRes == _T(""))
+	{
+		_tcscpy(acRes, clsUtil::GetIni(pacSection, pacKey, pacDefault));
+	}
+	return (acRes);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+int __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault)
+{
+	TCHAR acDefault[2048];
+	int iRes;
+
+
+	_tcscpy(acDefault, GetOptionArgument(pacKey));
+
+	if (acDefault == _T(""))
+	{
+		iRes = clsUtil::GetIni(pacSection, pacKey, piDefault);
+	}
+	else
+	{
+		iRes = _ttoi(acDefault);
+	}
+	return (iRes);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+long long __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault)
+{
+	TCHAR acDefault[2048];
+	long long lRes;
+
+
+	_tcscpy(acDefault, GetOptionArgument(pacKey));
+	if (acDefault == _T(""))
+	{
+		lRes = clsUtil::GetIni(pacSection, pacKey, plDefault);
+	}
+	else
+	{
+		lRes = _ttoi64(acDefault);
+	}
+	return (lRes);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+double __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault)
+{
+	TCHAR acDefault[2048];
+	double dRes;
+
+
+	_tcscpy(acDefault, GetOptionArgument(pacKey));
+	if (acDefault == _T(""))
+	{
+		dRes = clsUtil::GetIni(pacSection, pacKey, pdDefault);
+	}
+	else
+	{
+		dRes = _ttof(acDefault);
+	}
+	return (dRes);
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault)
+{
+	TCHAR acDefault[2048];
+	bool bRes;
+
+
+	_tcscpy(acDefault, GetOptionArgument(pacKey));
+	if (acDefault == _T(""))
+	{
+		bRes = clsUtil::GetIni(pacSection, pacKey, pbDefault);
+	}
+	else
+	{
+		bRes = (_tcsicmp(acDefault, _T("true")) == 0);
+	}
+	return (bRes);
+}
+
+
 
 
 

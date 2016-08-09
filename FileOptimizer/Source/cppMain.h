@@ -226,6 +226,14 @@ private: // User declarations
 	bool __fastcall IsEXEManagedNet(const TCHAR *pacFile);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 	String __fastcall SetCellFileValue(String psValue);
+	const TCHAR * __fastcall GetOptionCommandLine(void);
+	const TCHAR * __fastcall GetOptionArgument(const TCHAR *pacKey);
+	const TCHAR * __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
+	int __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault);
+	long long __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault);
+	double __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault);
+	bool __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault);
+		
 	void __fastcall OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress);
 	void __fastcall OptimizeProgressVCL(void);
 	void __fastcall mnuFilesOptimizeFor(TObject *Sender, int AIndex);

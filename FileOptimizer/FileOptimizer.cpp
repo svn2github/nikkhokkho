@@ -30,6 +30,25 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 
 	try
 	{
+		//Simple command line help
+		if (_tcsnccmp(pacCmdLine, _T("/?"), 2) == 0)
+		{
+			clsUtil::MsgBox(NULL, _T(
+				"FileOptimizer command line syntax is:\n"
+				"FileOptimizer <Path> [/Options]\n\n"
+				"Arguments work like:\n\n" 
+				"C:\\PROYECTOS\\FileOptimizer\\Win32\Release\\FileOptimizer64.exe \"C:\\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\"\n\n"
+				"Where:\n\n"
+				"- \"C:\\PROYECTOS\\FileOptimizer\\Win32\\Release\\FileOptimizer64.exe: Is the full path where FileOptimizer executable is.\n"
+				"- \"C:\\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\\\": Is the full path of the folder to recursively process. Be aware enclosing it with double quotes as in the example, which is Windows mandatory if the folder contains spaces, or extended characters.\n\n"
+				"Alternatively you can specify only one single file instead of a folder:\n"
+				"C:\\PROYECTOS\\FileOptimizer\\Win32\\Release\\FileOptimizer64.exe \"C:\\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\\av-214_.zip\"\n\n"
+				"Where:\n\n"
+				"- \"C:\\PROYECTOS\\FileOptimizer\\Win32\\Release\\FileOptimizer64.exe: Is the full path where FileOptimizer executable is.\n"
+				"- \"C:\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\\av-214_.zip\": Is the full path of the file to process."
+			), _T("Command-line help"), MB_OK | MB_ICONINFORMATION);
+			return(-1);
+		}
 		Application->Initialize();
 		Application->Name = "FileOptimizer";
 		Application->Title = Application->Name;
