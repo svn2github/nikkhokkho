@@ -35,13 +35,15 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		{
 			clsUtil::MsgBox(NULL, _T(
 				"FileOptimizer command line syntax is:\n"
-				"FileOptimizer <Path> [/Options]\n\n"
-				"Arguments work like:\n\n" 
+				"FileOptimizer.exe <Path|File> [/Options]\n\n"
+				"<Path|File>: Specifies a path to recursively process or a single file. You can specify as much Files/Paths as you want. Paths with extended characters, or spaces, should be double quoted. Such as .\*.JPG \"C:\\PROYECTOS\\\" C:\\TEST.PNG\n\n"
+				"[/Options]: Optionally you can specify any options, using same syntax as in the INI file, prepending them with a slash. Such as /GIFAllowLossy=true /Level=9 /PDFCustomDPI=150 /ExcludeMask=.bak\n\n"
+				"Arguments work like:\n\n"
 				"C:\\PROYECTOS\\FileOptimizer\\Win32\Release\\FileOptimizer64.exe \"C:\\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\"\n\n"
 				"Where:\n\n"
 				"- \"C:\\PROYECTOS\\FileOptimizer\\Win32\\Release\\FileOptimizer64.exe: Is the full path where FileOptimizer executable is.\n"
 				"- \"C:\\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\\\": Is the full path of the folder to recursively process. Be aware enclosing it with double quotes as in the example, which is Windows mandatory if the folder contains spaces, or extended characters.\n\n"
-				"Alternatively you can specify only one single file instead of a folder:\n"
+				"Alternatively you can specify only one single file instead of a folder:\n\n"
 				"C:\\PROYECTOS\\FileOptimizer\\Win32\\Release\\FileOptimizer64.exe \"C:\\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\\av-214_.zip\"\n\n"
 				"Where:\n\n"
 				"- \"C:\\PROYECTOS\\FileOptimizer\\Win32\\Release\\FileOptimizer64.exe: Is the full path where FileOptimizer executable is.\n"
