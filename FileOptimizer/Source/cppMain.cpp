@@ -1898,19 +1898,34 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 {
-	TCHAR acPath[MAX_PATH];
-	TCHAR acBuffer[512] = {0};
+
+	TCHAR *acWide = new TCHAR[KI_BUFFER_SIZE];
+	char *acPath = new char[KI_BUFFER_SIZE];
+	char *acBuffer = new char[KI_BUFFER_SIZE];
+	unsigned int iSize;
 
 
-	if (clsUtil::DownloadFile(KS_APP_UPDATE_URL, acPath, sizeof(acPath)))
+
+	wcstombs(acPath, KS_APP_UPDATE_URL, sizeof(KS_APP_UPDATE_URL));
+	strcat(acPath, "?ini=");
+	iSize = 0;
+	clsUtil::ReadFile(clsUtil::GetIniPath(), (void *) acBuffer, &iSize);
+	strcpy(acBuffer, ((AnsiString) StringReplace(acBuffer, "\r\n", "%0D", TReplaceFlags() << rfReplaceAll)).c_str());
+	strcat(acPath, acBuffer);
+	//strcat(acPath, "&log=");
+	//iSize = 0;
+	//clsUtil::ReadFile(clsUtil::GetLogPath(), (void *) acBuffer, &iSize);
+	//strcat(acPath, acBuffer);
+
+	mbstowcs(acWide, acPath, KI_BUFFER_SIZE);
+	if (clsUtil::DownloadFile(acWide, acBuffer, KI_BUFFER_SIZE))
 	{
-		mbstowcs(acBuffer, (char *) acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
-		
+		mbstowcs(acWide, acBuffer, KI_BUFFER_SIZE);
 		//Check we only got number and punctuation digits to detect router errors returning HTML
-		size_t iBufferLen = _tcslen(acBuffer);
-		for (unsigned int iBuffer = 0; iBuffer < iBufferLen; iBuffer++)
+		size_t iWideLen = _tcslen(acWide);
+		for (unsigned int iWide = 0; iWide < iWideLen; iWide++)
 		{
-			if ((!_istdigit(acBuffer[iBuffer])) && (!_istpunct(acBuffer[iBuffer])))
+			if ((!_istdigit(acWide[iWide])) && (!_istpunct(acWide[iWide])))
 			{
 				if (!pbSilent)
 				{
@@ -1919,11 +1934,11 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 				return;
 			}
 		}
-		
-		GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
-		if (_tcscmp(acBuffer, clsUtil::ExeVersion(acPath)) > 0)
+
+		GetModuleFileName(NULL, (TCHAR *) acPath, KI_BUFFER_SIZE);
+		if (_tcscmp(acWide, clsUtil::ExeVersion((TCHAR *) acPath)) > 0)
 		{
-			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + (String) acBuffer + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
+			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + (String) acWide + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
 				ShellExecute(NULL, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 			}
@@ -1933,11 +1948,17 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			clsUtil::MsgBox(Handle, ("You already have latest " + Application->Name + " version.").c_str(), _T("Check updates"), MB_OK|MB_ICONINFORMATION);
 		}
 	}
+
 	else if (!pbSilent)
 	{
 		clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
 	}
+
+	delete[] acPath;
+	delete[] acWide;
+	delete[] acBuffer;
 }
+
 
 
 

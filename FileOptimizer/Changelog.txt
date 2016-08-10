@@ -164,7 +164,8 @@ X.XX - YYYY/MM/DD
 - Now you can override virtually any INI setting thought the command-line. For instance FileOptimizer32.exe /GIFAllowLossy=true.
 - Added INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all queued files is done (guindos98).
 - Implemented simple command-line help when specifying /? switch.
-- Implement a Statistics section that can be checked inside the Information window.
+- Enhanced update checker.
+- Implemented a Statistics section that can be checked inside the Information window.
 - Improved single instance detection, because it did not work properly on Vista and later (Special).
 - Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
 - Made abort optimization message more clearer (Louis Horvath).
