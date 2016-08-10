@@ -116,7 +116,13 @@ struct udtOptions
 	TCHAR acTheme[64];
 	TCHAR acVersion[16];
 	TCHAR acTempDirectory[MAX_PATH];
+	unsigned long long lStatTime;
+	unsigned int iStatOpens;
+	unsigned int iStatFiles;
+	unsigned long long lStatTotalBytes;
+	unsigned long long lStatSavedBytes;
 };
+
 
 extern struct udtOptions gudtOptions;
 extern bool gbProcess;

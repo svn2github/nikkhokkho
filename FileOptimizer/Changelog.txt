@@ -22,8 +22,6 @@
 	* http://op.htmsoft.com/articles/Articlea1-2-1.html
 	* http://elvex.ugr.es/decsai/builder/threads/
 
-- Implement a Statistic section in INI file: Total time, total opens, total files processed, total Mbytes processed, total Mbytes saved, ...
-
 - Deletes files instead of processing them. https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/ced9a3af/ (Vivil).
 
 - En rollover de grid poner el hint de su string y sin showparenthint.
@@ -166,6 +164,7 @@ X.XX - YYYY/MM/DD
 - Now you can override virtually any INI setting thought the command-line. For instance FileOptimizer32.exe /GIFAllowLossy=true.
 - Added INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all queued files is done (guindos98).
 - Implemented simple command-line help when specifying /? switch.
+- Implement a Statistics section that can be checked inside the Information window.
 - Improved single instance detection, because it did not work properly on Vista and later (Special).
 - Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
 - Made abort optimization message more clearer (Louis Horvath).

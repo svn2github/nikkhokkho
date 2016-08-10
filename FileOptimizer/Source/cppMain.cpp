@@ -11,6 +11,7 @@
 // ---------------------------------------------------------------------------
 TfrmMain *frmMain = NULL;
 struct udtOptions gudtOptions  = {};
+unsigned int miStartTicks;
 //SYSTEM_INFO gudtSystemInfo = {};
 bool gbProcess = false;
 bool gbStop = false;
@@ -94,6 +95,14 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	//_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
 
 	_tcscpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")));
+	
+	miStartTicks = GetTickCount();
+	gudtOptions.lStatTime = GetOption(_T("Statistics"), _T("Time"), 0);
+	gudtOptions.iStatOpens = GetOption(_T("Statistics"), _T("Opens"), 0);
+	gudtOptions.iStatOpens++;
+	gudtOptions.iStatFiles = GetOption(_T("Statistics"), _T("Files"), 0);
+	gudtOptions.lStatTotalBytes = GetOption(_T("Statistics"), _T("TotalBytes"), 0);
+	gudtOptions.lStatSavedBytes = GetOption(_T("Statistics"), _T("SavedBytes"), 0);
 
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
@@ -182,6 +191,13 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("Theme"), gudtOptions.acTheme);
 	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory);
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion);
+	
+	gudtOptions.lStatTime += ((GetTickCount() - miStartTicks) / 1000);
+	clsUtil::SetIni(_T("Statistics"), _T("Time"), (long long) gudtOptions.lStatTime);
+	clsUtil::SetIni(_T("Statistics"), _T("Opens"), (int) gudtOptions.iStatOpens);
+	clsUtil::SetIni(_T("Statistics"), _T("Files"), (int) gudtOptions.iStatFiles);
+	clsUtil::SetIni(_T("Statistics"), _T("TotalBytes"), (long long) gudtOptions.lStatTotalBytes);
+	clsUtil::SetIni(_T("Statistics"), _T("SavedBytes"), (long long) gudtOptions.lStatSavedBytes);
 }
 
 
@@ -1456,6 +1472,11 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 		{
 			lTotalBytes += ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
 			lSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
+
+			gudtOptions.lStatTotalBytes += ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
+			gudtOptions.lStatSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
+			gudtOptions.iStatFiles++;
+
 		}
 	}
 	//If file was not processed, mark it as skipped because not supported extension, or skipped because user preference (do not process JS for instance)
@@ -2648,8 +2669,7 @@ const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 
 	acArgument[0] = '/';
 	_tcscpy(&acArgument[1], pacKey);
-	TCHAR *a = (TCHAR *) GetOptionCommandLine();
-	pcStart = StrStrI(a, acArgument);
+	pcStart = StrStrI(GetOptionCommandLine(), acArgument);
 	if (pcStart)
 	{
 		TCHAR *pcEnd = _tcsstr(pcStart + _tcslen(pacKey) + 2, _T(" "));
@@ -2670,7 +2690,7 @@ const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHA
 
 
 	_tcscpy(acRes, GetOptionArgument(pacKey));
-	if (acRes == _T(""))
+	if (acRes[0] == NULL)
 	{
 		_tcscpy(acRes, clsUtil::GetIni(pacSection, pacKey, pacDefault));
 	}
@@ -2687,8 +2707,7 @@ int __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey,
 
 
 	_tcscpy(acDefault, GetOptionArgument(pacKey));
-
-	if (acDefault == _T(""))
+	if (acDefault[0] == NULL)
 	{
 		iRes = clsUtil::GetIni(pacSection, pacKey, piDefault);
 	}
@@ -2709,7 +2728,7 @@ long long __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *p
 
 
 	_tcscpy(acDefault, GetOptionArgument(pacKey));
-	if (acDefault == _T(""))
+	if (acDefault[0] == NULL)
 	{
 		lRes = clsUtil::GetIni(pacSection, pacKey, plDefault);
 	}
@@ -2730,7 +2749,7 @@ double __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacK
 
 
 	_tcscpy(acDefault, GetOptionArgument(pacKey));
-	if (acDefault == _T(""))
+	if (acDefault[0] == NULL)
 	{
 		dRes = clsUtil::GetIni(pacSection, pacKey, pdDefault);
 	}
@@ -2751,7 +2770,7 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 
 
 	_tcscpy(acDefault, GetOptionArgument(pacKey));
-	if (acDefault == _T(""))
+	if (acDefault[0] == NULL)
 	{
 		bRes = clsUtil::GetIni(pacSection, pacKey, pbDefault);
 	}
@@ -2877,6 +2896,12 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	
 	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
 
+	sText += "\n\nUsage Statistics\n"
+		"- Time: " + FormatNumberThousand(gudtOptions.lStatTime) + " seconds\n"
+		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
+		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
+		"- Total: " + FormatNumberThousand(gudtOptions.lStatTotalBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatTotalBytes >> 20) + "Mb.)\n"
+		"- Saved: " + FormatNumberThousand(gudtOptions.lStatSavedBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatSavedBytes >> 20) + "Mb.)\n";
 	clsUtil::MsgBox(Handle, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
 }
 
