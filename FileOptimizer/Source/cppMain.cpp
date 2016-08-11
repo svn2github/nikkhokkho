@@ -125,6 +125,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, sizeof(acPath) / sizeof(TCHAR));
 	rbnMain->Caption = acPath;
+	lblCopyright->Caption = acPath;
 
 	pgbProgress->Parent = stbMain;
 	actClearExecute(Sender);
@@ -426,6 +427,91 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 }
 
 
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actAddExecute(TObject *Sender)
+{
+	//Add files
+	if (dlgAddFiles->Execute())
+	{
+		Screen->Cursor = crAppStart;
+		Application->ProcessMessages();
+
+		TStrings *strFiles = dlgAddFiles->Files;
+		for (int iCount = strFiles->Count; iCount > 0; iCount--)
+		{
+			AddFiles(strFiles->Strings[iCount - 1].c_str());
+		}
+		RefreshStatus();
+		Screen->Cursor = crDefault;
+	}
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
+{
+	int iSelectedRow1 = grdFiles->Selection.Top;
+	int iSelectedRow2 = grdFiles->Selection.Bottom;
+
+	int iRows = grdFiles->RowCount - 1;
+	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
+	{
+		grdFiles->Rows[iRow]->BeginUpdate();
+		grdFiles->Rows[iRow] = grdFiles->Rows[iRow + (iSelectedRow2 - iSelectedRow1 + 1)];
+		grdFiles->Rows[iRow]->EndUpdate();
+	}
+	grdFiles->RowCount -= (iSelectedRow2 - iSelectedRow1 + 1);
+	RefreshStatus();
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actClearExecute(TObject *Sender)
+{
+	grdFiles->RowCount = 1;
+	RefreshStatus();
+}
+
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actHelpExecute(TObject *Sender)
+{
+	ShellExecute(NULL, _T("open"), Application->HelpFile.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actOpenExecute(TObject *Sender)
+{
+	unsigned int iRow = (unsigned int) grdFiles->Row;
+	unsigned int iCol = (unsigned int) grdFiles->Col;
+	if ((iRow > 0) && (iCol == KI_GRID_FILE))
+	{
+		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+	}
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actOpenFolderExecute(TObject *Sender)
+{
+	unsigned int iRow = (unsigned int) grdFiles->Row;
+	unsigned int iCol = (unsigned int) grdFiles->Col;
+	if ((iRow > 0) && (iCol == KI_GRID_FILE))
+	{
+		ShellExecute(NULL, _T("open"), ExtractFilePath(GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1)).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+	}
+}
+
+
+
 //---------------------------------------------------------------------------
 static struct udtOptimizeProgress
 {
@@ -441,9 +527,229 @@ static struct udtOptimizeProgress
 static CRITICAL_SECTION mudtCriticalSection;
 
 
+
 //---------------------------------------------------------------------------
 static unsigned long long lSavedBytes, lTotalBytes;
 static String sPluginsDirectory;
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
+{
+	unsigned int iCount;
+	TCHAR acTmpFile[MAX_PATH];
+
+
+	gbProcess = true;
+	gbStop = false;
+	RefreshStatus();
+
+	GetModuleFileName(NULL, acTmpFile, sizeof(acTmpFile) - 1);
+	*_tcsrchr(acTmpFile, '\\') = NULL;
+	#if defined(_WIN64)
+		_tcscat(acTmpFile, _T("\\Plugins64\\"));
+	#else
+		_tcscat(acTmpFile, _T("\\Plugins32\\"));
+	#endif
+	sPluginsDirectory = GetShortName(acTmpFile);
+
+	lSavedBytes = 0;
+	lTotalBytes = 0;
+	unsigned int iRows = (unsigned int) grdFiles->RowCount;
+
+
+	InitializeCriticalSection(&mudtCriticalSection);
+
+	//Use multithreaded parallel for (PPL)
+	if ((false) && (iRows > 2))
+	{
+		TParallel::For(this, 1, (int) (iRows - 1), actOptimizeForThread);
+	}
+	//Use regular for loop
+	else
+	{
+		for (iCount = 1; iCount < iRows; iCount++)
+		{
+			if (!gbStop)
+			{
+				actOptimizeFor(NULL, (int) iCount);
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+
+	gbProcess = false;
+	//grdFiles->Enabled = true;
+	unsigned int iPercentBytes;
+	if (lTotalBytes != 0)
+	{
+		//iPercentBytes = ((unsigned long long) lTotalBytes - lSavedBytes) * 100 / lTotalBytes;
+		iPercentBytes = ((unsigned int) ((double) (lTotalBytes - lSavedBytes) / lTotalBytes * 100));
+	}
+	else
+	{
+		iPercentBytes = 0;
+	}
+
+	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
+	stbMain->Hint = stbMain->Panels->Items[0]->Text;
+
+	RefreshStatus(false);
+
+	if (gudtOptions.bBeepWhenDone)
+	{
+		FlashWindow(Handle, false);
+		MessageBeep(0xFFFFFFFF);
+	}
+
+	if (gudtOptions.bShutdownWhenDone)
+	{
+		if (!clsUtil::ShutdownWindows())
+		{
+			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
+		}
+	}
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actStopExecute(TObject *Sender)
+{
+	gbStop = true;
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actOptionsExecute(TObject *Sender)
+{
+	frmOptions = new TfrmOptions(Application);
+
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		FormStyle = fsNormal;
+		frmOptions->FormStyle = fsStayOnTop;
+	}
+	frmOptions->PopupParent = this;
+	frmOptions->ShowModal();
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
+	delete frmOptions;
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actAboutExecute(TObject *Sender)
+{
+	frmAbout = new TfrmAbout(Application);
+
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		FormStyle = fsNormal;
+		frmAbout->FormStyle = fsStayOnTop;
+	}
+	frmAbout->PopupParent = this;
+	frmAbout->ShowModal();
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
+	delete frmAbout;
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actExitExecute(TObject *Sender)
+{
+	gbStop = true;
+	Hide();
+	Close();
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
+{
+	String sExtension;
+	String sText = "";
+
+
+	//Get all supported extensions
+	TStringDynArray asExtension;
+	asExtension = SplitString(KS_EXTENSION_ALL.UpperCase(), " ");
+	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
+
+	//Sort them alphabetically
+	TStringList *lstTemp = new TStringList();
+	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
+	{
+		sExtension = asExtension[iExtension];
+		//Dont push it if empty extension
+		if (sExtension.Length() > 1)
+		{
+			lstTemp->Add(sExtension);
+		}
+	}
+	lstTemp->Sort();
+
+	iExtensionLen = (unsigned int) lstTemp->Count;
+	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
+	{
+		sExtension = lstTemp->Strings[(int) iExtension];
+		//Check if we already have it
+		if (PosEx(sExtension, sText) <= 0)
+		{
+			//Check if it is not the last extension
+			if (iExtension != (iExtensionLen - 1))
+			{
+				sText += sExtension + ", ";
+			}
+			else
+			{
+				sText += "and " + sExtension + " file formats among others.";
+			}
+		}
+	}
+	delete lstTemp;
+	
+	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
+
+	sText += "\n\nUsage Statistics\n"
+		"- Time: " + FormatNumberThousand(gudtOptions.lStatTime) + " seconds\n"
+		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
+		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
+		"- Total: " + FormatNumberThousand(gudtOptions.lStatTotalBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatTotalBytes >> 20) + "Mb.)\n"
+		"- Saved: " + FormatNumberThousand(gudtOptions.lStatSavedBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatSavedBytes >> 20) + "Mb.)\n";
+	clsUtil::MsgBox(Handle, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actDonateExecute(TObject *Sender)
+{
+	ShellExecute(NULL, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::rbnMainHelpButtonClick(TObject *Sender)
+{
+	actHelpExecute(Sender);
+}
 
 
 
@@ -2601,312 +2907,6 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 	}
 	return (bRes);
 }
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actAddExecute(TObject *Sender)
-{
-	//Add files
-	if (dlgAddFiles->Execute())
-	{
-		Screen->Cursor = crAppStart;
-		Application->ProcessMessages();
-
-		TStrings *strFiles = dlgAddFiles->Files;
-		for (int iCount = strFiles->Count; iCount > 0; iCount--)
-		{
-			AddFiles(strFiles->Strings[iCount - 1].c_str());
-		}
-		RefreshStatus();
-		Screen->Cursor = crDefault;
-	}
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
-{
-	int iSelectedRow1 = grdFiles->Selection.Top;
-	int iSelectedRow2 = grdFiles->Selection.Bottom;
-
-	int iRows = grdFiles->RowCount - 1;
-	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
-	{
-		grdFiles->Rows[iRow]->BeginUpdate();
-		grdFiles->Rows[iRow] = grdFiles->Rows[iRow + (iSelectedRow2 - iSelectedRow1 + 1)];
-		grdFiles->Rows[iRow]->EndUpdate();
-	}
-	grdFiles->RowCount -= (iSelectedRow2 - iSelectedRow1 + 1);
-	RefreshStatus();
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actClearExecute(TObject *Sender)
-{
-	grdFiles->RowCount = 1;
-	RefreshStatus();
-}
-
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actHelpExecute(TObject *Sender)
-{
-	ShellExecute(NULL, _T("open"), Application->HelpFile.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actOpenExecute(TObject *Sender)
-{
-	unsigned int iRow = (unsigned int) grdFiles->Row;
-	unsigned int iCol = (unsigned int) grdFiles->Col;
-	if ((iRow > 0) && (iCol == KI_GRID_FILE))
-	{
-		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
-	}
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actOpenFolderExecute(TObject *Sender)
-{
-	unsigned int iRow = (unsigned int) grdFiles->Row;
-	unsigned int iCol = (unsigned int) grdFiles->Col;
-	if ((iRow > 0) && (iCol == KI_GRID_FILE))
-	{
-		ShellExecute(NULL, _T("open"), ExtractFilePath(GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1)).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
-	}
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
-{
-	unsigned int iCount;
-	TCHAR acTmpFile[MAX_PATH];
-
-
-	gbProcess = true;
-	gbStop = false;
-	RefreshStatus();
-
-	GetModuleFileName(NULL, acTmpFile, sizeof(acTmpFile) - 1);
-	*_tcsrchr(acTmpFile, '\\') = NULL;
-	#if defined(_WIN64)
-		_tcscat(acTmpFile, _T("\\Plugins64\\"));
-	#else
-		_tcscat(acTmpFile, _T("\\Plugins32\\"));
-	#endif
-	sPluginsDirectory = GetShortName(acTmpFile);
-
-	lSavedBytes = 0;
-	lTotalBytes = 0;
-	unsigned int iRows = (unsigned int) grdFiles->RowCount;
-
-
-	InitializeCriticalSection(&mudtCriticalSection);
-
-	//Use multithreaded parallel for (PPL)
-	if ((false) && (iRows > 2))
-	{
-		TParallel::For(this, 1, (int) (iRows - 1), actOptimizeForThread);
-	}
-	//Use regular for loop
-	else
-	{
-		for (iCount = 1; iCount < iRows; iCount++)
-		{
-			if (!gbStop)
-			{
-				actOptimizeFor(NULL, (int) iCount);
-			}
-			else
-			{
-				break;
-			}
-		}
-	}
-
-	gbProcess = false;
-	//grdFiles->Enabled = true;
-	unsigned int iPercentBytes;
-	if (lTotalBytes != 0)
-	{
-		//iPercentBytes = ((unsigned long long) lTotalBytes - lSavedBytes) * 100 / lTotalBytes;
-		iPercentBytes = ((unsigned int) ((double) (lTotalBytes - lSavedBytes) / lTotalBytes * 100));
-	}
-	else
-	{
-		iPercentBytes = 0;
-	}
-
-	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
-	stbMain->Hint = stbMain->Panels->Items[0]->Text;
-
-	RefreshStatus(false);
-
-	if (gudtOptions.bBeepWhenDone)
-	{
-		FlashWindow(Handle, false);
-		MessageBeep(0xFFFFFFFF);
-	}
-
-	if (gudtOptions.bShutdownWhenDone)
-	{
-		if (!clsUtil::ShutdownWindows())
-		{
-			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
-		}
-	}
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actStopExecute(TObject *Sender)
-{
-	gbStop = true;
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actOptionsExecute(TObject *Sender)
-{
-	frmOptions = new TfrmOptions(Application);
-
-	//Set child window as on top, of current window already is
-	if (FormStyle == fsStayOnTop)
-	{
-		FormStyle = fsNormal;
-		frmOptions->FormStyle = fsStayOnTop;
-	}
-	frmOptions->PopupParent = this;
-	frmOptions->ShowModal();
-	if (gudtOptions.bAlwaysOnTop)
-	{
-		FormStyle = fsStayOnTop;
-	}
-	delete frmOptions;
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actAboutExecute(TObject *Sender)
-{
-	frmAbout = new TfrmAbout(Application);
-
-	//Set child window as on top, of current window already is
-	if (FormStyle == fsStayOnTop)
-	{
-		FormStyle = fsNormal;
-		frmAbout->FormStyle = fsStayOnTop;
-	}
-	frmAbout->PopupParent = this;
-	frmAbout->ShowModal();
-	if (gudtOptions.bAlwaysOnTop)
-	{
-		FormStyle = fsStayOnTop;
-	}
-	delete frmAbout;
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actExitExecute(TObject *Sender)
-{
-	gbStop = true;
-	Hide();
-	Close();
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
-{
-	String sExtension;
-	String sText = "";
-
-
-	//Get all supported extensions
-	TStringDynArray asExtension;
-	asExtension = SplitString(KS_EXTENSION_ALL.UpperCase(), " ");
-	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
-
-	//Sort them alphabetically
-	TStringList *lstTemp = new TStringList();
-	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
-	{
-		sExtension = asExtension[iExtension];
-		//Dont push it if empty extension
-		if (sExtension.Length() > 1)
-		{
-			lstTemp->Add(sExtension);
-		}
-	}
-	lstTemp->Sort();
-
-	iExtensionLen = (unsigned int) lstTemp->Count;
-	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
-	{
-		sExtension = lstTemp->Strings[(int) iExtension];
-		//Check if we already have it
-		if (PosEx(sExtension, sText) <= 0)
-		{
-			//Check if it is not the last extension
-			if (iExtension != (iExtensionLen - 1))
-			{
-				sText += sExtension + ", ";
-			}
-			else
-			{
-				sText += "and " + sExtension + " file formats among others.";
-			}
-		}
-	}
-	delete lstTemp;
-	
-	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
-
-	sText += "\n\nUsage Statistics\n"
-		"- Time: " + FormatNumberThousand(gudtOptions.lStatTime) + " seconds\n"
-		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
-		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
-		"- Total: " + FormatNumberThousand(gudtOptions.lStatTotalBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatTotalBytes >> 20) + "Mb.)\n"
-		"- Saved: " + FormatNumberThousand(gudtOptions.lStatSavedBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatSavedBytes >> 20) + "Mb.)\n";
-	clsUtil::MsgBox(Handle, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::actDonateExecute(TObject *Sender)
-{
-	ShellExecute(NULL, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::rbnMainHelpButtonClick(TObject *Sender)
-{
-	actHelpExecute(Sender);
-}
-
-
-
 
 
 //---------------------------------------------------------------------------

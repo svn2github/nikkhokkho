@@ -231,12 +231,34 @@ object frmMain: TfrmMain
     573)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblInstructions: TLabel
+  object lblCopyright: TLabel
     AlignWithMargins = True
     Left = 3
     Top = 146
     Width = 728
-    Height = 32
+    Height = 13
+    Cursor = crHandPoint
+    Align = alTop
+    Alignment = taCenter
+    Color = clWindow
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    Layout = tlCenter
+    WordWrap = True
+    OnClick = lblCopyrightClick
+    ExplicitWidth = 3
+  end
+  object lblInstructions: TLabel
+    AlignWithMargins = True
+    Left = 3
+    Top = 165
+    Width = 728
+    Height = 26
     Align = alTop
     Alignment = taCenter
     Anchors = [akLeft, akRight]
@@ -251,10 +273,13 @@ object frmMain: TfrmMain
     Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
+    Font.Style = []
     ParentColor = False
     ParentFont = False
+    Layout = tlCenter
     WordWrap = True
+    ExplicitLeft = -2
+    ExplicitTop = 167
   end
   object rbnMain: TRibbon
     Left = 0
@@ -336,9 +361,9 @@ object frmMain: TfrmMain
   end
   object grdFiles: TStringGrid
     Left = 0
-    Top = 181
+    Top = 194
     Width = 734
-    Height = 373
+    Height = 360
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -359,6 +384,8 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
+    ExplicitTop = 181
+    ExplicitHeight = 373
   end
   object pgbProgress: TProgressBar
     Left = 576

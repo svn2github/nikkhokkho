@@ -141,7 +141,7 @@ __published: // IDE-managed Components
 	TMenuItem *mnuFilesOptimize;
 	TMenuItem *mnuFilesClear;
 	TMenuItem *N1;
-	TLabel *lblInstructions;
+	TLabel *lblCopyright;
 	TTimer *tmrMain;
 	TStatusBar *stbMain;
 	TProgressBar *pgbProgress;
@@ -200,6 +200,7 @@ __published: // IDE-managed Components
 	TMenuItem *Openselectedfile1;
 	TAction *actOpenFolder;
 	TMenuItem *Action11;
+	TLabel *lblInstructions;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
@@ -215,20 +216,17 @@ __published: // IDE-managed Components
 	void __fastcall actAddExecute(TObject *Sender);
 	void __fastcall actRemoveExecute(TObject *Sender);
 	void __fastcall actClearExecute(TObject *Sender);
+	void __fastcall actOpenExecute(TObject *Sender);
+	void __fastcall actOpenFolderExecute(TObject *Sender);
 	void __fastcall actExitExecute(TObject *Sender);
 	void __fastcall actOptimizeExecute(TObject *Sender);
 	void __fastcall actOptionsExecute(TObject *Sender);
+	void __fastcall actHelpExecute(TObject *Sender);
 	void __fastcall actAboutExecute(TObject *Sender);
 	void __fastcall actInformationExecute(TObject *Sender);
-	void __fastcall rbnMainHelpButtonClick(TObject *Sender);
 	void __fastcall actDonateExecute(TObject *Sender);
 	void __fastcall actStopExecute(TObject *Sender);
-	void __fastcall actHelpExecute(TObject *Sender);
-	void __fastcall actOpenExecute(TObject *Sender);
-	void __fastcall actOpenFolderExecute(TObject *Sender);
-
-
-
+	void __fastcall rbnMainHelpButtonClick(TObject *Sender);
 
 
 private: // User declarations
