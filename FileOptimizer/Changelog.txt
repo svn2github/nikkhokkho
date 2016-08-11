@@ -8,8 +8,6 @@
 
 - Faster and slightly larger 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 
-- Add context menu Open containing folder (Special)
-
 - Add include mask, similar to exclude mask, to limit processing to particular file extensions (Tomasz W.).
 
 - Add Huffmix PNG compression (Stephan Busch).
@@ -44,8 +42,6 @@
 - Optimize GetExtensionByContent to use regular comparisons instead of memcmp for short comparisons.
 
 - Make quick access customized buttons permanent in ribbon, as well as its visibility and size (Newatomic).
-
-- Add an option to choose between ribbon interface and regular Windows menus (Newatomic).
 
 - Password protected PDF files generate empty PDF files after optimization (sambufalo).
 
@@ -162,6 +158,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Ribbon interface is by default disabled, and replaced by traditional menus. There is a new Appearance tab under Options dialog where you can reenable it (Newtomic).
+- Added context menu Open containing folder (Special).
 - Now you can override virtually any INI setting thought the command-line. For instance FileOptimizer32.exe /GIFAllowLossy=true.
 - Added INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all queued files is done (guindos98).
 - Implemented simple command-line help when specifying /? switch.

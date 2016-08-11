@@ -2365,8 +2365,8 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 	}
 	else
 	{
-		actOpen->Enabled = (grdFiles->Selection.Top > 0);
-		actOpenFolder->Enabled = (grdFiles->Selection.Top > 0);
+		actOpen->Enabled = (grdFiles->RowCount > 1);
+		actOpenFolder->Enabled = (grdFiles->RowCount > 1);
 		actOptimize->Enabled = (grdFiles->RowCount > 1);
 		actStop->Enabled = false;
 		actAdd->Enabled = true;
@@ -2678,7 +2678,12 @@ void __fastcall TfrmMain::actOpenExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actOpenFolderExecute(TObject *Sender)
 {
-	//
+	unsigned int iRow = (unsigned int) grdFiles->Row;
+	unsigned int iCol = (unsigned int) grdFiles->Col;
+	if ((iRow > 0) && (iCol == KI_GRID_FILE))
+	{
+		ShellExecute(NULL, _T("open"), ExtractFilePath(GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1)).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+	}
 }
 
 
