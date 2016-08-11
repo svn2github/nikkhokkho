@@ -68,6 +68,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcscpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")));
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
+	gudtOptions.bUseRibbon = GetOption(_T("Options"), _T("UseRibbon"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
 	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
@@ -117,6 +118,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 		FormStyle = fsNormal;
 	}
 
+
 	//Hide recent documents in ribbon application menu
 	rbnMain->ApplicationMenu->Caption = " ";
 	rbnMain->ApplicationMenu->CommandType = ctCommands;
@@ -125,7 +127,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	rbnMain->Caption = acPath;
 
 	pgbProgress->Parent = stbMain;
-	mnuFilesClearClick(NULL);
+	actClearExecute(Sender);
 
 	FormResize(Sender);
 
@@ -180,6 +182,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask);
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone);
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone);
+	clsUtil::SetIni(_T("Options"), _T("UseRibbon"), gudtOptions.bUseRibbon);
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop);
 	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates);
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel);
@@ -405,12 +408,7 @@ void __fastcall TfrmMain::grdFilesMouseMove(TObject *Sender, TShiftState Shift, 
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesDblClick(TObject *Sender)
 {
-	unsigned int iRow = (unsigned int) grdFiles->Row;
-	unsigned int iCol = (unsigned int) grdFiles->Col;
-	if ((iRow > 0) && (iCol == KI_GRID_FILE))
-	{
-		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
-	}
+	actOpenExecute(Sender);
 }
 
 
@@ -502,101 +500,19 @@ void __fastcall TfrmMain::OptimizeProgressVCL(void)
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesOptimizeClick(TObject *Sender)
+void __fastcall TfrmMain::actOptimizeForThread(TObject *Sender, int AIndex, TParallel::TLoopState *LoopState)
 {
-	unsigned int iCount;
-	TCHAR acTmpFile[MAX_PATH];
-
-
-	gbProcess = true;
-	gbStop = false;
-	RefreshStatus();
-
-	GetModuleFileName(NULL, acTmpFile, sizeof(acTmpFile) - 1);
-	*_tcsrchr(acTmpFile, '\\') = NULL;
-	#if defined(_WIN64)
-		_tcscat(acTmpFile, _T("\\Plugins64\\"));
-	#else
-		_tcscat(acTmpFile, _T("\\Plugins32\\"));
-	#endif
-	sPluginsDirectory = GetShortName(acTmpFile);
-
-	lSavedBytes = 0;
-	lTotalBytes = 0;
-	unsigned int iRows = (unsigned int) grdFiles->RowCount;
-
-
-	InitializeCriticalSection(&mudtCriticalSection);
-
-	//Use multithreaded parallel for (PPL)
-	if ((false) && (iRows > 2))
-	{
-		TParallel::For(this, 1, (int) (iRows - 1), mnuFilesOptimizeForThread);
-	}
-	//Use regular for loop
-	else
-	{
-		for (iCount = 1; iCount < iRows; iCount++)
-		{
-			if (!gbStop)
-			{
-				mnuFilesOptimizeFor(NULL, (int) iCount);
-			}
-			else
-			{
-				break;
-			}
-		}
-	}
-
-	gbProcess = false;
-	//grdFiles->Enabled = true;
-	unsigned int iPercentBytes;
-	if (lTotalBytes != 0)
-	{
-		//iPercentBytes = ((unsigned long long) lTotalBytes - lSavedBytes) * 100 / lTotalBytes;
-		iPercentBytes = ((unsigned int) ((double) (lTotalBytes - lSavedBytes) / lTotalBytes * 100));
-	}
-	else
-	{
-		iPercentBytes = 0;
-	}
-
-	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
-	stbMain->Hint = stbMain->Panels->Items[0]->Text;
-
-	RefreshStatus(false);
-
-	if (gudtOptions.bBeepWhenDone)
-	{
-		FlashWindow(Handle, false);
-		MessageBeep(0xFFFFFFFF);
-	}
-	
-	if (gudtOptions.bShutdownWhenDone)
-	{
-		if (!clsUtil::ShutdownWindows())
-		{
-			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
-		}
-	}
-}
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesOptimizeForThread(TObject *Sender, int AIndex, TParallel::TLoopState *LoopState)
-{
-	mnuFilesOptimizeFor(Sender, AIndex);
+	actOptimizeFor(Sender, AIndex);
 	if (gbStop)
 	{
-	    LoopState->Break();
+		LoopState->Break();
 	}
 }
 
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
+void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 {
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags, sExtensionByContent;
@@ -1501,133 +1417,6 @@ void __fastcall TfrmMain::mnuFilesOptimizeFor(TObject *Sender, int iCount)
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesStopClick(TObject *Sender)
-{
-	gbStop = true;
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesAddClick(TObject *Sender)
-{
-	//Add files
-	if (dlgAddFiles->Execute())
-	{
-		Screen->Cursor = crAppStart;
-		Application->ProcessMessages();
-
-		TStrings *strFiles = dlgAddFiles->Files;
-		for (int iCount = strFiles->Count; iCount > 0; iCount--)
-		{
-			AddFiles(strFiles->Strings[iCount - 1].c_str());
-		}
-		RefreshStatus();
-		Screen->Cursor = crDefault;
-	}
-}
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesClearClick(TObject *Sender)
-{
-	grdFiles->RowCount = 1;
-	RefreshStatus();
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesRemoveClick(TObject *Sender)
-{
-	int iSelectedRow1 = grdFiles->Selection.Top;
-	int iSelectedRow2 = grdFiles->Selection.Bottom;
-
-	int iRows = grdFiles->RowCount - 1;
-	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
-	{
-		grdFiles->Rows[iRow]->BeginUpdate();
-		grdFiles->Rows[iRow] = grdFiles->Rows[iRow + (iSelectedRow2 - iSelectedRow1 + 1)];
-		grdFiles->Rows[iRow]->EndUpdate();
-	}
-	grdFiles->RowCount -= (iSelectedRow2 - iSelectedRow1 + 1);
-	RefreshStatus();
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesOptionsClick(TObject *Sender)
-{
-	frmOptions = new TfrmOptions(Application);
-	
-	//Set child window as on top, of current window already is
-	if (FormStyle == fsStayOnTop)
-	{
-		FormStyle = fsNormal;
-		frmOptions->FormStyle = fsStayOnTop;
-	}
-	frmOptions->PopupParent = this;
-	frmOptions->ShowModal();
-	if (gudtOptions.bAlwaysOnTop)
-	{
-		FormStyle = fsStayOnTop;
-	}
-	delete frmOptions;
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesHelpClick(TObject *Sender)
-{
-	ShellExecute(NULL, _T("open"), Application->HelpFile.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesAboutClick(TObject *Sender)
-{
-	frmAbout = new TfrmAbout(Application);
-	
-	//Set child window as on top, of current window already is
-	if (FormStyle == fsStayOnTop)
-	{
-		FormStyle = fsNormal;
-		frmAbout->FormStyle = fsStayOnTop;
-	}
-	frmAbout->PopupParent = this;
-	frmAbout->ShowModal();
-	if (gudtOptions.bAlwaysOnTop)
-	{
-		FormStyle = fsStayOnTop;
-	}
-	delete frmAbout;
-}
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesDonateClick(TObject *Sender)
-{
-	ShellExecute(NULL, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
-}
-
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::mnuFilesExitClick(TObject *Sender)
-{
-	gbStop = true;
-	Hide();
-	Close();
-}
-
-
-
-//---------------------------------------------------------------------------
 void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 {
 	if (tmrMain->Interval >= 30000)
@@ -1660,7 +1449,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 			}
 			RefreshStatus();
 			Screen->Cursor = crDefault;
-			mnuFilesOptimizeClick(NULL);
+			actOptimizeExecute(Sender);
 			Hide();
 			Close();
 		}
@@ -2488,11 +2277,12 @@ bool __fastcall TfrmMain::IsEXEManagedNet(const TCHAR *pacFile)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 {
+	//Prevent flickering
+	LockWindowUpdate(Handle);
+
 	//Check if something changed to avoid applying if unneeded
 	if (TStyleManager::ActiveStyle->Name != (String) pacTheme)
 	{
-		//Prevent flickering
-		LockWindowUpdate(Handle);
 
 		//RefreshStatus();
 
@@ -2500,7 +2290,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 		{
 			TStyleManager::TrySetStyle(pacTheme, false);
 		}
-		
+
 		if (_tcscmp(pacTheme, _T("Metropolis UI Black")) == 0)
 		{
 			mgrMain->Style = RibbonObsidianStyle;
@@ -2516,10 +2306,21 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 		//rbnMain->UseCustomFrame = (_tcscmp(pacTheme, _T("Luna")) == 0);
 
 		RefreshStatus();
-
-		//Reenable form updates
-		LockWindowUpdate(NULL);
 	}
+
+	if (gudtOptions.bUseRibbon)
+	{
+		frmMain->Menu = NULL;
+		rbnMain->Show();
+	}
+	else
+	{
+		frmMain->Menu = mnuMain;
+		rbnMain->Hide();
+	}
+
+	//Reenable form updates
+	LockWindowUpdate(NULL);
 }
 
 
@@ -2550,11 +2351,13 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 		Caption = stbMain->Hint + " - " + Application->Name;
 		Application->Title = Caption;
 
-		mnuFilesOptimize->Enabled = false;
-		mnuFilesStop->Enabled = true;
-		mnuFilesAdd->Enabled = false;
-		mnuFilesClear->Enabled = false;
-		mnuFilesRemove->Enabled = false;
+		actOpen->Enabled = false;
+		actOpenFolder->Enabled = false;
+		actOptimize->Enabled = false;
+		actStop->Enabled = true;
+		actAdd->Enabled = false;
+		actClear->Enabled = false;
+		actRemove->Enabled = false;
 
 		// Prevent grid sorting while optimizing
 		grdFiles->Options = grdFiles->Options >> goFixedHotTrack >> goFixedRowClick >> goFixedColClick;
@@ -2562,11 +2365,13 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 	}
 	else
 	{
-		mnuFilesOptimize->Enabled = (grdFiles->RowCount > 1);
-		mnuFilesStop->Enabled = false;
-		mnuFilesAdd->Enabled = true;
-		mnuFilesClear->Enabled = (grdFiles->RowCount > 1);
-		mnuFilesRemove->Enabled = (grdFiles->Selection.Top > 0);
+		actOpen->Enabled = (grdFiles->Selection.Top > 0);
+		actOpenFolder->Enabled = (grdFiles->Selection.Top > 0);
+		actOptimize->Enabled = (grdFiles->RowCount > 1);
+		actStop->Enabled = false;
+		actAdd->Enabled = true;
+		actClear->Enabled = (grdFiles->RowCount > 1);
+		actRemove->Enabled = (grdFiles->Selection.Top > 0);
 
 		grdFiles->Options = grdFiles->Options << goFixedHotTrack << goFixedRowClick << goFixedColClick;
 		DragAcceptFiles(Handle, true);
@@ -2608,11 +2413,6 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 		}
 
 	}
-	actOptimize->Enabled = mnuFilesOptimize->Enabled;
-	actStop->Enabled = mnuFilesStop->Enabled;
-	actClear->Enabled = mnuFilesClear->Enabled;
-	actRemove->Enabled = mnuFilesRemove->Enabled;
-
 	//Reenable form updates
 	//LockWindowUpdate(NULL);
 }
@@ -2804,12 +2604,23 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 
 
 
-
-
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actAddExecute(TObject *Sender)
 {
-	mnuFilesAddClick(NULL);
+	//Add files
+	if (dlgAddFiles->Execute())
+	{
+		Screen->Cursor = crAppStart;
+		Application->ProcessMessages();
+
+		TStrings *strFiles = dlgAddFiles->Files;
+		for (int iCount = strFiles->Count; iCount > 0; iCount--)
+		{
+			AddFiles(strFiles->Strings[iCount - 1].c_str());
+		}
+		RefreshStatus();
+		Screen->Cursor = crDefault;
+	}
 }
 
 
@@ -2817,7 +2628,18 @@ void __fastcall TfrmMain::actAddExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
 {
-	mnuFilesRemoveClick(NULL);
+	int iSelectedRow1 = grdFiles->Selection.Top;
+	int iSelectedRow2 = grdFiles->Selection.Bottom;
+
+	int iRows = grdFiles->RowCount - 1;
+	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
+	{
+		grdFiles->Rows[iRow]->BeginUpdate();
+		grdFiles->Rows[iRow] = grdFiles->Rows[iRow + (iSelectedRow2 - iSelectedRow1 + 1)];
+		grdFiles->Rows[iRow]->EndUpdate();
+	}
+	grdFiles->RowCount -= (iSelectedRow2 - iSelectedRow1 + 1);
+	RefreshStatus();
 }
 
 
@@ -2825,15 +2647,38 @@ void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actClearExecute(TObject *Sender)
 {
-	mnuFilesClearClick(NULL);
+	grdFiles->RowCount = 1;
+	RefreshStatus();
+}
+
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actHelpExecute(TObject *Sender)
+{
+	ShellExecute(NULL, _T("open"), Application->HelpFile.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
 }
 
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::actExitExecute(TObject *Sender)
+void __fastcall TfrmMain::actOpenExecute(TObject *Sender)
 {
-	mnuFilesExitClick(NULL);
+	unsigned int iRow = (unsigned int) grdFiles->Row;
+	unsigned int iCol = (unsigned int) grdFiles->Col;
+	if ((iRow > 0) && (iCol == KI_GRID_FILE))
+	{
+		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+	}
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actOpenFolderExecute(TObject *Sender)
+{
+	//
 }
 
 
@@ -2841,7 +2686,82 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 {
-	mnuFilesOptimizeClick(NULL);
+	unsigned int iCount;
+	TCHAR acTmpFile[MAX_PATH];
+
+
+	gbProcess = true;
+	gbStop = false;
+	RefreshStatus();
+
+	GetModuleFileName(NULL, acTmpFile, sizeof(acTmpFile) - 1);
+	*_tcsrchr(acTmpFile, '\\') = NULL;
+	#if defined(_WIN64)
+		_tcscat(acTmpFile, _T("\\Plugins64\\"));
+	#else
+		_tcscat(acTmpFile, _T("\\Plugins32\\"));
+	#endif
+	sPluginsDirectory = GetShortName(acTmpFile);
+
+	lSavedBytes = 0;
+	lTotalBytes = 0;
+	unsigned int iRows = (unsigned int) grdFiles->RowCount;
+
+
+	InitializeCriticalSection(&mudtCriticalSection);
+
+	//Use multithreaded parallel for (PPL)
+	if ((false) && (iRows > 2))
+	{
+		TParallel::For(this, 1, (int) (iRows - 1), actOptimizeForThread);
+	}
+	//Use regular for loop
+	else
+	{
+		for (iCount = 1; iCount < iRows; iCount++)
+		{
+			if (!gbStop)
+			{
+				actOptimizeFor(NULL, (int) iCount);
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+
+	gbProcess = false;
+	//grdFiles->Enabled = true;
+	unsigned int iPercentBytes;
+	if (lTotalBytes != 0)
+	{
+		//iPercentBytes = ((unsigned long long) lTotalBytes - lSavedBytes) * 100 / lTotalBytes;
+		iPercentBytes = ((unsigned int) ((double) (lTotalBytes - lSavedBytes) / lTotalBytes * 100));
+	}
+	else
+	{
+		iPercentBytes = 0;
+	}
+
+	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
+	stbMain->Hint = stbMain->Panels->Items[0]->Text;
+
+	RefreshStatus(false);
+
+	if (gudtOptions.bBeepWhenDone)
+	{
+		FlashWindow(Handle, false);
+		MessageBeep(0xFFFFFFFF);
+	}
+
+	if (gudtOptions.bShutdownWhenDone)
+	{
+		if (!clsUtil::ShutdownWindows())
+		{
+			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
+		}
+	}
 }
 
 
@@ -2849,7 +2769,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actStopExecute(TObject *Sender)
 {
-	mnuFilesStopClick(NULL);
+	gbStop = true;
 }
 
 
@@ -2857,7 +2777,21 @@ void __fastcall TfrmMain::actStopExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actOptionsExecute(TObject *Sender)
 {
-	mnuFilesOptionsClick(NULL);
+	frmOptions = new TfrmOptions(Application);
+
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		FormStyle = fsNormal;
+		frmOptions->FormStyle = fsStayOnTop;
+	}
+	frmOptions->PopupParent = this;
+	frmOptions->ShowModal();
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
+	delete frmOptions;
 }
 
 
@@ -2865,7 +2799,31 @@ void __fastcall TfrmMain::actOptionsExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actAboutExecute(TObject *Sender)
 {
-	mnuFilesAboutClick(NULL);
+	frmAbout = new TfrmAbout(Application);
+
+	//Set child window as on top, of current window already is
+	if (FormStyle == fsStayOnTop)
+	{
+		FormStyle = fsNormal;
+		frmAbout->FormStyle = fsStayOnTop;
+	}
+	frmAbout->PopupParent = this;
+	frmAbout->ShowModal();
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
+	delete frmAbout;
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actExitExecute(TObject *Sender)
+{
+	gbStop = true;
+	Hide();
+	Close();
 }
 
 
@@ -2931,7 +2889,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actDonateExecute(TObject *Sender)
 {
-	mnuFilesDonateClick(NULL);
+	ShellExecute(NULL, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
 }
 
 
@@ -2939,8 +2897,12 @@ void __fastcall TfrmMain::actDonateExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::rbnMainHelpButtonClick(TObject *Sender)
 {
-	mnuFilesHelpClick(NULL);
+	actHelpExecute(Sender);
 }
+
+
+
+
 
 //---------------------------------------------------------------------------
 

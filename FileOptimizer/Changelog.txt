@@ -161,6 +161,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Ribbon interface is by default disabled, and replaced by traditional menus. There is a new Appearance tab under Options dialog where you can reenable it (Newtomic).
 - Now you can override virtually any INI setting thought the command-line. For instance FileOptimizer32.exe /GIFAllowLossy=true.
 - Added INI option ShutdownWhenDone=false to specify the OS to shutdown as soon as optimization of all queued files is done (guindos98).
 - Implemented simple command-line help when specifying /? switch.

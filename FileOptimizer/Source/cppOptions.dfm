@@ -345,7 +345,7 @@ object frmOptions: TfrmOptions
       end
       object lblProcessPriority: TLabel
         Left = 7
-        Top = 49
+        Top = 48
         Width = 155
         Height = 13
         AutoSize = False
@@ -365,20 +365,9 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = False
       end
-      object lblTheme: TLabel
-        Left = 7
-        Top = 99
-        Width = 155
-        Height = 13
-        AutoSize = False
-        Caption = '&Theme'
-        FocusControl = cboTheme
-        ParentShowHint = False
-        ShowHint = False
-      end
       object lblLogLevel: TLabel
         Left = 7
-        Top = 124
+        Top = 99
         Width = 155
         Height = 13
         AutoSize = False
@@ -389,7 +378,7 @@ object frmOptions: TfrmOptions
       end
       object lblExcludeMask: TLabel
         Left = 7
-        Top = 196
+        Top = 171
         Width = 155
         Height = 13
         AutoSize = False
@@ -400,7 +389,7 @@ object frmOptions: TfrmOptions
       end
       object chkKeepAttributes: TCheckBox
         Left = 7
-        Top = 148
+        Top = 123
         Width = 281
         Height = 17
         Hint = 
@@ -435,7 +424,7 @@ object frmOptions: TfrmOptions
       end
       object cboProcessPriority: TComboBox
         Left = 168
-        Top = 46
+        Top = 45
         Width = 145
         Height = 21
         Hint = 'Process priority from most conservative to best performance'
@@ -466,32 +455,16 @@ object frmOptions: TfrmOptions
           'Automatically'
           'Never')
       end
-      object cboTheme: TComboBox
-        Left = 168
-        Top = 96
-        Width = 145
-        Height = 21
-        Hint = 'Visual theme'
-        Style = csDropDownList
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 4
-        Items.Strings = (
-          'Windows'
-          'Metropolis UI Black'
-          'Luna'
-          'Windows 10')
-      end
       object cboLogLevel: TComboBox
         Left = 168
-        Top = 121
+        Top = 97
         Width = 145
         Height = 21
         Hint = 'Debugging level to output on program log'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 5
+        TabOrder = 4
         Items.Strings = (
           '0: None'
           '1: Critical'
@@ -501,7 +474,7 @@ object frmOptions: TfrmOptions
       end
       object chkDoNotUseRecycleBin: TCheckBox
         Left = 7
-        Top = 172
+        Top = 147
         Width = 281
         Height = 17
         Hint = 
@@ -514,7 +487,7 @@ object frmOptions: TfrmOptions
       end
       object txtExcludeMask: TEdit
         Left = 168
-        Top = 196
+        Top = 171
         Width = 145
         Height = 21
         Hint = 
@@ -525,16 +498,56 @@ object frmOptions: TfrmOptions
         HideSelection = False
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 7
+        TabOrder = 5
+      end
+    end
+    object pagAppearance: TTabSheet
+      Caption = '&Appearance'
+      ImageIndex = 13
+      object lblTheme: TLabel
+        Left = 7
+        Top = 22
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Theme'
+        FocusControl = cboTheme
+        ParentShowHint = False
+        ShowHint = False
+      end
+      object cboTheme: TComboBox
+        Left = 168
+        Top = 22
+        Width = 145
+        Height = 21
+        Hint = 'Visual theme'
+        Style = csDropDownList
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        Items.Strings = (
+          'Windows'
+          'Metropolis UI Black'
+          'Luna'
+          'Windows 10')
+      end
+      object chkUseRibbon: TCheckBox
+        Left = 7
+        Top = 46
+        Width = 281
+        Height = 17
+        Hint = 
+          'Use Microsoft Office alike Ribbon interface instead of classic W' +
+          'indows pulldown menus'
+        Caption = '&Use ribbon interface'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
       end
     end
     object pagCSS: TTabSheet
       Caption = '&CSS'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object lblCSSTemplate: TLabel
         Left = 7
         Top = 46
@@ -581,10 +594,6 @@ object frmOptions: TfrmOptions
     object pagEXE: TTabSheet
       Caption = '&EXE'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkEXEDisablePETrim: TCheckBox
         Left = 7
         Top = 22
@@ -602,10 +611,6 @@ object frmOptions: TfrmOptions
     object pagGZ: TTabSheet
       Caption = '&GZ'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkGZCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -621,10 +626,6 @@ object frmOptions: TfrmOptions
     object pagHTML: TTabSheet
       Caption = '&HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkHTMLEnableTidy: TCheckBox
         Left = 7
         Top = 22
@@ -643,10 +644,6 @@ object frmOptions: TfrmOptions
     object pagJPEG: TTabSheet
       Caption = '&JPEG'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkJPEGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -675,10 +672,6 @@ object frmOptions: TfrmOptions
     object pagJS: TTabSheet
       Caption = '&JS'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkJSEnableJSMin: TCheckBox
         Left = 7
         Top = 22
@@ -696,10 +689,6 @@ object frmOptions: TfrmOptions
     object pagLUA: TTabSheet
       Caption = '&LUA'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkLUAEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -717,10 +706,6 @@ object frmOptions: TfrmOptions
     object pagMP3: TTabSheet
       Caption = '&MP3'
       ImageIndex = 8
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkMP3CopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -736,10 +721,6 @@ object frmOptions: TfrmOptions
     object pagPDF: TTabSheet
       Caption = '&PDF'
       ImageIndex = 7
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object lblPDFProfile: TLabel
         Left = 7
         Top = 22
@@ -801,10 +782,6 @@ object frmOptions: TfrmOptions
     object pagPNG: TTabSheet
       Caption = '&PNG'
       ImageIndex = 10
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkPNGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -834,10 +811,6 @@ object frmOptions: TfrmOptions
     object pagXML: TTabSheet
       Caption = '&XML'
       ImageIndex = 11
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkXMLEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -855,10 +828,6 @@ object frmOptions: TfrmOptions
     object pagZIP: TTabSheet
       Caption = '&ZIP'
       ImageIndex = 9
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 549
-      ExplicitHeight = 0
       object chkZIPCopyMetadata: TCheckBox
         Left = 7
         Top = 22

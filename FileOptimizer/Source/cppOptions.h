@@ -34,7 +34,6 @@ __published: // IDE-managed Components
 	TComboBox *cboProcessPriority;
 	TLabel *lblCheckForUpdates;
 	TComboBox *cboCheckForUpdates;
-	TLabel *lblTheme;
 	TComboBox *cboTheme;
 	TLabel *lblLogLevel;
 	TComboBox *cboLogLevel;
@@ -70,6 +69,9 @@ __published: // IDE-managed Components
 	TSpinEdit *spnPDFCustomDPI;
 	TLabel *lblPDFCustomDPI;
 	TCheckBox *chkPNGAllowLossy;
+	TTabSheet *pagAppearance;
+	TLabel *lblTheme;
+	TCheckBox *chkUseRibbon;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);

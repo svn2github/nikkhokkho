@@ -101,6 +101,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 
 	chkKeepAttributes->Checked = gudtOptions.bKeepAttributes;
 	chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
+	chkUseRibbon->Checked = gudtOptions.bUseRibbon;
 	txtExcludeMask->Text = gudtOptions.acExcludeMask;
 
 	chkCSSEnableTidy->Checked = gudtOptions.bCSSEnableTidy;
@@ -234,6 +235,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.iLogLevel = cboLogLevel->ItemIndex;
 	gudtOptions.bKeepAttributes = chkKeepAttributes->Checked;
 	gudtOptions.bDoNotUseRecycleBin = chkDoNotUseRecycleBin->Checked;
+	gudtOptions.bUseRibbon = chkUseRibbon->Checked;
 	_tcscpy(gudtOptions.acExcludeMask, txtExcludeMask->Text.c_str());
 
 	gudtOptions.bCSSEnableTidy = chkCSSEnableTidy->Checked;

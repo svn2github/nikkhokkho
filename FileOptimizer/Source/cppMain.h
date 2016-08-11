@@ -109,6 +109,7 @@ struct udtOptions
 	bool bShutdownWhenDone;
 	bool bAlwaysOnTop;
 	bool bAllowDuplicates;
+	bool bUseRibbon;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;
@@ -174,12 +175,35 @@ __published: // IDE-managed Components
 	TMenuItem *N3;
 	TAction *actStop;
 	TMenuItem *mnuFilesStop;
+	TMainMenu *mnuMain;
+	TMenuItem *mnuFile;
+	TMenuItem *mnuFileAdd;
+	TMenuItem *mnuFileRemove;
+	TMenuItem *mnuFileClear;
+	TMenuItem *mnuFileExit;
+	TMenuItem *N4;
+	TMenuItem *mnuOptimize;
+	TMenuItem *mnuOptimizeOptimize;
+	TMenuItem *mnuOptimizeStop;
+	TMenuItem *N5;
+	TMenuItem *mnuOptimizeOptions;
+	TMenuItem *mnuHelp;
+	TMenuItem *mnuHelpDonate;
+	TMenuItem *mnuHelpAbout;
+	TMenuItem *mnuHelpInformation;
+	TMenuItem *N6;
+	TMenuItem *N7;
+	TMenuItem *N8;
+	TAction *actHelp;
+	TAction *actOpen;
+	TMenuItem *Helptopics1;
+	TMenuItem *Openselectedfile1;
+	TAction *actOpenFolder;
+	TMenuItem *Action11;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
 	void __fastcall FormDestroy(TObject *Sender);
-	void __fastcall mnuFilesOptimizeClick(TObject *Sender);
-	void __fastcall mnuFilesClearClick(TObject *Sender);
 	void __fastcall lblCopyrightClick(TObject *Sender);
 	void __fastcall FormResize(TObject *Sender);
 	void __fastcall tmrMainTimer(TObject *Sender);
@@ -187,12 +211,6 @@ __published: // IDE-managed Components
 	void __fastcall grdFilesDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect, TGridDrawState State);
 	void __fastcall grdFilesFixedCellClick(TObject *Sender, int ACol, int ARow);
 	void __fastcall grdFilesMouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
-	void __fastcall mnuFilesHelpClick(TObject *Sender);
-	void __fastcall mnuFilesExitClick(TObject *Sender);
-	void __fastcall mnuFilesAboutClick(TObject *Sender);
-	void __fastcall mnuFilesOptionsClick(TObject *Sender);
-	void __fastcall mnuFilesRemoveClick(TObject *Sender);
-	void __fastcall mnuFilesAddClick(TObject *Sender);
 	void __fastcall grdFilesDblClick(TObject *Sender);
 	void __fastcall actAddExecute(TObject *Sender);
 	void __fastcall actRemoveExecute(TObject *Sender);
@@ -205,8 +223,9 @@ __published: // IDE-managed Components
 	void __fastcall rbnMainHelpButtonClick(TObject *Sender);
 	void __fastcall actDonateExecute(TObject *Sender);
 	void __fastcall actStopExecute(TObject *Sender);
-	void __fastcall mnuFilesStopClick(TObject *Sender);
-	void __fastcall mnuFilesDonateClick(TObject *Sender);
+	void __fastcall actHelpExecute(TObject *Sender);
+	void __fastcall actOpenExecute(TObject *Sender);
+	void __fastcall actOpenFolderExecute(TObject *Sender);
 
 
 
@@ -242,11 +261,10 @@ private: // User declarations
 	long long __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault);
 	double __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault);
 	bool __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault);
-		
 	void __fastcall OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress);
 	void __fastcall OptimizeProgressVCL(void);
-	void __fastcall mnuFilesOptimizeFor(TObject *Sender, int AIndex);
-	void __fastcall mnuFilesOptimizeForThread(TObject *Sender, int AIndex, TParallel::TLoopState *LoopState);
+	void __fastcall actOptimizeFor(TObject *Sender, int AIndex);
+	void __fastcall actOptimizeForThread(TObject *Sender, int AIndex, TParallel::TLoopState *LoopState);
 
 public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);
