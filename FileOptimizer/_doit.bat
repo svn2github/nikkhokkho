@@ -21,13 +21,12 @@ xcopy /e /s Win64\Debug\Plugins64\*.* Win32\Release\Plugins64\*.*
 Win64\Release\FileOptimizer .\Win32\Release
 Win32\Debug\Plugins32\petrim /stripfixups:Y .\Win32\Release\*.exe /r
 Win32\Debug\Plugins32\petrim .\Win32\Release\*.* /r
-rem "%HOMEPATH%\Archivos de programa\7-Zip\7z" a -mm=Deflate -mx=9 -mfb=258 -mpass=15 -mmt=off -tzip FileOptimizerSource.zip *.cbproj *.bat *.txt *.chm *.mes *.res *.ico *.cpp *.h Source\*.* Source\gifsicle\*.* Source\jpegoptim\*.* Source\libjpeg\*.* Source\jpegoptim\win32\*.* Source\gifsicle\src\*.* Source\gifsicle\include\*.* Source\gifsicle\include\lcdf\*.* Source\gifsicle\include\lcdfgif\*.* Resource\*.* Help\*.* Help\Images\*.*
-"%HOMEPATH%\Archivos de programa\7-Zip\7z" a -mx=9 -mfb=273 -mmt=off -myx9 FileOptimizerSource.7z *.cbproj *.bat *.txt *.chm *.mes *.res *.ico *.cpp *.h Source\*.* Source\gifsicle\*.* Source\jpegoptim\*.* Source\libjpeg\*.* Source\jpegoptim\win32\*.* Source\gifsicle\src\*.* Source\gifsicle\include\*.* Source\gifsicle\include\lcdf\*.* Source\gifsicle\include\lcdfgif\*.* Source\jsmin\*.* Resource\*.* Help\*.* Help\Images\*.* Setup\*.*
+"\Archivos de programa\7-Zip\7z" a -mx=9 -mfb=273 -mmt=off -myx9 FileOptimizerSource.7z *.cbproj *.bat *.txt *.chm *.mes *.res *.ico *.cpp *.h Source\*.* Source\gifsicle\*.* Source\jpegoptim\*.* Source\libjpeg\*.* Source\jpegoptim\win32\*.* Source\gifsicle\src\*.* Source\gifsicle\include\*.* Source\gifsicle\include\lcdf\*.* Source\gifsicle\include\lcdfgif\*.* Source\jsmin\*.* Resource\*.* Help\*.* Help\Images\*.* Setup\*.*
 cd Win32\Release
-"%HOMEPATH%\Archivos de programa\7-Zip\7z" a -mm=Deflate -mx=9 -mfb=258 -mpass=15 -mmt=off -tzip ..\..\FileOptimizerFull.zip FileOptimizer32.exe FileOptimizer64.exe FileOptimizer.chm Plugins32\*.* Plugins64\*.*
+"\Archivos de programa\7-Zip\7z" a -mm=Deflate -mx=9 -mfb=258 -mpass=15 -mmt=off -tzip ..\..\FileOptimizerFull.zip FileOptimizer32.exe FileOptimizer64.exe FileOptimizer.chm Plugins32\*.* Plugins64\*.*
 rem "%HOMEPATH%\Archivos de programa\7-Zip\7z" a -mx=9 -mfb=273 -mmt=off -sfx7z.sfx ..\..\FileOptimizerFull.7z.exe FileOptimizer32.exe FileOptimizer64.exe FileOptimizer.chm Plugins32\*.* Plugins64\*.*
 cd ..\..\Setup
-"%HOMEPATH%\Archivos de programa\Borland\NSIS\MakeNSIS.exe" FileOptimizerSetup.nsi
+"\Archivos de programa\Borland\NSIS\MakeNSIS.exe" FileOptimizerSetup.nsi
 cd ..
 Win32\Release\FileOptimizer32 .\FileOptimizerFull.zip
 Win32\Release\FileOptimizer32 .\FileOptimizerSource.zip
