@@ -104,6 +104,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iStatFiles = GetOption(_T("Statistics"), _T("Files"), 0);
 	gudtOptions.lStatTotalBytes = GetOption(_T("Statistics"), _T("TotalBytes"), 0);
 	gudtOptions.lStatSavedBytes = GetOption(_T("Statistics"), _T("SavedBytes"), 0);
+	gudtOptions.iStatSession = GetOption(_T("Statistics"), _T("Session"), random(INT_MAX));
 
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
@@ -201,6 +202,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Statistics"), _T("Files"), (int) gudtOptions.iStatFiles);
 	clsUtil::SetIni(_T("Statistics"), _T("TotalBytes"), (long long) gudtOptions.lStatTotalBytes);
 	clsUtil::SetIni(_T("Statistics"), _T("SavedBytes"), (long long) gudtOptions.lStatSavedBytes);
+	clsUtil::SetIni(_T("Statistics"), _T("Session"), (int) gudtOptions.iStatSession);
 }
 
 

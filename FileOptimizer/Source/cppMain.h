@@ -124,6 +124,7 @@ struct udtOptions
 	unsigned int iStatFiles;
 	unsigned long long lStatTotalBytes;
 	unsigned long long lStatSavedBytes;
+	unsigned int iStatSession;
 };
 
 
