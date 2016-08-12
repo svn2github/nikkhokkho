@@ -132,7 +132,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	FormResize(Sender);
 
-
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 
 	//GetSystemInfo(&gudtSystemInfo);
@@ -2618,11 +2617,13 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	{
 		frmMain->Menu = NULL;
 		rbnMain->Show();
+		lblCopyright->Visible = false;
 	}
 	else
 	{
 		frmMain->Menu = mnuMain;
 		rbnMain->Hide();
+		lblCopyright->Visible = true;
 	}
 
 	//Reenable form updates

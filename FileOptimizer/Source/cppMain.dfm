@@ -384,8 +384,6 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
-    ExplicitTop = 181
-    ExplicitHeight = 373
   end
   object pgbProgress: TProgressBar
     Left = 576
@@ -504,6 +502,7 @@ object frmMain: TfrmMain
             Action = actDonate
             Caption = '&Donate...'
             ImageIndex = 9
+            ShortCut = 16452
           end>
         ActionBar = grpHelp
       end
@@ -528,14 +527,17 @@ object frmMain: TfrmMain
               item
                 Action = actAdd
                 ImageIndex = 4
+                ShortCut = 8237
               end
               item
                 Action = actRemove
                 ImageIndex = 3
+                ShortCut = 8238
               end
               item
                 Action = actClear
                 ImageIndex = 0
+                ShortCut = 16430
               end
               item
                 Caption = '-'
@@ -554,6 +556,7 @@ object frmMain: TfrmMain
                 Action = actDonate
                 Caption = '&Donate...'
                 ImageIndex = 9
+                ShortCut = 16452
               end
               item
                 Caption = '-'
@@ -575,14 +578,17 @@ object frmMain: TfrmMain
           item
             Action = actAdd
             ImageIndex = 4
+            ShortCut = 8237
           end
           item
             Action = actRemove
             ImageIndex = 3
+            ShortCut = 8238
           end
           item
             Action = actClear
             ImageIndex = 0
+            ShortCut = 16430
           end
           item
             Action = actOpen
@@ -603,18 +609,21 @@ object frmMain: TfrmMain
       Caption = '&Add files...'
       Hint = 'Add files from your computer to the optimization list'
       ImageIndex = 4
+      ShortCut = 8237
       OnExecute = actAddExecute
     end
     object actRemove: TAction
       Caption = '&Remove selected files'
       Hint = 'Remove selected files from the optimization list'
       ImageIndex = 3
+      ShortCut = 8238
       OnExecute = actRemoveExecute
     end
     object actClear: TAction
       Caption = '&Clear all files'
       Hint = 'Empty all files in the optimization list'
       ImageIndex = 0
+      ShortCut = 16430
       OnExecute = actClearExecute
     end
     object actOptimize: TAction
@@ -640,6 +649,7 @@ object frmMain: TfrmMain
       Caption = 'Donate...'
       Hint = 'Support the development by easily and securely money donations'
       ImageIndex = 9
+      ShortCut = 16452
       OnExecute = actDonateExecute
     end
     object actAbout: TAction
@@ -667,6 +677,7 @@ object frmMain: TfrmMain
     object actHelp: TAction
       Caption = 'Help topics...'
       ImageIndex = 2
+      ShortCut = 112
       OnExecute = actHelpExecute
     end
     object actOpen: TAction
