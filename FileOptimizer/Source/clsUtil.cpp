@@ -1018,6 +1018,7 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 			iWindowsVersion = (LOBYTE(LOWORD(iWindowsVersion))) * 100 + (HIBYTE(LOWORD(iWindowsVersion)));
 		}
 	}
+	//500: Windows 2000; 501: Windows XP; 502: Windows XP x64/Windows 2003; 600: Windows Vista/2008; 601: Windows 7/Windows 2008 R2; 602: Windows 8/Windows 2012; 603: Windows 8.1; 1000: Windows 10
 	return(iWindowsVersion);
 }
 

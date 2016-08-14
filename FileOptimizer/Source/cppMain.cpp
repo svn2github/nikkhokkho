@@ -87,8 +87,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")));
 	}
 
-	//Switch back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary
-	if (_tcscmp(gudtOptions.acTheme, _T("Windows10")) == 0)
+	//Embarcadero themes have conflicts with Windows 10 Anniversay update, so we get back to default Windows one.
+	if (clsUtil::GetWindowsVersion() >= 1000)
 	{
 		_tcscpy(gudtOptions.acTheme, _T("Windows"));
 	}

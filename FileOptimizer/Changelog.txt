@@ -165,7 +165,7 @@ X.XX - YYYY/MM/DD
 - Enhanced update checker.
 - Implemented a Statistics section that can be checked inside the Information window.
 - Improved single instance detection, because it did not work properly on Vista and later (Special).
-- Switched back to Windows theme if Windows 10 theme has been selected, because it causes issues with TaskDialogs in Windows 10 Anniversary (RejZoR).
+- Embarcadero themes have conflicts with Windows 10 Anniversay update, so we get back to default Windows one in 10 or later (RejZoR, TPS).
 - Made abort optimization message more clearer (Louis Horvath).
 - Fixed main window position not properly restored on launch (hairycactus).
 - Simplified ECT multithreading, because it already knows the number of threads to use.
