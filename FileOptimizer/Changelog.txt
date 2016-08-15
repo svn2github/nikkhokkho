@@ -157,6 +157,10 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+
+
+
+9.00 - 2016/08/15
 - Ribbon interface is by default disabled, and replaced by traditional menus. There is a new Appearance tab under Options dialog where you can reenable it (Newtomic).
 - Added context menu Open containing folder (Special).
 - Now you can override virtually any INI setting thought the command-line. For instance FileOptimizer32.exe /GIFAllowLossy=true.
@@ -177,7 +181,6 @@ X.XX - YYYY/MM/DD
 - Updated ImageMagick 7.0.2.7 with HDRI support.
 - Updated to cppcheck 1.75.
 - Some minor optimizations and code cleanup.
-
 
 8.50 - 2016/08/01
 - Made interface fully HDPI aware. Now it reescales according to Windows scaling (@Zeyckler).
