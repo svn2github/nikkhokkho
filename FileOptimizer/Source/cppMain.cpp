@@ -104,6 +104,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iStatFiles = GetOption(_T("Statistics"), _T("Files"), 0);
 	gudtOptions.lStatTotalBytes = GetOption(_T("Statistics"), _T("TotalBytes"), 0);
 	gudtOptions.lStatSavedBytes = GetOption(_T("Statistics"), _T("SavedBytes"), 0);
+	randomize();
 	gudtOptions.iStatSession = GetOption(_T("Statistics"), _T("Session"), random(INT_MAX));
 
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
