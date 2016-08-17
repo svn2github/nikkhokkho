@@ -3,8 +3,8 @@
  * JPEGoptim headers
  */
 
-#ifndef _JPEGOPTIM_H
-#define _JPEGOPTIM_H 1
+#ifndef JPEGOPTIM_H
+#define JPEGOPTIM_H 1
 
 #ifdef	__cplusplus
 extern "C" {
@@ -29,6 +29,10 @@ extern "C" {
 #ifdef BROKEN_METHODDEF
 #undef METHODDEF
 #define METHODDEF(x) static x
+#endif
+
+#ifndef HAVE_LABS
+#define labs abs
 #endif
 
 #ifndef MAXPATHLEN
@@ -79,4 +83,4 @@ void jpeg_memory_dest (j_compress_ptr cinfo, unsigned char **bufptr, size_t *buf
 }
 #endif
 
-#endif /* _JPEGOPTIM_H */
+#endif /* JPEGOPTIM_H */

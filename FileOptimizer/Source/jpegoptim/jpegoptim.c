@@ -1,12 +1,12 @@
 /*******************************************************************
  * JPEGoptim
- * Copyright (c) Timo Kokkonen, 1996-2015.
+ * Copyright (c) Timo Kokkonen, 1996-2016.
  * All Rights Reserved.
  *
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: be21505b98c3a351e818bfceb3abaa4115b8153b $
+ * $Id: 478198edd3c2a9f96326151c4648dd44118ae09c $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -17,6 +17,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+//#include <dirent.h>
 #if HAVE_GETOPT_H && HAVE_GETOPT_LONG
 #include <getopt.h>
 #else
@@ -33,8 +34,8 @@
 #include "jpegoptim.h"
 
 
-#define VERSIO "1.4.3"
-#define COPYRIGHT  "Copyright (c) 1996-2015, Timo Kokkonen"
+#define VERSIO "1.4.4"
+#define COPYRIGHT  "Copyright (c) 1996-2016, Timo Kokkonen"
 
 
 #define LOG_FH (logs_to_stdout ? stdout : stderr)
@@ -55,7 +56,7 @@ struct my_error_mgr {
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: be21505b98c3a351e818bfceb3abaa4115b8153b $";
+const char *rcsid = "$Id: 478198edd3c2a9f96326151c4648dd44118ae09c $";
 
 
 int verbose_mode = 0;
@@ -684,8 +685,12 @@ int main(int argc, char **argv)
      cinfo.image_height=dinfo.image_height;
      jpeg_set_defaults(&cinfo); 
      jpeg_set_quality(&cinfo,quality,TRUE);
-     if ( (dinfo.progressive_mode || all_progressive) && !all_normal )
+     if (all_normal) {
+       cinfo.scan_info = NULL; // Explicitly disables progressive if libjpeg had it on by default
+       cinfo.num_scans = 0;
+     } else if ( dinfo.progressive_mode || all_progressive ) {
        jpeg_simple_progression(&cinfo);
+     }
      cinfo.optimize_coding = TRUE;
 
      j=0;
@@ -704,8 +709,12 @@ int main(int argc, char **argv)
      /* lossless "optimization" ... */
 
      jpeg_copy_critical_parameters(&dinfo, &cinfo);
-     if ( (dinfo.progressive_mode || all_progressive) && !all_normal )
+     if (all_normal) {
+       cinfo.scan_info = NULL; // Explicitly disables progressive if libjpeg had it on by default
+       cinfo.num_scans = 0;
+     } else if ( dinfo.progressive_mode || all_progressive ) {
        jpeg_simple_progression(&cinfo);
+     }
      cinfo.optimize_coding = TRUE;
 
      /* write image */
@@ -733,7 +742,7 @@ int main(int argc, char **argv)
 
      if (osize == tsize || searchdone || searchcount >= 8 || tsize > isize) {
        if (searchdone < 42 && lastsize > 0) {
-	 if (abs(osize-tsize) > abs(lastsize-tsize)) {
+	 if (labs(osize-tsize) > labs(lastsize-tsize)) {
 	   if (verbose_mode) fprintf(LOG_FH,"(revert to %d)",oldquality);
 	   searchdone=42;
 	   quality=oldquality;
@@ -792,19 +801,19 @@ int main(int argc, char **argv)
 	  outfname=NULL;
 	  set_filemode_binary(stdout);
 	  if (fwrite(outbuffer,outbuffersize,1,stdout) != 1)
-	    fatal("write failed to stdout");
+	    fatal("%s, write failed to stdout",(stdin_mode?"stdin":argv[i]));
 	} else {
 	  if (preserve_perms && !dest) {
 	    /* make backup of the original file */
 	    snprintf(tmpfilename,sizeof(tmpfilename),"%s.jpegoptim.bak",newname);
 	    if (verbose_mode > 1 && !quiet_mode) 
-	      fprintf(LOG_FH,"creating backup of original image as: %s\n",tmpfilename);
+	      fprintf(LOG_FH,"%s, creating backup as: %s\n",(stdin_mode?"stdin":argv[i]),tmpfilename);
 	    if (file_exists(tmpfilename))
-	      fatal("backup file already exists: %s",tmpfilename);
+	      fatal("%s, backup file already exists: %s",(stdin_mode?"stdin":argv[i]),tmpfilename);
 	    if (copy_file(newname,tmpfilename))
-	      fatal("failed to create backup of original file");
+	      fatal("%s, failed to create backup: %s",(stdin_mode?"stdin":argv[i]),tmpfilename);
 	    if ((outfile=fopen(newname,"wb"))==NULL)
-	      fatal("error opening output file: %s", newname);
+	      fatal("%s, error opening output file: %s",(stdin_mode?"stdin":argv[i]),newname);
 	    outfname=newname;
 	  } else {
 #ifdef HAVE_MKSTEMPS
@@ -812,12 +821,12 @@ int main(int argc, char **argv)
 	    snprintf(tmpfilename,sizeof(tmpfilename),
 		     "%sjpegoptim-%d-%d.XXXXXX.tmp", tmpdir, (int)getuid(), (int)getpid());
 	    if ((tmpfd = mkstemps(tmpfilename,4)) < 0) 
-	      fatal("error creating temp file: mkstemps() failed");
+	      fatal("%s, error creating temp file %s: mkstemps() failed",(stdin_mode?"stdin":argv[i]),tmpfilename);
 	    if ((outfile=fdopen(tmpfd,"wb"))==NULL) 
 #else
 	      /* if platform is missing mkstemps(), try to create at least somewhat "safe" temp file... */  
 	      snprintf(tmpfilename,sizeof(tmpfilename),
-		       "%sjpegoptim-%d-%d.%d.tmp", tmpdir, (int)getuid(), (int)getpid(),time(NULL));
+		       "%sjpegoptim-%d-%d.%ld.tmp", tmpdir, (int)getuid(), (int)getpid(),(long)time(NULL));
 	    tmpfd=0;
 	    if ((outfile=fopen(tmpfilename,"wb"))==NULL) 
 #endif
