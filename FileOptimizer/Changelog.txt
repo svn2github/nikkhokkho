@@ -1,3 +1,5 @@
+- Add GIF GUI Settings (RejZor).
+
 - Add a Pause/Resume option (Pritt).
 
 - Allow start optimizing while files are being added in background (Pritt).
