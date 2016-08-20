@@ -1,3 +1,5 @@
+- Add a GUI toolbar instead of menu (TPS).
+
 - Add GIF GUI Settings (RejZor).
 
 - Add a Pause/Resume option (Pritt).
