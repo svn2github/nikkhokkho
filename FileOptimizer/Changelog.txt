@@ -1,3 +1,5 @@
+- Add different shutdownwhen done modes: Hibernate, Sleep, Reboot, or Sign Out (TPS).
+
 - Add a GUI toolbar instead of menu (TPS).
 
 - Add GIF GUI Settings (RejZor).
@@ -161,6 +163,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Added Adobe Illustrator AI extension to the PDF toolchain (maadjordan).
 - Updated jpegoptim to 1.4.4 (custom built).
 - Updated ImageMagick 7.0.2.9 with HDRI support.
 
