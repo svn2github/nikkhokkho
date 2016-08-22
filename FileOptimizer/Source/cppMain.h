@@ -61,7 +61,7 @@
 #define KS_EXTENSION_OGV	_T(" .ogg .ogv .ogx ")
 #define KS_EXTENSION_OLE	_T(" .ac .adp .apr .art .chm .chi .chq .chs .chw .db .doc .dot .fla .fpx .its .lit .max .mce .mdb .mdt .mic .mix .mpd .mpp .mpt .msc .msi .msg .msp .mst .mtw .ole .ole2 .one .opt .ost .pps .ppt .pub .puz .rfa .rft .rte .rvt .sldasm .sldprt .slddrw .sou .spo stickynotes.snt thumbs.db .vsd .vst .vss .wiz .wps .xl .xla .xlc .xlm .xls .xlw .xsf .xsn ")
 #define KS_EXTENSION_PCX	_T(" .dcx .pcc .pcx ")
-#define KS_EXTENSION_PDF	_T(" .epdf .pdf ")
+#define KS_EXTENSION_PDF	_T(" .epdf .pdf .ai ")
 #define KS_EXTENSION_PNG	_T(" .apng .ico .png .pns ")
 #define KS_EXTENSION_SWF	_T(" .swf ")
 #define KS_EXTENSION_TAR	_T(" .tar .cbt ")
