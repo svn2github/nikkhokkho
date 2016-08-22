@@ -1304,7 +1304,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
 		{		
 			//Do not use Ghoscript for Adobe Illustrator (AI) files
-			if (EndsText(".ai", sInputFile))
+			if (!EndsText(".ai", sInputFile))
 			{
 				sFlags = "";
 				//Custom mode
