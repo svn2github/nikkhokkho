@@ -1303,30 +1303,34 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// PDF: ghostcript, smpdf
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
 		{		
-			sFlags = "";
-			//Custom mode
-			if (_tcscmp(gudtOptions.acPDFProfile, _T("Custom")) == 0)
+			//Do not use Ghoscript for Adobe Illustrator (AI) files
+			if (EndsText(".ai", sInputFile))
 			{
-				sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleGrayImages=true -dGrayImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleMonoImages=true -dMonoImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " ";
-			}
-			//No downsampling
-			else if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
-			{
-				sFlags += "-dPDFSETTINGS=/default -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
-			}				
-			//Built in downsample modes: screen, ebook, printer, prepress
-			else
-			{
-				sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
-			}
-			
-			sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
+				sFlags = "";
+				//Custom mode
+				if (_tcscmp(gudtOptions.acPDFProfile, _T("Custom")) == 0)
+				{
+					sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleGrayImages=true -dGrayImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleMonoImages=true -dMonoImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " ";
+				}
+				//No downsampling
+				else if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
+				{
+					sFlags += "-dPDFSETTINGS=/default -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
+				}				
+				//Built in downsample modes: screen, ebook, printer, prepress
+				else
+				{
+					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
+				}
+				
+				sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
 
-			#if defined(_WIN64)
-				RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			#else
-				RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			#endif
+				#if defined(_WIN64)
+					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				#else
+					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				#endif
+			]
 				
 			RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1337,7 +1341,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			bool bIsPNG9Patch;
 
 			//Android 9-patch images get broken with advpng, deflopt, optipng, pngoptimizer, pngout, pngrewrite and truepng. Only pngwolf, defluff and leanify seem to be safe. At the moment, detect them by extension .9.png.
-			bIsPNG9Patch = EndsStr(".9.png", sInputFile);
+			bIsPNG9Patch = EndsText(".9.png", sInputFile);
 			bIsAPNG = IsAPNG(sInputFile.c_str());
 
 			if (bIsAPNG)
