@@ -164,6 +164,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Added support for Adobe Illustrator (AI) file types (maadjordan).
+- Implemented heuristic detection of corrupted PDF after Ghostcript processing the encryption (Gonzalo).
 - Updated jpegoptim to 1.4.4 (custom built).
 - Updated ImageMagick 7.0.2.9 with HDRI support.
 

@@ -1324,12 +1324,26 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				}
 				
 				sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
+				
+				TCHAR acTmpFilePdf[MAX_PATH];
+				_tcscpy(acTmpFilePdf, sInputFile.c_str());
+				_tcscat(acTmpFilePdf, _T(".pdf"));
 
+				//RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#if defined(_WIN64)
-					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#else
-					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				#endif
+				//If there is size reduction check it is not so high to detect corrupted encrypted PDF
+				if (clsUtil::SizeFile(acTmpFilePdf) < clsUtil::SizeFile(sInputFile.c_str()))
+				{
+					if ((clsUtil::SizeFile(acTmpFilePdf) > 3000) && (clsUtil::SizeFile(sInputFile.c_str() > 20000))
+					{
+						clsUtil::CopyFile(acTmpFilePdf, sInputFile.c_str());
+					}
+				}
+				DeleteFile(acTmpFilePdf);
 			]
 				
 			RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
