@@ -1,3 +1,5 @@
+- Add pdfclean -ggg (TPS).
+
 - Add different shutdownwhen done modes: Hibernate, Sleep, Reboot, or Sign Out (TPS).
 
 - Add a GUI toolbar instead of menu (TPS).
