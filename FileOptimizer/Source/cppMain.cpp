@@ -1338,13 +1338,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				//If there is size reduction check it is not so high to detect corrupted encrypted PDF
 				if (clsUtil::SizeFile(acTmpFilePdf) < clsUtil::SizeFile(sInputFile.c_str()))
 				{
-					if ((clsUtil::SizeFile(acTmpFilePdf) > 3000) && (clsUtil::SizeFile(sInputFile.c_str() > 20000))
+					if ((clsUtil::SizeFile(acTmpFilePdf) > 3000) && (clsUtil::SizeFile(sInputFile.c_str()) > 20000))
 					{
 						clsUtil::CopyFile(acTmpFilePdf, sInputFile.c_str());
 					}
 				}
 				DeleteFile(acTmpFilePdf);
-			]
+			}
 				
 			RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
