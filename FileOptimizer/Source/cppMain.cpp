@@ -732,8 +732,8 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		"- Time: " + FormatNumberThousand(gudtOptions.lStatTime) + " seconds\n"
 		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
 		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
-		"- Total: " + FormatNumberThousand(gudtOptions.lStatTotalBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatTotalBytes >> 20) + "Mb.)\n"
-		"- Saved: " + FormatNumberThousand(gudtOptions.lStatSavedBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatSavedBytes >> 20) + "Mb.)\n";
+		"- Total: " + FormatNumberThousand(gudtOptions.lStatTotalBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatTotalBytes >> 20) + " MiB)\n"
+		"- Saved: " + FormatNumberThousand(gudtOptions.lStatSavedBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatSavedBytes >> 20) + " MiB)\n";
 	clsUtil::MsgBox(Handle, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
 }
 
