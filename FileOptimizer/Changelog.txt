@@ -168,6 +168,7 @@ X.XX - YYYY/MM/DD
 - Added support for Adobe Illustrator (AI) file types (maadjordan).
 - Implemented heuristic detection of corrupted PDF after Ghostcript processing the encryption (Gonzalo).
 - Proper wording wording for "Mb." is "MiB". Thanks to Armin Mueller for the patch (Armin Mueller).
+- Made statistics use B, KiB, MiB o GiB automatically (Armin Mueller).
 - Updated jpegoptim to 1.4.4 (custom built).
 - Updated ImageMagick 7.0.2.9 with HDRI support.
 - Some minor optimizations and code cleanup.

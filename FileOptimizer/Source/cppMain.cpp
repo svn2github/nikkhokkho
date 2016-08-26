@@ -732,8 +732,8 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		"- Time: " + FormatNumberThousand(gudtOptions.lStatTime) + " seconds\n"
 		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
 		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
-		"- Total: " + FormatNumberThousand(gudtOptions.lStatTotalBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatTotalBytes >> 20) + " MiB)\n"
-		"- Saved: " + FormatNumberThousand(gudtOptions.lStatSavedBytes) + " bytes (" + FormatNumberThousand(gudtOptions.lStatSavedBytes >> 20) + " MiB)\n";
+		"- Total: " + FormatNumberThousandUnit(gudtOptions.lStatTotalBytes) + "\n"
+		"- Saved: " + FormatNumberThousandUnit(gudtOptions.lStatSavedBytes) + "\n";
 	clsUtil::MsgBox(Handle, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
 }
 
@@ -2267,6 +2267,43 @@ String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 	}
 	return (sRes);
 }
+
+
+//---------------------------------------------------------------------------
+String __inline TfrmMain::FormatNumberThousandUnit (unsigned long long plNumber)
+{
+	String sRes;
+	String sUnit = "bytes";
+
+	
+	//GiB
+	if (plNumber > 10 * 1024 * 1024 * 1024)
+	{
+		plNumber = plNumber >> 30;
+		sUnit = "GiB";
+	}
+	//MiB
+	else if (plNumber > 10 * 1024 * 1024)
+	{
+		plNumber = plNumber >> 20;
+		sUnit = "MiB";
+	}
+	//KiB
+	else if (plNumber > 10 * 1024)
+	{
+		plNumber = plNumber >> 10;
+		sUnit = "KiB";
+	}
+	sRes = FormatFloat("###,###,###,###,###,###,###", plNumber);
+	if (sRes == "")
+	{
+		sRes = "0";
+	}
+	
+	sRes += " " + sUnit;
+	return (sRes);
+}
+
 
 
 
