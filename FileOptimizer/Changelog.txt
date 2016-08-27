@@ -1,3 +1,5 @@
+- Add Refresh/F5, to refresh grid contents reseting status, and updating size. Also unexisting files, should be removed from grid (originfake).
+
 - Add pdfclean -ggg (TPS).
 
 - Add different shutdownwhen done modes: Hibernate, Sleep, Reboot, or Sign Out (TPS).
