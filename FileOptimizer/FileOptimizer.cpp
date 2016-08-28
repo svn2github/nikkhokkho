@@ -59,7 +59,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		}
 		else
 		{
-			if (clsUtil::MsgBox(NULL, ("There is one instace of " + Application->Name + " still running.\r\n\r\nDo you want to open another?").c_str(), _T("Still running"), MB_YESNO | MB_ICONQUESTION) == IDNO)
+			if (clsUtil::MsgBox(NULL, ("There is one instance of " + Application->Name + " still running.\r\n\r\nDo you want to open another?").c_str(), _T("Still running"), MB_YESNO | MB_ICONQUESTION) == IDNO)
 			{
 				return (1);
 			}
