@@ -166,6 +166,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Added F5 key to refresh grid contents updating original size (originfake).
+- Added CTRL-F5 key to reload grid contents. It will remove already optimized items, and then do a refresh (originfake).
 - Added support for Adobe Illustrator (AI) file types (maadjordan).
 - Implemented heuristic detection of corrupted PDF after Ghostcript processing the encryption (Gonzalo).
 - Proper wording wording for "Mb." is "MiB". Thanks to Armin Mueller for the patch (Armin Mueller).

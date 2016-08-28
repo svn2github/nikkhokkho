@@ -420,7 +420,35 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift)
 {
-	//Refresh grid
+	//Ctrl-F5 reload grid
+	if ((Key == VK_F5) && (Shift.Contains(ssCtrl)))
+	{
+		unsigned int iRows = (unsigned int) grdFiles->RowCount;
+		if (iRows > 1)
+		{
+			Screen->Cursor = crAppStart;
+			Application->ProcessMessages();
+			for (int iRow = iRows; iRow > 0; iRow--)
+			{
+				//Remove already optimized files
+				if (PosEx("Done", grdFiles->Cells[KI_GRID_STATUS][(int) iRow]) > 0)
+				{
+					for (int iSelectedRow = iRow; iSelectedRow < iRows - 1; iSelectedRow++)
+					{
+						grdFiles->Rows[iSelectedRow]->BeginUpdate();
+						grdFiles->Rows[iSelectedRow] = grdFiles->Rows[iSelectedRow + 1];
+						grdFiles->Rows[iSelectedRow]->EndUpdate();
+					}
+					iRows--;
+				}
+			}
+			grdFiles->RowCount = iRows;
+			RefreshStatus();
+			Screen->Cursor = crDefault;
+		}
+	}
+
+	//F5 refresh grid
 	if (Key == VK_F5)
 	{
 		unsigned int iRows = (unsigned int) grdFiles->RowCount;
