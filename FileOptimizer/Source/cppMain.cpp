@@ -77,21 +77,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
-	//Use Windows 10 theme by default on Windows 8 and newer
-	if (clsUtil::GetWindowsVersion() >= 602)
-	{
-		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")));
-	}
-	else
-	{
-		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")));
-	}
-
 	//Embarcadero themes have conflicts with Windows 10 Anniversay update, so we get back to default Windows one.
-	if (clsUtil::GetWindowsVersion() >= 1000)
-	{
-		_tcscpy(gudtOptions.acTheme, _T("Windows"));
-	}
+	_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")));
 
 	//_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
 
@@ -425,6 +412,35 @@ void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *
 		pgbProgress->Left = Rect.left;
 		pgbProgress->Width = Rect.right - Rect.left;
 		pgbProgress->Height = Rect.bottom - Rect.top;
+	}
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift)
+{
+	//Refresh grid
+	if (Key == VK_F5)
+	{
+		unsigned int iRows = (unsigned int) grdFiles->RowCount;
+		if (iRows > 1)
+		{
+			Screen->Cursor = crAppStart;
+			Application->ProcessMessages();
+			for (unsigned int iRow = 1; iRow < iRows; iRow++)
+			{
+				grdFiles->Rows[(int) iRow]->BeginUpdate();
+				//grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
+				//grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
+				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1).c_str()));
+				//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
+				//grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
+				grdFiles->Rows[(int) iRow]->EndUpdate();
+			}
+			RefreshStatus();
+			Screen->Cursor = crDefault;
+		}
 	}
 }
 
@@ -1031,7 +1047,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "advdef", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			RunPlugin((unsigned int) iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			
+
 			sFlags = "";
 			sFlags += "--allfilters --mt-deflate ";
 			if (!gudtOptions.bGZCopyMetadata)
@@ -2966,6 +2982,7 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 	}
 	return (bRes);
 }
+
 
 
 //---------------------------------------------------------------------------

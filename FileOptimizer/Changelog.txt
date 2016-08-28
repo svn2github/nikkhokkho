@@ -1,5 +1,3 @@
-- Add Refresh/F5, to refresh grid contents reseting status, and updating size. Also unexisting files, should be removed from grid (originfake).
-
 - Add pdfclean -ggg (TPS).
 
 - Add different shutdownwhen done modes: Hibernate, Sleep, Reboot, or Sign Out (TPS).
@@ -167,10 +165,12 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Added F5 key to refresh grid contents updating original size (originfake).
 - Added support for Adobe Illustrator (AI) file types (maadjordan).
 - Implemented heuristic detection of corrupted PDF after Ghostcript processing the encryption (Gonzalo).
 - Proper wording wording for "Mb." is "MiB". Thanks to Armin Mueller for the patch (Armin Mueller).
 - Made statistics use B, KiB, MiB o GiB automatically (Armin Mueller).
+- Removed Embarcadero's Luna, Metropolis and Windows 10 themes because they have issues with Windows 10 Anniversary and later.
 - Updated jpegoptim to 1.4.4 (custom built).
 - Updated ImageMagick 7.0.2.9 with HDRI support.
 - Some minor optimizations and code cleanup.

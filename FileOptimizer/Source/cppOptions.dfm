@@ -526,10 +526,7 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 0
         Items.Strings = (
-          'Windows'
-          'Metropolis UI Black'
-          'Luna'
-          'Windows 10')
+          'Windows')
       end
       object chkUseRibbon: TCheckBox
         Left = 7

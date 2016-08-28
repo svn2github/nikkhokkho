@@ -228,6 +228,7 @@ __published: // IDE-managed Components
 	void __fastcall actDonateExecute(TObject *Sender);
 	void __fastcall actStopExecute(TObject *Sender);
 	void __fastcall rbnMainHelpButtonClick(TObject *Sender);
+	void __fastcall FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 
 
 private: // User declarations
