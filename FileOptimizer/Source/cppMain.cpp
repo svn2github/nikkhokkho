@@ -106,6 +106,15 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	{
 		FormStyle = fsNormal;
 	}
+	
+	if (gudtOptions.bDoNotUseRecycleBin)
+	{
+	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.";
+	}
+	else
+	{
+	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.";
+	}
 
 
 	//Hide recent documents in ribbon application menu

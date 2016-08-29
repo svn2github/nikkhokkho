@@ -264,11 +264,7 @@ object frmMain: TfrmMain
     Alignment = taCenter
     Anchors = [akLeft, akRight]
     AutoSize = False
-    Caption = 
-      'Drag on the list below files you want to optimize, and when read' +
-      'y, click on the right button context menu to proceed. All proces' +
-      'sed files are copied to Recycle Bin, so you can easily restore t' +
-      'hem. Double click an item to preview it.'
+    Caption = ''
     Color = clWindow
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
