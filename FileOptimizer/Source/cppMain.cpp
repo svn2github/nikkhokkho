@@ -98,25 +98,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
 
 	_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath));
-	if (gudtOptions.bAlwaysOnTop)
-	{
-		FormStyle = fsStayOnTop;
-	}
-	else
-	{
-		FormStyle = fsNormal;
-	}
 	
-	if (gudtOptions.bDoNotUseRecycleBin)
-	{
-	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.";
-	}
-	else
-	{
-	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.";
-	}
-
-
 	//Hide recent documents in ribbon application menu
 	rbnMain->ApplicationMenu->Caption = " ";
 	rbnMain->ApplicationMenu->CommandType = ctCommands;
@@ -2736,6 +2718,26 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 		rbnMain->Hide();
 		lblCopyright->Visible = true;
 	}
+
+	//Change instructions depending on Recycle Bin settins	
+	if (gudtOptions.bDoNotUseRecycleBin)
+	{
+	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.";
+	}
+	else
+	{
+	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.";
+	}
+
+	if (gudtOptions.bAlwaysOnTop)
+	{
+		FormStyle = fsStayOnTop;
+	}
+	else
+	{
+		FormStyle = fsNormal;
+	}
+
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);
