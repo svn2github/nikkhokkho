@@ -172,6 +172,7 @@ X.XX - YYYY/MM/DD
 - Implemented heuristic detection of corrupted PDF after Ghostcript processing the encryption (Gonzalo).
 - Proper wording wording for "Mb." is "MiB". Thanks to Armin Mueller for the patch (Armin Mueller).
 - Made statistics use B, KiB, MiB o GiB automatically (Armin Mueller).
+- Reverted to 32 bit version of pngwolf-zopli, because the 64 bit version crashes on Windows 10 (alex123, bob joseph).
 - Removed Embarcadero's Luna, Metropolis and Windows 10 themes because they have issues with Windows 10 Anniversary and later.
 - Updated jpegoptim to 1.4.4 (custom built).
 - Updated ImageMagick 7.0.2.9 with HDRI support.
