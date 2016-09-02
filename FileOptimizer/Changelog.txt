@@ -148,6 +148,7 @@ ndo
 - mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
+- mutools 1.9a - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
@@ -165,6 +166,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Added mutools (clean -ggg) to the PDF tools chain (TPS).
 - Added F5 key to refresh grid contents updating original size (originfake).
 - Added CTRL-F5 key to reload grid contents. It will remove already optimized items, and then do a refresh (originfake).
 - Added support for Adobe Illustrator (AI) file types (maadjordan).
