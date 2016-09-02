@@ -1484,7 +1484,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
-				sFlags += "--zopfli-iterations=" + (String) iLevel + " ";
+				sFlags += "--out-deflate=zopfli,iter=" + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "pngwolf", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 				if (!bIsPNG9Patch)
