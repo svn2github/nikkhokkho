@@ -156,7 +156,7 @@ ndo
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.7.0a - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
-- pngwolf-zopli 1.1.0 - https://github.com/jibsen/pngwolf-zopfli
+- pngwolf-zopli 1.1.1 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
 - Tidy 5.1.0 - http://tidy.sourceforge.net
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
@@ -175,7 +175,7 @@ X.XX - YYYY/MM/DD
 - Proper wording wording for "Mb." is "MiB". Thanks to Armin Mueller for the patch (Armin Mueller).
 - Made statistics use B, KiB, MiB o GiB automatically (Armin Mueller).
 - Uptaded Tidy to 5.2.0 (TPS).
-- Updated pngwolg-zopfil x64 to 1.1.0-1-g59510c1, because previous 64 bit version sometimes crashes on Windows 10 -Thanks Joergen Ibse- (alex123, bob joseph).
+- Updated pngwolg-zopfil x64 to 1.1.1, avoiding 64 bit crashes on some CPU, and improving performance -Thanks Joergen Ibsen- (alex123, bob joseph).
 - Removed Embarcadero's Luna, Metropolis and Windows 10 themes because they have issues with Windows 10 Anniversary and later.
 - Updated jpegoptim to 1.4.4 (custom built).
 - Updated ImageMagick 7.0.2.10 with HDRI support.
