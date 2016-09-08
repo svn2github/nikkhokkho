@@ -1,4 +1,4 @@
-- Add pdfclean -ggg (TPS).
+- Rename Enable tidy to Enable HTML/SVG optimization (TPS).
 
 - Add different shutdownwhen done modes: Hibernate, Sleep, Reboot, or Sign Out (TPS).
 
