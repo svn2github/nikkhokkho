@@ -1113,6 +1113,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// ICO: ImageMagick, Leanify
 		if (PosEx(sExtensionByContent, KS_EXTENSION_ICO) > 0)
 		{
+			sFlags = "";
+			if (!gudtOptions.bPNGCopyMetadata)
+			{
+				sFlags += "-strip ";
+			}
 			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			if (gudtOptions.bPNGCopyMetadata)
@@ -1599,6 +1604,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}	
 			RunPlugin((unsigned int) iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
+			sFlags = "";
+			if (!gudtOptions.bTIFFCopyMetadata)
+			{
+				sFlags += "-strip ";
+			}
 			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress ZIP " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";

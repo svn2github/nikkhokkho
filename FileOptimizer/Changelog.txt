@@ -175,8 +175,9 @@ X.XX - YYYY/MM/DD
 - Dynamically adapt instruction text, stating if files will be backuped on Recycle Bin or not, according to settings (Armin Mueller).
 - Implemented heuristic detection of corrupted PDF after Ghostcript processing the encryption (Gonzalo).
 - Proper wording wording for "Mb." is "MiB". Thanks to Armin Mueller for the patch (Armin Mueller).
+- Fixed calling to ImageMagick that was passing incorrect switches and prevented TIFF and ICO optimization (Michael Goeller).
 - Made statistics use B, KiB, MiB o GiB automatically (Armin Mueller).
-- Uptaded Tidy to 5.2.0 (TPS).
+- Updaded Tidy to 5.2.0 (TPS).
 - Updated pngwolg-zopfil x64 to 1.1.1, avoiding 64 bit crashes on some CPU, and improving performance -Thanks Joergen Ibsen- (alex123, bob joseph).
 - Removed Embarcadero's Luna, Metropolis and Windows 10 themes because they have issues with Windows 10 Anniversary and later.
 - Updated jpegoptim to 1.4.4 (custom built).
