@@ -169,7 +169,12 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
+
 X.XX - YYYY/MM/DD
+
+
+
+9.10 - 2016/09/17
 - Added mutools (clean -ggg) to the PDF tools chain (TPS).
 - Added F5 key to refresh grid contents updating original size (originfake).
 - Added CTRL-F5 key to reload grid contents. It will remove already optimized items, and then do a refresh (originfake).
@@ -185,7 +190,6 @@ X.XX - YYYY/MM/DD
 - Updated jpegoptim to 1.4.4 (custom built).
 - Updated ImageMagick 7.0.3.0 with HDRI support.
 - Some minor optimizations and code cleanup.
-
 
 9.00 - 2016/08/15
 - Ribbon interface is by default disabled, and replaced by traditional menus. There is a new Appearance tab under Options dialog where you can reenable it (Newtomic).
