@@ -89,6 +89,7 @@ struct udtOptions
 	bool bJPEGUseArithmeticEncoding;
 	bool bJPEGAllowLossy;
 	bool bJSEnableJSMin;
+	TCHAR acJSAdditionalExtensions[128];
 	bool bLUAEnableLeanify;
 	bool bMiscCopyMetadata;
 	bool bMP3CopyMetadata;

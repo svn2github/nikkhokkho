@@ -50,6 +50,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bJPEGUseArithmeticEncoding = GetOption(_T("Options"), _T("JPEGUseArithmeticEncoding"), false);
 	gudtOptions.bJPEGAllowLossy = GetOption(_T("Options"), _T("JPEGAllowLossy"), false);
 	gudtOptions.bJSEnableJSMin = GetOption(_T("Options"), _T("JSEnableJSMin"), false);
+	_tcscpy(gudtOptions.acJSAdditionalExtensions, GetOption(_T("Options"), _T("JSAdditionalExtensions"), _T("")));
 	gudtOptions.bLUAEnableLeanify = GetOption(_T("Options"), _T("LUAEnableLeanify"), false);
 	gudtOptions.bMiscCopyMetadata = GetOption(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = GetOption(_T("Options"), _T("MP3CopyMetadata"), false);
@@ -144,6 +145,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("JPEGUseArithmeticEncoding"), gudtOptions.bJPEGUseArithmeticEncoding);
 	clsUtil::SetIni(_T("Options"), _T("JPEGAllowLossy"), gudtOptions.bJPEGAllowLossy);
 	clsUtil::SetIni(_T("Options"), _T("JSEnableJSMin"), gudtOptions.bJSEnableJSMin);
+	clsUtil::SetIni(_T("Options"), _T("JSAdditionalExtensions"), gudtOptions.acJSAdditionalExtensions);
 	clsUtil::SetIni(_T("Options"), _T("LUAEnableLeanify"), gudtOptions.bLUAEnableLeanify);
 	clsUtil::SetIni(_T("Options"), _T("MiscCopyMetadata"), gudtOptions.bMiscCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("MP3CopyMetadata"), gudtOptions.bMP3CopyMetadata);
@@ -725,7 +727,8 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 
 	//Get all supported extensions
 	TStringDynArray asExtension;
-	asExtension = SplitString(KS_EXTENSION_ALL.UpperCase(), " ");
+	
+	asExtension = SplitString((KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")).UpperCase() + " "), " ");
 	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
 
 	//Sort them alphabetically
@@ -1225,9 +1228,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// JS: jsmin
-		if (PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0)
+		if ((PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0) ||
+			(PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")) + " ") > 0))
 		{
-			if (gudtOptions.bJSEnableJSMin)
+			//If JSMin is enabled or it is a custom extension (we assume custom extensions always enable it)
+			if ((gudtOptions.bJSEnableJSMin) || (PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")) + " ") > 0))
 			{
 				RunPlugin((unsigned int) iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -2134,7 +2139,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	sRes = GetExtension(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
-	if (PosEx(sRes, KS_EXTENSION_ALL) <= 0)
+	if (PosEx(sRes, KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")) + " ") <= 0)
 	{
 		unsigned int iSize = sizeof(acBuffer);
 		if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))
