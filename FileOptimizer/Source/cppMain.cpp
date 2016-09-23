@@ -728,7 +728,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	//Get all supported extensions
 	TStringDynArray asExtension;
 	
-	asExtension = SplitString((KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")).UpperCase() + " "), " ");
+	asExtension = SplitString((KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")).UpperCase() + " "), " ");
 	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
 
 	//Sort them alphabetically
@@ -1229,10 +1229,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		}
 		// JS: jsmin
 		if ((PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0) ||
-			(PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")) + " ") > 0))
+			(PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") > 0))
 		{
 			//If JSMin is enabled or it is a custom extension (we assume custom extensions always enable it)
-			if ((gudtOptions.bJSEnableJSMin) || (PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")) + " ") > 0))
+			if ((gudtOptions.bJSEnableJSMin) || (PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") > 0))
 			{
 				RunPlugin((unsigned int) iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -2139,7 +2139,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	sRes = GetExtension(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
-	if (PosEx(sRes, KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";", _T(" ")) + " ") <= 0)
+	if (PosEx(sRes, KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
 	{
 		unsigned int iSize = sizeof(acBuffer);
 		if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))

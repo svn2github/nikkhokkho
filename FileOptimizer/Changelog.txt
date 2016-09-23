@@ -172,6 +172,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Added INI setting to add extra extensions to be threated as JSON (Oddbrother).
+- Some minor optimizations and code cleanup.
 
 
 
