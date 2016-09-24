@@ -1,5 +1,3 @@
-- Help menu item is not working.
-
 - Replace OptiPNG with oxipng. Will it work with APNG like OptiPNG?: https://github.com/shssoichiro/oxipng (TPS).
 
 - Rename Enable tidy to Enable HTML/SVG optimization (TPS).
