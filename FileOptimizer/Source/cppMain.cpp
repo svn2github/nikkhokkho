@@ -728,7 +728,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	//Get all supported extensions
 	TStringDynArray asExtension;
 	
-	asExtension = SplitString((KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")).UpperCase() + " "), " ");
+	asExtension = SplitString((KS_EXTENSION_ALL + " " + ((String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" "))).UpperCase() + " "), " ");
 	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
 
 	//Sort them alphabetically
