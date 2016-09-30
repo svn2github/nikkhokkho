@@ -990,7 +990,28 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				if (gudtOptions.bEXEEnableUPX)
 				{
-					RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --best --no-backup --force --crp-ms=999999 \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					sFlags = "--no-backup --force ";
+					if (gudtOptions.iLevel < 3)
+					{
+						sFlags += "-1 ";
+					}
+					else if (gudtOptions.iLevel < 5)
+					{
+						sFlags += "-9 ";
+					}
+					else if (gudtOptions.iLevel < 7)
+					{
+						sFlags += "-9 --best ";
+					}
+					else if (gudtOptions.iLevel < 9)
+					{
+						sFlags += "-9 --best --lzma ";
+					}
+					else
+					{
+						sFlags += "-9 --best --lzma --ultra-brute --crp-ms=999999 ";
+					}	
+					RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 			}
 		}
