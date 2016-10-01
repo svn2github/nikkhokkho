@@ -169,13 +169,14 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+
+
+9.20 - 2016/10/01
 - Added INI setting to add extra extensions to be threated as JSON (Oddbrother).
 - Implemented several UPX compression profiles depending on optimization level (User Hunter).
 - Updated ImageMagick 7.0.3.1 with HDRI support.
 - Updated Leanify to 0.4.3.152 daily binaries.
 - Some minor optimizations and code cleanup.
-
-
 
 9.10 - 2016/09/17
 - Added mutools (clean -ggg) to the PDF tools chain (TPS).
