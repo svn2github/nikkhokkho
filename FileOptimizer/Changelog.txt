@@ -176,6 +176,7 @@ X.XX - YYYY/MM/DD
 - Implemented several UPX compression profiles depending on optimization level (User Hunter).
 - Updated ImageMagick 7.0.3.1 with HDRI support.
 - Updated Leanify to 0.4.3.152 daily binaries.
+- Upgraded distributions to 7-Zip 16.03.
 - Some minor optimizations and code cleanup.
 
 9.10 - 2016/09/17
