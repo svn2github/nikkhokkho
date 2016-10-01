@@ -169,6 +169,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Fixed remove selected files (Shift-Del) always enabled since 9.00 when unified ribbon and regular UI (TPS).
 
 
 9.20 - 2016/10/01

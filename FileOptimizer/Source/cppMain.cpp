@@ -2850,7 +2850,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 		actStop->Enabled = false;
 		actAdd->Enabled = true;
 		actClear->Enabled = (grdFiles->RowCount > 1);
-		actRemove->Enabled = (grdFiles->Selection.Top > 0);
+		actRemove->Enabled = (grdFiles->RowCount > 1);
 
 		grdFiles->Options = grdFiles->Options << goFixedHotTrack << goFixedRowClick << goFixedColClick;
 		DragAcceptFiles(Handle, true);
