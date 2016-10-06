@@ -172,6 +172,7 @@ X.XX - YYYY/MM/DD
 - Fixed remove selected files (Shift-Del) always enabled since 9.00 when unified ribbon and regular UI (TPS).
 - Updated Leanify to 0.4.3.154 daily binaries.
 - Updated ImageMagick 7.0.3.2 with HDRI support.
+- Upgraded distributions to 7-Zip 16.04.
 
 
 9.20 - 2016/10/01
