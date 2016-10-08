@@ -2090,7 +2090,8 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 				clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
 				//sInputFile = sTmpOutputFile;
 			}
-		}	
+		}
+		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew));	
 	}
 
 	DeleteFile(sTmpInputFile.c_str());
