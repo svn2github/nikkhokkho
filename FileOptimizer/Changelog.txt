@@ -1,3 +1,5 @@
+- Password protected ZIP files get corrupted (apply same FIX as PDF?)
+
 - Replace OptiPNG with oxipng. Will it work with APNG like OptiPNG?: https://github.com/shssoichiro/oxipng (TPS).
 
 - Rename Enable tidy to Enable HTML/SVG optimization (TPS).
@@ -173,7 +175,9 @@ X.XX - YYYY/MM/DD
 - Add original and optimized sizes in log file (JoeW).
 - Updated Leanify to 0.4.3.159 daily binaries.
 - Updated ImageMagick 7.0.3.2 with HDRI support.
+- Updated to cppcheck 1.76.
 - Upgraded distributions to 7-Zip 16.04.
+- Some minor optimizations and code cleanup.
 
 
 9.20 - 2016/10/01

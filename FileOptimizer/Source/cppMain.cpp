@@ -2070,11 +2070,10 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	//Check exit errorlevel
 	if ((iError >= piErrorMin) && (iError <= piErrorMax))
 	{
-		unsigned long long lSizeNew;
+		unsigned long long lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
 		//We did get a TMP output file, so if smaller, make it overwrite input file
 		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
-			lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
@@ -2083,7 +2082,6 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		}
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 		{
-			lSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
@@ -2091,7 +2089,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 				//sInputFile = sTmpOutputFile;
 			}
 		}
-		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew));	
+		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
 	}
 
 	DeleteFile(sTmpInputFile.c_str());
