@@ -139,7 +139,7 @@ ndo
 - Gifsicle Lossy 1.88 - https://kornel.ski/lossygif
 - Ghostscript 9.19 - http://www.ghostscript.com
 - GNU Strip 2.26 - http://www.gnu.org/software/binutils/
-- ImageMagick 7.0.3.2 - http://www.imagemagick.org
+- ImageMagick 7.0.3.3 - http://www.imagemagick.org
 - ImageWorsener 1.3.0 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -174,7 +174,7 @@ X.XX - YYYY/MM/DD
 - Fixed remove selected files (Shift-Del) always enabled since 9.00 when unified ribbon and regular UI (TPS).
 - Add original and optimized sizes in log file (JoeW).
 - Updated Leanify to 0.4.3.159 daily binaries.
-- Updated ImageMagick 7.0.3.2 with HDRI support.
+- Updated ImageMagick 7.0.3.3 with HDRI support.
 - Updated to cppcheck 1.76.
 - Upgraded distributions to 7-Zip 16.04.
 - Some minor optimizations and code cleanup.
