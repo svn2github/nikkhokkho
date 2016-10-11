@@ -155,7 +155,7 @@ ndo
 - mutools 1.9a - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
-- PngOptimizer 2.4.1 - http://psydk.org/PngOptimizer
+- PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.7.0a - http://www.pngquant.org
@@ -175,6 +175,7 @@ X.XX - YYYY/MM/DD
 - Add original and optimized sizes in log file (JoeW).
 - Updated Leanify to 0.4.3.159 daily binaries.
 - Updated ImageMagick 7.0.3.3 with HDRI support.
+- Updated PngOptimizer to 2.5.
 - Updated Ghostscript to 9.20.
 - Updated strip to 2.27.
 - Updated to cppcheck 1.76.
