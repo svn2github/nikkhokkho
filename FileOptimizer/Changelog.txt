@@ -173,6 +173,7 @@ ndo
 X.XX - YYYY/MM/DD
 - Fixed remove selected files (Shift-Del) always enabled since 9.00 when unified ribbon and regular UI (TPS).
 - Add original and optimized sizes in log file (JoeW).
+- Updated jsmin custom build with Visual C++ 2015.
 - Updated Leanify to 0.4.3.159 daily binaries.
 - Updated ImageMagick 7.0.3.4 with HDRI support.
 - Updated PngOptimizer to 2.5.
@@ -360,7 +361,7 @@ X.XX - YYYY/MM/DD
 - Updated TruePNG to 0.6.0.0.
 - Updated strip to 2.25.1.
 - Updated to NSIS 3.0 beta 2.
-- Updated custom builds with Visual C++ 2015 (gifsicle, jpegoptim, jsmin).
+- Updated custom builds with Visual C++ 2015 (gifsicle, jpegoptim).
 - Upgraded distributions to 7-Zip 15.06.
 
 7.80 - 2015/06/01
