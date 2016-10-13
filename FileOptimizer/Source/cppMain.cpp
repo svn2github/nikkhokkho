@@ -1387,10 +1387,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// PDF: mutools, ghostcript, smpdf
+		// PDF: mutool, ghostcript, smpdf
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "mutools", (sPluginsDirectory + "mutools.exe clean -ggg -z \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "mutool", (sPluginsDirectory + "mutool.exe clean -ggg -z \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			//Do not use Ghoscript for Adobe Illustrator (AI) files
 			if (!EndsText(".ai", sInputFile))
