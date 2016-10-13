@@ -13,7 +13,7 @@ Unicode true
 !insertmacro MUI_UNPAGE_INSTFILES
 !insertmacro MUI_LANGUAGE "English"
 !include x64.nsh
-
+!include "FileFunc.nsh"
 
 
 ; -------------------------------------------------------------------------------------------------
@@ -33,6 +33,7 @@ OutFile "..\${APP_NAME}Setup.exe"
 Name "${APP_NAME}"
 InstallDir "$PROGRAMFILES\${APP_NAME}"
 InstallDirRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}" "InstallDir"
+
 
 
 
