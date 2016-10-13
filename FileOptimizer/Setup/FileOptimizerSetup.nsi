@@ -38,6 +38,12 @@ InstallDirRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP
 
 ; -------------------------------------------------------------------------------------------------
 Function .onInit
+	${GetParameters} $R0
+	${GetOptionsS} $R0 "/AllUsers" $0
+	IfErrors +2 0
+		SetShellVarContext all
+	ClearErrors
+
         ${If} ${RunningX64}
         	${EnableX64FSRedirection}
 		StrCpy '$INSTDIR' "$PROGRAMFILES64\${APP_NAME}"
