@@ -1,3 +1,5 @@
+- Guetzli? http://encode.ru/threads/2628-Guetzli-a-new-more-psychovisual-JPEG-encoder
+
 - Password protected ZIP files get corrupted (apply same FIX as PDF?)
 
 - Replace OptiPNG with oxipng. Will it work with APNG like OptiPNG?: https://github.com/shssoichiro/oxipng (TPS).
