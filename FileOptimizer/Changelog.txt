@@ -134,7 +134,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
-- ECT 0.6.2.0 (ef70e0) - https://github.com/fhanau/Efficient-Compression-Tool
+- ECT 0.6.2.0 (511fa96) - https://github.com/fhanau/Efficient-Compression-Tool
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
@@ -177,6 +177,7 @@ X.XX - YYYY/MM/DD
 - Fixed remove selected files (Shift-Del) always enabled since 9.00 when unified ribbon and regular UI (TPS).
 - Add original and optimized sizes in log file (JoeW).
 - Fixed a bug in mutool that prevented execution on PDF (LeTiger).
+- Updated to ECT 0.6.2.0 -511fa96- x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated jsmin custom build with Visual C++ 2015.
 - Updated Leanify to 0.4.3.159 daily binaries.
 - Updated ImageMagick 7.0.3.4 with HDRI support.
