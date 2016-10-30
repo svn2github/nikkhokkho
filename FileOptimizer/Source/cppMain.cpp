@@ -1179,7 +1179,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				}
 				sFlags += "-i " + (String) iLevel + " ";
-				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				//Temporary disable Leanify because it removed IPTC metadata
+				if (!gudtOptions.bPNGCopyMetadata)
+				{
+					RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				}
 			}
 		}
 		// JPEG: jpeg-recompress, jhead, Leanify, ect, jpegoptim, jpegtran, mozjpegtran
@@ -1537,7 +1541,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				}
 				sFlags += "-i " + (String) iLevel + " ";
-				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				//Temporary disable Leanify because it removed IPTC metadata
+				if (!gudtOptions.bPNGCopyMetadata)
+				{
+					RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				}
 				
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
