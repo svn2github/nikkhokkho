@@ -1,3 +1,5 @@
+- Revisar metadatas con Leanify (ZonaCasio).
+
 - Guetzli? http://encode.ru/threads/2628-Guetzli-a-new-more-psychovisual-JPEG-encoder
 
 - Password protected ZIP files get corrupted (apply same FIX as PDF?)
