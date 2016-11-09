@@ -187,6 +187,7 @@ X.XX - YYYY/MM/DD
 - Updated PngOptimizer to 2.5.
 - Updated Ghostscript to 9.20.
 - Updated strip to 2.27.
+- Better performance updating to ASMLib 2.50 with AVX512 support.
 - Updated to cppcheck 1.76.
 - Upgraded distributions to 7-Zip 16.04.
 - Some minor optimizations and code cleanup.
