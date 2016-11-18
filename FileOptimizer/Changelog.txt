@@ -156,7 +156,7 @@ ndo
 - mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
-- mutool 1.10RC1 - http://mupdf.com/downloads/
+- mutool 1.10RC2 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
@@ -187,7 +187,7 @@ X.XX - YYYY/MM/DD
 - Updated PngOptimizer to 2.5.
 - Updated Ghostscript to 9.20.
 - Updated strip to 2.27.
-- Updated to mutool 1.10RC1.
+- Updated to mutool 1.10RC2.
 - Better performance updating to ASMLib 2.50 with AVX512 support.
 - Updated to cppcheck 1.76.
 - Upgraded distributions to 7-Zip 16.04.
