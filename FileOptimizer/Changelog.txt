@@ -129,7 +129,7 @@ ndo
 
 
 
-- AdvanceCOMP 1.20 - http://advancemame.sourceforge.net
+- AdvanceCOMP 1.23 - http://advancemame.sourceforge.net
 - APNG Optimizer 1.4 - http://sourceforge.net/projects/apng/
 - Coherent PDF Lossless Compressor (smpdf) 1.4.1 - http://www.coherentpdf.com/compression.html
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
@@ -180,6 +180,7 @@ X.XX - YYYY/MM/DD
 - Added original and optimized sizes in log file (JoeW).
 - Fixed a bug in mutool that prevented execution on PDF (LeTiger).
 - Disabled Leanify from the JPEG, PNG and ICO toolchains when copy metadata is enabled, because it removed IPTC information (ZonaCasio).
+- Updated AdvanceCOMP to 1.23.
 - Updated to ECT 0.6.2.0 -511fa96- x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated jsmin custom build with Visual C++ 2015.
 - Updated Leanify to 0.4.3.170 daily binaries.
