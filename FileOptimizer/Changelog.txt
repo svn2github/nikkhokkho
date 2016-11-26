@@ -175,6 +175,9 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+
+
+9.30 - 2016/11/26
 - Installer now supports the /AllUsers argument to install for all users instead of current user (Grahame Bevan).
 - Fixed remove selected files (Shift-Del) always enabled since 9.00 when unified ribbon and regular UI (TPS).
 - Added original and optimized sizes in log file (JoeW).
@@ -193,7 +196,6 @@ X.XX - YYYY/MM/DD
 - Updated to cppcheck 1.76.
 - Upgraded distributions to 7-Zip 16.04.
 - Some minor optimizations and code cleanup.
-
 
 9.20 - 2016/10/01
 - Added INI setting to add extra extensions to be threated as JSON (Oddbrother).
