@@ -57,6 +57,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bPCXCopyMetadata = GetOption(_T("Options"), _T("PCXCopyMetadata"), false);
 	_tcscpy(gudtOptions.acPDFProfile, GetOption(_T("Options"), _T("PDFProfile"), _T("none")));
 	gudtOptions.iPDFCustomDPI = GetOption(_T("Options"), _T("PDFCustomDPI"), 150);
+	gudtOptions.bPDFSkipLayered = GetOption(_T("Options"), _T("PDFSkipLayered"), false);
 	gudtOptions.bPNGCopyMetadata = GetOption(_T("Options"), _T("PNGCopyMetadata"), false);
 	gudtOptions.bPNGAllowLossy = GetOption(_T("Options"), _T("PNGAllowLossy"), false);
 	gudtOptions.bTIFFCopyMetadata = GetOption(_T("Options"), _T("TIFFCopyMetadata"), false);
@@ -152,6 +153,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("PCXCopyMetadata"), gudtOptions.bPCXCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("PDFProfile"), gudtOptions.acPDFProfile);
 	clsUtil::SetIni(_T("Options"), _T("PDFCustomDPI"), gudtOptions.iPDFCustomDPI);
+	clsUtil::SetIni(_T("Options"), _T("PDFSkipLayered"), gudtOptions.bPDFSkipLayered);
 	clsUtil::SetIni(_T("Options"), _T("PNGCopyMetadata"), gudtOptions.bPNGCopyMetadata);
 	clsUtil::SetIni(_T("Options"), _T("PNGAllowLossy"), gudtOptions.bPNGAllowLossy);
 	clsUtil::SetIni(_T("Options"), _T("TIFFCopyMetadata"), gudtOptions.bTIFFCopyMetadata);
@@ -1398,63 +1400,66 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// PDF: mutool, ghostcript, smpdf
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "mutool", (sPluginsDirectory + "mutool.exe clean -ggg -z \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			bool bIsPDFLayered = IsPDFLayered(sInputFile.c_str());
 			
-			//Do not use Ghoscript for Adobe Illustrator (AI) files
-			if (!EndsText(".ai", sInputFile))
-			{
-				sFlags = "";
-				//Custom mode
-				if (_tcscmp(gudtOptions.acPDFProfile, _T("Custom")) == 0)
-				{
-					sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleGrayImages=true -dGrayImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleMonoImages=true -dMonoImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " ";
-				}
-				//No downsampling
-				else if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
-				{
-					sFlags += "-dPDFSETTINGS=/default -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
-				}				
-				//Built in downsample modes: screen, ebook, printer, prepress
-				else
-				{
-					sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
-				}
+			//Skip PDF with layers
+			if ((!bIsPDFLayered) || (!gudtOptions.bPDFSkipLayered))
+			{		
+				RunPlugin((unsigned int) iCount, "mutool", (sPluginsDirectory + "mutool.exe clean -ggg -z \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				
-				sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
-				
-				TCHAR acTmpFilePdf[MAX_PATH];
-				_tcscpy(acTmpFilePdf, sInputFile.c_str());
-				_tcscat(acTmpFilePdf, _T(".pdf"));
-
-				//RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				#if defined(_WIN64)
-					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				#else
-					RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-				#endif
-				//If there is size reduction check it is not so high to detect corrupted encrypted PDF
-				if (clsUtil::SizeFile(acTmpFilePdf) < clsUtil::SizeFile(sInputFile.c_str()))
+				//Do not use Ghoscript for Adobe Illustrator (AI) files
+				if (!EndsText(".ai", sInputFile))
 				{
-					if ((clsUtil::SizeFile(acTmpFilePdf) > 3000) && (clsUtil::SizeFile(sInputFile.c_str()) > 20000))
+					sFlags = "";
+					//Custom mode
+					if (_tcscmp(gudtOptions.acPDFProfile, _T("Custom")) == 0)
 					{
-						clsUtil::CopyFile(acTmpFilePdf, sInputFile.c_str());
+						sFlags += "-dPDFSETTINGS=/ebook -dDownsampleColorImages=true -dColorImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleGrayImages=true -dGrayImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " -dDownsampleMonoImages=true -dMonoImageResolution=" + (String) gudtOptions.iPDFCustomDPI + " ";
 					}
+					//No downsampling
+					else if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
+					{
+						sFlags += "-dPDFSETTINGS=/default -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
+					}				
+					//Built in downsample modes: screen, ebook, printer, prepress
+					else
+					{
+						sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
+					}
+					
+					sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
+					
+					TCHAR acTmpFilePdf[MAX_PATH];
+					_tcscpy(acTmpFilePdf, sInputFile.c_str());
+					_tcscat(acTmpFilePdf, _T(".pdf"));
+
+					//RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					#if defined(_WIN64)
+						RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					#else
+						RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					#endif
+					//If there is size reduction check it is not so high to detect corrupted encrypted PDF
+					if (clsUtil::SizeFile(acTmpFilePdf) < clsUtil::SizeFile(sInputFile.c_str()))
+					{
+						if ((clsUtil::SizeFile(acTmpFilePdf) > 3000) && (clsUtil::SizeFile(sInputFile.c_str()) > 20000))
+						{
+							clsUtil::CopyFile(acTmpFilePdf, sInputFile.c_str());
+						}
+					}
+					DeleteFile(acTmpFilePdf);
 				}
-				DeleteFile(acTmpFilePdf);
+					
+				RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
-				
-			RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, advpng, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PNG) > 0)
 		{
-			bool bIsAPNG;
-			bool bIsPNG9Patch;
+			bool bIsAPNG = IsAPNG(sInputFile.c_str());
+			bool bIsPNG9Patch = EndsText(".9.png", sInputFile);
 
 			//Android 9-patch images get broken with advpng, deflopt, optipng, pngoptimizer, pngout, pngrewrite and truepng. Only pngwolf, defluff and leanify seem to be safe. At the moment, detect them by extension .9.png.
-			bIsPNG9Patch = EndsText(".9.png", sInputFile);
-			bIsAPNG = IsAPNG(sInputFile.c_str());
-
 			if (bIsAPNG)
 			{
 				RunPlugin((unsigned int) iCount, "apngopt", (sPluginsDirectory + "apngopt.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -2739,6 +2744,27 @@ bool __fastcall TfrmMain::IsEXEManagedNet(const TCHAR *pacFile)
 	}
 	return (bRes);
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall TfrmMain::IsPDFLayered(const TCHAR *pacFile)
+{
+	bool bRes = false;
+	unsigned char *acBuffer;
+
+	
+	unsigned int iSize = 512 * 1024;
+	acBuffer = new unsigned char[iSize];
+	if (acBuffer)
+	{
+		clsUtil::ReadFile(pacFile, acBuffer, &iSize);
+		//Look for a OCG (Optional Content Groups)
+		bRes = (clsUtil::MemMem(acBuffer, "<< /Type /OCG /Name", 20) != NULL);
+		delete[] acBuffer;
+	}
+	return (bRes);
+}
+
 
 
 

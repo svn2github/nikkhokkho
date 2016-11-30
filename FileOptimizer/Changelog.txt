@@ -175,6 +175,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Added INI setting PDFSkipLayered=false to skip processing of PDF containing layers Optional Content Groups -OCG- (Grahame Bevan).
 - Updated to mutool 1.10a with x64 native build (thanks Dirk Paehl).
 - Updated ImageMagick 7.0.3.8 with HDRI support.
 - Better performance updating to ASMLib 2.51 with AVX512 support.
@@ -202,7 +203,7 @@ X.XX - YYYY/MM/DD
 - Some minor optimizations and code cleanup.
 
 9.20 - 2016/10/01
-- Added INI setting to add extra extensions to be threated as JSON (Oddbrother).
+- Added INI setting JSAdditionalExtensions to add extra extensions to be threated as JSON (Oddbrother).
 - Implemented several UPX compression profiles depending on optimization level (User Hunter).
 - Updated ImageMagick 7.0.3.1 with HDRI support.
 - Updated Leanify to 0.4.3.152 daily binaries.
