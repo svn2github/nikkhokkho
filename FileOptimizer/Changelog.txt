@@ -175,7 +175,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
-- Updated to mutool 1.10a.
+- Updated to mutool 1.10a with x64 native build (thanks Dirk Paehl).
 - Updated ImageMagick 7.0.3.8 with HDRI support.
 - Better performance updating to ASMLib 2.51 with AVX512 support.
 
