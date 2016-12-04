@@ -1219,7 +1219,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags = "";
 			if (gudtOptions.bJPEGCopyMetadata)
 			{
-				sFlags += "--keep-exif ";
+				sFlags += "--keep-exif --keep-icc-profile --jpeg-keep-all-metadata ";
 			}
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			//Overwrite Leanify iterations
@@ -1232,12 +1232,8 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
-			//Temporary disable Leanify because it removed IPTC metadata
-			if (!gudtOptions.bJPEGCopyMetadata)
-			{
-				RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			}
-			
+			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+		
 			//Seems to cause some loss of quality
 			//iError = RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
 
