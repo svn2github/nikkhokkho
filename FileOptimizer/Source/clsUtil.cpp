@@ -1024,6 +1024,27 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 
 
 // ---------------------------------------------------------------------------
+bool __fastcall clsUtil::IsWindows64(void)
+{
+	static unsigned int iWindowsArchitecture = NULL;
+	struct SYSTEM_INFO udtSystemInfo;
+	
+
+	if (iWindowsArchitechture == NULL)
+	{
+		#if defined(_WIN64)
+			iWindowsArchitecture = PROCESSOR_ARCHITECTURE_AMD64;
+		#else
+			GetNativeSystemInfo(&udtSystemInfo);
+			iWindowsArchitecture = udtSystemInfo.wProcessorArchitecture;
+		#endif
+	}
+	return(iWindowsArchitecture == PROCESSOR_ARCHITECTURE_AMD64);
+}
+
+
+
+// ---------------------------------------------------------------------------
 bool __fastcall clsUtil::ShutdownWindows(void)
 {
 	bool bRes = false;

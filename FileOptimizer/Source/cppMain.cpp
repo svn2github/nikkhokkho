@@ -201,11 +201,14 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	{
 		GetModuleFileName(NULL, acPluginsDirectory, sizeof(acPluginsDirectory) - 1);
 		*_tcsrchr(acPluginsDirectory, '\\') = NULL;
-		#if defined(_WIN64)
+		if (clsUtil::IsWindows64())
+		{
 			_tcscat(acPluginsDirectory, _T("\\Plugins64\\"));
-		#else
+		}
+		else
+		{
 			_tcscat(acPluginsDirectory, _T("\\Plugins32\\"));
-		#endif
+		}
 
 		bool bRunning = false;
 		HANDLE hFindFile = FindFirstFile((((String) acPluginsDirectory) + "*.exe").c_str(), &udtFindFileData);
@@ -588,11 +591,14 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 
 	GetModuleFileName(NULL, acTmpFile, sizeof(acTmpFile) - 1);
 	*_tcsrchr(acTmpFile, '\\') = NULL;
-	#if defined(_WIN64)
+	if (clsUtil::IsWindows64())
+	{
 		_tcscat(acTmpFile, _T("\\Plugins64\\"));
-	#else
+	}
+	else
+	{
 		_tcscat(acTmpFile, _T("\\Plugins32\\"));
-	#endif
+	}
 	sPluginsDirectory = GetShortName(acTmpFile);
 
 	lSavedBytes = 0;
@@ -1430,11 +1436,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					_tcscat(acTmpFilePdf, _T(".pdf"));
 
 					//RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					#if defined(_WIN64)
+					if (clsUtil::IsWindows64())
+					{
 						RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin64c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					#else
+					}
+					else
+					{
 						RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "gswin32c.exe " + sFlags + "-sOutputFile=\"" + acTmpFilePdf + "\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					#endif
+					}
 					//If there is size reduction check it is not so high to detect corrupted encrypted PDF
 					if (clsUtil::SizeFile(acTmpFilePdf) < clsUtil::SizeFile(sInputFile.c_str()))
 					{

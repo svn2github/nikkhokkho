@@ -176,6 +176,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Added INI setting PDFSkipLayered=false to skip processing of PDF containing layers Optional Content Groups -OCG- (Grahame Bevan).
+- Implemented using Win64 plugins in all Win64 system, even if you run Win32 version of FileOptimizer.
 - Added removing metadata in pngquant if PNGCopyMetadata is disabled.
 - Reenabled Leanify in JPEG processing when Copy Metadata is enabled, because now we can use --jpeg-keep-all-metadata.
 - Updated Leanify to 0.4.3.173 daily binaries.
