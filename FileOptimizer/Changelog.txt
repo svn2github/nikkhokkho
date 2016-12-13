@@ -168,7 +168,7 @@ ndo
 - rehuff - http://wiki.xiph.org/Rehuff
 - Tidy 5.2.0 - http://tidy.sourceforge.net
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
-- UPX 3.91 - http://upx.sourceforge.net
+- UPX 3.92 - http://upx.sourceforge.net
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
@@ -179,6 +179,7 @@ X.XX - YYYY/MM/DD
 - Implemented using Win64 plugins in all Win64 system, even if you run Win32 version of FileOptimizer.
 - Added removing metadata in pngquant if PNGCopyMetadata is disabled.
 - Reenabled Leanify in JPEG processing when Copy Metadata is enabled, because now we can use --jpeg-keep-all-metadata.
+- Updated strip to 3.92.
 - Updated Leanify to 0.4.3.173 daily binaries.
 - Updated pngquant to 2.8.0.
 - Updated to mutool 1.10a with x64 native build (thanks Dirk Paehl).
