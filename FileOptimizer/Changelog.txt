@@ -152,7 +152,7 @@ ndo
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.173 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
-- libwebp 0.5.2 RC2 - http://www.webmproject.org
+- libwebp 0.5.2 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
@@ -180,7 +180,7 @@ X.XX - YYYY/MM/DD
 - Implemented using Win64 plugins in all Win64 system, even if you run Win32 version of FileOptimizer.
 - Added removing metadata in pngquant if PNGCopyMetadata is disabled.
 - Reenabled Leanify in JPEG processing when Copy Metadata is enabled, because now we can use --jpeg-keep-all-metadata.
-- Updated libwebp to 0.5.2 RC2.
+- Updated libwebp to 0.5.2.
 - Updated UPX to 3.92.
 - Updated Leanify to 0.4.3.173 daily binaries.
 - Updated pngquant to 2.8.0.
