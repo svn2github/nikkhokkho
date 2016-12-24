@@ -1,4 +1,4 @@
-- Autoupdate plugins (olavrb)
+- Autoupdate plugins: http://nsis.sourceforge.net/Check_online_for_Updates (olavrb)
 
 - Add Guetzli: http://encode.ru/threads/2628-Guetzli-a-new-more-psychovisual-JPEG-encoder?p=50677 (Jyrki Alakuijala)
 
