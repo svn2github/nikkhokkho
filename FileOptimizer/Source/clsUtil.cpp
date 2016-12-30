@@ -1027,14 +1027,14 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 bool __fastcall clsUtil::IsWindows64(void)
 {
 	static unsigned int iWindowsArchitecture = NULL;
-	SYSTEM_INFO udtSystemInfo;
-	
+
 
 	if (iWindowsArchitecture == NULL)
 	{
 		#if defined(_WIN64)
 			iWindowsArchitecture = PROCESSOR_ARCHITECTURE_AMD64;
 		#else
+			SYSTEM_INFO udtSystemInfo;
 			GetNativeSystemInfo(&udtSystemInfo);
 			iWindowsArchitecture = udtSystemInfo.wProcessorArchitecture;
 		#endif

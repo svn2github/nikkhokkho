@@ -11,10 +11,10 @@
 // ---------------------------------------------------------------------------
 TfrmMain *frmMain = NULL;
 struct udtOptions gudtOptions  = {};
-unsigned int miStartTicks;
 //SYSTEM_INFO gudtSystemInfo = {};
 bool gbProcess = false;
 bool gbStop = false;
+unsigned int miStartTicks;
 
 
 // ---------------------------------------------------------------------------
@@ -87,14 +87,14 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcscpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")));
 	
 	miStartTicks = GetTickCount();
-	gudtOptions.lStatTime = GetOption(_T("Statistics"), _T("Time"), 0);
-	gudtOptions.iStatOpens = GetOption(_T("Statistics"), _T("Opens"), 0);
+	gudtOptions.lStatTime = (unsigned long long) GetOption(_T("Statistics"), _T("Time"), 0);
+	gudtOptions.iStatOpens = (unsigned int) GetOption(_T("Statistics"), _T("Opens"), 0);
 	gudtOptions.iStatOpens++;
-	gudtOptions.iStatFiles = GetOption(_T("Statistics"), _T("Files"), 0);
-	gudtOptions.lStatTotalBytes = GetOption(_T("Statistics"), _T("TotalBytes"), 0);
-	gudtOptions.lStatSavedBytes = GetOption(_T("Statistics"), _T("SavedBytes"), 0);
+	gudtOptions.iStatFiles = (unsigned int) GetOption(_T("Statistics"), _T("Files"), 0);
+	gudtOptions.lStatTotalBytes = (unsigned long long) GetOption(_T("Statistics"), _T("TotalBytes"), 0);
+	gudtOptions.lStatSavedBytes = (unsigned long long) GetOption(_T("Statistics"), _T("SavedBytes"), 0);
 	randomize();
-	gudtOptions.iStatSession = GetOption(_T("Statistics"), _T("Session"), random(INT_MAX));
+	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), random(INT_MAX));
 
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
@@ -426,12 +426,12 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 		{
 			Screen->Cursor = crAppStart;
 			Application->ProcessMessages();
-			for (int iRow = iRows; iRow > 0; iRow--)
+			for (int iRow = (int) iRows; iRow > 0; iRow--)
 			{
 				//Remove already optimized files
 				if (PosEx("Done", grdFiles->Cells[KI_GRID_STATUS][(int) iRow]) > 0)
 				{
-					for (int iSelectedRow = iRow; iSelectedRow < iRows - 1; iSelectedRow++)
+					for (int iSelectedRow = iRow; iSelectedRow < (int) iRows - 1; iSelectedRow++)
 					{
 						grdFiles->Rows[iSelectedRow]->BeginUpdate();
 						grdFiles->Rows[iSelectedRow] = grdFiles->Rows[iSelectedRow + 1];
@@ -440,7 +440,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 					iRows--;
 				}
 			}
-			grdFiles->RowCount = iRows;
+			grdFiles->RowCount = (int) iRows;
 			RefreshStatus();
 			Screen->Cursor = crDefault;
 		}
@@ -1997,7 +1997,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
 					grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Pending";
-					grdFiles->RowCount = iRows + 1;
+					grdFiles->RowCount = (int) iRows + 1;
 					grdFiles->Rows[(int) iRows]->EndUpdate();
 				}
 			}
@@ -2397,7 +2397,7 @@ String __inline TfrmMain::FormatNumberThousandUnit (unsigned long long plNumber)
 
 	
 	//GiB
-	if (plNumber > 10 * 1024 * 1024 * 1024)
+	if (plNumber > 10 * 1024 * 1024 * 1024ULL)
 	{
 		plNumber = plNumber >> 30;
 		sUnit = "GiB";
