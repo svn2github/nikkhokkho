@@ -185,6 +185,7 @@ X.XX - YYYY/MM/DD
 - Implemented using Win64 plugins in all Win64 system, even if you run Win32 version of FileOptimizer.
 - Added removing metadata in pngquant if PNGCopyMetadata is disabled.
 - Reenabled Leanify in JPEG processing when Copy Metadata is enabled, because now we can use --jpeg-keep-all-metadata.
+- Fixed crashing with temporary paths longer than 260 characters (Roman Luks).
 - Updated libwebp to 0.5.2.
 - Updated UPX to 3.92.
 - Updated Leanify to 0.4.3.173 daily binaries.
@@ -193,6 +194,7 @@ X.XX - YYYY/MM/DD
 - Updated ImageMagick 7.0.4.0 with HDRI support.
 - Better performance updating to ASMLib 2.51 with AVX512 support.
 - Updated to NSIS 3.01.
+- Some minor optimizations and code cleanup.
 
 
 

@@ -27,7 +27,7 @@ __fastcall TfrmMain::TfrmMain(TComponent* Owner) : TForm(Owner)
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::FormCreate(TObject *Sender)
 {
-	TCHAR acPath[MAX_PATH];
+	TCHAR acPath[PATH_MAX];
 
 
 	clsUtil::LoadForm(this);
@@ -194,7 +194,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 {
 	WIN32_FIND_DATA udtFindFileData;
-	TCHAR acPluginsDirectory[MAX_PATH];
+	TCHAR acPluginsDirectory[PATH_MAX];
 	
 
 	if (!gbStop)
@@ -582,7 +582,7 @@ static String sPluginsDirectory;
 void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 {
 	unsigned int iCount;
-	TCHAR acTmpFile[MAX_PATH];
+	TCHAR acTmpFile[PATH_MAX];
 
 
 	gbProcess = true;
@@ -1431,7 +1431,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					
 					sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
 					
-					TCHAR acTmpFilePdf[MAX_PATH];
+					TCHAR acTmpFilePdf[PATH_MAX];
 					_tcscpy(acTmpFilePdf, sInputFile.c_str());
 					_tcscat(acTmpFilePdf, _T(".pdf"));
 
@@ -1740,7 +1740,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			iLevel = min(gudtOptions.iLevel * 5 / 9, 5) + 1;
 			sFlags += "-m " + (String) iLevel + " ";
 
-			TCHAR acTmpFileWebp[MAX_PATH];
+			TCHAR acTmpFileWebp[PATH_MAX];
 			_tcscpy(acTmpFileWebp, sInputFile.c_str());
 			_tcscat(acTmpFileWebp, _T(".png"));
 
@@ -1916,7 +1916,7 @@ void __fastcall TfrmMain::lblCopyrightClick(TObject *Sender)
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 {
-	TCHAR acBuffer[MAX_PATH];
+	TCHAR acBuffer[PATH_MAX];
 
 
 	HDROP hDrop = (HDROP) udtMessage.Drop;
@@ -2011,8 +2011,8 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin, int piErrorMax)
 {
 	String sInputFile, sOutputFile, sTmpInputFile, sTmpOutputFile, sCommandLine;
-	TCHAR acTmp[MAX_PATH];
-	TCHAR acTempPath[MAX_PATH] = _T("");
+	TCHAR acTmp[PATH_MAX];
+	TCHAR acTempPath[PATH_MAX] = _T("");
 
 
 	if (gbStop)
@@ -2343,7 +2343,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 String __fastcall TfrmMain::GetExtension (String psFilename)
 {
 	//return (ExtractFileExt(psFilename));
-	TCHAR acRes[MAX_PATH] = _T("");
+	TCHAR acRes[PATH_MAX] = _T("");
 	TCHAR *pacDot;
 
 
@@ -2553,7 +2553,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 String __fastcall TfrmMain::GetShortName(String psLongName)
 {
-	TCHAR acShortFile[MAX_PATH];
+	TCHAR acShortFile[PATH_MAX];
 
 
 	GetShortPathName(psLongName.c_str(), acShortFile, sizeof(acShortFile));
@@ -2769,7 +2769,7 @@ bool __fastcall TfrmMain::IsPDFLayered(const TCHAR *pacFile)
 	{
 		clsUtil::ReadFile(pacFile, acBuffer, &iSize);
 		//Look for a OCG (Optional Content Groups)
-		bRes = (clsUtil::MemMem(acBuffer, "<< /Type /OCG /Name", 20) != NULL);
+		bRes = (clsUtil::MemMem(acBuffer, iSize, "<< /Type /OCG /Name", 20) != NULL);
 		delete[] acBuffer;
 	}
 	return (bRes);
@@ -2994,7 +2994,7 @@ String __fastcall TfrmMain::SetCellFileValue(String psValue)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall TfrmMain::GetOptionCommandLine(void)
 {
-	static TCHAR acCommandLine[MAX_PATH] = _T("");
+	static TCHAR acCommandLine[PATH_MAX] = _T("");
 
 
 	// Check if we already have it cached
@@ -3009,8 +3009,8 @@ const TCHAR * __fastcall TfrmMain::GetOptionCommandLine(void)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 {
-	TCHAR acArgument[MAX_PATH];
-	TCHAR acRes[MAX_PATH] = _T("");
+	TCHAR acArgument[PATH_MAX];
+	TCHAR acRes[PATH_MAX] = _T("");
 	TCHAR *pcStart;
 	
 

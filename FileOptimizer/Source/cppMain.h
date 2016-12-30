@@ -24,6 +24,7 @@
 #include <Vcl.RibbonActnMenus.hpp>
 #include <Vcl.RibbonObsidianStyleActnCtrls.hpp>
 #include <System.ImageList.hpp>
+#include "clsUtil.h"
 
 #define KI_BUFFER_SIZE		(65535)
 
@@ -120,7 +121,7 @@ struct udtOptions
 	int iLeanifyIterations;
 	TCHAR acTheme[64];
 	TCHAR acVersion[16];
-	TCHAR acTempDirectory[MAX_PATH];
+	TCHAR acTempDirectory[PATH_MAX];
 	unsigned long long lStatTime;
 	unsigned int iStatOpens;
 	unsigned int iStatFiles;

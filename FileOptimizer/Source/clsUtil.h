@@ -25,6 +25,11 @@
 	#endif
 #endif
 
+#if !defined(PATH_MAX)
+	#undef PATH_MAX
+#endif
+#define PATH_MAX	(MAX_PATH << 4)
+
 
 // ---------------------------------------------------------------------------
 class clsUtil

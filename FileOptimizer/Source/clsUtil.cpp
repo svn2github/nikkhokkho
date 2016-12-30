@@ -594,7 +594,7 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 const TCHAR * __fastcall clsUtil::GetIniPath(void)
 {
 	TCHAR acTmp[2048];
-	static TCHAR acPath[MAX_PATH] = _T("");
+	static TCHAR acPath[PATH_MAX] = _T("");
 
 
 	// Check if we already have it cached
@@ -841,7 +841,7 @@ int __fastcall clsUtil::Random(int piMin, int piMax)
 const TCHAR * __fastcall clsUtil::GetLogPath(void)
 {
 	TCHAR acTmp[2048];
-	static TCHAR acPath[MAX_PATH] = _T("");
+	static TCHAR acPath[PATH_MAX] = _T("");
 
 
 	// Check if we already have it cached
@@ -870,7 +870,7 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel)
 {
-	TCHAR acPath[MAX_PATH];
+	TCHAR acPath[PATH_MAX];
 	TCHAR acLevel[][32] = { _T("CRITICAL"), _T("ERROR"), _T("WARNING"), _T("INFORMATION"), _T("NONE") };
 	
 
@@ -928,7 +928,7 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 {
 	int iRes;
 	SHFILEOPSTRUCT udtFileOp = {0};
-	TCHAR acSource[MAX_PATH] = {0}, acDestination[MAX_PATH];
+	TCHAR acSource[PATH_MAX] = {0}, acDestination[PATH_MAX];
 
 
 	Application->ProcessMessages();
@@ -1027,10 +1027,10 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 bool __fastcall clsUtil::IsWindows64(void)
 {
 	static unsigned int iWindowsArchitecture = NULL;
-	struct SYSTEM_INFO udtSystemInfo;
+	SYSTEM_INFO udtSystemInfo;
 	
 
-	if (iWindowsArchitechture == NULL)
+	if (iWindowsArchitecture == NULL)
 	{
 		#if defined(_WIN64)
 			iWindowsArchitecture = PROCESSOR_ARCHITECTURE_AMD64;
