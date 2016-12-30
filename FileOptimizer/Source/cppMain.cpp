@@ -1194,7 +1194,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				}
 			}
 		}
-		// JPEG: jpeg-recompress, jhead, Leanify, ect, jpegoptim, jpegtran, mozjpegtran
+		// JPEG: jpeg-recompress, jhead, Leanify, ect, pingo, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtensionByContent, KS_EXTENSION_JPG) > 0)
 		{
 			if (gudtOptions.bJPEGAllowLossy)
@@ -1280,6 +1280,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+
+			if (!gudtOptions.bJPEGCopyMetadata)
+			{
+				sFlags = "";
+				iLevel = min(gudtOptions.iLevel * 4 / 9, 4);
+				sFlags += "-s" + (String) iLevel + " ";
+				RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
 		}
 		// JS: jsmin
 		if ((PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0) ||
@@ -1458,7 +1466,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
-		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, advpng, deflopt, defluff, deflopt
+		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, pingo, advpng, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PNG) > 0)
 		{
 			bool bIsAPNG = IsAPNG(sInputFile.c_str());
@@ -1589,6 +1597,18 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					sFlags += "-" + (String) iLevel + " ";
 					RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					
+					if (!gudtOptions.bPNGCopyMetadata)
+					{
+						sFlags = "";
+						iLevel = min(gudtOptions.iLevel * 4 / 9, 4);
+						sFlags += "-s" + (String) iLevel + " ";
+						if (gudtOptions.bPNGAllowLossy)
+						{
+							sFlags += "-x0 ";
+						}
+						RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					}
 	
 					sFlags = "";
 					if (gudtOptions.bPNGCopyMetadata)
