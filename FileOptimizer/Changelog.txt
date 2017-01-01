@@ -196,6 +196,7 @@ X.XX - YYYY/MM/DD
 - Updated to mutool 1.10a with x64 native build (thanks Dirk Paehl).
 - Updated ImageMagick 7.0.4.0 with HDRI support.
 - Better performance updating to ASMLib 2.51 with AVX512 support.
+- Updated to cppcheck 1.77.
 - Updated to NSIS 3.01.
 - Some minor optimizations and code cleanup.
 
