@@ -1194,9 +1194,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				}
 			}
 		}
-		// JPEG: jpeg-recompress, jhead, Leanify, ect, pingo, jpegoptim, jpegtran, mozjpegtran
+		// JPEG: Guetzli, jpeg-recompress, jhead, Leanify, ect, pingo, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtensionByContent, KS_EXTENSION_JPG) > 0)
 		{
+			if ((gudtOptions.bJPEGAllowLossy) && (!gudtOptions.bJPEGCopyMetadata))
+			{
+				RunPlugin((unsigned int) iCount, "Guetzli", (sPluginsDirectory + "guetzli.exe --quality 95 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);			
+			}
+			
 			if (gudtOptions.bJPEGAllowLossy)
 			{
 				sFlags = "";
