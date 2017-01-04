@@ -163,7 +163,7 @@ ndo
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.49e - http://css-ig.net/pingo
+- pingo 0.52 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.8.0 - http://www.pngquant.org
@@ -186,7 +186,7 @@ X.XX - YYYY/MM/DD
 - Added pingo to the JPEG and PNG toolchains when copy metadata is disabled.
 - Reenabled Leanify in JPEG processing when Copy Metadata is enabled, because now we can use --jpeg-keep-all-metadata.
 - Fixed crashing with temporary paths longer than 260 characters (Roman Luks).
-- Updated pingo to 0.49e.
+- Updated pingo to 0.52.
 - Updated libwebp to 0.5.2.
 - Updated UPX to 3.92.
 - Updated Leanify to 0.4.3.173 daily binaries.
