@@ -1,12 +1,8 @@
 - Autoupdate plugins: http://nsis.sourceforge.net/Check_online_for_Updates (olavrb)
 
-- Add Guetzli: http://encode.ru/threads/2628-Guetzli-a-new-more-psychovisual-JPEG-encoder?p=50677 (Jyrki Alakuijala)
-
 - Recompress ZIP and RAR: http://aarmstrong.org/tutorials/mass-zip-rar-to-7zip-recompression-batch-file (Henry).
 
 - Revisar metadatas con Leanify (ZonaCasio).
-
-- Guetzli? http://encode.ru/threads/2628-Guetzli-a-new-more-psychovisual-JPEG-encoder
 
 - Password protected ZIP files get corrupted (apply same FIX as PDF?)
 
