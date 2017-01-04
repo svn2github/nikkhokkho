@@ -12,6 +12,7 @@
 #include <tchar.h>
 #include <Tlhelp32.h>
 #include <VersionHelpers.h>
+#include <System.hpp>
 #include <System.StrUtils.hpp>
 #include <System.SysUtils.hpp>
 #include <System.Threading.hpp>

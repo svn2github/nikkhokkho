@@ -46,6 +46,13 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			), _T("Command-line help"), MB_OK | MB_ICONINFORMATION);
 			return(-1);
 		}
+		
+		#ifdef _DEBUG
+			ReportMemoryLeaksOnShutdown = true;
+		#endif
+		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
+		SetMinimumBlockAlignment(mba16Byte);
+		
 		Application->Initialize();
 		Application->Name = "FileOptimizer";
 		Application->Title = Application->Name;
@@ -66,9 +73,6 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		}
 
 		Screen->Cursor = crAppStart;
-		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
-		SetMinimumBlockAlignment(mba16Byte);
-
 		// Disable file system redirection on Win64 environments
 		hDLL = LoadLibrary(_T("KERNEL32.DLL"));
 		if (hDLL)
