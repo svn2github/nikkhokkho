@@ -177,8 +177,10 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-
 X.XX - YYYY/MM/DD
+
+
+9.40 - 2017/01/06
 - Added INI setting PDFSkipLayered=false to skip processing of PDF containing layers Optional Content Groups -OCG- (Grahame Bevan).
 - Implemented using Win64 plugins in all Win64 system, even if you run Win32 version of FileOptimizer.
 - Added removing metadata in pngquant if PNGCopyMetadata is disabled.
@@ -197,8 +199,6 @@ X.XX - YYYY/MM/DD
 - Updated to cppcheck 1.77.
 - Updated to NSIS 3.01.
 - Some minor optimizations and code cleanup.
-
-
 
 9.30 - 2016/11/26
 - Installer now supports the /AllUsers argument to install for all users instead of current user (Grahame Bevan).

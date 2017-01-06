@@ -61,7 +61,7 @@
 	    'Theme' => '',
 	    'UseRibbon' => false,
 	    'TempDirectory' => '',
-	    'Version' => '9.30.1619',
+	    'Version' => '9.40.1656',
 	    'Time' => 0,
 	    'Opens' => 0,
 	    'Files' => 0,
