@@ -2141,7 +2141,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 				//sInputFile = sTmpOutputFile;
 			}
 		}
-		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
+		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSize)).c_str());
 	}
 
 	DeleteFile(sTmpInputFile.c_str());
