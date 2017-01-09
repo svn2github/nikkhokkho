@@ -178,8 +178,10 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Fixed a bug when LogLevel was 4, when Optimized Size could be reported as 0 bytes in some situations.
 - Updated pingo to 0.52c.
 - Updated ImageMagick 7.0.4.3 with HDRI support.
+
 
 9.40 - 2017/01/06
 - Added INI setting PDFSkipLayered=false to skip processing of PDF containing layers Optional Content Groups -OCG- (Grahame Bevan).
