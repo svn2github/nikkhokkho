@@ -182,6 +182,7 @@ X.XX - YYYY/MM/DD
 - Fixed a bug when LogLevel was 4, when Optimized Size could be reported as 0 bytes in some situations.
 - Updated pingo to 0.52c.
 - Updated ImageMagick 7.0.4.3 with HDRI support.
+- Some minor optimizations and code cleanup.
 
 
 9.40 - 2017/01/06

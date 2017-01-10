@@ -2122,7 +2122,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	//Check exit errorlevel
 	if ((iError >= piErrorMin) && (iError <= piErrorMax))
 	{
-		unsigned long long lSizeNew;
+		unsigned long long lSizeNew = lSize;
 		//We did get a TMP output file, so if smaller, make it overwrite input file
 		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
