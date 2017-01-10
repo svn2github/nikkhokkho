@@ -2122,10 +2122,11 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	//Check exit errorlevel
 	if ((iError >= piErrorMin) && (iError <= piErrorMax))
 	{
-		unsigned long long lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
+		unsigned long long lSizeNew;
 		//We did get a TMP output file, so if smaller, make it overwrite input file
 		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
+			lSizeNew =  = clsUtil::SizeFile(sTmpOutputFile.c_str());
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
@@ -2134,6 +2135,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		}
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 		{
+			lSizeNew =  = clsUtil::SizeFile(sTmpInputFile.c_str());
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				lSize = lSizeNew;
