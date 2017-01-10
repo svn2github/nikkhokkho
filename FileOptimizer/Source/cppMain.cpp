@@ -2093,6 +2093,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	
 	grdFiles->Cells[KI_GRID_STATUS][(int) piCurrent] = "Running " + psStatus + "...";
 	unsigned long long lSize = clsUtil::SizeFile(sInputFile.c_str());
+	unsigned long long lSizeNew = lSize;
 	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
 
 	Application->ProcessMessages();
@@ -2122,35 +2123,32 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	//Check exit errorlevel
 	if ((iError >= piErrorMin) && (iError <= piErrorMax))
 	{
-		unsigned long long lSizeNew = lSize;
 		//We did get a TMP output file, so if smaller, make it overwrite input file
 		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
-			lSizeNew =  = clsUtil::SizeFile(sTmpOutputFile.c_str());
+			lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
-				lSize = lSizeNew;
 				clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 			}
 		}
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 		{
-			lSizeNew =  = clsUtil::SizeFile(sTmpInputFile.c_str());
+			lSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
-				lSize = lSizeNew;
-				clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
+					clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
 				//sInputFile = sTmpOutputFile;
 			}
 		}
-		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSize)).c_str());
+		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
 	}
 
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 
 	//iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
-	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
+	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSizeNew);
 
 	return (iError);
 }
