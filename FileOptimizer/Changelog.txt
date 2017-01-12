@@ -182,6 +182,7 @@ X.XX - YYYY/MM/DD
 - Migrated from smpdf to cpdf (maadjordan).
 - Updated pingo to 0.53.
 - Updated pngquant to 2.8.1 (dado023).
+- Some minor optimizations and code cleanup.
 
 
 9.50 - 2017/01/10

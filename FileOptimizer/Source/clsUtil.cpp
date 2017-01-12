@@ -706,7 +706,9 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, co
 	else
 	{
 		TCHAR acValue[2048];
-		_stprintf(acValue, _T("%s\t;\%s"), pacValue, pacComment);
+		_tcscpy(acValue, pacValue);
+		_tcscat(acValue, _T("\t;"));
+		_tcscat(acValue, pacComment);
 		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 	}
 }
@@ -734,7 +736,8 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 	}
 	else
 	{
-		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		_tcscat(acValue, _T("\t;"));
+		_tcscat(acValue, pacComment);
 		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 	}
 }
@@ -754,7 +757,8 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, in
 	}
 	else
 	{
-		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		_tcscat(acValue, _T("\t;"));
+		_tcscat(acValue, pacComment);
 		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 	}
 }
@@ -774,7 +778,8 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, lo
 	}
 	else
 	{
-		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		_tcscat(acValue, _T("\t;"));
+		_tcscat(acValue, pacComment);
 		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 	}
 }
@@ -796,7 +801,8 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, do
 	}
 	else
 	{
-		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		_tcscat(acValue, _T("\t;"));
+		_tcscat(acValue, pacComment);
 		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 	}
 }
