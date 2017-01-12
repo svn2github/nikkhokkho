@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.42. 12/01/2017. FileOptimizer. Allow writting comments in .INI files
  3.41. 08/08/2016. FileOptimizer. Added ShutdownWindows
  3.40. 27/12/2015. FileOptimizer. Added GetWindowsVersion since GetVersion on Windows 8.1 or later do not work unless application is manifested
  3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni. Added MemMem, CopyFile
@@ -696,15 +697,24 @@ bool __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue)
+void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue, const TCHAR *pacComment)
 {
-	WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath());
+	if (pacComment[0] == NULL)
+	{
+		WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath());
+	}
+	else
+	{
+		TCHAR acValue[2048];
+		_stprintf(acValue, _T("%s\t;\%s"), pacValue, pacComment);
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
 }
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue)
+void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
@@ -717,31 +727,56 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 	{
 		_tcscpy(acValue, _T("false"));
 	}
-	WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+
+	if (pacComment[0] == NULL)
+	{
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
+	else
+	{
+		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
 }
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue)
+void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
 
 	_itot(piValue, acValue, 10);
-	WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	if (pacComment[0] == NULL)
+	{
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
+	else
+	{
+		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
 }
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue)
+void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
 
 	_i64tot(plValue, acValue, 10);
-	WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	if (pacComment[0] == NULL)
+	{
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
+	else
+	{
+		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
 }
 
 
@@ -749,13 +784,21 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, lo
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue)
+void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
 
 	_stprintf(acValue, _T("%f"), pdValue);
-	WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	if (pacComment[0] == NULL)
+	{
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
+	else
+	{
+		_stprintf(acValue, _T("%s\t;\%s"), acValue, pacComment);
+		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+	}
 }
 
 

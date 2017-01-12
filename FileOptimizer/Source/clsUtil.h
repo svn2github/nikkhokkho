@@ -57,11 +57,11 @@ class clsUtil
 		static long long __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault = 0);
 		static double __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault = 0);
 		static bool __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault = false );
-		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue = _T(""));
-		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue);
-		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue);
-		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue);
-		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue);
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue = _T(""), const TCHAR *pacComment = _T(""));
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue, const TCHAR *pacComment = _T(""));
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue, const TCHAR *pacComment = _T(""));
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue, const TCHAR *pacComment = _T(""));
+		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue, const TCHAR *pacComment = _T(""));
 		static unsigned int __fastcall Serialize (void *pacBuffer, unsigned int piSize);
 		static unsigned int __fastcall Unserialize (void *pacBuffer, unsigned int piSize);
 		static int __fastcall Random (int piMin, int piMax);
