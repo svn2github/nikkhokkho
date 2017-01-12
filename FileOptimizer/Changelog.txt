@@ -133,7 +133,7 @@ ndo
 
 - AdvanceCOMP 1.23 - http://advancemame.sourceforge.net
 - APNG Optimizer 1.4 - http://sourceforge.net/projects/apng/
-- Coherent PDF Lossless Compressor (smpdf) 1.4.1 - http://www.coherentpdf.com/compression.html
+- Coherent PDF Command Line Tools (cpdf) 2.2 - http://community.coherentpdf.com
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
@@ -179,8 +179,9 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Added descriptions in INI file to make it easier and safer to be modified.
+- Migrated from smpdf to cpdf (maadjordan).
 - Updated pingo to 0.53.
-- Updated pngquant to 2.8.1.
+- Updated pngquant to 2.8.1 (dado023).
 
 
 9.50 - 2017/01/10

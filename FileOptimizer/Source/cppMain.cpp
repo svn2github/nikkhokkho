@@ -1412,7 +1412,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// PDF: mutool, ghostcript, smpdf
+		// PDF: mutool, ghostcript, cpdf
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
 		{
 			bool bIsPDFLayered = IsPDFLayered(sInputFile.c_str());
@@ -1468,7 +1468,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					DeleteFile(acTmpFilePdf);
 				}
 					
-				RunPlugin((unsigned int) iCount, "smpdf", (sPluginsDirectory + "smpdf.exe \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "cpdf", (sPluginsDirectory + "cpdf.exe -squeeze \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
 		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, pingo, advpng, deflopt, defluff, deflopt
