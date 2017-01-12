@@ -394,7 +394,7 @@ object frmOptions: TfrmOptions
         Height = 17
         Hint = 
           'Keep original readonly, system, hidden and archive attributes as' +
-          ' well as creation and modification timestamps'
+          ' well as creation and modification timestamps.'
         Caption = '&Keep file attributes'
         ParentShowHint = False
         ShowHint = True
@@ -405,7 +405,7 @@ object frmOptions: TfrmOptions
         Top = 19
         Width = 145
         Height = 21
-        Hint = 'Optimization level from best speed to best compression'
+        Hint = 'Optimization level from best speed to best compression.'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
@@ -427,7 +427,7 @@ object frmOptions: TfrmOptions
         Top = 45
         Width = 145
         Height = 21
-        Hint = 'Process priority from most conservative to best performance'
+        Hint = 'Process priority from most conservative to best performance.'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
@@ -445,7 +445,7 @@ object frmOptions: TfrmOptions
         Top = 71
         Width = 145
         Height = 21
-        Hint = 'Automatically check for program updates'
+        Hint = 'Automatically check for program updates.'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
@@ -460,7 +460,7 @@ object frmOptions: TfrmOptions
         Top = 97
         Width = 145
         Height = 21
-        Hint = 'Debugging level to output on program log'
+        Hint = 'Debugging level to output on program log.'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
@@ -479,7 +479,7 @@ object frmOptions: TfrmOptions
         Height = 17
         Hint = 
           'When checked original files will not be backed up in the system ' +
-          'trashcan'
+          'trashcan.'
         Caption = '&Do not use recycle bin'
         ParentShowHint = False
         ShowHint = True
@@ -493,7 +493,7 @@ object frmOptions: TfrmOptions
         Hint = 
           'Files containing this mask (substring) on name or path will be e' +
           'xcluded from optimization. You can use semicolon (;) to specify ' +
-          'more than one substring being excluded'
+          'more than one substring being excluded.'
         AutoSize = False
         HideSelection = False
         ParentShowHint = False
@@ -520,7 +520,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 145
         Height = 21
-        Hint = 'Visual theme'
+        Hint = 'Visual theme.'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
@@ -535,7 +535,7 @@ object frmOptions: TfrmOptions
         Height = 17
         Hint = 
           'Use Microsoft Office alike Ribbon interface instead of classic W' +
-          'indows pulldown menus'
+          'indows pulldown menus.'
         Caption = '&Use ribbon interface'
         ParentShowHint = False
         ShowHint = True
@@ -597,7 +597,7 @@ object frmOptions: TfrmOptions
         Width = 281
         Height = 17
         Hint = 
-          'Disable PETrim. When enabled PETrim will not be used, resulting ' +
+          'Disable PETrim. When enabled, PETrim will not be used, resulting ' +
           'in less EXE corruption at the cost of larger file size.'
         Caption = '&Disable PETrim'
         ParentShowHint = False
@@ -613,7 +613,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information'
+        Hint = 'Copy file metadata. Else strip all unneded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -646,7 +646,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information'
+        Hint = 'Copy file metadata. Else strip all unneded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -659,7 +659,7 @@ object frmOptions: TfrmOptions
         Height = 17
         Hint = 
           'Arithmetic encoding gives additional saving reductions, but is i' +
-          'ncompatible with most programs'
+          'ncompatible with most programs.'
         Caption = '&Use arithmetic encoding'
         ParentShowHint = False
         ShowHint = True
@@ -708,7 +708,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information'
+        Hint = 'Copy file metadata. Else strip all unneded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -745,7 +745,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 145
         Height = 21
-        Hint = 'Compression profile, from less size, to best quality'
+        Hint = 'Compression profile, from less size, to best quality.'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
@@ -784,7 +784,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information'
+        Hint = 'Copy file metadata. Else strip all unneded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -830,7 +830,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information'
+        Hint = 'Copy file metadata. Else strip all unneded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -841,7 +841,7 @@ object frmOptions: TfrmOptions
         Top = 41
         Width = 281
         Height = 17
-        Hint = 'Enable optimization inside archives (recursive optimization)'
+        Hint = 'Enable optimization inside archives (recursive optimization).'
         Caption = '&Recurse'
         ParentShowHint = False
         ShowHint = True
@@ -854,7 +854,7 @@ object frmOptions: TfrmOptions
     Top = 374
     Width = 95
     Height = 25
-    Hint = 'Restore all options to its factory settings values'
+    Hint = 'Restore all options to its factory settings values.'
     Caption = '&Restore defaults'
     ParentShowHint = False
     ShowHint = True
@@ -866,7 +866,7 @@ object frmOptions: TfrmOptions
     Top = 374
     Width = 75
     Height = 25
-    Hint = 'Accept and apply all changes made to options'
+    Hint = 'Accept and apply all changes made to options.'
     Caption = '&OK'
     Default = True
     ParentShowHint = False
@@ -879,7 +879,7 @@ object frmOptions: TfrmOptions
     Top = 374
     Width = 75
     Height = 25
-    Hint = 'Discard any changes made to options'
+    Hint = 'Discard any changes made to options.'
     Cancel = True
     Caption = '&Cancel'
     ParentShowHint = False

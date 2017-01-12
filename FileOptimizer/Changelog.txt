@@ -178,6 +178,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Added descriptions in INI file to make it easier and safer to be modified.
 - Updated pingo to 0.53.
 - Updated pngquant to 2.8.1.
 
