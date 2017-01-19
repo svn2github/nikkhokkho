@@ -163,7 +163,7 @@ ndo
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.54 - http://css-ig.net/pingo
+- pingo 0.56 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.8.1 - http://www.pngquant.org
@@ -190,7 +190,7 @@ X.XX - YYYY/MM/DD
 - Fixed a regression since FileOptimizer 9.30, that could avoid some plugin optimizations to not being applied (Armin Mueller, signalman).
 - Fixed a bug when LogLevel was 4, when Optimized Size could be reported as 0 bytes in some situations.
 - Updated Guetzli to 0.2, now with x64 native binary.
-- Updated pingo to 0.52c.
+- Updated pingo to 0.56.
 - Updated ImageMagick 7.0.4.3 with HDRI support.
 - Some minor optimizations and code cleanup.
 
