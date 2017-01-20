@@ -1232,6 +1232,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "--keep-exif --keep-icc-profile --jpeg-keep-all-metadata ";
 			}
+			if (gudtOptions.bJPEGUseArithmeticEncoding)
+			{
+				sFlags += "--jpeg-arithmetic-coding ";
+			}		
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			//Overwrite Leanify iterations
 			if (gudtOptions.iLeanifyIterations != -1)
