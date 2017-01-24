@@ -2134,6 +2134,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
 				clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+				lSize = lSizeNew;
 			}
 		}
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
@@ -2141,18 +2142,19 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 			lSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
 			if ((lSizeNew > 0) && (lSizeNew < lSize))
 			{
-					clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
+				clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
+				lSize = lSizeNew;
 				//sInputFile = sTmpOutputFile;
 			}
 		}
-		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
+		Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSize)).c_str());
 	}
 
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 
 	//iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
-	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSizeNew);
+	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
 
 	return (iError);
 }

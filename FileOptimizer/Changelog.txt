@@ -180,6 +180,7 @@ ndo
 X.XX - YYYY/MM/DD
 - Added descriptions in INI file to make it easier and safer to be modified.
 - Migrated from smpdf to cpdf (maadjordan).
+- Fixed a bug that could show optimized sizes larger than original, when the plugin execution increased it. It was only cosmetic, and optimized size, never was larger (Pepper Andrino).
 - Updated Leanify to 0.4.3.176 daily binaries.
 - Updated ImageMagick 7.0.4.4 with HDRI support.
 - Updated pingo to 0.57.
