@@ -2145,15 +2145,15 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 				//sInputFile = sTmpOutputFile;
 			}
 		}	
-		if (lSizeNew > lSize)
-		{
-			lSizeNew = lSize;
-		}
 	}
 
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 
+	if ((lSizeNew == 0) || (lSizeNew > lSize))
+	{
+		lSizeNew = lSize;
+	}
 	//iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
 	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSizeNew);
 	Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
