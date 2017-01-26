@@ -1421,8 +1421,8 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		{
 			bool bIsPDFLayered = IsPDFLayered(sInputFile.c_str());
 			
-			//Skip PDF with layers
-			if ((!bIsPDFLayered) || (!gudtOptions.bPDFSkipLayered))
+			//Skip Ghostcript on PDF with layers, or if no downsampling is selected, because GS always downsample images.
+			if ((!bIsPDFLayered) || (!gudtOptions.bPDFSkipLayered) || (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0))
 			{		
 				RunPlugin((unsigned int) iCount, "mutool", (sPluginsDirectory + "mutool.exe clean -ggg -z \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				
