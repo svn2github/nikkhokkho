@@ -629,7 +629,7 @@ const TCHAR * __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *p
 
 	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, sizeof(acRes), GetIniPath());
 	//Remove comments
-	pcSemicolon = _tcsrchr(acRes, ';');
+	pcSemicolon = _tcschr(acRes, ';');
 	if (pcSemicolon)
 	{
     	*pcSemicolon = NULL;
