@@ -432,7 +432,10 @@ bool __fastcall clsUtil::DirectoryCreate(String psDirectory)
 	bool bRes = false;
 	TCHAR *acDirectory;
 
-
+	if (!EndsStr("\\", psDirectory))
+	{
+		psDirectory += "\\";
+	}
 	acDirectory = psDirectory.c_str();
 	unsigned int iDirectoryLen = (unsigned int) _tcslen(acDirectory);
 
@@ -630,6 +633,12 @@ const TCHAR * __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *p
 	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, sizeof(acRes), GetIniPath());
 	//Remove comments
 	pcSemicolon = _tcsrchr(acRes, ';');
+	if (pcSemicolon)
+	{
+    	*pcSemicolon = NULL;
+	}
+	//Remove tabs
+	pcSemicolon = _tcschr(acRes, '\t');
 	if (pcSemicolon)
 	{
     	*pcSemicolon = NULL;

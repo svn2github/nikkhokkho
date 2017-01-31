@@ -85,7 +85,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	//_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
 
 	_tcscpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")));
-	
+
 	miStartTicks = GetTickCount();
 	gudtOptions.lStatTime = (unsigned long long) GetOption(_T("Statistics"), _T("Time"), 0);
 	gudtOptions.iStatOpens = (unsigned int) GetOption(_T("Statistics"), _T("Opens"), 0);
@@ -2084,8 +2084,10 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	}
 	
 	//Create temporary directory just in case it did not existed
-	clsUtil::DirectoryCreate(gudtOptions.acTempDirectory);
-	
+	if (gudtOptions.acTempDirectory[0] != NULL)
+	{
+		clsUtil::DirectoryCreate(gudtOptions.acTempDirectory);
+	}
 	_stprintf(acTmp, _T("%s%s"), acTempPath, (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
 	sTmpInputFile = acTmp;
 
