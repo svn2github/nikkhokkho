@@ -154,7 +154,7 @@ ndo
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.176 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
-- libwebp 0.6.0 RC2 - http://www.webmproject.org
+- libwebp 0.6.0 RC3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
@@ -183,7 +183,7 @@ X.XX - YYYY/MM/DD
 - Fixed a bug that could show optimized sizes larger than original, when the plugin execution increased it. It was only cosmetic, and optimized size, never was larger (Pepper Andrino).
 - Ghostrcript is automatically disabled when no downsampling is selected, because it is always downsampling images even if -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false are specified (olavrb).
 - Updated UPX to 3.93.
-- Updated libwebp to 0.6.0 RC2.
+- Updated libwebp to 0.6.0 RC3.
 - Updated Leanify to 0.4.3.176 daily binaries.
 - Updated ImageMagick 7.0.4.6 with HDRI support.
 - Updated pingo to 0.57b.
