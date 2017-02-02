@@ -183,6 +183,7 @@ X.XX - YYYY/MM/DD
 - Fixed a bug that could show optimized sizes larger than original, when the plugin execution increased it. It was only cosmetic, and optimized size, never was larger (Pepper Andrino).
 - Ghostrcript is automatically disabled when no downsampling is selected, because it is always downsampling images even if -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false are specified (olavrb).
 - Make sure TempDirectory is created to avoid certain plugins crash (Newtomic).
+- Patched Guetzli and Mutool plugins to be compatible with Windows XP (thanks Jaff for the patch).
 - Updated UPX to 3.93.
 - Updated libwebp to 0.6.0 RC3.
 - Updated Leanify to 0.4.3.176 daily binaries.
