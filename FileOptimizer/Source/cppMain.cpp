@@ -1446,7 +1446,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 						sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
 					}
 					
-					sFlags = "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
+					sFlags += "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
 					
 					TCHAR acTmpFilePdf[PATH_MAX];
 					_tcscpy(acTmpFilePdf, sInputFile.c_str());
