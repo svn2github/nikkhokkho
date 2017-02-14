@@ -178,6 +178,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Brand new FileOptimizer icon (Thanks Dorel Megaleechers.com).
 - Added descriptions in INI file to make it easier and safer to be modified.
 - Migrated from smpdf to cpdf (maadjordan).
 - Fixed a bug that could show optimized sizes larger than original, when the plugin execution increased it. It was only cosmetic, and optimized size, never was larger (Pepper Andrino).
