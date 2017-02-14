@@ -22,6 +22,8 @@ __fastcall TfrmOptions::TfrmOptions(TComponent* Owner): TForm(Owner)
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 {
+	Icon = Application->Icon;
+
 	pagGeneral->Hint = "General program options affecting all extensions";
 	pagCSS->Hint = "Extensions affected: " + (String) KS_EXTENSION_CSS;
 	pagEXE->Hint = "Extensions affected: " + (String) KS_EXTENSION_EXE KS_EXTENSION_DLL;

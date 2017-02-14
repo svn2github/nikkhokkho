@@ -30,6 +30,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	TCHAR acPath[PATH_MAX];
 
 
+	Icon = Application->Icon;
 	clsUtil::LoadForm(this);
 	rbnMain->Minimized = GetOption(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
 	grdFiles->ColWidths[KI_GRID_FILE] = GetOption(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
