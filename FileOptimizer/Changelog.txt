@@ -153,10 +153,10 @@ ndo
 - jpegoptim 1.4.4 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.176 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.180 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.6.0 RC3 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
-- mozjpeg 3.10 - https://github.com/mozilla/mozjpeg
+- mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
 - mutool 1.10a - http://mupdf.com/downloads/
@@ -189,7 +189,8 @@ X.XX - YYYY/MM/DD
 - Fixed not properly passing PDF profile to Ghostcript (#9 Runer112).
 - Updated UPX to 3.93.
 - Updated libwebp to 0.6.0 RC3.
-- Updated Leanify to 0.4.3.176 daily binaries.
+- Updated mozjpeg to 3.2 (Thanks AiZ).
+- Updated Leanify to 0.4.3.180 daily binaries.
 - Updated ImageMagick 7.0.4.7 with HDRI support.
 - Updated pingo to 0.59.
 - Updated pngquant to 2.8.1 (dado023).
