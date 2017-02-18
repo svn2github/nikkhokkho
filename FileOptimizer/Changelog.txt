@@ -178,6 +178,9 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+
+
+9.60 - 2017/02/18
 - Brand new FileOptimizer icon (Thanks Dorel Megaleechers.com).
 - Added descriptions in INI file to make it easier and safer to be modified.
 - Migrated from smpdf to cpdf (maadjordan).
@@ -195,7 +198,6 @@ X.XX - YYYY/MM/DD
 - Updated pingo to 0.59.
 - Updated pngquant to 2.8.1 (dado023).
 - Some minor optimizations and code cleanup.
-
 
 9.50 - 2017/01/10
 - Fixed a regression since FileOptimizer 9.30, that could avoid some plugin optimizations to not being applied (Armin Mueller, signalman).
