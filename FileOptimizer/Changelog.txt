@@ -154,7 +154,7 @@ ndo
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.184 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
-- libwebp 0.6.0 RC3 - http://www.webmproject.org
+- libwebp 0.6.0 - http://www.webmproject.org
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
@@ -178,6 +178,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Updated libwebp to 0.6.0.
 - Updated pingo to 0.67.
 - Updated Leanify to 0.4.3.184 daily binaries.
 - Updated ImageMagick 7.0.5.0 with HDRI support.
