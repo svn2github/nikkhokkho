@@ -170,7 +170,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.1 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
-- Tidy 5.2.0 - http://www.html-tidy.org
+- Tidy 5.4.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
 - UPX 3.93 - https://upx.github.io
 - ZLib 1.2.8 - http://www.zlib.net
@@ -178,6 +178,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Updaded Tidy to 5.4.0.
 - Updated libwebp to 0.6.0.
 - Updated pingo to 0.69.
 - Updated Leanify to 0.4.3.184 daily binaries.
