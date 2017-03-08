@@ -19,8 +19,12 @@ del /f /q Win32\Release\FileOptimizer.exe
 xcopy /e /s Win32\Debug\Plugins32\*.* Win32\Release\Plugins32\*.*
 xcopy /e /s Win64\Debug\Plugins64\*.* Win32\Release\Plugins64\*.*
 cd Win32\Release\Plugins32\
-..\..\..\_Tools\guetzli.and.mutool-patch.exe
-del *.bak
+..\..\..\_Tools\PatchPE64.exe guetzli.exe
+..\..\..\_Tools\PatchPE64.exe mutool.exe
+cd ..\..\..\
+cd Win64\Release\Plugins64\
+..\..\..\_Tools\PatchPE64.exe guetzli.exe
+..\..\..\_Tools\PatchPE64.exe mutool.exe
 cd ..\..\..\
 Win64\Release\FileOptimizer .\Win32\Release
 Win32\Debug\Plugins32\petrim /stripfixups:Y .\Win32\Release\*.exe /r
