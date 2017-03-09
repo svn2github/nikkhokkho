@@ -1615,7 +1615,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 						sFlags += "-s" + (String) iLevel + " ";
 						if (gudtOptions.bPNGAllowLossy)
 						{
-							sFlags += "-x1 ";
+							sFlags += "-x0 ";
 						}
 						RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
