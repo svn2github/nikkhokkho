@@ -143,7 +143,7 @@ ndo
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
 - Gifsicle Lossy 1.88 - https://kornel.ski/lossygif
-- Ghostscript 9.20 - http://www.ghostscript.com
+- Ghostscript 9.21 - http://www.ghostscript.com
 - GNU Strip 2.27 - http://www.gnu.org/software/binutils/
 - Guetzli 1.0 - https://github.com/google/guetzli
 - ImageMagick 7.0.5.1 - http://www.imagemagick.org
@@ -178,6 +178,7 @@ ndo
 
 
 X.XX - YYYY/MM/DD
+- Updated Ghostscript to 9.21.
 - Updated Guetzli to 1.0.
 - Updaded Tidy to 5.4.0.
 - Updated libwebp to 0.6.0.
