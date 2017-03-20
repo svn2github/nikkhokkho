@@ -106,6 +106,7 @@ struct udtOptions
 	bool bZIPRecurse;
 	bool bDoNotUseRecycleBin;
 	bool bKeepAttributes;
+	TCHAR acIncludeMask[128];
 	TCHAR acExcludeMask[128];
 	TCHAR acDisablePluginMask[128];
 	bool bBeepWhenDone;

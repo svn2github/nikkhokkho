@@ -67,6 +67,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bZIPRecurse = GetOption(_T("Options"), _T("ZIPRecurse"), false);
 	gudtOptions.bKeepAttributes = GetOption(_T("Options"), _T("KeepAttributes"), false);
 	gudtOptions.bDoNotUseRecycleBin = GetOption(_T("Options"), _T("DoNotUseRecycleBin"), false);
+	_tcscpy(gudtOptions.acIncludeMask, GetOption(_T("Options"), _T("IncludeMask"), _T("")));
 	_tcscpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")));
 	_tcscpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")));
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
@@ -163,6 +164,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("ZIPRecurse"), gudtOptions.bZIPRecurse, _T("Boolean. Default: false. Enable optimization inside archives (recursive optimization)."));
 	clsUtil::SetIni(_T("Options"), _T("KeepAttributes"), gudtOptions.bKeepAttributes, _T("Boolean. Default: false. Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."));
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin, _T("Boolean. Default: false. When checked original files will not be backed up in the system trashcan."));
+	clsUtil::SetIni(_T("Options"), _T("IncludeMask"), gudtOptions.acIncludeMask, _T("String. Default: ''. If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included"));
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask, _T("String. Default: ''. Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon to specify more than one substring being excluded"));
 	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask, _T("String. Default: ''. Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."));
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone, _T("Boolean. Default: false. Beep the speaker when optimization completes."));
@@ -897,6 +899,22 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 
 
 	bool bExcluded = false;
+	//If include mask is specified, by default are files are excluded, except the specified
+	if (gudtOptions.acIncludeMask[0] != NULL)
+	{
+		bExcluded = true;
+	}
+	TCHAR *acToken = _tcstok(((String) gudtOptions.acIncludeMask).UpperCase().c_str(), _T(";"));
+	while (acToken)
+	{
+		if (PosEx((String) acToken, sInputFile.UpperCase()) != 0)
+		{
+			bExcluded = false;
+			break;
+		}
+		acToken = _tcstok(NULL, _T(";"));
+	}
+		
 	TCHAR *acToken = _tcstok(((String) gudtOptions.acExcludeMask).UpperCase().c_str(), _T(";"));
 	while (acToken)
 	{
@@ -907,7 +925,6 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		}
 		acToken = _tcstok(NULL, _T(";"));
 	}
-
 
 	//Check file still exists and is not to be excluded
 	if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
