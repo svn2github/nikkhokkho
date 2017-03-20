@@ -179,12 +179,13 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Added INI setting IncludeMask=. If not empty, only files containing this mask (substring) on name or path will be included from optimization (user202jkl).
+- Updated custom builds with Visual C++ 2017 (jsmin, gifsicle, jpegoptim).
 - Updated Ghostscript to 9.21.
 - Updated Guetzli to 1.0.
 - Updaded Tidy to 5.4.0.
 - Updated libwebp to 0.6.0.
 - Updated pingo to 0.74.
-- Updated Leanify to 0.4.3.184 daily binaries.
+- Updated Leanify to 0.4.3.188 daily binaries.
 - Updated ImageMagick 7.0.5.2 with HDRI support.
 
 
