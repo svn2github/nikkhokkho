@@ -187,6 +187,7 @@ X.XX - YYYY/MM/DD
 - Updated pingo to 0.74.
 - Updated Leanify to 0.4.3.188 daily binaries.
 - Updated ImageMagick 7.0.5.2 with HDRI support.
+- Some minor optimizations and code cleanup.
 
 
 9.60 - 2017/02/18

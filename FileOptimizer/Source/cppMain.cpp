@@ -899,31 +899,35 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 
 
 	bool bExcluded = false;
-	//If include mask is specified, by default are files are excluded, except the specified
+
+	//If include mask is specified, by default all files are excluded, except the specified
 	if (gudtOptions.acIncludeMask[0] != NULL)
 	{
 		bExcluded = true;
-	}
-	TCHAR *acToken = _tcstok(((String) gudtOptions.acIncludeMask).UpperCase().c_str(), _T(";"));
-	while (acToken)
-	{
-		if (PosEx((String) acToken, sInputFile.UpperCase()) != 0)
+		TCHAR *acToken = _tcstok(((String) gudtOptions.acIncludeMask).UpperCase().c_str(), _T(";"));
+		while (acToken)
 		{
-			bExcluded = false;
-			break;
+			if (PosEx((String) acToken, sInputFile.UpperCase()) != 0)
+			{
+				bExcluded = false;
+				break;
+			}
+			acToken = _tcstok(NULL, _T(";"));
 		}
-		acToken = _tcstok(NULL, _T(";"));
 	}
-		
-	TCHAR *acToken = _tcstok(((String) gudtOptions.acExcludeMask).UpperCase().c_str(), _T(";"));
-	while (acToken)
+
+	if (gudtOptions.acExcludeMask[0] != NULL)
 	{
-		if (PosEx((String) acToken, sInputFile.UpperCase()) != 0)
+		TCHAR *acToken = _tcstok(((String) gudtOptions.acExcludeMask).UpperCase().c_str(), _T(";"));
+		while (acToken)
 		{
-			bExcluded = true;
-			break;
+			if (PosEx((String) acToken, sInputFile.UpperCase()) != 0)
+			{
+				bExcluded = true;
+				break;
+			}
+			acToken = _tcstok(NULL, _T(";"));
 		}
-		acToken = _tcstok(NULL, _T(";"));
 	}
 
 	//Check file still exists and is not to be excluded
