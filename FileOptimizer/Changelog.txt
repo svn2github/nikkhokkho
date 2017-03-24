@@ -179,6 +179,7 @@ ndo
 
 X.XX - YYYY/MM/DD
 - Added INI setting IncludeMask=. If not empty, only files containing this mask (substring) on name or path will be included from optimization (user202jkl).
+- Added ECT ZIP support.
 - Updated custom builds with Visual C++ 2017 (jsmin, gifsicle, jpegoptim).
 - Updated Ghostscript to 9.21.
 - Updated Guetzli to 1.0.

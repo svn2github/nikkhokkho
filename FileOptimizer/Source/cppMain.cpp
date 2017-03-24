@@ -1835,6 +1835,16 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				//sFlags += "-f ";
 			}
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			
+			sFlags = "";
+			sFlags += "--mt-deflate ";			
+			if (!gudtOptions.bJPEGCopyMetadata)
+			{
+				sFlags += "-s ";
+			}
+			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+			sFlags += "-" + (String) iLevel + " ";
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet -zip " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);			
 
 			//AdvZip strips header on ZIP files
 			if (!bIsZIPSFX)
