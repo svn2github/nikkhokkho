@@ -22,7 +22,7 @@ cd Win32\Release\Plugins32\
 ..\..\..\_Tools\PatchPE64.exe guetzli.exe
 ..\..\..\_Tools\PatchPE64.exe mutool.exe
 cd ..\..\..\
-cd Win64\Release\Plugins64\
+cd Win32\Release\Plugins64\
 ..\..\..\_Tools\PatchPE64.exe guetzli.exe
 ..\..\..\_Tools\PatchPE64.exe mutool.exe
 cd ..\..\..\

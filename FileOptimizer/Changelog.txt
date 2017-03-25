@@ -177,7 +177,11 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-X.XX - YYYY/MM/DD
+X.XX - YYYY
+
+
+
+9.70 - 2017/03/25
 - Added INI setting IncludeMask=. If not empty, only files containing this mask (substring) on name or path will be included from optimization (user202jkl).
 - Added ECT ZIP support.
 - Updated custom builds with Visual C++ 2017 (jsmin, gifsicle, jpegoptim).
@@ -189,7 +193,6 @@ X.XX - YYYY/MM/DD
 - Updated Leanify to 0.4.3.188 daily binaries.
 - Updated ImageMagick 7.0.5.3 with HDRI support.
 - Some minor optimizations and code cleanup.
-
 
 9.60 - 2017/02/18
 - Brand new FileOptimizer icon (Thanks Dorel Megaleechers.com).
