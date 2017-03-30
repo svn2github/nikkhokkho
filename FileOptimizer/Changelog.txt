@@ -138,7 +138,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
-- ECT 0.7.0 - https://github.com/fhanau/Efficient-Compression-Tool
+- ECT 0.7.0(9090e23) - https://github.com/fhanau/Efficient-Compression-Tool
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
@@ -178,7 +178,7 @@ ndo
 
 
 X.XX - YYYY
-- Updated to ECT 0.7.0 x86 and x64 optimized builds (thanks Malloc Voidstar).
+- Updated to ECT 0.7.0 (9090e23) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Guetzli to 1.0.1 (olavrb).
 - Updated pingo to 0.79n.
 - Updated ImageMagick 7.0.5.4 with HDRI support.
