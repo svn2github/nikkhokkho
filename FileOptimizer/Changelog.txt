@@ -182,6 +182,7 @@ X.XX - YYYY
 - Updated Guetzli to 1.0.1 (olavrb).
 - Updated pingo to 0.79n.
 - Updated ImageMagick 7.0.5.4 with HDRI support.
+- Updated to cppcheck 1.78.
 
 9.70 - 2017/03/25
 - Added INI setting IncludeMask=. If not empty, only files containing this mask (substring) on name or path will be included from optimization (user202jkl).
