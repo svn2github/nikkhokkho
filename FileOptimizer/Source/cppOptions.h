@@ -71,7 +71,6 @@ __published: // IDE-managed Components
 	TCheckBox *chkPNGAllowLossy;
 	TTabSheet *pagAppearance;
 	TLabel *lblTheme;
-	TCheckBox *chkUseRibbon;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);

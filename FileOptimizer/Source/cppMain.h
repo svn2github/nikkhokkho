@@ -17,14 +17,11 @@
 #include <Vcl.ActnList.hpp>
 #include <Vcl.ActnMan.hpp>
 #include <Vcl.ImgList.hpp>
-#include <Vcl.Ribbon.hpp>
-#include <Vcl.RibbonLunaStyleActnCtrls.hpp>
 #include <Vcl.ToolWin.hpp>
 #include <Vcl.ActnMenus.hpp>
-#include <Vcl.RibbonActnMenus.hpp>
-#include <Vcl.RibbonObsidianStyleActnCtrls.hpp>
 #include <System.ImageList.hpp>
 #include "clsUtil.h"
+#include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
 
 #define KI_BUFFER_SIZE		(65535)
 
@@ -113,7 +110,6 @@ struct udtOptions
 	bool bShutdownWhenDone;
 	bool bAlwaysOnTop;
 	bool bAllowDuplicates;
-	bool bUseRibbon;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;
@@ -158,11 +154,6 @@ __published: // IDE-managed Components
 	TMenuItem *mnuFilesExit;
 	TMenuItem *mnuFilesHelp;
 	TOpenDialog *dlgAddFiles;
-	TRibbon *rbnMain;
-	TRibbonPage *pagFile;
-	TRibbonGroup *grpFile;
-	TRibbonGroup *grpOptimize;
-	TRibbonGroup *grpHelp;
 	TActionManager *mgrMain;
 	TAction *actAdd;
 	TAction *actRemove;
@@ -173,8 +164,6 @@ __published: // IDE-managed Components
 	TAction *actInformation;
 	TAction *actExit;
 	TImageList *imgMain;
-	TRibbonQuickAccessToolbar *rbnQuick;
-	TRibbonApplicationMenuBar *rbnApplication;
 	TAction *actDonate;
 	TMenuItem *mnuFilesDonate;
 	TMenuItem *N3;
@@ -231,7 +220,6 @@ __published: // IDE-managed Components
 	void __fastcall actInformationExecute(TObject *Sender);
 	void __fastcall actDonateExecute(TObject *Sender);
 	void __fastcall actStopExecute(TObject *Sender);
-	void __fastcall rbnMainHelpButtonClick(TObject *Sender);
 	void __fastcall FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 
 

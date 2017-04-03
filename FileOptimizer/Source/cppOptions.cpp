@@ -24,6 +24,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 {
 	Icon = Application->Icon;
 
+	tabOptions->ActivePageIndex = 0;
 	pagGeneral->Hint = "General program options affecting all extensions";
 	pagCSS->Hint = "Extensions affected: " + (String) KS_EXTENSION_CSS;
 	pagEXE->Hint = "Extensions affected: " + (String) KS_EXTENSION_EXE KS_EXTENSION_DLL;
@@ -103,7 +104,6 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 
 	chkKeepAttributes->Checked = gudtOptions.bKeepAttributes;
 	chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
-	chkUseRibbon->Checked = gudtOptions.bUseRibbon;
 	txtExcludeMask->Text = gudtOptions.acExcludeMask;
 
 	chkCSSEnableTidy->Checked = gudtOptions.bCSSEnableTidy;
@@ -237,7 +237,6 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.iLogLevel = cboLogLevel->ItemIndex;
 	gudtOptions.bKeepAttributes = chkKeepAttributes->Checked;
 	gudtOptions.bDoNotUseRecycleBin = chkDoNotUseRecycleBin->Checked;
-	gudtOptions.bUseRibbon = chkUseRibbon->Checked;
 	_tcscpy(gudtOptions.acExcludeMask, txtExcludeMask->Text.c_str());
 
 	gudtOptions.bCSSEnableTidy = chkCSSEnableTidy->Checked;

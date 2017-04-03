@@ -32,7 +32,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	Icon = Application->Icon;
 	clsUtil::LoadForm(this);
-	rbnMain->Minimized = GetOption(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
 	grdFiles->ColWidths[KI_GRID_FILE] = GetOption(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
 	grdFiles->ColWidths[KI_GRID_EXTENSION] = GetOption(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
 	grdFiles->ColWidths[KI_GRID_ORIGINAL] = GetOption(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
@@ -72,7 +71,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcscpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")));
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
-	gudtOptions.bUseRibbon = GetOption(_T("Options"), _T("UseRibbon"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
 	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
@@ -103,12 +101,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath));
 	
-	//Hide recent documents in ribbon application menu
-	rbnMain->ApplicationMenu->Caption = " ";
-	rbnMain->ApplicationMenu->CommandType = ctCommands;
-
 	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, sizeof(acPath) / sizeof(TCHAR));
-	rbnMain->Caption = acPath;
 	lblCopyright->Caption = acPath;
 
 	pgbProgress->Parent = stbMain;
@@ -129,7 +122,6 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 {
 	clsUtil::SaveForm(this);
 
-	clsUtil::SetIni(Name.c_str(), _T("RibbonMinimized"), rbnMain->Minimized);
 	clsUtil::SetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
 	clsUtil::SetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
 	clsUtil::SetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
@@ -169,7 +161,6 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask, _T("String. Default: ''. Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."));
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone, _T("Boolean. Default: false. Beep the speaker when optimization completes."));
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone, _T("Boolean. Default: false. Shutdown computer when optimization completes."));
-	clsUtil::SetIni(_T("Options"), _T("UseRibbon"), gudtOptions.bUseRibbon, _T("Boolean. Default: false. Use Microsoft Office alike Ribbon interface instead of classic Windows pulldown menus."));
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop, _T("Boolean. Default: false. Show main window always on top"));
 	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates, _T("Boolean. Default: false. Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."));
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel, _T("Number. Default: 5. Optimization level from best speed to best compression."));
@@ -793,15 +784,6 @@ void __fastcall TfrmMain::actDonateExecute(TObject *Sender)
 {
 	ShellExecute(NULL, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
 }
-
-
-
-//---------------------------------------------------------------------------
-void __fastcall TfrmMain::rbnMainHelpButtonClick(TObject *Sender)
-{
-	actHelpExecute(Sender);
-}
-
 
 
 //---------------------------------------------------------------------------
@@ -2861,45 +2843,21 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 		{
 			TStyleManager::TrySetStyle(pacTheme, false);
 		}
-
-		if (_tcscmp(pacTheme, _T("Metropolis UI Black")) == 0)
-		{
-			mgrMain->Style = RibbonObsidianStyle;
-		}
-		else if (_tcscmp(pacTheme, _T("Luna")) == 0)
-		{
-			mgrMain->Style = RibbonLunaStyle;
-		}
 		else
 		{
 			mgrMain->Style = NULL; //XPStyle
 		}
-		//rbnMain->UseCustomFrame = (_tcscmp(pacTheme, _T("Luna")) == 0);
-
 		RefreshStatus();
 	}
 
-	if (gudtOptions.bUseRibbon)
-	{
-		frmMain->Menu = NULL;
-		rbnMain->Show();
-		lblCopyright->Visible = false;
-	}
-	else
-	{
-		frmMain->Menu = mnuMain;
-		rbnMain->Hide();
-		lblCopyright->Visible = true;
-	}
-
-	//Change instructions depending on Recycle Bin settins	
+	//Change instructions depending on Recycle Bin settins
 	if (gudtOptions.bDoNotUseRecycleBin)
 	{
-	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.";
+		lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.";
 	}
 	else
 	{
-	    lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.";
+		lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.";
 	}
 
 	if (gudtOptions.bAlwaysOnTop)

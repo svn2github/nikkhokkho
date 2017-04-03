@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'FileOptimizer'
-  ClientHeight = 573
+  ClientHeight = 533
   ClientWidth = 734
   Color = clWindow
   Constraints.MinHeight = 450
@@ -24,13 +24,13 @@ object frmMain: TfrmMain
   OnResize = FormResize
   DesignSize = (
     734
-    573)
+    533)
   PixelsPerInch = 96
   TextHeight = 13
   object lblCopyright: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 146
+    Top = 3
     Width = 728
     Height = 13
     Cursor = crHandPoint
@@ -52,7 +52,7 @@ object frmMain: TfrmMain
   object lblInstructions: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 165
+    Top = 22
     Width = 728
     Height = 26
     Align = alTop
@@ -72,89 +72,11 @@ object frmMain: TfrmMain
     ExplicitLeft = -2
     ExplicitTop = 167
   end
-  object rbnMain: TRibbon
-    Left = 0
-    Top = 0
-    Width = 734
-    Height = 143
-    ActionManager = mgrMain
-    ApplicationMenu.Menu = rbnApplication
-    QuickAccessToolbar.ActionBar = rbnQuick
-    Tabs = <
-      item
-        Caption = '&File'
-        Page = pagFile
-      end>
-    UseCustomFrame = False
-    OnHelpButtonClick = rbnMainHelpButtonClick
-    DesignSize = (
-      734
-      143)
-    StyleName = 'Ribbon - Luna'
-    object pagFile: TRibbonPage
-      Left = 0
-      Top = 50
-      Width = 733
-      Height = 93
-      Hint = 'File commands'
-      Caption = '&File'
-      Index = 0
-      object grpFile: TRibbonGroup
-        Left = 4
-        Top = 3
-        Width = 291
-        Height = 86
-        ActionManager = mgrMain
-        Caption = 'File'
-        GroupIndex = 0
-      end
-      object grpOptimize: TRibbonGroup
-        Left = 297
-        Top = 3
-        Width = 113
-        Height = 86
-        Hint = 'Optimize commands'
-        ActionManager = mgrMain
-        Caption = 'Optimize'
-        GroupIndex = 2
-      end
-      object grpHelp: TRibbonGroup
-        Left = 412
-        Top = 3
-        Width = 105
-        Height = 86
-        Hint = 'Help commands'
-        ActionManager = mgrMain
-        Caption = 'Help'
-        GroupIndex = 3
-      end
-    end
-    object rbnQuick: TRibbonQuickAccessToolbar
-      Left = 49
-      Top = 1
-      Width = 48
-      Height = 24
-      Hint = 'Show the application menu'
-      ActionManager = mgrMain
-    end
-    object rbnApplication: TRibbonApplicationMenuBar
-      Hint = 'Application menu'
-      ActionManager = mgrMain
-      OptionItems = <
-        item
-          Action = actOptions
-          Caption = '&Options...'
-          Hint = 'Open configuration options window'
-          Tag = 0
-        end>
-      RecentItems = <>
-    end
-  end
   object grdFiles: TStringGrid
     Left = 0
-    Top = 194
+    Top = 51
     Width = 734
-    Height = 360
+    Height = 463
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -175,10 +97,18 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
+    ColWidths = (
+      512
+      512
+      512
+      512
+      512)
+    RowHeights = (
+      24)
   end
   object pgbProgress: TProgressBar
     Left = 576
-    Top = 562
+    Top = 522
     Width = 150
     Height = 17
     Anchors = []
@@ -187,7 +117,7 @@ object frmMain: TfrmMain
   end
   object stbMain: TStatusBar
     Left = 0
-    Top = 554
+    Top = 514
     Width = 734
     Height = 19
     Panels = <
@@ -276,7 +206,6 @@ object frmMain: TfrmMain
             Caption = 'Op&tions...'
             ImageIndex = 6
           end>
-        ActionBar = grpOptimize
       end
       item
         Items = <
@@ -295,10 +224,8 @@ object frmMain: TfrmMain
             ImageIndex = 9
             ShortCut = 16452
           end>
-        ActionBar = grpHelp
       end
       item
-        ActionBar = rbnQuick
         AutoSize = False
       end
       item
@@ -361,7 +288,6 @@ object frmMain: TfrmMain
             ImageIndex = 1
             KeyTip = 'F'
           end>
-        ActionBar = rbnApplication
         AutoSize = False
       end
       item
@@ -390,12 +316,11 @@ object frmMain: TfrmMain
             Caption = 'O&pen containing folder...'
             ImageIndex = 10
           end>
-        ActionBar = grpFile
       end>
     Images = imgMain
     Left = 424
     Top = 256
-    StyleName = 'Ribbon - Luna'
+    StyleName = 'Platform Default'
     object actAdd: TAction
       Caption = '&Add files...'
       Hint = 'Add files from your computer to the optimization list'
@@ -486,7 +411,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D0011003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

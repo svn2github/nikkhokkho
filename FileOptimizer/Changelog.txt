@@ -178,11 +178,16 @@ ndo
 
 
 X.XX - YYYY
+- Updated to C++ Builder 10.2 Tokyo.
+- Ribbon interface is removed as adviced in FileOptimizer 9.00.
+- Faster and slightly smaller 32 bit version thanks to be migrated to CLang backend (64 bit already was).
+- Faster 32 and 64 bit versions thanks to new -O3 CLang backend optimizations.
 - Updated to ECT 0.7.0 (9090e23) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Guetzli to 1.0.1 (olavrb).
 - Updated pingo to 0.79n.
 - Updated ImageMagick 7.0.5.4 with HDRI support.
 - Updated to cppcheck 1.78.
+- Some minor optimizations and code cleanup.
 
 9.70 - 2017/03/25
 - Added INI setting IncludeMask=. If not empty, only files containing this mask (substring) on name or path will be included from optimization (user202jkl).

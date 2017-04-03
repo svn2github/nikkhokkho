@@ -323,19 +323,6 @@ object frmOptions: TfrmOptions
         Items.Strings = (
           'Windows')
       end
-      object chkUseRibbon: TCheckBox
-        Left = 7
-        Top = 46
-        Width = 281
-        Height = 17
-        Hint = 
-          'Use Microsoft Office alike Ribbon interface instead of classic W' +
-          'indows pulldown menus.'
-        Caption = '&Use ribbon interface'
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 1
-      end
     end
     object pagCSS: TTabSheet
       Caption = '&CSS'
@@ -386,10 +373,6 @@ object frmOptions: TfrmOptions
     object pagEXE: TTabSheet
       Caption = '&EXE'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkEXEDisablePETrim: TCheckBox
         Left = 7
         Top = 22
@@ -407,10 +390,6 @@ object frmOptions: TfrmOptions
     object pagGZ: TTabSheet
       Caption = '&GZ'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkGZCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -426,10 +405,6 @@ object frmOptions: TfrmOptions
     object pagHTML: TTabSheet
       Caption = '&HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkHTMLEnableTidy: TCheckBox
         Left = 7
         Top = 22
@@ -448,10 +423,6 @@ object frmOptions: TfrmOptions
     object pagJPEG: TTabSheet
       Caption = '&JPEG'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkJPEGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -480,10 +451,6 @@ object frmOptions: TfrmOptions
     object pagJS: TTabSheet
       Caption = '&JS'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkJSEnableJSMin: TCheckBox
         Left = 7
         Top = 22
@@ -501,10 +468,6 @@ object frmOptions: TfrmOptions
     object pagLUA: TTabSheet
       Caption = '&LUA'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkLUAEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -522,10 +485,6 @@ object frmOptions: TfrmOptions
     object pagMP3: TTabSheet
       Caption = '&MP3'
       ImageIndex = 8
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkMP3CopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -602,10 +561,6 @@ object frmOptions: TfrmOptions
     object pagPNG: TTabSheet
       Caption = '&PNG'
       ImageIndex = 10
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkPNGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -635,10 +590,6 @@ object frmOptions: TfrmOptions
     object pagXML: TTabSheet
       Caption = '&XML'
       ImageIndex = 11
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkXMLEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -656,10 +607,6 @@ object frmOptions: TfrmOptions
     object pagZIP: TTabSheet
       Caption = '&ZIP'
       ImageIndex = 9
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object chkZIPCopyMetadata: TCheckBox
         Left = 7
         Top = 22
