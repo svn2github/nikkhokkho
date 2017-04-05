@@ -168,7 +168,7 @@ ndo
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.8.1 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
-- pngwolf-zopli 1.1.1 - https://github.com/jibsen/pngwolf-zopfli
+- pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
 - Tidy 5.4.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
@@ -182,6 +182,7 @@ X.XX - YYYY
 - Ribbon interface is removed as adviced in FileOptimizer 9.00.
 - Faster and slightly smaller 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 - Faster 32 and 64 bit versions thanks to new -O3 CLang backend optimizations.
+- Updated to pngwolf-zopli 1.1.2.
 - Updated to mutool 1.11RC1.
 - Updated to ECT 0.7.0 (9090e23) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Guetzli to 1.0.1 (olavrb).
