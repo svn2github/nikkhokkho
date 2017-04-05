@@ -208,9 +208,9 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 {
 	unsigned long lExitCode;
 	STARTUPINFO udtSI;
-	PROCESS_INFORMATION udtPI = {0};
-	SECURITY_ATTRIBUTES udtSA = {0};
-	HANDLE hRead, hWrite;
+	PROCESS_INFORMATION udtPI = {};
+	SECURITY_ATTRIBUTES udtSA = {};
+	HANDLE hRead = NULL, hWrite = NULL;
 
 
 	Screen->Cursor = crHourGlass;
@@ -785,7 +785,7 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, do
 const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName)
 {
 	HKEY hKey;
-	TCHAR acRes[2048] = {0};
+	TCHAR acRes[2048] = {};
 
 
 	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey);
@@ -948,8 +948,8 @@ bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
 bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 {
 	int iRes;
-	SHFILEOPSTRUCT udtFileOp = {0};
-	TCHAR acSource[PATH_MAX] = {0}, acDestination[PATH_MAX];
+	SHFILEOPSTRUCT udtFileOp = {};
+	TCHAR acSource[PATH_MAX] = {}, acDestination[PATH_MAX];
 
 
 	Application->ProcessMessages();

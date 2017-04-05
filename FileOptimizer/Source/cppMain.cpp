@@ -923,7 +923,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			clsUtil::CopyToRecycleBin(sInputFile.c_str());
 		}
 
-		unsigned int iFileAttributes;
+		unsigned int iFileAttributes = INVALID_FILE_ATTRIBUTES;
 		if (gudtOptions.bKeepAttributes)
 		{
 			//If get timestamp fails, set to null
@@ -2506,10 +2506,10 @@ unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait)
 {
 	unsigned long lExitCode;
-	STARTUPINFO udtSI = {0};
-	PROCESS_INFORMATION udtPI = {0};
+	STARTUPINFO udtSI = {};
+	PROCESS_INFORMATION udtPI = {};
 	SECURITY_ATTRIBUTES udtSA;
-	HANDLE hRead, hWrite;
+	HANDLE hRead = NULL, hWrite = NULL;
 
 
 	if (gbStop)
@@ -3049,7 +3049,7 @@ const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 		{
 			pcEnd = pcStart + _tcslen(GetOptionCommandLine());
 		}
-		_tcsncpy(acRes, pcStart + _tcslen(pacKey) + 2, pcEnd - pcStart - _tcslen(pacKey) - 2);
+		_tcsncpy(acRes, pcStart + _tcslen(pacKey) + 2, (size_t) (pcEnd - pcStart) - _tcslen(pacKey) - 2);
 	}
 	return (acRes);
 }
