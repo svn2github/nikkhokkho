@@ -1,3 +1,5 @@
+- Detect plugin crash after a timeout (FatBit)
+
 - Autoupdate plugins: http://nsis.sourceforge.net/Check_online_for_Updates (olavrb)
 
 - Recompress ZIP and RAR: http://aarmstrong.org/tutorials/mass-zip-rar-to-7zip-recompression-batch-file (Henry).
