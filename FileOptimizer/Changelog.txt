@@ -165,7 +165,7 @@ ndo
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.79d - http://css-ig.net/pingo
+- pingo 0.79e - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.8.1 - http://www.pngquant.org
@@ -180,15 +180,16 @@ ndo
 
 
 X.XX - YYYY
-- Updated to C++ Builder 10.2 Tokyo.
 - Ribbon interface is removed as adviced in FileOptimizer 9.00.
+- Added detection 7-ZIP SFX archives, since as other SFX data overlay gets stripped after optimization (FatBit).
+- Updated to C++ Builder 10.2 Tokyo.
 - Faster and slightly smaller 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 - Faster 32 and 64 bit versions thanks to new -O3 CLang backend optimizations.
 - Updated to pngwolf-zopli 1.1.2.
 - Updated to mutool 1.11RC1.
 - Updated to ECT 0.7.0 (9090e23) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Guetzli to 1.0.1 (olavrb).
-- Updated pingo to 0.79d.
+- Updated pingo to 0.79e.
 - Updated ImageMagick 7.0.5.4 with HDRI support.
 - Updated to cppcheck 1.78.
 - Some minor optimizations and code cleanup.

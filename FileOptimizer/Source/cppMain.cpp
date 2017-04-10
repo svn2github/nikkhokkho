@@ -2708,7 +2708,11 @@ bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 		{
 			bRes = true;
 		}
-		
+		//Check if it is a 7-ZIP SFX
+		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "7z@NArchive@", 12) != NULL)
+		{
+			bRes = true;
+		}	
 		delete[] acBuffer;
 	}
 	return (bRes);
