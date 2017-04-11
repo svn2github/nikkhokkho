@@ -161,7 +161,7 @@ ndo
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
-- mutool 1.11RC1 - http://mupdf.com/downloads/
+- mutool 1.11 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
@@ -186,7 +186,7 @@ X.XX - YYYY
 - Faster and slightly smaller 32 bit version thanks to be migrated to CLang backend (64 bit already was).
 - Faster 32 and 64 bit versions thanks to new -O3 CLang backend optimizations.
 - Updated to pngwolf-zopli 1.1.2.
-- Updated to mutool 1.11RC1.
+- Updated to mutool 1.11.
 - Updated to ECT 0.7.0 (9090e23) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Guetzli to 1.0.1 (olavrb).
 - Updated pingo to 0.79e.
