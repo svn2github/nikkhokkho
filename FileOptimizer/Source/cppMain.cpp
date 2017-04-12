@@ -1299,6 +1299,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				sFlags = "";
 				iLevel = min(gudtOptions.iLevel * 4 / 9, 4);
 				sFlags += "-s" + (String) iLevel + " ";
+				if (gudtOptions.bJPEGAllowLossy)
+				{
+					sFlags += "-lossy ";
+				}
 				RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe -optimize -smaller " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
