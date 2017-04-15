@@ -190,10 +190,10 @@ __published: // IDE-managed Components
 	TMenuItem *N8;
 	TAction *actHelp;
 	TAction *actOpen;
-	TMenuItem *Helptopics1;
+	TMenuItem *mnuHelpTopics;
 	TMenuItem *Openselectedfile1;
 	TAction *actOpenFolder;
-	TMenuItem *Action11;
+	TMenuItem *mnuFileOpenFolder;
 	TLabel *lblInstructions;
 
 	void __fastcall FormCreate(TObject *Sender);

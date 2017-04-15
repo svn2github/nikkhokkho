@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'FileOptimizer'
-  ClientHeight = 533
+  ClientHeight = 513
   ClientWidth = 734
   Color = clWindow
   Constraints.MinHeight = 450
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
   OnResize = FormResize
   DesignSize = (
     734
-    533)
+    513)
   PixelsPerInch = 96
   TextHeight = 13
   object lblCopyright: TLabel
@@ -76,7 +76,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 51
     Width = 734
-    Height = 463
+    Height = 443
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -108,7 +108,7 @@ object frmMain: TfrmMain
   end
   object pgbProgress: TProgressBar
     Left = 576
-    Top = 522
+    Top = 502
     Width = 150
     Height = 17
     Anchors = []
@@ -117,7 +117,7 @@ object frmMain: TfrmMain
   end
   object stbMain: TStatusBar
     Left = 0
-    Top = 514
+    Top = 494
     Width = 734
     Height = 19
     Panels = <
@@ -411,7 +411,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D0011003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -968,7 +968,7 @@ object frmMain: TfrmMain
         Action = actOpen
         Caption = '&Open selected files...'
       end
-      object Action11: TMenuItem
+      object mnuFileOpenFolder: TMenuItem
         Action = actOpenFolder
       end
       object mnuFileExit: TMenuItem
@@ -992,7 +992,7 @@ object frmMain: TfrmMain
     end
     object mnuHelp: TMenuItem
       Caption = '&Help'
-      object Helptopics1: TMenuItem
+      object mnuHelpTopics: TMenuItem
         Action = actHelp
       end
       object N6: TMenuItem

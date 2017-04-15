@@ -1,3 +1,5 @@
+- Figure out why x64 release version shows strange characters in TMenuItem.ShortCut.
+
 - Detect plugin crash after a timeout (FatBit)
 
 - Autoupdate plugins: http://nsis.sourceforge.net/Check_online_for_Updates (olavrb)
