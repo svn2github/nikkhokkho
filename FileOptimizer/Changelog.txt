@@ -180,6 +180,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+9.80 - 2017/04/15
 - Ribbon interface is removed as adviced in FileOptimizer 9.00.
 - Added detection 7-ZIP SFX archives, since as other SFX data overlay gets stripped after optimization (FatBit).
 - Updated to C++ Builder 10.2 Tokyo.
