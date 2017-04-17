@@ -179,12 +179,14 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
+        <VerInfo_MajorVer>9</VerInfo_MajorVer>
+        <VerInfo_MinorVer>8</VerInfo_MinorVer>
+        <VerInfo_Build>1769</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <BCC_EnableRTTI>false</BCC_EnableRTTI>
-        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
         <BCC_UserSuppliedOptions>-O4</BCC_UserSuppliedOptions>
         <ILINK_FastTLS>true</ILINK_FastTLS>
         <BCC_CallingConvention>fastcall</BCC_CallingConvention>
@@ -210,9 +212,7 @@
         <BCC_OptimizeMaximum>true</BCC_OptimizeMaximum>
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
-        <VerInfo_MajorVer>9</VerInfo_MajorVer>
-        <VerInfo_MinorVer>8</VerInfo_MinorVer>
-        <VerInfo_Build>1769</VerInfo_Build>
+        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
         <BT_BuildType>Debug</BT_BuildType>
         <BCC_RequireMathFuncErrorNumber>false</BCC_RequireMathFuncErrorNumber>
     </PropertyGroup>
@@ -224,16 +224,13 @@
         <ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
         <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclimg.lib;VclSmp.lib</LinkPackageStatics>
         <BCC_PCHName_Clang>FileOptimizerPCH1.h</BCC_PCHName_Clang>
-        <VerInfo_MajorVer>9</VerInfo_MajorVer>
-        <VerInfo_MinorVer>8</VerInfo_MinorVer>
-        <VerInfo_Build>1769</VerInfo_Build>
         <BCC_OptimizeMaximum>true</BCC_OptimizeMaximum>
         <BT_BuildType>Debug</BT_BuildType>
+        <BCC_DisableCPPAccesControls>true</BCC_DisableCPPAccesControls>
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
+        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
         <BCC_UserSuppliedOptions>-O4</BCC_UserSuppliedOptions>
         <BCC_RequireMathFuncErrorNumber>false</BCC_RequireMathFuncErrorNumber>
-        <BCC_DisableCPPAccesControls>true</BCC_DisableCPPAccesControls>
-        <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
     </PropertyGroup>
     <ItemGroup>
         <LibFiles Include="C:\Program Files (x86)\Embarcadero\Studio\17.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">
@@ -310,23 +307,19 @@
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
-                    <Platform Name="Win64">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Debug" Class="ProjectFile"/>
                 <DeployFile LocalName=".\Win32\Release\FileOptimizer.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32160mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32160.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32220.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64230mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32250mt.dll" Class="DependencyModule">
                     <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64220.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32220.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64230mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32230.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64220mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32c250mt.dll" Class="DependencyModule">
@@ -375,9 +368,13 @@
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32230mt.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64160mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32220mt.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
