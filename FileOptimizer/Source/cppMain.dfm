@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'FileOptimizer'
-  ClientHeight = 513
+  ClientHeight = 493
   ClientWidth = 734
   Color = clWindow
   Constraints.MinHeight = 450
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
   OnResize = FormResize
   DesignSize = (
     734
-    513)
+    493)
   PixelsPerInch = 96
   TextHeight = 13
   object lblCopyright: TLabel
@@ -76,7 +76,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 51
     Width = 734
-    Height = 443
+    Height = 423
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -108,7 +108,7 @@ object frmMain: TfrmMain
   end
   object pgbProgress: TProgressBar
     Left = 576
-    Top = 502
+    Top = 482
     Width = 150
     Height = 17
     Anchors = []
@@ -117,7 +117,7 @@ object frmMain: TfrmMain
   end
   object stbMain: TStatusBar
     Left = 0
-    Top = 494
+    Top = 474
     Width = 734
     Height = 19
     Panels = <
@@ -411,7 +411,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -953,7 +953,11 @@ object frmMain: TfrmMain
     object mnuFile: TMenuItem
       Caption = '&File'
       object mnuFileAdd: TMenuItem
-        Action = actAdd
+        Caption = '&Add files...'
+        Hint = 'Add files from your computer to the optimization list'
+        ImageIndex = 4
+        ShortCut = 8237
+        OnClick = actAddExecute
       end
       object mnuFileRemove: TMenuItem
         Action = actRemove

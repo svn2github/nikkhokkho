@@ -1,3 +1,5 @@
+- Embarcadero C++ Builder 10.2 Tokyo, has a bug in the Win64 version when "Link with runtime packages" is set to false.
+
 - Figure out why x64 release version shows strange characters in TMenuItem.ShortCut.
 
 - Detect plugin crash after a timeout (FatBit)
