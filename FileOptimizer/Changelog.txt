@@ -184,6 +184,7 @@ ndo
 
 
 X.XX - YYYY
+- Fixed some help typos (Joel Rangelle).
 - Updated pingo to 0.79s.
 
 
