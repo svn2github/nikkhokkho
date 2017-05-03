@@ -52,15 +52,6 @@
 
 - Truncate filenames in cell draw.
 
-- Add ffmpeg
-	KS_EXTENSION_MP4
-	KS_EXTENSION_MPEG: AVI, MPG, MPEG
-	KS_EXTENSION_FLV: FLV
-	KS_EXTENSION_WMV: WMV, WMA
-	KS_EXTENSION_RM: RV, RA, RM, RMVB, RAM. SMIL
-	ffmpeg.exe -i INPUT -vcodec copy -acodec copy OUTPUT
-
-
 - Add Information option on context menu.
 
 - Optimize GetExtensionByContent to use regular comparisons instead of memcmp for short comparisons.
@@ -145,6 +136,7 @@ ndo
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
 - ECT 0.7.0(9090e23) - https://github.com/fhanau/Efficient-Compression-Tool
+- ffmpeg 3.2.4 - http://ffmpeg.zeranoe.com/builds/
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
@@ -184,6 +176,8 @@ ndo
 
 
 X.XX - YYYY
+- Added ffmpeg to the video toolchain.
+- New extensions supported in the video toolchain: .mpg .mpeg .flv .wmv .wma .rv .ra .rm .rmvb .ram .smil
 - Fixed some help typos (Joel Rangelle).
 - Updated ImageWorsener to 1.3.1.
 - Updated ImageMagick 7.0.5.5 with HDRI support.

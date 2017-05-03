@@ -1863,6 +1863,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
+		// VIDEO: ffmpeg
+		if (PosEx(sExtensionByContent, (StringReplace((KS_EXTENSION_MP4 KS_EXTENSION_OGV), "  ", " ", TReplaceFlags() << rfReplaceAll)))> 0)
+		{
+			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+		}
 
 		if (gudtOptions.bKeepAttributes)
 		{

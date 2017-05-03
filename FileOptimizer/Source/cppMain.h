@@ -53,7 +53,7 @@
 #define KS_EXTENSION_MKV	_T(" .mkv .mka .mks ")
 #define KS_EXTENSION_MNG	_T(" .mng ")
 #define KS_EXTENSION_MP3	_T(" .mp3 ")
-#define KS_EXTENSION_MP4	_T(" .mp4 .3gp .m4a .m4b .m4p .m4r .m4v .acc ")
+#define KS_EXTENSION_MP4	_T(" .mp4 .3gp .m4a .m4b .m4p .m4r .m4v .acc .avi .mpg .mpeg .flv .wmv .wma .rv .ra .rm .rmvb .ram .smil ")
 #define KS_EXTENSION_OBJ	_T(" .obj .o .lib .a ")
 #define KS_EXTENSION_OGG	_T(" .ogg .oga .ogx ")
 #define KS_EXTENSION_OGV	_T(" .ogg .ogv .ogx ")
