@@ -1387,9 +1387,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 			RunPlugin((unsigned int) iCount, "MP3packer", (sPluginsDirectory + "mp3packer.exe " + sFlags + "-z -a \"\" -A -f \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// MP4: mp4v2
+		// MP4: ffmpeg, mp4v2
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MP4) > 0)
 		{
+			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			
 			RunPlugin((unsigned int) iCount, "mp4v2", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// OBJ: strip
@@ -1402,9 +1404,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		{
 			RunPlugin((unsigned int) iCount, "rehuff", (sPluginsDirectory + "rehuff.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// OGV: rehuff_theora
+		// OGV: ffmpeg, rehuff_theora
 		if (PosEx(sExtensionByContent, KS_EXTENSION_OGV) > 0)
 		{
+			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			
 			RunPlugin((unsigned int) iCount, "rehuff_theora", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// Microsoft OLE Compound Files: Document Press
@@ -1862,11 +1866,6 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				sFlags += "-strip ";
 			}
 			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-		}
-		// VIDEO: ffmpeg
-		if (PosEx(sExtensionByContent, (StringReplace((KS_EXTENSION_MP4 KS_EXTENSION_OGV), "  ", " ", TReplaceFlags() << rfReplaceAll)))> 0)
-		{
-			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 
 		if (gudtOptions.bKeepAttributes)
