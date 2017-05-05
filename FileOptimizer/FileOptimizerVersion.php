@@ -34,6 +34,7 @@
 	    'LUAEnableLeanify' => false,
 	    'MiscCopyMetadata' => false,
 	    'MP3CopyMetadata' => false,
+	    'MP4CopyMetadata' => false,
 	    'PCXCopyMetadata' => false,
 	    'PDFProfile' => '',
 	    'PDFCustomDPI' => 0,

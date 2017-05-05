@@ -178,6 +178,7 @@ ndo
 X.XX - YYYY
 - Added ffmpeg to the video toolchain (mp4, mkv, ogv).
 - New extensions supported in the video toolchain: .mpg .mpeg .flv .wmv .wma .rv .ra .rm .rmvb .ram .smil, qt, mov, 3gg, 3g2).
+- Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
 - Fixed some help typos (Joel Rangelle).
 - Switched to official mozjpegtran binaries from https://ci.appveyor.com/project/CoolOppo/mozjpeg-svdl6/build/artifacts (TPS).
 - Updated Leanify to 0.4.3.190 daily binaries.

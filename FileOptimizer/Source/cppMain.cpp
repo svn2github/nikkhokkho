@@ -54,6 +54,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bLUAEnableLeanify = GetOption(_T("Options"), _T("LUAEnableLeanify"), false);
 	gudtOptions.bMiscCopyMetadata = GetOption(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = GetOption(_T("Options"), _T("MP3CopyMetadata"), false);
+	gudtOptions.bMP4CopyMetadata = GetOption(_T("Options"), _T("MP4CopyMetadata"), false);
 	gudtOptions.bPCXCopyMetadata = GetOption(_T("Options"), _T("PCXCopyMetadata"), false);
 	_tcscpy(gudtOptions.acPDFProfile, GetOption(_T("Options"), _T("PDFProfile"), _T("none")));
 	gudtOptions.iPDFCustomDPI = GetOption(_T("Options"), _T("PDFCustomDPI"), 150);
@@ -144,6 +145,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("LUAEnableLeanify"), gudtOptions.bLUAEnableLeanify, _T("Boolean. Default: false. Enable Leanify. Results in smaller files, but can happen they are not editable anymore."));
 	clsUtil::SetIni(_T("Options"), _T("MiscCopyMetadata"), gudtOptions.bMiscCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
 	clsUtil::SetIni(_T("Options"), _T("MP3CopyMetadata"), gudtOptions.bMP3CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("MP4CopyMetadata"), gudtOptions.bMP4CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
 	clsUtil::SetIni(_T("Options"), _T("PCXCopyMetadata"), gudtOptions.bPCXCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
 	clsUtil::SetIni(_T("Options"), _T("PDFProfile"), gudtOptions.acPDFProfile, _T("String. Default 'none'. Compression profile, from less size, to best quality."));
 	clsUtil::SetIni(_T("Options"), _T("PDFCustomDPI"), gudtOptions.iPDFCustomDPI, _T("Number. Default: 150. When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"));
@@ -1356,7 +1358,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// MKV: ffmpeg, mkclean
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MKV) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			if (!gudtOptions.bMP4CopyMetadata)
+			{
+				RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
 			
 			RunPlugin((unsigned int) iCount, "mkclean", (sPluginsDirectory + "mkclean.exe --optimize --unsafe --quiet \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1392,7 +1397,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// MP4: ffmpeg, mp4v2
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MP4) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			if (!gudtOptions.bMP4CopyMetadata)
+			{
+				RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
 			
 			RunPlugin((unsigned int) iCount, "mp4v2", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1409,7 +1417,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// OGV: ffmpeg, rehuff_theora
 		if (PosEx(sExtensionByContent, KS_EXTENSION_OGV) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			if (!gudtOptions.bMP4CopyMetadata)
+			{
+				RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
 			
 			RunPlugin((unsigned int) iCount, "rehuff_theora", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
