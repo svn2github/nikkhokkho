@@ -1697,6 +1697,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
+		// SQLITE: sqlite
+		if (PosEx(sExtensionByContent, KS_EXTENSION_SQLITE) > 0)
+		{
+			RunPlugin((unsigned int) iCount, "sqlite", (sPluginsDirectory + "sqlite.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+		}
 		// TAR: Leanify
 		if (PosEx(sExtensionByContent, KS_EXTENSION_TAR) > 0)
 		{
@@ -2371,6 +2376,11 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			else if (memcmp(acBuffer, "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", 8) == 0)
 			{
 				sRes = ".png";
+			}
+			//Check SQLITE
+			else if (memcmp(acBuffer, "SQLite format 3", 16) == 0)
+			{
+				sRes = ".sqlite";
 			}
 			//Check SWF
 			else if ((memcmp(acBuffer, "FWS", 3) == 0) || (memcmp(acBuffer, "CWS", 3) == 0) || (memcmp(acBuffer, "ZWS", 3) == 0))

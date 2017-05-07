@@ -1,12 +1,3 @@
-- Add SQLite support (necros):
-	sqlite3.exe 1.sqlite .dump >1.sql
-	ren 1.sqlite 1.sqlite.old
-	sqlite3.exe 1.sqlite < 1.sql 
-	del 1.sqlite.old
-	del 1.sql
-	sqlite3 l.sqlite "PRAGMA optimize(0xfffe); VACUUM;"
-https://www.filesignatures.net/index.php?page=search&search=DB&mode=EXT
-
 - Embarcadero C++ Builder 10.2 Tokyo, has a bug in the Win64 version when "Link with runtime packages" is set to false. Confirmed a bug: https://board4all.biz/threads/malformed-colorbox-text.658103/#post-1212328
 
 - Figure out why x64 release version shows strange characters in TMenuItem.ShortCut.
@@ -177,6 +168,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
+- SQLite 3.18.0 - http://www.sqlite.org
 - Tidy 5.4.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
 - UPX 3.93 - https://upx.github.io
@@ -185,6 +177,7 @@ ndo
 
 
 X.XX - YYYY
+- Add SQLite support (necros).
 - Added ffmpeg to the video toolchain (mp4, mkv, ogv).
 - New extensions supported in the video toolchain: .mpg .mpeg .flv .wmv .wma .rv .ra .rm .rmvb .ram .smil, qt, mov, 3gg, 3g2).
 - Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
