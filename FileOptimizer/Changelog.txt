@@ -1,3 +1,12 @@
+- Add SQLite support (necros):
+	sqlite3.exe 1.sqlite .dump >1.sql
+	ren 1.sqlite 1.sqlite.old
+	sqlite3.exe 1.sqlite < 1.sql 
+	del 1.sqlite.old
+	del 1.sql
+	sqlite3 l.sqlite "PRAGMA optimize(0xfffe); VACUUM;"
+https://www.filesignatures.net/index.php?page=search&search=DB&mode=EXT
+
 - Embarcadero C++ Builder 10.2 Tokyo, has a bug in the Win64 version when "Link with runtime packages" is set to false. Confirmed a bug: https://board4all.biz/threads/malformed-colorbox-text.658103/#post-1212328
 
 - Figure out why x64 release version shows strange characters in TMenuItem.ShortCut.
