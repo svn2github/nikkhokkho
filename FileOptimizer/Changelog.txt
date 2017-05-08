@@ -181,7 +181,7 @@ X.XX - YYYY
 - New extensions added to the ZIP toolchain: .qwk, .ear, .war, .jar, taz, z.
 - Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
 - Fixed some help typos (Joel Rangelle).
-- Switched to official mozjpegtran binaries from https://ci.appveyor.com/project/CoolOppo/mozjpeg-svdl6/build/artifacts (TPS).
+- Updated mozjpegtran x86 and x64 binaries, because CoolOppo did not build x64 (thanks d4k0).
 - Added SQLite 3.0.18 x86 and x64 Visual C++ 2017 custom builds.
 - Updated to ECT 0.7.0 (abf6910) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Leanify to 0.4.3.190 daily binaries.
