@@ -177,7 +177,8 @@ ndo
 X.XX - YYYY
 - Add SQLite database optimization support (necros).
 - Added ffmpeg to the video toolchain (mp4, mkv, ogv).
-- New extensions supported in the video toolchain: .mpg .mpeg .flv .wmv .wma .rv .ra .rm .rmvb .ram .smil, qt, mov, 3gg, 3g2).
+- New extensions supported in the video toolchain: .mpg .mpeg .flv .wmv .wma .rv .ra .rm .rmvb .ram .smil, qt, mov, 3gg, 3g2.
+- New extensions added to the ZIP toolchain: .qwk, .ear, .war, .jar, taz, z.
 - Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
 - Fixed some help typos (Joel Rangelle).
 - Switched to official mozjpegtran binaries from https://ci.appveyor.com/project/CoolOppo/mozjpeg-svdl6/build/artifacts (TPS).
