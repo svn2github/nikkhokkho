@@ -1299,7 +1299,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
 				sFlags = "";
-				iLevel = min(gudtOptions.iLevel * 4 / 9, 4);
+				iLevel = min(gudtOptions.iLevel * 7 / 9, 7);
 				sFlags += "-s" + (String) iLevel + " ";
 				if (gudtOptions.bJPEGAllowLossy)
 				{
@@ -1635,7 +1635,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					if (!gudtOptions.bPNGCopyMetadata)
 					{
 						sFlags = "";
-						iLevel = min(gudtOptions.iLevel * 4 / 9, 4);
+						iLevel = min(gudtOptions.iLevel * 7 / 9, 7);
 						sFlags += "-s" + (String) iLevel + " ";
 						if (gudtOptions.bPNGAllowLossy)
 						{
