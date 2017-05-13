@@ -154,7 +154,7 @@ ndo
 - mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
-- mp4v2 2.0.0 r504 - https://code.google.com/p/mp4v2/
+- mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
 - mutool 1.11 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
@@ -182,8 +182,10 @@ X.XX - YYYY
 - Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
 - Fixed some help typos (Joel Rangelle).
 - Improved pingo compression.
+- Added mp4v2 2.1.0 x86 and x64 static Visual C++ 2017 custom builds.
 - Added SQLite 3.0.18 x86 and x64 Visual C++ 2017 custom builds.
 - Updated UPX to 3.94.
+- Updated to mp4v2 2.1.0.
 - Updated mozjpegtran x86 and x64 binaries, because CoolOppo did not build x64 (thanks d4k0).
 - Updated to ECT 0.7.0 (abf6910) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Leanify to 0.4.3.190 daily binaries.
