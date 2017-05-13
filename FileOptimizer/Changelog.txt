@@ -193,6 +193,7 @@ X.XX - YYYY
 - Updated ImageMagick 7.0.5.5 with HDRI support.
 - Updated pingo to 0.80f.
 - Updated strip to 2.27.
+- Updated to cppcheck 1.79.
 - Some minor optimizations and code cleanup.
 
 
