@@ -21,15 +21,17 @@ xcopy /e /s Win64\Debug\Plugins64\*.* Win32\Release\Plugins64\*.*
 cd Win32\Release\Plugins32\
 ..\..\..\_Tools\PatchPE64.exe guetzli.exe
 ..\..\..\_Tools\PatchPE64.exe mutool.exe
+..\..\..\_Tools\PatchPE64.exe mozjpegtran.exe
 cd ..\..\..\
 cd Win32\Release\Plugins64\
 ..\..\..\_Tools\PatchPE64.exe guetzli.exe
 ..\..\..\_Tools\PatchPE64.exe mutool.exe
+..\..\..\_Tools\PatchPE64.exe mozjpegtran.exe
 cd ..\..\..\
 Win64\Release\FileOptimizer .\Win32\Release
 Win32\Debug\Plugins32\petrim /stripfixups:Y .\Win32\Release\*.exe /r
 Win32\Debug\Plugins32\petrim .\Win32\Release\*.* /r
-"\Archivos de programa\7-Zip\7z" a -mx=9 -mfb=273 -mmt=off -myx9 FileOptimizerSource.7z *.cbproj *.bat *.txt *.chm *.mes *.res *.ico *.cpp *.h Source\*.* Source\gifsicle\*.* Source\gifsicle\src\*.* Source\gifsicle\include\*.* Source\gifsicle\include\lcdf\*.* Source\gifsicle\include\lcdfgif\*.* Source\jpegoptim\*.* Source\jpegoptim\libjpeg\*.* Source\jpegoptim\win32\*.* Source\jsmin\*.* Source\sqlite\*.* Resource\*.* Resource\Icon\*.* Help\*.* Help\Images\*.* Setup\*.*
+"\Archivos de programa\7-Zip\7z" a -mx=9 -mfb=273 -mmt=off -myx9 FileOptimizerSource.7z *.cbproj *.bat *.txt *.chm *.mes *.res *.ico *.cpp *.h Source\*.* Source\gifsicle\*.* Source\gifsicle\src\*.* Source\gifsicle\include\*.* Source\gifsicle\include\lcdf\*.* Source\gifsicle\include\lcdfgif\*.* Source\jpegoptim\*.* Source\jpegoptim\libjpeg\*.* Source\jpegoptim\win32\*.* Source\jsmin\*.* Source\mp4v2\*.* Source\mp4v2\include\*.* Source\mp4v2\libplatform\*.* Source\mp4v2\libutil\*.* Source\mp4v2\src\*.* Source\mp4v2\util\*.* Source\mp4v2\vstudio10.0\*.* Source\sqlite\*.* Resource\*.* Resource\Icon\*.* Help\*.* Help\Images\*.* Setup\*.*
 cd Win32\Release
 "\Archivos de programa\7-Zip\7z" a -mm=Deflate -mx=9 -mfb=258 -mpass=15 -mmt=off -tzip ..\..\FileOptimizerFull.zip FileOptimizer32.exe FileOptimizer64.exe FileOptimizer.chm Plugins32\*.* Plugins64\*.*
 rem "%HOMEPATH%\Archivos de programa\7-Zip\7z" a -mx=9 -mfb=273 -mmt=off -sfx7z.sfx ..\..\FileOptimizerFull.7z.exe FileOptimizer32.exe FileOptimizer64.exe FileOptimizer.chm Plugins32\*.* Plugins64\*.*
