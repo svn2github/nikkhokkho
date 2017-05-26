@@ -161,7 +161,7 @@ ndo
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.81o - http://css-ig.net/pingo
+- pingo 0.81r - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.8.1 - http://www.pngquant.org
@@ -193,7 +193,7 @@ X.XX - YYYY
 - Updated Leanify to 0.4.3.190 daily binaries.
 - Updated ImageWorsener to 1.3.1.
 - Updated ImageMagick 7.0.5.7 with HDRI support.
-- Updated pingo to 0.81o.
+- Updated pingo to 0.81r.
 - Updated strip to 2.27.
 - Updated to cppcheck 1.79.
 - Some minor optimizations and code cleanup.
