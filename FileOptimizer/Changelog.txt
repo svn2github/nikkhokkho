@@ -153,7 +153,7 @@ ndo
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.190 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.6.0 - http://www.webmproject.org
-- mkclean 0.8.7 - http://www.matroska.org/downloads/mkclean.html
+- mkclean 0.8.9 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
@@ -186,6 +186,7 @@ X.XX - YYYY
 - Improved pingo compression.
 - Added mp4v2 2.1.0 x86 and x64 static Visual C++ 2017 custom builds.
 - Added SQLite 3.19.2 x86 and x64 Visual C++ 2017 custom builds.
+- Updated mkclean to 0.8.9.
 - Updated UPX to 3.94.
 - Updated to mp4v2 2.1.0.
 - Updated mozjpegtran x86 and x64 binaries, because CoolOppo did not build x64 (thanks d4k0).
