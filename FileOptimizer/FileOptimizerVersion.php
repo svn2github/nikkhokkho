@@ -31,6 +31,7 @@
 	    'JPEGUseArithmeticEncoding' => false,
 	    'JPEGAllowLossy' => false,
 	    'JSEnableJSMin' => false,
+	    'JSAdditionalExtensions' => '',
 	    'LUAEnableLeanify' => false,
 	    'MiscCopyMetadata' => false,
 	    'MP3CopyMetadata' => false,
@@ -38,14 +39,16 @@
 	    'PCXCopyMetadata' => false,
 	    'PDFProfile' => '',
 	    'PDFCustomDPI' => 0,
+	    'PDFSkipLayered' => false,
 	    'PNGCopyMetadata' => false,
 	    'PNGAllowLossy' => false,
 	    'TIFFCopyMetadata' => false,
 	    'XMLEnableLeanify' => false,
 	    'ZIPCopyMetadata' => false,
 	    'ZIPRecurse' => false,
-	    'KeepAttributes' => false,
 	    'DoNotUseRecycleBin' => false,
+	    'KeepAttributes' => false,
+	    'IncludeMask' => '',
 	    'ExcludeMask' => '',
 	    'DisablePluginMask' => '',
 	    'BeepWhenDone' => false,
@@ -89,5 +92,4 @@
 	    fputcsv($iFile, array_values($aColumns), ';');
 	    fclose($iFile);
 	}
-
 ?>
