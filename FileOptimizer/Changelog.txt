@@ -186,6 +186,7 @@ X.XX - YYYY
 - Improved pingo compression.
 - Added mp4v2 2.1.0 x86 and x64 static Visual C++ 2017 custom builds.
 - Added SQLite 3.19.2 x86 and x64 Visual C++ 2017 custom builds.
+- Updated tidy 5.4.0 to be Windows XP compatible.
 - Updated mkclean to 0.8.9.
 - Updated UPX to 3.94.
 - Updated to mp4v2 2.1.0.
