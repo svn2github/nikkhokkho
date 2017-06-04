@@ -128,7 +128,7 @@ ndo
 
 
 
-- AdvanceCOMP 1.23 - http://advancemame.sourceforge.net
+- AdvanceCOMP 2.00 - http://advancemame.sourceforge.net
 - APNG Optimizer 1.4 - http://sourceforge.net/projects/apng/
 - Coherent PDF Command Line Tools (cpdf) 2.2 - http://community.coherentpdf.com
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
@@ -184,6 +184,7 @@ X.XX - YYYY
 - Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
 - Fixed some help typos (Joel Rangelle).
 - Improved pingo compression.
+- Updated AdvanceCOMP to 2.00 (TPS).
 - Added mp4v2 2.1.0 x86 and x64 static Visual C++ 2017 custom builds.
 - Added SQLite 3.19.2 x86 and x64 Visual C++ 2017 custom builds.
 - Updated tidy 5.4.0 to be Windows XP compatible.
