@@ -1,3 +1,8 @@
+- Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
+
+- Would it be possible to also skip the warning message that shows if there are multiple instances of the product running? (What I would like to do is run a few instances of the program in parallel from another tool I'm working on without having to manually click those message boxes away.) (Devedse)
+Devedse 
+
 - Embarcadero C++ Builder 10.2 Tokyo, has a bug in the Win64 version when "Link with runtime packages" is set to false. Confirmed a bug: https://board4all.biz/threads/malformed-colorbox-text.658103/#post-1212328
 
 - Add optional toolbar icon menu (trlkly).
