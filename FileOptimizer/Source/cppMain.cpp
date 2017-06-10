@@ -1524,7 +1524,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					RunPlugin((unsigned int) iCount, "pngquant", (sPluginsDirectory + "pngquant.exe " + sFlags + "--speed 1 256 --ext .png --force \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
-				RunPlugin((unsigned int) iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				if (!gudtOptions.bPNGCopyMetadata)
+				{
+					RunPlugin((unsigned int) iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				}
 			}
 
 			if ((!bIsAPNG) && (!bIsPNG9Patch))
@@ -1620,7 +1623,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 					sFlags += "-i " + (String) iLevel + " ";
-					RunPlugin((unsigned int) iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					if (!gudtOptions.bPNGCopyMetadata)
+					{					
+						RunPlugin((unsigned int) iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					}
 	
 					sFlags = "";
 					sFlags += "--allfilters --mt-deflate ";
