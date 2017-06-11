@@ -1524,10 +1524,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					RunPlugin((unsigned int) iCount, "pngquant", (sPluginsDirectory + "pngquant.exe " + sFlags + "--speed 1 256 --ext .png --force \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
-				if (!gudtOptions.bPNGCopyMetadata)
+				sFlags = "";
+				if (gudtOptions.bPNGCopyMetadata)
 				{
-					RunPlugin((unsigned int) iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe -file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					sFlags += "-KeepPhysicalPixelDimensions ";
 				}
+				RunPlugin((unsigned int) iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe " + sFlags + "-file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+
 			}
 
 			if ((!bIsAPNG) && (!bIsPNG9Patch))

@@ -189,7 +189,8 @@ X.XX - YYYY
 - Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
 - Fixed some help typos (Joel Rangelle).
 - Improved pingo compression.
-- Disabled advpng and PngOptimizer when keep metadata is selected (Renard Voﬂ).
+- Added -KeepPhysicalPixelDimensions to PngOptimizer when keep metadata to mantain DPI information (Renard Voﬂ).
+- Disabled advpng when keep metadata is selected (Renard Voﬂ).
 - Updated AdvanceCOMP to 2.00 (TPS).
 - Added mp4v2 2.1.0 x86 and x64 static Visual C++ 2017 custom builds.
 - Added SQLite 3.19.2 x86 and x64 Visual C++ 2017 custom builds.
