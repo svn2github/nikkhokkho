@@ -63,7 +63,7 @@
 	    'LeanifyIterations' => 0,
 	    'Theme' => '',
 	    'TempDirectory' => '',
-	    'Version' => '9.80.1769',
+	    'Version' => '9.90.1844',
 	    'Time' => 0,
 	    'Opens' => 0,
 	    'Files' => 0,

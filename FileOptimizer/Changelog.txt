@@ -181,19 +181,22 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
-X.XX - YYYY
+X.XX - YYYY (5th aniversary release)
+
+
+9.90 - 2017/06/11
 - Addes SQLite database optimization support (necros).
 - Added ffmpeg to the video toolchain (mp4, mkv, ogv).
 - New extensions supported in the video toolchain: .mpg .mpeg .flv .wmv .wma .rv .ra .rm .rmvb .ram .smil, qt, mov, 3gg, 3g2.
 - New extensions added to the ZIP toolchain: .qwk, .ear, .war, .jar, .z01 .z02 .z03 .z04 .z05 .z06 .z07 .z08 .z09 .z10, .zipx, .zx01 .zx02 .zx03 .zx04 .zx05 .zx05 .zx06 .zx07 .zx08 .zx09 .zx10.
 - Added INI setting MP4CopyMetadata=false to enable copying MP4 metadata.
 - Fixed some help typos (Joel Rangelle).
+- Added mp4v2 2.1.0 x86 and x64 static Visual C++ 2017 custom builds.
+- Added SQLite 3.19.2 x86 and x64 Visual C++ 2017 custom builds.
 - Improved pingo compression.
 - Added -KeepPhysicalPixelDimensions to PngOptimizer when keep metadata to mantain DPI information (Renard Voﬂ).
 - Disabled advpng when keep metadata is selected (Renard Voﬂ).
 - Updated AdvanceCOMP to 2.00 (TPS).
-- Added mp4v2 2.1.0 x86 and x64 static Visual C++ 2017 custom builds.
-- Added SQLite 3.19.2 x86 and x64 Visual C++ 2017 custom builds.
 - Updated tidy 5.4.0 to be Windows XP compatible.
 - Updated mkclean to 0.8.9.
 - Updated UPX to 3.94.
@@ -207,7 +210,6 @@ X.XX - YYYY
 - Updated strip to 2.27.
 - Updated to cppcheck 1.79.
 - Some minor optimizations and code cleanup.
-
 
 9.80 - 2017/04/15
 - Ribbon interface is removed as adviced in FileOptimizer 9.00.
