@@ -173,7 +173,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
-- SQLite 3.19.2 - http://www.sqlite.org
+- SQLite 3.19.3 - http://www.sqlite.org
 - Tidy 5.4.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
 - UPX 3.94 - https://upx.github.io
@@ -182,6 +182,7 @@ ndo
 
 
 X.XX - YYYY (5th aniversary release)
+- Updated SQLite 3.19.3 x86 and x64 Visual C++ 2017 custom builds.
 - Updated ImageMagick 7.0.6.0 with HDRI support.
 
 
