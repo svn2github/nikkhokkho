@@ -154,7 +154,7 @@ ndo
 - jpegoptim 1.4.4 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.190 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.192 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.6.0 - http://www.webmproject.org
 - mkclean 0.8.9 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
@@ -182,6 +182,7 @@ ndo
 X.XX - YYYY (5th aniversary release)
 - Compiled with latest C++ Builder 10.2 Tokyo April 2017 Hotfix.
 - Fixed the bug of chineese shortcut text caused by Embarcadero C++ Builder 10.2 Tokyo, issue in the Win64 version when "Link with runtime packages" is set to false.
+- Updated Leanify to 0.4.3.192 daily binaries.
 - Updated SQLite to 3.19.3 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pingo to 0.84.
 - Updated ImageMagick to 7.0.6.0 with HDRI support.
