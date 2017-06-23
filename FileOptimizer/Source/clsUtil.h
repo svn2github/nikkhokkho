@@ -64,6 +64,7 @@ class clsUtil
 		static void __fastcall SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue, const TCHAR *pacComment = _T(""));
 		static unsigned int __fastcall Serialize (void *pacBuffer, unsigned int piSize);
 		static unsigned int __fastcall Unserialize (void *pacBuffer, unsigned int piSize);
+		static unsigned int __fastcall Crc32 (const void *pacBuffer, unsigned int piLen, unsigned int piOldCrc = 0xFFFFFFFF);
 		static int __fastcall Random (int piMin, int piMax);
 		static const TCHAR * __fastcall GetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName);
 		static void __fastcall SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue);
