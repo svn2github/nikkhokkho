@@ -74,6 +74,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
+	gudtOptions.bDisableCache = GetOption(_T("Options"), _T("DisableCache"), false);
 	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
 	gudtOptions.iProcessPriority = GetOption(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = GetOption(_T("Options"), _T("CheckForUpdates"), 1);
@@ -165,6 +166,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone, _T("Boolean. Default: false. Shutdown computer when optimization completes."));
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop, _T("Boolean. Default: false. Show main window always on top"));
 	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates, _T("Boolean. Default: false. Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."));
+	clsUtil::SetIni(_T("Options"), _T("DisableCache"), gudtOptions.bDisableCache, _T("Boolean. Default: false. Disable cache of already optimized files."));
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel, _T("Number. Default: 5. Optimization level from best speed to best compression."));
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority, _T("Number. Default: 1. Process priority from most conservative to best performance."));
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates, _T("Number. Default: 1. Automatically check for program updates."));
@@ -915,6 +917,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 	}
 
 	//Check file still exists and is not to be excluded
+	//ToDo: Check if status is not pending or in cache (already optimized)
 	if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
 	{
 		sExtensionByContent = " " + GetExtensionByContent(sInputFile) + " ";
@@ -1929,6 +1932,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 	{
 		unsigned int iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
+
+		//ToDo: Update cache		
+		String sHashValue = (String) pacFile + _T("|") + (String) lSize;
+		unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length);
+		//clsUtil::SetIni(_T("Statistics"), _T("Time"), (long long) gudtOptions.lStatTime);						
 	}
 	RefreshStatus(true, (unsigned int) iCount, lTotalBytes, lSavedBytes);
 
@@ -2061,12 +2069,13 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				}
 			}
 			unsigned long long lSize = clsUtil::SizeFile(pacFile);
+			
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
 			{
 				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
 				if (sExtensionByContent != "")
-				{
+				{				
 					//We store the name to show concatenated with the full name
 					unsigned int iRows = (unsigned int) grdFiles->RowCount;
 					grdFiles->Rows[(int) iRows]->BeginUpdate();
@@ -2074,7 +2083,25 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = GetExtension(pacFile);
 					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
-					grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Pending";
+					//Check if it was already optimized
+					if (!gudtOptions.bDisableCache)
+					{
+						String sHashValue = (String) pacFile + _T("|") + (String) lSize;
+						unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length);
+						//Not in cache
+						if (clsUtil::GetIni(_T("Cache"), ((String) iHashKey).t_str(), _T("")) == _T(""))
+						{
+						}
+						//In cache, so already optimized
+						else
+						{
+							grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Optimized";
+						}
+					}
+					else
+					{
+						grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Pending";
+					}
 					grdFiles->RowCount = (int) iRows + 1;
 					grdFiles->Rows[(int) iRows]->EndUpdate();
 				}

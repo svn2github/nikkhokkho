@@ -112,6 +112,7 @@ struct udtOptions
 	bool bShutdownWhenDone;
 	bool bAlwaysOnTop;
 	bool bAllowDuplicates;
+	bool bDisableCache;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;
