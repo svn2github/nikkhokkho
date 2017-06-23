@@ -74,7 +74,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
-	gudtOptions.bDisableCache = GetOption(_T("Options"), _T("DisableCache"), false);
+	gudtOptions.bEnableCache = GetOption(_T("Options"), _T("EnableCache"), false);
 	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
 	gudtOptions.iProcessPriority = GetOption(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = GetOption(_T("Options"), _T("CheckForUpdates"), 1);
@@ -166,7 +166,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone, _T("Boolean. Default: false. Shutdown computer when optimization completes."));
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop, _T("Boolean. Default: false. Show main window always on top"));
 	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates, _T("Boolean. Default: false. Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."));
-	clsUtil::SetIni(_T("Options"), _T("DisableCache"), gudtOptions.bDisableCache, _T("Boolean. Default: false. Disable cache of already optimized files."));
+	clsUtil::SetIni(_T("Options"), _T("EnableCache"), gudtOptions.bEnableCache, _T("Boolean. Default: false. Enable cache of already optimized files to automatically skip them."));
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel, _T("Number. Default: 5. Optimization level from best speed to best compression."));
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority, _T("Number. Default: 1. Process priority from most conservative to best performance."));
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates, _T("Number. Default: 1. Automatically check for program updates."));
@@ -915,9 +915,15 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			acToken = _tcstok(NULL, _T(";"));
 		}
 	}
+	
+
+	//Skip it if already in optimization cache
+	if ((gudtOptions.bEnableCache) && (grdFiles->Cells[KI_GRID_STATUS][(int) iCount] == "Optimized"))
+	{
+		bExcluded = true;
+	}
 
 	//Check file still exists and is not to be excluded
-	//ToDo: Check if status is not pending or in cache (already optimized)
 	if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
 	{
 		sExtensionByContent = " " + GetExtensionByContent(sInputFile) + " ";
@@ -1582,7 +1588,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "-o" + (String) iLevel + " ";
 				// For some reason -strip all -protect acTL,fcTL,fdAT is not keeping APNG chunks
-				RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			else
 			{
@@ -1590,7 +1596,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "-strip all ";
 				}
-				RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 
 			if (!bIsAPNG)
@@ -1928,15 +1934,18 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 	{
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = "Skipped";
 	}
-	else
+	else if (grdFiles->Cells[KI_GRID_STATUS][iCount] != "Optimized")
 	{
 		unsigned int iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
 
-		//ToDo: Update cache		
-		String sHashValue = (String) pacFile + _T("|") + (String) lSize;
-		unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length);
-		//clsUtil::SetIni(_T("Statistics"), _T("Time"), (long long) gudtOptions.lStatTime);						
+		//Update cache
+		if (gudtOptions.bEnableCache)
+		{
+			String sHashValue = Hash(sInputFile.t_str());
+			unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length());
+			clsUtil::SetIni(_T("Cache"), ((String) iHashKey).t_str(), sHashValue.t_str());						
+		}
 	}
 	RefreshStatus(true, (unsigned int) iCount, lTotalBytes, lSavedBytes);
 
@@ -2084,16 +2093,12 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
 					//Check if it was already optimized
-					if (!gudtOptions.bDisableCache)
+					if (gudtOptions.bEnableCache)
 					{
-						String sHashValue = (String) pacFile + _T("|") + (String) lSize;
-						unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length);
-						//Not in cache
-						if (clsUtil::GetIni(_T("Cache"), ((String) iHashKey).t_str(), _T("")) == _T(""))
-						{
-						}
-						//In cache, so already optimized
-						else
+						String sHashValue = Hash(pacFile);
+						unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length());
+						//In cache, show it as already optimized
+						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).t_str(), _T("")), _T("")) != 0)
 						{
 							grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Optimized";
 						}
@@ -3039,6 +3044,20 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 	//LockWindowUpdate(NULL);
 }
 
+
+//---------------------------------------------------------------------------
+String __fastcall TfrmMain::Hash(String psFilename)
+{
+	unsigned long long lSize;
+	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;	
+	String sHash;
+	
+
+	lSize = clsUtil::SizeFile(psFilename.t_str());
+	clsUtil::GetFileTimestamp(psFilename.c_str(), &udtFileCreated, &udtFileAccessed, &udtFileModified);
+	sHash = psFilename + _T("|") + (String) lSize + _T("|") + (String) udtFileModified.dwHighDateTime + (String) udtFileModified.dwLowDateTime;
+	return(sHash);
+}
 
 
 //---------------------------------------------------------------------------

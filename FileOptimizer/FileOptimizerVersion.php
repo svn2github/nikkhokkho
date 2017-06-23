@@ -58,6 +58,7 @@
 	    'Level' => 0,
 	    'ProcessPriority' => 0,
 	    'CheckForUpdates' => 0,
+	    'EnableCache' => 0,	    
 	    'LogLevel' => 0,
 	    'FilenameFormat' => 0,
 	    'LeanifyIterations' => 0,

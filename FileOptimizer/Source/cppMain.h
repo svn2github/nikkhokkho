@@ -249,6 +249,7 @@ private: // User declarations
 	bool __fastcall IsZIPSFX(const TCHAR *pacFile);
 	bool __fastcall IsEXEManagedNet(const TCHAR *pacFile);
 	bool __fastcall IsPDFLayered(const TCHAR *pacFile);
+	String __fastcall Hash(String psFilename);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 	String __fastcall SetCellFileValue(String psValue);
 	const TCHAR * __fastcall GetOptionCommandLine(void);

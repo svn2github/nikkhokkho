@@ -180,14 +180,14 @@ ndo
 
 
 X.XX - YYYY (5th aniversary release)
-- Added bDisableCache=false INI setting to disable cache of already optimized files, so they are not reoptimized each time.
+- Added EnableCache=false INI setting to enable cache of already optimized files, so they are not reoptimized each time.
 - Compiled with latest C++ Builder 10.2 Tokyo April 2017 Hotfix.
 - Fixed the bug of chineese shortcut text caused by Embarcadero C++ Builder 10.2 Tokyo, issue in the Win64 version when "Link with runtime packages" is set to false.
 - Updated Leanify to 0.4.3.192 daily binaries.
 - Updated SQLite to 3.19.3 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pingo to 0.84.
 - Updated ImageMagick to 7.0.6.0 with HDRI support.
-
+- Some minor optimizations and code cleanup.
 
 9.90 - 2017/06/11
 - Addes SQLite database optimization support (necros).
