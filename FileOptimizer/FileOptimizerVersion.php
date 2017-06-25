@@ -55,6 +55,7 @@
 	    'ShutdownWhenDone' => false,
 	    'AlwaysOnTop' => false,
 	    'AllowDuplicates' => false,
+	    'AllowMultipleInstances' => false,
 	    'Level' => 0,
 	    'ProcessPriority' => 0,
 	    'CheckForUpdates' => 0,

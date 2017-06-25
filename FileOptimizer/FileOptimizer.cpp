@@ -59,19 +59,21 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		Application->HelpFile = Application->Name + ".chm";
 		Application->MainFormOnTaskBar = true;
 
-		hMutex = OpenMutex(MUTEX_ALL_ACCESS, false, Application->Name.c_str());
-		if (!hMutex)
+		if (!gudtOptions.bAllowMultipleInstances = GetOption(_T("Options"), _T("AllowMultipleInstances"), false))
 		{
-			hMutex = CreateMutex(NULL, false, Application->Name.c_str());
-		}
-		else
-		{
-			if (clsUtil::MsgBox(NULL, ("There is one instance of " + Application->Name + " still running.\r\n\r\nDo you want to open another?").c_str(), _T("Still running"), MB_YESNO | MB_ICONQUESTION) == IDNO)
+			hMutex = OpenMutex(MUTEX_ALL_ACCESS, false, Application->Name.c_str());
+			if (!hMutex)
 			{
-				return (1);
+				hMutex = CreateMutex(NULL, false, Application->Name.c_str());
+			}
+			else
+			{
+				if (clsUtil::MsgBox(NULL, ("There is one instance of " + Application->Name + " still running.\r\n\r\nDo you want to open another?").c_str(), _T("Still running"), MB_YESNO | MB_ICONQUESTION) == IDNO)
+				{
+					return (1);
+				}
 			}
 		}
-
 		Screen->Cursor = crAppStart;
 		// Disable file system redirection on Win64 environments
 		hDLL = LoadLibrary(_T("KERNEL32.DLL"));
