@@ -138,7 +138,7 @@ ndo
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
-- ECT 0.7.0(2b66b21) - https://github.com/fhanau/Efficient-Compression-Tool
+- ECT 0.8.0 (764522f) - https://github.com/fhanau/Efficient-Compression-Tool
 - ffmpeg 3.2.4 - http://ffmpeg.zeranoe.com/builds/
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
@@ -184,6 +184,7 @@ X.XX - YYYY (5th aniversary release)
 - Added AllowMultipleInstances=false INI setting, to prevent the warning of multiple FileOptimizer instances running (Jack).
 - Compiled with latest C++ Builder 10.2 Tokyo April 2017 Hotfix.
 - Fixed the bug of chineese shortcut text caused by Embarcadero C++ Builder 10.2 Tokyo, issue in the Win64 version when "Link with runtime packages" is set to false.
+- Updated to ECT 0.8.0 (764522f) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Leanify to 0.4.3.192 daily binaries.
 - Updated SQLite to 3.19.3 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pingo to 0.84.
