@@ -113,7 +113,7 @@ struct udtOptions
 	bool bAlwaysOnTop;
 	bool bAllowDuplicates;
 	bool bAllowMultipleInstances;
-	bool bDisableCache;
+	bool bEnableCache;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;
@@ -253,13 +253,6 @@ private: // User declarations
 	String __fastcall Hash(String psFilename);
 	String __fastcall GetCellValue(String psValue, unsigned int piPos);
 	String __fastcall SetCellFileValue(String psValue);
-	const TCHAR * __fastcall GetOptionCommandLine(void);
-	const TCHAR * __fastcall GetOptionArgument(const TCHAR *pacKey);
-	const TCHAR * __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
-	int __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault);
-	long long __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault);
-	double __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault);
-	bool __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault);
 	void __fastcall OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress);
 	void __fastcall OptimizeProgressVCL(void);
 	void __fastcall actOptimizeFor(TObject *Sender, int AIndex);
@@ -269,6 +262,13 @@ public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);
 	void __fastcall RefreshStatus(bool pbUpdateStatusBar = true, unsigned int piCurrent = 0, unsigned long long plTotalBytes = 0, unsigned long long plSavedBytes = 0);
 	void __fastcall UpdateTheme(const TCHAR *pacTheme);
+	static const TCHAR * __fastcall GetOptionCommandLine(void);
+	static const TCHAR * __fastcall GetOptionArgument(const TCHAR *pacKey);
+	static const TCHAR * __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
+	static int __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault);
+	static long long __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault);
+	static double __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault);
+	static bool __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault);
 };
 
 // ---------------------------------------------------------------------------

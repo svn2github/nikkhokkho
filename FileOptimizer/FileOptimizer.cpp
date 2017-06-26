@@ -59,7 +59,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		Application->HelpFile = Application->Name + ".chm";
 		Application->MainFormOnTaskBar = true;
 
-		if (!gudtOptions.bAllowMultipleInstances = GetOption(_T("Options"), _T("AllowMultipleInstances"), false))
+		if (!TfrmMain::GetOption(_T("Options"), _T("AllowMultipleInstances"), false))
 		{
 			hMutex = OpenMutex(MUTEX_ALL_ACCESS, false, Application->Name.c_str());
 			if (!hMutex)
