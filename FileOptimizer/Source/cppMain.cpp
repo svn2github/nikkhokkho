@@ -1310,13 +1310,18 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
 				sFlags = "";
-				iLevel = min(gudtOptions.iLevel * 7 / 9, 7);
+				sFlags += "-progressive ";
+				iLevel = min(gudtOptions.iLevel * 8 / 9, 8);
 				sFlags += "-s" + (String) iLevel + " ";
 				if (gudtOptions.bJPEGAllowLossy)
 				{
-					sFlags += "-lossy ";
+					sFlags += "-x3 -lossy ";
+					if (iLevel >= 8)
+					{
+						sFlags += "-alltables ";
+					}
 				}
-				RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe -optimize -smaller " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
 		// JS: jsmin
@@ -1655,11 +1660,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					if (!gudtOptions.bPNGCopyMetadata)
 					{
 						sFlags = "";
-						iLevel = min(gudtOptions.iLevel * 7 / 9, 7);
+						iLevel = min(gudtOptions.iLevel * 8 / 9, 8);
 						sFlags += "-s" + (String) iLevel + " ";
 						if (gudtOptions.bPNGAllowLossy)
 						{
-							sFlags += "-x0 ";
+							sFlags += "-x3 ";
 						}
 						RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
