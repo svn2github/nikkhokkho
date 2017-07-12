@@ -186,6 +186,7 @@ X.XX - YYYY (5th aniversary release)
 - Fixed the bug of chineese shortcut text caused by Embarcadero C++ Builder 10.2 Tokyo, issue in the Win64 version when "Link with runtime packages" is set to false.
 - Improved pingo lossy optimizations for JPEG and PNG.
 - Improved gifsicle and gifsicle-lossy performance by allowing using more memory, and using several threads.
+- Added nightly builds at the SVN repository, so they can be publicly tested (Jack, Ryan Morben).
 - Updated gifsicle to 1.89 (custom build).
 - Updated pngquant to 2.10.0.
 - Updated to ECT 0.8.0 (764522f) x86 and x64 optimized builds (thanks Malloc Voidstar).
