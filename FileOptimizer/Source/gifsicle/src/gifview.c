@@ -1,5 +1,5 @@
 /* gifview.c - gifview's main loop.
-   Copyright (C) 1997-2014 Eddie Kohler, ekohler@gmail.com
+   Copyright (C) 1997-2017 Eddie Kohler, ekohler@gmail.com
    This file is part of gifview, in the gifsicle package.
 
    Gifview is free software. It is distributed under the GNU Public License,
@@ -1225,6 +1225,14 @@ loop(void)
 	      /* Left mouse button: go to next frame */
 	      view_frame(v, v->im_pos + 1);
 
+      else if (e.type == ButtonPress && e.xbutton.button == 4)
+        /* mousewheel forward */
+        view_frame(v, v->im_pos + 1);
+
+      else if (e.type == ButtonPress && e.xbutton.button == 5)
+        /* mousewheel backward */
+        view_frame(v, v->im_pos - 1);
+
 	    else if (e.type == ButtonPress && e.xbutton.button == 3)
 	      /* Right mouse button: delete window */
 	      pre_delete_viewer(v);
@@ -1348,7 +1356,7 @@ main(int argc, char *argv[])
 
      case VERSION_OPT:
       printf("gifview (LCDF Gifsicle) %s\n", VERSION);
-      printf("Copyright (C) 1997-2014 Eddie Kohler\n\
+      printf("Copyright (C) 1997-2017 Eddie Kohler\n\
 This is free software; see the source for copying conditions.\n\
 There is NO warranty, not even for merchantability or fitness for a\n\
 particular purpose.\n");

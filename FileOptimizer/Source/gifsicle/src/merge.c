@@ -1,5 +1,5 @@
 /* merge.c - Functions which actually combine and manipulate GIF image data.
-   Copyright (C) 1997-2014 Eddie Kohler, ekohler@gmail.com
+   Copyright (C) 1997-2017 Eddie Kohler, ekohler@gmail.com
    This file is part of gifsicle.
 
    Gifsicle is free software. It is distributed under the GNU Public License,
@@ -115,7 +115,7 @@ merge_colormap_if_possible(Gif_Colormap *dest, Gif_Colormap *src)
     Gif_Color *srccol;
     Gif_Color *destcol = dest->col;
     int ndestcol = dest->ncol;
-    int dest_userflags = dest->userflags;
+    int dest_user_flags = dest->user_flags;
     int i, x;
     int trivial_map = 1;
 
@@ -174,7 +174,7 @@ merge_colormap_if_possible(Gif_Colormap *dest, Gif_Colormap *src)
 
     /* success! save new number of colors */
     dest->ncol = ndestcol;
-    dest->userflags = dest_userflags;
+    dest->user_flags = dest_user_flags;
     return 1;
 
   /* failure: a local colormap is required */
@@ -219,10 +219,10 @@ merge_stream(Gif_Stream *dest, Gif_Stream *src, int no_comments)
   if (dest->loopcount < 0)
     dest->loopcount = src->loopcount;
 
-  if (src->comment && !no_comments) {
-    if (!dest->comment)
-      dest->comment = Gif_NewComment();
-    merge_comments(dest->comment, src->comment);
+  if (src->end_comment && !no_comments) {
+    if (!dest->end_comment)
+      dest->end_comment = Gif_NewComment();
+    merge_comments(dest->end_comment, src->end_comment);
   }
 }
 
@@ -257,6 +257,7 @@ merge_image(Gif_Stream *dest, Gif_Stream *src, Gif_Image *srci,
             Gt_Frame* srcfr, int same_compressed_ok)
 {
   Gif_Colormap *imagecm;
+  int imagecm_ncol;
   int i;
   Gif_Colormap *localcm = 0;
   Gif_Colormap *destcm = dest->global;
@@ -268,12 +269,14 @@ merge_image(Gif_Stream *dest, Gif_Stream *src, Gif_Image *srci,
   uint8_t used[256];            /* used[output pixval K] == 1 iff K was used
                                    in the image */
 
+
   Gif_Image *desti;
 
   /* mark colors that were actually used in this image */
   imagecm = srci->local ? srci->local : src->global;
+  imagecm_ncol = imagecm ? imagecm->ncol : 0;
   merge_image_input_colors(inused, srci);
-  for (i = imagecm ? imagecm->ncol : 0; i != 256; ++i)
+  for (i = imagecm_ncol; i != 256; ++i)
       if (inused[i]) {
           lwarning(srcfr->input_filename, "some colors undefined by colormap");
           break;
@@ -286,18 +289,14 @@ merge_image(Gif_Stream *dest, Gif_Stream *src, Gif_Image *srci,
   /* Merge the colormap */
   if (merge_colormap_if_possible(dest->global, imagecm)) {
       /* Create 'map' and 'used' for global colormap. */
-      for (i = 0; i != 256; ++i)
-          if (inused[i]) {
-              if (imagecm && i < imagecm->ncol)
-                  map[i] = imagecm->col[i].pixel;
-              else
-                  map[i] = 0;
-          }
+      for (i = 0; i != imagecm_ncol; ++i)
+          if (inused[i])
+              map[i] = imagecm->col[i].pixel;
 
   } else {
       /* Need a local colormap. */
       destcm = localcm = Gif_NewFullColormap(0, 256);
-      for (i = 0; i != 256; ++i)
+      for (i = 0; i != imagecm_ncol; ++i)
           if (inused[i]) {
               map[i] = localcm->ncol;
               localcm->col[localcm->ncol] = imagecm->col[i];
@@ -359,12 +358,8 @@ merge_image(Gif_Stream *dest, Gif_Stream *src, Gif_Image *srci,
   desti->height = srci->height;
   desti->local = localcm;
 
-  if (srci->comment) {
-    desti->comment = Gif_NewComment();
-    merge_comments(desti->comment, srci->comment);
-  }
-
-  if (trivial_map && same_compressed_ok && srci->compressed) {
+  if (trivial_map && same_compressed_ok && srci->compressed
+      && !srci->compressed_errors) {
     desti->compressed_len = srci->compressed_len;
     desti->compressed = Gif_NewArray(uint8_t, srci->compressed_len);
     desti->free_compressed = Gif_Free;
@@ -384,6 +379,23 @@ merge_image(Gif_Stream *dest, Gif_Stream *src, Gif_Image *srci,
         for (i = 0; i < desti->width; i++, srcdata++, destdata++)
           *destdata = map[*srcdata];
       }
+  }
+
+  /* comments and extensions */
+  if (srci->comment) {
+    desti->comment = Gif_NewComment();
+    merge_comments(desti->comment, srci->comment);
+  }
+  if (srci->extension_list && !srcfr->no_extensions) {
+      Gif_Extension* gfex;
+      for (gfex = srci->extension_list; gfex; gfex = gfex->next)
+          if (gfex->kind != 255 || !srcfr->no_app_extensions)
+              Gif_AddExtension(dest, desti, Gif_CopyExtension(gfex));
+  }
+  while (srcfr->extensions) {
+      Gif_Extension* next = srcfr->extensions->next;
+      Gif_AddExtension(dest, desti, srcfr->extensions);
+      srcfr->extensions = next;
   }
 
   Gif_AddImage(dest, desti);

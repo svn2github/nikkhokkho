@@ -1,5 +1,5 @@
 /* gifx.c - Functions to turn GIFs in memory into X Pixmaps.
-   Copyright (C) 1997-2014 Eddie Kohler, ekohler@gmail.com
+   Copyright (C) 1997-2017 Eddie Kohler, ekohler@gmail.com
    This file is part of the LCDF GIF library.
 
    The LCDF GIF library is free software. It is distributed under the GNU
@@ -842,8 +842,8 @@ Gif_DeleteXContext(Gif_XContext *gfx)
   if (gfx->mask_gc)
     XFreeGC(gfx->display, gfx->mask_gc);
   Gif_DeleteArray(gfx->closest);
-  Gif_Delete(gfx);
   Gif_RemoveDeletionHook(GIF_T_COLORMAP, delete_colormap_hook, gfx);
+  Gif_Delete(gfx);
 }
 
 

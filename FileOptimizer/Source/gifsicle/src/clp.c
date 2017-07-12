@@ -2,7 +2,7 @@
 /* clp.c - Complete source code for CLP.
  * This file is part of CLP, the command line parser package.
  *
- * Copyright (c) 1997-2014 Eddie Kohler, ekohler@gmail.com
+ * Copyright (c) 1997-2017 Eddie Kohler, ekohler@gmail.com
  *
  * CLP is free software. It is distributed under the GNU General Public
  * License, Version 2, or, alternatively and at your discretion, under the
@@ -32,6 +32,9 @@
 #if HAVE_SYS_TYPES_H
 # include <sys/types.h>
 #endif
+#if HAVE_INTTYPES_H || !defined(HAVE_CONFIG_H)
+# include <inttypes.h>
+#endif
 
 /* By default, assume we have inttypes.h, strtoul, and uintptr_t. */
 #if !defined(HAVE_STRTOUL) && !defined(HAVE_CONFIG_H)
@@ -41,6 +44,7 @@
 # include <inttypes.h>
 #endif
 #if !defined(HAVE_UINTPTR_T) && defined(HAVE_CONFIG_H)
+//typedef unsigned long uintptr_t;
 #endif
 
 #ifdef __cplusplus

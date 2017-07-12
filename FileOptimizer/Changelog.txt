@@ -142,7 +142,7 @@ ndo
 - ffmpeg 3.2.4 - http://ffmpeg.zeranoe.com/builds/
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
-- Gifsicle 1.88 - http://www.lcdf.org/gifsicle/
+- Gifsicle 1.89 - http://www.lcdf.org/gifsicle/
 - Gifsicle Lossy 1.88 - https://kornel.ski/lossygif
 - Ghostscript 9.21 - http://www.ghostscript.com
 - GNU Strip 2.27 - http://www.gnu.org/software/binutils/
@@ -185,6 +185,7 @@ X.XX - YYYY (5th aniversary release)
 - Compiled with latest C++ Builder 10.2 Tokyo April 2017 Hotfix.
 - Fixed the bug of chineese shortcut text caused by Embarcadero C++ Builder 10.2 Tokyo, issue in the Win64 version when "Link with runtime packages" is set to false.
 - Improved pingo lossy optimizations for JPEG and PNG.
+- Updated gifsicle to 1.89 (custom build).
 - Updated pngquant to 2.10.0.
 - Updated to ECT 0.8.0 (764522f) x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Leanify to 0.4.3.192 daily binaries.

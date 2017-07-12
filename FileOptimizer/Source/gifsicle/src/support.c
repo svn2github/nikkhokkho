@@ -1,5 +1,5 @@
 /* support.c - Support functions for gifsicle.
-   Copyright (C) 1997-2014 Eddie Kohler, ekohler@gmail.com
+   Copyright (C) 1997-2017 Eddie Kohler, ekohler@gmail.com
    This file is part of gifsicle.
 
    Gifsicle is free software. It is distributed under the GNU Public License,
@@ -202,9 +202,12 @@ Animation options: Also --no-OPTION and --same-OPTION.\n\
   -D, --disposal METHOD         Set frame disposal to METHOD.\n\
   -l, --loopcount[=N]           Set loop extension to N (default forever).\n\
   -O, --optimize[=LEVEL]        Optimize output GIFs.\n\
-  -U, --unoptimize              Unoptimize input GIFs.\n\
-\n");
+  -U, --unoptimize              Unoptimize input GIFs.\n");
+#if ENABLE_THREADS
   printf("\
+  -j, --threads[=THREADS]       Use multiple threads to improve speed.\n");
+#endif
+  printf("\n\
 Whole-GIF options: Also --no-OPTION.\n\
       --careful                 Write larger GIFs that avoid bugs in other\n\
                                 programs.\n\
@@ -311,7 +314,7 @@ safe_puts(const char *s, uint32_t len, FILE *f)
        case '\v': fputs("\\v", f); break;
        case '\\': fputs("\\\\", f); break;
        case 0:    if (len > 1) fputs("\\000", f); break;
-       default:   fprintf(f, "\\%03o", *s); break;
+       default:   fprintf(f, "\\%03o", (unsigned char) *s); break;
       }
     }
   if (last_safe != s) {
@@ -356,7 +359,8 @@ colormap_info(FILE *where, Gif_Colormap *gfcm, const char *prefix)
 
 
 static void
-extension_info(FILE *where, Gif_Stream *gfs, Gif_Extension *gfex, int count)
+extension_info(FILE *where, Gif_Stream *gfs, Gif_Extension *gfex,
+               int count, int image_position)
 {
   uint8_t *data = gfex->data;
   uint32_t pos = 0;
@@ -373,10 +377,10 @@ extension_info(FILE *where, Gif_Stream *gfs, Gif_Extension *gfex, int count)
     else
       fprintf(where, "0x%02X", gfex->kind);
   }
-  if (gfex->position >= gfs->nimages)
+  if (image_position >= gfs->nimages)
     fprintf(where, " at end");
   else
-    fprintf(where, " before #%d", gfex->position);
+    fprintf(where, " before #%d", image_position);
   if (gfex->packetized)
     fprintf(where, " packetized");
   fprintf(where, "\n");
@@ -412,7 +416,7 @@ void
 stream_info(FILE *where, Gif_Stream *gfs, const char *filename, int flags)
 {
   Gif_Extension *gfex;
-  int n;
+  int n, i;
 
   if (!gfs)
     return;
@@ -430,17 +434,22 @@ stream_info(FILE *where, Gif_Stream *gfs, const char *filename, int flags)
     fprintf(where, "  background %d\n", gfs->background);
   }
 
-  if (gfs->comment)
-    comment_info(where, gfs->comment, "  end comment ");
+  if (gfs->end_comment)
+    comment_info(where, gfs->end_comment, "  end comment ");
 
   if (gfs->loopcount == 0)
     fprintf(where, "  loop forever\n");
   else if (gfs->loopcount > 0)
     fprintf(where, "  loop count %u\n", (unsigned)gfs->loopcount);
 
-  for (n = 0, gfex = gfs->extensions; gfex; gfex = gfex->next, n++)
-    if (flags & INFO_EXTENSIONS)
-      extension_info(where, gfs, gfex, n);
+  n = 0;
+  for (i = 0; i < gfs->nimages; ++i)
+      for (gfex = gfs->images[i]->extension_list; gfex; gfex = gfex->next, ++n)
+          if (flags & INFO_EXTENSIONS)
+              extension_info(where, gfs, gfex, n, i);
+  for (gfex = gfs->end_extension_list; gfex; gfex = gfex->next, ++n)
+      if (flags & INFO_EXTENSIONS)
+          extension_info(where, gfs, gfex, n, gfs->nimages);
   if (n && !(flags & INFO_EXTENSIONS))
     fprintf(where, "  extensions %d\n", n);
 }
@@ -573,7 +582,7 @@ parse_frame_spec(Clp_Parser *clp, const char *arg, int complain, void *thunk)
 
   /* Then, if the next character is a dash, read y. Be careful to prevent
      #- from being interpreted as a frame range. */
-  if (c[0] == '-' && (frame_spec_2 > 0 || c[1] != 0)) {
+  if (c[0] == '-' && (frame_spec_2 >= 0 || c[1] != 0)) {
     c++;
     if (isdigit(c[0]))
       frame_spec_2 = strtol(c, &c, 10);
@@ -1039,24 +1048,6 @@ add_frame(Gt_Frameset *fset, Gif_Stream *gfs, Gif_Image *gfi)
 }
 
 
-static Gif_Extension *
-copy_extension(Gif_Extension *src)
-{
-    Gif_Extension *dest = Gif_NewExtension(src->kind, src->appname, src->applength);
-    if (!dest) return 0;
-    dest->data = Gif_NewArray(uint8_t, src->length);
-    dest->length = src->length;
-    dest->free_data = Gif_Free;
-    if (!dest->data) {
-        Gif_DeleteExtension(dest);
-        return 0;
-    }
-    memcpy(dest->data, src->data, src->length);
-    dest->packetized = src->packetized;
-    return dest;
-}
-
-
 static Gt_Frame **merger = 0;
 static int nmerger = 0;
 static int mergercap = 0;
@@ -1118,14 +1109,14 @@ find_color_or_error(Gif_Color *color, Gif_Stream *gfs, Gif_Image *gfi,
       return color->pixel;
     else {
       if (color_context)
-          lerror(gfs->landmark, "%s color out of range", color_context);
+          lwarning(gfs->landmark, "%s color out of range", color_context);
       return -1;
     }
   }
 
   index = Gif_FindColor(gfcm, color);
   if (index < 0 && color_context)
-    lerror(gfs->landmark, "%s color not in colormap", color_context);
+    lwarning(gfs->landmark, "%s color not in colormap", color_context);
   return index;
 }
 
@@ -1515,14 +1506,14 @@ merge_frame_interval(Gt_Frameset *fset, int f1, int f2,
 
   /* merge stream-specific info and clear colormaps */
   for (i = 0; i < nmerger; i++)
-    merger[i]->stream->userflags = 1;
+    merger[i]->stream->user_flags = 1;
   for (i = 0; i < nmerger; i++) {
-    if (merger[i]->stream->userflags) {
+    if (merger[i]->stream->user_flags) {
       Gif_Stream *src = merger[i]->stream;
       Gif_CalculateScreenSize(src, 0);
       /* merge_stream() unmarks the global colormap */
       merge_stream(dest, src, merger[i]->no_comments);
-      src->userflags = 0;
+      src->user_flags = 0;
     }
     if (merger[i]->image->local)
       unmark_colors_2(merger[i]->image->local);
@@ -1569,28 +1560,6 @@ merge_frame_interval(Gt_Frameset *fset, int f1, int f2,
     Gif_Image *srci;
     Gif_Image *desti;
     int old_transp;
-
-    /* First, check for extensions */
-    {
-      int j;
-      Gif_Extension *gfex = fr->stream->extensions;
-      for (j = 0; fr->stream->images[j] != fr->image; j++) ;
-      while (gfex && gfex->position < j)
-        gfex = gfex->next;
-      while (gfex && gfex->position == j) {
-        if (!fr->no_extensions
-            && !(gfex->kind == 255 && fr->no_app_extensions))
-          Gif_AddExtension(dest, copy_extension(gfex), i);
-        gfex = gfex->next;
-      }
-      gfex = fr->extensions;
-      while (gfex) {
-        Gif_Extension *next = gfex->next;
-        Gif_AddExtension(dest, gfex, i);
-        gfex = next;
-      }
-      fr->extensions = 0;
-    }
 
     /* Make a copy of the image and crop it if we're cropping */
     fr->left_offset = fr->top_offset = 0;

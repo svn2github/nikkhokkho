@@ -1,6 +1,6 @@
 /* -*- c-basic-offset: 2 -*- */
 /* gifsicle.c - gifsicle's main loop.
-   Copyright (C) 1997-2014 Eddie Kohler, ekohler@gmail.com
+   Copyright (C) 1997-2017 Eddie Kohler, ekohler@gmail.com
    This file is part of gifsicle.
 
    Gifsicle is free software. It is distributed under the GNU Public License,
@@ -17,14 +17,14 @@
 #include <ctype.h>
 #include <assert.h>
 #include <errno.h>
-#include <io.h>
 #include <fcntl.h>
 #if HAVE_UNISTD_H
 # include <unistd.h>
 #endif
 
+#ifndef static_assert
 #define static_assert(x, msg) switch ((int) (x)) case 0: case !!((int) (x)):
-
+#endif
 
 Gt_Frame def_frame;
 
@@ -35,6 +35,9 @@ Gt_Frameset *nested_frames = 0;
 Gif_Stream *input = 0;
 const char *input_name = 0;
 static int unoptimizing = 0;
+
+const int GIFSICLE_DEFAULT_THREAD_COUNT = 8;
+int thread_count = 0;
 
 static int gif_read_flags = 0;
 static int nextfile = 0;
@@ -59,10 +62,11 @@ static int no_ignore_errors = 0;
 #define CHANGED(next, flag)     (((next) & (1<<(flag))) != 0)
 #define UNCHECKED_MARK_CH(where, what)                  \
   next_##where |= 1<<what;
-#define MARK_CH(where, what)                            \
-  if (CHANGED(next_##where, what))                      \
-    redundant_option_warning(where##_option_types[what]); \
-  UNCHECKED_MARK_CH(where, what)
+#define MARK_CH(where, what)    do {                        \
+    if (CHANGED(next_##where, what))                        \
+      redundant_option_warning(where##_option_types[what]); \
+    UNCHECKED_MARK_CH(where, what);                         \
+  } while (0)
 
 /* frame option types */
 static int next_frame = 0;
@@ -193,6 +197,11 @@ static const char *output_option_types[] = {
 #define NO_APP_EXTENSIONS_OPT   372
 #define SAME_APP_EXTENSIONS_OPT 373
 #define IGNORE_ERRORS_OPT       374
+#define THREADS_OPT             375
+#define RESIZE_GEOMETRY_OPT     376
+#define RESIZE_TOUCH_OPT        377
+#define RESIZE_TOUCH_WIDTH_OPT  378
+#define RESIZE_TOUCH_HEIGHT_OPT 379
 
 #define LOOP_TYPE               (Clp_ValFirstUser)
 #define DISPOSAL_TYPE           (Clp_ValFirstUser + 1)
@@ -286,6 +295,14 @@ const Clp_Option options[] = {
   { "resize-fit-height", 0, RESIZE_FIT_HEIGHT_OPT, Clp_ValUnsigned, Clp_Negate },
   { "resize-fi", 0, RESIZE_FIT_OPT, DIMENSIONS_TYPE, Clp_Negate },
   { "resize-f", 0, RESIZE_FIT_OPT, DIMENSIONS_TYPE, Clp_Negate },
+  { "resize-touch", 0, RESIZE_TOUCH_OPT, DIMENSIONS_TYPE, Clp_Negate },
+  { "resize-touch-width", 0, RESIZE_TOUCH_WIDTH_OPT, Clp_ValUnsigned, Clp_Negate },
+  { "resize-touch-height", 0, RESIZE_TOUCH_HEIGHT_OPT, Clp_ValUnsigned, Clp_Negate },
+  { "resize-touc", 0, RESIZE_TOUCH_OPT, DIMENSIONS_TYPE, Clp_Negate },
+  { "resize-tou", 0, RESIZE_TOUCH_OPT, DIMENSIONS_TYPE, Clp_Negate },
+  { "resize-to", 0, RESIZE_TOUCH_OPT, DIMENSIONS_TYPE, Clp_Negate },
+  { "resize-t", 0, RESIZE_TOUCH_OPT, DIMENSIONS_TYPE, Clp_Negate },
+  { "resize-geometry", 0, RESIZE_GEOMETRY_OPT, Clp_ValString, Clp_Negate },
   { "resize-method", 0, RESIZE_METHOD_OPT, RESIZE_METHOD_TYPE, 0 },
   { "resize-colors", 0, RESIZE_COLORS_OPT, Clp_ValInt, Clp_Negate },
   { "rotate-90", 0, ROTATE_90_OPT, 0, 0 },
@@ -331,6 +348,7 @@ const Clp_Option options[] = {
   { "warnings", 0, WARNINGS_OPT, 0, Clp_Negate },
 
   { "xinfo", 0, EXTENSION_INFO_OPT, 0, Clp_Negate },
+  { "threads", 'j', THREADS_OPT, Clp_ValUnsigned, Clp_Optional | Clp_Negate },
 
 };
 
@@ -340,6 +358,46 @@ Clp_Parser* clp;
 static void combine_output_options(void);
 static void initialize_def_frame(void);
 static void redundant_option_warning(const char *);
+
+#if 0
+void resize_check(void)
+{
+    int nw, nh;
+    nw = nh = 256;
+    resize_dimensions(&nw, &nh, 640, 480, 0);
+    assert(nw == 640 && nh == 480);
+
+    nw = nh = 256;
+    resize_dimensions(&nw, &nh, 640, 480, GT_RESIZE_FIT);
+    assert(nw == 480 && nh == 480);
+
+    nw = nh = 512;
+    resize_dimensions(&nw, &nh, 640, 480, GT_RESIZE_FIT);
+    assert(nw == 480 && nh == 480);
+
+    nw = nh = 256;
+    resize_dimensions(&nw, &nh, 640, 480, GT_RESIZE_FIT | GT_RESIZE_FIT_DOWN);
+    assert(nw == 256 && nh == 256);
+
+    nw = nh = 512;
+    resize_dimensions(&nw, &nh, 640, 480, GT_RESIZE_FIT | GT_RESIZE_FIT_DOWN);
+    assert(nw == 480 && nh == 480);
+
+    nw = nh = 256;
+    resize_dimensions(&nw, &nh, 640, 480, GT_RESIZE_FIT | GT_RESIZE_FIT_UP);
+    assert(nw == 480 && nh == 480);
+
+    nw = nh = 512;
+    resize_dimensions(&nw, &nh, 640, 480, GT_RESIZE_FIT | GT_RESIZE_FIT_UP);
+    assert(nw == 512 && nh == 512);
+
+    nw = nh = 256;
+    resize_dimensions(&nw, &nh, 640, 480, GT_RESIZE_FIT | GT_RESIZE_FIT_UP | GT_RESIZE_MIN_DIMEN);
+    assert(nw == 640 && nh == 640);
+
+    fprintf(stderr, "got\n");
+}
+#endif
 
 
 static void
@@ -464,8 +522,6 @@ show_frame(int imagenumber, int usename)
  * input a stream
  **/
 
-static int gifread_error_count;
-
 static void
 gifread_error(Gif_Stream* gfs, Gif_Image* gfi,
               int is_error, const char* message)
@@ -514,8 +570,10 @@ gifread_error(Gif_Stream* gfs, Gif_Image* gfi,
     if (last_message[0] == 0)
       different_error_count++;
     same_error_count++;
-    strcpy(last_message, message);
-    strcpy(last_landmark, landmark);
+    strncpy(last_message, message, sizeof(last_message));
+    last_message[sizeof(last_message) - 1] = 0;
+    strncpy(last_landmark, landmark, sizeof(last_landmark));
+    last_landmark[sizeof(last_landmark) - 1] = 0;
     last_is_error = is_error;
     if (different_error_count == 11) {
       if (!(gfi && gfi->user_flags))
@@ -556,7 +614,7 @@ open_giffile(const char *name)
   if (name == 0 || strcmp(name, "-") == 0) {
 #ifndef OUTPUT_GIF_TO_TERMINAL
     if (isatty(fileno(stdin))) {
-      lerror("<stdin>", "is a terminal");
+      lerror("<stdin>", "Is a terminal");
       return NULL;
     }
 #endif
@@ -619,7 +677,7 @@ close_giffile(FILE *f, int final)
 void
 input_stream(const char *name)
 {
-  static char *component_namebuf = 0;
+  char* component_namebuf;
   FILE *f;
   Gif_Stream *gfs;
   int i;
@@ -652,11 +710,11 @@ input_stream(const char *name)
   /* change filename for component files */
   componentno++;
   if (componentno > 1) {
-    free(component_namebuf);
     component_namebuf = (char*) malloc(strlen(main_name) + 10);
     sprintf(component_namebuf, "%s~%d", main_name, componentno);
     name = component_namebuf;
-  }
+  } else
+    component_namebuf = 0;
 
   /* check for empty file */
   i = getc(f);
@@ -665,8 +723,7 @@ input_stream(const char *name)
       lerror(name, "empty file");
     else if (nextfile)
       lerror(name, "no more images in file");
-    close_giffile(f, 1);
-    return;
+    goto error;
   }
   ungetc(i, f);
 
@@ -674,20 +731,24 @@ input_stream(const char *name)
     verbose_open('<', name);
 
   /* read file */
-  gifread_error_count = 0;
-  gfs = Gif_FullReadFile(f, gif_read_flags | GIF_READ_COMPRESSED,
-                         name, gifread_error);
+  {
+    int old_error_count = error_count;
+    gfs = Gif_FullReadFile(f, gif_read_flags | GIF_READ_COMPRESSED,
+                           name, gifread_error);
+    if ((!gfs || (Gif_ImageCount(gfs) == 0 && gfs->errors > 0))
+        && componentno != 1)
+      lerror(name, "trailing garbage ignored");
+    if (!no_ignore_errors)
+      error_count = old_error_count;
+  }
 
   if (!gfs || (Gif_ImageCount(gfs) == 0 && gfs->errors > 0)) {
     if (componentno == 1)
       lerror(name, "file not in GIF format");
-    else
-      lerror(name, "trailing garbage ignored");
     Gif_DeleteStream(gfs);
     if (verbosing)
       verbose_close('>');
-    close_giffile(f, 1);
-    return;
+    goto error;
   }
 
   /* special processing for components after the first */
@@ -769,9 +830,15 @@ input_stream(const char *name)
   gfs->refcount++;
 
   /* Read more files. */
+  free(component_namebuf);
   if ((gif_read_flags & GIF_READ_TRAILING_GARBAGE_OK) && !nextfile)
     goto retry_file;
   close_giffile(f, 0);
+  return;
+
+ error:
+  free(component_namebuf);
+  close_giffile(f, 1);
 }
 
 void
@@ -898,7 +965,7 @@ write_stream(const char *output_name, Gif_Stream *gfs)
   else {
 #ifndef OUTPUT_GIF_TO_TERMINAL
     if (isatty(fileno(stdout))) {
-      lerror("<stdout>", "is a terminal");
+      lerror("<stdout>", "Is a terminal: try `-o OUTPUTFILE`");
       return;
     }
 #endif
@@ -957,8 +1024,7 @@ merge_and_write_frames(const char *outfile, int f1, int f2)
       h = active_output_data.resize_height;
     }
     if (active_output_data.scaling != GT_SCALING_NONE)
-      resize_stream(out, w, h,
-                    active_output_data.scaling == GT_SCALING_RESIZE_FIT,
+      resize_stream(out, w, h, active_output_data.resize_flags,
                     active_output_data.scale_method,
                     active_output_data.scale_colors);
     if (colormap_change)
@@ -997,13 +1063,13 @@ output_information(const char *outfile)
   }
 
   for (i = 0; i < frames->count; i++)
-    FRAME(frames, i).stream->userflags = 97;
+    FRAME(frames, i).stream->user_flags = 97;
 
   for (i = 0; i < frames->count; i++)
-    if (FRAME(frames, i).stream->userflags == 97) {
+    if (FRAME(frames, i).stream->user_flags == 97) {
       fr = &FRAME(frames, i);
       gfs = fr->stream;
-      gfs->userflags = 0;
+      gfs->user_flags = 0;
       stream_info(f, gfs, fr->input_filename, fr->info_flags);
       for (j = i; j < frames->count; j++)
         if (FRAME(frames, j).stream == gfs) {
@@ -1252,6 +1318,7 @@ combine_output_options(void)
     active_output_data.scaling = def_output_data.scaling;
     active_output_data.resize_width = def_output_data.resize_width;
     active_output_data.resize_height = def_output_data.resize_height;
+    active_output_data.resize_flags = def_output_data.resize_flags;
     active_output_data.scale_x = def_output_data.scale_x;
     active_output_data.scale_y = def_output_data.scale_y;
   }
@@ -1318,6 +1385,61 @@ copy_crop(Gt_Crop *oc)
   return nc;
 }
 
+static void
+parse_resize_geometry_opt(Gt_OutputData* odata, const char* str, Clp_Parser* clp)
+{
+    double x, y;
+    int flags = GT_RESIZE_FIT, scale = 0;
+
+    if (*str == '_' || *str == 'x') {
+        x = 0;
+        str += (*str == '_');
+    } else if (isdigit((unsigned char) *str))
+        x = strtol(str, (char**) &str, 10);
+    else
+        goto error;
+
+    if (*str == 'x') {
+        ++str;
+        if (*str == '_' || !isdigit((unsigned char) *str)) {
+            y = 0;
+            str += (*str == '_');
+        } else
+            y = strtol(str, (char**) &str, 10);
+    } else
+        y = x;
+
+    for (; *str != 0; ++str)
+        if (*str == '%')
+            scale = 1;
+        else if (*str == '!')
+            flags = 0;
+        else if (*str == '^')
+            flags |= GT_RESIZE_FIT | GT_RESIZE_MIN_DIMEN;
+        else if (*str == '<')
+            flags |= GT_RESIZE_FIT | GT_RESIZE_FIT_UP;
+        else if (*str == '>')
+            flags |= GT_RESIZE_FIT | GT_RESIZE_FIT_DOWN;
+        else
+            goto error;
+
+    if (scale) {
+        odata->scaling = GT_SCALING_SCALE;
+        odata->scale_x = x / 100.0;
+        odata->scale_y = y / 100.0;
+    } else {
+        odata->scaling = GT_SCALING_RESIZE;
+        odata->resize_width = x;
+        odata->resize_height = y;
+    }
+    odata->resize_flags = flags;
+    return;
+
+error:
+    Clp_OptionError(clp, "argument to %O must be a valid geometry specification");
+}
+
+
 
 /*****
  * main
@@ -1331,6 +1453,7 @@ main(int argc, char *argv[])
      32-bit Windows and Makefile.w64 for 64-bit Windows. */
   static_assert(sizeof(unsigned int) == SIZEOF_UNSIGNED_INT, "unsigned int has the wrong size.");
   static_assert(sizeof(unsigned long) == SIZEOF_UNSIGNED_LONG, "unsigned long has the wrong size.");
+  //static_assert(sizeof(void*) == SIZEOF_VOID_P, "void* has the wrong size.");
 
   clp = Clp_NewParser(argc, (const char * const *)argv, sizeof(options) / sizeof(options[0]), options);
 
@@ -1389,6 +1512,10 @@ main(int argc, char *argv[])
   initialize_def_frame();
   Gif_InitCompressInfo(&gif_write_info);
   Gif_SetErrorHandler(gifread_error);
+
+#if ENABLE_THREADS
+  pthread_mutex_init(&kd3_sort_lock, 0);
+#endif
 
   /* Yep, I'm an idiot.
      GIF dimensions are unsigned 16-bit integers. I assume that these
@@ -1742,6 +1869,15 @@ main(int argc, char *argv[])
       unoptimizing = clp->negated ? 0 : 1;
       break;
 
+     case THREADS_OPT:
+      if (clp->negated)
+          thread_count = 0;
+      else if (clp->have_val)
+          thread_count = clp->val.i;
+      else
+          thread_count = GIFSICLE_DEFAULT_THREAD_COUNT;
+      break;
+
       /* WHOLE-GIF OPTIONS */
 
      case CAREFUL_OPT: {
@@ -1856,6 +1992,7 @@ main(int argc, char *argv[])
 
     case RESIZE_OPT:
     case RESIZE_FIT_OPT:
+    case RESIZE_TOUCH_OPT:
       MARK_CH(output, CH_RESIZE);
       if (clp->negated)
         def_output_data.scaling = GT_SCALING_NONE;
@@ -1863,9 +2000,14 @@ main(int argc, char *argv[])
         error(0, "one of W and H must be positive in %<%s WxH%>", Clp_CurOptionName(clp));
         def_output_data.scaling = GT_SCALING_NONE;
       } else {
-        def_output_data.scaling = (opt == RESIZE_FIT_OPT ? GT_SCALING_RESIZE_FIT : GT_SCALING_RESIZE);
+        def_output_data.scaling = GT_SCALING_RESIZE;
         def_output_data.resize_width = dimensions_x;
         def_output_data.resize_height = dimensions_y;
+        def_output_data.resize_flags = 0;
+        if (opt != RESIZE_OPT)
+            def_output_data.resize_flags |= GT_RESIZE_FIT;
+        if (opt == RESIZE_FIT_OPT)
+            def_output_data.resize_flags |= GT_RESIZE_FIT_DOWN;
       }
       break;
 
@@ -1873,6 +2015,8 @@ main(int argc, char *argv[])
     case RESIZE_HEIGHT_OPT:
     case RESIZE_FIT_WIDTH_OPT:
     case RESIZE_FIT_HEIGHT_OPT:
+    case RESIZE_TOUCH_WIDTH_OPT:
+    case RESIZE_TOUCH_HEIGHT_OPT:
       MARK_CH(output, CH_RESIZE);
       if (clp->negated)
         def_output_data.scaling = GT_SCALING_NONE;
@@ -1882,12 +2026,14 @@ main(int argc, char *argv[])
       } else {
         unsigned dimen[2] = {0, 0};
         dimen[(opt == RESIZE_HEIGHT_OPT || opt == RESIZE_FIT_HEIGHT_OPT)] = clp->val.u;
-        if (opt == RESIZE_FIT_WIDTH_OPT || opt == RESIZE_FIT_HEIGHT_OPT)
-          def_output_data.scaling = GT_SCALING_RESIZE_FIT;
-        else
-          def_output_data.scaling = GT_SCALING_RESIZE;
+        def_output_data.scaling = GT_SCALING_RESIZE;
         def_output_data.resize_width = dimen[0];
         def_output_data.resize_height = dimen[1];
+        def_output_data.resize_flags = 0;
+        if (opt != RESIZE_WIDTH_OPT && opt != RESIZE_HEIGHT_OPT)
+            def_output_data.resize_flags |= GT_RESIZE_FIT;
+        if (opt == RESIZE_FIT_WIDTH_OPT || opt == RESIZE_FIT_HEIGHT_OPT)
+            def_output_data.resize_flags |= GT_RESIZE_FIT_DOWN;
       }
       break;
 
@@ -1902,7 +2048,16 @@ main(int argc, char *argv[])
         def_output_data.scaling = GT_SCALING_SCALE;
         def_output_data.scale_x = parsed_scale_factor_x;
         def_output_data.scale_y = parsed_scale_factor_y;
+        def_output_data.resize_flags = 0;
       }
+      break;
+
+    case RESIZE_GEOMETRY_OPT:
+      MARK_CH(output, CH_RESIZE);
+      if (clp->negated)
+        def_output_data.scaling = GT_SCALING_NONE;
+      else
+        parse_resize_geometry_opt(&def_output_data, clp->val.s, clp);
       break;
 
     case RESIZE_METHOD_OPT:
@@ -1962,7 +2117,7 @@ main(int argc, char *argv[])
 #else
       printf("LCDF Gifsicle %s\n", VERSION);
 #endif
-      printf("Copyright (C) 1997-2014 Eddie Kohler\n\
+      printf("Copyright (C) 1997-2017 Eddie Kohler\n\
 This is free software; see the source for copying conditions.\n\
 There is NO warranty, not even for merchantability or fitness for a\n\
 particular purpose.\n");
@@ -2015,7 +2170,7 @@ particular purpose.\n");
 
   frame_change_done();
   input_done();
-  if (mode == MERGING || mode == INFOING)
+  if ((mode == MERGING && !error_count) || mode == INFOING)
     output_frames();
 
   verbose_endline();

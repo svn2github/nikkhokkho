@@ -11,7 +11,9 @@
 /* #undef GIF_UNGIF */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-/* #undef HAVE_INTTYPES_H */
+#if defined(_MSC_VER) && _MSC_VER >= 1900
+# define HAVE_INTTYPES_H 1
+#endif
 
 /* Define to 1 if you have the <memory.h> header file. */
 /* #undef HAVE_MEMORY_H */
@@ -23,7 +25,9 @@
 #define HAVE_POW 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
-/* #undef HAVE_STDINT_H */
+#if defined(_MSC_VER) && _MSC_VER >= 1900
+# define HAVE_STDINT_H 1
+#endif
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
@@ -50,7 +54,9 @@
 /* #undef HAVE_SYS_TYPES_H */
 
 /* Define to 1 if the system has the type `uintptr_t'. */
-/* #undef HAVE_UINTPTR_T */
+#if defined(_MSC_VER) && _MSC_VER >= 1900
+# define HAVE_UINTPTR_T 1
+#endif
 
 /* Define to 1 if you have the <unistd.h> header file. */
 /* #undef HAVE_UNISTD_H */
@@ -71,7 +77,7 @@
 #define PACKAGE_NAME "gifsicle"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "gifsicle 1.88"
+#define PACKAGE_STRING "gifsicle 1.89"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "gifsicle"
@@ -80,7 +86,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.88"
+#define PACKAGE_VERSION "1.89"
 
 /* Pathname separator character ('/' on Unix). */
 #define PATHNAME_SEPARATOR '\\'
@@ -92,11 +98,7 @@
 #define SIZEOF_UNSIGNED_INT 4
 
 /* The size of `unsigned long', as computed by sizeof. */
-#ifdef _WIN64
-#define SIZEOF_UNSIGNED_LONG 8
-#else
 #define SIZEOF_UNSIGNED_LONG 4
-#endif
 
 /* The size of `void *', as computed by sizeof. */
 #ifdef _WIN64
@@ -109,7 +111,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.88 (Windows)"
+#define VERSION "1.89 (Windows)"
 
 /* Define if X is not available. */
 #define X_DISPLAY_MISSING 1
@@ -157,7 +159,9 @@ char *strerror(int errno);
 # include <fcntl.h>
 # include <io.h>
 # define isatty _isatty
-# define snprintf _snprintf
+# if defined(_MSC_VER) && _MSC_VER < 1900
+#  define snprintf _snprintf
+# endif
 #endif
 
 #endif /* GIFSICLE_CONFIG_H */
