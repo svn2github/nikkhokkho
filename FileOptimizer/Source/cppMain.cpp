@@ -1946,7 +1946,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		if (gudtOptions.bEnableCache)
 		{
 			String sHashValue = Hash(sInputFile.t_str());
-			unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length());
+			unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), (unsigned int) sHashValue.Length());
 			clsUtil::SetIni(_T("Cache"), ((String) iHashKey).t_str(), sHashValue.t_str());						
 		}
 	}
@@ -2099,7 +2099,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					if (gudtOptions.bEnableCache)
 					{
 						String sHashValue = Hash(pacFile);
-						unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), sHashValue.Length());
+						unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), (unsigned int) sHashValue.Length());
 						//In cache, show it as already optimized
 						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).t_str(), _T("")), _T("")) != 0)
 						{

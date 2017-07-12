@@ -885,7 +885,7 @@ unsigned int __fastcall clsUtil::Crc32 (const void *pacBuffer, unsigned int piLe
 	iCrc = piOldCrc;
 	for (iCont = 0; iCont < piLen; iCont++)
 	{
-		unsigned char cByte = iCrc ^ ((char *) pacBuffer)[iCont];
+		unsigned char cByte = (unsigned char) iCrc ^ ((unsigned char *) pacBuffer)[iCont];
 		iCrc = (iCrc >> 8) ^ aiTable[cByte];
 	}
 	return(iCrc ^ 0xFFFFFFFF);

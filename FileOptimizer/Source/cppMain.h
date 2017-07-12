@@ -135,6 +135,7 @@ struct udtOptions
 extern struct udtOptions gudtOptions;
 extern bool gbProcess;
 extern bool gbStop;
+extern unsigned int miStartTicks;
 
 // ---------------------------------------------------------------------------
 class TfrmMain : public TForm
