@@ -852,7 +852,7 @@ unsigned int __fastcall clsUtil::Crc32 (const void *pacBuffer, unsigned int piLe
 {
 	unsigned int iCont;
 	unsigned int iCrc;
-	unsigned int aiTable[] =
+	const unsigned int aiTable[] =
 	{
 		0x000000000, 0x077073096, 0x0EE0E612C, 0x0990951BA, 0x0076DC419, 0x0706AF48F, 0x0E963A535, 0x09E6495A3, 0x00EDB8832, 0x079DCB8A4,
 		0x0E0D5E91E, 0x097D2D988, 0x009B64C2B, 0x07EB17CBD, 0x0E7B82D07, 0x090BF1D91, 0x01DB71064, 0x06AB020F2, 0x0F3B97148, 0x084BE41DE,
