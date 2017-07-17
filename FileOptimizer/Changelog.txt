@@ -147,7 +147,7 @@ ndo
 - Ghostscript 9.21 - http://www.ghostscript.com
 - GNU Strip 2.27 - http://www.gnu.org/software/binutils/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.6.0 - http://www.imagemagick.org
+- ImageMagick 7.0.6.1 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -193,7 +193,7 @@ X.XX - YYYY (5th aniversary release)
 - Updated Leanify to 0.4.3.192 daily binaries.
 - Updated SQLite to 3.19.3 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pingo to 0.86.
-- Updated ImageMagick to 7.0.6.0 with HDRI support.
+- Updated ImageMagick to 7.0.6.1 with HDRI support.
 - Some minor optimizations and code cleanup.
 
 
