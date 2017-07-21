@@ -164,7 +164,7 @@ ndo
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.86/0.87 - http://css-ig.net/pingo
+- pingo 0.88 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.10.0 - http://www.pngquant.org
@@ -192,8 +192,7 @@ X.XX - YYYY (5th aniversary release)
 - Updated to ECT 0.8.2 x86 and x64 optimized builds (thanks Malloc Voidstar).
 - Updated Leanify to 0.4.3.192 daily binaries.
 - Updated SQLite to 3.19.3 x86 and x64 Visual C++ 2017 custom builds.
-- Added pingo to 0.86 native x64 version.
-- Updated pingo to 0.87 x86 version.
+- Updated pingo to 0.88 x86 and x64 versions.
 - Updated ImageMagick to 7.0.6.1 with HDRI support.
 - Some minor optimizations and code cleanup.
 
