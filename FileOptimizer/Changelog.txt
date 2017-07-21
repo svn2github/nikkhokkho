@@ -178,8 +178,10 @@ ndo
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
+X.XX - YYYY
 
-X.XX - YYYY (5th aniversary release)
+
+10.00 - 2017/07/21 (5th aniversary release)
 - Added EnableCache=false INI setting to enable cache of already optimized files, so they are not reoptimized each time.
 - Added AllowMultipleInstances=false INI setting, to prevent the warning of multiple FileOptimizer instances running (Jack).
 - Compiled with latest C++ Builder 10.2 Tokyo April 2017 Hotfix.
@@ -195,8 +197,8 @@ X.XX - YYYY (5th aniversary release)
 - Updated SQLite to 3.19.3 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pingo to 0.88 x86 and x64 versions.
 - Updated ImageMagick to 7.0.6.1 with HDRI support.
+- Upgraded distributions to 7-Zip 17.00.
 - Some minor optimizations and code cleanup.
-
 
 9.90 - 2017/06/11
 - Addes SQLite database optimization support (necros).
