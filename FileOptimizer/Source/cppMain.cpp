@@ -498,7 +498,7 @@ void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
 {
 	int iSelectedRow1 = grdFiles->Selection.Top;
 	int iSelectedRow2 = grdFiles->Selection.Bottom;
-
+	
 	int iRows = grdFiles->RowCount - 1;
 	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
 	{
@@ -3021,8 +3021,8 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 			}
 			else
 			{
-				grdFiles->ColCount = 5;
 				grdFiles->Rows[0]->BeginUpdate();
+				grdFiles->ColCount = 5;
 				grdFiles->Cells[KI_GRID_FILE][0] = "File";
 				grdFiles->Cells[KI_GRID_EXTENSION][0] = "Extension";
 				grdFiles->Cells[KI_GRID_ORIGINAL][0] = "Original size";
