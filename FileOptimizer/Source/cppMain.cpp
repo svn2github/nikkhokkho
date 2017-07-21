@@ -2256,8 +2256,8 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	TCHAR *acWide = new TCHAR[KI_BUFFER_SIZE];
 	char *acPath = new char[KI_BUFFER_SIZE];
 	char *acBuffer = new char[KI_BUFFER_SIZE];
+	TCHAR acTemp[32];
 	unsigned int iSize;
-
 
 
 	wcstombs(acPath, KS_APP_UPDATE_URL, sizeof(KS_APP_UPDATE_URL));
@@ -2285,14 +2285,23 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 				{
 					clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
 				}
+				delete[] acPath;
+				delete[] acWide;
+				delete[] acBuffer;
 				return;
 			}
 		}
 
 		GetModuleFileName(NULL, (TCHAR *) acPath, KI_BUFFER_SIZE);
-		if (_tcscmp(acWide, clsUtil::ExeVersion((TCHAR *) acPath)) > 0)
+		_tcscpy(acTemp, clsUtil::ExeVersion((TCHAR *) acPath));
+		_stprintf((TCHAR *) acBuffer, _T("%16s"), (TCHAR *) acTemp);
+
+		_tcscpy((TCHAR *) acTemp, acWide);
+		_stprintf(acWide, _T("%16s"), (TCHAR *) acTemp);
+	
+		if (_tcscmp(acWide, (TCHAR *) acBuffer) > 0)
 		{
-			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + (String) acWide + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
+			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + Trim(acWide) + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
 				ShellExecute(NULL, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 			}
