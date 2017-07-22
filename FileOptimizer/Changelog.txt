@@ -179,6 +179,7 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 X.XX - YYYY
+- Increased NSIS installer dictionary size to the maximum supported 119MB. FileOptimizerSetup.exe reduced from 101MB to 93MB (maadjordan).
 
 
 10.00 - 2017/07/21 (5th aniversary release)

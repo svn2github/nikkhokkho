@@ -1,6 +1,6 @@
 ; -------------------------------------------------------------------------------------------------
 SetCompressor /SOLID /FINAL lzma 
-SetCompressorDictSize 96
+SetCompressorDictSize 119
 Unicode true
 
 
