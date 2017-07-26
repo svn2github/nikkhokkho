@@ -147,7 +147,7 @@ ndo
 - Ghostscript 9.21 - http://www.ghostscript.com
 - GNU Strip 2.27 - http://www.gnu.org/software/binutils/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.6.2 - http://www.imagemagick.org
+- ImageMagick 7.0.6.3 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -182,7 +182,7 @@ X.XX - YYYY
 - Increased NSIS installer dictionary size to 216MB thanks to 4gb_patch by NTCore and upgraded to latest NSIS nightly builds. Size reduced from 96MB to 70MB (maadjordan).
 - Repacked portable version is now a 7-Zip EXE SFX instead of a ZIP file. Size reduced from 136MB to 66MB.
 - Updated to ECT 0.8.2 (fbb2550) x86 and x64 daily optimized builds (thanks Malloc Voidstar).
-- Updated ImageMagick to 7.0.6.2 with HDRI support.
+- Updated ImageMagick to 7.0.6.3 with HDRI support.
 
 
 
