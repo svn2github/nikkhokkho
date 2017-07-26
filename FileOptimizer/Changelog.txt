@@ -164,7 +164,7 @@ ndo
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PCXLite 1.0 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.88 - http://css-ig.net/pingo
+- pingo 0.89 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.10.0 - http://www.pngquant.org
@@ -181,6 +181,7 @@ ndo
 X.XX - YYYY
 - Increased NSIS installer dictionary size to 216MB thanks to 4gb_patch by NTCore and upgraded to latest NSIS nightly builds. Size reduced from 96MB to 70MB (maadjordan).
 - Repacked portable version is now a 7-Zip EXE SFX instead of a ZIP file. Size reduced from 136MB to 66MB.
+- Updated pingo to 0.89 x86 and x64 versions.
 - Updated to ECT 0.8.2 (fbb2550) x86 and x64 daily optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick to 7.0.6.3 with HDRI support.
 
