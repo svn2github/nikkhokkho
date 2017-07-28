@@ -179,13 +179,14 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 X.XX - YYYY
+
+
+10.10 - 2017/07/20
 - Increased NSIS installer dictionary size to 216MB thanks to 4gb_patch by NTCore and upgraded to latest NSIS nightly builds. Size reduced from 96MB to 70MB (maadjordan).
 - Repacked portable version is now a 7-Zip EXE SFX instead of a ZIP file. Size reduced from 136MB to 66MB.
 - Updated pingo to 0.89 x86 and x64 versions.
 - Updated to ECT 0.8.2 (da09899) x86 and x64 daily optimized builds (thanks Malloc Voidstar).
 - Updated ImageMagick to 7.0.6.3 with HDRI support.
-
-
 
 10.00 - 2017/07/21 (5th aniversary release)
 - Added EnableCache=false INI setting to enable cache of already optimized files, so they are not reoptimized each time.
