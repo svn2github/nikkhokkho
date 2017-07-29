@@ -83,11 +83,15 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
-	//Embarcadero themes have conflicts with Windows 10 Anniversay update, so we get back to default Windows one.
-	_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")));
-
-	//_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), clsUtil::ExeVersion(Application->ExeName.c_str())));
-
+	//Use Windows 10 theme by default on Windows 8 and newer
+	if (clsUtil::GetWindowsVersion() >= 602)
+	{
+		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")));
+	}
+	else
+	{
+		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")));
+	}
 	_tcscpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")));
 
 	miStartTicks = GetTickCount();

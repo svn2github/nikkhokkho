@@ -180,7 +180,7 @@ ndo
 
 X.XX - YYYY
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).
-
+- Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later.
 
 
 10.10 - 2017/07/28

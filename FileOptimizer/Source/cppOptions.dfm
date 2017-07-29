@@ -118,7 +118,7 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagGeneral
+    ActivePage = pagAppearance
     Align = alCustom
     ParentShowHint = False
     ShowHint = True
@@ -321,7 +321,10 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 0
         Items.Strings = (
-          'Windows')
+          'Windows'
+          'Metropolis UI Black'
+          'Luna'
+          'Windows 10')
       end
     end
     object pagCSS: TTabSheet
