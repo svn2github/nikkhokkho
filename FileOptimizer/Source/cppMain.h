@@ -113,6 +113,7 @@ struct udtOptions
 	bool bAlwaysOnTop;
 	bool bAllowDuplicates;
 	bool bAllowMultipleInstances;
+	bool bClearWhenComplete;
 	bool bEnableCache;
 	int iLevel;
 	int iProcessPriority;
