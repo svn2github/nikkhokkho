@@ -1,3 +1,5 @@
+- Autoclear list on complete (Lanette Fidrych).
+
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
 
 - Would it be possible to also skip the warning message that shows if there are multiple instances of the product running? (What I would like to do is run a few instances of the program in parallel from another tool I'm working on without having to manually click those message boxes away.) (Devedse)
@@ -181,7 +183,7 @@ ndo
 X.XX - YYYY
 
 
-10.10 - 2017/07/20
+10.10 - 2017/07/28
 - Increased NSIS installer dictionary size to 216MB thanks to 4gb_patch by NTCore and upgraded to latest NSIS nightly builds. Size reduced from 96MB to 70MB (maadjordan).
 - Repacked portable version is now a 7-Zip EXE SFX instead of a ZIP file. Size reduced from 136MB to 66MB.
 - Updated pingo to 0.89 x86 and x64 versions.
