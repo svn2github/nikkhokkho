@@ -521,7 +521,7 @@ const TCHAR * __fastcall clsUtil::ExeVersion(const TCHAR *pacFile)
 			if (VerQueryValue(pacVersionData, _T("\\"), &a, &iVersionSize))
 			{
 				memcpy(&udtVersionInfo, a, iVersionSize);
-				_stprintf(acRes, _T("%d.%d%d.%d"), HIWORD(udtVersionInfo.dwFileVersionMS), LOWORD(udtVersionInfo.dwFileVersionMS), HIWORD(udtVersionInfo.dwFileVersionLS), LOWORD(udtVersionInfo.dwFileVersionLS));
+				_stprintf(acRes, _T("%d.%02d.%d"), HIWORD(udtVersionInfo.dwFileVersionMS), LOWORD(udtVersionInfo.dwFileVersionMS), LOWORD(udtVersionInfo.dwFileVersionLS));
 			}
 		}
 		delete[] pacVersionData;

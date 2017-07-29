@@ -180,10 +180,10 @@ ndo
 
 X.XX - YYYY
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).
-- Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later.
 - Added GIF options tab.
 - Added Allow Lossy optimizations checkbox in JPEG tab.
-
+- Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later.
+- Fixed version display in About window.
 
 10.10 - 2017/07/28
 - Increased NSIS installer dictionary size to 216MB thanks to 4gb_patch by NTCore and upgraded to latest NSIS nightly builds. Size reduced from 96MB to 70MB (maadjordan).

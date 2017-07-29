@@ -6,7 +6,7 @@
         <AppType>Application</AppType>
         <MainSource>FileOptimizer.cpp</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
     </PropertyGroup>
@@ -58,13 +58,13 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_MinorVer>20</VerInfo_MinorVer>
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>1392</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=10.10.0.1889;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=10.10.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
-        <VerInfo_MajorVer>8</VerInfo_MajorVer>
+        <VerInfo_Build>1894</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=10.20.0.1894;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=10.20.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
+        <VerInfo_MajorVer>10</VerInfo_MajorVer>
         <VCL_Custom_Styles>Luna|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\Luna.vsf;&quot;Metropolis UI Black|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\MetropolisUIBlack.vsf&quot;</VCL_Custom_Styles>
         <TASM_FloatingPoint>Real</TASM_FloatingPoint>
         <RunBCCOutOfProcess>true</RunBCCOutOfProcess>
@@ -87,7 +87,7 @@
         <BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <Custom_Styles>Luna|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Luna.vsf;&quot;Metropolis UI Black|VCLSTYLE|$(BDSCOMMONDIR)\Styles\MetropolisUIBlack.vsf&quot;;Windows10|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10.vsf</Custom_Styles>
-        <SubProcessesNumber>4</SubProcessesNumber>
+        <SubProcessesNumber>8</SubProcessesNumber>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <BCC_PCHCache>true</BCC_PCHCache>
@@ -97,6 +97,9 @@
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
+        <VerInfo_MajorVer>10</VerInfo_MajorVer>
+        <VerInfo_MinorVer>20</VerInfo_MinorVer>
+        <VerInfo_Build>1894</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <ILINK_LibraryPath>C:\PROYECTOS\FileOptimizer\Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
@@ -106,6 +109,9 @@
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
+        <VerInfo_MajorVer>10</VerInfo_MajorVer>
+        <VerInfo_MinorVer>20</VerInfo_MinorVer>
+        <VerInfo_Build>1894</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
@@ -129,11 +135,14 @@
         <CLANG_UnwindTables>true</CLANG_UnwindTables>
         <ILINK_LibraryPath>$(BDSLIB)\$(PLATFORM)\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+        <VerInfo_MajorVer>10</VerInfo_MajorVer>
+        <VerInfo_MinorVer>20</VerInfo_MinorVer>
+        <VerInfo_Build>1894</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_MajorVer>10</VerInfo_MajorVer>
-        <VerInfo_Build>1889</VerInfo_Build>
-        <VerInfo_MinorVer>10</VerInfo_MinorVer>
+        <VerInfo_Build>1894</VerInfo_Build>
+        <VerInfo_MinorVer>20</VerInfo_MinorVer>
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <BCC_MonitorInlinePtrAccess>true</BCC_MonitorInlinePtrAccess>
@@ -145,9 +154,9 @@
         <BT_BuildType>Debug</BT_BuildType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <VerInfo_MajorVer>9</VerInfo_MajorVer>
-        <VerInfo_MinorVer>8</VerInfo_MinorVer>
-        <VerInfo_Build>1769</VerInfo_Build>
+        <VerInfo_MajorVer>10</VerInfo_MajorVer>
+        <VerInfo_MinorVer>20</VerInfo_MinorVer>
+        <VerInfo_Build>1894</VerInfo_Build>
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <BCC_AllWarnings>true</BCC_AllWarnings>
@@ -179,9 +188,6 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
-        <VerInfo_MajorVer>9</VerInfo_MajorVer>
-        <VerInfo_MinorVer>8</VerInfo_MinorVer>
-        <VerInfo_Build>1769</VerInfo_Build>
         <UsingDelphiRTL>true</UsingDelphiRTL>
         <ILINK_LinkwithPThread>false</ILINK_LinkwithPThread>
     </PropertyGroup>
@@ -217,6 +223,10 @@
         <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
         <BT_BuildType>Debug</BT_BuildType>
         <BCC_RequireMathFuncErrorNumber>false</BCC_RequireMathFuncErrorNumber>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=9.8.0.1769;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=10.20.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
+        <VerInfo_MajorVer>9</VerInfo_MajorVer>
+        <VerInfo_MinorVer>8</VerInfo_MinorVer>
+        <VerInfo_Build>1769</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppEnableHighDPI>true</AppEnableHighDPI>
@@ -297,7 +307,7 @@
                     <ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
                     <ProjectProperties Name="ManagePaths">True</ProjectProperties>
                     <ProjectProperties Name="VerifyPackages">True</ProjectProperties>
-                    <ProjectProperties Name="IndexFiles">False</ProjectProperties>
+                    <ProjectProperties Name="IndexFiles">True</ProjectProperties>
                 </ProjectProperties>
                 <Source>
                     <Source Name="MainSource">FileOptimizer.cpp</Source>
@@ -310,7 +320,11 @@
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64160mt.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Debug" Class="ProjectFile"/>
                 <DeployFile LocalName=".\Win32\Release\FileOptimizer.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32160mt.dll" Class="DependencyModule"/>
@@ -371,13 +385,9 @@
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32230mt.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
-                    <Platform Name="Win64">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64160mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32220mt.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
