@@ -118,7 +118,7 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagAppearance
+    ActivePage = pagGIF
     Align = alCustom
     ParentShowHint = False
     ShowHint = True
@@ -127,6 +127,10 @@ object frmOptions: TfrmOptions
       Caption = '&General'
       ParentShowHint = False
       ShowHint = True
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblOptimizationLevel: TLabel
         Left = 7
         Top = 22
@@ -299,6 +303,10 @@ object frmOptions: TfrmOptions
     object pagAppearance: TTabSheet
       Caption = '&Appearance'
       ImageIndex = 13
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblTheme: TLabel
         Left = 7
         Top = 22
@@ -330,6 +338,10 @@ object frmOptions: TfrmOptions
     object pagCSS: TTabSheet
       Caption = '&CSS'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblCSSTemplate: TLabel
         Left = 7
         Top = 46
@@ -376,6 +388,10 @@ object frmOptions: TfrmOptions
     object pagEXE: TTabSheet
       Caption = '&EXE'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkEXEDisablePETrim: TCheckBox
         Left = 7
         Top = 22
@@ -390,9 +406,42 @@ object frmOptions: TfrmOptions
         TabOrder = 0
       end
     end
+    object pagGIF: TTabSheet
+      Caption = '&GIF'
+      ImageIndex = 6
+      object chkGIFCopyMetadata: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Caption = '&Copy metadata'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+      object chkGIFAllowLossy: TCheckBox
+        Left = 7
+        Top = 41
+        Width = 281
+        Height = 17
+        Hint = 
+          'Allowing lossy optimizations will get higher files reduction at ' +
+          'the cost of some quality loss, even if visually unnoticeable or ' +
+          'not'
+        Caption = '&Allow lossy optimizations'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+      end
+    end
     object pagGZ: TTabSheet
       Caption = '&GZ'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkGZCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -408,6 +457,10 @@ object frmOptions: TfrmOptions
     object pagHTML: TTabSheet
       Caption = '&HTML'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkHTMLEnableTidy: TCheckBox
         Left = 7
         Top = 22
@@ -426,6 +479,10 @@ object frmOptions: TfrmOptions
     object pagJPEG: TTabSheet
       Caption = '&JPEG'
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkJPEGCopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -450,10 +507,28 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 1
       end
+      object chkJPEGAllowLossy: TCheckBox
+        Left = 7
+        Top = 59
+        Width = 281
+        Height = 17
+        Hint = 
+          'Allowing lossy optimizations will get higher files reduction at ' +
+          'the cost of some quality loss, even if visually unnoticeable or ' +
+          'not'
+        Caption = '&Allow lossy optimizations'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
     end
     object pagJS: TTabSheet
       Caption = '&JS'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkJSEnableJSMin: TCheckBox
         Left = 7
         Top = 22
@@ -471,6 +546,10 @@ object frmOptions: TfrmOptions
     object pagLUA: TTabSheet
       Caption = '&LUA'
       ImageIndex = 12
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkLUAEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -488,6 +567,10 @@ object frmOptions: TfrmOptions
     object pagMP3: TTabSheet
       Caption = '&MP3'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkMP3CopyMetadata: TCheckBox
         Left = 7
         Top = 22
@@ -503,6 +586,10 @@ object frmOptions: TfrmOptions
     object pagPDF: TTabSheet
       Caption = '&PDF'
       ImageIndex = 7
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblPDFProfile: TLabel
         Left = 7
         Top = 22
@@ -593,6 +680,10 @@ object frmOptions: TfrmOptions
     object pagXML: TTabSheet
       Caption = '&XML'
       ImageIndex = 11
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkXMLEnableLeanify: TCheckBox
         Left = 7
         Top = 22
@@ -610,6 +701,10 @@ object frmOptions: TfrmOptions
     object pagZIP: TTabSheet
       Caption = '&ZIP'
       ImageIndex = 9
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkZIPCopyMetadata: TCheckBox
         Left = 7
         Top = 22

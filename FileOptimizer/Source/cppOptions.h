@@ -18,6 +18,7 @@ __published: // IDE-managed Components
 	TTabSheet *pagGeneral;
 	TTabSheet *pagCSS;
 	TTabSheet *pagEXE;
+	TTabSheet *pagGIF;
 	TTabSheet *pagGZ;
 	TTabSheet *pagHTML;
 	TTabSheet *pagJPEG;
@@ -49,12 +50,14 @@ __published: // IDE-managed Components
 	TCheckBox *chkHTMLEnableTidy;
 	TCheckBox *chkJPEGCopyMetadata;
 	TCheckBox *chkJPEGUseArithmeticEncoding;
+	TCheckBox *chkJPEGAllowLossy;
 	TCheckBox *chkJSEnableJSMin;
 	TCheckBox *chkLUAEnableLeanify;
 	TCheckBox *chkMP3CopyMetadata;
 	TLabel *lblPDFProfile;
 	TComboBox *cboPDFProfile;
 	TCheckBox *chkPNGCopyMetadata;
+	TCheckBox *chkPNGAllowLossy;
 	TCheckBox *chkXMLEnableLeanify;
 	TCheckBox *chkZIPCopyMetadata;
 	TCheckBox *chkZIPRecurse;
@@ -68,9 +71,10 @@ __published: // IDE-managed Components
 	TLabel *lblDescription;
 	TSpinEdit *spnPDFCustomDPI;
 	TLabel *lblPDFCustomDPI;
-	TCheckBox *chkPNGAllowLossy;
 	TTabSheet *pagAppearance;
 	TLabel *lblTheme;
+	TCheckBox *chkGIFCopyMetadata;
+	TCheckBox *chkGIFAllowLossy;	
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);

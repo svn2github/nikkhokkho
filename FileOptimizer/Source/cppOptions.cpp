@@ -28,6 +28,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	pagGeneral->Hint = "General program options affecting all extensions";
 	pagCSS->Hint = "Extensions affected: " + (String) KS_EXTENSION_CSS;
 	pagEXE->Hint = "Extensions affected: " + (String) KS_EXTENSION_EXE KS_EXTENSION_DLL;
+    pagGIF->Hint = "Extensions affected: " + (String) KS_EXTENSION_GIF;
 	pagGZ->Hint = "Extensions affected: " + (String) KS_EXTENSION_GZ;
 	pagHTML->Hint = "Extensions affected: " + (String) KS_EXTENSION_HTML;
 	pagJPEG->Hint = "Extensions affected: " + (String) KS_EXTENSION_JPG KS_EXTENSION_TIF;
@@ -119,13 +120,16 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboCSSTemplate->ItemIndex = 0;
 	}
-	
+
 
 	chkEXEDisablePETrim->Checked = gudtOptions.bEXEDisablePETrim;
+	chkGIFCopyMetadata->Checked = gudtOptions.bGIFCopyMetadata;
+	chkGIFAllowLossy->Checked = gudtOptions.bGIFAllowLossy;
 	chkGZCopyMetadata->Checked = gudtOptions.bGZCopyMetadata;
 	chkHTMLEnableTidy->Checked = gudtOptions.bHTMLEnableTidy;
 	chkJPEGCopyMetadata->Checked = gudtOptions.bJPEGCopyMetadata;
 	chkJPEGUseArithmeticEncoding->Checked = gudtOptions.bJPEGUseArithmeticEncoding;
+	chkJPEGAllowLossy->Checked = gudtOptions.bJPEGAllowLossy;
 	chkJSEnableJSMin->Checked = gudtOptions.bJSEnableJSMin;
 	chkLUAEnableLeanify->Checked = gudtOptions.bLUAEnableLeanify;
 	chkMP3CopyMetadata->Checked = gudtOptions.bMP3CopyMetadata;
@@ -155,7 +159,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboPDFProfile->ItemIndex = 0;
 	}
-	
+
 	spnPDFCustomDPI->Value = gudtOptions.iPDFCustomDPI;
 	cboPDFProfileChange(NULL);
 
@@ -255,10 +259,13 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 
 
 	gudtOptions.bEXEDisablePETrim = chkEXEDisablePETrim->Checked;
+	gudtOptions.bGIFCopyMetadata = chkGIFCopyMetadata->Checked;
+	gudtOptions.bGIFAllowLossy = chkGIFAllowLossy->Checked;
 	gudtOptions.bGZCopyMetadata = chkGZCopyMetadata->Checked;
 	gudtOptions.bHTMLEnableTidy = chkHTMLEnableTidy->Checked;
 	gudtOptions.bJPEGCopyMetadata = chkJPEGCopyMetadata->Checked;
 	gudtOptions.bJPEGUseArithmeticEncoding = chkJPEGUseArithmeticEncoding->Checked;
+	gudtOptions.bJPEGAllowLossy = chkJPEGAllowLossy->Checked;
 	gudtOptions.bJSEnableJSMin = chkJSEnableJSMin->Checked;
 	gudtOptions.bLUAEnableLeanify = chkLUAEnableLeanify->Checked;
 	gudtOptions.bMP3CopyMetadata = chkMP3CopyMetadata->Checked;
@@ -287,7 +294,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		_tcscpy(gudtOptions.acPDFProfile, _T("ebook"));
 	}
-	
+
 	gudtOptions.iPDFCustomDPI = spnPDFCustomDPI->Value;
 
 	gudtOptions.bPNGCopyMetadata = chkPNGCopyMetadata->Checked;
