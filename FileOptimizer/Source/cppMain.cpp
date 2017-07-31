@@ -653,11 +653,6 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 
 	RefreshStatus(false);
 
-	if (gudtOptions.bClearWhenComplete)
-	{
-        actClearExecute(Sender);
-	}
-
 	if (gudtOptions.bBeepWhenDone)
 	{
 		FlashWindow(Handle, false);
@@ -670,6 +665,11 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 		{
 			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
 		}
+	}
+	
+	if (gudtOptions.bClearWhenComplete)
+	{
+        actClearExecute(Sender);
 	}
 }
 
