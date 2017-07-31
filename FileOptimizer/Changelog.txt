@@ -131,7 +131,7 @@ ndo
 
 
 
-- AdvanceCOMP 2.00 - http://advancemame.sourceforge.net
+- AdvanceCOMP 2.00 - https://github.com/amadvance/advancecomp
 - APNG Optimizer 1.4 - http://sourceforge.net/projects/apng/
 - Coherent PDF Command Line Tools (cpdf) 2.2 - http://community.coherentpdf.com
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
@@ -147,7 +147,7 @@ ndo
 - Ghostscript 9.21 - http://www.ghostscript.com
 - GNU Strip 2.27 - http://www.gnu.org/software/binutils/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.6.3 - http://www.imagemagick.org
+- ImageMagick 7.0.6.4 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -184,6 +184,7 @@ X.XX - YYYY
 - Added Allow Lossy optimizations checkbox in JPEG tab.
 - Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later.
 - Fixed version display in About window.
+- Updated ImageMagick to 7.0.6.4 with HDRI support.
 - Updated to cppcheck 1.80.
 
 
