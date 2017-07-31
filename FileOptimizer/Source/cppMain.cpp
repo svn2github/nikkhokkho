@@ -1095,7 +1095,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "--no-comments --no-extensions --no-names ";
 				}
-				RunPlugin((unsigned int) iCount, "gifsicle-lossy", (sPluginsDirectory + "gifsicle-lossy.exe --lossy=30 -b -w  --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "gifsicle-lossy", (sPluginsDirectory + "gifsicle-lossy.exe --lossy=85 -b -w  --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			
 			sFlags = "";
@@ -1223,7 +1223,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		{
 			if ((gudtOptions.bJPEGAllowLossy) && (!gudtOptions.bJPEGCopyMetadata))
 			{
-				RunPlugin((unsigned int) iCount, "Guetzli", (sPluginsDirectory + "guetzli.exe --quality 95 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);			
+				RunPlugin((unsigned int) iCount, "Guetzli", (sPluginsDirectory + "guetzli.exe --quality 90 " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);			
 			}
 			
 			if (gudtOptions.bJPEGAllowLossy)
@@ -1237,7 +1237,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "--accurate ";
 				}
-				RunPlugin((unsigned int) iCount, "jpeg-recompress", (sPluginsDirectory + "jpeg-recompress.exe --method smallfry --quality veryhigh --min 60 --subsample disable --quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "jpeg-recompress", (sPluginsDirectory + "jpeg-recompress.exe --method smallfry --quality high --min 60 --subsample disable --quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			
 			sFlags = "";
@@ -1544,7 +1544,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					{
 						sFlags += "--strip ";
 					}
-					RunPlugin((unsigned int) iCount, "pngquant", (sPluginsDirectory + "pngquant.exe " + sFlags + "--speed 1 256 --ext .png --force \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					RunPlugin((unsigned int) iCount, "pngquant", (sPluginsDirectory + "pngquant.exe " + sFlags + "--quality=85-95 --speed 1 --ext .png --force \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}
 
 				sFlags = "";
@@ -1563,18 +1563,18 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags = "";
 					iLevel = min(gudtOptions.iLevel * 3 / 9, 3) + 1;
-					sFlags += "/o" + (String) iLevel + " ";
+					sFlags += "-o" + (String) iLevel + " ";
 					if (gudtOptions.bPNGCopyMetadata)
 					{
-						sFlags += "/md keep all ";
+						sFlags += "-md keep all ";
 					}
 					else
 					{
-						sFlags += "/md remove all /g0 ";
+						sFlags += "-tz -md remove all -g0 ";
 					}
 					if (gudtOptions.bPNGAllowLossy)
 					{
-						sFlags += "/l ";
+						sFlags += "-l ";
 					}
 					RunPlugin((unsigned int) iCount, "TruePNG", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 				}

@@ -167,7 +167,7 @@ ndo
 - pingo 0.89 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
-- pngquant 2.10.0 - http://www.pngquant.org
+- pngquant 2.10.1 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -183,7 +183,9 @@ X.XX - YYYY
 - Added GIF options tab.
 - Added Allow Lossy optimizations checkbox in JPEG tab.
 - Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later.
+- Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
 - Fixed version display in About window.
+- Updated pngquant to 2.10.1.
 - Updated ImageMagick to 7.0.6.4 with HDRI support.
 - Updated to cppcheck 1.80.
 
