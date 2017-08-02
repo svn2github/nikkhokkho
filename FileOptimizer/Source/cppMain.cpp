@@ -1272,9 +1272,12 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-		
-			//Seems to cause some loss of quality
-			//iError = RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+
+			if (gudtOptions.bJPEGAllowLossy)
+			{
+				//Seems to cause some loss of quality
+				iError = RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -interlace Plane -define jpeg:optimize-coding=true " +sFlags +"\"" + sShortFile + "\" \"" + acTmpFile + "\"").c_str(), sPluginsDirectory, acTmpFile);
+			}
 
 			sFlags = "";
 			if (!gudtOptions.bJPEGCopyMetadata)
@@ -1462,7 +1465,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "-strip ";
 			}
-			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// PDF: mutool, ghostcript, cpdf
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PDF) > 0)
