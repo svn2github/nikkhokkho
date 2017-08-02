@@ -190,6 +190,7 @@ X.XX - YYYY
 - Updated pngquant to 2.10.1.
 - Updated ImageMagick to 7.0.6.4 with HDRI support.
 - Updated to cppcheck 1.80.
+- Some minor optimizations and code cleanup.
 
 
 10.10 - 2017/07/28
