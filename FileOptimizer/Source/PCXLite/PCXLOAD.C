@@ -91,13 +91,10 @@ FILE * picfile;
 PCXHEADER hdr;
   picfile=fopen(filename,"rb");
   fread(&hdr,sizeof(PCXHEADER),1,picfile);
-  if (hdr.manufacturer==10 && hdr.encoding==1 && hdr.bits_per_pixel==8)
-  {
+  if (hdr.manufacturer==10 && hdr.encoding==1) {
     *xsize=hdr.xmax-hdr.xmin+1;
     *ysize=hdr.ymax-hdr.ymin+1;
-  }
-  else
-  {
+  } else {
     *xsize=*ysize=0;
   }
   fclose(picfile);

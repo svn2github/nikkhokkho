@@ -148,8 +148,7 @@ unsigned char * buf;
 
 int freq[256], idx[256];
 
-int sort_int(const void * a, const void * b)
-{
+int sort_int(const void * a, const void * b) {
   if (freq[*(int*)b]>freq[*(int*)b]) return 1;
   if (freq[*(int*)b]<freq[*(int*)b]) return -1;
   return 0;
@@ -158,7 +157,7 @@ int sort_int(const void * a, const void * b)
 void main(int paramc, unsigned char ** params) {
 unsigned char * pcxpic, * pcxpal, *newpal;
 int xwid,ywid,breaker=1,i,a,b;
-  printf("\nPCXLITE v1.2 (c)1998 Jari Komppa\n(c) 2017 Modifications Javier Gutierrez Chamorro (Guti)\n\nLossless or optionally lossy optimization of PCX pictures\n");
+  printf("\nPCXLITE v1.1 (c) 1998-2002 Jari Komppa\n(c) 2017 Modifications Javier Gutierrez Chamorro (Guti)\nLossless or optionally lossy optimization of PCX pictures\n");
   if (paramc<3) {
     printf("Usage: pcxlite infile.pcx outfile.pcx [palette breaker value 1-256, default 1]\n"
            "\n"
