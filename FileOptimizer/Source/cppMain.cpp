@@ -1077,9 +1077,15 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		{
 			RunPlugin((unsigned int) iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// GIF: gifsicle-lossy, gifsicle
+		// GIF: ImageMagick, gifsicle-lossy, gifsicle
 		if (PosEx(sExtensionByContent, KS_EXTENSION_GIF) > 0)
 		{
+			sFlags = "";
+			if (!gudtOptions.bGIFCopyMetadata)
+			{
+				sFlags += "-strip ";
+			}
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress LZW -layers optimize " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			if (gudtOptions.bGIFAllowLossy)
 			{			
@@ -1275,8 +1281,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 
 			if (gudtOptions.bJPEGAllowLossy)
 			{
+				sFlags = "";
+				if (!gudtOptions.bJPEGCopyMetadata)
+				{
+					sFlags += "-strip ";
+				}
 				//Seems to cause some loss of quality
-				RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -interlace Plane -define jpeg:optimize-coding=true \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -interlace Plane -define jpeg:optimize-coding=true " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 
 			sFlags = "";
