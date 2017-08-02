@@ -2459,6 +2459,11 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			{
 				sRes = ".tar";
 			}
+			//Check TGA
+			else if (memcmp(&acBuffer[iSize - 18], "TRUEVISION-XFILE\0", 18) == 0)
+			{
+				sRes = ".tga";
+			}
 			//Check TIF
 			else if ((memcmp(acBuffer, "\x0C\xED", 2) == 0) || (memcmp(acBuffer, "\x49\x20\x49", 3) == 0) || (memcmp(acBuffer, "\x49\x49\x2A\x00", 4) == 0) || (memcmp(acBuffer, "\x4D\x4D\x00\x2B", 4) == 0))
 			{

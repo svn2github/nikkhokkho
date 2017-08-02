@@ -182,6 +182,8 @@ X.XX - YYYY
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).
 - Added GIF options tab.
 - Added Allow Lossy optimizations checkbox in JPEG tab.
+- Added TARGA (TGA ICB, VDA, and VST) extensions to the ImageMagick toolchain, and TGA detection by contents.
+- Added YUV, YCBCRA, YCBCR, X, UYVY, SUN, SGI, RFG, RGB, RGBA, PTIF, PCL, PCLS, MTV, MVG, MSL, MPR, MPC, MONO, J2C, J2K, INLINE, GRAY, FPX, FAX, EPDF, DPX, DDS, CMYK, CMYKA, CIN, BPG, ART to the ImageMagick toolchain.
 - Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later.
 - Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
 - Fixed version display in About window.
