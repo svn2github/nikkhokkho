@@ -187,6 +187,7 @@ X.XX - YYYY
 - Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later.
 - Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
 - Fixed version display in About window.
+- Tweaked the Information window.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.
 - Updated PCXLite 1.1 x86 and x64 Visual C++ 2017 custom builds.
 - Updated SQLite to 3.20.0 x86 and x64 Visual C++ 2017 custom builds.

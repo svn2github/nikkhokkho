@@ -766,7 +766,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	iExtensionLen = (unsigned int) lstTemp->Count;
 	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
-		sExtension = lstTemp->Strings[(int) iExtension];
+		sExtension = lstTemp->Strings[(int) iExtension].UpperCase();
 		//Check if we already have it
 		if (PosEx(sExtension, sText) <= 0)
 		{
@@ -777,7 +777,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 			}
 			else
 			{
-				sText += "and " + sExtension + " file formats among others.";
+				sText += "and " + sExtension + " file formats among many others.";
 			}
 		}
 	}
