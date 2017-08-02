@@ -1569,7 +1569,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				RunPlugin((unsigned int) iCount, "PngOptimizer", (sPluginsDirectory + "PngOptimizer.exe " + sFlags + "-file:\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			}
-
+			
 			if ((!bIsAPNG) && (!bIsPNG9Patch))
 			{
 				//Disable TruePNG on ICO files because it crashes
@@ -1768,6 +1768,16 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+		}
+		// TGA: ImageMagick
+		if (PosEx(sExtensionByContent, KS_EXTENSION_TGA) > 0)
+		{
+			sFlags = "";
+			if (!gudtOptions.bPCXCopyMetadata)
+			{
+				sFlags += "-strip ";
+			}
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert -quiet -compress RLE " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// TIFF: jhead, ImageMagick, jpegoptim, jpegtran, mozjpegtran
 		if (PosEx(sExtensionByContent, KS_EXTENSION_TIF) > 0)
