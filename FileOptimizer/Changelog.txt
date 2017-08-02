@@ -162,7 +162,7 @@ ndo
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
 - mutool 1.11 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
-- PCXLite 1.1 - http://sol.gfxile.net/code.html
+- PCXLite 1.2 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - pingo 0.89 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
@@ -190,7 +190,7 @@ X.XX - YYYY
 - Fixed version display in About window.
 - Tweaked the Information window.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.
-- Updated PCXLite 1.1 x86 and x64 Visual C++ 2017 custom builds.
+- Updated PCXLite 1.2 x86 and x64 Visual C++ 2017 custom builds.
 - Updated SQLite to 3.20.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pngquant to 2.10.1.
 - Updated ImageMagick to 7.0.6.4 with HDRI support.
