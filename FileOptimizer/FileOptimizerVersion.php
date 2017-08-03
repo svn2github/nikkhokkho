@@ -7,73 +7,73 @@
 		'Date/Time' => @date('Y-m-d H:i:s'),
 		'IP' => @$_SERVER['HTTP_X_REMOTE_ADDR'],
 		'UserAgent' => @$_SERVER['HTTP_USER_AGENT'],
-	    'Left' => 0,
-	    'Top' => 0,
-	    'Width' => 0,
-	    'Height' => 0,
-	    'WindowState' => 0,
-	    'DefaultMonitor' => 0,
-	    'Col0Width' => 0,
-	    'Col1Width' => 0,
-	    'Col2Width' => 0,
-	    'Col3Width' => 0,
-	    'Col4Width' => 0,
-	    'BMPCopyMetadata' => false,
-	    'CSSEnableTidy' => false,
-	    'CSSTemplate' => '',
-	    'EXEDisablePETrim' => false,
-	    'EXEEnableUPX' => false,
-	    'GIFCopyMetadata' => false,
-	    'GIFAllowLossy' => false,
-	    'GZCopyMetadata' => false,
-	    'HTMLEnableTidy' => false,
-	    'JPEGCopyMetadata' => false,
-	    'JPEGUseArithmeticEncoding' => false,
-	    'JPEGAllowLossy' => false,
-	    'JSEnableJSMin' => false,
-	    'JSAdditionalExtensions' => '',
-	    'LUAEnableLeanify' => false,
-	    'MiscCopyMetadata' => false,
-	    'MP3CopyMetadata' => false,
-	    'MP4CopyMetadata' => false,
-	    'PCXCopyMetadata' => false,
-	    'PDFProfile' => '',
-	    'PDFCustomDPI' => 0,
-	    'PDFSkipLayered' => false,
-	    'PNGCopyMetadata' => false,
-	    'PNGAllowLossy' => false,
-	    'TIFFCopyMetadata' => false,
-	    'XMLEnableLeanify' => false,
-	    'ZIPCopyMetadata' => false,
-	    'ZIPRecurse' => false,
-	    'DoNotUseRecycleBin' => false,
-	    'KeepAttributes' => false,
-	    'IncludeMask' => '',
-	    'ExcludeMask' => '',
-	    'Donator' => '',
-	    'DisablePluginMask' => '',
-	    'BeepWhenDone' => false,
-	    'ShutdownWhenDone' => false,
-	    'AlwaysOnTop' => false,
-	    'AllowDuplicates' => false,
-	    'AllowMultipleInstances' => false,
-	    'Level' => 0,
-	    'ProcessPriority' => 0,
-	    'CheckForUpdates' => 0,
-	    'ClearWhenComplete' => 0,	    
-	    'EnableCache' => 0,	    
-	    'LogLevel' => 0,
-	    'FilenameFormat' => 0,
-	    'LeanifyIterations' => 0,
-	    'Theme' => '',
-	    'TempDirectory' => '',
-	    'Version' => '10.10.1889',
-	    'Time' => 0,
-	    'Opens' => 0,
-	    'Files' => 0,
-	    'TotalBytes' => 0,
-	    'SavedBytes' => 0,
-	    'Session' => ''
+		'Left' => 0,
+		'Top' => 0,
+		'Width' => 0,
+		'Height' => 0,
+		'WindowState' => 0,
+		'DefaultMonitor' => 0,
+		'Col0Width' => 0,
+		'Col1Width' => 0,
+		'Col2Width' => 0,
+		'Col3Width' => 0,
+		'Col4Width' => 0,
+		'BMPCopyMetadata' => false,
+		'CSSEnableTidy' => false,
+		'CSSTemplate' => '',
+		'EXEDisablePETrim' => false,
+		'EXEEnableUPX' => false,
+		'GIFCopyMetadata' => false,
+		'GIFAllowLossy' => false,
+		'GZCopyMetadata' => false,
+		'HTMLEnableTidy' => false,
+		'JPEGCopyMetadata' => false,
+		'JPEGUseArithmeticEncoding' => false,
+		'JPEGAllowLossy' => false,
+		'JSEnableJSMin' => false,
+		'JSAdditionalExtensions' => '',
+		'LUAEnableLeanify' => false,
+		'MiscCopyMetadata' => false,
+		'MP3CopyMetadata' => false,
+		'MP4CopyMetadata' => false,
+		'PCXCopyMetadata' => false,
+		'PDFProfile' => '',
+		'PDFCustomDPI' => 0,
+		'PDFSkipLayered' => false,
+		'PNGCopyMetadata' => false,
+		'PNGAllowLossy' => false,
+		'TIFFCopyMetadata' => false,
+		'XMLEnableLeanify' => false,
+		'ZIPCopyMetadata' => false,
+		'ZIPRecurse' => false,
+		'DoNotUseRecycleBin' => false,
+		'KeepAttributes' => false,
+		'IncludeMask' => '',
+		'ExcludeMask' => '',
+		'Donator' => '',
+		'DisablePluginMask' => '',
+		'BeepWhenDone' => false,
+		'ShutdownWhenDone' => false,
+		'AlwaysOnTop' => false,
+		'AllowDuplicates' => false,
+		'AllowMultipleInstances' => false,
+		'Level' => 0,
+		'ProcessPriority' => 0,
+		'CheckForUpdates' => 0,
+		'ClearWhenComplete' => 0,		
+		'EnableCache' => 0,		
+		'LogLevel' => 0,
+		'FilenameFormat' => 0,
+		'LeanifyIterations' => 0,
+		'Theme' => '',
+		'TempDirectory' => '',
+		'Version' => '10.10.1889',
+		'Time' => 0,
+		'Opens' => 0,
+		'Files' => 0,
+		'TotalBytes' => 0,
+		'SavedBytes' => 0,
+		'Session' => ''
 	);
 	
 	echo $aColumns['Version'];
@@ -87,18 +87,18 @@
 		if (!file_exists('FileOptimizerVersion.csv'))
 		{
 			$iFile = fopen('FileOptimizerVersion.csv', 'a');
-	    	fputcsv($iFile, array_keys($aColumns), ';');
-	    	fclose($iFile);
+			fputcsv($iFile, array_keys($aColumns), ';');
+			fclose($iFile);
 		}
 		$aColumns = @array_merge($aColumns, $aIni);
 		$iFile = fopen('FileOptimizerVersion.csv', 'a');
-	    fputcsv($iFile, array_values($aColumns), ';');
-	    fclose($iFile);
-	    
-	    
-	    $sDonator = '';
-	    if ((!@empty($aIni['Donator'])) && (file_exists('FileOptimizerDonator.csv')))
-	    {
+		fputcsv($iFile, array_values($aColumns), ';');
+		fclose($iFile);
+		
+		
+		$sDonator = '';
+		if ((!@empty($aIni['Donator'])) && (file_exists('FileOptimizerDonator.csv')))
+		{
 			$iFile = fopen('FileOptimizerDonator.csv', 'r');
 			while (!feof($iFile))
 			{
@@ -106,12 +106,12 @@
 				if ((trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[0]))) ||
 					(trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[1]))))
 				{
-					$sDonator = '  (Donator since ' . trim(strtoupper($asLine[3])) . ')';
+					$sDonator = ' (Donator since ' . trim(strtoupper($asLine[3])) . ')';
 					break;
 				}				
 			}
 			fclose($iFile);
-	    }
-	    echo $sDonator;
+		}
+		echo $sDonator;
 	}
 ?>
