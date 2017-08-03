@@ -103,10 +103,10 @@
 			while (!feof($iFile))
 			{
 				$asLine = fgetcsv($iFile, 0, ';');
-				if ((trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[0]))) ||
-					(trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[1]))))
+				if ((trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[1]))) ||
+					(trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[4]))))
 				{
-					$sDonator = ' (Donator since ' . trim(strtoupper($asLine[3])) . ')';
+					$sDonator = ' (Donator since ' . trim(strtoupper($asLine[0])) . ')';
 					break;
 				}				
 			}

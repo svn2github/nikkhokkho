@@ -118,7 +118,7 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagAppearance
+    ActivePage = pagZIP
     Align = alCustom
     ParentShowHint = False
     ShowHint = True
@@ -291,6 +291,7 @@ object frmOptions: TfrmOptions
           'more than one substring being excluded.'
         AutoSize = False
         HideSelection = False
+        MaxLength = 127
         ParentShowHint = False
         ShowHint = True
         TabOrder = 5
@@ -347,6 +348,7 @@ object frmOptions: TfrmOptions
           ', enter here the email address or name you used'
         AutoSize = False
         HideSelection = False
+        MaxLength = 127
         ParentShowHint = False
         ShowHint = True
         TabOrder = 1

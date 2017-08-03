@@ -40,7 +40,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	grdFiles->ColWidths[KI_GRID_STATUS] = GetOption(Name.c_str(), _T("Col4Width"), grdFiles->ColWidths[KI_GRID_STATUS]);
 	gudtOptions.bBMPCopyMetadata = GetOption(_T("Options"), _T("BMPCopyMetadata"), false);
 	gudtOptions.bCSSEnableTidy = GetOption(_T("Options"), _T("CSSEnableTidy"), false);
-	_tcscpy(gudtOptions.acCSSTemplate, GetOption(_T("Options"), _T("CSSTemplate"), _T("low")));
+	_tcsncpy(gudtOptions.acCSSTemplate, GetOption(_T("Options"), _T("CSSTemplate"), _T("low")), sizeof(gudtOptions.acCSSTemplate));
 	gudtOptions.bEXEDisablePETrim = GetOption(_T("Options"), _T("EXEDisablePETrim"), false);
 	gudtOptions.bEXEEnableUPX = GetOption(_T("Options"), _T("EXEEnableUPX"), false);
 	gudtOptions.bGIFCopyMetadata = GetOption(_T("Options"), _T("GIFCopyMetadata"), false);
@@ -51,13 +51,13 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bJPEGUseArithmeticEncoding = GetOption(_T("Options"), _T("JPEGUseArithmeticEncoding"), false);
 	gudtOptions.bJPEGAllowLossy = GetOption(_T("Options"), _T("JPEGAllowLossy"), false);
 	gudtOptions.bJSEnableJSMin = GetOption(_T("Options"), _T("JSEnableJSMin"), false);
-	_tcscpy(gudtOptions.acJSAdditionalExtensions, GetOption(_T("Options"), _T("JSAdditionalExtensions"), _T("")));
+	_tcsncpy(gudtOptions.acJSAdditionalExtensions, GetOption(_T("Options"), _T("JSAdditionalExtensions"), _T("")), sizeof(gudtOptions.acJSAdditionalExtensions));
 	gudtOptions.bLUAEnableLeanify = GetOption(_T("Options"), _T("LUAEnableLeanify"), false);
 	gudtOptions.bMiscCopyMetadata = GetOption(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = GetOption(_T("Options"), _T("MP3CopyMetadata"), false);
 	gudtOptions.bMP4CopyMetadata = GetOption(_T("Options"), _T("MP4CopyMetadata"), false);
 	gudtOptions.bPCXCopyMetadata = GetOption(_T("Options"), _T("PCXCopyMetadata"), false);
-	_tcscpy(gudtOptions.acPDFProfile, GetOption(_T("Options"), _T("PDFProfile"), _T("none")));
+	_tcsncpy(gudtOptions.acPDFProfile, GetOption(_T("Options"), _T("PDFProfile"), _T("none")), sizeof(gudtOptions.acPDFProfile));
 	gudtOptions.iPDFCustomDPI = GetOption(_T("Options"), _T("PDFCustomDPI"), 150);
 	gudtOptions.bPDFSkipLayered = GetOption(_T("Options"), _T("PDFSkipLayered"), false);
 	gudtOptions.bPNGCopyMetadata = GetOption(_T("Options"), _T("PNGCopyMetadata"), false);
@@ -68,10 +68,15 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bZIPRecurse = GetOption(_T("Options"), _T("ZIPRecurse"), false);
 	gudtOptions.bKeepAttributes = GetOption(_T("Options"), _T("KeepAttributes"), false);
 	gudtOptions.bDoNotUseRecycleBin = GetOption(_T("Options"), _T("DoNotUseRecycleBin"), false);
-	_tcscpy(gudtOptions.acIncludeMask, GetOption(_T("Options"), _T("IncludeMask"), _T("")));
-	_tcscpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")));
-	_tcscpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")));
-	_tcscpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")));
+	_tcsncpy(gudtOptions.acIncludeMask, GetOption(_T("Options"), _T("IncludeMask"), _T("")), sizeof(gudtOptions.acIncludeMask));
+	_tcsncpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")), sizeof(gudtOptions.acExcludeMask));
+	_tcsncpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")), sizeof(gudtOptions.acDonator));
+	StrTrim(gudtOptions.acDonator, _T(" %\a\b\f\n\r\t\v\\\'\"\?"));
+	if (_tcslen(gudtOptions.acDonator) < 5)
+	{
+        gudtOptions.acDonator[0] = NULL;
+	}
+	_tcsncpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")), sizeof(gudtOptions.acDisablePluginMask));
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
@@ -88,13 +93,13 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	//Use Windows 10 theme by default on Windows 8 and newer
 	if (clsUtil::GetWindowsVersion() >= 602)
 	{
-		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")));
+		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")), sizeof(gudtOptions.acTheme));
 	}
 	else
 	{
-		_tcscpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")));
+		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), sizeof(gudtOptions.acTheme));
 	}
-	_tcscpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")));
+	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), sizeof(gudtOptions.acTempDirectory));
 
 	miStartTicks = GetTickCount();
 	gudtOptions.lStatTime = (unsigned long long) GetOption(_T("Statistics"), _T("Time"), 0);
@@ -109,7 +114,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
 
-	_tcscpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath));
+	_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), sizeof(gudtOptions.acVersion));
 	
 	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, sizeof(acPath) / sizeof(TCHAR));
 	lblCopyright->Caption = acPath;
@@ -2380,6 +2385,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		}
 		else if (StrStrI(acTemp, _T("Donator")) == NULL)
 		{
+            gudtOptions.acDonator[0] = NULL;
 			if (clsUtil::Random(0, 10) == 5)
 			{
 				actDonateExecute(NULL);
