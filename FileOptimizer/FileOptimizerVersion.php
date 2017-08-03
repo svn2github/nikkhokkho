@@ -106,7 +106,7 @@
 				if ((trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[0]))) ||
 					(trim(strtoupper($aIni['Donator'])) == trim(strtoupper($asLine[1]))))
 				{
-					$sDonator = ' (Donator since ' . trim(strtoupper($asLine[3])) . ')';
+					$sDonator = '  (Donator since ' . trim(strtoupper($asLine[3])) . ')';
 					break;
 				}				
 			}

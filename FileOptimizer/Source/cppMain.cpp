@@ -2341,11 +2341,11 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	if (clsUtil::DownloadFile(acWide, acBuffer, KI_BUFFER_SIZE))
 	{
 		mbstowcs(acWide, acBuffer, KI_BUFFER_SIZE);
-		//Check we only got number and punctuation digits to detect router errors returning HTML
-		size_t iWideLen = _tcslen(acWide);
+		//Check we only got number and punctuation digits in first characters to detect router errors returning HTML
+		size_t iWideLen = min(_tcslen(acWide), 11);
 		for (unsigned int iWide = 0; iWide < iWideLen; iWide++)
 		{
-			if ((!_istdigit(acWide[iWide])) && (!_istpunct(acWide[iWide])))
+			if ((!_istdigit(acWide[iWide])) && (!_istpunct(acWide[iWide]) && (acWide[iWide] != ' ')))
 			{
 				if (!pbSilent)
 				{
@@ -3122,7 +3122,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 				grdFiles->Rows[0]->BeginUpdate();
 				grdFiles->ColCount = 5;
 				grdFiles->Cells[KI_GRID_FILE][0] = "File";
-				grdFiles->Cells[KI_GRID_EXTENSION][0] = "Extension";
+				grdFiles->Cells[KI_GRID_EXTENSION][0] = "Extension (Type)";
 				grdFiles->Cells[KI_GRID_ORIGINAL][0] = "Original size";
 				grdFiles->Cells[KI_GRID_OPTIMIZED][0] = "Optimized size";
 				grdFiles->Cells[KI_GRID_STATUS][0] = "Status";
