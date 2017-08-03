@@ -317,25 +317,29 @@ unsigned long long __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned int *piSize)
+bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned int *piSize, unsigned int piOffset)
 {
 	unsigned long lSize;
 	bool bRes = false;
 
 
+	HANDLE hMapping = NULL;
 	HANDLE hFile = CreateFile(pacFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		lSize = GetFileSize(hFile, NULL);
-		if (*piSize != 0)
+		if (*piSize == 0)
+		{
+			lSize = GetFileSize(hFile, NULL);
+		}
+		else
 		{
 			lSize = *piSize;
 		}
 		if (lSize > 0)
 		{
 			// Use file mapped IO
-			HANDLE hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, lSize, NULL);
-			if (hMapping != INVALID_HANDLE_VALUE)
+			hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, lSize, NULL);
+			if ((piOffset == 0) && (hMapping != INVALID_HANDLE_VALUE))
 			{
 				void *pacBuffer = MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, lSize);
 				if (pacBuffer != NULL)
@@ -343,16 +347,21 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 					memcpy(pvData, pacBuffer, lSize);
 					bRes = UnmapViewOfFile(pacBuffer);
 				}
-				CloseHandle(hMapping);
+				//CloseHandle(hMapping);
 			}
 			// Use regular IO
 			else
 			{
-				bRes = ::ReadFile(hFile, pvData, (unsigned long) piSize, &lSize, NULL);
+				if (piOffset != 0)
+				{
+					SetFilePointer(hFile, piOffset, NULL, FILE_BEGIN);
+				}
+				bRes = ::ReadFile(hFile, pvData, *piSize, &lSize, NULL);
 			}
 		}
 		*piSize = lSize;
 	}
+	CloseHandle(hMapping);
 	CloseHandle(hFile);
 	return (bRes);
 }
@@ -360,20 +369,21 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, unsigned int piSize)
+bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, unsigned int piSize, unsigned int piOffset)
 {
 	unsigned long lSize;
 	bool bRes = false;
 
 
+	HANDLE hMapping = NULL;
 	HANDLE hFile = CreateFile(pacFile, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_FLAG_WRITE_THROUGH, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		// Use file mapped IO
-		HANDLE hMapping = CreateFileMapping(hFile, NULL, PAGE_READWRITE, 0, piSize, NULL);
-		if (hMapping != INVALID_HANDLE_VALUE)
+		hMapping = CreateFileMapping(hFile, NULL, PAGE_READWRITE, 0, piSize, NULL);
+		if ((piOffset == 0) && (hMapping != INVALID_HANDLE_VALUE))
 		{
-				void *pacBuffer = MapViewOfFile(hMapping, FILE_MAP_WRITE, 0, 0, piSize);
+			void *pacBuffer = MapViewOfFile(hMapping, FILE_MAP_WRITE, 0, 0, piSize);
 			if (pacBuffer != NULL)
 			{
 				memcpy(pacBuffer, pvData, piSize);
@@ -384,9 +394,14 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, uns
 		// Use regular IO
 		else
 		{
+			if (piOffset != 0)
+			{
+				SetFilePointer(hFile, piOffset, NULL, FILE_BEGIN);
+			}
 			bRes = ::WriteFile(hFile, pvData, piSize, &lSize, NULL);
 		}
 	}
+	CloseHandle(hMapping);
 	CloseHandle(hFile);
 	return (bRes);
 }

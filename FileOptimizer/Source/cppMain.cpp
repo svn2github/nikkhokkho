@@ -2364,15 +2364,23 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 {
 	String sRes;
-	unsigned char acBuffer[512];
+	unsigned char acBuffer[512 * 2];
 
 
 	sRes = GetExtension(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
-	if (PosEx(sRes, KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
+	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
 	{
-		unsigned int iSize = sizeof(acBuffer);
+		unsigned int iSize;
+		memset(acBuffer, 0, sizeof(acBuffer));
+		
+		//Read footer
+		iSize = sizeof(acBuffer) >> 1;
+		clsUtil::ReadFile(psFilename.c_str(), &acBuffer[512], &iSize, (unsigned int) clsUtil::SizeFile(psFilename.c_str()) - 512);
+		
+		//Read header
+		iSize = sizeof(acBuffer) >> 1;
 		if (clsUtil::ReadFile(psFilename.c_str(), acBuffer, &iSize))
 		{
 			//ToDo: Optimize to use regular comparisons instead of memcmp for short comparisons.
@@ -2383,7 +2391,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 				sRes = ".bmp";
 			}
 			//Check EXE
-			//Check DLL
+			//Check DLL                    2380
 			else if ((memcmp(acBuffer, "MZ", 2) == 0) || (memcmp(acBuffer, "ZM", 2) == 0))
 			{
 				sRes = ".dll";
@@ -2481,7 +2489,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 				sRes = ".tar";
 			}
 			//Check TGA
-			else if (memcmp(&acBuffer[iSize - 18], "TRUEVISION-XFILE\0", 18) == 0)
+			else if (memcmp(&acBuffer[512 * 2 - 18], "TRUEVISION", 10) == 0)
 			{
 				sRes = ".tga";
 			}
