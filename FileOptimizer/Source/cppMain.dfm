@@ -44,6 +44,8 @@ object frmMain: TfrmMain
     Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
     Layout = tlCenter
     WordWrap = True
     OnClick = lblCopyrightClick
@@ -67,6 +69,8 @@ object frmMain: TfrmMain
     Font.Style = []
     ParentColor = False
     ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
     Layout = tlCenter
     WordWrap = True
     ExplicitLeft = -2
@@ -423,7 +427,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D0011002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

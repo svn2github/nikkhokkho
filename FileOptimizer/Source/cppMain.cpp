@@ -31,6 +31,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 
 	Icon = Application->Icon;
+	lblCopyright->Hint = KS_APP_URL;
 	clsUtil::LoadForm(this);
 	grdFiles->ColWidths[KI_GRID_FILE] = GetOption(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
 	grdFiles->ColWidths[KI_GRID_EXTENSION] = GetOption(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
@@ -2320,9 +2321,10 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 {
 
 	TCHAR *acWide = new TCHAR[KI_BUFFER_SIZE];
+	TCHAR *acTemp = new TCHAR[KI_BUFFER_SIZE];
 	char *acPath = new char[KI_BUFFER_SIZE];
 	char *acBuffer = new char[KI_BUFFER_SIZE];
-	TCHAR acTemp[32];
+
 	unsigned int iSize;
 
 
@@ -2342,7 +2344,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	{
 		mbstowcs(acWide, acBuffer, KI_BUFFER_SIZE);
 		//Check we only got number and punctuation digits in first characters to detect router errors returning HTML
-		size_t iWideLen = min(_tcslen(acWide), 11);
+		size_t iWideLen = min(_tcslen(acWide), 10);
 		for (unsigned int iWide = 0; iWide < iWideLen; iWide++)
 		{
 			if ((!_istdigit(acWide[iWide])) && (!_istpunct(acWide[iWide]) && (acWide[iWide] != ' ')))
@@ -2360,10 +2362,10 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 		GetModuleFileName(NULL, (TCHAR *) acPath, KI_BUFFER_SIZE);
 		_tcscpy(acTemp, clsUtil::ExeVersion((TCHAR *) acPath));
-		_stprintf((TCHAR *) acBuffer, _T("%16s"), (TCHAR *) acTemp);
+		_stprintf((TCHAR *) acBuffer, _T("%10s"), (TCHAR *) acTemp);
 
 		_tcscpy((TCHAR *) acTemp, acWide);
-		_stprintf(acWide, _T("%16s"), (TCHAR *) acTemp);
+		_stprintf(acWide, _T("%10s"), (TCHAR *) acTemp);
 
 		if (_tcscmp(acWide, (TCHAR *) acBuffer) > 0)
 		{
@@ -2391,8 +2393,9 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
 	}
 
-	delete[] acPath;
+	delete[] acTemp;
 	delete[] acWide;
+	delete[] acPath;
 	delete[] acBuffer;
 }
 
@@ -3034,6 +3037,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	{
 		lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.";
 	}
+	lblInstructions->Hint = lblInstructions->Caption;
 
 	if (gudtOptions.bAlwaysOnTop)
 	{
