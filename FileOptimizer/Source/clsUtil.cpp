@@ -389,7 +389,7 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, uns
 				memcpy(pacBuffer, pvData, piSize);
 				bRes = UnmapViewOfFile(pacBuffer);
 			}
-			CloseHandle(hMapping);
+			//CloseHandle(hMapping);
 		}
 		// Use regular IO
 		else

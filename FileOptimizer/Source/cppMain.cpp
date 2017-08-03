@@ -669,7 +669,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	
 	if (gudtOptions.bClearWhenComplete)
 	{
-        actClearExecute(Sender);
+		actClearExecute(Sender);
 	}
 }
 
@@ -833,7 +833,7 @@ void __fastcall TfrmMain::OptimizeProgressVCL(void)
 {
 	//Status bar text
 	if (mudtOptimizeProgress.sStatusbarText != "NULL")
-	{	
+	{
 		stbMain->Panels->Items[0]->Text = mudtOptimizeProgress.sStatusbarText;
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
 	}
@@ -1899,7 +1899,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				//sFlags += "-f ";
 			}
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-			
+
 			sFlags = "";
 			sFlags += "--mt-deflate ";			
 			if (!gudtOptions.bJPEGCopyMetadata)
@@ -2079,7 +2079,6 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 {
-	String sExtension, sExtensionByContent;
 	WIN32_FIND_DATA udtFindFileData;
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
 
@@ -2120,14 +2119,23 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
 			{
-				sExtensionByContent = " " + GetExtensionByContent(pacFile) + " ";
+				String sExtensionByContent = GetExtensionByContent(pacFile);
 				if (sExtensionByContent != "")
-				{				
+				{
 					//We store the name to show concatenated with the full name
 					unsigned int iRows = (unsigned int) grdFiles->RowCount;
 					grdFiles->Rows[(int) iRows]->BeginUpdate();
 					grdFiles->Cells[KI_GRID_FILE][(int) iRows] = sCellFile;
-					grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = GetExtension(pacFile);
+
+					String sExtension = GetExtension(pacFile);
+					if (sExtensionByContent != sExtension)
+					{
+						grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension + " (" + sExtensionByContent.Trim() + ")";
+					}
+					else
+					{
+						grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension;
+					}
 					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
 					//Check if it was already optimized
@@ -2186,7 +2194,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	
 	//Avoid temporary name collisions across different instances
 	unsigned int iRandom = (unsigned int) clsUtil::Random(0, 9999);
-	
+
 	//Use specified option temp directory if exists
 	if (gudtOptions.acTempDirectory[0] != NULL)
 	{
