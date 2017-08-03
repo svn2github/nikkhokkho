@@ -2381,7 +2381,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			if (clsUtil::Random(0, 10) == 5)
 			{
 				actDonateExecute(NULL);
-				clsUtil::MsgBox(Handle, ("Please contribute to " + Application->Name + " development by donating.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
+				clsUtil::MsgBox(Handle, ("Please contribute to active " + Application->Name + " development by donating via Paypal. It is secure, safe and convenient.\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
 			}
 		}
 	}
