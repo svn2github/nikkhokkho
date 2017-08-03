@@ -192,6 +192,7 @@ X.XX - YYYY
 - Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
 - Fixed version display in About window.
 - Tweaked the Information window.
+- Minor usability improvements.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.
 - Updated PCXLite 1.1 x86 and x64 Visual C++ 2017 custom builds.
 - Updated SQLite to 3.20.0 x86 and x64 Visual C++ 2017 custom builds.

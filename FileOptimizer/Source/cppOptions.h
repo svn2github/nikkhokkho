@@ -74,7 +74,9 @@ __published: // IDE-managed Components
 	TTabSheet *pagAppearance;
 	TLabel *lblTheme;
 	TCheckBox *chkGIFCopyMetadata;
-	TCheckBox *chkGIFAllowLossy;	
+	TCheckBox *chkGIFAllowLossy;
+	TEdit *txtDonator;
+	TLabel *lblDonator;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);

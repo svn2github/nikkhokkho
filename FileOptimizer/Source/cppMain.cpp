@@ -2157,8 +2157,10 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					{
 						grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension;
 					}
+
 					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
+
 					//Check if it was already optimized
 					if (gudtOptions.bEnableCache)
 					{
