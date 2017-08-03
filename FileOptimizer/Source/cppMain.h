@@ -20,6 +20,7 @@
 #include <Vcl.ToolWin.hpp>
 #include <Vcl.ActnMenus.hpp>
 #include <System.ImageList.hpp>
+#include <FileCtrl.hpp>
 #include "clsUtil.h"
 #include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
 
@@ -108,6 +109,7 @@ struct udtOptions
 	bool bKeepAttributes;
 	TCHAR acIncludeMask[128];
 	TCHAR acExcludeMask[128];
+	TCHAR acDonator[128];
 	TCHAR acDisablePluginMask[128];
 	bool bBeepWhenDone;
 	bool bShutdownWhenDone;
@@ -198,10 +200,13 @@ __published: // IDE-managed Components
 	TAction *actHelp;
 	TAction *actOpen;
 	TMenuItem *mnuHelpTopics;
-	TMenuItem *Openselectedfile1;
+	TMenuItem *mnuFileOpenSelected;
 	TAction *actOpenFolder;
 	TMenuItem *mnuFileOpenFolder;
 	TLabel *lblInstructions;
+	TMenuItem *mnuFolderAdd;
+	TAction *actAddFolder;
+	TMenuItem *mnuFileAddFolder;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
@@ -228,6 +233,7 @@ __published: // IDE-managed Components
 	void __fastcall actDonateExecute(TObject *Sender);
 	void __fastcall actStopExecute(TObject *Sender);
 	void __fastcall FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
+	void __fastcall actAddFolderExecute(TObject *Sender);
 
 
 private: // User declarations

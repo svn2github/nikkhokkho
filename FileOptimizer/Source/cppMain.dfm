@@ -2,7 +2,7 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'FileOptimizer'
-  ClientHeight = 473
+  ClientHeight = 393
   ClientWidth = 734
   Color = clWindow
   Constraints.MinHeight = 450
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
   OnResize = FormResize
   DesignSize = (
     734
-    473)
+    393)
   PixelsPerInch = 96
   TextHeight = 13
   object lblCopyright: TLabel
@@ -76,7 +76,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 51
     Width = 734
-    Height = 403
+    Height = 323
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -108,7 +108,7 @@ object frmMain: TfrmMain
   end
   object pgbProgress: TProgressBar
     Left = 576
-    Top = 462
+    Top = 382
     Width = 150
     Height = 17
     Anchors = []
@@ -117,7 +117,7 @@ object frmMain: TfrmMain
   end
   object stbMain: TStatusBar
     Left = 0
-    Top = 454
+    Top = 374
     Width = 734
     Height = 19
     Panels = <
@@ -148,6 +148,9 @@ object frmMain: TfrmMain
     end
     object mnuFilesAdd: TMenuItem
       Action = actAdd
+    end
+    object mnuFileAddFolder: TMenuItem
+      Action = actAddFolder
     end
     object mnuFilesRemove: TMenuItem
       Action = actRemove
@@ -185,8 +188,8 @@ object frmMain: TfrmMain
   object dlgAddFiles: TOpenDialog
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofShareAware, ofNoTestFileCreate, ofEnableSizing, ofForceShowHidden]
     Title = 'Add files'
-    Left = 592
-    Top = 376
+    Left = 624
+    Top = 264
   end
   object mgrMain: TActionManager
     ActionBars = <
@@ -328,6 +331,15 @@ object frmMain: TfrmMain
       ShortCut = 8237
       OnExecute = actAddExecute
     end
+    object actAddFolder: TAction
+      Caption = 'A&dd folder...'
+      Hint = 
+        'Add folder contents recursively from your computer to the optimi' +
+        'zation list'
+      ImageIndex = 10
+      ShortCut = 16429
+      OnExecute = actAddFolderExecute
+    end
     object actRemove: TAction
       Caption = '&Remove selected files'
       Hint = 'Remove selected files from the optimization list'
@@ -411,7 +423,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D0011001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -948,12 +960,20 @@ object frmMain: TfrmMain
   end
   object mnuMain: TMainMenu
     Images = imgMain
-    Left = 184
-    Top = 368
+    Left = 208
+    Top = 184
     object mnuFile: TMenuItem
       Caption = '&File'
+      Hint = 
+        'Add folder contents recursively from your computer to the optimi' +
+        'zation list'
+      ImageIndex = 10
+      ShortCut = 16429
       object mnuFileAdd: TMenuItem
         Action = actAdd
+      end
+      object mnuFolderAdd: TMenuItem
+        Action = actAddFolder
       end
       object mnuFileRemove: TMenuItem
         Action = actRemove
@@ -964,7 +984,7 @@ object frmMain: TfrmMain
       object N4: TMenuItem
         Caption = '-'
       end
-      object Openselectedfile1: TMenuItem
+      object mnuFileOpenSelected: TMenuItem
         Action = actOpen
         Caption = '&Open selected files...'
       end

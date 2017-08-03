@@ -69,6 +69,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bDoNotUseRecycleBin = GetOption(_T("Options"), _T("DoNotUseRecycleBin"), false);
 	_tcscpy(gudtOptions.acIncludeMask, GetOption(_T("Options"), _T("IncludeMask"), _T("")));
 	_tcscpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")));
+	_tcscpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")));
 	_tcscpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")));
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
@@ -167,6 +168,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin, _T("Boolean. Default: false. When checked original files will not be backed up in the system trashcan."));
 	clsUtil::SetIni(_T("Options"), _T("IncludeMask"), gudtOptions.acIncludeMask, _T("String. Default: ''. If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included"));
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask, _T("String. Default: ''. Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon to specify more than one substring being excluded"));
+	clsUtil::SetIni(_T("Options"), _T("Donator"), gudtOptions.acDonator, _T("String. Default: ''. Donator name if you have supported the project."));
 	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask, _T("String. Default: ''. Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."));
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone, _T("Boolean. Default: false. Beep the speaker when optimization completes."));
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone, _T("Boolean. Default: false. Shutdown computer when optimization completes."));
@@ -492,6 +494,25 @@ void __fastcall TfrmMain::actAddExecute(TObject *Sender)
 		{
 			AddFiles(strFiles->Strings[iCount - 1].c_str());
 		}
+		RefreshStatus();
+		Screen->Cursor = crDefault;
+	}
+}
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::actAddFolderExecute(TObject *Sender)
+{
+	String sDirectory = "";
+
+	//if (SelectDirectory("Add folder", sDirectory, TSelectDirOpts() << sdAllowCreate << sdPerformCreate << sdPrompt, NULL))
+	if (SelectDirectory("Add folder", _T(""), sDirectory, TSelectDirExtOpts() << sdNewFolder << sdShowEdit << sdShowShares << sdNewUI << sdValidateDir, this))
+	{
+		Screen->Cursor = crAppStart;
+		Application->ProcessMessages();
+
+		AddFiles(sDirectory.c_str());
+
 		RefreshStatus();
 		Screen->Cursor = crDefault;
 	}
@@ -2341,7 +2362,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 		_tcscpy((TCHAR *) acTemp, acWide);
 		_stprintf(acWide, _T("%16s"), (TCHAR *) acTemp);
-	
+
 		if (_tcscmp(acWide, (TCHAR *) acBuffer) > 0)
 		{
 			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + Trim(acWide) + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
@@ -2352,6 +2373,14 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		else if (!pbSilent)
 		{
 			clsUtil::MsgBox(Handle, ("You already have latest " + Application->Name + " version.").c_str(), _T("Check updates"), MB_OK|MB_ICONINFORMATION);
+		}
+		else if (StrStrI(acTemp, _T("Donator")) == NULL)
+		{
+			if (clsUtil::Random(0, 10) == 5)
+			{
+				actDonateExecute(NULL);
+				clsUtil::MsgBox(Handle, ("Please contribute to " + Application->Name + " development by donating.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
+			}
 		}
 	}
 
@@ -3051,6 +3080,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 		actOptimize->Enabled = false;
 		actStop->Enabled = true;
 		actAdd->Enabled = false;
+		actAddFolder->Enabled = false;
 		actClear->Enabled = false;
 		actRemove->Enabled = false;
 
@@ -3065,6 +3095,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 		actOptimize->Enabled = (grdFiles->RowCount > 1);
 		actStop->Enabled = false;
 		actAdd->Enabled = true;
+		actAddFolder->Enabled = true;
 		actClear->Enabled = (grdFiles->RowCount > 1);
 		actRemove->Enabled = (grdFiles->RowCount > 1);
 
@@ -3311,6 +3342,9 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 	return (bRes);
 }
 
+
+
+//---------------------------------------------------------------------------
 
 
 //---------------------------------------------------------------------------
