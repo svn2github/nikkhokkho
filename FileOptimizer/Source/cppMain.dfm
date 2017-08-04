@@ -30,7 +30,7 @@ object frmMain: TfrmMain
   object lblCopyright: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 3
+    Top = 31
     Width = 728
     Height = 13
     Cursor = crHandPoint
@@ -54,7 +54,7 @@ object frmMain: TfrmMain
   object lblInstructions: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 22
+    Top = 50
     Width = 728
     Height = 26
     Align = alTop
@@ -76,11 +76,155 @@ object frmMain: TfrmMain
     ExplicitLeft = -2
     ExplicitTop = 167
   end
+  object tooMain: TToolBar
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 728
+    Height = 22
+    AutoSize = True
+    Customizable = True
+    DisabledImages = imgMain
+    DrawingStyle = dsGradient
+    HotImages = imgMain
+    Images = imgMain
+    List = True
+    ParentShowHint = False
+    AllowTextButtons = True
+    ShowHint = True
+    TabOrder = 3
+    Transparent = True
+    object tooFileAdd: TToolButton
+      Left = 0
+      Top = 0
+      Action = actAdd
+    end
+    object tooFileAddFolder: TToolButton
+      Left = 24
+      Top = 0
+      Action = actAddFolder
+    end
+    object tooFileRemove: TToolButton
+      Left = 48
+      Top = 0
+      Action = actRemove
+    end
+    object tooFileClear: TToolButton
+      Left = 72
+      Top = 0
+      Action = actClear
+    end
+    object tooSeparator1: TToolButton
+      Left = 96
+      Top = 0
+      Width = 8
+      Caption = 'tooSeparator1'
+      ImageIndex = 1
+      Style = tbsSeparator
+    end
+    object tooFileOpen: TToolButton
+      Left = 104
+      Top = 0
+      Action = actOpen
+    end
+    object tooFileOpenFolder: TToolButton
+      Left = 128
+      Top = 0
+      Action = actOpenFolder
+    end
+    object tooFileExit: TToolButton
+      Left = 152
+      Top = 0
+      Action = actExit
+    end
+    object tooSeparator2: TToolButton
+      Left = 176
+      Top = 0
+      Width = 8
+      Caption = 'tooSeparator2'
+      ImageIndex = 8
+      Style = tbsSeparator
+    end
+    object tooOptimizeOptimize: TToolButton
+      Left = 184
+      Top = 0
+      Action = actOptimize
+    end
+    object tooOptimizeStop: TToolButton
+      Left = 208
+      Top = 0
+      Action = actStop
+    end
+    object tooSeparator5: TToolButton
+      Left = 232
+      Top = 0
+      Width = 8
+      Caption = 'tooSeparator5'
+      ImageIndex = 9
+      Style = tbsSeparator
+    end
+    object tooOptimizeIptions: TToolButton
+      Left = 240
+      Top = 0
+      Action = actOptions
+    end
+    object tooSeparator3: TToolButton
+      Left = 264
+      Top = 0
+      Width = 8
+      Caption = 'tooSeparator3'
+      ImageIndex = 7
+      Style = tbsSeparator
+    end
+    object tooHelpHelp: TToolButton
+      Left = 272
+      Top = 0
+      Action = actHelp
+    end
+    object tooSeparator6: TToolButton
+      Left = 296
+      Top = 0
+      Width = 8
+      Caption = 'tooSeparator6'
+      ImageIndex = 3
+      Style = tbsSeparator
+    end
+    object tooHelpInformation: TToolButton
+      Left = 304
+      Top = 0
+      Action = actInformation
+    end
+    object tooSeparator4: TToolButton
+      Left = 328
+      Top = 0
+      Width = 8
+      Caption = 'tooSeparator4'
+      ImageIndex = 13
+      Style = tbsSeparator
+    end
+    object tooHelpDonate: TToolButton
+      Left = 336
+      Top = 0
+      Action = actDonate
+    end
+    object tooSeparator7: TToolButton
+      Left = 360
+      Top = 0
+      Width = 1
+      Action = actAbout
+      Style = tbsSeparator
+    end
+    object tooHelpAbout: TToolButton
+      Left = 361
+      Top = 0
+      Action = actAbout
+    end
+  end
   object grdFiles: TStringGrid
     Left = 0
-    Top = 51
+    Top = 79
     Width = 734
-    Height = 321
+    Height = 293
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -117,7 +261,7 @@ object frmMain: TfrmMain
     Height = 17
     Anchors = []
     Step = 1
-    TabOrder = 2
+    TabOrder = 1
   end
   object stbMain: TStatusBar
     Left = 0
@@ -427,7 +571,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D0011000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

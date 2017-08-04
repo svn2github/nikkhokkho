@@ -118,13 +118,13 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagZIP
+    ActivePage = pagGeneral2
     Align = alCustom
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    object pagGeneral: TTabSheet
-      Caption = '&General'
+    object pagGeneral1: TTabSheet
+      Caption = 'General &1'
       ParentShowHint = False
       ShowHint = True
       object lblOptimizationLevel: TLabel
@@ -179,6 +179,17 @@ object frmOptions: TfrmOptions
         AutoSize = False
         Caption = '&Exclude mask'
         FocusControl = txtExcludeMask
+        ParentShowHint = False
+        ShowHint = False
+      end
+      object lblIncludeMask: TLabel
+        Left = 7
+        Top = 195
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Include mask'
+        FocusControl = txtIncludeMask
         ParentShowHint = False
         ShowHint = False
       end
@@ -296,6 +307,88 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 5
       end
+      object txtIncludeMask: TEdit
+        Left = 168
+        Top = 195
+        Width = 145
+        Height = 21
+        Hint = 
+          'If not empty, only files containing this mask (substring) on nam' +
+          'e or path will be included from optimization. You can use semico' +
+          'lon to specify more than one substring being included.'
+        AutoSize = False
+        HideSelection = False
+        MaxLength = 127
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 7
+      end
+    end
+    object pagGeneral2: TTabSheet
+      Caption = 'General &2'
+      ImageIndex = 21
+      ExplicitLeft = 3
+      ExplicitTop = 28
+      object lblDisablePluginMask: TLabel
+        Left = 8
+        Top = 122
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Disable plugin mask'
+        FocusControl = chkDisablePluginMask
+        ParentShowHint = False
+        ShowHint = False
+      end
+      object chkDisablePluginMask: TEdit
+        Left = 169
+        Top = 117
+        Width = 145
+        Height = 21
+        Hint = 
+          'Allow excluding execution of certain plugins. It is case insensi' +
+          'tive, and allows more than one item to be specified by using sem' +
+          'icolon as separator.'
+        AutoSize = False
+        HideSelection = False
+        MaxLength = 127
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+      object chkBeepWhenDone: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Beep the speaker when optimization completes.'
+        Caption = '&Beep when done'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+      end
+      object chkShutWhenDone: TCheckBox
+        Left = 6
+        Top = 39
+        Width = 281
+        Height = 17
+        Hint = 'Shutdown computer when optimization completes.'
+        Caption = '&Shutdown when done'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
+      object chkClearWhenComplete: TCheckBox
+        Left = 7
+        Top = 55
+        Width = 281
+        Height = 17
+        Hint = 'Automatically clear file list when optimization is completed.'
+        Caption = '&Clear when complete'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 3
+      end
     end
     object pagAppearance: TTabSheet
       Caption = '&Appearance'
@@ -313,7 +406,7 @@ object frmOptions: TfrmOptions
       end
       object lblDonator: TLabel
         Left = 7
-        Top = 48
+        Top = 88
         Width = 155
         Height = 13
         AutoSize = False
@@ -340,7 +433,7 @@ object frmOptions: TfrmOptions
       end
       object txtDonator: TEdit
         Left = 168
-        Top = 48
+        Top = 88
         Width = 145
         Height = 21
         Hint = 
@@ -352,6 +445,43 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 1
+      end
+      object chkShowToolBar: TCheckBox
+        Left = 7
+        Top = 45
+        Width = 281
+        Height = 17
+        Hint = 'Show icons toolbar on main window'
+        Caption = '&Show toolbar'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
+      object chkAlwaysOnTop: TCheckBox
+        Left = 7
+        Top = 64
+        Width = 281
+        Height = 17
+        Hint = 'Show main window always on top.'
+        Caption = '&Always on top'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 3
+      end
+    end
+    object pagBMP: TTabSheet
+      Caption = '&BMP'
+      ImageIndex = 15
+      object chkBMPCopyMetadata: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Caption = '&Copy metadata'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
       end
     end
     object pagCSS: TTabSheet
@@ -415,6 +545,20 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
+      end
+      object chkEXEDisableUPX: TCheckBox
+        Left = 7
+        Top = 43
+        Width = 281
+        Height = 17
+        Hint = 
+          'Allow excluding execution of certain plugins. It is case insensi' +
+          'tive, and allows more than one item to be specified by using sem' +
+          'icolon as separator.'
+        Caption = '&Disable UPX'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
       end
     end
     object pagGIF: TTabSheet
@@ -555,10 +699,55 @@ object frmOptions: TfrmOptions
         TabOrder = 0
       end
     end
+    object pagMisc: TTabSheet
+      Caption = '&Miscelaneous'
+      ImageIndex = 8
+      object chkMiscCopyMetadata: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Caption = '&Copy metadata'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+    end
     object pagMP3: TTabSheet
       Caption = '&MP3'
       ImageIndex = 8
       object chkMP3CopyMetadata: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Caption = '&Copy metadata'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+    end
+    object pagMP4: TTabSheet
+      Caption = '&MP4'
+      ImageIndex = 8
+      object chkMP4CopyMetadata: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Caption = '&Copy metadata'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+    end
+    object pagPCX: TTabSheet
+      Caption = '&PCX'
+      ImageIndex = 8
+      object chkPCXCopyMetadata: TCheckBox
         Left = 7
         Top = 22
         Width = 281
@@ -630,6 +819,19 @@ object frmOptions: TfrmOptions
         TabOrder = 1
         Value = 50
       end
+      object chkSkipLayered: TCheckBox
+        Left = 4
+        Top = 73
+        Width = 281
+        Height = 17
+        Hint = 
+          'Skip processing of PDF files containing layered objects. Results' +
+          ' in more compatible files with higher size.'
+        Caption = '&Skip layered'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
     end
     object pagPNG: TTabSheet
       Caption = '&PNG'
@@ -658,6 +860,36 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 1
+      end
+    end
+    object pagTGA: TTabSheet
+      Caption = '&TGA'
+      ImageIndex = 8
+      object chkTGACopyMetadata: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Caption = '&Copy metadata'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+    end
+    object pagTIFF: TTabSheet
+      Caption = '&TIFF'
+      ImageIndex = 8
+      object chkTIFFCopyMetadata: TCheckBox
+        Left = 7
+        Top = 22
+        Width = 281
+        Height = 17
+        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Caption = '&Copy metadata'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
       end
     end
     object pagXML: TTabSheet

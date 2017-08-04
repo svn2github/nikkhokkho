@@ -15,7 +15,8 @@ class TfrmOptions : public TForm
 {
 __published: // IDE-managed Components
 	TPageControl *tabOptions;
-	TTabSheet *pagGeneral;
+	TTabSheet *pagGeneral1;
+	TTabSheet *pagBMP;
 	TTabSheet *pagCSS;
 	TTabSheet *pagEXE;
 	TTabSheet *pagGIF;
@@ -24,9 +25,14 @@ __published: // IDE-managed Components
 	TTabSheet *pagJPEG;
 	TTabSheet *pagJS;
 	TTabSheet *pagLUA;
+	TTabSheet *pagMisc;
 	TTabSheet *pagMP3;
+	TTabSheet *pagMP4;
+	TTabSheet *pagPCX;
 	TTabSheet *pagPNG;
 	TTabSheet *pagPDF;
+	TTabSheet *pagTGA;
+	TTabSheet *pagTIFF;
 	TTabSheet *pagXML;
 	TTabSheet *pagZIP;
 	TLabel *lblOptimizationLevel;
@@ -77,6 +83,24 @@ __published: // IDE-managed Components
 	TCheckBox *chkGIFAllowLossy;
 	TEdit *txtDonator;
 	TLabel *lblDonator;
+	TCheckBox *chkShowToolBar;
+	TLabel *lblIncludeMask;
+	TEdit *txtIncludeMask;
+	TCheckBox *chkBMPCopyMetadata;
+	TCheckBox *chkMiscCopyMetadata;
+	TCheckBox *chkMP4CopyMetadata;
+	TCheckBox *chkPCXCopyMetadata;
+	TCheckBox *chkTGACopyMetadata;
+	TCheckBox *chkTIFFCopyMetadata;
+	TCheckBox *chkEXEDisableUPX;
+	TTabSheet *pagGeneral2;
+	TLabel *lblDisablePluginMask;
+	TEdit *chkDisablePluginMask;
+	TCheckBox *chkBeepWhenDone;
+	TCheckBox *chkShutWhenDone;
+	TCheckBox *chkClearWhenComplete;
+	TCheckBox *chkAlwaysOnTop;
+	TCheckBox *chkSkipLayered;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);

@@ -26,17 +26,23 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 
 	tabOptions->ActivePageIndex = 0;
 	pagGeneral->Hint = "General program options affecting all extensions";
+	pagBMP->Hint = "Extensions affected: " + (String) KS_EXTENSION_BMP;
 	pagCSS->Hint = "Extensions affected: " + (String) KS_EXTENSION_CSS;
 	pagEXE->Hint = "Extensions affected: " + (String) KS_EXTENSION_EXE KS_EXTENSION_DLL;
-    pagGIF->Hint = "Extensions affected: " + (String) KS_EXTENSION_GIF;
+	pagGIF->Hint = "Extensions affected: " + (String) KS_EXTENSION_GIF;
 	pagGZ->Hint = "Extensions affected: " + (String) KS_EXTENSION_GZ;
 	pagHTML->Hint = "Extensions affected: " + (String) KS_EXTENSION_HTML;
-	pagJPEG->Hint = "Extensions affected: " + (String) KS_EXTENSION_JPG KS_EXTENSION_TIF;
+	pagJPEG->Hint = "Extensions affected: " + (String) KS_EXTENSION_JPG KS_EXTENSION_TIFF;
 	pagJS->Hint = "Extensions affected: " + (String) KS_EXTENSION_JS;
 	pagLUA->Hint = "Extensions affected: " + (String) KS_EXTENSION_LUA;
+	pagMisc->Hint = "Extensions affected: " + (String) KS_EXTENSION_MISC;
 	pagMP3->Hint = "Extensions affected: " + (String) KS_EXTENSION_MP3;
+	pagMP4->Hint = "Extensions affected: " + (String) KS_EXTENSION_MP4;
+	pagPCX->Hint = "Extensions affected: " + (String) KS_EXTENSION_PCX;
 	pagPDF->Hint = "Extensions affected: " + (String) KS_EXTENSION_PDF;
 	pagPNG->Hint = "Extensions affected: " + (String) KS_EXTENSION_PNG KS_EXTENSION_ICO;
+	pagTGA->Hint = "Extensions affected: " + (String) KS_EXTENSION_TGA;
+	pagTIFF->Hint = "Extensions affected: " + (String) KS_EXTENSION_TIFF;
 	pagXML->Hint = "Extensions affected: " + (String) KS_EXTENSION_XML KS_EXTENSION_HTML;
 	pagZIP->Hint = "Extensions affected: " + (String) KS_EXTENSION_ZIP;
 
@@ -105,8 +111,11 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 
 	chkKeepAttributes->Checked = gudtOptions.bKeepAttributes;
 	chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
+	txtIncludeMask->Text = gudtOptions.acIncludeMask;
 	txtExcludeMask->Text = gudtOptions.acExcludeMask;
 	txtDonator->Text = gudtOptions.acDonator;
+
+	chkBMPCopyMetadata->Checked = gudtOptions.bBMPCopyMetadata;
 
 	chkCSSEnableTidy->Checked = gudtOptions.bCSSEnableTidy;
 	if (_tcscmp(gudtOptions.acCSSTemplate, _T("high")) == 0)
@@ -133,7 +142,10 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkJPEGAllowLossy->Checked = gudtOptions.bJPEGAllowLossy;
 	chkJSEnableJSMin->Checked = gudtOptions.bJSEnableJSMin;
 	chkLUAEnableLeanify->Checked = gudtOptions.bLUAEnableLeanify;
+	chkMiscCopyMetadata->Checked = gudtOptions.bMiscCopyMetadata;
 	chkMP3CopyMetadata->Checked = gudtOptions.bMP3CopyMetadata;
+	chkMP4CopyMetadata->Checked = gudtOptions.bMP4CopyMetadata;
+	chkPCXCopyMetadata->Checked = gudtOptions.bPCXCopyMetadata;
 
 	if (_tcscmp(gudtOptions.acPDFProfile, _T("screen")) == 0)
 	{
@@ -166,6 +178,8 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 
 	chkPNGCopyMetadata->Checked = gudtOptions.bPNGCopyMetadata;
 	chkPNGAllowLossy->Checked = gudtOptions.bPNGAllowLossy;
+	chkTGACopyMetadata->Checked = gudtOptions.bTGACopyMetadata;
+	chkTIFFCopyMetadata->Checked = gudtOptions.bTIFFCopyMetadata;
 	chkXMLEnableLeanify->Checked = gudtOptions.bXMLEnableLeanify;
 	chkZIPCopyMetadata->Checked = gudtOptions.bZIPCopyMetadata;
 	chkZIPRecurse->Checked = gudtOptions.bZIPRecurse;
@@ -242,7 +256,13 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.iLogLevel = cboLogLevel->ItemIndex;
 	gudtOptions.bKeepAttributes = chkKeepAttributes->Checked;
 	gudtOptions.bDoNotUseRecycleBin = chkDoNotUseRecycleBin->Checked;
+
+	_tcscpy(gudtOptions.acIncludeMask, txtIncludeMask->Text.c_str());
+	_tcscpy(gudtOptions.acExcludeMask, txtExcludeMask->Text.c_str());
+
 	_tcscpy(gudtOptions.acDonator, txtDonator->Text.c_str());
+
+	gudtOptions.bBMPCopyMetadata = chkBMPCopyMetadata->Checked;
 
 	gudtOptions.bCSSEnableTidy = chkCSSEnableTidy->Checked;
 	if (cboCSSTemplate->ItemIndex == 1)
@@ -269,7 +289,10 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.bJPEGAllowLossy = chkJPEGAllowLossy->Checked;
 	gudtOptions.bJSEnableJSMin = chkJSEnableJSMin->Checked;
 	gudtOptions.bLUAEnableLeanify = chkLUAEnableLeanify->Checked;
+	gudtOptions.bMiscCopyMetadata = chkMiscCopyMetadata->Checked;
 	gudtOptions.bMP3CopyMetadata = chkMP3CopyMetadata->Checked;
+	gudtOptions.bMP4CopyMetadata = chkMP4CopyMetadata->Checked;
+	gudtOptions.bPCXCopyMetadata = chkPCXCopyMetadata->Checked;
 
 	if (cboPDFProfile->ItemIndex == 0)
 	{
@@ -300,6 +323,8 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 
 	gudtOptions.bPNGCopyMetadata = chkPNGCopyMetadata->Checked;
 	gudtOptions.bPNGAllowLossy = chkPNGAllowLossy->Checked;
+	gudtOptions.bTGACopyMetadata = chkTGACopyMetadata->Checked;
+	gudtOptions.bTIFFCopyMetadata = chkTIFFCopyMetadata->Checked;
 	gudtOptions.bXMLEnableLeanify = chkXMLEnableLeanify->Checked;
 	gudtOptions.bZIPCopyMetadata = chkZIPCopyMetadata->Checked;
 	gudtOptions.bZIPRecurse = chkZIPRecurse->Checked;

@@ -3,8 +3,6 @@
 - Would it be possible to also skip the warning message that shows if there are multiple instances of the product running? (What I would like to do is run a few instances of the program in parallel from another tool I'm working on without having to manually click those message boxes away.) (Devedse)
 Devedse 
 
-- Add optional toolbar icon menu (trlkly).
-
 - Detect plugin crash after a timeout (FatBit)
 
 - Autoupdate plugins: http://nsis.sourceforge.net/Check_online_for_Updates (olavrb)
@@ -179,11 +177,13 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 X.XX - YYYY
+- Added optional toolbar with menu icons (trlkly).
 - Added Add folder option (bl3uge).
 - Added detected filetype under extension column in file list, when its extension is not know.
 - Reworked About window to be more colorful.
 - Added donator information displayed in Information box. You can enter your donator email in Options->Appearance->Donator.
 - Implemented donation reminder for non donating regular users.
+- Added Include Mask Options.
 - Added GIF options tab.
 - Added Allow Lossy optimizations checkbox in JPEG tab.
 - Added ImageMagick to the GIF toolchain.
