@@ -118,7 +118,7 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagGeneral2
+    ActivePage = pagAppearance
     Align = alCustom
     ParentShowHint = False
     ShowHint = True
@@ -173,7 +173,7 @@ object frmOptions: TfrmOptions
       end
       object lblExcludeMask: TLabel
         Left = 7
-        Top = 171
+        Top = 123
         Width = 155
         Height = 13
         AutoSize = False
@@ -184,7 +184,7 @@ object frmOptions: TfrmOptions
       end
       object lblIncludeMask: TLabel
         Left = 7
-        Top = 195
+        Top = 147
         Width = 155
         Height = 13
         AutoSize = False
@@ -193,9 +193,20 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = False
       end
+      object lblTempDirectory: TLabel
+        Left = 7
+        Top = 171
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Temp directory'
+        FocusControl = txtTempDirectory
+        ParentShowHint = False
+        ShowHint = False
+      end
       object chkKeepAttributes: TCheckBox
         Left = 7
-        Top = 123
+        Top = 194
         Width = 281
         Height = 17
         Hint = 
@@ -280,7 +291,7 @@ object frmOptions: TfrmOptions
       end
       object chkDoNotUseRecycleBin: TCheckBox
         Left = 7
-        Top = 147
+        Top = 213
         Width = 281
         Height = 17
         Hint = 
@@ -293,7 +304,7 @@ object frmOptions: TfrmOptions
       end
       object txtExcludeMask: TEdit
         Left = 168
-        Top = 171
+        Top = 123
         Width = 145
         Height = 21
         Hint = 
@@ -309,7 +320,7 @@ object frmOptions: TfrmOptions
       end
       object txtIncludeMask: TEdit
         Left = 168
-        Top = 195
+        Top = 147
         Width = 145
         Height = 21
         Hint = 
@@ -323,26 +334,63 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 7
       end
+      object chkAllowMultipleInstances: TCheckBox
+        Left = 7
+        Top = 232
+        Width = 281
+        Height = 17
+        Hint = 
+          'Allow having more than one FileOptimizer instance. If not, a war' +
+          'ning will appear.'
+        Caption = '&Allow multiple instances'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 8
+      end
+      object txtTempDirectory: TEdit
+        Left = 168
+        Top = 171
+        Width = 145
+        Height = 21
+        Hint = 
+          'If not empty specified directory will be used for temporary stor' +
+          'age instead of system'#39's %TEMP%.'
+        AutoSize = False
+        HideSelection = False
+        MaxLength = 127
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 9
+      end
     end
     object pagGeneral2: TTabSheet
       Caption = 'General &2'
       ImageIndex = 21
-      ExplicitLeft = 3
-      ExplicitTop = 28
       object lblDisablePluginMask: TLabel
-        Left = 8
-        Top = 122
+        Left = 7
+        Top = 22
         Width = 155
         Height = 13
         AutoSize = False
         Caption = '&Disable plugin mask'
-        FocusControl = chkDisablePluginMask
+        FocusControl = txtDisablePluginMask
         ParentShowHint = False
         ShowHint = False
       end
-      object chkDisablePluginMask: TEdit
-        Left = 169
-        Top = 117
+      object lblLeanifyIterations: TLabel
+        Left = 7
+        Top = 45
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Leanify iterations'
+        FocusControl = spnLeanifyIterations
+        ParentShowHint = False
+        ShowHint = False
+      end
+      object txtDisablePluginMask: TEdit
+        Left = 168
+        Top = 17
         Width = 145
         Height = 21
         Hint = 
@@ -358,7 +406,7 @@ object frmOptions: TfrmOptions
       end
       object chkBeepWhenDone: TCheckBox
         Left = 7
-        Top = 22
+        Top = 70
         Width = 281
         Height = 17
         Hint = 'Beep the speaker when optimization completes.'
@@ -367,9 +415,9 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 1
       end
-      object chkShutWhenDone: TCheckBox
-        Left = 6
-        Top = 39
+      object chkShutdownWhenDone: TCheckBox
+        Left = 7
+        Top = 87
         Width = 281
         Height = 17
         Hint = 'Shutdown computer when optimization completes.'
@@ -380,7 +428,7 @@ object frmOptions: TfrmOptions
       end
       object chkClearWhenComplete: TCheckBox
         Left = 7
-        Top = 55
+        Top = 103
         Width = 281
         Height = 17
         Hint = 'Automatically clear file list when optimization is completed.'
@@ -388,6 +436,49 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 3
+      end
+      object chkAllowDuplicates: TCheckBox
+        Left = 7
+        Top = 121
+        Width = 281
+        Height = 17
+        Hint = 
+          'Allow adding same file more than once. If enabled, adding to the' +
+          ' grid will be much faster, specially on very large grids.'
+        Caption = '&Allow duplicates'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 4
+      end
+      object spnLeanifyIterations: TSpinEdit
+        Left = 168
+        Top = 45
+        Width = 121
+        Height = 22
+        Hint = 
+          'If specified, number of trial iterations in all Leanify executio' +
+          'ns will use this vaule. If not, iterations are calculated depend' +
+          'ing on the Optimization level.'
+        Increment = 50
+        MaxValue = 1000
+        MinValue = -1
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 5
+        Value = 50
+      end
+      object chkEnableCache: TCheckBox
+        Left = 7
+        Top = 138
+        Width = 281
+        Height = 17
+        Hint = 
+          'Enable cache of already optimized files to automatically skip th' +
+          'em.'
+        Caption = '&Enable cache'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 6
       end
     end
     object pagAppearance: TTabSheet
@@ -406,12 +497,23 @@ object frmOptions: TfrmOptions
       end
       object lblDonator: TLabel
         Left = 7
-        Top = 88
+        Top = 69
         Width = 155
         Height = 13
         AutoSize = False
         Caption = '&Donator'
         FocusControl = txtDonator
+        ParentShowHint = False
+        ShowHint = False
+      end
+      object lblFilenameFormat: TLabel
+        Left = 7
+        Top = 44
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Filename format'
+        FocusControl = cboFilenameFormat
         ParentShowHint = False
         ShowHint = False
       end
@@ -433,7 +535,7 @@ object frmOptions: TfrmOptions
       end
       object txtDonator: TEdit
         Left = 168
-        Top = 88
+        Top = 69
         Width = 145
         Height = 21
         Hint = 
@@ -448,7 +550,7 @@ object frmOptions: TfrmOptions
       end
       object chkShowToolBar: TCheckBox
         Left = 7
-        Top = 45
+        Top = 93
         Width = 281
         Height = 17
         Hint = 'Show icons toolbar on main window'
@@ -459,7 +561,7 @@ object frmOptions: TfrmOptions
       end
       object chkAlwaysOnTop: TCheckBox
         Left = 7
-        Top = 64
+        Top = 112
         Width = 281
         Height = 17
         Hint = 'Show main window always on top.'
@@ -467,6 +569,23 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 3
+      end
+      object cboFilenameFormat: TComboBox
+        Left = 168
+        Top = 44
+        Width = 145
+        Height = 21
+        Hint = 'Specify the format to display filenames in the list.'
+        Style = csDropDownList
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 4
+        OnChange = cboPDFProfileChange
+        Items.Strings = (
+          'Full path and Filename (Default)'
+          'Filename only'
+          'Drive letter + Partial path + Filename'
+          'Drive letter + Partial (path + Filename)')
       end
     end
     object pagBMP: TTabSheet
@@ -546,7 +665,7 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 0
       end
-      object chkEXEDisableUPX: TCheckBox
+      object chkEXEEnableUPX: TCheckBox
         Left = 7
         Top = 43
         Width = 281
@@ -555,7 +674,7 @@ object frmOptions: TfrmOptions
           'Allow excluding execution of certain plugins. It is case insensi' +
           'tive, and allows more than one item to be specified by using sem' +
           'icolon as separator.'
-        Caption = '&Disable UPX'
+        Caption = '&Enable UPX'
         ParentShowHint = False
         ShowHint = True
         TabOrder = 1
@@ -668,6 +787,17 @@ object frmOptions: TfrmOptions
     object pagJS: TTabSheet
       Caption = '&JS'
       ImageIndex = 6
+      object lblJSAdditionalExtensions: TLabel
+        Left = 7
+        Top = 46
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Additional Extensions'
+        FocusControl = txtJSAdditionalExtensions
+        ParentShowHint = False
+        ShowHint = False
+      end
       object chkJSEnableJSMin: TCheckBox
         Left = 7
         Top = 22
@@ -680,6 +810,19 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
+      end
+      object txtJSAdditionalExtensions: TEdit
+        Left = 168
+        Top = 46
+        Width = 145
+        Height = 21
+        Hint = 'Add extra extensions to be threated as JS/JSON.'
+        AutoSize = False
+        HideSelection = False
+        MaxLength = 127
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
       end
     end
     object pagLUA: TTabSheet
@@ -819,7 +962,7 @@ object frmOptions: TfrmOptions
         TabOrder = 1
         Value = 50
       end
-      object chkSkipLayered: TCheckBox
+      object chkPDFSkipLayered: TCheckBox
         Left = 4
         Top = 73
         Width = 281

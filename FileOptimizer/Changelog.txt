@@ -177,15 +177,13 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 X.XX - YYYY
+- Expanded Options window to fit all remaining INI directives.
 - Added optional toolbar with menu icons (trlkly).
 - Added Add folder option (bl3uge).
 - Added detected filetype under extension column in file list, when its extension is not know.
 - Reworked About window to be more colorful.
 - Added donator information displayed in Information box. You can enter your donator email in Options->Appearance->Donator.
 - Implemented donation reminder for non donating regular users.
-- Added Include Mask Options.
-- Added GIF options tab.
-- Added Allow Lossy optimizations checkbox in JPEG tab.
 - Added ImageMagick to the GIF toolchain.
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).
 - Added TARGA (TGA ICB, VDA, and VST) toolchain, and TGA detection by contents.

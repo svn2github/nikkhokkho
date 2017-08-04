@@ -25,7 +25,8 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	Icon = Application->Icon;
 
 	tabOptions->ActivePageIndex = 0;
-	pagGeneral->Hint = "General program options affecting all extensions";
+	pagGeneral1->Hint = "General program options affecting all extensions (1/2)";
+	pagGeneral2->Hint = "General program options affecting all extensions (2/2)";
 	pagBMP->Hint = "Extensions affected: " + (String) KS_EXTENSION_BMP;
 	pagCSS->Hint = "Extensions affected: " + (String) KS_EXTENSION_CSS;
 	pagEXE->Hint = "Extensions affected: " + (String) KS_EXTENSION_EXE KS_EXTENSION_DLL;
@@ -46,6 +47,36 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	pagXML->Hint = "Extensions affected: " + (String) KS_EXTENSION_XML KS_EXTENSION_HTML;
 	pagZIP->Hint = "Extensions affected: " + (String) KS_EXTENSION_ZIP;
 
+	chkAllowDuplicates->Checked = gudtOptions.bAllowDuplicates;
+	chkAllowMultipleInstances->Checked = gudtOptions.bAllowMultipleInstances;
+	chkAlwaysOnTop->Checked = gudtOptions.bAlwaysOnTop;
+	chkBeepWhenDone->Checked = gudtOptions.bBeepWhenDone;
+
+	//Check for updates
+	if (gudtOptions.iCheckForUpdates < 0)
+	{
+		cboCheckForUpdates->ItemIndex = 0;
+	}
+	else if (gudtOptions.iCheckForUpdates == 0)
+	{
+		cboCheckForUpdates->ItemIndex = 2;
+	}
+	else //iCheckForUpdates == 1
+	{
+		cboCheckForUpdates->ItemIndex = 1;
+	}
+
+	chkClearWhenComplete->Checked = gudtOptions.bClearWhenComplete;
+	txtDisablePluginMask->Text = gudtOptions.acDisablePluginMask;
+	txtDonator->Text = gudtOptions.acDonator;
+	chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
+	chkEnableCache->Checked = gudtOptions.bEnableCache;
+	txtExcludeMask->Text = gudtOptions.acExcludeMask;
+	cboFilenameFormat->ItemIndex = gudtOptions.iFilenameFormat;
+	txtIncludeMask->Text = gudtOptions.acIncludeMask;
+	chkKeepAttributes->Checked = gudtOptions.bKeepAttributes;
+	spnLeanifyIterations->Value = gudtOptions.iLeanifyIterations;
+	cboLogLevel->ItemIndex = gudtOptions.iLogLevel;
 	cboOptimizationLevel->ItemIndex = gudtOptions.iLevel;
 
 	if (gudtOptions.iProcessPriority == BELOW_NORMAL_PRIORITY_CLASS)
@@ -72,22 +103,10 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboProcessPriority->ItemIndex = 0;
 	}
-	
 
-	//Check for updates
-	if (gudtOptions.iCheckForUpdates < 0)
-	{
-		cboCheckForUpdates->ItemIndex = 0;
-	}
-	else if (gudtOptions.iCheckForUpdates == 0)
-	{
-		cboCheckForUpdates->ItemIndex = 2;
-	}
-	else //iCheckForUpdates == 1
-	{
-		cboCheckForUpdates->ItemIndex = 1;
-	}
-	
+	chkShowToolBar->Checked = gudtOptions.bShowToolBar;
+	chkShutdownWhenDone->Checked = gudtOptions.bShutdownWhenDone;
+	txtTempDirectory->Text = gudtOptions.acTempDirectory;
 
 	if (_tcscmp(gudtOptions.acTheme, _T("Metropolis UI Black")) == 0)
 	{
@@ -105,19 +124,10 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		cboTheme->ItemIndex = 0;
 	}
-	
-
-	cboLogLevel->ItemIndex = gudtOptions.iLogLevel;
-
-	chkKeepAttributes->Checked = gudtOptions.bKeepAttributes;
-	chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
-	txtIncludeMask->Text = gudtOptions.acIncludeMask;
-	txtExcludeMask->Text = gudtOptions.acExcludeMask;
-	txtDonator->Text = gudtOptions.acDonator;
 
 	chkBMPCopyMetadata->Checked = gudtOptions.bBMPCopyMetadata;
-
 	chkCSSEnableTidy->Checked = gudtOptions.bCSSEnableTidy;
+
 	if (_tcscmp(gudtOptions.acCSSTemplate, _T("high")) == 0)
 	{
 		cboCSSTemplate->ItemIndex = 1;
@@ -131,8 +141,8 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 		cboCSSTemplate->ItemIndex = 0;
 	}
 
-
 	chkEXEDisablePETrim->Checked = gudtOptions.bEXEDisablePETrim;
+	chkEXEEnableUPX->Checked = gudtOptions.bEXEEnableUPX;
 	chkGIFCopyMetadata->Checked = gudtOptions.bGIFCopyMetadata;
 	chkGIFAllowLossy->Checked = gudtOptions.bGIFAllowLossy;
 	chkGZCopyMetadata->Checked = gudtOptions.bGZCopyMetadata;
@@ -140,6 +150,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkJPEGCopyMetadata->Checked = gudtOptions.bJPEGCopyMetadata;
 	chkJPEGUseArithmeticEncoding->Checked = gudtOptions.bJPEGUseArithmeticEncoding;
 	chkJPEGAllowLossy->Checked = gudtOptions.bJPEGAllowLossy;
+	txtJSAdditionalExtensions->Text = gudtOptions.acJSAdditionalExtensions;
 	chkJSEnableJSMin->Checked = gudtOptions.bJSEnableJSMin;
 	chkLUAEnableLeanify->Checked = gudtOptions.bLUAEnableLeanify;
 	chkMiscCopyMetadata->Checked = gudtOptions.bMiscCopyMetadata;
@@ -174,6 +185,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	}
 
 	spnPDFCustomDPI->Value = gudtOptions.iPDFCustomDPI;
+	chkPDFSkipLayered->Checked = gudtOptions.bPDFSkipLayered;
 	cboPDFProfileChange(NULL);
 
 	chkPNGCopyMetadata->Checked = gudtOptions.bPNGCopyMetadata;
@@ -192,6 +204,36 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 {
 	Hide();
 
+	gudtOptions.bAllowDuplicates = chkAllowDuplicates->Checked;
+	gudtOptions.bAllowMultipleInstances = chkAllowMultipleInstances->Checked;
+	gudtOptions.bAlwaysOnTop = chkAlwaysOnTop->Checked;
+	gudtOptions.bBeepWhenDone = chkBeepWhenDone->Checked;
+
+	if (cboCheckForUpdates->ItemIndex == 0)
+	{
+		gudtOptions.iCheckForUpdates = -1;
+	}
+	else if (cboCheckForUpdates->ItemIndex == 2)
+	{
+		gudtOptions.iCheckForUpdates = 0;
+	}
+	else //1
+	{
+		gudtOptions.iCheckForUpdates = 1;
+	}
+
+	gudtOptions.bClearWhenComplete = chkClearWhenComplete->Checked;
+	gudtOptions.bEnableCache = chkEnableCache->Checked;
+	gudtOptions.bKeepAttributes = chkKeepAttributes->Checked;
+	gudtOptions.bDoNotUseRecycleBin = chkDoNotUseRecycleBin->Checked;
+	_tcscpy(gudtOptions.acDisablePluginMask, txtDisablePluginMask->Text.c_str());
+	_tcscpy(gudtOptions.acDonator, txtDonator->Text.c_str());
+	_tcscpy(gudtOptions.acExcludeMask, txtExcludeMask->Text.c_str());
+	gudtOptions.iFilenameFormat = cboFilenameFormat->ItemIndex;
+	_tcscpy(gudtOptions.acIncludeMask, txtIncludeMask->Text.c_str());
+	gudtOptions.bKeepAttributes = chkKeepAttributes->Checked;
+	gudtOptions.iLeanifyIterations = spnLeanifyIterations->Value;
+	gudtOptions.iLogLevel = cboLogLevel->ItemIndex;
 	gudtOptions.iLevel = cboOptimizationLevel->ItemIndex;
 
 	if (cboProcessPriority->ItemIndex == 1)
@@ -218,21 +260,11 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		gudtOptions.iProcessPriority = IDLE_PRIORITY_CLASS;
 	}
-	
 
-	if (cboCheckForUpdates->ItemIndex == 0)
-	{
-		gudtOptions.iCheckForUpdates = -1;
-	}
-	else if (cboCheckForUpdates->ItemIndex == 2)
-	{
-		gudtOptions.iCheckForUpdates = 0;
-	}
-	else //1
-	{
-		gudtOptions.iCheckForUpdates = 1;
-	}
-	
+	gudtOptions.bShutdownWhenDone = chkShutdownWhenDone->Checked;
+	gudtOptions.bShowToolBar = chkShowToolBar->Checked;
+
+	_tcscpy(gudtOptions.acTempDirectory, txtTempDirectory->Text.c_str());
 
 	if (cboTheme->ItemIndex == 1)
 	{
@@ -250,17 +282,6 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	{
 		_tcscpy(gudtOptions.acTheme, _T("Windows"));
 	}
-	
-
-
-	gudtOptions.iLogLevel = cboLogLevel->ItemIndex;
-	gudtOptions.bKeepAttributes = chkKeepAttributes->Checked;
-	gudtOptions.bDoNotUseRecycleBin = chkDoNotUseRecycleBin->Checked;
-
-	_tcscpy(gudtOptions.acIncludeMask, txtIncludeMask->Text.c_str());
-	_tcscpy(gudtOptions.acExcludeMask, txtExcludeMask->Text.c_str());
-
-	_tcscpy(gudtOptions.acDonator, txtDonator->Text.c_str());
 
 	gudtOptions.bBMPCopyMetadata = chkBMPCopyMetadata->Checked;
 
@@ -280,6 +301,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 
 
 	gudtOptions.bEXEDisablePETrim = chkEXEDisablePETrim->Checked;
+	gudtOptions.bEXEEnableUPX = chkEXEEnableUPX->Checked;
 	gudtOptions.bGIFCopyMetadata = chkGIFCopyMetadata->Checked;
 	gudtOptions.bGIFAllowLossy = chkGIFAllowLossy->Checked;
 	gudtOptions.bGZCopyMetadata = chkGZCopyMetadata->Checked;
@@ -287,6 +309,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.bJPEGCopyMetadata = chkJPEGCopyMetadata->Checked;
 	gudtOptions.bJPEGUseArithmeticEncoding = chkJPEGUseArithmeticEncoding->Checked;
 	gudtOptions.bJPEGAllowLossy = chkJPEGAllowLossy->Checked;
+	_tcscpy(gudtOptions.acJSAdditionalExtensions, txtJSAdditionalExtensions->Text.c_str());
 	gudtOptions.bJSEnableJSMin = chkJSEnableJSMin->Checked;
 	gudtOptions.bLUAEnableLeanify = chkLUAEnableLeanify->Checked;
 	gudtOptions.bMiscCopyMetadata = chkMiscCopyMetadata->Checked;
@@ -320,6 +343,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	}
 
 	gudtOptions.iPDFCustomDPI = spnPDFCustomDPI->Value;
+	gudtOptions.bPDFSkipLayered = chkPDFSkipLayered->Checked;
 
 	gudtOptions.bPNGCopyMetadata = chkPNGCopyMetadata->Checked;
 	gudtOptions.bPNGAllowLossy = chkPNGAllowLossy->Checked;
