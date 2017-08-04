@@ -820,7 +820,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	
 	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
 
-	sText += "\n\n\DONATOR INFORMATION\n";
+	sText += "\n\nDONATOR INFORMATION\n";
 	if (gudtOptions.acDonation[0] != NULL)
 	{
 		sText += (String) gudtOptions.acDonation;
