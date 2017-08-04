@@ -177,7 +177,7 @@ ndo
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 X.XX - YYYY
-- Expanded Options window to fit all remaining INI directives.
+- Expanded Options window to fit all missing INI directives.
 - Added optional toolbar with menu icons (trlkly).
 - Added Add folder option (bl3uge).
 - Added detected filetype under extension column in file list, when its extension is not know.
