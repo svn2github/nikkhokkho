@@ -39,6 +39,6 @@ rem "\Archivos de programa\7-Zip\7z" a -mm=Deflate -mx=9 -mfb=258 -mpass=15 -mmt
 cd ..\..\Setup
 "\Archivos de programa\Borland\NSIS\MakeNSIS.exe" FileOptimizerSetup.nsi
 cd ..
-Win32\Release\FileOptimizer32 .\FileOptimizerFull.zip
-Win32\Release\FileOptimizer32 .\FileOptimizerSource.zip
+Win32\Release\FileOptimizer32 .\FileOptimizerFull.7z.exe
+Win32\Release\FileOptimizer32 .\FileOptimizerSource.7z
 :end

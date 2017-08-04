@@ -766,6 +766,7 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 {
 	gbStop = true;
 	Hide();
+    Application->ProcessMessages(); //Required because some themes do not automatically refresh
 	Close();
 }
 
@@ -2064,6 +2065,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		if (_argc > 1)
 		{
 			Screen->Cursor = crAppStart;
+            Visible = true;  //Required because some themes do not automatically refresh
 			Application->ProcessMessages();
 			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
 			{
@@ -2076,8 +2078,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 			RefreshStatus();
 			Screen->Cursor = crDefault;
 			actOptimizeExecute(Sender);
-			Hide();
-			Close();
+			actExitExecute(Sender);
 		}
 	}
 }

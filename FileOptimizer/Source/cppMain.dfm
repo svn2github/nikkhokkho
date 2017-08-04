@@ -30,7 +30,7 @@ object frmMain: TfrmMain
   object lblCopyright: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 41
+    Top = 38
     Width = 728
     Height = 13
     Cursor = crHandPoint
@@ -49,13 +49,12 @@ object frmMain: TfrmMain
     Layout = tlCenter
     WordWrap = True
     OnClick = lblCopyrightClick
-    ExplicitTop = 31
     ExplicitWidth = 3
   end
   object lblInstructions: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 60
+    Top = 57
     Width = 728
     Height = 26
     Align = alTop
@@ -82,6 +81,7 @@ object frmMain: TfrmMain
     Left = 3
     Top = 3
     Width = 728
+    Height = 29
     ButtonHeight = 32
     ButtonWidth = 32
     Images = imgMain
@@ -218,9 +218,9 @@ object frmMain: TfrmMain
   end
   object grdFiles: TStringGrid
     Left = 0
-    Top = 89
+    Top = 86
     Width = 734
-    Height = 283
+    Height = 286
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -241,8 +241,6 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
-    ExplicitTop = 79
-    ExplicitHeight = 293
     ColWidths = (
       512
       512
@@ -569,7 +567,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
