@@ -72,9 +72,11 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcsncpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")), sizeof(gudtOptions.acExcludeMask));
 	_tcsncpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")), sizeof(gudtOptions.acDonator));
 	StrTrim(gudtOptions.acDonator, _T(" %\a\b\f\n\r\t\v\\\'\"\?"));
-	if (_tcslen(gudtOptions.acDonator) < 5)
+	_tcsncpy(gudtOptions.acDonation, GetOption(_T("Options"), _T("Donation"), _T("")), sizeof(gudtOptions.acDonation));
+	if (_tcslen(gudtOptions.acDonator) < 3)
 	{
         gudtOptions.acDonator[0] = NULL;
+        gudtOptions.acDonation[0] = NULL;
 	}
 	_tcsncpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")), sizeof(gudtOptions.acDisablePluginMask));
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
@@ -175,6 +177,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("IncludeMask"), gudtOptions.acIncludeMask, _T("String. Default: ''. If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included"));
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask, _T("String. Default: ''. Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon to specify more than one substring being excluded"));
 	clsUtil::SetIni(_T("Options"), _T("Donator"), gudtOptions.acDonator, _T("String. Default: ''. Donator name if you have supported the project."));
+	clsUtil::SetIni(_T("Options"), _T("Donation"), gudtOptions.acDonation, _T("String. Default: ''. Donation details."));
 	clsUtil::SetIni(_T("Options"), _T("DisablePluginMask"), gudtOptions.acDisablePluginMask, _T("String. Default: ''. Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."));
 	clsUtil::SetIni(_T("Options"), _T("BeepWhenDone"), gudtOptions.bBeepWhenDone, _T("Boolean. Default: false. Beep the speaker when optimization completes."));
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone, _T("Boolean. Default: false. Shutdown computer when optimization completes."));
@@ -812,7 +815,19 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	
 	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
 
-	sText += "\n\nUsage Statistics\n"
+	sText += "\n\n\DONATOR INFORMATION\n";
+	if (gudtOptions.acDonation[0] != NULL)
+	{
+		sText += (String) gudtOptions.acDonation;
+
+	}
+	else
+	{
+		sText += "Have not donated yet!";
+
+	}
+
+	sText += "\n\nUSAGE STATISTICS\n"
 		"- Time: " + FormatNumberThousand(gudtOptions.lStatTime) + " seconds\n"
 		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
 		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
@@ -2358,8 +2373,9 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 				{
 					clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
 				}
-				delete[] acPath;
+				delete[] acTemp;
 				delete[] acWide;
+				delete[] acPath;
 				delete[] acBuffer;
 				return;
 			}
@@ -2371,6 +2387,22 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 		_tcscpy((TCHAR *) acTemp, acWide);
 		_stprintf(acWide, _T("%10s"), (TCHAR *) acTemp);
+		
+		if (StrStr(acTemp, _T(" (")) != NULL)
+		{
+			_tcscpy(gudtOptions.acDonation, StrStr(acTemp, _T(" (")) + 2);
+			StrTrim(gudtOptions.acDonation, _T(" ()"));
+		}
+		else
+		{
+            gudtOptions.acDonator[0] = NULL;
+            gudtOptions.acDonation[0] = NULL;
+			if (clsUtil::Random(0, 10) == 5)
+			{
+				actDonateExecute(NULL);
+				clsUtil::MsgBox(Handle, ("Please contribute to active " + Application->Name + " development by donating via Paypal. It is secure, safe and convenient.\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
+			}         
+		}
 
 		if (_tcscmp(acWide, (TCHAR *) acBuffer) > 0)
 		{
@@ -2382,15 +2414,6 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		else if (!pbSilent)
 		{
 			clsUtil::MsgBox(Handle, ("You already have latest " + Application->Name + " version.").c_str(), _T("Check updates"), MB_OK|MB_ICONINFORMATION);
-		}
-		else if (StrStrI(acTemp, _T("Donator")) == NULL)
-		{
-            gudtOptions.acDonator[0] = NULL;
-			if (clsUtil::Random(0, 10) == 5)
-			{
-				actDonateExecute(NULL);
-				clsUtil::MsgBox(Handle, ("Please contribute to active " + Application->Name + " development by donating via Paypal. It is secure, safe and convenient.\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
-			}
 		}
 	}
 
