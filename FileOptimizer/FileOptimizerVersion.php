@@ -67,7 +67,7 @@
 		'LeanifyIterations' => 0,
 		'Theme' => '',
 		'TempDirectory' => '',
-		'Version' => '10.10.1889',
+		'Version' => '11.00.1926',
 		'Time' => 0,
 		'Opens' => 0,
 		'Files' => 0,
