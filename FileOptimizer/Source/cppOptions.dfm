@@ -220,7 +220,7 @@ object frmOptions: TfrmOptions
       object cboOptimizationLevel: TComboBox
         Left = 168
         Top = 19
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Optimization level from best speed to best compression.'
         Style = csDropDownList
@@ -242,7 +242,7 @@ object frmOptions: TfrmOptions
       object cboProcessPriority: TComboBox
         Left = 168
         Top = 45
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Process priority from most conservative to best performance.'
         Style = csDropDownList
@@ -260,7 +260,7 @@ object frmOptions: TfrmOptions
       object cboCheckForUpdates: TComboBox
         Left = 168
         Top = 71
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Automatically check for program updates.'
         Style = csDropDownList
@@ -275,7 +275,7 @@ object frmOptions: TfrmOptions
       object cboLogLevel: TComboBox
         Left = 168
         Top = 97
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Debugging level to output on program log.'
         Style = csDropDownList
@@ -305,7 +305,7 @@ object frmOptions: TfrmOptions
       object txtExcludeMask: TEdit
         Left = 168
         Top = 123
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 
           'Files containing this mask (substring) on name or path will be e' +
@@ -321,7 +321,7 @@ object frmOptions: TfrmOptions
       object txtIncludeMask: TEdit
         Left = 168
         Top = 147
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 
           'If not empty, only files containing this mask (substring) on nam' +
@@ -350,7 +350,7 @@ object frmOptions: TfrmOptions
       object txtTempDirectory: TEdit
         Left = 168
         Top = 171
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 
           'If not empty specified directory will be used for temporary stor' +
@@ -391,7 +391,7 @@ object frmOptions: TfrmOptions
       object txtDisablePluginMask: TEdit
         Left = 168
         Top = 17
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 
           'Allow excluding execution of certain plugins. It is case insensi' +
@@ -453,7 +453,7 @@ object frmOptions: TfrmOptions
       object spnLeanifyIterations: TSpinEdit
         Left = 168
         Top = 45
-        Width = 121
+        Width = 221
         Height = 22
         Hint = 
           'If specified, number of trial iterations in all Leanify executio' +
@@ -520,7 +520,7 @@ object frmOptions: TfrmOptions
       object cboTheme: TComboBox
         Left = 168
         Top = 19
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Visual theme.'
         Style = csDropDownList
@@ -536,7 +536,7 @@ object frmOptions: TfrmOptions
       object txtDonator: TEdit
         Left = 168
         Top = 69
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 
           'If you have already donated to support FileOptimizer development' +
@@ -573,7 +573,7 @@ object frmOptions: TfrmOptions
       object cboFilenameFormat: TComboBox
         Left = 168
         Top = 44
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Specify the format to display filenames in the list.'
         Style = csDropDownList
@@ -634,7 +634,7 @@ object frmOptions: TfrmOptions
       object cboCSSTemplate: TComboBox
         Left = 168
         Top = 46
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 
           'Compression template, from safer and worse compression, to highe' +
@@ -814,7 +814,7 @@ object frmOptions: TfrmOptions
       object txtJSAdditionalExtensions: TEdit
         Left = 168
         Top = 46
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Add extra extensions to be threated as JS/JSON.'
         AutoSize = False
@@ -930,7 +930,7 @@ object frmOptions: TfrmOptions
       object cboPDFProfile: TComboBox
         Left = 168
         Top = 22
-        Width = 145
+        Width = 245
         Height = 21
         Hint = 'Compression profile, from less size, to best quality.'
         Style = csDropDownList
@@ -949,7 +949,7 @@ object frmOptions: TfrmOptions
       object spnPDFCustomDPI: TSpinEdit
         Left = 168
         Top = 49
-        Width = 121
+        Width = 221
         Height = 22
         Hint = 
           'When custom profile is choosen, it allows you to specify a custo' +
