@@ -354,7 +354,7 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 			{
 				if (piOffset != 0)
 				{
-					SetFilePointer(hFile, piOffset, NULL, FILE_BEGIN);
+					SetFilePointer(hFile, (long) piOffset, NULL, FILE_BEGIN);
 				}
 				bRes = ::ReadFile(hFile, pvData, *piSize, &lSize, NULL);
 			}
@@ -396,7 +396,7 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, uns
 		{
 			if (piOffset != 0)
 			{
-				SetFilePointer(hFile, piOffset, NULL, FILE_BEGIN);
+				SetFilePointer(hFile, (long) piOffset, NULL, FILE_BEGIN);
 			}
 			bRes = ::WriteFile(hFile, pvData, piSize, &lSize, NULL);
 		}

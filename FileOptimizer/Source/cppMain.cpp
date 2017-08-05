@@ -2029,9 +2029,9 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		//Update cache
 		if (gudtOptions.bEnableCache)
 		{
-			String sHashValue = Hash(sInputFile.t_str());
-			unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), (unsigned int) sHashValue.Length());
-			clsUtil::SetIni(_T("Cache"), ((String) iHashKey).t_str(), sHashValue.t_str());						
+			String sHashValue = Hash(sInputFile.c_str());
+			unsigned int iHashKey = clsUtil::Crc32(sHashValue.c_str(), (unsigned int) sHashValue.Length());
+			clsUtil::SetIni(_T("Cache"), ((String) iHashKey).c_str(), sHashValue.c_str());
 		}
 	}
 	RefreshStatus(true, (unsigned int) iCount, lTotalBytes, lSavedBytes);
@@ -2193,9 +2193,9 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					if (gudtOptions.bEnableCache)
 					{
 						String sHashValue = Hash(pacFile);
-						unsigned int iHashKey = clsUtil::Crc32(sHashValue.t_str(), (unsigned int) sHashValue.Length());
+						unsigned int iHashKey = clsUtil::Crc32(sHashValue.c_str(), (unsigned int) sHashValue.Length());
 						//In cache, show it as already optimized
-						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).t_str(), _T("")), _T("")) != 0)
+						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).c_str(), _T("")), _T("")) != 0)
 						{
 							grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Optimized";
 						}
@@ -3196,7 +3196,7 @@ String __fastcall TfrmMain::Hash(String psFilename)
 	String sHash;
 	
 
-	lSize = clsUtil::SizeFile(psFilename.t_str());
+	lSize = clsUtil::SizeFile(psFilename.c_str());
 	clsUtil::GetFileTimestamp(psFilename.c_str(), &udtFileCreated, &udtFileAccessed, &udtFileModified);
 	sHash = psFilename + _T("|") + (String) lSize + _T("|") + (String) udtFileModified.dwHighDateTime + (String) udtFileModified.dwLowDateTime;
 	return(sHash);

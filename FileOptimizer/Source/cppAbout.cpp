@@ -37,7 +37,44 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 
 	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acName, sizeof(acName) / sizeof(TCHAR));
 	lblCopyright->Caption = acName;
-    lblCopyright->Hint = KS_APP_URL;
+	lblCopyright->Hint = KS_APP_URL;
+
+	#if ((__BORLANDC__ >= 0x0630) && (__BORLANDC__ <= 0x0639))
+		imgAbout->Hint = "Embarcadero C++ Builder XE";
+	#elif ((__BORLANDC__ >= 0x0640) && (__BORLANDC__ <= 0x0649))
+		imgAbout->Hint = "Embarcadero C++ Builder XE2";
+	#elif ((__BORLANDC__ >= 0x0650) && (__BORLANDC__ <= 0x0659))
+		imgAbout->Hint = "Embarcadero C++ Builder XE3";
+	#elif ((__BORLANDC__ >= 0x0660) && (__BORLANDC__ <= 0x0669))
+		imgAbout->Hint = "Embarcadero C++ Builder XE4";
+	#elif ((__BORLANDC__ >= 0x0670) && (__BORLANDC__ <= 0x0679))
+		imgAbout->Hint = "Embarcadero C++ Builder XE5";
+	#elif ((__BORLANDC__ >= 0x0680) && (__BORLANDC__ <= 0x0689))
+		imgAbout->Hint = "Embarcadero C++ Builder XE6";
+	#elif ((__BORLANDC__ >= 0x0690) && (__BORLANDC__ <= 0x0699))
+		imgAbout->Hint = "Embarcadero C++ Builder XE7";
+	#elif ((__BORLANDC__ >= 0x0700) && (__BORLANDC__ <= 0x0709))
+		imgAbout->Hint = "Embarcadero C++ Builder XE8";
+	#elif ((__BORLANDC__ >= 0x0710) && (__BORLANDC__ <= 0x0719))
+		imgAbout->Hint = "Embarcadero C++ Builder 10 Seattle";
+	#elif ((__BORLANDC__ >= 0x0720) && (__BORLANDC__ <= 0x0729))
+		imgAbout->Hint = "Embarcadero C++ Builder 10.1 Berlin";
+	#elif ((__BORLANDC__ >= 0x0730) && (__BORLANDC__ <= 0x0739))
+		imgAbout->Hint = "Embarcadero C++ Builder 10.2 Tokyo";
+	#elif ((__BORLANDC__ >= 0x0740) && (__BORLANDC__ <= 0x0749))
+		imgAbout->Hint = "Embarcadero C++ Builder 10.3";
+	#else
+		imgAbout->Hint = "Borland/Inprise/CodeGear/Embarcadero C++ Builder";
+	#endif
+	imgAbout->Hint += " (" + (String) __BORLANDC__ + ")";
+
+	#if defined (__clang__)
+		imgAbout->Hint += ". Clang " + (String) __clang_version__;
+	#endif
+
+	#if defined (_DEBUG)
+		imgAbout->Hint += ". DEBUG";
+	#endif
 }
 
 

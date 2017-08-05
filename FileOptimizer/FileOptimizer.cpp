@@ -47,7 +47,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			return(-1);
 		}
 		
-		#ifdef _DEBUG
+		#if defined( _DEBUG)
 			ReportMemoryLeaksOnShutdown = true;
 		#endif
 		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
