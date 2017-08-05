@@ -233,7 +233,7 @@ object frmOptions: TfrmOptions
           '2: Fast'
           '3:'
           '4:'
-          '5: Normal'
+          '5: Normal (Default)'
           '6:'
           '7: Good'
           '8: Better'
@@ -252,7 +252,7 @@ object frmOptions: TfrmOptions
         Items.Strings = (
           'Idle'
           'Below normal'
-          'Normal'
+          'Normal (Default)'
           'Above normal'
           'High'
           'Realtime')
@@ -269,7 +269,7 @@ object frmOptions: TfrmOptions
         TabOrder = 3
         Items.Strings = (
           'Ask'
-          'Automatically'
+          'Automatically (Default)'
           'Never')
       end
       object cboLogLevel: TComboBox
@@ -283,7 +283,7 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 4
         Items.Strings = (
-          '0: None'
+          '0: None (Default)'
           '1: Critical'
           '2: Error'
           '3: Warning'
@@ -644,7 +644,7 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 1
         Items.Strings = (
-          'Low'
+          'Low (Default)'
           'High'
           'Highest')
       end
@@ -939,7 +939,7 @@ object frmOptions: TfrmOptions
         TabOrder = 0
         OnChange = cboPDFProfileChange
         Items.Strings = (
-          'None: No downsampling'
+          'None: No downsampling (Default)'
           'Screen: 72 dpi'
           'Ebook: 150 dpi'
           'Printer: 300 dpi'
