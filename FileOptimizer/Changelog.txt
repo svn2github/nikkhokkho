@@ -191,6 +191,7 @@ X.XX - YYYY
 - Added YUV, YCBCRA, YCBCR, X, UYVY, SUN, SGI, RFG, RGB, RGBA, PTIF, PCL, PCLS, MTV, MVG, MSL, MPR, MPC, MONO, J2C, J2K, INLINE, GRAY, FPX, FAX, EPDF, DPX, DDS, CMYK, CMYKA, CIN, BPG, ART to the ImageMagick toolchain.
 - Reenabled Embarcadero's Luna, Metropolis and Windows 10 themes removed in FileOptimizer 9.10, because they work fine again with Windows 10 Anniversary and later. Made Windows theme default, because it is stabler and faster.
 - Fixed themes hidding main user interface when executed via command-line.
+- When multiple instances are allowed, FO will not warn anymore about Optimization still running, nor kill plugin processes.
 - Made INI processing safer.
 - Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
 - Fixed version display in About window.

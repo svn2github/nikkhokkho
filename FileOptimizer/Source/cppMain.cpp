@@ -221,7 +221,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	TCHAR acPluginsDirectory[PATH_MAX];
 	
 
-	if (!gbStop)
+	if ((!gbStop) && (!gudtOptions.bAllowMultipleInstances))
 	{
 		GetModuleFileName(NULL, acPluginsDirectory, sizeof(acPluginsDirectory) - 1);
 		*_tcsrchr(acPluginsDirectory, '\\') = NULL;
@@ -250,14 +250,13 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 		if ((bRunning) && (clsUtil::MsgBox(Handle, ("Optimization is still running. Do you want to stop and exit " + Application->Name + "?").c_str(), _T("Exit"), MB_YESNO | MB_ICONQUESTION) == ID_NO))
 		{
 			CanClose = false;
-		}
-		else
-		{
-			gbStop = true;
-			Hide();
-			CanClose = true;
+			return;
 		}
 	}
+	gbStop = true;
+	CanClose = true;
+	Hide();
+	Application->ProcessMessages(); //Required because some themes do not automatically refresh
 }
 
 
@@ -2068,7 +2067,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		if (_argc > 1)
 		{
 			Screen->Cursor = crAppStart;
-            Visible = true;  //Required because some themes do not automatically refresh
+            Show();  //Required because some themes do not automatically refresh
 			Application->ProcessMessages();
 			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
 			{
