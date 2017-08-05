@@ -920,7 +920,7 @@ void __fastcall TfrmMain::actOptimizeForThread(TObject *Sender, int AIndex, TPar
 void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 {
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
-	String sInputFile, sFlags, sExtensionByContent;
+	String sInputFile, sFlags;
 
 
 	sInputFile = GetCellValue(grdFiles->Cells[KI_GRID_FILE][iCount], 1);
@@ -988,8 +988,6 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 	//Check file still exists and is not to be excluded
 	if ((clsUtil::ExistsFile(sInputFile.c_str())) && (!bExcluded))
 	{
-		sExtensionByContent = " " + GetExtensionByContent(sInputFile) + " ";
-
 		if (!gudtOptions.bDoNotUseRecycleBin)
 		{
 			grdFiles->Cells[KI_GRID_STATUS][iCount] = "Copying to Recyclebin...";
@@ -1017,6 +1015,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		int iLevel;
 		//Each extension can correspond to more than one engine, so use if instead of else if
 		// BMP: ImageMagick, ImageWorsener
+		String sExtensionByContent = " " + GetExtensionByContent(sInputFile) + " ";		
 		if (PosEx(sExtensionByContent, KS_EXTENSION_BMP) > 0)
 		{
 			sFlags = "";
