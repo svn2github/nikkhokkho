@@ -528,7 +528,7 @@ object frmOptions: TfrmOptions
         ShowHint = True
         TabOrder = 0
         Items.Strings = (
-          'Windows'
+          'Windows (Default)'
           'Metropolis UI Black'
           'Luna'
           'Windows 10')

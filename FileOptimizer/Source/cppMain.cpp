@@ -95,6 +95,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
 	//Use Windows 10 theme by default on Windows 8 and newer
+	/*
 	if (clsUtil::GetWindowsVersion() >= 602)
 	{
 		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")), sizeof(gudtOptions.acTheme));
@@ -103,6 +104,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	{
 		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), sizeof(gudtOptions.acTheme));
 	}
+	*/
+	_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), sizeof(gudtOptions.acTheme));
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), sizeof(gudtOptions.acTempDirectory));
 
 	miStartTicks = GetTickCount();
