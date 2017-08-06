@@ -204,11 +204,13 @@ X.XX - YYYY
 - Minor usability improvements.
 - Added FLAC codec to the FLAC toolchain to recompress them (AlexNG).
 - Only use flacout in FileOptimizer compression levels 9, because it is slow (AlexNG).
+- Reduced 7z EXE SFX in the portable distribution in 105 KB., becasuse extractor is now UPX'ed.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.
 - Updated PCXLite 1.1 x86 and x64 Visual C++ 2017 custom builds.
 - Updated SQLite to 3.20.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pngquant to 2.10.1.
 - Updated ImageMagick to 7.0.6.5 with HDRI support.
+- Updated to NSIS 3.02.1.
 - Updated to cppcheck 1.80.
 - Some minor optimizations and code cleanup.
 
