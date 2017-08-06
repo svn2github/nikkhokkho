@@ -1045,7 +1045,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "strip", (sPluginsDirectory + "strip.exe --strip-all -o \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			if (gudtOptions.bEXEEnableUPX)
 			{
-				sFlags = "--no-backup --force ";
+				sFlags = "";
 				if (gudtOptions.iLevel < 3)
 				{
 					sFlags += "-1 ";
@@ -1066,7 +1066,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "-9 --best --lzma --ultra-brute --crp-ms=999999 ";
 				}	
-				RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "UPX", (sPluginsDirectory + "upx.exe --no-backup --force " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
 		// EXE: Leanify, PETrim, strip
@@ -1123,7 +1123,33 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// FLAC: FLACOut
 		if (PosEx(sExtensionByContent, KS_EXTENSION_FLAC) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			sFlags = "";
+			if (gudtOptions.bMiscCopyMetadata)
+			{
+				sFlags += "--keep-foreign-metadata ";
+			}
+			if (gudtOptions.iLevel < 3)
+			{
+				sFlags += "-1 ";
+			}
+			else if (gudtOptions.iLevel < 5)
+			{
+				sFlags += "-8 ";
+			}
+			else if (gudtOptions.iLevel < 7)
+			{
+				sFlags += "-8 --best ";
+			}
+			else
+			{
+				sFlags += "-8 --best -ep ";
+			}	
+			RunPlugin((unsigned int) iCount, "FLAC", (sPluginsDirectory + "flac.exe --force -s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+
+			if (gudtOptions.iLevel >= 9)
+			{
+				RunPlugin((unsigned int) iCount, "FLACOut", (sPluginsDirectory + "flacout.exe /q /y \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			}
 		}
 		// GIF: ImageMagick, gifsicle-lossy, gifsicle
 		if (PosEx(sExtensionByContent, KS_EXTENSION_GIF) > 0)
@@ -1199,14 +1225,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
-			sFlags += "--allfilters --mt-deflate ";
 			if (!gudtOptions.bGZCopyMetadata)
 			{
 				sFlags += "-s ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
 			if (gudtOptions.bGZCopyMetadata)
@@ -1297,13 +1322,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags = "";
 			if (gudtOptions.bJPEGCopyMetadata)
 			{
-				sFlags += "-autorot -zt -q ";
+				sFlags += "-zt ";
 			}
 			else
 			{
-				sFlags += "-autorot -purejpg -di -dx -dt -zt -q ";
+				sFlags += "-purejpg -di -dx -dt -zt ";
 			}	
-			RunPlugin((unsigned int) iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "jhead", (sPluginsDirectory + "jhead.exe -q -autorot " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			sFlags = "";
 			if (gudtOptions.bJPEGCopyMetadata)
@@ -1367,30 +1392,28 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "mozjpegtran", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			sFlags = "";
-			sFlags += "--allfilters --mt-deflate ";			
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
 				sFlags += "-s ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -progressive -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate -progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
 				sFlags = "";
-				sFlags += "-progressive ";
 				iLevel = min(gudtOptions.iLevel * 8 / 9, 8);
 				sFlags += "-s" + (String) iLevel + " ";
+				if (iLevel >= 8)
+				{
+					sFlags += "-alltables ";
+				}
 				if (gudtOptions.bJPEGAllowLossy)
 				{
 					sFlags += "-x3 -lossy ";
-					if (iLevel >= 8)
-					{
-						sFlags += "-alltables ";
-					}
 				}
-				RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe -progressive " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 		}
 		// JS: jsmin
@@ -1463,14 +1486,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MP3) > 0)
 		{
 			sFlags = "";
-			sFlags += "--allfilters --mt-deflate ";
 			if (!gudtOptions.bMP3CopyMetadata)
 			{
 				sFlags += "-s ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			sFlags = "";
 			if (!gudtOptions.bMP3CopyMetadata)
@@ -1717,14 +1739,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					}
 	
 					sFlags = "";
-					sFlags += "--allfilters --mt-deflate ";
 					if (!gudtOptions.bPNGCopyMetadata)
 					{
 						sFlags += "-s ";
 					}
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					sFlags += "-" + (String) iLevel + " ";
-					RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+					RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					
 					if (!gudtOptions.bPNGCopyMetadata)
 					{
@@ -1833,13 +1854,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags = "";
 			if (gudtOptions.bTIFFCopyMetadata)
 			{
-				sFlags += "-autorot -zt -q ";
+				sFlags += "-zt ";
 			}
 			else
 			{
-				sFlags += "-autorot -purejpg -di -dx -dt -zt -q ";
+				sFlags += "-purejpg -di -dx -dt -zt ";
 			}	
-			RunPlugin((unsigned int) iCount, "jhead", (sPluginsDirectory + "jhead.exe " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "jhead", (sPluginsDirectory + "jhead.exe -q -autorot " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
 			if (!gudtOptions.bTIFFCopyMetadata)
@@ -1949,14 +1970,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
-			sFlags += "--mt-deflate ";			
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
 				sFlags += "-s ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet -zip " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);			
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --mt-deflate -zip " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);			
 
 			//AdvZip strips header on ZIP files
 			if (!bIsZIPSFX)

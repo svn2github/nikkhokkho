@@ -118,8 +118,9 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagAppearance
+    ActivePage = pagGeneral1
     Align = alCustom
+    HotTrack = True
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
@@ -453,7 +454,7 @@ object frmOptions: TfrmOptions
       object spnLeanifyIterations: TSpinEdit
         Left = 168
         Top = 45
-        Width = 221
+        Width = 50
         Height = 22
         Hint = 
           'If specified, number of trial iterations in all Leanify executio' +
@@ -949,7 +950,7 @@ object frmOptions: TfrmOptions
       object spnPDFCustomDPI: TSpinEdit
         Left = 168
         Top = 49
-        Width = 221
+        Width = 50
         Height = 22
         Hint = 
           'When custom profile is choosen, it allows you to specify a custo' +
