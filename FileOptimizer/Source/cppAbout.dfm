@@ -1,6 +1,7 @@
 object frmAbout: TfrmAbout
   Left = 192
   Top = 114
+  ActiveControl = mmoLicense
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'About'
@@ -13,6 +14,7 @@ object frmAbout: TfrmAbout
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  GlassFrame.Enabled = True
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter

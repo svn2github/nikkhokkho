@@ -233,7 +233,7 @@ __published: // IDE-managed Components
 	TToolButton *tooSeparator7;
 	TToolButton *tooHelpAbout;
 	TMenuItem *mnuFilesInformation;
-	TMenuItem *Helptopics1;
+	TMenuItem *mnuFilesHelpTopics;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);

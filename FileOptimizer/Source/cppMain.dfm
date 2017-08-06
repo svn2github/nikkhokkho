@@ -1,6 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
+  ActiveControl = grdFiles
   Caption = 'FileOptimizer'
   ClientHeight = 391
   ClientWidth = 734
@@ -13,6 +14,7 @@ object frmMain: TfrmMain
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  GlassFrame.Enabled = True
   KeyPreview = True
   Menu = mnuMain
   OldCreateOrder = False
@@ -317,7 +319,7 @@ object frmMain: TfrmMain
     object mnuFilesDonate: TMenuItem
       Action = actDonate
     end
-    object Helptopics1: TMenuItem
+    object mnuFilesHelpTopics: TMenuItem
       Action = actHelp
     end
     object N3: TMenuItem
