@@ -287,6 +287,9 @@ object frmMain: TfrmMain
     object mnuFilesStop: TMenuItem
       Action = actStop
     end
+    object mnuFilesOptions: TMenuItem
+      Action = actOptions
+    end
     object N1: TMenuItem
       Caption = '-'
     end
@@ -305,14 +308,17 @@ object frmMain: TfrmMain
     object N2: TMenuItem
       Caption = '-'
     end
-    object mnuFilesOptions: TMenuItem
-      Action = actOptions
-    end
     object mnuFilesAbout: TMenuItem
       Action = actAbout
     end
+    object mnuFilesInformation: TMenuItem
+      Action = actInformation
+    end
     object mnuFilesDonate: TMenuItem
       Action = actDonate
+    end
+    object Helptopics1: TMenuItem
+      Action = actHelp
     end
     object N3: TMenuItem
       Caption = '-'
