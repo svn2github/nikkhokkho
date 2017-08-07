@@ -2176,7 +2176,6 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 }
 
 
-
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 {
@@ -2211,6 +2210,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			if (!gudtOptions.bAllowDuplicates)
 			{
 				if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
+				//if (clsUtil::MemMem(grdFiles->Cols[KI_GRID_FILE]->Text.c_str(), grdFiles->Cols[KI_GRID_FILE]->Text.Length(), sCellFile.c_str(), sCellFile.Length()) != NULL)
 				{
 					return;
 				}
