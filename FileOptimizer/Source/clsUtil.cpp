@@ -915,9 +915,11 @@ int __fastcall clsUtil::Random(int piMin, int piMax)
 {
 	static int iSeed = clock();
 	
-
-	iSeed = 36969 * (iSeed & 32767) + (iSeed >> 16);
-	return((iSeed % (piMax - piMin)) + piMin);
+	iSeed = (214013 * iSeed + 2531011);
+	return(iSeed  % (piMax - piMin)) + piMin));
+	
+	/*iSeed = 36969 * (iSeed & 32767) + (iSeed >> 16);
+	return((iSeed % (piMax - piMin)) + piMin);*/
 }
 
 

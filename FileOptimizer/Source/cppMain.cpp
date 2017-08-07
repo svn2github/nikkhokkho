@@ -115,8 +115,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iStatFiles = (unsigned int) GetOption(_T("Statistics"), _T("Files"), 0);
 	gudtOptions.lStatTotalBytes = (unsigned long long) GetOption(_T("Statistics"), _T("TotalBytes"), 0);
 	gudtOptions.lStatSavedBytes = (unsigned long long) GetOption(_T("Statistics"), _T("SavedBytes"), 0);
-	randomize();
-	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), random(INT_MAX));
+	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), clsUtil:Random(0, INT_MAX));
 
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
@@ -338,13 +337,24 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int ARow)
 {
 	unsigned int iRows = (unsigned int) grdFiles->RowCount;
+
 	if (iRows > 1)
 	{
 		static int iSortField = -1;
 		static unsigned int iSortOrder = 0;
-		
+
 		Screen->Cursor = crAppStart;
 		Application->ProcessMessages();
+		SendMessage(grdFiles->Handle, WM_SETREDRAW, 0, 0);
+		//grdFiles->Selection = TGridRect({-1, -1, -1, -1}); //Clear selection
+
+        //Clear selection
+		TGridRect rctSelection;
+		rctSelection.Left = -1;
+		rctSelection.Top = -1;
+		rctSelection.Right = -1;
+		rctSelection.Bottom = -1;
+		grdFiles->Selection = rctSelection;
 
 		if (ACol == iSortField)
 		{
@@ -386,17 +396,22 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			{
 				asValue = SplitString(lstTemp->Strings[(int) (iRows - iRow - 1)], "|");
 			}
-			grdFiles->Rows[(int) iRow]->BeginUpdate();
-			grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
-			grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
-			grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = asValue[3];
-			grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
-			grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
-			grdFiles->Rows[(int) iRow]->EndUpdate();
+
+			TStringList *lstRow = new TStringList();
+			lstRow->Add(asValue[1]); //0: File
+			lstRow->Add(asValue[2]); //1: Extension (Type)
+			lstRow->Add(asValue[3]); //2: Original size
+			lstRow->Add(asValue[4]); //3: Optimized size
+			lstRow->Add(asValue[5]); //4: Status
+			grdFiles->Rows[(int) iRow] = lstRow;
+            delete lstRow;
 		}
 		delete lstTemp;
 
 		RefreshStatus();
+		SendMessage(grdFiles->Handle, WM_SETREDRAW, 1, 0);
+		grdFiles->Repaint();
+
 		Screen->Cursor = crDefault;
 	}
 }
@@ -450,6 +465,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 		{
 			Screen->Cursor = crAppStart;
 			Application->ProcessMessages();
+			SendMessage(grdFiles->Handle, WM_SETREDRAW, 0, 0);
 			for (int iRow = (int) iRows; iRow > 0; iRow--)
 			{
 				//Remove already optimized files
@@ -457,15 +473,15 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 				{
 					for (int iSelectedRow = iRow; iSelectedRow < (int) iRows - 1; iSelectedRow++)
 					{
-						grdFiles->Rows[iSelectedRow]->BeginUpdate();
 						grdFiles->Rows[iSelectedRow] = grdFiles->Rows[iSelectedRow + 1];
-						grdFiles->Rows[iSelectedRow]->EndUpdate();
 					}
 					iRows--;
 				}
 			}
 			grdFiles->RowCount = (int) iRows;
 			RefreshStatus();
+			SendMessage(grdFiles->Handle, WM_SETREDRAW, 1, 0);
+			grdFiles->Repaint();
 			Screen->Cursor = crDefault;
 		}
 	}
@@ -478,6 +494,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 		{
 			Screen->Cursor = crAppStart;
 			Application->ProcessMessages();
+			SendMessage(grdFiles->Handle, WM_SETREDRAW, 0, 0);
 			for (unsigned int iRow = 1; iRow < iRows; iRow++)
 			{
 				//grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
@@ -489,6 +506,8 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 				//grdFiles->Rows[(int) iRow]->EndUpdate();
 			}
 			RefreshStatus();
+			SendMessage(grdFiles->Handle, WM_SETREDRAW, 1, 0);
+			grdFiles->Repaint();
 			Screen->Cursor = crDefault;
 		}
 	}
@@ -543,15 +562,16 @@ void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
 	int iSelectedRow2 = grdFiles->Selection.Bottom;
 
 
+	SendMessage(grdFiles->Handle, WM_SETREDRAW, 0, 0);
 	int iRows = grdFiles->RowCount - 1;
 	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
 	{
-		grdFiles->Rows[iRow]->BeginUpdate();
 		grdFiles->Rows[iRow] = grdFiles->Rows[iRow + (iSelectedRow2 - iSelectedRow1 + 1)];
-		grdFiles->Rows[iRow]->EndUpdate();
 	}
 	grdFiles->RowCount -= (iSelectedRow2 - iSelectedRow1 + 1);
 	RefreshStatus();
+	SendMessage(grdFiles->Handle, WM_SETREDRAW, 1, 0);
+	grdFiles->Repaint();
 }
 
 
@@ -579,6 +599,8 @@ void __fastcall TfrmMain::actOpenExecute(TObject *Sender)
 {
 	unsigned int iRow = (unsigned int) grdFiles->Row;
 	unsigned int iCol = (unsigned int) grdFiles->Col;
+
+
 	if ((iRow > 0) && (iCol == KI_GRID_FILE))
 	{
 		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
@@ -592,6 +614,8 @@ void __fastcall TfrmMain::actOpenFolderExecute(TObject *Sender)
 {
 	unsigned int iRow = (unsigned int) grdFiles->Row;
 	unsigned int iCol = (unsigned int) grdFiles->Col;
+
+
 	if ((iRow > 0) && (iCol == KI_GRID_FILE))
 	{
 		ShellExecute(NULL, _T("open"), ExtractFilePath(GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1)).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
@@ -2195,20 +2219,22 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					//We store the name to show concatenated with the full name
 					unsigned int iRows = (unsigned int) grdFiles->RowCount;
 					grdFiles->Rows[(int) iRows]->BeginUpdate();
-					grdFiles->Cells[KI_GRID_FILE][(int) iRows] = sCellFile;
+
+					TStringList *lstRow = new TStringList();
+					lstRow->Add(sCellFile); //0: File
 
 					String sExtension = GetExtension(pacFile);
 					if (sExtensionByContent != sExtension)
 					{
-						grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension + " (" + sExtensionByContent + ")";
+						lstRow->Add(sExtension + " (" + sExtensionByContent + ")"); //1: Extension (Type)
 					}
 					else
 					{
-						grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension;
+						lstRow->Add(sExtension); //1: Extension (Type)
 					}
 
-					grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRows] = FormatNumberThousand(lSize);
-					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRows] = "";
+					lstRow->Add(FormatNumberThousand(lSize)); //2: Original size
+					lstRow->Add(""); //3: Optimized size
 
 					//Check if it was already optimized
 					if (gudtOptions.bEnableCache)
@@ -2218,13 +2244,15 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 						//In cache, show it as already optimized
 						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).c_str(), _T("")), _T("")) != 0)
 						{
-							grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Optimized";
+							lstRow->Add("Optimized"); //4: Status
 						}
 					}
 					else
 					{
-						grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Pending";
+						lstRow->Add("Pending"); //4: Status
 					}
+					grdFiles->Rows[(int) iRows] = lstRow;
+					delete lstRow;
 					grdFiles->Rows[(int) iRows]->EndUpdate();
 					grdFiles->RowCount = (int) iRows + 1;
 				}
@@ -2425,7 +2453,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		{
             gudtOptions.acDonator[0] = NULL;
             gudtOptions.acDonation[0] = NULL;
-			if (clsUtil::Random(0, 10) == 5)
+			if (clsUtil::Random(0, 100) == 5)
 			{
 				actDonateExecute(NULL);
 				clsUtil::MsgBox(Handle, ("Please contribute to active " + Application->Name + " development by donating via Paypal. It is secure, safe and convenient.\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
@@ -2469,7 +2497,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	sRes = GetExtension(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
-	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
+	if (PosEx(" " + sRes + " ", " " + KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
 	{
 		unsigned int iSize;
 		memset(acBuffer, 0, sizeof(acBuffer));
@@ -2611,6 +2639,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			else
 			{
 				//Do nothing. Use regular file extension
+				sRes = "";
             }
 		}
 	}
@@ -2633,6 +2662,11 @@ String __fastcall TfrmMain::GetExtension (String psFilename)
 		_tcscpy(acRes, pacDot);
 		_tcslwr(acRes);
 	}
+	pacDot = _tcsrchr(acRes, '\\');
+	if (pacDot)
+	{
+		acRes[0] = NULL;
+    }
 	return ((String) acRes);
 }
 
@@ -3184,11 +3218,14 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 			{
 				grdFiles->Rows[0]->BeginUpdate();
 				grdFiles->ColCount = 5;
-				grdFiles->Cells[KI_GRID_FILE][0] = "File";
-				grdFiles->Cells[KI_GRID_EXTENSION][0] = "Extension (Type)";
-				grdFiles->Cells[KI_GRID_ORIGINAL][0] = "Original size";
-				grdFiles->Cells[KI_GRID_OPTIMIZED][0] = "Optimized size";
-				grdFiles->Cells[KI_GRID_STATUS][0] = "Status";
+				TStringList *lstRow = new TStringList();
+				lstRow->Add("File");
+				lstRow->Add("Extension (Type)");
+				lstRow->Add("Original size");
+				lstRow->Add("Optimized size");
+				lstRow->Add("Status");
+				grdFiles->Rows[0] = lstRow;
+				delete lstRow;
 				grdFiles->Rows[0]->EndUpdate();
 
 				stbMain->Panels->Items[0]->Text = "";
@@ -3267,6 +3304,8 @@ String __fastcall TfrmMain::SetCellFileValue(String psValue)
 	sRes += "\n" + psValue;
 	return(sRes);
 }
+
+
 
 
 
