@@ -17,8 +17,16 @@ bool gbStop = false;
 unsigned int miStartTicks;
 
 
+
 // ---------------------------------------------------------------------------
 __fastcall TfrmMain::TfrmMain(TComponent* Owner) : TForm(Owner)
+{
+}
+
+
+
+// ---------------------------------------------------------------------------
+__fastcall TfrmMain::~TfrmMain()
 {
 }
 
@@ -115,7 +123,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iStatFiles = (unsigned int) GetOption(_T("Statistics"), _T("Files"), 0);
 	gudtOptions.lStatTotalBytes = (unsigned long long) GetOption(_T("Statistics"), _T("TotalBytes"), 0);
 	gudtOptions.lStatSavedBytes = (unsigned long long) GetOption(_T("Statistics"), _T("SavedBytes"), 0);
-	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), clsUtil:Random(0, INT_MAX));
+	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), clsUtil::Random(0, INT_MAX));
 
 	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
@@ -810,7 +818,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	//Get all supported extensions
 	TStringDynArray asExtension;
 	
-	asExtension = SplitString((KS_EXTENSION_ALL + " " + ((String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" "))).UpperCase() + " "), " ");
+	asExtension = SplitString((KS_EXTENSION_ALL + ((String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" "))).UpperCase() + " "), " ");
 	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
 
 	//Sort them alphabetically
@@ -1443,8 +1451,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 		}
 		// JS: jsmin
-		if ((PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0) ||
-			(PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") > 0))
+		if ((PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0) || (PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") > 0))
 		{
 			//If JSMin is enabled or it is a custom extension (we assume custom extensions always enable it)
 			if ((gudtOptions.bJSEnableJSMin) || (PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") > 0))
@@ -2497,7 +2504,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	sRes = GetExtension(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
-	if (PosEx(" " + sRes + " ", " " + KS_EXTENSION_ALL + " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
+	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
 	{
 		unsigned int iSize;
 		memset(acBuffer, 0, sizeof(acBuffer));

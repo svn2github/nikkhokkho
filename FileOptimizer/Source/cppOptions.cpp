@@ -19,6 +19,13 @@ __fastcall TfrmOptions::TfrmOptions(TComponent* Owner): TForm(Owner)
 
 
 
+// ---------------------------------------------------------------------------
+__fastcall TfrmOptions::~TfrmOptions()
+{
+}
+
+
+
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 {

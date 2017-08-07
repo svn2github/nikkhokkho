@@ -27,6 +27,7 @@ private:	// User declarations
 	int __fastcall GetFileVersionField(const TCHAR *fn, const TCHAR *info, TCHAR *ret, int len);
 public:		// User declarations
 	__fastcall TfrmAbout(TComponent* Owner);
+	__fastcall ~TfrmAbout();
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TfrmAbout *frmAbout;

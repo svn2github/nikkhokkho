@@ -171,7 +171,6 @@ X.XX - YYYY
 - Added detected filetype under extension column in file list, when its extension is not know.
 - Reworked About window to be more colorful.
 - Added donator information displayed in Information box. You can enter your donator email in Options->Appearance->Donator.
-- Implemented donation reminder for non donating regular users.
 - Improved a lot grid performance.
 - Added ImageMagick to the GIF toolchain.
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).

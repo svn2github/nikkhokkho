@@ -18,6 +18,14 @@ __fastcall TfrmAbout::TfrmAbout(TComponent* Owner): TForm(Owner)
 
 
 
+// ---------------------------------------------------------------------------
+__fastcall TfrmAbout::~TfrmAbout()
+{
+}
+
+
+
+
 //---------------------------------------------------------------------------
 void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 {

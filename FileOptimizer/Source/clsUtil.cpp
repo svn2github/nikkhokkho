@@ -913,13 +913,11 @@ unsigned int __fastcall clsUtil::Crc32 (const void *pacBuffer, unsigned int piLe
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int __fastcall clsUtil::Random(int piMin, int piMax)
 {
-	static int iSeed = clock();
+	static unsigned int iSeed = (unsigned int) (GetTickCount() * GetCurrentProcessId());
+
 	
 	iSeed = (214013 * iSeed + 2531011);
-	return(iSeed  % (piMax - piMin)) + piMin));
-	
-	/*iSeed = 36969 * (iSeed & 32767) + (iSeed >> 16);
-	return((iSeed % (piMax - piMin)) + piMin);*/
+	return((iSeed  % (piMax - piMin)) + piMin);
 }
 
 

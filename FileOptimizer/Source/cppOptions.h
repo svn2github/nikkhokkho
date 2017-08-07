@@ -121,6 +121,7 @@ __published: // IDE-managed Components
 private: // User declarations
 public: // User declarations
 	__fastcall TfrmOptions(TComponent* Owner);
+    __fastcall ~TfrmOptions();
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TfrmOptions *frmOptions;
