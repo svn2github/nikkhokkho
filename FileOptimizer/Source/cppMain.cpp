@@ -2225,8 +2225,8 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					{
 						grdFiles->Cells[KI_GRID_STATUS][(int) iRows] = "Pending";
 					}
-					grdFiles->RowCount = (int) iRows + 1;
 					grdFiles->Rows[(int) iRows]->EndUpdate();
+					grdFiles->RowCount = (int) iRows + 1;
 				}
 			}
 		}
