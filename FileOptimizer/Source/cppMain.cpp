@@ -356,6 +356,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		}
 		iSortField = ACol;
 
+
 		TStringList *lstTemp = new TStringList();
 		String sValue;
 		for (unsigned int iRow = 1; iRow < iRows; iRow++)
@@ -394,7 +395,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			grdFiles->Rows[(int) iRow]->EndUpdate();
 		}
 		delete lstTemp;
-		
+
 		RefreshStatus();
 		Screen->Cursor = crDefault;
 	}
@@ -479,13 +480,13 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 			Application->ProcessMessages();
 			for (unsigned int iRow = 1; iRow < iRows; iRow++)
 			{
-				grdFiles->Rows[(int) iRow]->BeginUpdate();
 				//grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
 				//grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
+				//grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow]->BeginUpdate();
 				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1).c_str()));
 				//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
 				//grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
-				grdFiles->Rows[(int) iRow]->EndUpdate();
+				//grdFiles->Rows[(int) iRow]->EndUpdate();
 			}
 			RefreshStatus();
 			Screen->Cursor = crDefault;
@@ -540,7 +541,8 @@ void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
 {
 	int iSelectedRow1 = grdFiles->Selection.Top;
 	int iSelectedRow2 = grdFiles->Selection.Bottom;
-	
+
+
 	int iRows = grdFiles->RowCount - 1;
 	for (int iRow = iSelectedRow1; iRow < iRows; iRow++)
 	{
@@ -2183,7 +2185,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				}
 			}
 			unsigned long long lSize = clsUtil::SizeFile(pacFile);
-			
+
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
 			{
@@ -2198,7 +2200,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					String sExtension = GetExtension(pacFile);
 					if (sExtensionByContent != sExtension)
 					{
-						grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension + " (" + sExtensionByContent.Trim() + ")";
+						grdFiles->Cells[KI_GRID_EXTENSION][(int) iRows] = sExtension + " (" + sExtensionByContent + ")";
 					}
 					else
 					{
@@ -2488,7 +2490,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 				sRes = ".bmp";
 			}
 			//Check EXE
-			//Check DLL                    2380
+			//Check DLL
 			else if ((memcmp(acBuffer, "MZ", 2) == 0) || (memcmp(acBuffer, "ZM", 2) == 0))
 			{
 				sRes = ".dll";
