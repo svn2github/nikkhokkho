@@ -19,8 +19,6 @@ Devedse
 
 - Replace OptiPNG with oxipng. Will it work with APNG like OptiPNG?: https://github.com/shssoichiro/oxipng (TPS).
 
-- Rename Enable tidy to Enable HTML/SVG optimization (TPS).
-
 - Add different shutdownwhen done modes: Hibernate, Sleep, Reboot, or Sign Out (TPS).
 
 - Add a Pause/Resume option (Pritt).
