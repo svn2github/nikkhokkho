@@ -170,8 +170,8 @@ X.XX - YYYY
 - Accurated file listings. Only supported files will be added to the grid.
 - Reworked About window to be more colorful.
 - Added donator information displayed in Information box. You can enter your donator email in Options->Appearance->Donator.
-- Improved a lot grid performance (listing, sorting, removing, clearing, ...).
-- Speededup adding files to grid which is now exponentially faster (20 times faster for 10,000 files).
+- Improved a lot grid performance (listing, sorting, removing, clearing, adding, ...).
+- Speededup duplicates check when adding items to the grid, which is now exponentially faster (20 times faster for 10,000 files).
 - Added ImageMagick to the GIF toolchain.
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).
 - Added TARGA (TGA ICB, VDA, and VST) toolchain, and TGA detection by contents.
@@ -180,6 +180,7 @@ X.XX - YYYY
 - Fixed themes hidding main user interface when executed via command-line.
 - Fixed that double-clicking on fixed columns could open selected file.
 - When multiple instances are allowed, FO will not warn anymore about Optimization still running, nor kill plugin processes.
+- Better 7z SFX detection.
 - Made INI processing safer.
 - Expanded contextual menu with more new commands.
 - Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
