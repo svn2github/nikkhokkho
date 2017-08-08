@@ -2588,7 +2588,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 				sRes = ".gif";
 			}
 			//Check GZ
-			else if (memcmp(acBuffer, "\x1F\x8B", 2) == 0)
+			else if (memcmp(acBuffer, "\x1F\x8B\x08", 3) == 0)
 			{
 				sRes = ".gz";
 			}
@@ -3035,7 +3035,7 @@ bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 			bRes = true;
 		}
 		//Check if it is a 7-ZIP SFX
-		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "7z@NArchive@", 12) != NULL)
+		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x37\x7A\xBC\xAF\x27\x1C", 6) != NULL)
 		{
 			bRes = true;
 		}	
