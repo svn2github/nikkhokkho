@@ -2208,11 +2208,11 @@ void __fastcall TfrmMain::AddFilesInitializeExist(void)
 bool __fastcall TfrmMain::AddFilesExist(String psFile)
 {
 	bool bRes = false;
-    int iIndex;
 
 
-	if ((!gudtOptions.bAllowDuplicates) && (!mlstFilesExist))
+	if ((!gudtOptions.bAllowDuplicates) && (mlstFilesExist))
 	{
+	    int iIndex;
 		bRes = (mlstFilesExist->Find(psFile, iIndex) >= 0);
 	}
 	return(bRes);
