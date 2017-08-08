@@ -354,15 +354,14 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		Screen->Cursor = crAppStart;
 		Application->ProcessMessages();
 		SendMessage(grdFiles->Handle, WM_SETREDRAW, 0, 0);
-		//grdFiles->Selection = TGridRect({-1, -1, -1, -1}); //Clear selection
 
-        //Clear selection
-		TGridRect rctSelection;
-		rctSelection.Left = -1;
-		rctSelection.Top = -1;
-		rctSelection.Right = -1;
-		rctSelection.Bottom = -1;
-		grdFiles->Selection = rctSelection;
+		//Clear selection
+		#if defined (__clang__)
+			grdFiles->Selection = TGridRect({-1, 0, 4, -1});
+		#else
+			TGridRect rctSelection = {-1, 0, 4, -1};
+			grdFiles->Selection = rctSelection;
+        #endif
 
 		if (ACol == iSortField)
 		{
@@ -2212,8 +2211,8 @@ bool __fastcall TfrmMain::AddFilesExist(String psFile)
 
 	if ((!gudtOptions.bAllowDuplicates) && (mlstFilesExist))
 	{
-	    int iIndex;
-		bRes = (mlstFilesExist->Find(psFile, iIndex) >= 0);
+		int iIndex;
+		bRes = mlstFilesExist->Find(psFile, iIndex);
 	}
 	return(bRes);
 }
@@ -2238,7 +2237,6 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				if ((_tcscmp(udtFindFileData.cFileName, _T(".")) != 0) &&
 					(_tcscmp(udtFindFileData.cFileName, _T("..")) != 0))
 				{
-                    Application->ProcessMessages();
 					AddFiles((((String) pacFile) + "\\" + udtFindFileData.cFileName).c_str());
 				}
 			}
@@ -2253,8 +2251,8 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			//Check if already added
 			if (!gudtOptions.bAllowDuplicates)
 			{
-				//if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
-				if (AddFilesExist(sCellFile))
+				if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
+				//if (AddFilesExist(sCellFile))
 				{
 					return;
 				}
@@ -2273,6 +2271,12 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 
 					TStringList *lstRow = new TStringList();
 					lstRow->Add(sCellFile); //0: File
+
+                    //Update already existing list
+					if ((!gudtOptions.bAllowDuplicates) && (mlstFilesExist))
+					{
+						mlstFilesExist->Add(sCellFile);
+					}
 
 					String sExtension = GetExtension(pacFile);
 					if (sExtensionByContent != sExtension)
@@ -2548,7 +2552,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	sRes = GetExtension(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
-	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") <= 0)
+	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") == 0)
 	{
 		unsigned int iSize;
 		memset(acBuffer, 0, sizeof(acBuffer));
@@ -2689,10 +2693,17 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			//Unsupported extension
 			else
 			{
-				//Do nothing. Use regular file extension
 				sRes = "";
-            }
+			}
 		}
+		else
+		{
+			sRes = "";
+		}
+	}
+	else
+	{
+		//Do nothing. Use regular file extension
 	}
 	return(sRes);
 }
@@ -2716,7 +2727,7 @@ String __fastcall TfrmMain::GetExtension (String psFilename)
 	pacDot = _tcsrchr(acRes, '\\');
 	if (pacDot)
 	{
-		acRes[0] = NULL;
+		*pacDot = NULL;
     }
 	return ((String) acRes);
 }
@@ -3205,7 +3216,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 	//LockWindowUpdate(Handle);
 
     //ProcessMessages is required before changing DragAcceptFiles
-	//Application->ProcessMessages();
+	Application->ProcessMessages();
 
 	if (gbProcess)
 	{

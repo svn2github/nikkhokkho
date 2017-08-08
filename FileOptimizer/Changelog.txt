@@ -167,6 +167,7 @@ X.XX - YYYY
 - Added optional toolbar with menu icons (trlkly).
 - Added Add folder option (bl3uge).
 - Added detected filetype under extension column in file list, when its extension is not know.
+- Accurated file listings. Only supported files will be added to the grid.
 - Reworked About window to be more colorful.
 - Added donator information displayed in Information box. You can enter your donator email in Options->Appearance->Donator.
 - Improved a lot grid performance (listing, sorting, removing, clearing, ...).
