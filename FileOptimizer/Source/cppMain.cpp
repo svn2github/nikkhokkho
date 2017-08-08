@@ -341,26 +341,6 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 }
 
 
-static int iSortField = -1;
-static unsigned int iSortOrder = 0;
-//---------------------------------------------------------------------------
-int __fastcall CustomSortIncrease(TStringList *Lista, int idx1, int idx2)
-{
- String cTemp1 = Lista->Strings[idx1];
- String cTemp2 = Lista->Strings[idx2];
- return CompareText(cTemp1, cTemp2);
-}
-
-
-//---------------------------------------------------------------------------
-int __fastcall CustomSortDecrease(TStringList *Lista, int idx1, int idx2)
-{
- String cTemp1 = Lista->Strings[idx1];
- String cTemp2 = Lista->Strings[idx2];
- return -CompareText(cTemp1, cTemp2);
-}
-
-
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int ARow)
 {
@@ -3336,6 +3316,7 @@ String __fastcall TfrmMain::Hash(String psFilename)
 String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
+
 	TStringDynArray asValue = SplitString(psValue, "\n");
 	if ((unsigned int) asValue.Length > piPos)
 	{
