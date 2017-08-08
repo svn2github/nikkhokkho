@@ -2192,11 +2192,12 @@ void __fastcall TfrmMain::AddFilesInitializeExist(void)
 			mlstFilesExist = new THashedStringList();
 			mlstFilesExist->CaseSensitive = true;
 			mlstFilesExist->Duplicates = System::Classes::dupIgnore;
+			mlstFilesExist->Sorted = true;
 		}
 		else
 		{
             mlstFilesExist->Clear();
-        }
+		}
 		mlstFilesExist->Assign(grdFiles->Cols[KI_GRID_FILE]);
 	}
 }
@@ -2208,11 +2209,14 @@ bool __fastcall TfrmMain::AddFilesExist(String psFile)
 {
 	bool bRes = false;
 
-
 	if ((!gudtOptions.bAllowDuplicates) && (mlstFilesExist))
 	{
-		int iIndex;
+		int iIndex = 0;
 		bRes = mlstFilesExist->Find(psFile, iIndex);
+		if (!bRes)
+		{
+			mlstFilesExist->Add(psFile);
+		}
 	}
 	return(bRes);
 }
@@ -2248,20 +2252,21 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		else
 		{
 			String sCellFile = SetCellFileValue(pacFile);
-			//Check if already added
-			if (!gudtOptions.bAllowDuplicates)
-			{
-				if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
-				//if (AddFilesExist(sCellFile))
-				{
-					return;
-				}
-			}
 			unsigned long long lSize = clsUtil::SizeFile(pacFile);
 
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
 			{
+				//Check if already added
+				if (!gudtOptions.bAllowDuplicates)
+				{
+					//if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
+					if (AddFilesExist(sCellFile))
+					{
+						return;
+					}
+				}
+
 				String sExtensionByContent = GetExtensionByContent(pacFile);
 				if (sExtensionByContent != "")
 				{
@@ -2271,12 +2276,6 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 
 					TStringList *lstRow = new TStringList();
 					lstRow->Add(sCellFile); //0: File
-
-                    //Update already existing list
-					if ((!gudtOptions.bAllowDuplicates) && (mlstFilesExist))
-					{
-						mlstFilesExist->Add(sCellFile);
-					}
 
 					String sExtension = GetExtension(pacFile);
 					if (sExtensionByContent != sExtension)
@@ -3328,7 +3327,7 @@ String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
 
-	TStringDynArray asValue = SplitString(psValue, "\n");
+	TStringDynArray asValue = SplitString(psValue, "*");
 	if ((unsigned int) asValue.Length > piPos)
 	{
 		psValue = asValue[piPos];
@@ -3364,7 +3363,7 @@ String __fastcall TfrmMain::SetCellFileValue(String psValue)
 	{
 		sRes = psValue;
 	}
-	sRes += "\n" + psValue;
+	sRes += "*" + psValue;
 	return(sRes);
 }
 
