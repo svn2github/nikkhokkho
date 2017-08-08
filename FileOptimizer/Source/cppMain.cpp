@@ -341,6 +341,26 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 }
 
 
+static int iSortField = -1;
+static unsigned int iSortOrder = 0;
+//---------------------------------------------------------------------------
+int __fastcall CustomSortIncrease(TStringList *Lista, int idx1, int idx2)
+{
+ String cTemp1 = Lista->Strings[idx1];
+ String cTemp2 = Lista->Strings[idx2];
+ return CompareText(cTemp1, cTemp2);
+}
+
+
+//---------------------------------------------------------------------------
+int __fastcall CustomSortDecrease(TStringList *Lista, int idx1, int idx2)
+{
+ String cTemp1 = Lista->Strings[idx1];
+ String cTemp2 = Lista->Strings[idx2];
+ return -CompareText(cTemp1, cTemp2);
+}
+
+
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int ARow)
 {
@@ -397,6 +417,8 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		TStringDynArray asValue;
 		for (unsigned int iRow = 1; iRow < iRows; iRow++)
 		{
+			//ToDo: Try to avoid TStringDynArray
+			TStringList *lstRow = new TStringList();
 			if (iSortOrder == 0)
 			{
 				asValue = SplitString(lstTemp->Strings[(int) iRow - 1], "|");
@@ -406,7 +428,6 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 				asValue = SplitString(lstTemp->Strings[(int) (iRows - iRow - 1)], "|");
 			}
 
-			TStringList *lstRow = new TStringList();
 			lstRow->Add(asValue[1]); //0: File
 			lstRow->Add(asValue[2]); //1: Extension (Type)
 			lstRow->Add(asValue[3]); //2: Original size
@@ -2191,7 +2212,6 @@ void __fastcall TfrmMain::AddFilesInitializeExist(void)
 		{
 			mlstFilesExist = new THashedStringList();
 			mlstFilesExist->CaseSensitive = true;
-            mlstFilesExist->CustomSort()
 			mlstFilesExist->Duplicates = System::Classes::dupIgnore;
 		}
 		else

@@ -279,7 +279,7 @@ private: // User declarations
 	unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
 	void __fastcall WMDropFiles(TWMDropFiles &udtMessage);
 	void __fastcall AddFilesInitializeExist(void);
-	bool __fastcall TfrmMain::AddFilesExist(String psFile);
+	bool __fastcall AddFilesExist(String psFile);
 	void __fastcall AddFiles(const TCHAR *pacFile);
 	void __fastcall CheckForUpdates(bool pbSilent = true);
 	void __fastcall CheckForUpdatesOld(bool pbSilent = true);
