@@ -170,6 +170,7 @@ X.XX - YYYY
 - Reworked About window to be more colorful.
 - Added donator information displayed in Information box. You can enter your donator email in Options->Appearance->Donator.
 - Improved a lot grid performance.
+- Speededup adding files to grid which is now several times faster.
 - Added ImageMagick to the GIF toolchain.
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).
 - Added TARGA (TGA ICB, VDA, and VST) toolchain, and TGA detection by contents.

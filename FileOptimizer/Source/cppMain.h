@@ -21,6 +21,7 @@
 #include <Vcl.ActnMenus.hpp>
 #include <System.ImageList.hpp>
 #include <FileCtrl.hpp>
+#include <IniFiles.hpp>
 #include "clsUtil.h"
 #include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
 
@@ -277,6 +278,8 @@ private: // User declarations
 	int __fastcall RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin = INT_MIN, int piErrorMax = INT_MAX);
 	unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
 	void __fastcall WMDropFiles(TWMDropFiles &udtMessage);
+	void __fastcall AddFilesInitializeExist(void);
+	bool __fastcall TfrmMain::AddFilesExist(String psFile);
 	void __fastcall AddFiles(const TCHAR *pacFile);
 	void __fastcall CheckForUpdates(bool pbSilent = true);
 	void __fastcall CheckForUpdatesOld(bool pbSilent = true);

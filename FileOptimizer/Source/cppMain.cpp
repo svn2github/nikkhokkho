@@ -376,6 +376,9 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 
 
 		TStringList *lstTemp = new TStringList();
+		lstTemp->CaseSensitive = true;
+		lstTemp->Sorted = true;
+        lstTemp->Duplicates = System::Classes::dupAccept;
 		String sValue;
 		for (unsigned int iRow = 1; iRow < iRows; iRow++)
 		{
@@ -391,7 +394,9 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			lstTemp->Add(sValue);
 		}
 
-		lstTemp->Sort();
+		//lstTemp->Sort();
+
+
 
 		TStringDynArray asValue;
 		for (unsigned int iRow = 1; iRow < iRows; iRow++)
@@ -412,7 +417,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			lstRow->Add(asValue[4]); //3: Optimized size
 			lstRow->Add(asValue[5]); //4: Status
 			grdFiles->Rows[(int) iRow] = lstRow;
-            delete lstRow;
+			delete lstRow;
 		}
 		delete lstTemp;
 
@@ -533,6 +538,7 @@ void __fastcall TfrmMain::actAddExecute(TObject *Sender)
 		Application->ProcessMessages();
 
 		TStrings *strFiles = dlgAddFiles->Files;
+		AddFilesInitializeExist();
 		for (int iCount = strFiles->Count; iCount > 0; iCount--)
 		{
 			AddFiles(strFiles->Strings[iCount - 1].c_str());
@@ -554,6 +560,7 @@ void __fastcall TfrmMain::actAddFolderExecute(TObject *Sender)
 		Screen->Cursor = crAppStart;
 		Application->ProcessMessages();
 
+		AddFilesInitializeExist();
 		AddFiles(sDirectory.c_str());
 
 		RefreshStatus();
@@ -823,6 +830,9 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 
 	//Sort them alphabetically
 	TStringList *lstTemp = new TStringList();
+	lstTemp->CaseSensitive = true;
+	lstTemp->Sorted = true;
+	lstTemp->Duplicates = System::Classes::dupIgnore;
 	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
 		sExtension = asExtension[iExtension];
@@ -832,24 +842,20 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 			lstTemp->Add(sExtension);
 		}
 	}
-	lstTemp->Sort();
+	//lstTemp->Sort();
 
 	iExtensionLen = (unsigned int) lstTemp->Count;
 	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
 		sExtension = lstTemp->Strings[(int) iExtension].UpperCase();
-		//Check if we already have it
-		if (PosEx(sExtension, sText) <= 0)
+		//Check if it is not the last extension
+		if (iExtension != (iExtensionLen - 1))
 		{
-			//Check if it is not the last extension
-			if (iExtension != (iExtensionLen - 1))
-			{
-				sText += sExtension + ", ";
-			}
-			else
-			{
-				sText += "and " + sExtension + " file formats among many others.";
-			}
+			sText += sExtension + ", ";
+		}
+		else
+		{
+			sText += "and " + sExtension + " file formats among many others.";
 		}
 	}
 	delete lstTemp;
@@ -2121,6 +2127,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 			Screen->Cursor = crAppStart;
             Show();  //Required because some themes do not automatically refresh
 			Application->ProcessMessages();
+			AddFilesInitializeExist();
 			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
 			{
 				//Skip options starting with /
@@ -2161,6 +2168,7 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 		{
 			Screen->Cursor = crAppStart;
 			Application->ProcessMessages();
+			AddFilesInitializeExist();
 			for (unsigned int iCount = 0; iCount < iFiles; iCount++)
 			{
 				if (DragQueryFile(hDrop, iCount, acBuffer, sizeof(acBuffer)))
@@ -2174,6 +2182,42 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 	}
 	DragFinish(hDrop);
 }
+
+
+
+static THashedStringList *mlstFilesExist = NULL;
+
+// ---------------------------------------------------------------------------
+void __fastcall TfrmMain::AddFilesInitializeExist(void)
+{
+	if (!gudtOptions.bAllowDuplicates)
+	{
+		if (!mlstFilesExist)
+		{
+			mlstFilesExist = new THashedStringList();
+			mlstFilesExist->CaseSensitive = true;
+			mlstFilesExist->Duplicates = System::Classes::dupIgnore;
+		}
+		mlstFilesExist->Assign(grdFiles->Cols[KI_GRID_FILE]);
+	}
+}
+
+
+
+// ---------------------------------------------------------------------------
+bool __fastcall TfrmMain::AddFilesExist(String psFile)
+{
+	bool bRes = false;
+    int iIndex;
+
+
+	if ((!gudtOptions.bAllowDuplicates) && (!mlstFilesExist))
+	{
+		bRes = (mlstFilesExist->Find(psFile, iIndex) >= 0);
+	}
+	return(bRes);
+}
+
 
 
 // ---------------------------------------------------------------------------
@@ -2209,8 +2253,8 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 			//Check if already added
 			if (!gudtOptions.bAllowDuplicates)
 			{
-				if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
-				//if (clsUtil::MemMem(grdFiles->Cols[KI_GRID_FILE]->Text.c_str(), grdFiles->Cols[KI_GRID_FILE]->Text.Length(), sCellFile.c_str(), sCellFile.Length()) != NULL)
+				//if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
+				if (AddFilesExist(sCellFile))
 				{
 					return;
 				}
