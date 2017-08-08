@@ -169,8 +169,8 @@ X.XX - YYYY
 - Added detected filetype under extension column in file list, when its extension is not know.
 - Reworked About window to be more colorful.
 - Added donator information displayed in Information box. You can enter your donator email in Options->Appearance->Donator.
-- Improved a lot grid performance.
-- Speededup adding files to grid which is now several times faster.
+- Improved a lot grid performance (listing, sorting, removing, clearing, ...).
+- Speededup adding files to grid which is now exponentially faster (20 times faster for 10,000 files).
 - Added ImageMagick to the GIF toolchain.
 - Added ClearWhenComplete=false INI setting to autoclear file list when optimization completes (Lanette Fidrych).
 - Added TARGA (TGA ICB, VDA, and VST) toolchain, and TGA detection by contents.

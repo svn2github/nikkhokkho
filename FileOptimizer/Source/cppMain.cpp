@@ -377,8 +377,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 
 		TStringList *lstTemp = new TStringList();
 		lstTemp->CaseSensitive = true;
-		lstTemp->Sorted = true;
-        lstTemp->Duplicates = System::Classes::dupAccept;
+		lstTemp->Duplicates = System::Classes::dupAccept;
 		String sValue;
 		for (unsigned int iRow = 1; iRow < iRows; iRow++)
 		{
@@ -393,10 +392,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 			sValue += "|" + grdFiles->Cells[KI_GRID_FILE][(int) iRow] + "|" + grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] + "|" + grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] + "|" + grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] + "|" + grdFiles->Cells[KI_GRID_STATUS][(int) iRow];
 			lstTemp->Add(sValue);
 		}
-
-		//lstTemp->Sort();
-
-
+		lstTemp->Sort();
 
 		TStringDynArray asValue;
 		for (unsigned int iRow = 1; iRow < iRows; iRow++)
@@ -831,7 +827,6 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	//Sort them alphabetically
 	TStringList *lstTemp = new TStringList();
 	lstTemp->CaseSensitive = true;
-	lstTemp->Sorted = true;
 	lstTemp->Duplicates = System::Classes::dupIgnore;
 	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
 	{
@@ -842,7 +837,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 			lstTemp->Add(sExtension);
 		}
 	}
-	//lstTemp->Sort();
+	lstTemp->Sort();
 
 	iExtensionLen = (unsigned int) lstTemp->Count;
 	for (unsigned int iExtension = 0; iExtension < iExtensionLen; iExtension++)
@@ -2196,8 +2191,13 @@ void __fastcall TfrmMain::AddFilesInitializeExist(void)
 		{
 			mlstFilesExist = new THashedStringList();
 			mlstFilesExist->CaseSensitive = true;
+            mlstFilesExist->CustomSort()
 			mlstFilesExist->Duplicates = System::Classes::dupIgnore;
 		}
+		else
+		{
+            mlstFilesExist->Clear();
+        }
 		mlstFilesExist->Assign(grdFiles->Cols[KI_GRID_FILE]);
 	}
 }
@@ -2232,13 +2232,13 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		//If it is a directory, recurse
 		if (udtFileAttribute.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			Application->ProcessMessages();
 			HANDLE hFindFile = FindFirstFile((((String) pacFile) + "\\*.*").c_str(), &udtFindFileData);
 			do
 			{
 				if ((_tcscmp(udtFindFileData.cFileName, _T(".")) != 0) &&
 					(_tcscmp(udtFindFileData.cFileName, _T("..")) != 0))
 				{
+                    Application->ProcessMessages();
 					AddFiles((((String) pacFile) + "\\" + udtFindFileData.cFileName).c_str());
 				}
 			}
@@ -3205,7 +3205,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 	//LockWindowUpdate(Handle);
 
     //ProcessMessages is required before changing DragAcceptFiles
-	Application->ProcessMessages();
+	//Application->ProcessMessages();
 
 	if (gbProcess)
 	{
