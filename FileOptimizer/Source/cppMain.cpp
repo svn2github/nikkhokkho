@@ -1168,11 +1168,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 			else if (gudtOptions.iLevel < 5)
 			{
-				sFlags += "-8 ";
+				sFlags += "-8 --best ";
 			}
 			else if (gudtOptions.iLevel < 7)
 			{
-				sFlags += "-8 --best ";
+				sFlags += "-8 --best -e ";
 			}
 			else
 			{
