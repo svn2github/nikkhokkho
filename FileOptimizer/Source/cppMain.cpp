@@ -361,7 +361,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		#else
 			TGridRect rctSelection = {-1, 0, 4, -1};
 			grdFiles->Selection = rctSelection;
-        #endif
+		#endif
 
 		if (ACol == iSortField)
 		{
@@ -2456,7 +2456,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	strcpy(acPath, "ini=");
 	iSize = 0;
 	clsUtil::ReadFile(clsUtil::GetIniPath(), (void *) acBuffer, &iSize);
-	strcpy(acBuffer, ((AnsiString) ReplaceStr(ReplaceStr(acBuffer, "\r\n", "%0D"), "=", "%3D")).c_str());
+	strcpy(acBuffer, ((AnsiString) ReplaceStr(ReplaceStr(ReplaceStr(acBuffer, "\r\n", "%0D"), "=", "%3D"), "\t", "")).c_str());
 	strcat(acPath, acBuffer);
 	//strcat(acPath, "&log=");
 	//iSize = 0;

@@ -1,4 +1,4 @@
-- INI contents are sent with spaces.
+- Add donator reminde with number of files optimized.
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
