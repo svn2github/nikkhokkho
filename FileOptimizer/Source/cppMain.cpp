@@ -2762,7 +2762,7 @@ String __inline TfrmMain::FormatNumberThousandUnit (unsigned long long plNumber)
 //---------------------------------------------------------------------------
 unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
-	return (StrToIntDef(ReplaceStr(psNumber, FormatSettings.ThousandSeparator, ""), 0));
+	//return(StrToInt64Def(psNumber, FormatSettings.ThousandSeparator, ""), 0));
 	TCHAR *acNumber, acRes[64];
 
 
