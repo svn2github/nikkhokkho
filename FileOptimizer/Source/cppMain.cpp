@@ -1570,11 +1570,9 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		{
 			RunPlugin((unsigned int) iCount, "Document Press", (sPluginsDirectory + "docprc.exe -opt \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// PCX: PCXLite, ImageMagick
+		// PCX: ImageMagick
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PCX) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "PCXLite", (sPluginsDirectory + "PCXLite.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-
 			sFlags = "";
 			if (!gudtOptions.bPCXCopyMetadata)
 			{

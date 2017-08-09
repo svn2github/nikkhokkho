@@ -1,7 +1,5 @@
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
-- Remove PCXLite because it is not needed with ImageMagick.
-
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
 
 - Would it be possible to also skip the warning message that shows if there are multiple instances of the product running? (What I would like to do is run a few instances of the program in parallel from another tool I'm working on without having to manually click those message boxes away.) (Devedse)
@@ -145,7 +143,6 @@ ndo
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
 - mutool 1.11 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
-- PCXLite 1.1 - http://sol.gfxile.net/code.html
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - pingo 0.89 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
@@ -191,9 +188,9 @@ X.XX - YYYY
 - Minor usability improvements.
 - Added FLAC codec to the FLAC toolchain to recompress them (AlexNG).
 - Only use flacout in FileOptimizer compression levels 9, because it is slow (AlexNG).
+- Removed PDXLite because it contains bugs, and is not needed with ImageMagick.
 - Reduced 7z EXE SFX in the portable distribution in 105 KB., becasuse extractor is now UPX'ed.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.
-- Updated PCXLite 1.1 x86 and x64 Visual C++ 2017 custom builds.
 - Updated SQLite to 3.20.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pngquant to 2.10.1.
 - Updated ImageMagick to 7.0.6.5 with HDRI support.
