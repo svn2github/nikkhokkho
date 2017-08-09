@@ -185,6 +185,7 @@ X.XX - YYYY
 - Expanded contextual menu with more new commands.
 - Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
 - Fixed version display in About window, and show internal compiler version.
+- Fixed MPEG recompression when more than one audio stream existed (AlexNG).
 - Tweaked the Information window.
 - Added Aero's glass frame to all windows.
 - Minor usability improvements.
