@@ -531,6 +531,7 @@ void __fastcall TfrmMain::actAddExecute(TObject *Sender)
 	if (dlgAddFiles->Execute())
 	{
 		Screen->Cursor = crAppStart;
+		grdFiles->Enabled = false;  //Prevent grid modifications while adding files
 		Application->ProcessMessages();
 
 		TStrings *strFiles = dlgAddFiles->Files;
@@ -539,6 +540,7 @@ void __fastcall TfrmMain::actAddExecute(TObject *Sender)
 		{
 			AddFiles(strFiles->Strings[iCount - 1].c_str());
 		}
+		grdFiles->Enabled = true;
 		RefreshStatus();
 		Screen->Cursor = crDefault;
 	}
@@ -554,12 +556,14 @@ void __fastcall TfrmMain::actAddFolderExecute(TObject *Sender)
 	if (SelectDirectory("Add folder", _T(""), sDirectory, TSelectDirExtOpts() << sdNewFolder << sdShowEdit << sdShowShares << sdNewUI << sdValidateDir, this))
 	{
 		Screen->Cursor = crAppStart;
+		grdFiles->Enabled = false;  //Prevent grid modifications while adding files
 		Application->ProcessMessages();
 
 		AddFilesInitializeExist();
 		AddFiles(sDirectory.c_str());
 
 		RefreshStatus();
+		grdFiles->Enabled = true;
 		Screen->Cursor = crDefault;
 	}
 }
@@ -2118,7 +2122,8 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		if (_argc > 1)
 		{
 			Screen->Cursor = crAppStart;
-            Show();  //Required because some themes do not automatically refresh
+			grdFiles->Enabled = false;  //Prevent grid modifications while adding files
+			Show();  //Required because some themes do not automatically refresh
 			Application->ProcessMessages();
 			AddFilesInitializeExist();
 			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
@@ -2129,6 +2134,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 					AddFiles(_targv[iCount]);
 				}
 			}
+			grdFiles->Enabled = true;
 			RefreshStatus();
 			Screen->Cursor = crDefault;
 			actOptimizeExecute(Sender);
@@ -2160,6 +2166,7 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 		if (iFiles > 0)
 		{
 			Screen->Cursor = crAppStart;
+			grdFiles->Enabled = false;  //Prevent grid modifications while adding files
 			Application->ProcessMessages();
 			AddFilesInitializeExist();
 			for (unsigned int iCount = 0; iCount < iFiles; iCount++)
@@ -2169,6 +2176,7 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 					AddFiles(acBuffer);
 				}
 			}
+            grdFiles->Enabled = true;
 			RefreshStatus();
 			Screen->Cursor = crDefault;
 		}
@@ -2194,7 +2202,7 @@ void __fastcall TfrmMain::AddFilesInitializeExist(void)
 		}
 		else
 		{
-            mlstFilesExist->Clear();
+			mlstFilesExist->Clear();
 		}
 		mlstFilesExist->Assign(grdFiles->Cols[KI_GRID_FILE]);
 	}
