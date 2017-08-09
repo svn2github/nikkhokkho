@@ -1244,7 +1244,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 				}
 				sFlags += "-i " + (String) iLevel + " ";
-				if (gudtOptions.bJPEGCopyMetadata)
+				if (gudtOptions.bGZCopyMetadata)
 				{
 					sFlags += "--keep-exif ";
 				}
@@ -1262,11 +1262,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags = "";
 			if (!gudtOptions.bGZCopyMetadata)
 			{
-				sFlags += "-s ";
+				sFlags += "-strìp ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate -gzip " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
 			if (gudtOptions.bGZCopyMetadata)
@@ -1429,7 +1429,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags = "";
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
-				sFlags += "-s ";
+				sFlags += "-strip ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
@@ -1522,7 +1522,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags = "";
 			if (!gudtOptions.bMP3CopyMetadata)
 			{
-				sFlags += "-s ";
+				sFlags += "-strip ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
@@ -1773,7 +1773,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					sFlags = "";
 					if (!gudtOptions.bPNGCopyMetadata)
 					{
-						sFlags += "-s ";
+						sFlags += "-strip ";
 					}
 					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 					sFlags += "-" + (String) iLevel + " ";
@@ -2004,7 +2004,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags = "";
 			if (!gudtOptions.bJPEGCopyMetadata)
 			{
-				sFlags += "-s ";
+				sFlags += "-strip ";
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
@@ -2275,7 +2275,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					TStringList *lstRow = new TStringList();
 					lstRow->Add(sCellFile); //0: File
 
-					String sExtension = GetExtension(pacFile);
+					String sExtension = ExtractFileExt(pacFile);
 					if (sExtensionByContent != sExtension)
 					{
 						lstRow->Add(sExtension + " (" + sExtensionByContent + ")"); //1: Extension (Type)
@@ -2546,7 +2546,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	unsigned char acBuffer[512 * 2];
 
 
-	sRes = GetExtension(psFilename);
+	sRes = ExtractFileExt(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
 	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") == 0)
@@ -2703,30 +2703,6 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 		//Do nothing. Use regular file extension
 	}
 	return(sRes);
-}
-
-
-
-//---------------------------------------------------------------------------
-String __fastcall TfrmMain::GetExtension (String psFilename)
-{
-	//return (ExtractFileExt(psFilename));
-	TCHAR acRes[PATH_MAX] = _T("");
-	TCHAR *pacDot;
-
-
-	pacDot = _tcsrchr(psFilename.c_str(), '.');
-	if (pacDot)
-	{
-		_tcscpy(acRes, pacDot);
-		_tcslwr(acRes);
-	}
-	pacDot = _tcsrchr(acRes, '\\');
-	if (pacDot)
-	{
-		*pacDot = NULL;
-    }
-	return ((String) acRes);
 }
 
 

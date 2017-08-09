@@ -270,7 +270,6 @@ private: // User declarations
 		VCL_MESSAGE_HANDLER(WM_DROPFILES, TWMDropFiles, WMDropFiles)
 	END_MESSAGE_MAP(TComponent)
 	String __fastcall GetExtensionByContent (String psFilename);
-	String __fastcall GetExtension (String psFilename);
 	String __fastcall GetFilename (String psFilename);
 	String __inline FormatNumberThousand (unsigned long long plNumber);
 	String __inline FormatNumberThousandUnit (unsigned long long plNumber);
