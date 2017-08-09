@@ -17,32 +17,6 @@
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-const TCHAR * __fastcall clsUtil::ReplaceString(const TCHAR *pacString, const TCHAR *pacSearch, const TCHAR *pacReplace)
-{
-	 return(StringReplace(pacString, pacSearch, pacReplace, TReplaceFlags() << rfReplaceAll).c_str());
-
-	/*
-	TCHAR *tok;
-	TCHAR *newstr;
-	TCHAR *oldstr;
-	newstr = _tcsdup(pacString);
-	while ((tok = _tcsstr(newstr, pacSearch)) != NULL)
-	{
-		oldstr = newstr;
-		newstr = new TCHAR[_tcslen(oldstr) - _tcslen(pacSearch) + _tcslen(pacReplace) + 1];
-		memcpy(newstr, oldstr, (tok - oldstr) * sizeof(TCHAR));
-		memcpy(newstr + (tok - oldstr), pacReplace, _tcslen(pacReplace) * sizeof(TCHAR));
-		memcpy(newstr + (tok - oldstr) + _tcslen(pacReplace) * sizeof(TCHAR), tok + _tcslen(pacSearch),
-			_tcslen(oldstr) - _tcslen(pacSearch) - (tok - oldstr));
-		memset(newstr + _tcslen(oldstr) - _tcslen(pacSearch) + _tcslen(pacReplace), 0, 1);
-		delete oldstr;
-	}
-	return newstr;
-	*/
-}
-
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len)
 {
 	unsigned char *bf = (unsigned char *) buf;

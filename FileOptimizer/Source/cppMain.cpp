@@ -821,7 +821,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	//Get all supported extensions
 	TStringDynArray asExtension;
 	
-	asExtension = SplitString((KS_EXTENSION_ALL + ((String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" "))).UpperCase() + " "), " ");
+	asExtension = SplitString((KS_EXTENSION_ALL + (ReplaceStr((String) gudtOptions.acJSAdditionalExtensions, ";", " ")).UpperCase() + " "), " ");
 	unsigned int iExtensionLen = (unsigned int) asExtension.Length;
 
 	//Sort them alphabetically
@@ -1452,10 +1452,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			}
 		}
 		// JS: jsmin
-		if ((PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0) || (PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") > 0))
+		if ((PosEx(sExtensionByContent, KS_EXTENSION_JS) > 0) || (PosEx(sExtensionByContent, " " + ReplaceStr((String) gudtOptions.acJSAdditionalExtensions, ";", " ") + " ") > 0))
 		{
 			//If JSMin is enabled or it is a custom extension (we assume custom extensions always enable it)
-			if ((gudtOptions.bJSEnableJSMin) || (PosEx(sExtensionByContent, " " + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") > 0))
+			if ((gudtOptions.bJSEnableJSMin) || (PosEx(sExtensionByContent, " " + ReplaceStr((String) gudtOptions.acJSAdditionalExtensions, ";", " ") + " ") > 0))
 			{
 				RunPlugin((unsigned int) iCount, "jsmin", (sPluginsDirectory + "jsmin.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
@@ -1814,19 +1814,19 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 			{
 				//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-				clsUtil::CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str());
+				clsUtil::CopyFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str(), sInputFile.c_str());
 			}
 			//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
-			DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
+			DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
 			RunPlugin((unsigned int) iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 			{
 				//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-				clsUtil::CopyFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")), sInputFile.c_str());
+				clsUtil::CopyFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str(), sInputFile.c_str());
 			}
 			//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
-			DeleteFile(clsUtil::ReplaceString(sInputFile.c_str(), _T(".swf"), _T(".$wf")));
+			DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
 			RunPlugin((unsigned int) iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
@@ -1853,7 +1853,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		if (PosEx(sExtensionByContent, KS_EXTENSION_TAR) > 0)
 		{
 			sFlags = "";
-			if (gudtOptions.bJPEGCopyMetadata)
+			if (gudtOptions.bGZCopyMetadata)
 			{
 				sFlags += "--keep-exif ";
 			}
@@ -1978,7 +1978,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			bool bIsZIPSFX = IsZIPSFX(sInputFile.c_str());
 			
 			sFlags = "";
-			if (gudtOptions.bJPEGCopyMetadata)
+			if (gudtOptions.bZIPCopyMetadata)
 			{
 				sFlags += "--keep-exif ";
 			}
@@ -2002,7 +2002,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "Leanify", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 
 			sFlags = "";
-			if (!gudtOptions.bJPEGCopyMetadata)
+			if (!gudtOptions.bZIPCopyMetadata)
 			{
 				sFlags += "-strip ";
 			}
@@ -2367,12 +2367,10 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	{
 		clsUtil::DirectoryCreate(gudtOptions.acTempDirectory);
 	}
-	_stprintf(acTmp, _T("%s%s"), acTempPath, (Application->Name + "_Input_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
-	sTmpInputFile = acTmp;
+	sTmpInputFile = (String) acTempPath + Application->Name + "_Input_" + (String) iRandom + "_" + ExtractFileName(sInputFile);
 
-	_stprintf(acTmp, _T("%s%s"), acTempPath, (Application->Name + "_Output_" + (String) iRandom + "_" + GetFilename(sInputFile)).c_str());
-	sTmpOutputFile = acTmp;
-	
+	sTmpOutputFile = (String) acTempPath + Application->Name + "_Output_" + (String) iRandom + "_" + ExtractFileName(sInputFile);
+
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 	
@@ -2391,16 +2389,16 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	}
 
 	//sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%INPUTFILE%"), sInputFile.c_str());
+	sCommandLine = ReplaceStr(sCommandLine, "%INPUTFILE%", sInputFile);
 	
 	//sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%OUTPUTFILE%"), sOutputFile.c_str());
+	sCommandLine = ReplaceStr(sCommandLine, "%OUTPUTFILE%", sOutputFile);
 	
 	//sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%TMPINPUTFILE%"), sTmpInputFile.c_str());
+	sCommandLine = ReplaceStr(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile);
 	
 	//sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = clsUtil::ReplaceString(sCommandLine.c_str(), _T("%TMPOUTPUTFILE%"), sTmpOutputFile.c_str());
+	sCommandLine = ReplaceStr(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile);
 
 	int iError = (int) RunProcess(sCommandLine.c_str(), psDirectory.c_str(), NULL, 0, true);
 	Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
@@ -2549,7 +2547,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	sRes = ExtractFileExt(psFilename);
 
 	//If file extension is not known, get it by analyzing file contents
-	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + (String) clsUtil::ReplaceString(gudtOptions.acJSAdditionalExtensions, _T(";"), _T(" ")) + " ") == 0)
+	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + ReplaceStr((String) gudtOptions.acJSAdditionalExtensions, ";", " ") + " ") == 0)
 	{
 		unsigned int iSize;
 		memset(acBuffer, 0, sizeof(acBuffer));
@@ -2707,21 +2705,6 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 
 
 
-//---------------------------------------------------------------------------
-String __fastcall TfrmMain::GetFilename (String psFilename)
-{
-	TCHAR *pacSource;
-	String sRes = "";
-
-	pacSource = _tcsrchr(psFilename.c_str(), '\\');
-	if (pacSource)
-	{
-		sRes = (pacSource + 1);
-	}
-	return (sRes);
-}
-
-
 
 //---------------------------------------------------------------------------
 String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
@@ -2779,7 +2762,7 @@ String __inline TfrmMain::FormatNumberThousandUnit (unsigned long long plNumber)
 //---------------------------------------------------------------------------
 unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
-	//return (StrToIntDef(clsUtil::ReplaceString(psNumber.c_str(), FormatSettings.ThousandSeparator.c_str(), _T("")), 0));
+	return (StrToIntDef(ReplaceStr(psNumber, FormatSettings.ThousandSeparator, ""), 0));
 	TCHAR *acNumber, acRes[64];
 
 

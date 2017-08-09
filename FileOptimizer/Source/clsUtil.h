@@ -35,7 +35,6 @@
 class clsUtil
 {
 	public:
-		static const TCHAR * __fastcall ReplaceString(const TCHAR *pacString, const TCHAR *pacSearch, const TCHAR *pacReplace);
 		static void * __fastcall MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len);
 		static int __fastcall MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, int piType);
 		static HANDLE __fastcall FindProcess(const TCHAR *pacProcess);
