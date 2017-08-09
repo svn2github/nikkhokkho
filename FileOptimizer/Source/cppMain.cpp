@@ -2392,7 +2392,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	
 	//sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
 	sCommandLine = ReplaceStr(sCommandLine, "%OUTPUTFILE%", sOutputFile);
-	
+
 	//sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
 	sCommandLine = ReplaceStr(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile);
 	
@@ -2422,7 +2422,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 				clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
 				//sInputFile = sTmpOutputFile;
 			}
-		}	
+		}
 	}
 
 	DeleteFile(sTmpInputFile.c_str());
@@ -2453,19 +2453,19 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	unsigned int iSize;
 
 
-	wcstombs(acPath, KS_APP_UPDATE_URL, sizeof(KS_APP_UPDATE_URL));
-	strcat(acPath, "?ini=");
+	strcpy(acPath, "ini=");
 	iSize = 0;
 	clsUtil::ReadFile(clsUtil::GetIniPath(), (void *) acBuffer, &iSize);
-	strcpy(acBuffer, ((AnsiString) StringReplace(acBuffer, "\r\n", "%0D", TReplaceFlags() << rfReplaceAll)).c_str());
+	strcpy(acBuffer, ((AnsiString) ReplaceStr(ReplaceStr(acBuffer, "\r\n", "%0D"), "=", "%3D")).c_str());
 	strcat(acPath, acBuffer);
 	//strcat(acPath, "&log=");
 	//iSize = 0;
 	//clsUtil::ReadFile(clsUtil::GetLogPath(), (void *) acBuffer, &iSize);
 	//strcat(acPath, acBuffer);
 
-	mbstowcs(acWide, acPath, KI_BUFFER_SIZE);
-	if (clsUtil::DownloadFile(acWide, acBuffer, KI_BUFFER_SIZE))
+	//mbstowcs(acWide, acPath, KI_BUFFER_SIZE);
+	//if (clsUtil::DownloadFile(acWide, acBuffer, KI_BUFFER_SIZE))
+	if (clsUtil::DownloadFilePost(KS_APP_UPDATE_SERVER, KS_APP_UPDATE_PAGE, acPath, acBuffer, KI_BUFFER_SIZE))
 	{
 		mbstowcs(acWide, acBuffer, KI_BUFFER_SIZE);
 		//Check we only got number and punctuation digits in first characters to detect router errors returning HTML
@@ -2492,7 +2492,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 		_tcscpy((TCHAR *) acTemp, acWide);
 		_stprintf(acWide, _T("%10s"), (TCHAR *) acTemp);
-		
+
 		if (StrStr(acTemp, _T(" (")) != NULL)
 		{
 			_tcscpy(gudtOptions.acDonation, StrStr(acTemp, _T(" (")) + 2);
@@ -2506,7 +2506,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			{
 				actDonateExecute(NULL);
 				clsUtil::MsgBox(Handle, ("Please contribute to active " + Application->Name + " development by donating via Paypal. It is secure, safe and convenient.\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
-			}         
+			}
 		}
 
 		if (_tcscmp(acWide, (TCHAR *) acBuffer) > 0)

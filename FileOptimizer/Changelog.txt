@@ -177,6 +177,7 @@ X.XX - YYYY
 - Fixed themes hidding main user interface when executed via command-line.
 - Fixed that double-clicking on fixed columns could open selected file.
 - When multiple instances are allowed, FO will not warn anymore about Optimization still running, nor kill plugin processes.
+- Rewritten update check to use POST.
 - Better 7z SFX detection.
 - Made INI processing safer.
 - Expanded contextual menu with more new commands.

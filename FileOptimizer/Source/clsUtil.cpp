@@ -472,6 +472,45 @@ bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigne
 }
 
 
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *pacPage, const char *pacParameters, void *pvData, unsigned int piSize)
+{
+	bool bRes = false;
+	TCHAR acHeaders[] = _T("Content-Type: application/x-www-form-urlencoded");
+
+
+
+	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
+	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
+	HINTERNET hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
+	if (hInternet != NULL)
+	{
+		HINTERNET hConnect = InternetConnect(hInternet, pacServer, INTERNET_DEFAULT_HTTP_PORT, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1);
+		if (hConnect)
+		{
+			HINTERNET hRequest = HttpOpenRequest(hConnect, _T("POST"), pacPage, 0, 0, 0, INTERNET_FLAG_RELOAD, 0);
+			if (hRequest)
+			{
+				HttpSendRequest(hRequest, acHeaders, _tcslen(acHeaders), (void *) pacParameters, strlen((char *) pacParameters));
+				memset(pvData, 0, piSize);
+				unsigned long lRead;
+				if (InternetReadFile(hRequest, pvData, piSize, &lRead))
+				{
+					bRes = true;
+				}
+			}
+			InternetCloseHandle(hRequest);
+		}
+		InternetCloseHandle(hConnect);
+	}
+	InternetCloseHandle(hInternet);
+	return (bRes);
+}
+
+
+
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestination)
 {

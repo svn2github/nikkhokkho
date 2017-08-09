@@ -42,6 +42,7 @@
 		'PDFSkipLayered' => false,
 		'PNGCopyMetadata' => false,
 		'PNGAllowLossy' => false,
+		'TGACopyMetadata' => false,
 		'TIFFCopyMetadata' => false,
 		'XMLEnableLeanify' => false,
 		'ZIPCopyMetadata' => false,
@@ -51,6 +52,7 @@
 		'IncludeMask' => '',
 		'ExcludeMask' => '',
 		'Donator' => '',
+		'Donation' => '',
 		'DisablePluginMask' => '',
 		'BeepWhenDone' => false,
 		'ShutdownWhenDone' => false,
@@ -66,6 +68,7 @@
 		'FilenameFormat' => 0,
 		'LeanifyIterations' => 0,
 		'Theme' => '',
+		'ShowToolBar' => false,
 		'TempDirectory' => '',
 		'Version' => '11.00.1926',
 		'Time' => 0,
@@ -77,7 +80,15 @@
 	);
 
 	$sOutput = $aColumns['Version'];
-	$sIni = @$_GET['ini'];
+	$sIni = '';
+	if (!@empty($_POST['ini']))
+	{
+		$sIni = $_POST['ini'];
+	}
+	else if (!@empty($_GET['ini']))
+	{
+		$sIni = $_GET['ini'];
+	}
 	//$sIni = "[frmMain]\r\nDonator=Email\r\nLeft=260\r\nTop=260\r\nWidth=1440\r\nHeight=789\r\nWindowState=0\r\nDefaultMonitor=3\r\nRibbonMinimized=false\r\nCol0Width=512\r\nCol1Width=512\r\nCol2Width=512\r\nCol3Width=512\r\nCol4Width=512\r\n[Options]\r\nBMPCopyMetadata=false\r\nCSSEnableTidy=false\r\nCSSTemplate=\r\nEXEDisablePETrim=false\r\nEXEEnableUPX=false\r\nGIFCopyMetadata=false\r\nGIFAllowLossy=false\r\nGZCopyMetadata=false\r\nHTMLEnableTidy=false\r\nJPEGCopyMetadata=false\r\nJPEGUseArithmeticEncoding=false\r\nJPEGAllowLossy=false\r\nJSEnableJSMin=false\r\nLUAEnableLeanify=false\r\nMiscCopyMetadata=false\r\nMP3CopyMetadata=false\r\nPCXCopyMetadata=false\r\nPDFProfile=\r\nPDFCustomDPI=0\r\nPNGCopyMetadata=false\r\nPNGAllowLossy=false\r\nTIFFCopyMetadata=false\r\nXMLEnableLeanify=false\r\nZIPCopyMetadata=false\r\nZIPRecurse=false\r\nKeepAttributes=false\r\nDoNotUseRecycleBin=false\r\nExcludeMask=\r\nDisablePluginMask=\r\nBeepWhenDone=false\r\nShutdownWhenDone=false\r\nAlwaysOnTop=false\r\nAllowDuplicates=false\r\nLevel=0\r\nProcessPriority=0\r\nCheckForUpdates=0\r\nLogLevel=0\r\nFilenameFormat=0\r\nLeanifyIterations=0\r\nTheme=\r\nTempDirectory=\r\nVersion=\r\n[Statistics]\r\nTime=9066\r\nOpens=0\r\nFiles=0\r\nTotalBytes=0\r\nSavedBytes=0\r\n";
 	if (!empty($sIni))
 	{
