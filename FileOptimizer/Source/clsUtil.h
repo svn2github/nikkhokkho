@@ -75,7 +75,7 @@ class clsUtil
 		static bool __fastcall SetTaskListProgress(unsigned int piCompleted, unsigned int piTotal);
 		static unsigned int __fastcall GetWindowsVersion(void);
 		static bool __fastcall IsWindows64(void);
-		static bool __fastcall ShutdownWindows(void);
+		static bool __fastcall ShutdownWindows(unsigned int piMode = 0);
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

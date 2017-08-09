@@ -281,15 +281,14 @@ private: // User declarations
 	void __fastcall AddFiles(const TCHAR *pacFile);
 	void __fastcall CheckForUpdates(bool pbSilent = true);
 	void __fastcall CheckForUpdatesOld(bool pbSilent = true);
-	String __fastcall GetShortName(String psLongName);
 	bool __fastcall IsAPNG(const TCHAR *pacFile);
 	bool __fastcall IsEXESFX(const TCHAR *pacFile);
 	bool __fastcall IsZIPSFX(const TCHAR *pacFile);
 	bool __fastcall IsEXEManagedNet(const TCHAR *pacFile);
 	bool __fastcall IsPDFLayered(const TCHAR *pacFile);
 	String __fastcall Hash(String psFilename);
-	String __fastcall GetCellValue(String psValue, unsigned int piPos);
-	String __fastcall SetCellFileValue(String psValue);
+	String __inline GetCellValue(String psValue, unsigned int piPos);
+	String __inline SetCellFileValue(String psValue);
 	void __fastcall OptimizeProgressThread(struct udtOptimizeProgress pudtOptimizeProgress);
 	void __fastcall OptimizeProgressVCL(void);
 	void __fastcall actOptimizeFor(TObject *Sender, int AIndex);

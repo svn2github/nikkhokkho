@@ -678,7 +678,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	{
 		_tcscat(acTmpFile, _T("\\Plugins32\\"));
 	}
-	sPluginsDirectory = GetShortName(acTmpFile);
+	sPluginsDirectory = ExtractShortPathName((String) acTmpFile);
 
 	lSavedBytes = 0;
 	lTotalBytes = 0;
@@ -2319,7 +2319,6 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin, int piErrorMax)
 {
 	String sInputFile, sOutputFile, sTmpInputFile, sTmpOutputFile, sCommandLine;
-	TCHAR acTmp[PATH_MAX];
 	TCHAR acTempPath[PATH_MAX] = _T("");
 
 
@@ -2882,17 +2881,6 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 }
 
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-String __fastcall TfrmMain::GetShortName(String psLongName)
-{
-	TCHAR acShortFile[PATH_MAX];
-
-
-	GetShortPathName(psLongName.c_str(), acShortFile, sizeof(acShortFile));
-	return ((String) acShortFile);
-}
-
-
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall TfrmMain::IsAPNG(const TCHAR *pacFile)
@@ -3280,7 +3268,7 @@ String __fastcall TfrmMain::Hash(String psFilename)
 
 
 //---------------------------------------------------------------------------
-String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
+String __inline TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
 
@@ -3295,7 +3283,7 @@ String __fastcall TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 
 
 //---------------------------------------------------------------------------
-String __fastcall TfrmMain::SetCellFileValue(String psValue)
+String __inline TfrmMain::SetCellFileValue(String psValue)
 {
 	String sRes = "";
 
@@ -3349,7 +3337,7 @@ const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 	TCHAR acArgument[PATH_MAX];
 	TCHAR acRes[PATH_MAX] = _T("");
 	TCHAR *pcStart;
-	
+
 
 	acArgument[0] = '/';
 	_tcscpy(&acArgument[1], pacKey);
@@ -3365,6 +3353,7 @@ const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 	}
 	return (acRes);
 }
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

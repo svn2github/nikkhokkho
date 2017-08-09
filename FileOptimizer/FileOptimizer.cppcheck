@@ -8,7 +8,6 @@
         <path name="jpegoptim/"/>
         <path name="jsmin/"/>
         <path name="mp4v2/"/>
-        <path name="PCXLite/"/>
 	<path name="sqlite/"/>
     </exclude>
 </project>

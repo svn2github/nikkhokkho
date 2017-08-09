@@ -510,7 +510,7 @@ const TCHAR * __fastcall clsUtil::ExeVersion(const TCHAR *pacFile)
 			if (VerQueryValue(pacVersionData, _T("\\"), &a, &iVersionSize))
 			{
 				memcpy(&udtVersionInfo, a, iVersionSize);
-				_stprintf(acRes, _T("%d.%02d.%d"), HIWORD(udtVersionInfo.dwFileVersionMS), LOWORD(udtVersionInfo.dwFileVersionMS), LOWORD(udtVersionInfo.dwFileVersionLS));
+				_stprintf(acRes, _T("%d.%01d%01d.%d"), HIWORD(udtVersionInfo.dwFileVersionMS), LOWORD(udtVersionInfo.dwFileVersionMS), HIWORD(udtVersionInfo.dwFileVersionLS), LOWORD(udtVersionInfo.dwFileVersionLS));
 			}
 		}
 		delete[] pacVersionData;
@@ -1103,7 +1103,7 @@ bool __fastcall clsUtil::IsWindows64(void)
 
 
 // ---------------------------------------------------------------------------
-bool __fastcall clsUtil::ShutdownWindows(void)
+bool __fastcall clsUtil::ShutdownWindows(unsigned int piMode)
 {
 	bool bRes = false;
 	HANDLE hToken; 
@@ -1122,8 +1122,30 @@ bool __fastcall clsUtil::ShutdownWindows(void)
 		AdjustTokenPrivileges(hToken, false, &udtTokenPrivileges, 0, (PTOKEN_PRIVILEGES) NULL, 0); 
 		if (GetLastError() == ERROR_SUCCESS) 
 		{
-			//Shut down the system and force all applications to close. 
-			if (ExitWindowsEx(EWX_SHUTDOWN | EWX_FORCE, SHTDN_REASON_MAJOR_OPERATINGSYSTEM | SHTDN_REASON_MINOR_UPGRADE | SHTDN_REASON_FLAG_PLANNED))
+			//Shut down the system and force all applications to close.
+			unsigned int iFlags;
+
+			//Poweroff
+			if (piMode == 1)
+			{
+				iFlags = EWX_POWEROFF;
+			}
+			//Reboot
+			else if (piMode == 2)
+			{
+				iFlags = EWX_REBOOT | EWX_FORCE;
+			}
+			//Logout
+			else if (piMode == 3)
+			{
+				iFlags = EWX_LOGOFF | EWX_FORCE;
+			}
+			//Shutdown
+			else //0
+			{
+				iFlags = EWX_SHUTDOWN | EWX_HYBRID_SHUTDOWN | EWX_FORCE;
+			}
+			if (ExitWindowsEx(iFlags, SHTDN_REASON_MAJOR_OPERATINGSYSTEM | SHTDN_REASON_MINOR_UPGRADE | SHTDN_REASON_FLAG_PLANNED))
 			{
 				bRes = true;
 			}

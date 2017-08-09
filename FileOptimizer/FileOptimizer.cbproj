@@ -58,13 +58,13 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <VerInfo_MinorVer>00</VerInfo_MinorVer>
         <Icon_MainIcon>FileOptimizer.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>1936</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=11.00.0.1960;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=11.00.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
         <VerInfo_MajorVer>11</VerInfo_MajorVer>
+        <VerInfo_MinorVer>0</VerInfo_MinorVer>
+        <VerInfo_Build>1962</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=11.0.0.1962;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2017 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=11.00.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
         <VCL_Custom_Styles>Luna|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\Luna.vsf;&quot;Metropolis UI Black|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\17.0\Styles\MetropolisUIBlack.vsf&quot;</VCL_Custom_Styles>
         <TASM_FloatingPoint>Real</TASM_FloatingPoint>
         <RunBCCOutOfProcess>true</RunBCCOutOfProcess>
@@ -179,7 +179,7 @@
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <BCC_EnableRTTI>false</BCC_EnableRTTI>
-        <BCC_UserSuppliedOptions>-O4</BCC_UserSuppliedOptions>
+        <BCC_UserSuppliedOptions>-O4 -Ofast</BCC_UserSuppliedOptions>
         <ILINK_FastTLS>true</ILINK_FastTLS>
         <BCC_CallingConvention>fastcall</BCC_CallingConvention>
         <BCC_ExtendedErrorInfo>false</BCC_ExtendedErrorInfo>
@@ -220,7 +220,7 @@
         <BCC_DisableCPPAccesControls>true</BCC_DisableCPPAccesControls>
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
         <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
-        <BCC_UserSuppliedOptions>-O4</BCC_UserSuppliedOptions>
+        <BCC_UserSuppliedOptions>-O4 -Ofast</BCC_UserSuppliedOptions>
         <BCC_RequireMathFuncErrorNumber>false</BCC_RequireMathFuncErrorNumber>
         <UsingDelphiRTL>false</UsingDelphiRTL>
     </PropertyGroup>
@@ -299,15 +299,12 @@
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
-                    <Platform Name="Win64">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Debug" Class="ProjectFile"/>
                 <DeployFile LocalName=".\Win32\Release\FileOptimizer.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32160mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32160.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64230mt.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32250mt.dll" Class="DependencyModule">
                     <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
@@ -319,9 +316,8 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64220.dll" Class="DependencyModule"/>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32220.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64230mt.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64220.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
@@ -382,9 +378,13 @@
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32230mt.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64160mt.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32220mt.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64160mt.dll" Class="DependencyModule"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
