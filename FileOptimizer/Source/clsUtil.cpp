@@ -633,7 +633,7 @@ const TCHAR * __fastcall clsUtil::GetIniPath(void)
 	// Check if we already have it cached
 	if (acPath[0] == NULL)
 	{
-		GetModuleFileName(NULL, acTmp, sizeof(acTmp) - 1);
+		GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1);
 		*_tcsrchr(acTmp, '.') = NULL;
 		_tcscat(acTmp, _T(".ini"));
 		// Check if we can write to that location
@@ -659,7 +659,7 @@ const TCHAR * __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *p
 	TCHAR acRes[2048];
 	TCHAR *pcSemicolon;
 
-	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, sizeof(acRes), GetIniPath());
+	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, (sizeof(acRes) / sizeof(TCHAR)) - 1, GetIniPath());
 	//Remove comments
 	pcSemicolon = _tcsrchr(acRes, ';');
 	if (pcSemicolon)
@@ -945,7 +945,7 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 	// Check if we already have it cached
 	if (acPath[0] == NULL)
 	{
-		GetModuleFileName(NULL, acTmp, sizeof(acTmp) - 1);
+		GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1);
 		*_tcsrchr(acTmp, '.') = NULL;
 		_tcscat(acTmp, _T(".log"));
 		// Check if we can write to that location

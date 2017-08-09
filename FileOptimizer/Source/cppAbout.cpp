@@ -43,7 +43,7 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 	#endif
 	lblDetail->Caption = __DATE__;
 
-	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acName, sizeof(acName) / sizeof(TCHAR));
+	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acName, (sizeof(acName) / sizeof(TCHAR)) - 1);
 	lblCopyright->Caption = acName;
 	lblCopyright->Hint = KS_APP_URL;
 

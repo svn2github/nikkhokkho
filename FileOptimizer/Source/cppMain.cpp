@@ -48,7 +48,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	grdFiles->ColWidths[KI_GRID_STATUS] = GetOption(Name.c_str(), _T("Col4Width"), grdFiles->ColWidths[KI_GRID_STATUS]);
 	gudtOptions.bBMPCopyMetadata = GetOption(_T("Options"), _T("BMPCopyMetadata"), false);
 	gudtOptions.bCSSEnableTidy = GetOption(_T("Options"), _T("CSSEnableTidy"), false);
-	_tcsncpy(gudtOptions.acCSSTemplate, GetOption(_T("Options"), _T("CSSTemplate"), _T("low")), sizeof(gudtOptions.acCSSTemplate));
+	_tcsncpy(gudtOptions.acCSSTemplate, GetOption(_T("Options"), _T("CSSTemplate"), _T("low")), (sizeof(gudtOptions.acCSSTemplate) / sizeof(TCHAR)) - 1);
 	gudtOptions.bEXEDisablePETrim = GetOption(_T("Options"), _T("EXEDisablePETrim"), false);
 	gudtOptions.bEXEEnableUPX = GetOption(_T("Options"), _T("EXEEnableUPX"), false);
 	gudtOptions.bGIFCopyMetadata = GetOption(_T("Options"), _T("GIFCopyMetadata"), false);
@@ -59,13 +59,13 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bJPEGUseArithmeticEncoding = GetOption(_T("Options"), _T("JPEGUseArithmeticEncoding"), false);
 	gudtOptions.bJPEGAllowLossy = GetOption(_T("Options"), _T("JPEGAllowLossy"), false);
 	gudtOptions.bJSEnableJSMin = GetOption(_T("Options"), _T("JSEnableJSMin"), false);
-	_tcsncpy(gudtOptions.acJSAdditionalExtensions, GetOption(_T("Options"), _T("JSAdditionalExtensions"), _T("")), sizeof(gudtOptions.acJSAdditionalExtensions));
+	_tcsncpy(gudtOptions.acJSAdditionalExtensions, GetOption(_T("Options"), _T("JSAdditionalExtensions"), _T("")), (sizeof(gudtOptions.acJSAdditionalExtensions) / sizeof(TCHAR)) - 1);
 	gudtOptions.bLUAEnableLeanify = GetOption(_T("Options"), _T("LUAEnableLeanify"), false);
 	gudtOptions.bMiscCopyMetadata = GetOption(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = GetOption(_T("Options"), _T("MP3CopyMetadata"), false);
 	gudtOptions.bMP4CopyMetadata = GetOption(_T("Options"), _T("MP4CopyMetadata"), false);
 	gudtOptions.bPCXCopyMetadata = GetOption(_T("Options"), _T("PCXCopyMetadata"), false);
-	_tcsncpy(gudtOptions.acPDFProfile, GetOption(_T("Options"), _T("PDFProfile"), _T("none")), sizeof(gudtOptions.acPDFProfile));
+	_tcsncpy(gudtOptions.acPDFProfile, GetOption(_T("Options"), _T("PDFProfile"), _T("none")), (sizeof(gudtOptions.acPDFProfile) / sizeof(TCHAR)) - 1);
 	gudtOptions.iPDFCustomDPI = GetOption(_T("Options"), _T("PDFCustomDPI"), 150);
 	gudtOptions.bPDFSkipLayered = GetOption(_T("Options"), _T("PDFSkipLayered"), false);
 	gudtOptions.bPNGCopyMetadata = GetOption(_T("Options"), _T("PNGCopyMetadata"), false);
@@ -77,17 +77,17 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.bZIPRecurse = GetOption(_T("Options"), _T("ZIPRecurse"), false);
 	gudtOptions.bKeepAttributes = GetOption(_T("Options"), _T("KeepAttributes"), false);
 	gudtOptions.bDoNotUseRecycleBin = GetOption(_T("Options"), _T("DoNotUseRecycleBin"), false);
-	_tcsncpy(gudtOptions.acIncludeMask, GetOption(_T("Options"), _T("IncludeMask"), _T("")), sizeof(gudtOptions.acIncludeMask));
-	_tcsncpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")), sizeof(gudtOptions.acExcludeMask));
-	_tcsncpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")), sizeof(gudtOptions.acDonator));
+	_tcsncpy(gudtOptions.acIncludeMask, GetOption(_T("Options"), _T("IncludeMask"), _T("")), (sizeof(gudtOptions.acIncludeMask) / sizeof(TCHAR)) - 1);
+	_tcsncpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")), (sizeof(gudtOptions.acExcludeMask) / sizeof(TCHAR)) - 1);
+	_tcsncpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")), (sizeof(gudtOptions.acDonator) / sizeof(TCHAR)) -1 );
 	StrTrim(gudtOptions.acDonator, _T(" %\a\b\f\n\r\t\v\\\'\"\?"));
-	_tcsncpy(gudtOptions.acDonation, GetOption(_T("Options"), _T("Donation"), _T("")), sizeof(gudtOptions.acDonation));
+	_tcsncpy(gudtOptions.acDonation, GetOption(_T("Options"), _T("Donation"), _T("")), (sizeof(gudtOptions.acDonation) / sizeof(TCHAR)) - 1);
 	if (_tcslen(gudtOptions.acDonator) < 3)
 	{
         gudtOptions.acDonator[0] = NULL;
         gudtOptions.acDonation[0] = NULL;
 	}
-	_tcsncpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")), sizeof(gudtOptions.acDisablePluginMask));
+	_tcsncpy(gudtOptions.acDisablePluginMask, GetOption(_T("Options"), _T("DisablePluginMask"), _T("")), (sizeof(gudtOptions.acDisablePluginMask) / sizeof(TCHAR)) - 1);
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
@@ -113,8 +113,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), sizeof(gudtOptions.acTheme));
 	}
 	*/
-	_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), sizeof(gudtOptions.acTheme));
-	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), sizeof(gudtOptions.acTempDirectory));
+	_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
+	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 
 	miStartTicks = GetTickCount();
 	gudtOptions.lStatTime = (unsigned long long) GetOption(_T("Statistics"), _T("Time"), 0);
@@ -125,12 +125,12 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.lStatSavedBytes = (unsigned long long) GetOption(_T("Statistics"), _T("SavedBytes"), 0);
 	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), clsUtil::Random(0, INT_MAX));
 
-	GetModuleFileName(NULL, acPath, sizeof(acPath) - 1);
+	GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
 	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
 
-	_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), sizeof(gudtOptions.acVersion));
-	
-	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, sizeof(acPath) / sizeof(TCHAR));
+	_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), (sizeof(gudtOptions.acVersion) / sizeof(TCHAR)) - 1);
+
+	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
 	lblCopyright->Caption = acPath;
 
 	pgbProgress->Parent = stbMain;
@@ -230,7 +230,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 
 	if ((!gbStop) && (!gudtOptions.bAllowMultipleInstances))
 	{
-		GetModuleFileName(NULL, acPluginsDirectory, sizeof(acPluginsDirectory) - 1);
+		GetModuleFileName(NULL, acPluginsDirectory, (sizeof(acPluginsDirectory) / sizeof(TCHAR)) - 1);
 		*_tcsrchr(acPluginsDirectory, '\\') = NULL;
 		if (clsUtil::IsWindows64())
 		{
@@ -668,7 +668,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	gbStop = false;
 	RefreshStatus();
 
-	GetModuleFileName(NULL, acTmpFile, sizeof(acTmpFile) - 1);
+	GetModuleFileName(NULL, acTmpFile, (sizeof(acTmpFile) / sizeof(TCHAR)) - 1);
 	*_tcsrchr(acTmpFile, '\\') = NULL;
 	if (clsUtil::IsWindows64())
 	{
@@ -2164,7 +2164,7 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 			AddFilesInitializeExist();
 			for (unsigned int iCount = 0; iCount < iFiles; iCount++)
 			{
-				if (DragQueryFile(hDrop, iCount, acBuffer, sizeof(acBuffer)))
+				if (DragQueryFile(hDrop, iCount, acBuffer, (sizeof(acBuffer) / sizeof(TCHAR)) - 1))
 				{
 					AddFiles(acBuffer);
 				}
@@ -2358,9 +2358,9 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	}
 	else
 	{
-		GetTempPath(sizeof(acTempPath), acTempPath);
+		GetTempPath((sizeof(acTempPath) / sizeof(TCHAR)) - 1, acTempPath);
 	}
-	
+
 	//Create temporary directory just in case it did not existed
 	if (gudtOptions.acTempDirectory[0] != NULL)
 	{
