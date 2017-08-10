@@ -820,6 +820,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 {
 	String sExtension;
 	String sText = "";
+	TCHAR acTime[64];
 
 
 	//Get all supported extensions
@@ -872,9 +873,11 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		sText += "Have not donated yet!";
 
 	}
+	
+	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) gudtOptions.lStatTime * 1000, sizeof(acTime) - 1);
 
 	sText += "\n\nUSAGE STATISTICS\n"
-		"- Time: " + FormatNumberThousand(gudtOptions.lStatTime) + " seconds\n"
+		"- Time: " + (String) acTime + "\n"
 		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
 		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
 		"- Total: " + FormatNumberThousandUnit(gudtOptions.lStatTotalBytes) + "\n"
@@ -2480,6 +2483,14 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	strcpy(acPath, "ini=");
 	iSize = 0;
 	clsUtil::ReadFile(clsUtil::GetIniPath(), (void *) acBuffer, &iSize);
+    //Remove cache part
+	char *pcCache = strstr(acBuffer, "[Cache]");
+	if (pcCache)
+	{
+		*pcCache = NULL;
+	}
+
+    //ToDo: Use UrlEscape https://msdn.microsoft.com/en-us/library/windows/desktop/bb773774(v=vs.85).aspx
 	strcpy(acBuffer, ((AnsiString) ReplaceStr(ReplaceStr(ReplaceStr(acBuffer, "\r\n", "%0D"), "=", "%3D"), "\t", "")).c_str());
 	strcat(acPath, acBuffer);
 	//strcat(acPath, "&log=");
@@ -2732,51 +2743,32 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 //---------------------------------------------------------------------------
 String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 {
-	String sRes;
-	
+	//return(FloatToStrF(plNumber, (TFloatFormat) ffNumber, 18, 0));
+	TCHAR acNumber[64];
+	TCHAR acFormatedNumber[64];
+	TCHAR *pcDecimal;
 
-	sRes = FormatFloat("###,###,###,###,###,###,###", plNumber);
-	if (sRes == "")
+
+	_ui64tot(plNumber, acNumber, 10);
+	GetNumberFormat(LOCALE_USER_DEFAULT, NULL, acNumber, NULL, acFormatedNumber, (sizeof(acFormatedNumber) / sizeof(TCHAR)) - 1);
+	//Remove Decimals
+	pcDecimal = _tcsrchr(acFormatedNumber, FormatSettings.DecimalSeparator);
+	if (pcDecimal)
 	{
-		sRes = "0";
+		*pcDecimal = NULL;
 	}
-	return (sRes);
+	return ((String) acFormatedNumber);
 }
 
 
 //---------------------------------------------------------------------------
 String __inline TfrmMain::FormatNumberThousandUnit (unsigned long long plNumber)
 {
-	String sRes;
-	String sUnit = "bytes";
+	TCHAR acRes[64];
 
-	
-	//GiB
-	if (plNumber > 10 * 1024 * 1024 * 1024ULL)
-	{
-		plNumber = plNumber >> 30;
-		sUnit = "GiB";
-	}
-	//MiB
-	else if (plNumber > 10 * 1024 * 1024)
-	{
-		plNumber = plNumber >> 20;
-		sUnit = "MiB";
-	}
-	//KiB
-	else if (plNumber > 10 * 1024)
-	{
-		plNumber = plNumber >> 10;
-		sUnit = "KiB";
-	}
-	sRes = FormatFloat("###,###,###,###,###,###,###", plNumber);
-	if (sRes == "")
-	{
-		sRes = "0";
-	}
-	
-	sRes += " " + sUnit;
-	return (sRes);
+
+	StrFormatByteSize64(plNumber, acRes, (sizeof(acRes) / sizeof(TCHAR)) - 1);
+	return (String(acRes));
 }
 
 
@@ -3296,7 +3288,7 @@ String __inline TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
 
-	TStringDynArray asValue = SplitString(psValue, "*");
+	TStringDynArray asValue = SplitString(psValue, "\r");
 	if ((unsigned int) asValue.Length > piPos)
 	{
 		psValue = asValue[piPos];
@@ -3332,7 +3324,7 @@ String __inline TfrmMain::SetCellFileValue(String psValue)
 	{
 		sRes = psValue;
 	}
-	sRes += "*" + psValue;
+	sRes += "\r" + psValue;
 	return(sRes);
 }
 

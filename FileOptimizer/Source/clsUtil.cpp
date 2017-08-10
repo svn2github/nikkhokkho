@@ -480,7 +480,7 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 	TCHAR acHeaders[] = _T("Content-Type: application/x-www-form-urlencoded");
 
 
-
+    //ToDo: Use UrlGetPart https://msdn.microsoft.com/en-us/library/windows/desktop/bb773781(v=vs.85).aspx
 	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
 	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
 	HINTERNET hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
@@ -533,6 +533,8 @@ bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestin
 // --------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall clsUtil::ExeVersion(const TCHAR *pacFile)
 {
+	//GetProductVersion((String) pacFile, iMajor, iMinor, iRevision);
+
 	unsigned int iVersionSize;
 	TCHAR *pacVersionData;
 	void *a;
