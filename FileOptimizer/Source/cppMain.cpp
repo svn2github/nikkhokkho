@@ -891,9 +891,10 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		sText += "Have not donated yet!";
 
 	}
-	
-	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) gudtOptions.lStatTime * 1000, sizeof(acTime) - 1);
+	sText += "\nUser since " + Application->Name + " " + (String) gudtOptions.acVersion;
 
+
+	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) gudtOptions.lStatTime * 1000, sizeof(acTime) - 1);
 	sText += "\n\nUSAGE STATISTICS\n"
 		"- Time: " + (String) acTime + "\n"
 		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
@@ -2109,9 +2110,9 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			gudtOptions.lStatTotalBytes += ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]);
 			gudtOptions.lStatSavedBytes += (ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) - ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]));
 			gudtOptions.iStatFiles++;
-
 		}
 	}
+
 	//If file was not processed, mark it as skipped because not supported extension, or skipped because user preference (do not process JS for instance)
 	if ((grdFiles->Cells[KI_GRID_STATUS][iCount] == "Pending") || (grdFiles->Cells[KI_GRID_STATUS][iCount] == "Copying to Recyclebin..."))
 	{
@@ -2564,7 +2565,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			if (clsUtil::Random(0, 100) == 5)
 			{
 				actDonateExecute(NULL);
-				clsUtil::MsgBox(Handle, ("Please contribute to active " + Application->Name + " development by donating via Paypal. It is secure, safe and convenient.\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), _T("Donate"), MB_OK|MB_ICONEXCLAMATION);
+				clsUtil::MsgBox(Handle, ("Thank you for using my program!\n\nYou have used it " + FormatNumberThousand(gudtOptions.iStatOpens) + " times and have optimized " + FormatNumberThousand(gudtOptions.iStatFiles) + " files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), ("Thank you for using " + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION);
 			}
 		}
 
