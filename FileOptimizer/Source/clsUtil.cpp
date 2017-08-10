@@ -662,6 +662,7 @@ const TCHAR * __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *p
 	TCHAR *pcSemicolon;
 
 	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, (sizeof(acRes) / sizeof(TCHAR)) - 1, GetIniPath());
+	
 	//Remove comments
 	pcSemicolon = _tcsrchr(acRes, ';');
 	if (pcSemicolon)
@@ -738,6 +739,7 @@ bool __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue, const TCHAR *pacComment)
 {
+	//No comment
 	if (pacComment[0] == NULL)
 	{
 		WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath());

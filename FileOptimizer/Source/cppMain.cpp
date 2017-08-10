@@ -40,6 +40,12 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	Icon = Application->Icon;
 	lblCopyright->Hint = KS_APP_URL;
+
+	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
+	lblCopyright->Caption = acPath;
+
+	pgbProgress->Parent = stbMain;
+	
 	clsUtil::LoadForm(this);
 	grdFiles->ColWidths[KI_GRID_FILE] = GetOption(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
 	grdFiles->ColWidths[KI_GRID_EXTENSION] = GetOption(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
@@ -82,6 +88,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	_tcsncpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")), (sizeof(gudtOptions.acDonator) / sizeof(TCHAR)) -1 );
 	StrTrim(gudtOptions.acDonator, _T(" %\a\b\f\n\r\t\v\\\'\"\?"));
 	_tcsncpy(gudtOptions.acDonation, GetOption(_T("Options"), _T("Donation"), _T("")), (sizeof(gudtOptions.acDonation) / sizeof(TCHAR)) - 1);
+	//Invalid donator, reset fields
 	if (_tcslen(gudtOptions.acDonator) < 3)
 	{
         gudtOptions.acDonator[0] = NULL;
@@ -103,19 +110,21 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
 	//Use Windows 10 theme by default on Windows 8 and newer
-	/*
 	if (clsUtil::GetWindowsVersion() >= 602)
 	{
-		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")), sizeof(gudtOptions.acTheme));
+		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
 	}
 	else
 	{
-		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), sizeof(gudtOptions.acTheme));
+		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
 	}
-	*/
-	_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 
+	GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
+	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
+	_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), (sizeof(gudtOptions.acVersion) / sizeof(TCHAR)) - 1);
+
+	//Statistics
 	miStartTicks = GetTickCount();
 	gudtOptions.lStatTime = (unsigned long long) GetOption(_T("Statistics"), _T("Time"), 0);
 	gudtOptions.iStatOpens = (unsigned int) GetOption(_T("Statistics"), _T("Opens"), 0);
@@ -125,24 +134,13 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.lStatSavedBytes = (unsigned long long) GetOption(_T("Statistics"), _T("SavedBytes"), 0);
 	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), clsUtil::Random(0, INT_MAX));
 
-	GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
-	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
-
-	_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), (sizeof(gudtOptions.acVersion) / sizeof(TCHAR)) - 1);
-
-	clsUtil::GetFileVersionField(Application->ExeName.c_str(), (TCHAR *) _T("LegalCopyright"), acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
-	lblCopyright->Caption = acPath;
-
-	pgbProgress->Parent = stbMain;
-	actClearExecute(Sender);
-
-	FormResize(Sender);
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
+	actClearExecute(Sender);
+	FormResize(Sender);
+	UpdateTheme(gudtOptions.acTheme);
 
 	//GetSystemInfo(&gudtSystemInfo);
-
-	UpdateTheme(gudtOptions.acTheme);
 }
 
 
@@ -210,6 +208,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory, _T("String. Default: ''. If not empty specified directory will be used for temporary storage instead of system's %TEMP%."));
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion, _T("String. Default: ''."));
 	
+	//Statistics
 	gudtOptions.lStatTime += ((GetTickCount() - miStartTicks) / 1000);
 	clsUtil::SetIni(_T("Statistics"), _T("Time"), (long long) gudtOptions.lStatTime);
 	clsUtil::SetIni(_T("Statistics"), _T("Opens"), (int) gudtOptions.iStatOpens);
@@ -228,6 +227,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	TCHAR acPluginsDirectory[PATH_MAX];
 	
 
+	//Check if there are plugins still running
 	if ((!gbStop) && (!gudtOptions.bAllowMultipleInstances))
 	{
 		GetModuleFileName(NULL, acPluginsDirectory, (sizeof(acPluginsDirectory) / sizeof(TCHAR)) - 1);
@@ -263,7 +263,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	gbStop = true;
 	CanClose = true;
 	Hide();
-	Application->ProcessMessages(); //Required because some themes do not automatically refresh
+	//Application->ProcessMessages(); //Required because some themes do not automatically refresh
 }
 
 
@@ -299,6 +299,8 @@ void __fastcall TfrmMain::FormResize(TObject *Sender)
 void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect, TGridDrawState State)
 {
 	grdFiles->Rows[ARow]->BeginUpdate();
+	
+	//Color even and odd rows
 	if (ARow == 0)
 	{
 		grdFiles->Canvas->Brush->Color = clBtnFace;
@@ -311,7 +313,8 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 	{
 		grdFiles->Canvas->Brush->Color = clGradientActiveCaption;
 	}
-
+	
+	//Color file column and the others
 	if ((ARow > 0) && (ACol == KI_GRID_FILE))
 	{
 		grdFiles->Canvas->Font->Color = clHotLight;
@@ -324,7 +327,6 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 
 	Rect.left -= 2;
 	grdFiles->Canvas->FillRect(Rect);
-
 	String sValue = GetCellValue(grdFiles->Cells[ACol][ARow], 0);
 
 	//Left aligned
@@ -373,7 +375,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		}
 		iSortField = ACol;
 
-
+		//Do the sort using a temporary TStringList
 		TStringList *lstTemp = new TStringList();
 		lstTemp->CaseSensitive = true;
 		lstTemp->Duplicates = System::Classes::dupAccept;
@@ -393,6 +395,7 @@ void __fastcall TfrmMain::grdFilesFixedCellClick(TObject *Sender, int ACol, int 
 		}
 		lstTemp->Sort();
 
+		//Copy the TSTringList to the grid
 		TStringDynArray asValue;
 		for (unsigned int iRow = 1; iRow < iRows; iRow++)
 		{
@@ -431,7 +434,8 @@ void __fastcall TfrmMain::grdFilesMouseMove(TObject *Sender, TShiftState Shift, 
 {
 	int iRow, iCol;
 	
-
+	
+	//Draw the hint with the rollover cell contents
 	grdFiles->MouseToCell(X, Y, iCol, iRow);
 	if ((iRow >= 0) && (iCol >=0))
 	{
@@ -444,6 +448,7 @@ void __fastcall TfrmMain::grdFilesMouseMove(TObject *Sender, TShiftState Shift, 
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::grdFilesDblClick(TObject *Sender)
 {
+	//Double click synonums Open selected file
 	actOpenExecute(Sender);
 }
 
@@ -452,6 +457,7 @@ void __fastcall TfrmMain::grdFilesDblClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::stbMainDrawPanel(TStatusBar *StatusBar, TStatusPanel *Panel, const TRect &Rect)
 {
+	//Resize progress according to statusbar size
 	if (Panel == StatusBar->Panels->Items[1])
 	{
 		pgbProgress->Top = Rect.top;
@@ -488,14 +494,14 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 				}
 			}
 			grdFiles->RowCount = (int) iRows;
-			RefreshStatus();
-			SendMessage(grdFiles->Handle, WM_SETREDRAW, 1, 0);
-			grdFiles->Repaint();
-			Screen->Cursor = crDefault;
+			//RefreshStatus();
+			//SendMessage(grdFiles->Handle, WM_SETREDRAW, 1, 0);
+			//grdFiles->Repaint();
+			//Screen->Cursor = crDefault;
 		}
 	}
 
-	//F5 refresh grid
+	//F5 refresh grid. Will be triggered after CTR-F5 too
 	if (Key == VK_F5)
 	{
 		unsigned int iRows = (unsigned int) grdFiles->RowCount;
@@ -506,9 +512,9 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 			SendMessage(grdFiles->Handle, WM_SETREDRAW, 0, 0);
 			for (unsigned int iRow = 1; iRow < iRows; iRow++)
 			{
+				//grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow]->BeginUpdate();
 				//grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
 				//grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
-				//grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow]->BeginUpdate();
 				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1).c_str()));
 				//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
 				//grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
@@ -594,8 +600,17 @@ void __fastcall TfrmMain::actRemoveExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actClearExecute(TObject *Sender)
 {
+	SendMessage(grdFiles->Handle, WM_SETREDRAW, 0, 0);
+
+	Caption = Application->Name;
+	Application->Title = Caption;		
+	stbMain->Panels->Items[0]->Text = "";
+	stbMain->Hint = stbMain->Panels->Items[0]->Text;
+		
 	grdFiles->RowCount = 1;
 	RefreshStatus();
+	SendMessage(grdFiles->Handle, WM_SETREDRAW, 1, 0);
+	grdFiles->Repaint();
 }
 
 
@@ -670,6 +685,8 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 
 	gbProcess = true;
 	gbStop = false;
+	//grdFiles->Enabled = false;
+	
 	RefreshStatus();
 
 	GetModuleFileName(NULL, acTmpFile, (sizeof(acTmpFile) / sizeof(TCHAR)) - 1);
@@ -727,7 +744,8 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 
 	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
-
+	Caption = stbMain->Hint + " - " + Application->Name;
+	Application->Title = Caption;	
 	RefreshStatus(false);
 
 	if (gudtOptions.bBeepWhenDone)
@@ -738,7 +756,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 
 	if (gudtOptions.bShutdownWhenDone)
 	{
-		if (!clsUtil::ShutdownWindows())
+		if (!clsUtil::ShutdownWindows(0))
 		{
 			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
 		}
@@ -809,7 +827,7 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 {
 	gbStop = true;
 	Hide();
-    Application->ProcessMessages(); //Required because some themes do not automatically refresh
+    //Application->ProcessMessages(); //Required because some themes do not automatically refresh
 	Close();
 }
 
@@ -927,6 +945,8 @@ void __fastcall TfrmMain::OptimizeProgressVCL(void)
 	{
 		stbMain->Panels->Items[0]->Text = mudtOptimizeProgress.sStatusbarText;
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
+		Caption = stbMain->Hint + " - " + Application->Name;
+		Application->Title = Caption;		
 	}
 	
 	//Progress
@@ -982,6 +1002,8 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 
 	stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
+	//Caption = stbMain->Hint + " - " + Application->Name;
+	//Application->Title = Caption;
 	pgbProgress->Position = iCount;
 	clsUtil::SetTaskListProgress((unsigned int) pgbProgress->Position, (unsigned int) pgbProgress->Max);
 	grdFiles->Row = iCount;
@@ -1998,7 +2020,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// ZIP: Leanify, ect, advzip, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_ZIP) > 0)
 		{
-			bool bIsZIPSFX = IsZIPSFX(sInputFile.c_str());
+			bool bIsEXESFX = IsEXESFX(sInputFile.c_str());
 			
 			sFlags = "";
 			if (gudtOptions.bZIPCopyMetadata)
@@ -2034,7 +2056,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --mt-deflate -zip " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);			
 
 			//AdvZip strips header on ZIP files
-			if (!bIsZIPSFX)
+			if (!bIsEXESFX)
 			{
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
@@ -2122,6 +2144,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 {
+	//30 seconds: Update check
 	if (tmrMain->Interval >= 30000)
 	{
 		tmrMain->Enabled = false;
@@ -2134,6 +2157,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 			CheckForUpdates(true);
 		}
 	}
+	//1 second: Process command-line arguments
 	else if (tmrMain->Interval >= 1000)
 	{
 		tmrMain->Interval = 30000;
@@ -2142,7 +2166,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		{
 			Screen->Cursor = crAppStart;
 			grdFiles->Enabled = false;  //Prevent grid modifications while adding files
-			Show();  //Required because some themes do not automatically refresh
+			//Show();  //Required because some themes do not automatically refresh
 			Application->ProcessMessages();
 			AddFilesInitializeExist();
 			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
@@ -3007,27 +3031,6 @@ bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall TfrmMain::IsZIPSFX(const TCHAR *pacFile)
-{
-	bool bRes = false;
-	unsigned char *acBuffer;
-
-	
-	unsigned int iSize = 1 * 1024;
-	acBuffer = new unsigned char[iSize];
-	if (acBuffer)
-	{
-		clsUtil::ReadFile(pacFile, acBuffer, &iSize);
-		//Assuming it is already a ZIP variant (by extension) check if at zero bytes offset we have ZIP header
-		bRes = (memcmp(acBuffer, "\x50\x4B\x03\x04", 4) != 0);
-		delete[] acBuffer;
-	}
-	return (bRes);
-}
-
-
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall TfrmMain::IsEXEManagedNet(const TCHAR *pacFile)
 {
 	bool bRes = false; //variable that indicates if managed or not.
@@ -3127,9 +3130,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	//Check if something changed to avoid applying if unneeded
 	if (TStyleManager::ActiveStyle->Name != (String) pacTheme)
 	{
-
 		//RefreshStatus();
-
 		if (pacTheme[0] != NULL)
 		{
 			TStyleManager::TrySetStyle(pacTheme, false);
@@ -3162,7 +3163,6 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	}
 	
 	tooMain->Visible = gudtOptions.bShowToolBar;
-
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);
@@ -3252,16 +3252,17 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 
 				stbMain->Panels->Items[0]->Text = "";
 				stbMain->Hint = stbMain->Panels->Items[0]->Text;
+				Caption = Application->Name;
+				Application->Title = Caption;
 				pgbProgress->Position = 0;
 				clsUtil::SetTaskListProgress((unsigned int) pgbProgress->Position, (unsigned int) pgbProgress->Max);
 			}
 		}
 		else
 		{
-			Caption = Application->Name;
-			Application->Title = Caption;
+			//Caption = Application->Name;
+			//Application->Title = Caption;
 		}
-
 	}
 	//Reenable form updates
 	//LockWindowUpdate(NULL);
@@ -3287,7 +3288,6 @@ String __fastcall TfrmMain::Hash(String psFilename)
 String __inline TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 {
 	//Decode the information in cell separating the value to show, with the value to parse
-
 	TStringDynArray asValue = SplitString(psValue, "\r");
 	if ((unsigned int) asValue.Length > piPos)
 	{

@@ -284,7 +284,6 @@ private: // User declarations
 	void __fastcall CheckForUpdatesOld(bool pbSilent = true);
 	bool __fastcall IsAPNG(const TCHAR *pacFile);
 	bool __fastcall IsEXESFX(const TCHAR *pacFile);
-	bool __fastcall IsZIPSFX(const TCHAR *pacFile);
 	bool __fastcall IsEXEManagedNet(const TCHAR *pacFile);
 	bool __fastcall IsPDFLayered(const TCHAR *pacFile);
 	String __fastcall Hash(String psFilename);

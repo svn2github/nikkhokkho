@@ -682,7 +682,7 @@ object frmOptions: TfrmOptions
       end
       object chkEXEEnableUPX: TCheckBox
         Left = 7
-        Top = 43
+        Top = 41
         Width = 281
         Height = 17
         Hint = 
