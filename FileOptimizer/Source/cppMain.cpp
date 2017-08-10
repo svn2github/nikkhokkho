@@ -1504,10 +1504,16 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// MKV: ffmpeg, mkclean
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MKV) > 0)
 		{
-			if (!gudtOptions.bMP4CopyMetadata)
+			sFlags = "";
+			if (gudtOptions.bMP4CopyMetadata)
 			{
-				RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy -map 0 \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				sFlags += "-map 0 ";
 			}
+			else
+			{
+				sFlags += "-map_metadata -1 ";
+			}			
+			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			RunPlugin((unsigned int) iCount, "mkclean", (sPluginsDirectory + "mkclean.exe --optimize --unsafe --quiet \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1542,10 +1548,15 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// MP4: ffmpeg, mp4v2
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MP4) > 0)
 		{
-			if (!gudtOptions.bMP4CopyMetadata)
+			if (gudtOptions.bMP4CopyMetadata)
 			{
-				RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy -map 0 \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				sFlags += "-map 0 ";
 			}
+			else
+			{
+				sFlags += "-map_metadata -1 ";
+			}			
+			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			RunPlugin((unsigned int) iCount, "mp4v2", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
@@ -1562,10 +1573,15 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 		// OGV: ffmpeg, rehuff_theora
 		if (PosEx(sExtensionByContent, KS_EXTENSION_OGV) > 0)
 		{
-			if (!gudtOptions.bMP4CopyMetadata)
+			if (gudtOptions.bMP4CopyMetadata)
 			{
-				RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy -map 0 \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				sFlags += "-map 0 ";
 			}
+			else
+			{
+				sFlags += "-map_metadata -1 ";
+			}			
+			RunPlugin((unsigned int) iCount, "ffmpeg", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			RunPlugin((unsigned int) iCount, "rehuff_theora", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
