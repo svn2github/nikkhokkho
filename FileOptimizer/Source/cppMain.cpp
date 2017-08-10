@@ -2253,6 +2253,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 {
 	WIN32_FIND_DATA udtFindFileData;
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
+    TCHAR acFile[PATH_MAX];
 
 
 	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*) &udtFileAttribute))
@@ -2276,8 +2277,9 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		//It it is a file, parse it
 		else
 		{
-			String sCellFile = SetCellFileValue(pacFile);
-			unsigned long long lSize = clsUtil::SizeFile(pacFile);
+			PathCanonicalize(acFile, pacFile);
+			String sCellFile = SetCellFileValue(acFile);
+			unsigned long long lSize = clsUtil::SizeFile(acFile);
 
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
@@ -2292,7 +2294,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					}
 				}
 
-				String sExtensionByContent = GetExtensionByContent(pacFile);
+				String sExtensionByContent = GetExtensionByContent(acFile);
 				if (sExtensionByContent != "")
 				{
 					//We store the name to show concatenated with the full name
@@ -2302,7 +2304,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					TStringList *lstRow = new TStringList();
 					lstRow->Add(sCellFile); //0: File
 
-					String sExtension = ExtractFileExt(pacFile);
+					String sExtension = ExtractFileExt(acFile).LowerCase();
 					if (sExtensionByContent != sExtension)
 					{
 						lstRow->Add(sExtension + " (" + sExtensionByContent + ")"); //1: Extension (Type)
@@ -2318,7 +2320,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					//Check if it was already optimized
 					if (gudtOptions.bEnableCache)
 					{
-						String sHashValue = Hash(pacFile);
+						String sHashValue = Hash(acFile);
 						unsigned int iHashKey = clsUtil::Crc32(sHashValue.c_str(), (unsigned int) sHashValue.Length());
 						//In cache, show it as already optimized
 						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).c_str(), _T("")), _T("")) != 0)
@@ -2578,7 +2580,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	unsigned char acBuffer[512 * 2];
 
 
-	sRes = ExtractFileExt(psFilename);
+	sRes = ExtractFileExt(psFilename).LowerCase();
 
 	//If file extension is not known, get it by analyzing file contents
 	if (PosEx(" " + sRes + " ", KS_EXTENSION_ALL + ReplaceStr((String) gudtOptions.acJSAdditionalExtensions, ";", " ") + " ") == 0)
