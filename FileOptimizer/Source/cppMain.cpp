@@ -110,7 +110,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
 	//Use Windows 10 theme by default on Windows 8 and newer
-	if (clsUtil::GetWindowsVersion() >= 602)
+	if (false /*clsUtil::GetWindowsVersion() >= 602*/)
 	{
 		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
 	}
@@ -263,7 +263,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	gbStop = true;
 	CanClose = true;
 	Hide();
-	//Application->ProcessMessages(); //Required because some themes do not automatically refresh
+	Application->ProcessMessages(); //Required because some themes do not automatically refresh
 }
 
 
@@ -827,7 +827,7 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 {
 	gbStop = true;
 	Hide();
-    //Application->ProcessMessages(); //Required because some themes do not automatically refresh
+    Application->ProcessMessages(); //Required because some themes do not automatically refresh
 	Close();
 }
 
@@ -2562,7 +2562,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		{
             gudtOptions.acDonator[0] = NULL;
             gudtOptions.acDonation[0] = NULL;
-			if (clsUtil::Random(0, 100) == 5)
+			if (clsUtil::Random(0, 10) == 5)
 			{
 				actDonateExecute(NULL);
 				clsUtil::MsgBox(Handle, ("Thank you for using my program!\n\nYou have used it " + FormatNumberThousand(gudtOptions.iStatOpens) + " times and have optimized " + FormatNumberThousand(gudtOptions.iStatFiles) + " files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), ("Thank you for using " + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION);
