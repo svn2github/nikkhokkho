@@ -2253,7 +2253,6 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 {
 	WIN32_FIND_DATA udtFindFileData;
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
-    TCHAR acFile[PATH_MAX];
 
 
 	if (GetFileAttributesEx(pacFile, GetFileExInfoStandard, (void*) &udtFileAttribute))
@@ -2277,9 +2276,8 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		//It it is a file, parse it
 		else
 		{
-			PathCanonicalize(acFile, pacFile);
-			String sCellFile = SetCellFileValue(acFile);
-			unsigned long long lSize = clsUtil::SizeFile(acFile);
+			String sCellFile = SetCellFileValue(pacFile);
+			unsigned long long lSize = clsUtil::SizeFile(pacFile);
 
 			//We will only add files with more than 0 bytes
 			if (lSize > 0)
@@ -2294,7 +2292,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					}
 				}
 
-				String sExtensionByContent = GetExtensionByContent(acFile);
+				String sExtensionByContent = GetExtensionByContent(pacFile);
 				if (sExtensionByContent != "")
 				{
 					//We store the name to show concatenated with the full name
@@ -2304,7 +2302,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					TStringList *lstRow = new TStringList();
 					lstRow->Add(sCellFile); //0: File
 
-					String sExtension = ExtractFileExt(acFile).LowerCase();
+					String sExtension = ExtractFileExt(pacFile).LowerCase();
 					if (sExtensionByContent != sExtension)
 					{
 						lstRow->Add(sExtension + " (" + sExtensionByContent + ")"); //1: Extension (Type)
@@ -2320,7 +2318,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 					//Check if it was already optimized
 					if (gudtOptions.bEnableCache)
 					{
-						String sHashValue = Hash(acFile);
+						String sHashValue = Hash(pacFile);
 						unsigned int iHashKey = clsUtil::Crc32(sHashValue.c_str(), (unsigned int) sHashValue.Length());
 						//In cache, show it as already optimized
 						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).c_str(), _T("")), _T("")) != 0)
