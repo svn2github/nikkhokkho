@@ -3332,7 +3332,7 @@ const TCHAR * __fastcall TfrmMain::GetOptionCommandLine(void)
 	// Check if we already have it cached
 	if (acCommandLine[0] == NULL)
 	{
-		_tcscpy(acCommandLine, GetCommandLine());
+		_tcsncpy(acCommandLine, GetCommandLine(), (sizeof(acCommandLine) / sizeof(TCHAR)) - 1);
 	}
 	return (acCommandLine);
 }
@@ -3369,7 +3369,7 @@ const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHA
 	TCHAR acRes[2048];
 
 
-	_tcscpy(acRes, TfrmMain::GetOptionArgument(pacKey));
+	_tcscpy(acRes, GetOptionArgument(pacKey));
 	if (acRes[0] == NULL)
 	{
 		_tcscpy(acRes, clsUtil::GetIni(pacSection, pacKey, pacDefault));

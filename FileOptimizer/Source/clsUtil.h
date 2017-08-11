@@ -25,10 +25,10 @@
 	#endif
 #endif
 
-#if !defined(PATH_MAX)
+#if defined(PATH_MAX)
 	#undef PATH_MAX
 #endif
-#define PATH_MAX	(MAX_PATH << 4)
+#define PATH_MAX	(MAX_PATH << 6)
 
 
 // ---------------------------------------------------------------------------
