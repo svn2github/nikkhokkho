@@ -1750,9 +1750,9 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			
 			sFlags = "";
 			iLevel = min(gudtOptions.iLevel * 6 / 9, 6);
+			sFlags += "-o" + (String) iLevel + " ";
 			if (bIsAPNG)
 			{
-				sFlags += "-o" + (String) iLevel + " ";
 				// For some reason -strip all -protect acTL,fcTL,fdAT is not keeping APNG chunks
 				RunPlugin((unsigned int) iCount, "OptiPNG", (sPluginsDirectory + "optipng.exe -zw32k -protect acTL,fcTL,fdAT -quiet " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
