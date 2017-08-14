@@ -46,24 +46,54 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 }
 
 
+static unsigned int miTaskDialogTimeout = 0;
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HRESULT CALLBACK clsUtil::TaskDialogCallbackProc(HWND phWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData)
+{
+	HRESULT hResult = S_OK;
+
+
+	if (uNotification == TDN_CREATED)
+	{
+		SendMessage(phWnd, TDM_SET_PROGRESS_BAR_RANGE, 0, MAKELONG(0, miTaskDialogTimeout));
+	}
+	else if (uNotification == TDN_TIMER)
+	{
+		SendMessage(phWnd, TDM_SET_PROGRESS_BAR_POS, wParam, 0);
+		if (wParam > miTaskDialogTimeout)
+		{
+			PostMessage(phWnd, WM_CLOSE, 0, 0);
+            hResult = S_FALSE;
+		}
+	}
+	return(hResult);
+}
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, int piType)
+int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, unsigned int piType, unsigned int piTimeout)
 {
 	int iButton = 0;
 	Winapi::Commctrl::TASKDIALOGCONFIG udtFlags = {};
 
 
+	//ToDo: Cache loaded functions from DLL
 	HMODULE hDLL = LoadLibrary(_T("COMCTL32.DLL"));
 	if (hDLL)
 	{
 		typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
-		TaskDialogType *TaskDialogProc = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect");
-		if (TaskDialogProc)
+		TaskDialogType *TaskDialogIndirect = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect");
+		if (TaskDialogIndirect)
 		{
 			udtFlags.cbSize = sizeof(udtFlags);
 			udtFlags.hwndParent = phWnd;
 			udtFlags.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_CAN_BE_MINIMIZED | TDF_SIZE_TO_CONTENT;
+			if (piTimeout != 0)
+			{
+				udtFlags.dwFlags |= TDF_CALLBACK_TIMER | TDF_SHOW_PROGRESS_BAR;
+				udtFlags.pfCallback = (Winapi::Commctrl::PFTASKDIALOGCALLBACK) clsUtil::TaskDialogCallbackProc;
+				miTaskDialogTimeout = piTimeout;
+			}
 
 			if ((piType & MB_ABORTRETRYIGNORE) == MB_ABORTRETRYIGNORE)
 			{
@@ -136,7 +166,7 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 				udtFlags.pszMainInstruction = (TCHAR *) pacTitle;
 				udtFlags.pszContent = (TCHAR *) pacText;
 			}
-			(*TaskDialogProc)(&udtFlags, &iButton, NULL, NULL);
+			(*TaskDialogIndirect)(&udtFlags, &iButton, NULL, NULL);
 		}
 		FreeLibrary(hDLL);
 	}
@@ -144,7 +174,24 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 	//Fallback when library not loaded or TaskDialogIndirect not exists
 	if (iButton == NULL)
 	{
-		iButton = MessageBox(phWnd, pacText, pacTitle, piType);
+		if (piTimeout == 0)
+		{
+			iButton = MessageBox(phWnd, pacText, pacTitle, piType);
+		}
+		else
+		{
+			hDLL = LoadLibrary(_T("USER32.DLL"));
+			if (hDLL)
+			{
+				typedef int (__stdcall *MSGBOXWAPI)(IN HWND hWnd, IN LPCWSTR lpText, IN LPCWSTR lpCaption, IN UINT uType, IN WORD wLanguageId, IN DWORD dwMilliseconds);
+				MSGBOXWAPI MessageBoxTimeout = (MSGBOXWAPI) GetProcAddress(hDLL, "MessageBoxTimeoutW");
+				if (MessageBoxTimeout)
+				{
+					iButton = (*MessageBoxTimeout)(phWnd, pacText, pacTitle, (unsigned int) piType, 0, (unsigned long) piTimeout);
+				}
+                FreeLibrary(hDLL);
+			}
+		}
 	}
 	return (iButton);
 }
@@ -934,7 +981,7 @@ int __fastcall clsUtil::Random(int piMin, int piMax)
 
 	
 	iSeed = (214013 * iSeed + 2531011);
-	return((iSeed  % (unsigned int) ((piMax - piMin)) + piMin));
+	return((iSeed  % (unsigned int) ((piMax - piMin)) + (unsigned int) piMin));
 }
 
 

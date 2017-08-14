@@ -180,6 +180,7 @@ X.XX - YYYY
 - Formatted numbers, sizes and times according to locale settings.
 - Fixed that double-clicking on fixed columns could open selected file.
 - When multiple instances are allowed, FO will not warn anymore about Optimization still running, nor kill plugin processes.
+- Made MessageBoxes autoclose after 30 seconds (Devedse).
 - Rewritten update check to use POST.
 - Better 7z SFX detection.
 - Made INI processing safer.
