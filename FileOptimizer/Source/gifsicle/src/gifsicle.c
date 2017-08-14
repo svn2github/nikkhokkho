@@ -18,6 +18,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
+#include "win32cfg.h"
 #if HAVE_UNISTD_H
 # include <unistd.h>
 #endif
