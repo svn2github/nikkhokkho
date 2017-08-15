@@ -1805,27 +1805,32 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					{					
 						RunPlugin((unsigned int) iCount, "advpng", (sPluginsDirectory + "advpng.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 					}
-	
+				}
+
+				sFlags = "";
+				//ECT will preserve APNG compatibility when --reuse is used and -strip is not used
+				if (bIsAPNG)
+				{
+					sFlags += "--reuse ";
+				}
+				else if (!gudtOptions.bPNGCopyMetadata)
+				{
+					sFlags += "-strip ";
+				}
+				iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
+				sFlags += "-" + (String) iLevel + " ";
+				RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				
+				if (!gudtOptions.bPNGCopyMetadata)
+				{
 					sFlags = "";
-					if (!gudtOptions.bPNGCopyMetadata)
+					iLevel = min(gudtOptions.iLevel * 8 / 9, 8);
+					sFlags += "-s" + (String) iLevel + " ";
+					if (gudtOptions.bPNGAllowLossy)
 					{
-						sFlags += "-strip ";
+						sFlags += "-x3 ";
 					}
-					iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
-					sFlags += "-" + (String) iLevel + " ";
-					RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					
-					if (!gudtOptions.bPNGCopyMetadata)
-					{
-						sFlags = "";
-						iLevel = min(gudtOptions.iLevel * 8 / 9, 8);
-						sFlags += "-s" + (String) iLevel + " ";
-						if (gudtOptions.bPNGAllowLossy)
-						{
-							sFlags += "-x3 ";
-						}
-						RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
-					}
+					RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 	
 					sFlags = "";
 					if (gudtOptions.bPNGCopyMetadata)
