@@ -139,7 +139,7 @@ ndo
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.192 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.6.0 - http://www.webmproject.org
-- mkclean 0.8.9 - http://www.matroska.org/downloads/mkclean.html
+- mkclean 0.8.10 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
@@ -196,6 +196,7 @@ X.XX - YYYY
 - Only use flacout in FileOptimizer compression levels 9, because it is slow (AlexNG).
 - Removed PDXLite because it contains bugs, and is not needed with ImageMagick.
 - Reduced 7z EXE SFX in the portable distribution in 105 KB., becasuse extractor is now UPX'ed.
+- Updated mkclean to 0.8.10.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.
 - Updated gifsicle to 1.90 (custom build).
 - Updated to ECT 0.8.2 (a9cb2da) x86 and x64 daily optimized builds (thanks Malloc Voidstar).
@@ -203,6 +204,7 @@ X.XX - YYYY
 - Updated SQLite to 3.20.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pngquant to 2.10.1.
 - Updated ImageMagick to 7.0.6.7 with HDRI support.
+- Upgraded distributions to 7-Zip 17.01.
 - Updated to NSIS 3.02.1.
 - Updated to cppcheck 1.80.
 - Some minor optimizations and code cleanup.
