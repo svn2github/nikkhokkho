@@ -195,7 +195,8 @@ X.XX - YYYY
 - Minor usability improvements.
 - Added FLAC codec to the FLAC toolchain to recompress them (AlexNG).
 - Only use flacout in FileOptimizer compression levels 9, because it is slow (AlexNG).
-- Removed PDXLite because it contains bugs, and is not needed with ImageMagick.
+- Removed PCXLite because it contains bugs, and is not needed with ImageMagick.
+- Better Ghostcript processing (Adventurer).
 - Reduced 7z EXE SFX in the portable distribution in 105 KB., becasuse extractor is now UPX'ed.
 - Updated mkclean to 0.8.10.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.

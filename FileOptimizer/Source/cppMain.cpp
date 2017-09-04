@@ -1640,7 +1640,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 					//No downsampling
 					else if (_tcscmp(gudtOptions.acPDFProfile, _T("none")) == 0)
 					{
-						sFlags += "-dPDFSETTINGS=/default -dDownsampleColorImages=false -dDownsampleGrayImages=false -dDownsampleMonoImages=false ";
+						sFlags += "-dPDFSETTINGS=/default -c \".setpdfwrite <</ColorACSImageDict>[1 1 1 1] /VSamples [1 1 1 1] /Blend 1>> /GrayACSImageDict<</QFactor>[1 1 1 1] /VSamples [1 1 1 1] /Blend 1>>>> setdistillerparams\" ";
 					}				
 					//Built in downsample modes: screen, ebook, printer, prepress
 					else
@@ -1648,7 +1648,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 						sFlags += "-dPDFSETTINGS=/" + (String) gudtOptions.acPDFProfile + " ";
 					}
 					
-					sFlags += "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dQUIET -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dCompatibilityLevel=1.5 ";
+					sFlags += "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dAutoRotatePages=/None -dCompatibilityLevel=1.4 ";
 					
 					TCHAR acTmpFilePdf[PATH_MAX];
 					_tcscpy(acTmpFilePdf, sInputFile.c_str());
