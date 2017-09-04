@@ -115,7 +115,7 @@ ndo
 
 - AdvanceCOMP 2.00 - https://github.com/amadvance/advancecomp
 - APNG Optimizer 1.4 - http://sourceforge.net/projects/apng/
-- Coherent PDF Command Line Tools (cpdf) 2.2 - http://community.coherentpdf.com
+- Coherent PDF Command Line Tools (cpdf) 2.2 Patchlevel 1 - http://community.coherentpdf.com
 - CSSTidy 1.3 - http://csstidy.sourceforge.net/download.php
 - DeflOpt 2.07 - http://www.walbeehm.com/download/
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
@@ -198,6 +198,7 @@ X.XX - YYYY
 - Removed PCXLite because it contains bugs, and is not needed with ImageMagick.
 - Better Ghostcript processing (Adventurer).
 - Reduced 7z EXE SFX in the portable distribution in 105 KB., becasuse extractor is now UPX'ed.
+- Updated cpdf to 2.2 patchlevel 1.
 - Updated mkclean to 0.8.10.
 - Enabled ImageMagick for JPEG processing when lossy is permitted.
 - Updated gifsicle to 1.90 (custom build).
