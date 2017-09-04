@@ -1548,9 +1548,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			sFlags += "-i " + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "advmng", (sPluginsDirectory + "advmng.exe -z -r -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
-		// MP3: ECT, MP3packer
+		// MP3: MP3packer
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MP3) > 0)
 		{
+			/*
 			sFlags = "";
 			if (!gudtOptions.bMP3CopyMetadata)
 			{
@@ -1559,6 +1560,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
 			RunPlugin((unsigned int) iCount, "ECT", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			*/
 			
 			sFlags = "";
 			if (!gudtOptions.bMP3CopyMetadata)

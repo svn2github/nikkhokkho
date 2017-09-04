@@ -187,6 +187,7 @@ X.XX - YYYY
 - Expanded contextual menu with more new commands.
 - Reenabled ECT on APNG files (fhanau).
 - Reduced a bit the quality loss allowed when lossy compression is enabled to improve ratio.
+- Disabled ECT in MP3 toolchain, because it is not compiled with that module (fhanau).
 - Fixed version display in About window, and show internal compiler version.
 - Fixed MPEG recompression when more than one audio stream existed (AlexNG).
 - Tweaked the Information window.
