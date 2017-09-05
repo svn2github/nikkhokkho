@@ -162,6 +162,7 @@ ndo
 
 
 X.XX - YYYY
+- Fixed update checker when donor.
 
 
 11.00 - 2017/09/05

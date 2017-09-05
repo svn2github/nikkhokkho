@@ -2566,7 +2566,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			}
 		}
 
-		if (_tcscmp(acWide, (TCHAR *) acBuffer) > 0)
+		if (_tcsncmp(acWide, (TCHAR *) acBuffer, 10) > 0)
 		{
 			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + Trim(acWide) + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
