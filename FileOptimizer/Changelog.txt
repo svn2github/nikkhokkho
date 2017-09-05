@@ -197,6 +197,7 @@ X.XX - YYYY
 - Only use flacout in FileOptimizer compression levels 9, because it is slow (AlexNG).
 - Removed PCXLite because it contains bugs, and is not needed with ImageMagick.
 - Better Ghostcript processing (Adventurer).
+- Removed fix for missing BTHPROPS.CPL and BLUETOOTHAPIS.DLL error on Wine by making them delay loaded on Win32 binaries to overcome C++ Builder XE7 bug, which is solved since C++ Builder 10.0 (trlkly).
 - Reduced 7z EXE SFX in the portable distribution in 105 KB., becasuse extractor is now UPX'ed.
 - Updated cpdf to 2.2 patchlevel 1.
 - Updated mkclean to 0.8.10.
