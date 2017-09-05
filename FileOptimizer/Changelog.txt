@@ -162,6 +162,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+11.00 - 2017/09/05
 - Expanded Options window to fit all missing INI directives.
 - Added optional toolbar with menu icons (trlkly).
 - Added Add folder option (bl3uge).
@@ -212,7 +215,6 @@ X.XX - YYYY
 - Updated to NSIS 3.02.1.
 - Updated to cppcheck 1.80.
 - Some minor optimizations and code cleanup.
-
 
 10.10 - 2017/07/28
 - Increased NSIS installer dictionary size to 216MB thanks to 4gb_patch by NTCore and upgraded to latest NSIS nightly builds. Size reduced from 96MB to 70MB (maadjordan).

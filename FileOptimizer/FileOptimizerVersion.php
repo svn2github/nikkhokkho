@@ -70,7 +70,7 @@
 		'Theme' => '',
 		'ShowToolBar' => false,
 		'TempDirectory' => '',
-		'Version' => '10.00.1889',
+		'Version' => '11.00.2001',
 		'Time' => 0,
 		'Opens' => 0,
 		'Files' => 0,
