@@ -146,7 +146,7 @@ ndo
 - mutool 1.11 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.89 - http://css-ig.net/pingo
+- pingo 0.90 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.10.1 - http://www.pngquant.org
@@ -163,6 +163,7 @@ ndo
 
 X.XX - YYYY
 - Fixed update checker when donor.
+- Updated pingo to 0.90 x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.2 with HDRI support.
 
 
