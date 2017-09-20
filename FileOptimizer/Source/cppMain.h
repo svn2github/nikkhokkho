@@ -69,7 +69,7 @@
 #define KS_EXTENSION_TAR	_T(" .tar .cbt ")
 #define KS_EXTENSION_TGA	_T(" .tga .icb .vda .vst ")
 #define KS_EXTENSION_TIFF	_T(" .fax .tif .tiff .ptif .ptiff ")
-#define KS_EXTENSION_WEBP	_T(" .webp .webm .weba ")
+#define KS_EXTENSION_WEBP	_T(" .webp ")
 #define KS_EXTENSION_XML	_T(" .xml .fb2 .fxg .kml .xsl .xslt .xhtml ")
 #define KS_EXTENSION_ZIP	_T(" .air .apk .appx .bar .bsz .cbz .cdr .cdt .csl .des .docm .docx .dotx .dotm .dwf .dwfx .ear .easm .eprt .epub .fxg .gallery .gallerycollection .galleryitem .grs .ink .ipsw .itz .ipa .ita .jar .kmz .ksf .kmz .lxf .mdz .miz .mmip .mvz .mpp .msz .nar .nbk .notebook .odb .odf .odg .odp .ods .odt .oex .osk .oxps .pk3 .ppam .potm .potx .ppsm .ppsx .pptm .pptx .pub .qwk .r2skin .rdb .rmskin .s3z .sldm .sldx .stz .swc .vdx .vtx .vsx .wal .war .wba .wmz .wsz .xap .xlam .xlsm .xlsx .xltm .xltx .xnk .xmz .xpi .xps .z01 .z02 .z03 .z04 .z05 .z06 .z07 .z08 .z09 .z10 .zip .zx01 .zx02 .zx03 .zx04 .zx05 .zx05 .zx06 .zx07 .zx08 .zx09 .zx10 .zipx ")
 #define KS_EXTENSION_MISC	_T(" .aai .art .avs .bpg .cin .cmyk .cmyka .dds .dpx .epdf .fax .fits .fpx .gray .hdr .hrz .inline .jp2 .j2c .j2k .jpc .jpt .mono .mif .miff .mpc .mpr .msl .mtv .mvg .otb .p7 .palm .pcd .pcds .pcl .pcls .pdb .pbm .pfs .pfm .pgm .picon .pic .pict .pnm .ppm .psb .psd .ptif .ptiff .rfg .rgb .rgba .sgi .sun .uyvy .vicar .viff .wbmp .x .xbm .xpm .xwd .ycbr .ycbra .yub ")
