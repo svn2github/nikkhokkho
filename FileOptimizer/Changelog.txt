@@ -130,7 +130,7 @@ ndo
 - Ghostscript 9.21 - http://www.ghostscript.com
 - GNU Strip 2.27 - http://www.gnu.org/software/binutils/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.7.2 - http://www.imagemagick.org
+- ImageMagick 7.0.7.3 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -165,7 +165,7 @@ X.XX - YYYY
 - Added .webm, .weba and .mk3d support throught MKV tool chain (AlexNG).
 - Fixed update checker when donor.
 - Updated pingo to 0.90 x86 and x64 versions.
-- Updated ImageMagick to 7.0.7.2 with HDRI support.
+- Updated ImageMagick to 7.0.7.3 with HDRI support.
 
 
 11.00 - 2017/09/05
