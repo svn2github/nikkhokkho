@@ -2559,7 +2559,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		{
             gudtOptions.acDonator[0] = NULL;
             gudtOptions.acDonation[0] = NULL;
-			if (clsUtil::Random(0, 10) == 5)
+			if (clsUtil::Random(0, 20) == 10)
 			{
 				actDonateExecute(NULL);
 				clsUtil::MsgBox(Handle, ("Thank you for using my program!\n\nYou have used it " + FormatNumberThousand(gudtOptions.iStatOpens) + " times and have optimized " + FormatNumberThousand(gudtOptions.iStatFiles) + " files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), ("Thank you for using " + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION, 60000);
