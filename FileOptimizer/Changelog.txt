@@ -162,11 +162,14 @@ ndo
 
 
 X.XX - YYYY
+
+
+11.10 - 2017/09/24
 - Added .webm, .weba and .mk3d support throught MKV tool chain (AlexNG).
 - Fixed update checker when donor.
 - Updated pingo to 0.91 x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.3 with HDRI support.
-
+- Some minor optimizations and code cleanup.
 
 11.00 - 2017/09/05
 - Expanded Options window to fit all missing INI directives.
