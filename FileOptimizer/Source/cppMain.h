@@ -297,6 +297,8 @@ private: // User declarations
 public: // User declarations
 	__fastcall TfrmMain(TComponent* Owner);
     __fastcall ~TfrmMain();
+    void __fastcall LoadOptions(void); 
+	void __fastcall SaveOptions(void); 
 	void __fastcall RefreshStatus(bool pbUpdateStatusBar = true, unsigned int piCurrent = 0, unsigned long long plTotalBytes = 0, unsigned long long plSavedBytes = 0);
 	void __fastcall UpdateTheme(const TCHAR *pacTheme);
 	static const TCHAR * __fastcall GetOptionCommandLine(void);

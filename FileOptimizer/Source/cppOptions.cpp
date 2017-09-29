@@ -360,6 +360,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.bZIPCopyMetadata = chkZIPCopyMetadata->Checked;
 	gudtOptions.bZIPRecurse = chkZIPRecurse->Checked;
 
+	frmMain->SaveOptions();
 	frmMain->UpdateTheme(gudtOptions.acTheme);
 	Close();
 }

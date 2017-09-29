@@ -162,6 +162,7 @@ ndo
 
 
 X.XX - YYYY
+- Improved donator information (Peni).
 - Updated ImageMagick to 7.0.7.4 with HDRI support.
 
 

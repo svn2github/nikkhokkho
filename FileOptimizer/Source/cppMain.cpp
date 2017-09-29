@@ -47,6 +47,33 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	pgbProgress->Parent = stbMain;
 	
 	clsUtil::LoadForm(this);
+	LoadOptions();	
+
+	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
+	actClearExecute(Sender);
+	FormResize(Sender);
+	UpdateTheme(gudtOptions.acTheme);
+
+	//GetSystemInfo(&gudtSystemInfo);
+}
+
+
+
+// ---------------------------------------------------------------------------
+void __fastcall TfrmMain::FormDestroy(TObject *Sender)
+{
+	clsUtil::SaveForm(this);
+	SaveOptions();
+}
+
+
+
+// ---------------------------------------------------------------------------
+void __fastcall TfrmMain::LoadOptions(void)
+{
+	TCHAR acPath[PATH_MAX];
+
+
 	grdFiles->ColWidths[KI_GRID_FILE] = GetOption(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
 	grdFiles->ColWidths[KI_GRID_EXTENSION] = GetOption(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
 	grdFiles->ColWidths[KI_GRID_ORIGINAL] = GetOption(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
@@ -133,22 +160,13 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	gudtOptions.lStatTotalBytes = (unsigned long long) GetOption(_T("Statistics"), _T("TotalBytes"), 0);
 	gudtOptions.lStatSavedBytes = (unsigned long long) GetOption(_T("Statistics"), _T("SavedBytes"), 0);
 	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), clsUtil::Random(0, INT_MAX));
-
-
-	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
-	actClearExecute(Sender);
-	FormResize(Sender);
-	UpdateTheme(gudtOptions.acTheme);
-
-	//GetSystemInfo(&gudtSystemInfo);
 }
 
 
-// ---------------------------------------------------------------------------
-void __fastcall TfrmMain::FormDestroy(TObject *Sender)
-{
-	clsUtil::SaveForm(this);
 
+// ---------------------------------------------------------------------------
+void __fastcall TfrmMain::SaveOptions(void)
+{
 	clsUtil::SetIni(Name.c_str(), _T("Col0Width"), grdFiles->ColWidths[KI_GRID_FILE]);
 	clsUtil::SetIni(Name.c_str(), _T("Col1Width"), grdFiles->ColWidths[KI_GRID_EXTENSION]);
 	clsUtil::SetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
@@ -215,9 +233,8 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SetIni(_T("Statistics"), _T("Files"), (int) gudtOptions.iStatFiles);
 	clsUtil::SetIni(_T("Statistics"), _T("TotalBytes"), (long long) gudtOptions.lStatTotalBytes);
 	clsUtil::SetIni(_T("Statistics"), _T("SavedBytes"), (long long) gudtOptions.lStatSavedBytes);
-	clsUtil::SetIni(_T("Statistics"), _T("Session"), (int) gudtOptions.iStatSession);
+	clsUtil::SetIni(_T("Statistics"), _T("Session"), (int) gudtOptions.iStatSession);	
 }
-
 
 
 //---------------------------------------------------------------------------

@@ -531,12 +531,12 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
 	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
 	HINTERNET hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
-	if (hInternet != NULL)
+	if (hInternet)
 	{
 		HINTERNET hConnect = InternetConnect(hInternet, pacServer, INTERNET_DEFAULT_HTTP_PORT, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1);
 		if (hConnect)
 		{
-			HINTERNET hRequest = HttpOpenRequest(hConnect, _T("POST"), pacPage, 0, 0, 0, INTERNET_FLAG_RELOAD, 0);
+			HINTERNET hRequest = HttpOpenRequest(hConnect, _T("POST"), pacPage, 0, 0, 0, INTERNET_FLAG_RELOAD|INTERNET_FLAG_IGNORE_CERT_CN_INVALID|INTERNET_FLAG_IGNORE_CERT_DATE_INVALID|INTERNET_FLAG_NO_CACHE_WRITE|INTERNET_FLAG_NO_UI, 0);
 			if (hRequest)
 			{
 				HttpSendRequest(hRequest, acHeaders, _tcslen(acHeaders), (void *) pacParameters, strlen((char *) pacParameters));
@@ -544,7 +544,7 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 				unsigned long lRead;
 				if (InternetReadFile(hRequest, pvData, piSize, &lRead))
 				{
-					bRes = true;
+					bRes = (lRead > 0);
 				}
 			}
 			InternetCloseHandle(hRequest);
