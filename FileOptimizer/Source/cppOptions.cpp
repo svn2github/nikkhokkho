@@ -392,9 +392,11 @@ void __fastcall TfrmOptions::butCancelClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::butRestoreDefaultsClick(TObject *Sender)
 {
+	Hide();
 	DeleteFile(clsUtil::GetIniPath());
-	frmMain->FormCreate(Sender);
-	FormCreate(Sender);
+	frmMain->LoadOptions();
+	frmMain->UpdateTheme(gudtOptions.acTheme);
+	Close();
 }
 
 

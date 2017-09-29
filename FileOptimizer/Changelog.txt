@@ -163,6 +163,7 @@ ndo
 
 X.XX - YYYY
 - Improved donator information (Peni).
+- Made restore default settings smoother.
 - Updated ImageMagick to 7.0.7.4 with HDRI support.
 
 
