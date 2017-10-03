@@ -42,7 +42,7 @@
 
 #define KS_EXTENSION_BMP	_T(" .bmp .dib ")
 #define KS_EXTENSION_CSS	_T(" .css ")
-#define KS_EXTENSION_DLL	_T(" .dll .bpl .cpl .drv .icl .lzl .ocx .sys .vbx ")
+#define KS_EXTENSION_DLL	_T(" .dll .bpl .cpl .drv .icl .lzl .ocx .rll .sys .vbx ")
 #define KS_EXTENSION_EXE	_T(" .exe .scr ")
 #define KS_EXTENSION_FLAC	_T(" .flac ")
 #define KS_EXTENSION_GIF	_T(" .gif ")
@@ -60,7 +60,7 @@
 #define KS_EXTENSION_OBJ	_T(" .obj .o .lib .a ")
 #define KS_EXTENSION_OGG	_T(" .ogg .oga .ogx ")
 #define KS_EXTENSION_OGV	_T(" .ogg .ogv .ogx ")
-#define KS_EXTENSION_OLE	_T(" .ac .adp .apr .art .chm .chi .chq .chs .chw .db .doc .dot .fla .fpx .its .lit .max .mce .mdb .mdt .mic .mix .mpd .mpp .mpt .msc .msi .msg .msp .mst .mtw .ole .ole2 .one .opt .ost .pps .ppt .pub .puz .rfa .rft .rte .rvt .sldasm .sldprt .slddrw .sou .spo stickynotes.snt thumbs.db .vsd .vst .vss .wiz .wps .xl .xla .xlc .xlm .xls .xlw .xsf .xsn ")
+#define KS_EXTENSION_OLE	_T(" .ac .adp .apr .art .chm .chi .chq .chs .chw .db .doc .dot .fla .fpx .its .lit .max .mce .mdb .mdt .mic .mix .mpd .mpp .mpt .msc .msi .msg .msp .mst .mtw .mzz .ole .ole2 .one .opt .ost .pps .ppt .pub .puz .rfa .rft .rte .rvt .sldasm .sldprt .slddrw .sou .spo stickynotes.snt thumbs.db .vsd .vst .vss .wiz .wps .xl .xla .xlc .xlm .xls .xlw .xsf .xsn ")
 #define KS_EXTENSION_PCX	_T(" .dcx .pcc .pcx ")
 #define KS_EXTENSION_PDF	_T(" .epdf .pdf .fdf .ai ")
 #define KS_EXTENSION_PNG	_T(" .apng .ico .png .pns ")
