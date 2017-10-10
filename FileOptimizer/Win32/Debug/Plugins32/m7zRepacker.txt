@@ -1,0 +1,132 @@
+
+
+
+
+********************************************************************************
+NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
+********************************************************************************
+
+THIS IS JUST SPECIAL VERSION FOR MEMBERS OF THE ENCODE.RU FORUM, TO SUPPORT
+BIGGER DICTIONARY (1536MB), BY USING 7-ZIP V16.04 INSTEAD OF V9.20. M7ZREPACKER
+IS NOT DESIGNED FOR 7-ZIP V16.04 AND THE COMRESSION RESULTS ARE OFTEN BIGGER
+THAN V9.20, SO YOU'VE BEEN WARNED!
+
+HAPPY TIME WASTING ... :)
+
+********************************************************************************
+NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
+********************************************************************************
+
+
+
+
+
+
+================================================================================
+m7zRepacker (for 7-Zip V16.04) // V1.0.32.319 // (C) 2010-2017 Mario Scholz
+================================================================================
+
+Quick Description:
+==================
+- m7zRepacker is an command line brute forcer/optimizer for 7-Zip (V16.04), like Ultra7z.
+- m7zRepacker can brute force nearly all archives, that 7-Zip could decompress.
+
+
+Main differences between m7zRepacker and Ultra7z:
+=================================================
+- m7zRepacker tries to get always the best compression, so there's no fast mode or something like that
+- m7zRepacker normally squeeze out more bits & bytes of the given archive, but is sloooooooow as hell!
+- m7zRepacker keeps source archive untouched (creates a renamed new archive)
+
+
+There are 3 brute force modes:
+==============================
+- m1 = Brute force executables as group, brute force files by extension (default mode)
+- m2 = Brute force executables as group, brute force files as one group
+- m3 = Brute force executables as group, brute force all files separately (not recommended)
+
+Note: m3 is only useful in very rare cases!!! e.g. same file extension, but different content
+      This could be useful on some games, or for some uncompressed sub-archives in the main archive
+
+
+Features:
+=========
+- There are 3 different brute force modes
+- There are 57 different compression presets for brute force (14 of them for executables)
+- Auto-switching (brute force) between LZMA/LZMA2/BCJ2/PPMd/Delta/Deflate/Bzip2 and some Fastbyte values
+- Detecting Executables by header, not by extension (currently Windows & Linux executables only)
+- Detecting UPXed Executables and brute force them separately
+- Auto-switching between x86/x64 version of 7-Zip (V16.04) [7z.exe & 7z.dll]
+- Definable paths to 7-Zip versions (m7zRepacker.ini)
+- If you have enough memory and cpu power, you can run multiple instances (checks also for existing temp folders)
+- To control memory usage, all compression presets are limited to 2 threads
+- Supports Errorlevel/Exitcodes ("0 = no error", "1 = an error occurred")
+- Shows progress status on window title
+- Full unicode support for paths and archive content (tested only on Windows7, you have been warned!!!)
+
+
+Known issues & Notes:
+=====================
+- It's so damn sloooooooooooooooooow! It's a perfect time waster!
+- Some Anti-Virus *maybe* detect a "bad behavior", because m7zRepacker runs 7-Zip very often in serial,
+  on very fast pc's up to 25+ times a second, especially in -m3 brute force mode!
+- I never get any problem with repacked archives, but check the repacked archive twice, if you have
+  important data in it!!!
+
+
+ToDo:
+=====
+- Better support for files without extensions. Currently they are not brute forced (except executables) but compressed with LZMA (-mx9)
+
+
+Changelog:
+==========
+
+----- V1.0.32.319 --------------------------------------------------------------
+[ADD] Added support for 7-Zip V16.04, with enabled file sorting and a maximum of
+      1536mb lzma/lzma2 dictionary.
+[DEL] Removed Itanium Support (There is no Itanium Version of 7-Zip V16.04)
+      
+
+
+----- V1.0.32.30X --------------------------------------------------------------
+[ADD] More Delta Offsets
+
+  
+----- V1.0.32.301 --------------------------------------------------------------
+[FIX] Compression Preset 46+47 allocate more RAM than it should on CPUs with
+      more than 2 cores. Now it's limited to 2 threads like all other Presets.
+
+
+----- V1.0.32.300 --------------------------------------------------------------
+[FIX] Some unicode fixes in -m3 brute force mode. (7-Zip sometimes stops with a 
+      "missing file" error message.)
+[ADD] Filename of the repacked archive now contains used parameters, not just
+      the brute force mode. Useful for batch brute forcing.
+      e.g. "File-(Repacked-M1).7z"  ->  "File [Repacked_m1_d128_mem128].7z"
+[ADD] Results for repacked archive can be saved in a file log file. This can
+      be enabled or disabled in the "m7zRepacker.ini".
+
+
+----- V1.0.32.282 --------------------------------------------------------------
+[ADD] Windows-Cache-Management seems to have a problem, if 7-Zip runs very
+      often in a short amount of time and with many small files, especially in
+      m3 mode. The result is a very high cpu load and high memory usage. To
+      avoid this Windows behavior, m7zRepacker pauses some seconds after every
+      250's run of 7-Zip, so the Windows-Cache-Management is able to free memory
+      and cpu load. By default m7zRepacker waits 5 seconds. The time to wait is
+      definable in the m7zRepacker.ini file.
+[ADD] User Request: The lowest [mem] value is now "-mem24" instead of "-mem48"
+[ADD] User Request: New switch to extract encrypted archives ["password"]
+[MOD] The paths keys in the m7zRepacker.ini changed their name, so you have to
+      check the keys/values, if you changed it to your needs.
+
+
+----- V1.0.32.238 --------------------------------------------------------------
+[FIX] forget to activate the BCJ2 presets (for non executables in -m2 and -m3
+      brute force modes) in the last release. (BCJ2+LZMA2 works *sometimes*
+      better than DELTA+LZMA2 in some situations e.g. 8bit wav files)
+
+
+----- V1.0.32.236 --------------------------------------------------------------
+[ADD] Public Release

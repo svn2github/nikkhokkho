@@ -2093,6 +2093,22 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 
 			RunPlugin((unsigned int) iCount, "DeflOpt", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
+		// 7Z: m7zRepacker
+		if (PosEx(sExtensionByContent, KS_EXTENSION_7Z) > 0)
+		{
+			//Very slow, use it only in high compression profiles
+			if (gudtOptions.iLevel > 7)
+			{
+				if (clsUtil::IsWindows64())
+				{
+					RunPlugin((unsigned int) iCount, "m7zRepacker", (sPluginsDirectory + "m7zrepacker.exe -m1 -d1024 -mem2048 \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				}
+				else
+				{
+					RunPlugin((unsigned int) iCount, "m7zRepacker", (sPluginsDirectory + "m7zrepacker.exe -m1 -d128 -mem512 \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				}
+			}
+		}		
 		// MISC: ImageMagick
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MISC) > 0)
 		{
@@ -2759,6 +2775,11 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			else if (memcmp(acBuffer, "\x50\x4B\x03\x04", 4) == 0)
 			{
 				sRes = ".zip";
+			}
+			//Check 7z
+			else if (memcmp(acBuffer, "\x37\x7A\xBC\xAF\x27\x1C", 6) == 0)
+			{
+				sRes = ".7z";
 			}
 			//Unsupported extension
 			else
