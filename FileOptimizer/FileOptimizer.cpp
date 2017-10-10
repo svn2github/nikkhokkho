@@ -20,7 +20,6 @@ USEFORM("Source\cppMain.cpp", frmMain);
 int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacCmdLine, int piShow)
 {
 	HANDLE hMutex = NULL;
-	HMODULE hDLL;
 
 
 	try
@@ -77,32 +76,32 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		}
 		Screen->Cursor = crAppStart;
 		// Disable file system redirection on Win64 environments
-		hDLL = LoadLibrary(_T("KERNEL32.DLL"));
-		if (hDLL)
+		HMODULE hKernel32 = LoadLibrary(_T("KERNEL32.DLL"));
+		if (hKernel32)
 		{
 			typedef BOOL (WINAPI Wow64DisableWow64FsRedirectionType)(PVOID *);
-			Wow64DisableWow64FsRedirectionType *Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hDLL, "Wow64DisableWow64FsRedirection");
+			Wow64DisableWow64FsRedirectionType *Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hKernel32, "Wow64DisableWow64FsRedirection");
 			if (Wow64DisableWow64FsRedirectionProc)
 			{
 				PVOID pOldWin64Redirect;
 				Wow64DisableWow64FsRedirectionProc(&pOldWin64Redirect);
 			}
-			FreeLibrary(hDLL);
+			FreeLibrary(hKernel32);
 		}
 
 		// Enable drag and drop between non-elevated processes and elevated ones in Vista and later
-		hDLL = LoadLibrary(_T("USER32.DLL"));
-		if (hDLL)
+		HMODULE hUser32 = LoadLibrary(_T("USER32.DLL"));
+		if (hUser32)
 		{
 			typedef BOOL (WINAPI ChangeWindowMessageFilterType)(UINT, DWORD);
-			ChangeWindowMessageFilterType *ChangeWindowMessageFilterProc = (ChangeWindowMessageFilterType *) GetProcAddress(hDLL, "ChangeWindowMessageFilter");
+			ChangeWindowMessageFilterType *ChangeWindowMessageFilterProc = (ChangeWindowMessageFilterType *) GetProcAddress(hUser32, "ChangeWindowMessageFilter");
 			if (ChangeWindowMessageFilterProc)
 			{
 				ChangeWindowMessageFilterProc(WM_DROPFILES, MSGFLT_ADD);
 				ChangeWindowMessageFilterProc(WM_COPYDATA, MSGFLT_ADD);
 				ChangeWindowMessageFilterProc(0x0049, MSGFLT_ADD);
 			}
-			FreeLibrary(hDLL);
+			FreeLibrary(hUser32);
 		}
 
 		//TStyleManager::TrySetStyle("Windows");

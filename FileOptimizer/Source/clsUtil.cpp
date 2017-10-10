@@ -78,11 +78,11 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 
 
 	//ToDo: Cache loaded functions from DLL
-	HMODULE hDLL = LoadLibrary(_T("COMCTL32.DLL"));
-	if (hDLL)
+	HMODULE hComCtl32 = LoadLibrary(_T("COMCTL32.DLL"));
+	if (hComCtl32)
 	{
 		typedef int (WINAPI TaskDialogType)(const Winapi::Commctrl::TASKDIALOGCONFIG *pTaskConfig, int *pnButton, int *pnRadioButton, bool *pfVerificationFlagChecked);
-		TaskDialogType *TaskDialogIndirect = (TaskDialogType *) GetProcAddress(hDLL, "TaskDialogIndirect");
+		TaskDialogType *TaskDialogIndirect = (TaskDialogType *) GetProcAddress(hComCtl32, "TaskDialogIndirect");
 		if (TaskDialogIndirect)
 		{
 			udtFlags.cbSize = sizeof(udtFlags);
@@ -168,7 +168,7 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 			}
 			(*TaskDialogIndirect)(&udtFlags, &iButton, NULL, NULL);
 		}
-		FreeLibrary(hDLL);
+		FreeLibrary(hComCtl32);
 	}
 
 	//Fallback when library not loaded or TaskDialogIndirect not exists
@@ -180,16 +180,16 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 		}
 		else
 		{
-			hDLL = LoadLibrary(_T("USER32.DLL"));
-			if (hDLL)
+			hUser32 = LoadLibrary(_T("USER32.DLL"));
+			if (hUser32)
 			{
 				typedef int (__stdcall *MSGBOXWAPI)(IN HWND hWnd, IN LPCWSTR lpText, IN LPCWSTR lpCaption, IN UINT uType, IN WORD wLanguageId, IN DWORD dwMilliseconds);
-				MSGBOXWAPI MessageBoxTimeout = (MSGBOXWAPI) GetProcAddress(hDLL, "MessageBoxTimeoutW");
+				MSGBOXWAPI MessageBoxTimeout = (MSGBOXWAPI) GetProcAddress(hUser32, "MessageBoxTimeoutW");
 				if (MessageBoxTimeout)
 				{
 					iButton = (*MessageBoxTimeout)(phWnd, pacText, pacTitle, (unsigned int) piType, 0, (unsigned long) piTimeout);
 				}
-                FreeLibrary(hDLL);
+                FreeLibrary(hUser32);
 			}
 		}
 	}
@@ -1146,18 +1146,18 @@ unsigned int __fastcall clsUtil::GetWindowsVersion(void)
 	//Get true Windows version, even for non manifested applications under Windows 8.1 or later
 	if (iWindowsVersion == NULL)
 	{
-		HMODULE hDLL = LoadLibrary(_T("NTDLL.DLL"));
-		if (hDLL)
+		HMODULE hNtDll = LoadLibrary(_T("NTDLL.DLL"));
+		if (hNtDll)
 		{
 			typedef NTSTATUS (WINAPI RtlGetVersionType)(RTL_OSVERSIONINFOW *pudtRtlVersionInfo);
-			RtlGetVersionType *RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hDLL, "RtlGetVersion");
+			RtlGetVersionType *RtlGetVersionProc = (RtlGetVersionType *) GetProcAddress(hNtDll, "RtlGetVersion");
 			if (RtlGetVersionProc)
 			{
 				RTL_OSVERSIONINFOW udtRtlVersionInfo;
 				RtlGetVersionProc(&udtRtlVersionInfo);
 				iWindowsVersion = (udtRtlVersionInfo.dwMajorVersion * 100) + udtRtlVersionInfo.dwMinorVersion;
 			}
-			FreeLibrary(hDLL);
+			FreeLibrary(hNtDll);
 		}
 		//Fallback when library not loaded or RtlGetVersion not exists
 		if (iWindowsVersion == NULL)

@@ -171,6 +171,7 @@ X.XX - YYYY
 - Updated pingo to 0.92 x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.6 with HDRI support.
 - Updated to cppcheck 1.81.
+- Some minor optimizations and code cleanup.
 
 
 11.10 - 2017/09/24
