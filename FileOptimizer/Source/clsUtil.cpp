@@ -180,7 +180,7 @@ int __fastcall clsUtil::MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pa
 		}
 		else
 		{
-			hUser32 = LoadLibrary(_T("USER32.DLL"));
+			HMODULE hUser32 = LoadLibrary(_T("USER32.DLL"));
 			if (hUser32)
 			{
 				typedef int (__stdcall *MSGBOXWAPI)(IN HWND hWnd, IN LPCWSTR lpText, IN LPCWSTR lpCaption, IN UINT uType, IN WORD wLanguageId, IN DWORD dwMilliseconds);
