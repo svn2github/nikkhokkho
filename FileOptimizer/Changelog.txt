@@ -163,6 +163,10 @@ ndo
 
 
 X.XX - YYYY
+
+
+
+11.20 - 2017/10/12
 - Added 7-Zip (.7z) support with m7zRepacker.
 - Improved donator information (Peni).
 - Improved APNG compression adding ECT and pingo.
@@ -176,7 +180,6 @@ X.XX - YYYY
 - Updated ImageMagick to 7.0.7.6 with HDRI support.
 - Updated to cppcheck 1.81.
 - Some minor optimizations and code cleanup.
-
 
 11.10 - 2017/09/24
 - Added .webm, .weba and .mk3d support throught MKV tool chain (AlexNG).
