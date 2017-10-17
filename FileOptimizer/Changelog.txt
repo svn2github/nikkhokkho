@@ -163,7 +163,8 @@ ndo
 
 
 X.XX - YYYY
-
+- Workarrounded ImageMagick GIF processing flags (Devedse).
+- Updated ImageMagick flags (Devedse).
 
 
 11.20 - 2017/10/12
