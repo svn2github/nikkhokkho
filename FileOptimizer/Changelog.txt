@@ -130,7 +130,7 @@ ndo
 - Ghostscript 9.22 - http://www.ghostscript.com
 - GNU Strip 2.27 - http://www.gnu.org/software/binutils/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.7.6 - http://www.imagemagick.org
+- ImageMagick 7.0.7.8 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -165,6 +165,7 @@ ndo
 X.XX - YYYY
 - Workarrounded ImageMagick GIF processing flags (Devedse).
 - Updated ImageMagick flags (Devedse).
+- Updated ImageMagick to 7.0.7.8 with HDRI support.
 - Tested with Windows 10 Fall Creators Update.
 
 
