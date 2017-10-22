@@ -168,6 +168,7 @@ X.XX - YYYY
 - Updated ImageMagick to 7.0.7.8 with HDRI support.
 - Updated pingo to 0.92c x86 and x64 versions.
 - Tested with Windows 10 Fall Creators Update.
+- Tested with wine 2 under GalliumOS 2.1 / lubuntu 16.10.
 
 
 11.20 - 2017/10/12
