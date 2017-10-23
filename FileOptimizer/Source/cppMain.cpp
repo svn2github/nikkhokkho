@@ -1241,7 +1241,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "-strip ";
 			}
-			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert \"%INPUTFILE%\" -quiet -set dispose background -layers optimize -compress -loop 0 LZW " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ImageMagick", (sPluginsDirectory + "magick.exe convert \"%INPUTFILE%\" -quiet -set dispose background -layers optimize -compress LZW " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			if (gudtOptions.bGIFAllowLossy)
 			{			
