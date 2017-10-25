@@ -147,7 +147,7 @@ ndo
 - mutool 1.11 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.92c - http://css-ig.net/pingo
+- pingo 0.92e - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.10.1 - http://www.pngquant.org
@@ -167,7 +167,7 @@ X.XX - YYYY
 - Updated ImageMagick flags (Devedse).
 - Updated ImageMagick to 7.0.7.8 with HDRI support.
 - Updated SQLite to 3.21.0 x86 and x64 Visual C++ 2017 custom builds.
-- Updated pingo to 0.92c x86 and x64 versions.
+- Updated pingo to 0.92e x86 and x64 versions.
 - Tested with Windows 10 Fall Creators Update.
 - Tested with wine 2 under GalliumOS 2.1 / lubuntu 16.10.
 
