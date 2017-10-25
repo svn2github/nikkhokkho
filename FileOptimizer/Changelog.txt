@@ -154,7 +154,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
-- SQLite 3.20.1 - http://www.sqlite.org
+- SQLite 3.21.0 - http://www.sqlite.org
 - Tidy 5.4.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.2 - http://x128.ho.ua/pngutils.html
 - UPX 3.94 - https://upx.github.io
@@ -166,6 +166,7 @@ X.XX - YYYY
 - Workarrounded ImageMagick GIF processing flags (Devedse).
 - Updated ImageMagick flags (Devedse).
 - Updated ImageMagick to 7.0.7.8 with HDRI support.
+- Updated SQLite to 3.21.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated pingo to 0.92c x86 and x64 versions.
 - Tested with Windows 10 Fall Creators Update.
 - Tested with wine 2 under GalliumOS 2.1 / lubuntu 16.10.
