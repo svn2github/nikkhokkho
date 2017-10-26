@@ -164,6 +164,7 @@ ndo
 
 X.XX - YYYY
 - Workarrounded ImageMagick GIF processing flags (Devedse).
+- Avoided m7zRepacker treating .exe files.
 - Updated ImageMagick flags (Devedse).
 - Updated ImageMagick to 7.0.7.8 with HDRI support.
 - Updated SQLite to 3.21.0 x86 and x64 Visual C++ 2017 custom builds.
