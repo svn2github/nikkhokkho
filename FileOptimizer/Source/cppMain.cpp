@@ -131,7 +131,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bClearWhenComplete = GetOption(_T("Options"), _T("ClearWhenComplete"), false);
 	gudtOptions.bEnableCache = GetOption(_T("Options"), _T("EnableCache"), false);
 	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
-	gudtOptions.iProcessPriority = GetOption(_T("Options"), _T("ProcessPriority"), IDLE_PRIORITY_CLASS);
+	gudtOptions.iProcessPriority = GetOption(_T("Options"), _T("ProcessPriority"), NORMAL_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = GetOption(_T("Options"), _T("CheckForUpdates"), 1);
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
@@ -217,7 +217,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("ClearWhenComplete"), gudtOptions.bClearWhenComplete, _T("Boolean. Default: false. Automatically clear file list when optimization is completed."));
 	clsUtil::SetIni(_T("Options"), _T("EnableCache"), gudtOptions.bEnableCache, _T("Boolean. Default: false. Enable cache of already optimized files to automatically skip them."));
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel, _T("Number. Default: 5. Optimization level from best speed to best compression."));
-	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority, _T("Number. Default: 1. Process priority from most conservative to best performance."));
+	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority, _T("Number. Default: 2 (Normal). Process priority from most conservative to best performance."));
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates, _T("Number. Default: 1. Automatically check for program updates."));
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel, _T("Number. Default: 0. Debugging level to output on program log."));
 	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat, _T("Number. Default: 0. Specify the format to display filenames in the list."));

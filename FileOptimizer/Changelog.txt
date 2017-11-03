@@ -164,6 +164,7 @@ ndo
 
 X.XX - YYYY
 - Workarrounded ImageMagick GIF processing flags (Devedse).
+- Fixed default process priority set to idle, even if it should be normal (RejZoR).
 - Avoided m7zRepacker treating .exe files.
 - Updated ImageMagick flags (Devedse).
 - Updated ImageMagick to 7.0.7.8 with HDRI support.
