@@ -137,7 +137,7 @@ ndo
 - jpegoptim 1.4.4 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.195 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.197 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.6.0 - http://www.webmproject.org
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
 - mkclean 0.8.10 - http://www.matroska.org/downloads/mkclean.html
@@ -166,6 +166,7 @@ X.XX - YYYY
 - Workarrounded ImageMagick GIF processing flags (Devedse).
 - Fixed default process priority set to idle, even if it should be normal (RejZoR).
 - Avoided m7zRepacker treating .exe files.
+- Updated Leanify to 0.4.3.197 daily binaries.
 - Updated ImageMagick flags (Devedse).
 - Updated ImageMagick to 7.0.7.9 with HDRI support.
 - Updated SQLite to 3.21.0 x86 and x64 Visual C++ 2017 custom builds.
