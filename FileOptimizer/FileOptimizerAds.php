@@ -44,7 +44,7 @@
 </script>
 
 <table border=0 cellspacing=0 cellpadding=0 width="100% height="100%" align="left">
-	<tr>
+	<tr height="50">
 		<td valign="top"><?php echo GetBanner(); ?></td>
 		<td valign="top"><?php echo GetBanner(); ?></td>
 		<td valign="top"><?php echo GetBanner(); ?></td>
@@ -52,7 +52,7 @@
 		<td valign="top"><?php echo GetBanner(); ?></td>
 	</tr>
 	<tr>
-		<td colspan=5><br><br><br><br><br><br><br>
+		<td colspan=5 valign="top"><br><br><br><br><br><br><br>
 			<?php echo $sSearch; ?></td>
 	</tr>
 </table>
