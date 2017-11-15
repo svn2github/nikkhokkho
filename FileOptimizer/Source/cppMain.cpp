@@ -50,6 +50,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	LoadOptions();	
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
+
 	actClearExecute(Sender);
 	FormResize(Sender);
 	UpdateTheme(gudtOptions.acTheme);
@@ -126,6 +127,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bShowToolBar = GetOption(_T("Options"), _T("ShowToolBar"), false);
+	gudtOptions.bHideAds = GetOption(_T("Options"), _T("HideAds"), false);
 	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
 	gudtOptions.bAllowMultipleInstances = GetOption(_T("Options"), _T("AllowMultipleInstances"), false);
 	gudtOptions.bClearWhenComplete = GetOption(_T("Options"), _T("ClearWhenComplete"), false);
@@ -212,6 +214,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone, _T("Boolean. Default: false. Shutdown computer when optimization completes."));
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop, _T("Boolean. Default: false. Show main window always on top."));
 	clsUtil::SetIni(_T("Options"), _T("ShowToolBar"), gudtOptions.bShowToolBar, _T("Boolean. Default: false. Show icons toolbar on main window."));
+	clsUtil::SetIni(_T("Options"), _T("HideAds"), gudtOptions.bHideAds, _T("Boolean. Default: false. Hide ads from being displayed."));
 	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates, _T("Boolean. Default: false. Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."));
 	clsUtil::SetIni(_T("Options"), _T("AllowMultipleInstances"), gudtOptions.bAllowMultipleInstances, _T("Boolean. Default: false. Allow having more than one FileOptimizer instance. If not, a warning will appear."));
 	clsUtil::SetIni(_T("Options"), _T("ClearWhenComplete"), gudtOptions.bClearWhenComplete, _T("Boolean. Default: false. Automatically clear file list when optimization is completed."));
@@ -2594,7 +2597,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		{
             gudtOptions.acDonator[0] = NULL;
             gudtOptions.acDonation[0] = NULL;
-			if (clsUtil::Random(0, 20) == 10)
+			if (clsUtil::Random(0, 50) == 10)
 			{
 				actDonateExecute(NULL);
 				clsUtil::MsgBox(Handle, ("Thank you for using my program!\n\nYou have used it " + FormatNumberThousand(gudtOptions.iStatOpens) + " times and have optimized " + FormatNumberThousand(gudtOptions.iStatFiles) + " files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), ("Thank you for using " + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION, 60000);
@@ -3201,6 +3204,17 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	}
 	
 	tooMain->Visible = gudtOptions.bShowToolBar;
+	
+	webAds->Visible = !gudtOptions.bHideAds;
+	
+	unsigned long lResultFlags;
+	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
+	{
+		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), Application->ExeName, 11001);
+		OleVariant oFlags = Shdocvw::navAllowAutosearch | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
+    	webAds->Navigate(KS_APP_ADS_URL, oFlags);
+    }
+
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);

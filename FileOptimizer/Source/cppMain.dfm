@@ -3,8 +3,8 @@ object frmMain: TfrmMain
   Top = 0
   ActiveControl = grdFiles
   Caption = 'FileOptimizer'
-  ClientHeight = 391
-  ClientWidth = 734
+  ClientHeight = 415
+  ClientWidth = 814
   Color = clWindow
   Constraints.MinHeight = 450
   Constraints.MinWidth = 715
@@ -25,15 +25,15 @@ object frmMain: TfrmMain
   OnKeyDown = FormKeyDown
   OnResize = FormResize
   DesignSize = (
-    734
-    391)
+    814
+    415)
   PixelsPerInch = 96
   TextHeight = 13
   object lblCopyright: TLabel
     AlignWithMargins = True
     Left = 3
     Top = 38
-    Width = 728
+    Width = 808
     Height = 13
     Cursor = crHandPoint
     Align = alTop
@@ -57,11 +57,10 @@ object frmMain: TfrmMain
     AlignWithMargins = True
     Left = 3
     Top = 57
-    Width = 728
+    Width = 808
     Height = 26
     Align = alTop
     Alignment = taCenter
-    Anchors = [akLeft, akRight]
     AutoSize = False
     Color = clWindow
     Font.Charset = DEFAULT_CHARSET
@@ -75,14 +74,14 @@ object frmMain: TfrmMain
     ShowHint = True
     Layout = tlCenter
     WordWrap = True
-    ExplicitLeft = -2
-    ExplicitTop = 167
+    ExplicitLeft = 0
+    ExplicitWidth = 728
   end
   object tooMain: TToolBar
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 728
+    Width = 808
     Height = 29
     ButtonHeight = 32
     ButtonWidth = 32
@@ -220,9 +219,9 @@ object frmMain: TfrmMain
   end
   object grdFiles: TStringGrid
     Left = 0
-    Top = 86
-    Width = 734
-    Height = 286
+    Top = 136
+    Width = 814
+    Height = 260
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -253,8 +252,8 @@ object frmMain: TfrmMain
       24)
   end
   object pgbProgress: TProgressBar
-    Left = 576
-    Top = 380
+    Left = 647
+    Top = 404
     Width = 150
     Height = 17
     Anchors = []
@@ -263,8 +262,8 @@ object frmMain: TfrmMain
   end
   object stbMain: TStatusBar
     Left = 0
-    Top = 372
-    Width = 734
+    Top = 396
+    Width = 814
     Height = 19
     Panels = <
       item
@@ -277,6 +276,22 @@ object frmMain: TfrmMain
     ParentShowHint = False
     ShowHint = True
     OnDrawPanel = stbMainDrawPanel
+  end
+  object webAds: TWebBrowser
+    Left = 0
+    Top = 86
+    Width = 814
+    Height = 50
+    Cursor = crHandPoint
+    Align = alTop
+    TabOrder = 4
+    ExplicitWidth = 734
+    ControlData = {
+      4C000000215400002B0500000000000000000000000000000000000000000000
+      000000004C000000000000000000000001000000E0D057007335CF11AE690800
+      2B2E126202000000000000004C0000000114020000000000C000000000000046
+      8000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000100000000000000000000000000000000000000}
   end
   object mnuFiles: TPopupMenu
     Images = imgMain
@@ -575,7 +590,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

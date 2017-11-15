@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.44. 15/11/2017. FileOptimizer. Added SetRegistryValue for ints.
  3.43. 23/06/2017. FileOptimizer. Backported crc32 from Lamark.
  3.42. 12/01/2017. FileOptimizer. Allow writting comments in .INI files
  3.41. 08/08/2016. FileOptimizer. Added ShutdownWindows
@@ -869,9 +870,22 @@ const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey
 
 
 	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey);
-	RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) acRes, NULL);
+	unsigned int iSize = sizeof(acRes);
+	RegQueryValueEx(hKey, pacName, NULL, NULL, (BYTE *) acRes, (LPDWORD) &iSize);
 	RegCloseKey(hKey);
 	return (acRes);
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, unsigned int piValue)
+{
+	HKEY hKey;
+
+
+	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey);
+	RegSetValueEx(hKey, pacName, NULL, REG_DWORD, (BYTE *) &piValue, sizeof(piValue));
+	RegCloseKey(hKey);
 }
 
 
@@ -883,7 +897,7 @@ void __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const T
 
 
 	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey);
-	RegQueryValueEx(hKey, pacName, NULL, NULL, (BYTE *) pacValue, NULL);
+	RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) pacValue, _tcslen(pacValue) + 1);
 	RegCloseKey(hKey);
 }
 

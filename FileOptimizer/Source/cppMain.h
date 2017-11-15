@@ -22,8 +22,10 @@
 #include <System.ImageList.hpp>
 #include <FileCtrl.hpp>
 #include <IniFiles.hpp>
-#include "clsUtil.h"
 #include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
+#include <SHDocVw.hpp>
+#include <Vcl.OleCtrls.hpp>
+#include "clsUtil.h"
 
 #define KI_BUFFER_SIZE		(65535)
 
@@ -32,6 +34,7 @@
 #define KS_APP_UPDATE_SERVER	_T("nikkhokkho.sourceforge.net")
 #define KS_APP_UPDATE_PAGE		_T("/images/FileOptimizerVersion.php")
 #define KS_APP_DONATE_URL		_T("http://nikkhokkho.sourceforge.net/images/FileOptimizerDonate.html")
+#define KS_APP_ADS_URL			_T("http://nikkhokkho.sourceforge.net/images/FileOptimizerAds.php")
 
 /* Grid columns */
 #define KI_GRID_FILE		0
@@ -129,6 +132,7 @@ struct udtOptions
 	int iLogLevel;
 	int iFilenameFormat;
 	int iLeanifyIterations;
+	bool bHideAds;
 	bool bShowToolBar;
 	TCHAR acTheme[64];
 	TCHAR acVersion[16];
@@ -237,6 +241,7 @@ __published: // IDE-managed Components
 	TToolButton *tooHelpAbout;
 	TMenuItem *mnuFilesInformation;
 	TMenuItem *mnuFilesHelpTopics;
+	TWebBrowser *webAds;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
