@@ -52,7 +52,8 @@
 		<td valign="top"><?php echo GetBanner(); ?></td>
 	</tr>
 	<tr>
-		<td colspan=5><h1>Searched for: <?php echo $sSearch; ?></h1><br>
+		<td colspan=5><br><br><br><br><br><br>
+		<h1>Searched for: <?php echo $sSearch; ?></h1><br>
 			No results found.</td>
 	</tr>
 </table>
