@@ -2871,6 +2871,10 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 	}
 
 	Screen->Cursor = crAppStart;
+	
+	//Disable Windows error handling
+	SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOALIGNMENTFAULTEXCEPT | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
+	
 	if ((pacOutput != NULL) && (piOutputLen > 0))
 	{
 		udtSA.nLength = sizeof(udtSA);
@@ -2945,6 +2949,9 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 
 	CloseHandle(udtPI.hProcess);
 	CloseHandle(udtPI.hThread);
+	
+	//Restore Windows error handling
+	SetErrorMode(0);
 
 	Screen->Cursor = crDefault;
 

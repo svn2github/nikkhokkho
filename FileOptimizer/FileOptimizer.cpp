@@ -52,7 +52,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		#endif
 		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
 		SetMinimumBlockAlignment(mba16Byte);
-		
+	
 		Application->Initialize();
 		Application->Name = "FileOptimizer";
 		Application->Title = Application->Name;
