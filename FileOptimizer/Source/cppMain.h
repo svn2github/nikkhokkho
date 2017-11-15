@@ -164,6 +164,7 @@ __published: // IDE-managed Components
 	TLabel *lblCopyright;
 	TTimer *tmrMain;
 	TStatusBar *stbMain;
+	TWebBrowser *webAds;
 	TProgressBar *pgbProgress;
 	TMenuItem *mnuFilesRemove;
 	TMenuItem *mnuFilesAdd;
@@ -241,7 +242,6 @@ __published: // IDE-managed Components
 	TToolButton *tooHelpAbout;
 	TMenuItem *mnuFilesInformation;
 	TMenuItem *mnuFilesHelpTopics;
-	TWebBrowser *webAds;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
