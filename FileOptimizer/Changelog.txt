@@ -171,6 +171,7 @@ X.XX - YYYY
 - Added integrated ads display, since some users wanted to support FileOptimizer and do not have Paypal. You can remove if you want.
 - Added HideAds=false INI setting to remove ads.
 - Added GUI option to remove ads.
+- Disabled/deprecated themes because they are not stable. I will remove all asociated code in next release.
 - Reduced reminder frequency.
 - Workarrounded ImageMagick GIF processing flags (Devedse).
 - Fixed default process priority set to idle, even if it should be normal (RejZoR).

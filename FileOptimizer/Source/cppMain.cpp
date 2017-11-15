@@ -138,15 +138,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
-	//Use Windows 10 theme by default on Windows 8 and newer
-	if (false /*clsUtil::GetWindowsVersion() >= 602*/)
-	{
-		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows10")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
-	}
-	else
-	{
-		_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
-	}
+	_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 
 	GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
@@ -283,7 +275,6 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	gbStop = true;
 	CanClose = true;
 	Hide();
-	Application->ProcessMessages(); //Required because some themes do not automatically refresh
 }
 
 
@@ -848,7 +839,6 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 {
 	gbStop = true;
 	Hide();
-    Application->ProcessMessages(); //Required because some themes do not automatically refresh
 	Close();
 }
 
@@ -2203,7 +2193,6 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		{
 			Screen->Cursor = crAppStart;
 			grdFiles->Enabled = false;  //Prevent grid modifications while adding files
-			//Show();  //Required because some themes do not automatically refresh
 			Application->ProcessMessages();
 			AddFilesInitializeExist();
 			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
@@ -3165,6 +3154,7 @@ bool __fastcall TfrmMain::IsPDFLayered(const TCHAR *pacFile)
 void __fastcall TfrmMain::UpdateAds(void)
 {
 	unsigned long lResultFlags;
+
 	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
 	{
 		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), 11001);
@@ -3180,7 +3170,6 @@ void __fastcall TfrmMain::UpdateAds(void)
 		webAds->Height = 0;
 		webAds->Stop();
 	}
-
 }
 
 
@@ -3228,7 +3217,7 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	
 	tooMain->Visible = gudtOptions.bShowToolBar;
 
-    UpdateAds();
+	UpdateAds();
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);
