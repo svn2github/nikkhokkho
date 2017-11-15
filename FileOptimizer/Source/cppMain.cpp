@@ -707,6 +707,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	gbStop = false;
 	//grdFiles->Enabled = false;
 	
+	UpdateAds();
 	RefreshStatus();
 
 	GetModuleFileName(NULL, acTmpFile, (sizeof(acTmpFile) / sizeof(TCHAR)) - 1);
@@ -3160,6 +3161,28 @@ bool __fastcall TfrmMain::IsPDFLayered(const TCHAR *pacFile)
 }
 
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall TfrmMain::UpdateAds(void)
+{
+	unsigned long lResultFlags;
+	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
+	{
+		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), 11001);
+		OleVariant oFlags = Shdocvw::navAllowAutosearch | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
+		webAds->Navigate((String) KS_APP_ADS_URL + "?=" + grdFiles->Hint, oFlags);
+		webAds->Height = 50;
+		webAds->Show();
+	}
+	else
+	{
+		webAds->Hide();
+		//Hidding is not enought for it to disapear
+		webAds->Height = 0;
+		webAds->Stop();
+	}
+
+}
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3204,17 +3227,8 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	}
 	
 	tooMain->Visible = gudtOptions.bShowToolBar;
-	
-	webAds->Visible = !gudtOptions.bHideAds;
-	
-	unsigned long lResultFlags;
-	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
-	{
-		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), Application->ExeName, 11001);
-		OleVariant oFlags = Shdocvw::navAllowAutosearch | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
-    	webAds->Navigate(KS_APP_ADS_URL, oFlags);
-    }
 
+    UpdateAds();
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);
@@ -3316,6 +3330,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 			//Application->Title = Caption;
 		}
 	}
+
 	//Reenable form updates
 	//LockWindowUpdate(NULL);
 }
@@ -3527,5 +3542,4 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 //---------------------------------------------------------------------------
 
 
-//---------------------------------------------------------------------------
 

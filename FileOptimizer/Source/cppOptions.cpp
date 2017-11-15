@@ -112,6 +112,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	}
 
 	chkShowToolBar->Checked = gudtOptions.bShowToolBar;
+	chkHideAds->Checked = gudtOptions.bHideAds;
 	chkShutdownWhenDone->Checked = gudtOptions.bShutdownWhenDone;
 	txtTempDirectory->Text = gudtOptions.acTempDirectory;
 
@@ -270,6 +271,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 
 	gudtOptions.bShutdownWhenDone = chkShutdownWhenDone->Checked;
 	gudtOptions.bShowToolBar = chkShowToolBar->Checked;
+	gudtOptions.bHideAds = chkHideAds->Checked;
 
 	_tcscpy(gudtOptions.acTempDirectory, txtTempDirectory->Text.c_str());
 

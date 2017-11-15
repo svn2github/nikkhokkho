@@ -1,27 +1,3 @@
-- Al ocultarlo no se sube todo.
-if(WebBrowser <> NIL) then
-    begin
-       WebBrowser.Stop;
-       WebBrowser.Destroy;
-    end;
-
-    WebBrowser        := TWebBrowser.Create(Form1);
-    TWinControl(WebBrowser).Name   := 'WebBrowser';
-    TWinControl(WebBrowser).Parent := Form1; //set parent...can be panel, tabs etc
-    WebBrowser.Silent := true;  //don't show JS errors
-    WebBrowser.Visible:= true;  //visible...by default true
-
-    //don't set width/heigh/top/left before TWinControl(WebBrowser).Parent := Form1;
-    WebBrowser.Top    := 10;
-    WebBrowser.Left   := 10;
-    WebBrowser.Height := 600;
-    WebBrowser.Width  := 800;
-    WebBrowser.OnDocumentComplete  := WebBrowserDocumentComplete;
-  //WebBrowser.OnNavigateComplete2 := WebBrowserNavigateComplete2;
-end;
-
-
-
 - Eliminar botón derecho.
 
 
@@ -194,6 +170,7 @@ ndo
 X.XX - YYYY
 - Added integrated ads display, since some users wanted to support FileOptimizer and do not have Paypal. You can remove if you want.
 - Added HideAds=false INI setting to remove ads.
+- Added GUI option to remove ads.
 - Reduced reminder frequency.
 - Workarrounded ImageMagick GIF processing flags (Devedse).
 - Fixed default process priority set to idle, even if it should be normal (RejZoR).
@@ -205,6 +182,7 @@ X.XX - YYYY
 - Updated pingo to 0.92e x86 and x64 versions.
 - Tested with Windows 10 Fall Creators Update.
 - Tested with wine 2 under GalliumOS 2.1 / lubuntu 16.10.
+- Some minor optimizations and code cleanup.
 
 
 11.20 - 2017/10/12

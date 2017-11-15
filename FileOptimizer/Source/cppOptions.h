@@ -112,6 +112,7 @@ __published: // IDE-managed Components
 	TCheckBox *chkEnableCache;
 	TLabel *lblFilenameFormat;
 	TComboBox *cboFilenameFormat;
+	TCheckBox *chkHideAds;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);
