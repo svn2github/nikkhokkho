@@ -24,7 +24,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Search: <?php echo $sSearch; ?></title> 
+	<title>Search: <?php echo @substr($sSearch, 0, 80); ?></title> 
 	<meta http-equiv="refresh" content="<?php echo rand(5, 35); ?>"/>
 	<style type="text/css">
 		html, body
@@ -52,9 +52,8 @@
 		<td valign="top"><?php echo GetBanner(); ?></td>
 	</tr>
 	<tr>
-		<td colspan=5><br><br><br><br><br><br>
-		<h1>Searched for: <?php echo $sSearch; ?></h1><br>
-			No results found.</td>
+		<td colspan=5><br><br><br><br><br><br><br>
+			<?php echo $sSearch; ?></td>
 	</tr>
 </table>
 </body>
