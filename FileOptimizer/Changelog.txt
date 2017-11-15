@@ -1,9 +1,5 @@
-- Eliminar botón derecho.
 
-
-
-
-- Add donator reminde with number of files optimized.
+- Add donator reminder with number of files optimized.
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
@@ -168,6 +164,8 @@ ndo
 
 
 X.XX - YYYY
+- New HTTPS enabled website at https://nikkhokkho.sourceforge.io.
+- Switched code to support HTTP and HTTPS.
 - Added integrated ads display, since some users wanted to support FileOptimizer and do not have Paypal. You can remove if you want.
 - Added HideAds=false INI setting to remove ads.
 - Added GUI option to remove ads.

@@ -2550,7 +2550,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 	//mbstowcs(acWide, acPath, KI_BUFFER_SIZE);
 	//if (clsUtil::DownloadFile(acWide, acBuffer, KI_BUFFER_SIZE))
-	if (clsUtil::DownloadFilePost(KS_APP_UPDATE_SERVER, KS_APP_UPDATE_PAGE, acPath, acBuffer, KI_BUFFER_SIZE))
+	if (clsUtil::DownloadFilePost(KS_APP_UPDATE_SERVER, KS_APP_UPDATE_PAGE, acPath, acBuffer, KI_BUFFER_SIZE, StartsStr("https://", KS_APP_URL)))
 	{
 		mbstowcs(acWide, acBuffer, KI_BUFFER_SIZE);
 		//Check we only got number and punctuation digits in first characters to detect router errors returning HTML

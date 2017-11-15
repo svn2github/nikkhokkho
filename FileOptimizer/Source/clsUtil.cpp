@@ -522,7 +522,7 @@ bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigne
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *pacPage, const char *pacParameters, void *pvData, unsigned int piSize)
+bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *pacPage, const char *pacParameters, void *pvData, unsigned int piSize, bool pbHttps)
 {
 	bool bRes = false;
 	TCHAR acHeaders[] = _T("Content-Type: application/x-www-form-urlencoded");
@@ -531,21 +531,41 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
     //ToDo: Use UrlGetPart https://msdn.microsoft.com/en-us/library/windows/desktop/bb773781(v=vs.85).aspx
 	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
 	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
+
 	HINTERNET hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
 	if (hInternet)
 	{
-		HINTERNET hConnect = InternetConnect(hInternet, pacServer, INTERNET_DEFAULT_HTTP_PORT, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1);
+		
+		unsigned int iFlags = INTERNET_DEFAULT_HTTP_PORT;
+		if (_tcsstr(pacServer, _T("https://")) != NULL)
+		{
+			iFlags = INTERNET_DEFAULT_HTTPS_PORT;
+		}
+		HINTERNET hConnect = InternetConnect(hInternet, pacServer, INTERNET_DEFAULT_HTTPS_PORT, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1);
 		if (hConnect)
 		{
-			HINTERNET hRequest = HttpOpenRequest(hConnect, _T("POST"), pacPage, 0, 0, 0, INTERNET_FLAG_RELOAD|INTERNET_FLAG_IGNORE_CERT_CN_INVALID|INTERNET_FLAG_IGNORE_CERT_DATE_INVALID|INTERNET_FLAG_NO_CACHE_WRITE|INTERNET_FLAG_NO_UI, 0);
+			iFlags = INTERNET_FLAG_RELOAD | INTERNET_FLAG_IGNORE_CERT_CN_INVALID | INTERNET_FLAG_IGNORE_CERT_DATE_INVALID | INTERNET_FLAG_NO_CACHE_WRITE | INTERNET_FLAG_NO_UI;
+			if (pbHttps)
+			{
+				iFlags |= INTERNET_FLAG_SECURE;
+			}
+			HINTERNET hRequest = HttpOpenRequest(hConnect, _T("POST"), pacPage, HTTP_VERSION, _T(""), NULL, iFlags, 0);
 			if (hRequest)
 			{
-				HttpSendRequest(hRequest, acHeaders, _tcslen(acHeaders), (void *) pacParameters, strlen((char *) pacParameters));
-				memset(pvData, 0, piSize);
-				unsigned long lRead;
-				if (InternetReadFile(hRequest, pvData, piSize, &lRead))
+				if (pbHttps)
 				{
-					bRes = (lRead > 0);
+					unsigned int iCertificate = 0;
+					InternetSetOption(hRequest, INTERNET_OPTION_SECURITY_SELECT_CLIENT_CERT, &iCertificate, sizeof(iCertificate));
+				}
+
+				if (HttpSendRequest(hRequest, acHeaders, _tcslen(acHeaders), (void *) pacParameters, strlen((char *) pacParameters)))
+				{
+					memset(pvData, 0, piSize);
+					unsigned long lRead;
+					if (InternetReadFile(hRequest, pvData, piSize, &lRead))
+					{
+						bRes = (lRead > 0);
+					}
 				}
 			}
 			InternetCloseHandle(hRequest);

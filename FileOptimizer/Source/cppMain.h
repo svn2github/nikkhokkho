@@ -30,11 +30,11 @@
 #define KI_BUFFER_SIZE		(65535)
 
 
-#define KS_APP_URL				_T("http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer")
-#define KS_APP_UPDATE_SERVER	_T("nikkhokkho.sourceforge.net")
+#define KS_APP_URL				_T("https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer")
+#define KS_APP_UPDATE_SERVER	_T("nikkhokkho.sourceforge.io")
 #define KS_APP_UPDATE_PAGE		_T("/images/FileOptimizerVersion.php")
-#define KS_APP_DONATE_URL		_T("http://nikkhokkho.sourceforge.net/images/FileOptimizerDonate.html")
-#define KS_APP_ADS_URL			_T("http://nikkhokkho.sourceforge.net/images/FileOptimizerAds.php")
+#define KS_APP_DONATE_URL		_T("https://nikkhokkho.sourceforge.io/images/FileOptimizerDonate.html")
+#define KS_APP_ADS_URL			_T("https://nikkhokkho.sourceforge.io/images/FileOptimizerAds.php")
 
 /* Grid columns */
 #define KI_GRID_FILE		0
