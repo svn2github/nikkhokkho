@@ -2859,6 +2859,7 @@ unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait)
 {
 	unsigned long lExitCode;
+	unsigned int iWindowsErrorMode;
 	STARTUPINFO udtSI = {};
 	PROCESS_INFORMATION udtPI = {};
 	SECURITY_ATTRIBUTES udtSA;
@@ -2873,6 +2874,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 	Screen->Cursor = crAppStart;
 	
 	//Disable Windows error handling
+	iWindowsErrorMode = GetErrorMode();
 	SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOALIGNMENTFAULTEXCEPT | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
 	
 	if ((pacOutput != NULL) && (piOutputLen > 0))
@@ -2951,7 +2953,7 @@ unsigned long __fastcall TfrmMain::RunProcess(const TCHAR *pacProcess, const TCH
 	CloseHandle(udtPI.hThread);
 	
 	//Restore Windows error handling
-	SetErrorMode(0);
+	SetErrorMode(iWindowsErrorMode);
 
 	Screen->Cursor = crDefault;
 
