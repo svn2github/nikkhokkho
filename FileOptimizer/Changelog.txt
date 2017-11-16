@@ -163,6 +163,7 @@ ndo
 
 
 X.XX - YYYY
+- Opened ads when clicked always in a new window.
 - Some minor optimizations and code cleanup.
 
 

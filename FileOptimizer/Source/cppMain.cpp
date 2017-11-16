@@ -3168,7 +3168,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 	{
 		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), 11001);
 
-		OleVariant oFlags = Shdocvw::navAllowAutosearch | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
+		OleVariant oFlags = Shdocvw::navOpenInNewWindow | Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
 		webAds->Navigate((String) KS_APP_ADS_URL + "?=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->Text, 512), oFlags);
 		webAds->Height = 50;
 		webAds->Show();

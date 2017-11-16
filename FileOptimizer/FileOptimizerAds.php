@@ -15,7 +15,7 @@
 		else if ($iRnd < 10)
 		{
 			//ADX
-			$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || [];</script><script>googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [320, 50], "div-gpt-ad-1506002846364-' . $iRnd . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506002846364-' . $iRnd . '" style="height:50px; width:320px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506002846364-' . $iRnd . '"); });</script></div>';
+			$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || [];</script><script>googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [320, 50], "div-gpt-ad-1506001695132-' . $iRnd . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506001695132-' . $iRnd . '" style="height:50px; width:320px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506001695132-' . $iRnd . '"); });</script></div>';
 		}
 		else if ($iRnd < 15)
 		{
@@ -44,9 +44,9 @@
 	</style>	
 </head>
 	
-<body leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0 scroll="no">
+<body leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0 scroll="no" style="background-color:transparent">
 
-<table border=0 cellspacing=0 cellpadding=0 width="100%" height="100%" align="left">
+<table border=0 cellspacing=0 cellpadding=0>
 	<tr height="50">
 		<td valign="top"><?php echo GetBanner(); ?></td>
 		<td valign="top"><?php echo GetBanner(); ?></td>
