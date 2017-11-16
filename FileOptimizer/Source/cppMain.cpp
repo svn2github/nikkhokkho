@@ -3190,21 +3190,6 @@ void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
 	//Prevent flickering
 	LockWindowUpdate(Handle);
 
-	//Check if something changed to avoid applying if unneeded
-	if (TStyleManager::ActiveStyle->Name != (String) pacTheme)
-	{
-		//RefreshStatus();
-		if (pacTheme[0] != NULL)
-		{
-			TStyleManager::TrySetStyle(pacTheme, false);
-		}
-		else
-		{
-			mgrMain->Style = NULL; //XPStyle
-		}
-		RefreshStatus();
-	}
-
 	//Change instructions depending on Recycle Bin settins
 	if (gudtOptions.bDoNotUseRecycleBin)
 	{

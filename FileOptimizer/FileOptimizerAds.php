@@ -37,13 +37,15 @@
 <body leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0 scroll="no">
 
 <script language="Javascript" type="text/javascript">
+	"use strict";
+	
 	document.addEventListener("contextmenu", function(evtEvent)
 	{
     	evtEvent.preventDefault();
 	}, false);
 </script>
 
-<table border=0 cellspacing=0 cellpadding=0 width="100% height="100%" align="left">
+<table border=0 cellspacing=0 cellpadding=0 width="100%" height="100%" align="left">
 	<tr height="50">
 		<td valign="top"><?php echo GetBanner(); ?></td>
 		<td valign="top"><?php echo GetBanner(); ?></td>
