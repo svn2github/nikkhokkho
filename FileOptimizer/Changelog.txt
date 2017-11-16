@@ -163,6 +163,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+11.30 - 2017/11/16
 - Moved to a new HTTPS enabled website at https://nikkhokkho.sourceforge.io.
 - Switched code to support HTTP and HTTPS.
 - Added integrated ads display, since some users wanted to support FileOptimizer and do not have Paypal. You can remove if you want.
@@ -183,7 +186,6 @@ X.XX - YYYY
 - Tested with Windows 10 Fall Creators Update.
 - Tested with wine 2 under GalliumOS 2.1 / lubuntu 16.10.
 - Some minor optimizations and code cleanup.
-
 
 11.20 - 2017/10/12
 - Added 7-Zip (.7z) support with m7zRepacker.

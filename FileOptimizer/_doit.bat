@@ -20,6 +20,8 @@ del /f /q Win32\Release\FileOptimizer.exe
 xcopy /e /s Win32\Debug\Plugins32\*.* Win32\Release\Plugins32\*.*
 xcopy /e /s Win64\Debug\Plugins64\*.* Win32\Release\Plugins64\*.*
 cd Win32\Release\Plugins32\
+..\..\..\_Tools\PatchPE64.exe "\Archivos de programa\Borland\NSIS\MakeNSIS.exe"
+..\..\..\_Tools\PatchPE64.exe "\Archivos de programa\Borland\NSIS\Bin\makensis.exe"
 ..\..\..\_Tools\PatchPE64.exe guetzli.exe
 ..\..\..\_Tools\PatchPE64.exe mutool.exe
 ..\..\..\_Tools\PatchPE64.exe mozjpegtran.exe

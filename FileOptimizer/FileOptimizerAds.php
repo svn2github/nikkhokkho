@@ -52,9 +52,10 @@
 		<td valign="top"><?php echo GetBanner(); ?></td>
 		<td valign="top"><?php echo GetBanner(); ?></td>
 		<td valign="top"><?php echo GetBanner(); ?></td>
+		<td valign="top"><?php echo GetBanner(); ?></td>
 	</tr>
 	<tr>
-		<td colspan=5 valign="top"><br><br><br><br><br><br><br>
+		<td colspan=6 valign="top"><br><br><br><br><br><br><br>
 			<?php echo $sSearch; ?></td>
 	</tr>
 </table>
