@@ -163,6 +163,7 @@ ndo
 
 
 X.XX - YYYY
+- Some minor optimizations and code cleanup.
 
 
 11.30 - 2017/11/16
