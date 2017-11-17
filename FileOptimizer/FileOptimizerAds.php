@@ -19,7 +19,7 @@
 		$iRnd = mt_rand(0, 100);
 		$iCont++;
 
-		if ($iRnd < 10)
+		if ($iRnd < 5)
 		{
 			if ($iHeight >= 90)
 			{
@@ -32,7 +32,7 @@
 				$sBanner = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6958213404940013" data-ad-slot="8676613408" data-ad-format="auto"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 			}
 		}
-		else if ($iRnd < 20)
+		else if ($iRnd < 10)
 		{
 			if ($iHeight >= 90)
 			{
@@ -47,7 +47,7 @@
 		}
 		else if ($iRnd < 30)
 		{
-			if ($iHeight >= 90)
+			if ($iHeight >= 15)
 			{
 				//Clicksor
 				$sBanner = '<script type="text/javascript">ad_idzone="1306998"; ad_width="728"; ad_height="90";</script><script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>';
@@ -79,7 +79,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>FileOptimizer Search: <?php echo @substr($sSearch, 0, 80); ?></title> 
-	<meta http-equiv="refresh" content="<?php echo mt_rand(35, 65); ?>"/>
+	<meta http-equiv="refresh" content="<?php echo mt_rand(15, 45); ?>"/>
 	<meta name="robots" content="none"/>
 	<?php
 		if ($iDebug === 1)
@@ -103,6 +103,34 @@
 	
 <body leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0 scroll="no">
 
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+	<?php
+		if ($iHeight >= 90)
+		{
+			$iBanners = ceil($iWidth / 728);
+		}
+		else
+		{
+			$iBanners = ceil($iWidth / 320);
+		}
+	?>
+	<tr height="<?php echo $iHeight; ?>">
+		<?php
+			for ($iBanner = 0; $iBanner < $iBanners; $iBanner++)
+			{
+		?>
+				<td valign="top"><?php echo GetBanner(); ?></td>
+		<?php
+			}
+		?>
+	</tr>
+	<tr>
+		<td colspan=<?php echo $iBanners; ?> valign="top"><br><br><br><br><br><br><br>
+			<?php echo $sSearch; ?></td>
+	</tr>
+</table>
+			
+			
 <script language="Javascript" type="text/javascript">
 	"use strict";
 
@@ -134,32 +162,6 @@
 	?>
 </script>
 
-<table border=0 cellspacing=0 cellpadding=0 width="100%">
-	<?php
-		if ($iHeight >= 90)
-		{
-			$iBanners = ceil($iWidth / 728);
-		}
-		else
-		{
-			$iBanners = ceil($iWidth / 320);
-		}
-	?>
-	<tr height="<?php echo $iHeight; ?>">
-		<?php
-			for ($iBanner = 0; $iBanner < $iBanners; $iBanner++)
-			{
-		?>
-				<td valign="top"><?php echo GetBanner(); ?></td>
-		<?php
-			}
-		?>
-	</tr>
-	<tr>
-		<td colspan=<?php echo $iBanners; ?> valign="top"><br><br><br><br><br><br><br>
-			<?php echo $sSearch; ?></td>
-	</tr>
-</table>
 
 </body>
 </html>
