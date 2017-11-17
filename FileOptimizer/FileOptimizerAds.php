@@ -1,6 +1,14 @@
 <?php
 	$iWidth = @filter_var($_GET['w'], FILTER_SANITIZE_NUMBER_INT);
+	if ($iWidth == 0)
+	{
+		$iWidth = 640;
+	}
 	$iHeight = @filter_var($_GET['h'], FILTER_SANITIZE_NUMBER_INT);
+	if ($iHeight == 0)
+	{
+		$iHeight = 50;
+	}
 	$iDebug = @filter_var($_GET['d'], FILTER_SANITIZE_NUMBER_INT);
 	$sSearch = @filter_var($_GET['q'], FILTER_SANITIZE_STRING);
 
@@ -8,7 +16,7 @@
 	{
 		global $iWidth, $iHeight;
 		static $iCont = 0;
-		$iRnd = rand(0, 100);
+		$iRnd = mt_rand(0, 100);
 		$iCont++;
 
 		if ($iRnd < 10)
@@ -70,8 +78,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Search: <?php echo @substr($sSearch, 0, 80); ?></title> 
-	<meta http-equiv="refresh" content="<?php echo rand(35, 65); ?>"/>
+	<title>FileOptimizer Search: <?php echo @substr($sSearch, 0, 80); ?></title> 
+	<meta http-equiv="refresh" content="<?php echo mt_rand(35, 65); ?>"/>
 	<meta name="robots" content="none"/>
 	<?php
 		if ($iDebug === 1)
