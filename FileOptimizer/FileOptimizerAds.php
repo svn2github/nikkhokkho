@@ -19,7 +19,7 @@
 		$iRnd = mt_rand(0, 100);
 		$iCont++;
 
-		if ($iRnd < 5)
+		if ($iRnd < 1)
 		{
 			if ($iHeight >= 90)
 			{
@@ -32,7 +32,7 @@
 				$sBanner = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6958213404940013" data-ad-slot="8676613408" data-ad-format="auto"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 			}
 		}
-		else if ($iRnd < 10)
+		else if ($iRnd < 2)
 		{
 			if ($iHeight >= 90)
 			{
@@ -45,7 +45,7 @@
 				$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || [];</script><script>googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [320, 50], "div-gpt-ad-1506001695132-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506001695132-' . $iCont . '" style="height:50px; width:320px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506001695132-' . $iCont . '"); });</script></div>';
 			}
 		}
-		else if ($iRnd < 30)
+		else if ($iRnd < 5)
 		{
 			if ($iHeight >= 15)
 			{
