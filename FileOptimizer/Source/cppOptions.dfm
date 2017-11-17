@@ -120,7 +120,7 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagAppearance
+    ActivePage = pagGeneral1
     Align = alCustom
     HotTrack = True
     ParentShowHint = False
@@ -487,20 +487,10 @@ object frmOptions: TfrmOptions
     object pagAppearance: TTabSheet
       Caption = '&Appearance'
       ImageIndex = 13
-      object lblTheme: TLabel
-        Left = 7
-        Top = 22
-        Width = 155
-        Height = 13
-        AutoSize = False
-        Caption = '&Theme'
-        FocusControl = cboTheme
-        ParentShowHint = False
-        ShowHint = False
-      end
+      ExplicitTop = 25
       object lblDonator: TLabel
         Left = 7
-        Top = 69
+        Top = 47
         Width = 155
         Height = 13
         AutoSize = False
@@ -511,7 +501,7 @@ object frmOptions: TfrmOptions
       end
       object lblFilenameFormat: TLabel
         Left = 7
-        Top = 44
+        Top = 22
         Width = 155
         Height = 13
         AutoSize = False
@@ -520,25 +510,9 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = False
       end
-      object cboTheme: TComboBox
-        Left = 168
-        Top = 19
-        Width = 245
-        Height = 21
-        Hint = 'Visual theme.'
-        Style = csDropDownList
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 0
-        Items.Strings = (
-          'Windows (Default)'
-          'Metropolis UI Black'
-          'Luna'
-          'Windows 10')
-      end
       object txtDonator: TEdit
         Left = 168
-        Top = 69
+        Top = 47
         Width = 245
         Height = 21
         Hint = 
@@ -549,22 +523,22 @@ object frmOptions: TfrmOptions
         MaxLength = 127
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 1
+        TabOrder = 0
       end
       object chkShowToolBar: TCheckBox
         Left = 7
-        Top = 93
+        Top = 71
         Width = 281
         Height = 17
         Hint = 'Show icons toolbar on main window'
         Caption = '&Show toolbar'
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 2
+        TabOrder = 1
       end
       object chkAlwaysOnTop: TCheckBox
         Left = 7
-        Top = 131
+        Top = 109
         Width = 281
         Height = 17
         Hint = 'Show main window always on top.'
@@ -575,14 +549,14 @@ object frmOptions: TfrmOptions
       end
       object cboFilenameFormat: TComboBox
         Left = 168
-        Top = 44
+        Top = 22
         Width = 245
         Height = 21
         Hint = 'Specify the format to display filenames in the list.'
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 5
+        TabOrder = 3
         OnChange = cboPDFProfileChange
         Items.Strings = (
           'Full path and Filename (Default)'
@@ -592,14 +566,14 @@ object frmOptions: TfrmOptions
       end
       object chkHideAds: TCheckBox
         Left = 7
-        Top = 112
+        Top = 90
         Width = 281
         Height = 17
         Hint = 'Hide ads from being displayed.'
         Caption = '&Hide ads'
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 3
+        TabOrder = 2
       end
     end
     object pagBMP: TTabSheet

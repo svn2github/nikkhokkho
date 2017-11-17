@@ -53,7 +53,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	actClearExecute(Sender);
 	FormResize(Sender);
-	UpdateTheme(gudtOptions.acTheme);
+	UpdateTheme();
 
 	//GetSystemInfo(&gudtSystemInfo);
 }
@@ -138,7 +138,6 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
-	_tcsncpy(gudtOptions.acTheme, GetOption(_T("Options"), _T("Theme"), _T("Windows")), (sizeof(gudtOptions.acTheme) / sizeof(TCHAR)) - 1);
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 
 	GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
@@ -217,7 +216,6 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel, _T("Number. Default: 0. Debugging level to output on program log."));
 	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat, _T("Number. Default: 0. Specify the format to display filenames in the list."));
 	clsUtil::SetIni(_T("Options"), _T("LeanifyIterations"), gudtOptions.iLeanifyIterations, _T("Number. Default: -1. If specified, number of trial iterations in all Leanify executions will use this vaule. If not, iterations are calculated depending on the Optimization level."));
-	clsUtil::SetIni(_T("Options"), _T("Theme"), gudtOptions.acTheme, _T("String. Default: 'Windows'. Visual theme."));
 	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory, _T("String. Default: ''. If not empty specified directory will be used for temporary storage instead of system's %TEMP%."));
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion, _T("String. Default: ''."));
 	
@@ -3210,7 +3208,7 @@ void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString T
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall TfrmMain::UpdateTheme(const TCHAR *pacTheme)
+void __fastcall TfrmMain::UpdateTheme(void)
 {
 	//Prevent flickering
 	LockWindowUpdate(Handle);

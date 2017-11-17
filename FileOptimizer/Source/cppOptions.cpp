@@ -116,23 +116,6 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkShutdownWhenDone->Checked = gudtOptions.bShutdownWhenDone;
 	txtTempDirectory->Text = gudtOptions.acTempDirectory;
 
-	if (_tcscmp(gudtOptions.acTheme, _T("Metropolis UI Black")) == 0)
-	{
-		cboTheme->ItemIndex = 1;
-	}
-	else if (_tcscmp(gudtOptions.acTheme, _T("Luna")) == 0)
-	{
-		cboTheme->ItemIndex = 2;
-	}
-	else if (_tcscmp(gudtOptions.acTheme, _T("Windows10")) == 0)
-	{
-		cboTheme->ItemIndex = 3;
-	}
-	else //Windows
-	{
-		cboTheme->ItemIndex = 0;
-	}
-
 	chkBMPCopyMetadata->Checked = gudtOptions.bBMPCopyMetadata;
 	chkCSSEnableTidy->Checked = gudtOptions.bCSSEnableTidy;
 
@@ -275,23 +258,6 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 
 	_tcscpy(gudtOptions.acTempDirectory, txtTempDirectory->Text.c_str());
 
-	if (cboTheme->ItemIndex == 1)
-	{
-		_tcscpy(gudtOptions.acTheme, _T("Metropolis UI Black"));
-	}
-	else if (cboTheme->ItemIndex == 2)
-	{
-		_tcscpy(gudtOptions.acTheme, _T("Luna"));
-	}
-	else if (cboTheme->ItemIndex == 3)
-	{
-		_tcscpy(gudtOptions.acTheme, _T("Windows10"));
-	}
-	else //0
-	{
-		_tcscpy(gudtOptions.acTheme, _T("Windows"));
-	}
-
 	gudtOptions.bBMPCopyMetadata = chkBMPCopyMetadata->Checked;
 
 	gudtOptions.bCSSEnableTidy = chkCSSEnableTidy->Checked;
@@ -363,7 +329,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.bZIPRecurse = chkZIPRecurse->Checked;
 
 	frmMain->SaveOptions();
-	frmMain->UpdateTheme(gudtOptions.acTheme);
+	frmMain->UpdateTheme();
 	Close();
 }
 
@@ -397,7 +363,7 @@ void __fastcall TfrmOptions::butRestoreDefaultsClick(TObject *Sender)
 	Hide();
 	DeleteFile(clsUtil::GetIniPath());
 	frmMain->LoadOptions();
-	frmMain->UpdateTheme(gudtOptions.acTheme);
+	frmMain->UpdateTheme();
 	Close();
 }
 

@@ -41,7 +41,6 @@ __published: // IDE-managed Components
 	TComboBox *cboProcessPriority;
 	TLabel *lblCheckForUpdates;
 	TComboBox *cboCheckForUpdates;
-	TComboBox *cboTheme;
 	TLabel *lblLogLevel;
 	TComboBox *cboLogLevel;
 	TCheckBox *chkKeepAttributes;
@@ -79,7 +78,6 @@ __published: // IDE-managed Components
 	TSpinEdit *spnPDFCustomDPI;
 	TLabel *lblPDFCustomDPI;
 	TTabSheet *pagAppearance;
-	TLabel *lblTheme;
 	TCheckBox *chkGIFCopyMetadata;
 	TCheckBox *chkGIFAllowLossy;
 	TEdit *txtDonator;

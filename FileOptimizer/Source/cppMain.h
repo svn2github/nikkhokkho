@@ -134,7 +134,6 @@ struct udtOptions
 	int iLeanifyIterations;
 	bool bHideAds;
 	bool bShowToolBar;
-	TCHAR acTheme[64];
 	TCHAR acVersion[16];
 	TCHAR acTempDirectory[PATH_MAX];
 	unsigned long long lStatTime;
@@ -310,7 +309,7 @@ public: // User declarations
 	void __fastcall SaveOptions(void); 
 	void __fastcall RefreshStatus(bool pbUpdateStatusBar = true, unsigned int piCurrent = 0, unsigned long long plTotalBytes = 0, unsigned long long plSavedBytes = 0);
 	void __fastcall UpdateAds(void);
-	void __fastcall UpdateTheme(const TCHAR *pacTheme);
+	void __fastcall UpdateTheme(void);
 	static const TCHAR * __fastcall GetOptionCommandLine(void);
 	static const TCHAR * __fastcall GetOptionArgument(const TCHAR *pacKey);
 	static const TCHAR * __fastcall GetOption(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);

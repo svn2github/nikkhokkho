@@ -67,7 +67,6 @@
 		'LogLevel' => 0,
 		'FilenameFormat' => 0,
 		'LeanifyIterations' => 0,
-		'Theme' => '',
 		'ShowToolBar' => false,
 		'HideAds' => false,
 		'TempDirectory' => '',
