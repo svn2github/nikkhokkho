@@ -161,6 +161,8 @@ ndo
 
 
 X.XX - YYYY
+
+11.31 - 2017/11/17
 - Reduced donator reminder frequency.
 - Reduced ads number because now they are 728x90.
 - Improved window restore on next launch when maximized.
@@ -169,7 +171,6 @@ X.XX - YYYY
 - Updated pngquant to 2.11.2.
 - Updated strip to 2.29.1.
 - Some minor optimizations and code cleanup.
-
 
 11.30 - 2017/11/16
 - Moved to a new HTTPS enabled website at https://nikkhokkho.sourceforge.io.

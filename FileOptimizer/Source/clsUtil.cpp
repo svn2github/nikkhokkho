@@ -1,6 +1,7 @@
 // --------------------------------------------------------------------------
 /*
- 3.44. 15/11/2017. FileOptimizer. Added SetRegistryValue for ints.
+ 3.45. 17/11/2017. FileOptimizer. Added DeleteRegistry, DeleteIni.
+ 3.44. 15/11/2017. FileOptimizer. Added SetRegistry for ints.
  3.43. 23/06/2017. FileOptimizer. Backported crc32 from Lamark.
  3.42. 12/01/2017. FileOptimizer. Allow writting comments in .INI files
  3.41. 08/08/2016. FileOptimizer. Added ShutdownWindows
@@ -805,12 +806,15 @@ bool __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue, const TCHAR *pacComment)
+bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacValue, const TCHAR *pacComment)
 {
+	bool bRes;
+	
+	
 	//No comment
 	if (pacComment[0] == NULL)
 	{
-		WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath());
+		bRes = WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath());
 	}
 	else
 	{
@@ -819,14 +823,15 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, co
 		_tcscpy(acValue, pacValue);
 		_tcscat(acValue, _T("\t\t; "));
 		_tcscat(acValue, pacComment);
-		WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+		bRes = WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
 	}
+	return(bRes);
 }
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue, const TCHAR *pacComment)
+bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
@@ -839,31 +844,31 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 	{
 		_tcscpy(acValue, _T("false"));
 	}
-	SetIni(pacSection, pacKey, acValue, pacComment);
+	return(SetIni(pacSection, pacKey, acValue, pacComment));
 }
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue, const TCHAR *pacComment)
+bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
 
 	_itot(piValue, acValue, 10);
-	SetIni(pacSection, pacKey, acValue, pacComment);
+	return(SetIni(pacSection, pacKey, acValue, pacComment));
 }
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue, const TCHAR *pacComment)
+bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
 
 	_i64tot(plValue, acValue, 10);
-	SetIni(pacSection, pacKey, acValue, pacComment);
+	return(SetIni(pacSection, pacKey, acValue, pacComment));
 }
 
 
@@ -871,14 +876,23 @@ void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, lo
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue, const TCHAR *pacComment)
+bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, double pdValue, const TCHAR *pacComment)
 {
 	TCHAR acValue[2048];
 
 
 	_stprintf(acValue, _T("%f"), pdValue);
-	SetIni(pacSection, pacKey, acValue, pacComment);
+	return(SetIni(pacSection, pacKey, acValue, pacComment));
 }
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::DeleteIni(const TCHAR *pacSection, const TCHAR *pacKey)
+{
+	return(WritePrivateProfileString(pacSection, pacKey, NULL, GetIniPath()));
+}
+
 
 
 
@@ -898,29 +912,75 @@ const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, unsigned int piValue)
+bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, unsigned int piValue)
 {
+	bool bRes = false;
 	HKEY hKey;
 
 
-	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey);
-	RegSetValueEx(hKey, pacName, NULL, REG_DWORD, (BYTE *) &piValue, sizeof(piValue));
-	RegCloseKey(hKey);
+	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
+	{
+		if (RegSetValueEx(hKey, pacName, NULL, REG_DWORD, (BYTE *) &piValue, sizeof(piValue)) == ERROR_SUCCESS)
+		{
+			bRes = true;
+		}
+		RegCloseKey(hKey);
+	}
+	return(bRes);
 }
 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue)
+bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, unsigned long long plValue)
 {
+	bool bRes = false;
 	HKEY hKey;
 
 
-	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey);
-	RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) pacValue, _tcslen(pacValue) + 1);
-	RegCloseKey(hKey);
+	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
+	{
+		if (RegSetValueEx(hKey, pacName, NULL, REG_QWORD, (BYTE *) &plValue, sizeof(plValue)) == ERROR_SUCCESS)
+		{
+			bRes = true;
+		}
+		RegCloseKey(hKey);
+	}
+	return(bRes);
 }
 
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue)
+{
+	bool bRes = false;
+	HKEY hKey;
+
+
+	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
+	{
+		if (RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) pacValue, _tcslen(pacValue) + 1) == ERROR_SUCCESS)
+		{
+			bRes = true;
+		}
+		RegCloseKey(hKey);
+	}
+	return(bRes);
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::DeleteRegistry(HKEY phKey, const TCHAR *pacSubkey)
+{
+	bool bRes;
+	
+	
+	//bRes = (RegDeleteTree(phKey, pacSubkey) == ERROR_SUCCESS);
+	bRes = (RegDeleteKey(phKey, pacSubkey) == ERROR_SUCCESS);
+
+	return(bRes);
+}
 
 
 // ---------------------------------------------------------------------------

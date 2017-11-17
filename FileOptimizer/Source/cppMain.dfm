@@ -242,7 +242,6 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
-    ExplicitHeight = 163
     ColWidths = (
       512
       512
@@ -284,7 +283,6 @@ object frmMain: TfrmMain
     Width = 814
     Height = 90
     Cursor = crHandPoint
-    Anchors = [akLeft, akTop, akRight, akBottom]
     Align = alBottom
     TabOrder = 4
     OnTitleChange = webAdsTitleChange
@@ -593,7 +591,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
