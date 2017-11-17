@@ -1095,10 +1095,13 @@ bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 // ---------------------------------------------------------------------------
 bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
 {
-	SetIni(pfrmForm->Name.c_str(), _T("Left"), pfrmForm->Left);
-	SetIni(pfrmForm->Name.c_str(), _T("Top"), pfrmForm->Top);
-	SetIni(pfrmForm->Name.c_str(), _T("Width"), pfrmForm->Width);
-	SetIni(pfrmForm->Name.c_str(), _T("Height"), pfrmForm->Height);
+	if ((pfrmForm->WindowState != wsMaximized) && (pfrmForm->WindowState != wsMinimized))
+	{
+		SetIni(pfrmForm->Name.c_str(), _T("Left"), pfrmForm->Left);
+		SetIni(pfrmForm->Name.c_str(), _T("Top"), pfrmForm->Top);
+		SetIni(pfrmForm->Name.c_str(), _T("Width"), pfrmForm->Width);
+		SetIni(pfrmForm->Name.c_str(), _T("Height"), pfrmForm->Height);
+	}
 	SetIni(pfrmForm->Name.c_str(), _T("WindowState"), (int) pfrmForm->WindowState);
 	SetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), (int) pfrmForm->DefaultMonitor);
 	return (true);

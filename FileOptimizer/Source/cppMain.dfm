@@ -221,7 +221,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 86
     Width = 814
-    Height = 260
+    Height = 220
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -242,6 +242,7 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
+    ExplicitHeight = 163
     ColWidths = (
       512
       512
@@ -260,22 +261,6 @@ object frmMain: TfrmMain
     Step = 1
     TabOrder = 1
   end
-  object webAds: TWebBrowser
-    Left = 0
-    Top = 346
-    Width = 814
-    Height = 50
-    Cursor = crHandPoint
-    Align = alBottom
-    TabOrder = 4
-    ExplicitWidth = 734
-    ControlData = {
-      4C000000215400002B0500000000000000000000000000000000000000000000
-      000000004C000000000000000000000001000000E0D057007335CF11AE690800
-      2B2E126202000000000000004C0000000114020000000000C000000000000046
-      8000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000100000000000000000000000000000000000000}
-  end
   object stbMain: TStatusBar
     Left = 0
     Top = 396
@@ -292,6 +277,24 @@ object frmMain: TfrmMain
     ParentShowHint = False
     ShowHint = True
     OnDrawPanel = stbMainDrawPanel
+  end
+  object webAds: TWebBrowser
+    Left = 0
+    Top = 306
+    Width = 814
+    Height = 90
+    Cursor = crHandPoint
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Align = alBottom
+    TabOrder = 4
+    OnTitleChange = webAdsTitleChange
+    ExplicitTop = 305
+    ControlData = {
+      4C000000215400004D0900000000000000000000000000000000000000000000
+      000000004C000000000000000000000001000000E0D057007335CF11AE690800
+      2B2E126202000000000000004C0000000114020000000000C000000000000046
+      8000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000100000000000000000000000000000000000000}
   end
   object mnuFiles: TPopupMenu
     Images = imgMain
@@ -590,7 +593,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

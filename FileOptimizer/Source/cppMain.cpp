@@ -2587,7 +2587,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		{
             gudtOptions.acDonator[0] = NULL;
             gudtOptions.acDonation[0] = NULL;
-			if (clsUtil::Random(0, 50) == 10)
+            if ((gudtOptions.iStatOpens > 10) && (clsUtil::Random(0, 10) == 5))
 			{
 				actDonateExecute(NULL);
 				clsUtil::MsgBox(Handle, ("Thank you for using my program!\n\nYou have used it " + FormatNumberThousand(gudtOptions.iStatOpens) + " times and have optimized " + FormatNumberThousand(gudtOptions.iStatFiles) + " files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), ("Thank you for using " + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION, 60000);
@@ -3164,13 +3164,19 @@ void __fastcall TfrmMain::UpdateAds(void)
 {
 	unsigned long lResultFlags;
 
+
 	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
 	{
 		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), 11001);
+		OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
 
-		OleVariant oFlags = Shdocvw::navOpenInNewWindow | Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
-		webAds->Navigate((String) KS_APP_ADS_URL + "?=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->Text, 512), oFlags);
-		webAds->Height = 50;
+		#if defined (_DEBUG)
+			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=1&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->Text, 512);
+		#else
+			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->Text, 512);
+		#endif
+		webAds->Navigate(sUrl, oFlags);
+		webAds->Height = 90;
 		webAds->Show();
 	}
 	else
@@ -3180,6 +3186,25 @@ void __fastcall TfrmMain::UpdateAds(void)
 		webAds->Height = 0;
 		webAds->Stop();
 	}
+}
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString Text)
+
+{
+       String s = webAds->LocationURL;
+
+       //URL moved from ads page
+       if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
+       {
+               if ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0))
+               {
+                       ShellExecute(NULL, _T("open"), webAds->LocationURL.c_bstr(), _T(""), _T(""), SW_SHOWNORMAL);
+               }
+               UpdateAds();
+       }
 }
 
 
@@ -3524,6 +3549,11 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 
 
 //---------------------------------------------------------------------------
+
+
+
+//---------------------------------------------------------------------------
+
 
 
 

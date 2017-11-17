@@ -269,6 +269,9 @@ __published: // IDE-managed Components
 	void __fastcall actStopExecute(TObject *Sender);
 	void __fastcall FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall actAddFolderExecute(TObject *Sender);
+	void __fastcall webAdsTitleChange(TObject *ASender, const WideString Text);
+
+
 
 
 private: // User declarations

@@ -1,5 +1,3 @@
-- Add donator reminder with number of files optimized.
-
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
@@ -163,7 +161,10 @@ ndo
 
 
 X.XX - YYYY
-- Opened ads when clicked always in a new window.
+- Reduced donator reminder frequency.
+- Reduced ads number because now they are 728x90.
+- Improved window restore on next launch when maximized.
+- Improved ads viewer.
 - Some minor optimizations and code cleanup.
 
 
