@@ -47,7 +47,11 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	pgbProgress->Parent = stbMain;
 	
 	clsUtil::LoadForm(this);
-	LoadOptions();	
+	LoadOptions();
+	
+	webAds->Hide();
+	//Hidding is not enought for it to disapear
+	webAds->Height = 0;
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 
@@ -2181,6 +2185,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		{
 			CheckForUpdates(true);
 		}
+		UpdateAds();
 	}
 	//1 second: Process command-line arguments
 	else if (tmrMain->Interval >= 1000)
@@ -3169,9 +3174,9 @@ void __fastcall TfrmMain::UpdateAds(void)
 		OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
 
 		#if defined (_DEBUG)
-			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=1&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->Text, 512);
+			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=1&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#else
-			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->Text, 512);
+			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
 		webAds->Height = 90;
@@ -3190,10 +3195,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString Text)
-
 {
-       String s = webAds->LocationURL;
-
        //URL moved from ads page
        if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
        {

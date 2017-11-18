@@ -37,12 +37,12 @@
 			if ($iHeight >= 90)
 			{
 				//ADX
-				$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || [];</script><script>googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [728, 90], "div-gpt-ad-1506002846364-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506002846364-' . $iCont . '" style="height:90px; width:728px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506002846364-' . $iCont . '"); });</script></div>';
+				$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [728, 90], "div-gpt-ad-1506002846364-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506002846364-' . $iCont . '" style="height:90px; width:728px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506002846364-' . $iCont . '"); });</script></div>';
 			}
 			else
 			{			
 				//ADX
-				$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || [];</script><script>googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [320, 50], "div-gpt-ad-1506001695132-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506001695132-' . $iCont . '" style="height:50px; width:320px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506001695132-' . $iCont . '"); });</script></div>';
+				$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [320, 50], "div-gpt-ad-1506001695132-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506001695132-' . $iCont . '" style="height:50px; width:320px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506001695132-' . $iCont . '"); });</script></div>';
 			}
 		}
 		else if ($iRnd < 5)
