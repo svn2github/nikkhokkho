@@ -3168,7 +3168,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 	unsigned long lResultFlags;
 
 
-	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
+	if (InternetGetConnectedState(&lResultFlags, 0))
 	{
 		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), 11001U);
 		OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
@@ -3179,15 +3179,20 @@ void __fastcall TfrmMain::UpdateAds(void)
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
-		webAds->Height = 90;
-		webAds->Show();
-	}
-	else
+	}	
+	
+	if (gudtOptions.bHideAds)
 	{
 		webAds->Hide();
 		//Hidding is not enought for it to disapear
 		webAds->Height = 0;
 		webAds->Stop();
+	}
+	else
+	{
+		
+		webAds->Height = 90;
+		webAds->Show();
 	}
 }
 
@@ -3199,7 +3204,7 @@ void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString T
        //URL moved from ads page
        if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
        {
-               if ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0))
+               if ((webAds->Height > 0) && (((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0)))
                {
                        ShellExecute(NULL, _T("open"), webAds->LocationURL.c_bstr(), _T(""), _T(""), SW_SHOWNORMAL);
                }
