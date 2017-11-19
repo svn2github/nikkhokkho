@@ -845,6 +845,7 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 {
 	gbStop = true;
 	Hide();
+	webAds->Stop();
 	Close();
 }
 
@@ -3185,7 +3186,6 @@ void __fastcall TfrmMain::UpdateAds(void)
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
-		gudtOptions.iAdsShown++;
 	}
 }
 
@@ -3194,15 +3194,21 @@ void __fastcall TfrmMain::UpdateAds(void)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString Text)
 {
-	   //URL moved from ads page
-	   if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
-	   {
-			   if ((webAds->Height > 0) && ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0)))
-			   {
-					   ShellExecute(NULL, _T("open"), webAds->LocationURL.c_bstr(), _T(""), _T(""), SW_SHOWNORMAL);
-			   }
-			   UpdateAds();
-       }
+	//Finished loading
+	if (!webAds->Busy)
+	{
+		gudtOptions.iAdsShown++;
+	}
+
+	//URL moved from ads page
+	if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
+	{
+		if ((webAds->Height > 0) && ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0)))
+		{
+			ShellExecute(NULL, _T("open"), webAds->LocationURL.c_bstr(), _T(""), _T(""), SW_SHOWNORMAL);
+		}
+		UpdateAds();
+	}
 }
 
 
