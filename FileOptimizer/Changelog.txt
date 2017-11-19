@@ -163,6 +163,7 @@ ndo
 X.XX - YYYY
 - Permantenly removed theme logic as adviced in 11.30.
 - Delayed load of ads to increase startup speed.
+- Fixed ads display requiring IE11 or later only available in Windows 7 or later. Now they run under Vista or later too (IE9) (bianamaran).
 - Fixed disabled Windows error handling in 11.30 requiring Vista or later due to calling GetErrorMode. Now we are XP compatible again (bianamaran).
 - Fixed execution of gifsicle and gifsicle-lossy due to wrong parameters (dado23).
 - Faster gifsicle-lossy execution because -j (multithreaded jobs) even if undocumented, is also supported.

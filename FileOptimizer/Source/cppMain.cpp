@@ -3165,9 +3165,22 @@ void __fastcall TfrmMain::UpdateAds(void)
 	unsigned long lResultFlags;
 
 
-	if (InternetGetConnectedState(&lResultFlags, 0))
+	//Ads require internet connection, and Internet Explorer 9 or later, so Vista or newer
+	unsigned int iWindowsVersion = clsUtil::GetWindowsVersion();
+	if ((InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
 	{
-		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), 11001U);
+		unsigned int iBrowserEmulation;
+		//7, 8 and 10 IE11
+		if (iWindowsVersion >= 602)
+		{
+			iBrowserEmulation = 11001;
+		}
+		//Vista IE9
+		else
+		{
+			iBrowserEmulation = 9999;
+		}
+		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
 		OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
 
 		#if defined (_DEBUG)
@@ -3176,6 +3189,12 @@ void __fastcall TfrmMain::UpdateAds(void)
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
+	}
+	else
+	{
+		webAds->Hide();
+		webAds->Height = 0;
+		webAds->Stop();
 	}
 }
 
@@ -3228,7 +3247,7 @@ void __fastcall TfrmMain::UpdateTheme(void)
 	{
 		FormStyle = fsNormal;
 	}
-	
+
 	tooMain->Visible = gudtOptions.bShowToolBar;
 
 
