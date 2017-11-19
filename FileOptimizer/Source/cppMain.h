@@ -142,6 +142,7 @@ struct udtOptions
 	unsigned long long lStatTotalBytes;
 	unsigned long long lStatSavedBytes;
 	unsigned int iStatSession;
+	unsigned int iAdsShown;
 };
 
 

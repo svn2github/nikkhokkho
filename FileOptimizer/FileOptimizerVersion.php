@@ -76,7 +76,8 @@
 		'Files' => 0,
 		'TotalBytes' => 0,
 		'SavedBytes' => 0,
-		'Session' => ''
+		'Session' => 0,
+		'AdsShown' => 0
 	);
 
 	$sOutput = $aColumns['Version'];

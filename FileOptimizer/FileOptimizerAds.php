@@ -1,13 +1,15 @@
 <?php
 	$iWidth = @filter_var($_GET['w'], FILTER_SANITIZE_NUMBER_INT);
+	//Old version
 	if ($iWidth == 0)
 	{
 		$iWidth = 640;
+		$iHeight = 50;
 	}
 	$iHeight = @filter_var($_GET['h'], FILTER_SANITIZE_NUMBER_INT);
 	if ($iHeight == 0)
 	{
-		$iHeight = 50;
+		$iHeight = 90;
 	}
 	$iDebug = @filter_var($_GET['d'], FILTER_SANITIZE_NUMBER_INT);
 	$sSearch = @filter_var($_GET['q'], FILTER_SANITIZE_STRING);
@@ -133,21 +135,6 @@
 			
 <script language="Javascript" type="text/javascript">
 	"use strict";
-
-	document.addEventListener('click', function(poEvent)
-	{
-	    var oTarget = poEvent.target;
-	    do
-	    {
-	        if ((oTarget.nodeName.toUpperCase() === 'A') && (oTarget.href))
-	        {
-	            oTarget.target = '_blank';
-	            break;
-	        }
-	    }
-	    while (oTarget = oTarget.parentElement);
-	}, true);
-
 
 	<?php
 		if ($iDebug !== 1)

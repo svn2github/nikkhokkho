@@ -49,15 +49,17 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	clsUtil::LoadForm(this);
 	LoadOptions();
 	
-	webAds->Hide();
-	//Hidding is not enought for it to disapear
-	webAds->Height = 0;
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 
 	actClearExecute(Sender);
 	FormResize(Sender);
 	UpdateTheme();
+
+	webAds->Hide();
+	//Hidding is not enought for it to disapear
+	webAds->Height = 0;
+	UpdateAds();
 
 	//GetSystemInfo(&gudtSystemInfo);
 }
@@ -157,6 +159,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.lStatTotalBytes = (unsigned long long) GetOption(_T("Statistics"), _T("TotalBytes"), 0LL);
 	gudtOptions.lStatSavedBytes = (unsigned long long) GetOption(_T("Statistics"), _T("SavedBytes"), 0LL);
 	gudtOptions.iStatSession = (unsigned int) GetOption(_T("Statistics"), _T("Session"), clsUtil::Random(0, INT_MAX));
+	gudtOptions.iAdsShown = (unsigned int) GetOption(_T("Statistics"), _T("AdsShown"), 0);
 }
 
 
@@ -230,7 +233,8 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Statistics"), _T("Files"), (int) gudtOptions.iStatFiles);
 	clsUtil::SetIni(_T("Statistics"), _T("TotalBytes"), (long long) gudtOptions.lStatTotalBytes);
 	clsUtil::SetIni(_T("Statistics"), _T("SavedBytes"), (long long) gudtOptions.lStatSavedBytes);
-	clsUtil::SetIni(_T("Statistics"), _T("Session"), (int) gudtOptions.iStatSession);	
+	clsUtil::SetIni(_T("Statistics"), _T("Session"), (int) gudtOptions.iStatSession);
+	clsUtil::SetIni(_T("Statistics"), _T("AdsShown"), (int) gudtOptions.iAdsShown);
 }
 
 
@@ -2173,7 +2177,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 {
-	//30 seconds: Update check
+	//30 seconds: Update check and enable ads
 	if (tmrMain->Interval >= 30000)
 	{
 		tmrMain->Enabled = false;
@@ -2185,7 +2189,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		{
 			CheckForUpdates(true);
 		}
-		UpdateAds();
+        UpdateTheme();
 	}
 	//1 second: Process command-line arguments
 	else if (tmrMain->Interval >= 1000)
@@ -2573,6 +2577,8 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 				return;
 			}
 		}
+		
+		gudtOptions.iAdsShown = 0;
 
 		GetModuleFileName(NULL, (TCHAR *) acPath, KI_BUFFER_SIZE);
 		_tcscpy(acTemp, clsUtil::ExeVersion((TCHAR *) acPath));
@@ -3179,20 +3185,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
-	}	
-	
-	if (gudtOptions.bHideAds)
-	{
-		webAds->Hide();
-		//Hidding is not enought for it to disapear
-		webAds->Height = 0;
-		webAds->Stop();
-	}
-	else
-	{
-		
-		webAds->Height = 90;
-		webAds->Show();
+		gudtOptions.iAdsShown++;
 	}
 }
 
@@ -3201,14 +3194,14 @@ void __fastcall TfrmMain::UpdateAds(void)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString Text)
 {
-       //URL moved from ads page
-       if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
-       {
-               if ((webAds->Height > 0) && (((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0)))
-               {
-                       ShellExecute(NULL, _T("open"), webAds->LocationURL.c_bstr(), _T(""), _T(""), SW_SHOWNORMAL);
-               }
-               UpdateAds();
+	   //URL moved from ads page
+	   if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
+	   {
+			   if ((webAds->Height > 0) && ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0)))
+			   {
+					   ShellExecute(NULL, _T("open"), webAds->LocationURL.c_bstr(), _T(""), _T(""), SW_SHOWNORMAL);
+			   }
+			   UpdateAds();
        }
 }
 
@@ -3242,7 +3235,19 @@ void __fastcall TfrmMain::UpdateTheme(void)
 	
 	tooMain->Visible = gudtOptions.bShowToolBar;
 
-	UpdateAds();
+
+	if (gudtOptions.bHideAds)
+	{
+		webAds->Hide();
+		//Hidding is not enought for it to disapear
+		webAds->Height = 0;
+		//webAds->Stop();
+	}
+	else
+	{
+		webAds->Height = 90;
+		webAds->Show();
+	}
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);
