@@ -163,6 +163,7 @@ ndo
 X.XX - YYYY
 - Permantenly removed theme logic as adviced in 11.30.
 - Delayed load of ads to increase startup speed.
+- Fixed disables Windows error handling requiring Vistar or later due to calling GetErrorMode (bianamaran).
 - Fixed execution of gifsicle and gifsicle-lossy due to wrong parameters (dado23).
 - Faster gifsicle-lossy execution because -j (multithreaded jobs) even if undocumented, is also supported.
 - Some minor optimizations and code cleanup.
