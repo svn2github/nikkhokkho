@@ -1247,10 +1247,6 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			if (gudtOptions.bGIFAllowLossy)
 			{			
 				sFlags = "";
-				if (!gudtOptions.bGIFCopyMetadata)
-				{
-					sFlags += "-strip ";
-				}
 				//iLevel = min(gudtOptions.iLevel * 3 / 9, 3);
 				iLevel = 3;
 				sFlags += "-O" + (String) iLevel + " ";
@@ -1258,14 +1254,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "--no-comments --no-extensions --no-names ";
 				}
-				RunPlugin((unsigned int) iCount, "gifsicle-lossy", (sPluginsDirectory + "gifsicle-lossy.exe --lossy=85 -b -w  --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "gifsicle-lossy", (sPluginsDirectory + "gifsicle-lossy.exe --lossy=85 -w  --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			
 			sFlags = "";
-			if (!gudtOptions.bGIFCopyMetadata)
-			{
-				sFlags += "-strip ";
-			}
 			//iLevel = min(gudtOptions.iLevel * 3 / 9, 3);
 			iLevel = 3;
 			sFlags += "-O" + (String) iLevel + " ";
@@ -1273,7 +1265,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 			{
 				sFlags += "--no-comments --no-extensions --no-names ";
 			}
-			RunPlugin((unsigned int) iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -b -w -j --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "gifsicle", (sPluginsDirectory + "gifsicle.exe -w -j --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 		}
 		// GZ: Leanify, ect, advdef, zRecompress, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_GZ) > 0)

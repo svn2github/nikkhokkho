@@ -163,6 +163,7 @@ ndo
 X.XX - YYYY
 - Permantenly removed theme logic as adviced in 11.30.
 - Delayed load of ads to increase startup speed.
+- Fixed execution of gifsicle and gifsicle-lossy due to wrong parameters (dado23).
 
 
 11.31 - 2017/11/17
