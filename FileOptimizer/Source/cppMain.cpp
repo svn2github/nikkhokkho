@@ -334,7 +334,7 @@ void __fastcall TfrmMain::grdFilesDrawCell(TObject *Sender, int ACol, int ARow, 
 	//Color file column and the others
 	if ((ARow > 0) && (ACol == KI_GRID_FILE))
 	{
-		grdFiles->Canvas->Font->Color = clHighlight;
+		grdFiles->Canvas->Font->Color = clHotLight;
 		grdFiles->Canvas->Font->Style = grdFiles->Canvas->Font->Style << fsUnderline;
 	}
 	else
