@@ -1254,7 +1254,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
 				{
 					sFlags += "--no-comments --no-extensions --no-names ";
 				}
-				RunPlugin((unsigned int) iCount, "gifsicle-lossy", (sPluginsDirectory + "gifsicle-lossy.exe --lossy=85 -w  -j --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "gifsicle-lossy", (sPluginsDirectory + "gifsicle-lossy.exe --lossy=85 -w -j --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			}
 			
 			sFlags = "";
