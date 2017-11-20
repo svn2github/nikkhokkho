@@ -6,7 +6,7 @@
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: 478198edd3c2a9f96326151c4648dd44118ae09c $
+ * $Id: f747f2156459c0256f79dbb92335b9f97eef1451 $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -56,7 +56,7 @@ struct my_error_mgr {
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: 478198edd3c2a9f96326151c4648dd44118ae09c $";
+const char *rcsid = "$Id: f747f2156459c0256f79dbb92335b9f97eef1451 $";
 
 
 int verbose_mode = 0;
@@ -97,6 +97,7 @@ struct option long_options[] = {
   {"dest",1,0,'d'},
   {"force",0,0,'f'},
   {"version",0,0,'V'},
+  {"overwrite",0,0,'o'},
   {"preserve",0,0,'p'},
   {"preserve-perms",0,0,'P'},
   {"strip-all",0,0,'s'},
@@ -242,15 +243,18 @@ void write_markers(struct jpeg_decompress_struct *dinfo,
       write_marker++;
     
     if (save_exif && mrk->marker == EXIF_JPEG_MARKER &&
+	mrk->data_length >= EXIF_IDENT_STRING_SIZE &&
 	!memcmp(mrk->data,EXIF_IDENT_STRING,EXIF_IDENT_STRING_SIZE)) 
       write_marker++;
     
     if (save_icc && mrk->marker == ICC_JPEG_MARKER &&
-	     !memcmp(mrk->data,ICC_IDENT_STRING,ICC_IDENT_STRING_SIZE)) 
+	mrk->data_length >= ICC_IDENT_STRING_SIZE &&
+	!memcmp(mrk->data,ICC_IDENT_STRING,ICC_IDENT_STRING_SIZE)) 
       write_marker++;
    
     if (save_xmp && mrk->marker == XMP_JPEG_MARKER &&
-	     !memcmp(mrk->data,XMP_IDENT_STRING,XMP_IDENT_STRING_SIZE)) 
+	mrk->data_length >= XMP_IDENT_STRING_SIZE &&
+	!memcmp(mrk->data,XMP_IDENT_STRING,XMP_IDENT_STRING_SIZE)) 
       write_marker++;
 
     if (strip_none) write_marker++;
@@ -301,7 +305,7 @@ int main(int argc, char **argv)
   char tmpfilename[MAXPATHLEN],tmpdir[MAXPATHLEN];
   char newname[MAXPATHLEN], dest_path[MAXPATHLEN];
   volatile int i;
-  int c,j, tmpfd, searchcount, searchdone;
+  int c,j, searchcount, searchdone;
   int opt_index = 0;
   long insize = 0, outsize = 0, lastsize = 0;
   int oldquality;
@@ -369,9 +373,10 @@ int main(int argc, char **argv)
       }
       break;
     case 'd':
-      if (realpath(optarg,dest_path)==NULL || !is_directory(dest_path)) {
-	fatal("invalid argument for option -d, --dest");
-      }
+      if (realpath(optarg,dest_path)==NULL)
+	fatal("invalid destination directory: %s", optarg);
+      if (!is_directory(dest_path))
+	fatal("destination not a directory: %s", dest_path);
       strncat(dest_path,DIR_SEPARATOR_S,sizeof(dest_path)-strlen(dest_path)-1);
 
       if (verbose_mode) 
@@ -485,7 +490,7 @@ int main(int argc, char **argv)
 
 
   /* loop to process the input files */
-  i=1;  
+  i=(optind > 0 ? optind : 1);
   do {
     if (stdin_mode) {
       infile=stdin;
@@ -565,6 +570,7 @@ int main(int argc, char **argv)
      marker_in_size+=cmarker->data_length;
 
      if (cmarker->marker == EXIF_JPEG_MARKER &&
+	 cmarker->data_length >= EXIF_IDENT_STRING_SIZE &&
 	 !memcmp(cmarker->data,EXIF_IDENT_STRING,EXIF_IDENT_STRING_SIZE))
        strncat(marker_str,"Exif ",sizeof(marker_str)-strlen(marker_str)-1);
 
@@ -572,10 +578,12 @@ int main(int argc, char **argv)
        strncat(marker_str,"IPTC ",sizeof(marker_str)-strlen(marker_str)-1);
 
      if (cmarker->marker == ICC_JPEG_MARKER &&
+	 cmarker->data_length >= ICC_IDENT_STRING_SIZE &&
 	 !memcmp(cmarker->data,ICC_IDENT_STRING,ICC_IDENT_STRING_SIZE))
        strncat(marker_str,"ICC ",sizeof(marker_str)-strlen(marker_str)-1);
 
      if (cmarker->marker == XMP_JPEG_MARKER &&
+	 cmarker->data_length >= XMP_IDENT_STRING_SIZE &&
 	 !memcmp(cmarker->data,XMP_IDENT_STRING,XMP_IDENT_STRING_SIZE)) 
        strncat(marker_str,"XMP ",sizeof(marker_str)-strlen(marker_str)-1);
 
@@ -820,14 +828,13 @@ int main(int argc, char **argv)
 	    /* rely on mkstemps() to create us temporary file safely... */  
 	    snprintf(tmpfilename,sizeof(tmpfilename),
 		     "%sjpegoptim-%d-%d.XXXXXX.tmp", tmpdir, (int)getuid(), (int)getpid());
-	    if ((tmpfd = mkstemps(tmpfilename,4)) < 0) 
+	    if ((int tmpfd = mkstemps(tmpfilename,4)) < 0) 
 	      fatal("%s, error creating temp file %s: mkstemps() failed",(stdin_mode?"stdin":argv[i]),tmpfilename);
 	    if ((outfile=fdopen(tmpfd,"wb"))==NULL) 
 #else
 	      /* if platform is missing mkstemps(), try to create at least somewhat "safe" temp file... */  
 	      snprintf(tmpfilename,sizeof(tmpfilename),
 		       "%sjpegoptim-%d-%d.%ld.tmp", tmpdir, (int)getuid(), (int)getpid(),(long)time(NULL));
-	    tmpfd=0;
 	    if ((outfile=fopen(tmpfilename,"wb"))==NULL) 
 #endif
 	      fatal("error opening temporary file: %s",tmpfilename);
