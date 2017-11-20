@@ -3203,6 +3203,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString Text)
 {
+	static String sLastOpenedUrl = "";
 	//Finished loading
 	if (!webAds->Busy)
 	{
@@ -3214,7 +3215,12 @@ void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString T
 	{
 		if ((webAds->Height > 0) && ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0)))
 		{
-			ShellExecute(NULL, _T("open"), webAds->LocationURL.c_bstr(), _T(""), _T(""), SW_SHOWNORMAL);
+        	//Prevent double opening
+			if (sLastOpenedUrl != webAds->LocationURL)
+			{
+				sLastOpenedUrl = webAds->LocationURL;
+				ShellExecute(NULL, _T("open"), sLastOpenedUrl.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+			}
 		}
 		UpdateAds();
 	}
