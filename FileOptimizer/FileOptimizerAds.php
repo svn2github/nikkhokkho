@@ -126,12 +126,10 @@
 			}
 		?>
 	</tr>
-	<tr>
-		<td colspan=<?php echo $iBanners; ?> valign="top"><br><br><br><br><br><br><br>
-			<?php echo $sSearch; ?></td>
-	</tr>
 </table>
-			
+
+<br><br><br><br><br><br><br>
+<?php echo $sSearch; ?>			
 			
 <script language="Javascript" type="text/javascript">
 	"use strict";
