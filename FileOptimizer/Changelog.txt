@@ -5,8 +5,6 @@
 - Would it be possible to also skip the warning message that shows if there are multiple instances of the product running? (What I would like to do is run a few instances of the program in parallel from another tool I'm working on without having to manually click those message boxes away.) (Devedse)
 Devedse 
 
-- Detect plugin crash after a timeout (FatBit)
-
 - Autoupdate plugins: http://nsis.sourceforge.net/Check_online_for_Updates (olavrb)
 
 - Recompress ZIP and RAR: http://aarmstrong.org/tutorials/mass-zip-rar-to-7zip-recompression-batch-file (Henry).
@@ -168,6 +166,7 @@ X.XX - YYYY
 - Fixed execution of gifsicle and gifsicle-lossy due to wrong parameters (dado23).
 - Faster gifsicle-lossy execution because -j (multithreaded jobs) even if undocumented, is also supported.
 - Updated jpegoptim to 1.4.4-git-9578d79 (custom built).
+- Updated gifsicle-lossy to 1.88-git-bf3e029 (custom built).
 - Some minor optimizations and code cleanup.
 
 
@@ -187,7 +186,7 @@ X.XX - YYYY
 - Added integrated ads display, since some users wanted to support FileOptimizer and do not have Paypal. You can remove if you want.
 - Added HideAds=false INI setting to remove ads.
 - Added GUI option to remove ads.
-- Disabled Windows error handling, so when a plugin crashes, FileOptimizer execution does not get stopped (Garret Wilson and others).
+- Disabled Windows error handling, so when a plugin crashes, FileOptimizer execution does not get stopped (Garret Wilson, FatBit and others).
 - Disabled/deprecated themes because they are not stable. I will remove all asociated code in next release.
 - Reduced reminder frequency.
 - Workarrounded ImageMagick GIF processing flags (Devedse).
