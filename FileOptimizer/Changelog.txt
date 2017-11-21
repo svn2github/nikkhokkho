@@ -159,6 +159,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+11.40 - 2017/11/21
 - Permanently removed theme logic as advised in 11.30.
 - Delayed load of ads to increase startup speed.
 - Fixed ads display requiring IE11 or later only available in Windows 7 or later. Now they run under Vista or later too (IE9) (bianamaran).
@@ -168,7 +171,6 @@ X.XX - YYYY
 - Updated jpegoptim to 1.4.4-git-9578d79 (custom built).
 - Updated gifsicle-lossy to 1.88-git-bf3e029 (custom built).
 - Some minor optimizations and code cleanup.
-
 
 11.31 - 2017/11/17
 - Reduced donator reminder frequency.

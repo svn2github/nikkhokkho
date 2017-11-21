@@ -70,7 +70,7 @@
 		'ShowToolBar' => false,
 		'HideAds' => false,
 		'TempDirectory' => '',
-		'Version' => '11.31.2073',
+		'Version' => '11.40.2097',
 		'Time' => 0,
 		'Opens' => 0,
 		'Files' => 0,
