@@ -3437,8 +3437,6 @@ String __inline TfrmMain::SetCellFileValue(String psValue)
 
 
 
-
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall TfrmMain::GetOptionCommandLine(void)
 {
@@ -3485,10 +3483,22 @@ const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHA
 	TCHAR acRes[2048];
 
 
-	_tcscpy(acRes, GetOptionArgument(pacKey));
+	/* Get it via global registry */
+	_tcscpy(acRes, clsUtil::GetRegistry(HKEY_LOCAL_MACHINE, clsUtil::GetRegistryPath(), pacKey));
 	if (acRes[0] == NULL)
 	{
-		_tcscpy(acRes, clsUtil::GetIni(pacSection, pacKey, pacDefault));
+		/* Get it via user registry */
+		_tcscpy(acRes, clsUtil::GetRegistry(HKEY_CURRENT_USER, clsUtil::GetRegistryPath(), pacKey));
+		if (acRes[0] == NULL)
+		{
+			/* Get it via command-line */
+			_tcscpy(acRes, GetOptionArgument(pacKey));
+			if (acRes[0] == NULL)
+			{
+				//Get it via INI file
+				_tcscpy(acRes, clsUtil::GetIni(pacSection, pacKey, pacDefault));
+			}
+		}
 	}
 	return (acRes);
 }
@@ -3502,14 +3512,14 @@ int __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey,
 	int iRes;
 
 
-	_tcscpy(acDefault, GetOptionArgument(pacKey));
-	if (acDefault[0] == NULL)
+	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	if (acDefault[0] != NULL)
 	{
-		iRes = clsUtil::GetIni(pacSection, pacKey, piDefault);
+		iRes = _ttoi(acDefault);
 	}
 	else
 	{
-		iRes = _ttoi(acDefault);
+		iRes = piDefault;
 	}
 	return (iRes);
 }
@@ -3523,14 +3533,14 @@ long long __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *p
 	long long lRes;
 
 
-	_tcscpy(acDefault, GetOptionArgument(pacKey));
-	if (acDefault[0] == NULL)
+	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	if (acDefault[0] != NULL)
 	{
-		lRes = clsUtil::GetIni(pacSection, pacKey, plDefault);
+		lRes = _ttoi64(acDefault);
 	}
 	else
 	{
-		lRes = _ttoi64(acDefault);
+		lRes = plDefault;
 	}
 	return (lRes);
 }
@@ -3544,14 +3554,14 @@ double __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacK
 	double dRes;
 
 
-	_tcscpy(acDefault, GetOptionArgument(pacKey));
-	if (acDefault[0] == NULL)
+	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	if (acDefault[0] != NULL)
 	{
-		dRes = clsUtil::GetIni(pacSection, pacKey, pdDefault);
+		dRes = _ttof(acDefault);
 	}
 	else
 	{
-		dRes = _ttof(acDefault);
+		dRes = pdDefault;
 	}
 	return (dRes);
 }
@@ -3565,21 +3575,17 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 	bool bRes;
 
 
-	_tcscpy(acDefault, GetOptionArgument(pacKey));
-	if (acDefault[0] == NULL)
-	{
-		bRes = clsUtil::GetIni(pacSection, pacKey, pbDefault);
-	}
-	else
+	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	if (acDefault[0] != NULL)
 	{
 		bRes = (_tcsicmp(acDefault, _T("true")) == 0);
 	}
+	else
+	{
+		bRes = pbDefault;
+	}
 	return (bRes);
 }
-
-
-
-//---------------------------------------------------------------------------
 
 
 

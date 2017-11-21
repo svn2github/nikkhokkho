@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.46. 21/11/2017. FileOptimizer. Added GetRegistryPath.
  3.45. 17/11/2017. FileOptimizer. Added DeleteRegistry, DeleteIni.
  3.44. 15/11/2017. FileOptimizer. Added SetRegistry for ints.
  3.43. 23/06/2017. FileOptimizer. Backported crc32 from Lamark.
@@ -894,6 +895,20 @@ bool __fastcall clsUtil::DeleteIni(const TCHAR *pacSection, const TCHAR *pacKey)
 }
 
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const TCHAR * __fastcall clsUtil::GetRegistryPath(void)
+{
+	static TCHAR acPath[PATH_MAX] = _T("");
+
+
+	// Check if we already have it cached
+	if (acPath[0] == NULL)
+	{
+		_tcscpy(acPath, _T("Software\\"));
+		_tcscat(acPath, Application->Name.c_str());
+	}
+	return (acPath);
+}
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
