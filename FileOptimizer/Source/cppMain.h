@@ -6,6 +6,7 @@
 #include "cppOptions.h"
 #include "cppAbout.h"
 #include "clsUtil.h"
+#include "clsLanguage.h"
 #include <SHDocVw.hpp>
 #include <System.Actions.hpp>
 #include <System.Classes.hpp>

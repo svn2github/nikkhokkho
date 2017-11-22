@@ -1,0 +1,12 @@
+# Language ID: 3082 (0x0C0A)
+# Language Name: Español (España)
+# Locale Name: es-ES
+# Version: 11.40
+# Date: 22/11/2017
+# Author: Javier Gutiérrez Chamorro
+
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "Arrastra a la lista inferior los ficheros que quieras optimizar, y cuando estés listo, clica en el botón derecho para proceder. No se crearán copias de seguridad, pero puedes activar que se muevan los ficheros a la papelera de reciclaje. Haz doble clic para previsualizar el elemento."
+
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "Arrastra a la lista inferior los ficheros que quieras optimizar, y cuando estés listo, clica en el botón derecho para proceder. Todos los ficheros procesados se copiarán a la papelera de reciclaje, para que puedas restaurarlos fácilmente. Puedes desactivar que se muevan los ficheros a la papelera de reciclaje. Haz doble clic para previsualizar el elemento."

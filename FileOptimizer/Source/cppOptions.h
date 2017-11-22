@@ -11,6 +11,8 @@
 #include <Vcl.StdCtrls.hpp>
 #include "FileOptimizerPCH1.h"
 #include "cppMain.h"
+#include "clsUtil.h"
+#include "clsLanguage.h"
 
 
 //---------------------------------------------------------------------------

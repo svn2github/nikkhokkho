@@ -47,7 +47,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	
 	clsUtil::LoadForm(this);
 	LoadOptions();
-	
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 
@@ -61,6 +60,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	UpdateAds();
 
 	//GetSystemInfo(&gudtSystemInfo);
+
+   	clsLanguage::TranslateForm(this);
 }
 
 

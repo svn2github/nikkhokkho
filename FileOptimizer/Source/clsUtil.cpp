@@ -809,6 +809,7 @@ double __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, 
 bool __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault)
 {
 	TCHAR acDefault[2048];
+	TCHAR acValue[2048];
 
 
 	if (pbDefault)
@@ -819,7 +820,9 @@ bool __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 	{
 		_tcscpy(acDefault, _T("false"));
 	}
-	return((_tcsicmp(GetIni(pacSection, pacKey, acDefault), _T("true")) == 0));
+
+	_tcscpy(acValue, GetIni(pacSection, pacKey, acDefault));
+	return((_tcsicmp(acValue, _T("true")) == 0) || (_tcsicmp(acValue, _T("yes")) == 0) || (_tcsicmp(acValue, _T("on")) == 0) || (_tcscmp(acValue, _T("1")) == 0));
 }
 
 
