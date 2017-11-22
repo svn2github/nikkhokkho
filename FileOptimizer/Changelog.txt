@@ -167,6 +167,7 @@ ndo
 X.XX - YYYY
 - Hardened buffers in update checker (Tom B, Abdulaziz Alnasi).
 - Implemented ability to read options from registry to prevent users changing them in corporate environments. It will never write in the registry nevertheless (srobert698).
+- Improved uninstaller to remove also .INI and .LOG files on user profile.
 - Optimized precompiled headers.
 - Updated TruePNG to 0.6.2.4 (Mike).
 

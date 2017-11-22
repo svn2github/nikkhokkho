@@ -118,11 +118,18 @@ Section "Uninstall"
 	RmDir /r "$INSTDIR"
 	RmDir /r "$SMPROGRAMS\${APP_NAME}"
 	Delete "$PROFILE\${APP_NAME}.ini"
+	Delete "$PROFILE\${APP_NAME}32.ini"
+	Delete "$PROFILE\${APP_NAME}64.ini"
+	Delete "$PROFILE\${APP_NAME}.log"
+	Delete "$PROFILE\${APP_NAME}32.log"
+	Delete "$PROFILE\${APP_NAME}64.log"
+
 	Delete "$DESKTOP\${APP_NAME}.lnk"
 	Delete "$QUICKLAUNCH\${APP_NAME}.lnk"
 	Delete "$SENDTO\${APP_NAME}.lnk"
 	Delete "$FAVORITES\${APP_NAME} Home Page.lnk"
-	DeleteRegKey HKCU "Software\${APP_NAME}"	;Not needed because we do not write on the registry.
+	DeleteRegKey HKCU "Software\${APP_NAME}"
+	DeleteRegKey HKLM "Software\${APP_NAME}"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
 SectionEnd
 
