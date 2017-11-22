@@ -47,44 +47,52 @@ void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 // ---------------------------------------------------------------------------
 void clsLanguage::EnumerateControls(TWinControl *poControl)
 {
+	//ToDo: Memo, ...
 	if (poControl->ClassType() == __classid(TForm))
 	{
 		((TForm *) poControl)->Caption = Get(((TForm *) poControl)->Caption);
 		((TForm *) poControl)->Hint = Get(((TForm *) poControl)->Hint);
 	}
+	else if (poControl->ClassType() == __classid(TLabel))
+	{
+		((TLabel *) poControl)->Caption = Get(((TLabel *) poControl)->Caption);
+		((TLabel *) poControl)->Hint = Get(((TLabel *) poControl)->Hint);
+	}
+	else if (poControl->ClassType() == __classid(TEdit))
+	{
+		((TEdit *) poControl)->Text = Get(((TEdit *) poControl)->Text);
+		((TEdit *) poControl)->Hint = Get(((TEdit *) poControl)->Hint);
+	}
+	else if (poControl->ClassType() == __classid(TCheckBox))
+	{
+		((TCheckBox *) poControl)->Caption = Get(((TCheckBox *) poControl)->Caption);
+		((TCheckBox *) poControl)->Hint = Get(((TCheckBox *) poControl)->Hint);
+	}
+	else if (poControl->ClassType() == __classid(TComboBox))
+	{
+		((TComboBox *) poControl)->Hint = Get(((TComboBox *) poControl)->Hint);
+		for (int iItem = ((TComboBox *) poControl)->Items->Count - 1; iItem >= 0; iItem--)
+		{
+			//((TComboBox *) poControl)->Items[iItem].Text = Get(((TComboBox *) poControl)->Items[iItem].Text);
+		}
+	}
+	else if (poControl->ClassType() == __classid(TImage))
+	{
+		((TImage *) poControl)->Hint = Get(((TImage *) poControl)->Hint);
+	}
+	else if (poControl->ClassType() == __classid(TButton))
+	{
+		((TButton *) poControl)->Caption = Get(((TButton *) poControl)->Caption);
+		((TButton *) poControl)->Hint = Get(((TButton *) poControl)->Hint);
+	}
+
 
 	for (int iControl = poControl->ControlCount - 1; iControl >= 0; iControl--)
 	{
-		TControl *oControl = poControl->Controls[iControl];
-		String s = oControl->Name;
-
-		if (oControl->ClassType() == __classid(TLabel))
+		TWinControl *oControl = dynamic_cast<TWinControl *>(poControl->Controls[iControl]);
+		if (oControl)
 		{
-			((TLabel *) oControl)->Caption = Get(((TLabel *) oControl)->Caption);
-			((TLabel *) oControl)->Hint = Get(((TLabel *) oControl)->Hint);
-		}
-		else if (oControl->ClassType() == __classid(TEdit))
-		{
-			((TEdit *) oControl)->Text = Get(((TEdit *) oControl)->Text);
-			((TEdit *) oControl)->Hint = Get(((TEdit *) oControl)->Hint);
-		}
-		else if (oControl->ClassType() == __classid(TCheckBox))
-		{
-	        ((TCheckBox *) oControl)->Caption = Get(((TCheckBox *) oControl)->Caption);
-			((TCheckBox *) oControl)->Hint = Get(((TCheckBox *) oControl)->Hint);
-		}
-		else if (oControl->ClassType() == __classid(TImage))
-		{
-			((TImage *) oControl)->Hint = Get(((TImage *) oControl)->Hint);
-		}
-		else if (oControl->ClassType() == __classid(TButton))
-		{
-			((TButton *) oControl)->Caption = Get(((TButton *) oControl)->Caption);
-			((TButton *) oControl)->Hint = Get(((TButton *) oControl)->Hint);
-		}
-		else if (oControl->ClassType() == __classid(TWinControl))
-		{
-			EnumerateControls((TWinControl *) oControl);
+			EnumerateControls(oControl);
 		}
 	}
 }
