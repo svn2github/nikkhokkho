@@ -139,8 +139,9 @@ String __fastcall clsLanguage::Get(String psText, String psPath)
 
 	if (bFound)
 	{
-        //Eliminate msgstr:
-		return((String) acLine);
+		psText = acLine;
+		ReplaceStr(acLine, "msgstr: \"", "");
+		return(psText);
 	}
 	else
 	{
