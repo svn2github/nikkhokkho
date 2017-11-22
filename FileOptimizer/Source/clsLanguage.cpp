@@ -140,7 +140,7 @@ String __fastcall clsLanguage::Get(String psText, String psPath)
 	if (bFound)
 	{
 		psText = acLine;
-		ReplaceStr(acLine, "msgstr: \"", "");
+		psText = ReplaceStr(psText, "msgstr \"", "");
 		return(psText);
 	}
 	else
@@ -153,14 +153,12 @@ String __fastcall clsLanguage::Get(String psText, String psPath)
 
 
 // ---------------------------------------------------------------------------
-void __fastcall clsLanguage::Set(String psText)
+void __fastcall clsLanguage::Set(const String psText)
 {
-	FILE *pLanguage;
-
-
 	if (psText != "")
 	{
-		if (Get(psText, "1033.po") != "msgstr \"\"\n")
+		FILE *pLanguage;
+		if (Get(psText, "1033.po") != "\"\n")
 		{
 			pLanguage = _tfopen(_T("1033.po"), _T("a"));
 			if (pLanguage)

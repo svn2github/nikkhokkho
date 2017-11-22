@@ -14,7 +14,7 @@ class clsLanguage
 		static void __fastcall TranslateForm(TForm *pfrmForm);
 		static void EnumerateControls(TWinControl *poControl);
 		static String __fastcall Get(String psText, String psPath = "");
-		static void __fastcall Set(String psText);
+		static void __fastcall Set(const String psText);
 	private:
 };
 
