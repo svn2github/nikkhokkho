@@ -186,6 +186,8 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkXMLEnableLeanify->Checked = gudtOptions.bXMLEnableLeanify;
 	chkZIPCopyMetadata->Checked = gudtOptions.bZIPCopyMetadata;
 	chkZIPRecurse->Checked = gudtOptions.bZIPRecurse;
+
+	clsLanguage::TranslateForm(this);
 }
 
 

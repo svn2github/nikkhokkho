@@ -14,6 +14,7 @@ del /f /s /q Win32\Release\*.obj
 del /f /s /q Win32\Release\*.#*
 del /f /s /q Win32\Release\*.tds
 copy Help\FileOptimizer.chm Win32\Release\FileOptimizer.chm
+copy Languages\*.po Win32\Release\
 copy Win32\Release\FileOptimizer.exe Win32\Release\FileOptimizer32.exe
 copy Win64\Release\FileOptimizer.exe Win32\Release\FileOptimizer64.exe
 del /f /q Win32\Release\FileOptimizer.exe

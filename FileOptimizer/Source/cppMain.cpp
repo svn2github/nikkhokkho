@@ -1,6 +1,7 @@
 // ---------------------------------------------------------------------------
 #include "cppMain.h"
 
+
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -61,7 +62,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	//GetSystemInfo(&gudtSystemInfo);
 
-   	clsLanguage::TranslateForm(this);
+	clsLanguage::TranslateForm(this);
 }
 
 

@@ -13,7 +13,8 @@ class clsLanguage
 		static const TCHAR * __fastcall GetLanguagePath(void);
 		static void __fastcall TranslateForm(TForm *pfrmForm);
 		static void EnumerateControls(TWinControl *poControl);
-        static String __fastcall Translate(String psText);
+		static String __fastcall Get(String psText, String psPath = "");
+		static void __fastcall Set(String psText);
 	private:
 };
 

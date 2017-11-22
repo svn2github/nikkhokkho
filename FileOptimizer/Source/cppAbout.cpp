@@ -82,6 +82,8 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 	#if defined (_DEBUG)
 		imgAbout->Hint += ". DEBUG";
 	#endif
+
+    clsLanguage::TranslateForm(this);
 }
 
 
