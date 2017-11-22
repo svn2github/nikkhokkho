@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 /*
+ 3.47. 22/11/2017. FileOptimizer. Added EscapeIniValue, UnescapeIniValue, EscapeIniKey, UnescapeIniKey.
  3.46. 21/11/2017. FileOptimizer. Added GetRegistryPath.
  3.45. 17/11/2017. FileOptimizer. Added DeleteRegistry, DeleteIni.
  3.44. 15/11/2017. FileOptimizer. Added SetRegistry for ints.
@@ -695,31 +696,42 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-const TCHAR * __fastcall clsUtil::GetIniPath(void)
+const TCHAR * __fastcall clsUtil::GetIniPath(bool pbAllUsers)
 {
 	TCHAR acTmp[2048];
 	static TCHAR acPath[PATH_MAX] = _T("");
+	static TCHAR acPathAllUsers[PATH_MAX] = _T("");
 
 
 	// Check if we already have it cached
-	if (acPath[0] == NULL)
+	if ((acPath[0] == NULL) && (acPathAllUsers[0] == NULL))
 	{
 		GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1);
 		*_tcsrchr(acTmp, '.') = NULL;
 		_tcscat(acTmp, _T(".ini"));
+
 		// Check if we can write to that location
 		HANDLE hFile = CreateFile(acTmp, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		if (hFile == INVALID_HANDLE_VALUE)
 		{
 			_stprintf(acPath, _T("%s\\%s"), _tgetenv(_T("USERPROFILE")), (Application->Name + ".ini").c_str());
+			_tcscpy(acPathAllUsers, acTmp);
 		}
 		else
 		{
 			CloseHandle(hFile);
-			_tcscpy(acPath, acTmp);
+			_stprintf(acPath, acTmp);
+			_tcscpy(acPathAllUsers, acPath);
 		}
 	}
-	return (acPath);
+	if (pbAllUsers)
+	{
+		return (acPathAllUsers);
+	}
+	else
+	{
+		return (acPath);
+	}
 }
 
 
@@ -729,8 +741,15 @@ const TCHAR * __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *p
 {
 	TCHAR acRes[2048];
 	TCHAR *pcSemicolon;
+	
 
-	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, (sizeof(acRes) / sizeof(TCHAR)) - 1, GetIniPath());
+	UnescapeIniKey((TCHAR *) pacKey);
+	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, (sizeof(acRes) / sizeof(TCHAR)) - 1, GetIniPath(true));
+	if (acRes[0] == NULL)
+	{
+		GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, (sizeof(acRes) / sizeof(TCHAR)) - 1, GetIniPath(false));
+	}
+	UnescapeIniValue(acRes);
 	
 	//Remove comments
 	pcSemicolon = _tcsrchr(acRes, ';');
@@ -810,11 +829,20 @@ bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, co
 {
 	bool bRes;
 	
+	//Escape INI key and value
+	EscapeIniKey((TCHAR *) pacKey);
+	EscapeIniValue((TCHAR *) pacValue);
 	
 	//No comment
 	if (pacComment[0] == NULL)
 	{
-		bRes = WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath());
+		//Try to save for all users
+		bRes = WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath(true));
+		if (!bRes)
+		{
+			//Save it for current user
+			bRes = WritePrivateProfileString(pacSection, pacKey, pacValue, GetIniPath(false));
+		}
 	}
 	else
 	{
@@ -823,7 +851,13 @@ bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, co
 		_tcscpy(acValue, pacValue);
 		_tcscat(acValue, _T("\t\t; "));
 		_tcscat(acValue, pacComment);
-		bRes = WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath());
+		//Try to save for all users
+		bRes = WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath(true));
+		if (!bRes)
+		{
+			//Save it for current user
+			bRes = WritePrivateProfileString(pacSection, pacKey, acValue, GetIniPath(false));
+		}
 	}
 	return(bRes);
 }
@@ -1031,6 +1065,53 @@ unsigned int __fastcall clsUtil::Unserialize (void *pacBuffer, unsigned int piSi
 	}
 	return(piSize >> 1);
 }
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsUtil::EscapeIniValue (TCHAR *pacBuffer)
+{
+	String sBuffer = pacBuffer;
+	sBuffer = ReplaceStr(sBuffer, "=", "%3D");
+	_tcscpy(pacBuffer, sBuffer.c_str());
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsUtil::UnescapeIniValue (TCHAR *pacBuffer)
+{
+	String sBuffer = pacBuffer;
+	sBuffer = ReplaceStr(sBuffer, "%3D", "=");
+	_tcscpy(pacBuffer, sBuffer.c_str());
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsUtil::EscapeIniKey (TCHAR *pacBuffer)
+{
+	//Same rules as for values
+	EscapeIniValue(pacBuffer);
+	
+	String sBuffer = pacBuffer;
+	sBuffer = ReplaceStr(sBuffer, " ", "%20");
+	sBuffer = ReplaceStr(sBuffer, "\t", "%20");
+	_tcscpy(pacBuffer, sBuffer.c_str());
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsUtil::UnescapeIniKey (TCHAR *pacBuffer)
+{
+	String sBuffer = pacBuffer;
+	
+	//Same rules as for values
+	UnescapeIniValue(pacBuffer);
+	
+	sBuffer = ReplaceStr(sBuffer, "%20", " ");
+	_tcscpy(pacBuffer, sBuffer.c_str());
+}
+
 
 
 

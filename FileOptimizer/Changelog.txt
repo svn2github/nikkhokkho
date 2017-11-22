@@ -1,8 +1,6 @@
-Reusar código ini. Ini global
 Ver archivos po
-Escapar y de escapar ini
-Reemplazar sourceforge. También en proyecto
-Desinstalador eliminar registro e inis
+Bool true, false, 1, 0, yes, no, on, off
+
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
@@ -167,6 +165,8 @@ ndo
 X.XX - YYYY
 - Hardened buffers in update checker (Tom B, Abdulaziz Alnasi).
 - Implemented ability to read options from registry to prevent users changing them in corporate environments. It will never write in the registry nevertheless (srobert698).
+- Allow reading INI options from all users if available.
+- Made INI parsing stronger against errors.
 - Improved uninstaller to remove also .INI and .LOG files on user profile.
 - Optimized precompiled headers.
 - Updated TruePNG to 0.6.2.4 (Mike).

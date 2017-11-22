@@ -55,7 +55,7 @@ class clsUtil
 		static bool __fastcall CopyFile(const TCHAR *pacSource, const TCHAR *pacDestination);
 		static const TCHAR * __fastcall ExeVersion(const TCHAR *pacFile);
 		static int __fastcall GetFileVersionField(const TCHAR *fn, const TCHAR *info, TCHAR *ret, int len);
-		static const TCHAR * __fastcall GetIniPath(void);
+		static const TCHAR * __fastcall GetIniPath(bool pbAllUsers = false);
 		static const TCHAR * __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault);
 		static int __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault = 0);
 		static long long __fastcall GetIni(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault = 0);
@@ -86,6 +86,12 @@ class clsUtil
 		static unsigned int __fastcall GetWindowsVersion(void);
 		static bool __fastcall IsWindows64(void);
 		static bool __fastcall ShutdownWindows(unsigned int piMode = 0);
+	private:
+		static void __fastcall EscapeIniKey (TCHAR *pacBuffer);
+		static void __fastcall UnescapeIniKey (TCHAR *pacBuffer);
+		static void __fastcall EscapeIniValue (TCHAR *pacBuffer);
+		static void __fastcall UnescapeIniValue (TCHAR *pacBuffer);
+
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
