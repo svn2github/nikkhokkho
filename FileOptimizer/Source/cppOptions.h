@@ -3,13 +3,16 @@
 #ifndef cppOptionsH
 #define cppOptionsH
 #include <System.Classes.hpp>
-#include <Vcl.Controls.hpp>
-#include <Vcl.StdCtrls.hpp>
-#include <Vcl.Forms.hpp>
 #include <Vcl.ComCtrls.hpp>
+#include <Vcl.Controls.hpp>
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Graphics.hpp>
 #include <Vcl.Samples.Spin.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include "FileOptimizerPCH1.h"
+#include "cppMain.h"
+
+
 //---------------------------------------------------------------------------
 class TfrmOptions : public TForm
 {

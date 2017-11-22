@@ -16,8 +16,7 @@
  1.00. 18/08/2011. TBClamAV. Initial version
  */
 // ---------------------------------------------------------------------------
-#include "FileOptimizerPCH1.h"
-
+#include "clsUtil.h"
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len)

@@ -2,13 +2,16 @@
 #pragma once
 #ifndef cppAboutH
 #define cppAboutH
-#include <Vcl.Controls.hpp>
-#include <Vcl.StdCtrls.hpp>
-#include <Vcl.Forms.hpp>
-#include <Vcl.ExtCtrls.hpp>
-#include <Vcl.Graphics.hpp>
 #include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Imaging.jpeg.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include "FileOptimizerPCH1.h"
+#include "clsUtil.h"
+#include "cppMain.h"
+
+	
 //---------------------------------------------------------------------------
 class TfrmAbout : public TForm
 {

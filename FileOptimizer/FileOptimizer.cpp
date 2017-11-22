@@ -1,6 +1,7 @@
 // ---------------------------------------------------------------------------
 #include "FileOptimizerPCH1.h"
 #include <limits.h>
+#include "cppMain.h"
 #include "clsUtil.h"
 
 

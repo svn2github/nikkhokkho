@@ -2,34 +2,32 @@
 #pragma once
 #ifndef cppMainH
 #define cppMainH
-#include <System.Classes.hpp>
-#include <Vcl.Controls.hpp>
-#include <Vcl.StdCtrls.hpp>
-#include <Vcl.Forms.hpp>
-#include <Vcl.Grids.hpp>
-#include <Vcl.Menus.hpp>
-#include <Vcl.ExtCtrls.hpp>
-#include <Vcl.Graphics.hpp>
-#include <Vcl.ComCtrls.hpp>
-#include <Vcl.Dialogs.hpp>
+#include "FileOptimizerPCH1.h"
+#include "cppOptions.h"
+#include "cppAbout.h"
+#include "clsUtil.h"
+#include <SHDocVw.hpp>
 #include <System.Actions.hpp>
-#include <Vcl.ActnCtrls.hpp>
+#include <System.Classes.hpp>
+#include <System.ImageList.hpp>
 #include <Vcl.ActnList.hpp>
 #include <Vcl.ActnMan.hpp>
+#include <Vcl.ComCtrls.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.Dialogs.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Grids.hpp>
 #include <Vcl.ImgList.hpp>
-#include <Vcl.ToolWin.hpp>
-#include <Vcl.ActnMenus.hpp>
-#include <System.ImageList.hpp>
-#include <FileCtrl.hpp>
-#include <IniFiles.hpp>
-#include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
-#include <SHDocVw.hpp>
+#include <Vcl.Menus.hpp>
 #include <Vcl.OleCtrls.hpp>
-#include "clsUtil.h"
+#include <Vcl.PlatformDefaultStyleActnCtrls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.ToolWin.hpp>
 
+
+
+// ---------------------------------------------------------------------------
 #define KI_BUFFER_SIZE		(128 * 1024)
-
-
 #define KS_APP_URL				_T("https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer")
 #define KS_APP_UPDATE_SERVER	_T("nikkhokkho.sourceforge.io")
 #define KS_APP_UPDATE_PAGE		_T("/images/FileOptimizerVersion.php")
