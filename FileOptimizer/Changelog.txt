@@ -1,3 +1,10 @@
+Reusar código ini. Ini global
+Ver archivos po
+Escapar y de escapar ini
+Reemplazar sourceforge. También en proyecto
+Ordenadr PCH
+Revisar buffer updates
+
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
@@ -159,6 +166,7 @@ ndo
 
 
 X.XX - YYYY
+- Hardened buffers in update checker (Tom B, Abdulaziz Alnasi).
 - Implemented ability to read options from registry to prevent users changing them in corporate environments. It will never write in the registry nevertheless (srobert698).
 - Updated TruePNG to 0.6.2.4 (Mike).
 

@@ -27,7 +27,7 @@
 #include <Vcl.OleCtrls.hpp>
 #include "clsUtil.h"
 
-#define KI_BUFFER_SIZE		(65535)
+#define KI_BUFFER_SIZE		(128 * 1024)
 
 
 #define KS_APP_URL				_T("https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer")

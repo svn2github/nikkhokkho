@@ -2531,7 +2531,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 
 	strcpy(acPath, "ini=");
-	iSize = 0;
+	iSize = sizeof(acBuffer) - 256;
 	clsUtil::ReadFile(clsUtil::GetIniPath(), (void *) acBuffer, &iSize);
     //Remove cache part
 	char *pcCache = strstr(acBuffer, "[Cache]");
