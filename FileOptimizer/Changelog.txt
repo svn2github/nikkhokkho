@@ -1,5 +1,5 @@
-Ver archivos po
-Bool true, false, 1, 0, yes, no, on, off
+Translate Set to use TTringlist
+Add missing controls
 
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.

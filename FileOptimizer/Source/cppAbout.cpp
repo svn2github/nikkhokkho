@@ -31,6 +31,8 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 	TCHAR acName[256];
 
 
+	clsLanguage::TranslateForm(this);
+
 	Icon = Application->Icon;
 
 	lblProduct->Caption = Application->Name;
@@ -82,8 +84,6 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 	#if defined (_DEBUG)
 		imgAbout->Hint += ". DEBUG";
 	#endif
-
-    clsLanguage::TranslateForm(this);
 }
 
 

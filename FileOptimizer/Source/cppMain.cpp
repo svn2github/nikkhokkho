@@ -38,6 +38,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	TCHAR acPath[PATH_MAX];
 
 
+	clsLanguage::TranslateForm(this);
+
 	Icon = Application->Icon;
 	lblCopyright->Hint = KS_APP_URL;
 
@@ -45,7 +47,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	lblCopyright->Caption = acPath;
 
 	pgbProgress->Parent = stbMain;
-	
+
 	clsUtil::LoadForm(this);
 	LoadOptions();
 
@@ -61,8 +63,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	UpdateAds();
 
 	//GetSystemInfo(&gudtSystemInfo);
-
-	clsLanguage::TranslateForm(this);
 }
 
 
@@ -273,7 +273,9 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 		while (FindNextFile(hFindFile, &udtFindFileData) != 0);
 		FindClose(hFindFile);
 
-		if ((bRunning) && (clsUtil::MsgBox(Handle, ("Optimization is still running. Do you want to stop and exit " + Application->Name + "?").c_str(), _T("Exit"), MB_YESNO | MB_ICONQUESTION) == ID_NO))
+		String sPrompt;
+		sPrompt.printf(_(_T("Optimization is still running. Do you want to stop and exit %s?")), Application->Name.c_str());
+		if ((bRunning) && (clsUtil::MsgBox(Handle, sPrompt.c_str(), _(_T("Exit")), MB_YESNO | MB_ICONQUESTION) == ID_NO))
 		{
 			CanClose = false;
 			return;
@@ -777,7 +779,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	{
 		if (!clsUtil::ShutdownWindows(0))
 		{
-			clsUtil::MsgBox(Handle, _T("Error trying to automatically shutdown the system."), _T("Shutdown"), MB_OK | MB_ICONERROR);
+			clsUtil::MsgBox(Handle, _(_T("Error trying to automatically shutdown the system.")), _(_T("Shutdown")), MB_OK | MB_ICONERROR);
 		}
 	}
 	
@@ -999,8 +1001,9 @@ void __fastcall TfrmMain::actOptimizeForThread(TObject *Sender, int AIndex, TPar
 
 
 //---------------------------------------------------------------------------
-void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int iCount)
+void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 {
+	unsigned int iCount = (unsigned int) AIndex;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags;
 
@@ -2451,7 +2454,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
 	
-	grdFiles->Cells[KI_GRID_STATUS][(int) piCurrent] = "Running " + psStatus + "...";
+	grdFiles->Cells[KI_GRID_STATUS][(int) piCurrent] = _("Running ") + psStatus + "...";
 	unsigned long long lSize = clsUtil::SizeFile(sInputFile.c_str());
 	unsigned long long lSizeNew = lSize;
 	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
@@ -2562,7 +2565,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			{
 				if (!pbSilent)
 				{
-					clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
+					clsUtil::MsgBox(Handle, _(_T("Error checking for updates.")), _(_T("Check updates")), MB_OK | MB_ICONERROR);
 				}
 				delete[] acTemp;
 				delete[] acWide;
@@ -2592,27 +2595,34 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
             gudtOptions.acDonation[0] = NULL;
             if ((gudtOptions.iStatOpens > 10) && (clsUtil::Random(0, 50) == 5))
 			{
-				clsUtil::MsgBox(Handle, ("Thank you for using my program!\n\nYou have used it " + FormatNumberThousand(gudtOptions.iStatOpens) + " times and have optimized " + FormatNumberThousand(gudtOptions.iStatFiles) + " files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.").c_str(), ("Thank you for using " + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION, 60000);
+				String sPrompt;
+				sPrompt.printf(_(_T("Thank you for using my program!\n\nYou have used it %s times and have optimized %s files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.")), FormatNumberThousand(gudtOptions.iStatOpens).c_str(), FormatNumberThousand(gudtOptions.iStatFiles).c_str());
+				clsUtil::MsgBox(Handle, sPrompt.c_str(), (_("Thank you for using ") + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION, 60000);
 				actDonateExecute(NULL);
 			}
 		}
 
 		if (_tcsncmp(acWide, (TCHAR *) acBuffer, 10) > 0)
 		{
-			if (clsUtil::MsgBox(Handle, (Application->Name + " version " + Trim(acWide) + " is available.\r\nDo you want to download it now?").c_str(), _T("Check updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES)
+			String sPrompt;
+			sPrompt.printf(_(_T("%s version %s is available.\r\nDo you want to download it now?")), Application->Name.c_str(), Trim(acWide).c_str());
+			if (clsUtil::MsgBox(Handle, (sPrompt).c_str(), _(_T("Check updates")), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
 				ShellExecute(NULL, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 			}
 		}
 		else if (!pbSilent)
 		{
-			clsUtil::MsgBox(Handle, ("You already have latest " + Application->Name + " version.").c_str(), _T("Check updates"), MB_OK|MB_ICONINFORMATION);
+
+			String sPrompt;
+			sPrompt.printf(_(_T("You already have latest %s? version.")), Application->Name.c_str());
+			clsUtil::MsgBox(Handle, sPrompt.c_str(), _(_T("Check updates")), MB_OK|MB_ICONINFORMATION);
 		}
 	}
 
 	else if (!pbSilent)
 	{
-		clsUtil::MsgBox(Handle, _T("Error checking for updates."), _T("Check updates"), MB_OK | MB_ICONERROR);
+		clsUtil::MsgBox(Handle, _(_T("Error checking for updates.")), _(_T("Check updates")), MB_OK | MB_ICONERROR);
 	}
 
 	delete[] acTemp;
@@ -3238,11 +3248,11 @@ void __fastcall TfrmMain::UpdateTheme(void)
 	//Change instructions depending on Recycle Bin settins
 	if (gudtOptions.bDoNotUseRecycleBin)
 	{
-		lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.";
+		lblInstructions->Caption = _("Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.");
 	}
 	else
 	{
-		lblInstructions->Caption = "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.";
+		lblInstructions->Caption = _("Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.");
 	}
 	lblInstructions->Hint = lblInstructions->Caption;
 
@@ -3348,11 +3358,11 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 				grdFiles->Rows[0]->BeginUpdate();
 				grdFiles->ColCount = 5;
 				TStringList *lstRow = new TStringList();
-				lstRow->Add("File");
-				lstRow->Add("Extension (Type)");
-				lstRow->Add("Original size");
-				lstRow->Add("Optimized size");
-				lstRow->Add("Status");
+				lstRow->Add(_("File"));
+				lstRow->Add(_("Extension (Type)"));
+				lstRow->Add(_("Original size"));
+				lstRow->Add(_("Optimized size"));
+				lstRow->Add(_("Status"));
 				grdFiles->Rows[0] = lstRow;
 				delete lstRow;
 				grdFiles->Rows[0]->EndUpdate();

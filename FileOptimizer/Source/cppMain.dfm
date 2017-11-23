@@ -115,7 +115,6 @@ object frmMain: TfrmMain
       Left = 128
       Top = 0
       Width = 8
-      Caption = ''
       ImageIndex = 1
       Style = tbsSeparator
     end
@@ -138,7 +137,6 @@ object frmMain: TfrmMain
       Left = 232
       Top = 0
       Width = 8
-      Caption = ''
       ImageIndex = 8
       Style = tbsSeparator
     end
@@ -156,7 +154,6 @@ object frmMain: TfrmMain
       Left = 304
       Top = 0
       Width = 8
-      Caption = ''
       ImageIndex = 9
       Style = tbsSeparator
     end
@@ -169,7 +166,6 @@ object frmMain: TfrmMain
       Left = 344
       Top = 0
       Width = 8
-      Caption = ''
       ImageIndex = 7
       Style = tbsSeparator
     end
@@ -182,7 +178,6 @@ object frmMain: TfrmMain
       Left = 384
       Top = 0
       Width = 8
-      Caption = ''
       ImageIndex = 3
       Style = tbsSeparator
     end
@@ -195,7 +190,6 @@ object frmMain: TfrmMain
       Left = 424
       Top = 0
       Width = 8
-      Caption = ''
       ImageIndex = 13
       Style = tbsSeparator
     end
@@ -211,7 +205,7 @@ object frmMain: TfrmMain
       Style = tbsSeparator
     end
     object tooHelpAbout: TToolButton
-      Left = 465
+      Left = 472
       Top = 0
       Action = actAbout
     end
@@ -590,7 +584,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100880010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

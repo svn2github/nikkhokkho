@@ -29,30 +29,32 @@ __fastcall TfrmOptions::~TfrmOptions()
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 {
+	clsLanguage::TranslateForm(this);
+
 	Icon = Application->Icon;
 
 	tabOptions->ActivePageIndex = 0;
-	pagGeneral1->Hint = "General program options affecting all extensions (1/2)";
-	pagGeneral2->Hint = "General program options affecting all extensions (2/2)";
-	pagBMP->Hint = "Extensions affected: " + (String) KS_EXTENSION_BMP;
-	pagCSS->Hint = "Extensions affected: " + (String) KS_EXTENSION_CSS;
-	pagEXE->Hint = "Extensions affected: " + (String) KS_EXTENSION_EXE KS_EXTENSION_DLL;
-	pagGIF->Hint = "Extensions affected: " + (String) KS_EXTENSION_GIF;
-	pagGZ->Hint = "Extensions affected: " + (String) KS_EXTENSION_GZ;
-	pagHTML->Hint = "Extensions affected: " + (String) KS_EXTENSION_HTML;
-	pagJPEG->Hint = "Extensions affected: " + (String) KS_EXTENSION_JPG KS_EXTENSION_TIFF;
-	pagJS->Hint = "Extensions affected: " + (String) KS_EXTENSION_JS;
-	pagLUA->Hint = "Extensions affected: " + (String) KS_EXTENSION_LUA;
-	pagMisc->Hint = "Extensions affected: " + (String) KS_EXTENSION_MISC;
-	pagMP3->Hint = "Extensions affected: " + (String) KS_EXTENSION_MP3;
-	pagMP4->Hint = "Extensions affected: " + (String) KS_EXTENSION_MP4;
-	pagPCX->Hint = "Extensions affected: " + (String) KS_EXTENSION_PCX;
-	pagPDF->Hint = "Extensions affected: " + (String) KS_EXTENSION_PDF;
-	pagPNG->Hint = "Extensions affected: " + (String) KS_EXTENSION_PNG KS_EXTENSION_ICO;
-	pagTGA->Hint = "Extensions affected: " + (String) KS_EXTENSION_TGA;
-	pagTIFF->Hint = "Extensions affected: " + (String) KS_EXTENSION_TIFF;
-	pagXML->Hint = "Extensions affected: " + (String) KS_EXTENSION_XML KS_EXTENSION_HTML;
-	pagZIP->Hint = "Extensions affected: " + (String) KS_EXTENSION_ZIP;
+	pagGeneral1->Hint = _("General program options affecting all extensions (1/2)");
+	pagGeneral2->Hint = _("General program options affecting all extensions (2/2)");
+	pagBMP->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_BMP;
+	pagCSS->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_CSS;
+	pagEXE->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_EXE KS_EXTENSION_DLL;
+	pagGIF->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_GIF;
+	pagGZ->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_GZ;
+	pagHTML->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_HTML;
+	pagJPEG->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_JPG KS_EXTENSION_TIFF;
+	pagJS->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_JS;
+	pagLUA->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_LUA;
+	pagMisc->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_MISC;
+	pagMP3->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_MP3;
+	pagMP4->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_MP4;
+	pagPCX->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_PCX;
+	pagPDF->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_PDF;
+	pagPNG->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_PNG KS_EXTENSION_ICO;
+	pagTGA->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_TGA;
+	pagTIFF->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_TIFF;
+	pagXML->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_XML KS_EXTENSION_HTML;
+	pagZIP->Hint = _("Extensions affected: ") + (String) KS_EXTENSION_ZIP;
 
 	chkAllowDuplicates->Checked = gudtOptions.bAllowDuplicates;
 	chkAllowMultipleInstances->Checked = gudtOptions.bAllowMultipleInstances;
@@ -186,8 +188,6 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkXMLEnableLeanify->Checked = gudtOptions.bXMLEnableLeanify;
 	chkZIPCopyMetadata->Checked = gudtOptions.bZIPCopyMetadata;
 	chkZIPRecurse->Checked = gudtOptions.bZIPRecurse;
-
-	clsLanguage::TranslateForm(this);
 }
 
 

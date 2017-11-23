@@ -5,6 +5,7 @@
 // ---------------------------------------------------------------------------
 #include "clsLanguage.h"
 
+static TStringList *mlstLanguage = NULL;
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,6 +37,25 @@ const TCHAR * __fastcall clsLanguage::GetLanguagePath(void)
 
 
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsLanguage::LoadLanguage(String psPath)
+{
+
+	if (!mlstLanguage)
+	{
+		mlstLanguage = new TStringList();
+		mlstLanguage->CaseSensitive = true;
+		mlstLanguage->Duplicates = System::Classes::dupAccept;
+		if (psPath == "")
+		{
+			psPath = GetLanguagePath();
+		}
+		mlstLanguage->LoadFromFile(psPath);
+	}
+}
+
+
+
 // ---------------------------------------------------------------------------
 void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 {
@@ -47,6 +67,7 @@ void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 // ---------------------------------------------------------------------------
 void clsLanguage::EnumerateControls(TWinControl *poControl)
 {
+    //Missing main menu and TLabel
 	String s = poControl->Name;
 
 	//TForm
@@ -141,27 +162,90 @@ void clsLanguage::EnumerateControls(TWinControl *poControl)
 			oControl->Hint = Get(oControl->Hint);
 		}
 	}
+	//TMainMenu
+	{
+		TMainMenu *oControl = dynamic_cast<TMainMenu *>(poControl);
+		if (oControl)
+		{
+			for (int iMenu = oControl->Items->Count; iMenu >= 0; iMenu--)
+			{
+				/*
+				TMenuItem *oMenu = dynamic_cast<TMenuItem *>(oControl->Items[iMenu]);
+				if (oMenu)
+				{
+					oMenu->Caption = Get(oMenu->Caption);
+					oMenu->Hint = Get(oMenu->Hint);
+					EnumerateControls(oMenu);
+				}
+                */
+			}
+		}
+	}
+	//TToolBar
+	{
+		TToolBar *oControl = dynamic_cast<TToolBar *>(poControl);
+		if (oControl)
+		{
+			for (int iButton = oControl->ButtonCount - 1; iButton >= 0; iButton--)
+			{
+				TToolButton *oButton = dynamic_cast<TToolButton *>(oControl->Buttons[iButton]);
+				if (oButton)
+				{
+					TAction *oAction = dynamic_cast<TAction *>(oButton->Action);
+					if (oAction)
+					{
+						oAction->Caption = Get(oAction->Caption);
+						oAction->Hint = Get(oAction->Hint);
+					}
+				}
+			}
+		}
+	}
+	//TPageControl
+	{
+		TPageControl *oControl = dynamic_cast<TPageControl *>(poControl);
+		if (oControl)
+		{
+			for (int iPage = oControl->PageCount - 1; iPage >= 0; iPage--)
+			{
+				TTabSheet *oPage = dynamic_cast<TTabSheet *>(oControl->Pages[iPage]);
+				if (oPage)
+				{
+					oPage->Caption = Get(oPage->Caption);
+					oPage->Hint = Get(oPage->Hint);
+					EnumerateControls(oPage);
+				}
+			}
+		}
+	}
+
+
 	//Childs
 	for (int iControl = poControl->ControlCount - 1; iControl >= 0; iControl--)
 	{
 		TWinControl *oControl = dynamic_cast<TWinControl *>(poControl->Controls[iControl]);
 		if (oControl)
 		{
+            String q = oControl->Name;
 			EnumerateControls(oControl);
 		}
 	}
 }
 
 
+// ---------------------------------------------------------------------------
+TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText, TCHAR *pacPath)
+{
+	String sRes = Get((String) pacText, (String) pacPath);
+	return(sRes.c_str());
+}
+
+
+
 
 // ---------------------------------------------------------------------------
 String __fastcall clsLanguage::Get(String psText, String psPath)
 {
-	bool bFound = false;
-	FILE *pLanguage;
-	TCHAR acLine[2048];
-
-
 	if (psPath == "")
 	{
 		psPath = GetLanguagePath();
@@ -172,47 +256,43 @@ String __fastcall clsLanguage::Get(String psText, String psPath)
 	}
 
 
-	pLanguage = _tfopen(psPath.c_str(), _T("r"));
-	if (pLanguage)
+	if (!mlstLanguage)
 	{
-		String sSearch = "msgid \"" + psText + "\"\n";
-		//sSearch = ReplaceStr((sSearch, "\t", " ");
-		//sSearch = ReplaceStr((sSearch, "  ", " ");
+		LoadLanguage();
+	}
+
+	//Search for text to be translated
+	String sSearch = "msgid \"" + psText + "\"";
+
+	int iLine = mlstLanguage->IndexOf(sSearch);
+	if (iLine >= 0)
+	{
+		String sLine;
+		//Skip lines not starting with mgstr
 		do
 		{
-			_fgetts(acLine, sizeof(acLine) / sizeof(TCHAR) - 1, pLanguage);
-			if ((String) acLine == sSearch)
-			{
-				_fgetts(acLine, sizeof(acLine) / sizeof(TCHAR) - 1, pLanguage);
-                bFound = true;
-				break;
-			}
+			sLine = mlstLanguage->Strings[iLine];
+			iLine++;
 		}
-		while (!feof(pLanguage));
-		fclose(pLanguage);
+		while ((PosEx("msgstr \"", sLine) <= 0) && (iLine < mlstLanguage->Count));
+		psText = sLine;
+		psText = psText.SubString(8, psText.Length() - 10);	//Remove first msgstr \" and last quote and return
+		psText = ReplaceStr(psText, "\\\\", "\\");			//Unescape PO
+		psText = ReplaceStr(psText, "\\n", "\n");
+		psText = ReplaceStr(psText, "\\r", "\r");
+		psText = ReplaceStr(psText, "\\t", "\t");
+		psText = ReplaceStr(psText, "\\\"", "\"");
 	}
-
-	if (bFound)
-	{
-		psText = acLine;
-		psText = ReplaceStr(psText, "msgstr \"", "");
-		return(psText);
-	}
-	else
-	{
-        return(psText);
-	}
-
 }
 
 
 
 // ---------------------------------------------------------------------------
-void __fastcall clsLanguage::Set(const String psText)
+void __fastcall clsLanguage::Set(String psText)
 {
 	if (psText != "")
 	{
-		if (Get(psText, "1033.po") != "\"\n")
+		if (Get(psText, "1033.po") != "")
 		{
 			//Check if already exists
 			FILE *pLanguage = _tfopen(_T("1033.po"), _T("r"));
@@ -234,7 +314,13 @@ void __fastcall clsLanguage::Set(const String psText)
 			//Write text
 			if (pLanguage)
 			{
-				_fputts(((String) "msgid \"" + psText + "\"\n").c_str(), pLanguage);
+				psText = ReplaceStr(psText, "\\", "\\\\");			//Escape PO
+				psText = ReplaceStr(psText, "\n", "\\n");
+				psText = ReplaceStr(psText, "\r", "\\r");
+				psText = ReplaceStr(psText, "\t", "\\t");
+				psText = ReplaceStr(psText, "\"", "\\\"");
+				psText = "msgid \"" + psText + "\"\n";
+				_fputts(psText.c_str(), pLanguage);
 				_fputts(_T("msgstr \"\"\n\n"), pLanguage);
 				fclose(pLanguage);
 			}
