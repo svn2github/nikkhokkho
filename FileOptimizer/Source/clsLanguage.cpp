@@ -47,46 +47,101 @@ void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 // ---------------------------------------------------------------------------
 void clsLanguage::EnumerateControls(TWinControl *poControl)
 {
-	//ToDo: Memo, ...
-	if (poControl->ClassType() == __classid(TForm))
+	String s = poControl->Name;
+
+	//TForm
 	{
-		((TForm *) poControl)->Caption = Get(((TForm *) poControl)->Caption);
-		((TForm *) poControl)->Hint = Get(((TForm *) poControl)->Hint);
-	}
-	else if (poControl->ClassType() == __classid(TLabel))
-	{
-		((TLabel *) poControl)->Caption = Get(((TLabel *) poControl)->Caption);
-		((TLabel *) poControl)->Hint = Get(((TLabel *) poControl)->Hint);
-	}
-	else if (poControl->ClassType() == __classid(TEdit))
-	{
-		((TEdit *) poControl)->Text = Get(((TEdit *) poControl)->Text);
-		((TEdit *) poControl)->Hint = Get(((TEdit *) poControl)->Hint);
-	}
-	else if (poControl->ClassType() == __classid(TCheckBox))
-	{
-		((TCheckBox *) poControl)->Caption = Get(((TCheckBox *) poControl)->Caption);
-		((TCheckBox *) poControl)->Hint = Get(((TCheckBox *) poControl)->Hint);
-	}
-	else if (poControl->ClassType() == __classid(TComboBox))
-	{
-		((TComboBox *) poControl)->Hint = Get(((TComboBox *) poControl)->Hint);
-		for (int iItem = ((TComboBox *) poControl)->Items->Count - 1; iItem >= 0; iItem--)
+		TForm *oControl = dynamic_cast<TForm *>(poControl);
+		if (oControl)
 		{
-			//((TComboBox *) poControl)->Items[iItem].Text = Get(((TComboBox *) poControl)->Items[iItem].Text);
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
 		}
 	}
-	else if (poControl->ClassType() == __classid(TImage))
+	//TLabel
 	{
-		((TImage *) poControl)->Hint = Get(((TImage *) poControl)->Hint);
+		TLabel *oControl = dynamic_cast<TLabel *>(poControl);
+		if (oControl)
+		{
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
+		}
 	}
-	else if (poControl->ClassType() == __classid(TButton))
+	//TEdit
 	{
-		((TButton *) poControl)->Caption = Get(((TButton *) poControl)->Caption);
-		((TButton *) poControl)->Hint = Get(((TButton *) poControl)->Hint);
+		TEdit *oControl = dynamic_cast<TEdit *>(poControl);
+		if (oControl)
+		{
+			oControl->Text = Get(oControl->Text);
+			oControl->Hint = Get(oControl->Hint);
+		}
 	}
+	//TMemo
+	{
+		TMemo *oControl = dynamic_cast<TMemo *>(poControl);
+		if (oControl)
+		{
+			oControl->Text = Get(oControl->Text);
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
+	//TSpinEdit
+	{
+		TSpinEdit *oControl = dynamic_cast<TSpinEdit *>(poControl);
+		if (oControl)
+		{
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
+	//TCheckBox
+	{
+		TCheckBox *oControl = dynamic_cast<TCheckBox *>(poControl);
+		if (oControl)
+		{
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
+	//TComboBox
+	{
+		TComboBox *oControl = dynamic_cast<TComboBox *>(poControl);
+		if (oControl)
+		{
+			oControl->Hint = Get(oControl->Hint);
+			for (int iItem = oControl->Items->Count - 1; iItem >= 0; iItem--)
+			{
+				oControl->Items->Strings[iItem] = Get(oControl->Items->Strings[iItem]);
+			}
 
-
+		}
+	}
+	//TImage
+	{
+		TImage *oControl = dynamic_cast<TImage *>(poControl);
+		if (oControl)
+		{
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
+	//TMenuItem
+	{
+		TMenuItem *oControl = dynamic_cast<TMenuItem *>(poControl);
+		if (oControl)
+		{
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
+	//TButton
+	{
+		TButton *oControl = dynamic_cast<TButton *>(poControl);
+		if (oControl)
+		{
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
+	//Childs
 	for (int iControl = poControl->ControlCount - 1; iControl >= 0; iControl--)
 	{
 		TWinControl *oControl = dynamic_cast<TWinControl *>(poControl->Controls[iControl]);
@@ -157,17 +212,33 @@ void __fastcall clsLanguage::Set(const String psText)
 {
 	if (psText != "")
 	{
-		FILE *pLanguage;
 		if (Get(psText, "1033.po") != "\"\n")
 		{
-			pLanguage = _tfopen(_T("1033.po"), _T("a"));
+			//Check if already exists
+			FILE *pLanguage = _tfopen(_T("1033.po"), _T("r"));
+			if (pLanguage)
+			{
+				fclose(pLanguage);
+				pLanguage = _tfopen(_T("1033.po"), _T("a"));
+			}
+			else
+			{
+				//Write header
+				pLanguage = _tfopen(_T("1033.po"), _T("a"));
+				if (pLanguage)
+				{
+					String sHeader = "# Language ID: 1033 (0x0409)\n# Language Name: English - United States\n\"Project-Id-Version: " + Application->Name + " " + (String) clsUtil::ExeVersion(Application->ExeName.c_str()) + "\"\n\"POT-Creation-Date: " + (String) __DATE__ + "\"\n\"Language: en_US\"\n""Last-Translator: Javier Gutiérrez Chamorro\"\n\"Language-Team: Javier Gutiérrez Chamorro\"\n\"Plural-Forms: nplurals=2; plural=(n != 1);\"\n\n";
+					_fputts(sHeader.c_str(), pLanguage);
+				}
+			}
+			//Write text
 			if (pLanguage)
 			{
 				_fputts(((String) "msgid \"" + psText + "\"\n").c_str(), pLanguage);
 				_fputts(_T("msgstr \"\"\n\n"), pLanguage);
+				fclose(pLanguage);
 			}
 		}
-		fclose(pLanguage);
-    }
+	}
 }
 

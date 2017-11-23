@@ -1,12 +1,196 @@
 # Language ID: 3082 (0x0C0A)
-# Language Name: Español (España)
-# Locale Name: es-ES
-# Version: 11.40
-# Date: 22/11/2017
-# Author: Javier Gutiérrez Chamorro
+# Language Name: Español - España
 
-msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it."
-msgstr "Arrastra a la lista inferior los ficheros que quieras optimizar, y cuando estés listo, clica en el botón derecho para proceder. No se crearán copias de seguridad, pero puedes activar que se muevan los ficheros a la papelera de reciclaje. Haz doble clic para previsualizar el elemento."
+"Project-Id-Version: FileOptimizer 11.40\n"
+"POT-Creation-Date: 22/11/2017\n"
+"Language: es_ES\n"
+"Last-Translator: Javier Gutiérrez Chamorro\n"
+"Language-Team: Javier Gutiérrez Chamorro\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
-msgstr "Arrastra a la lista inferior los ficheros que quieras optimizar, y cuando estés listo, clica en el botón derecho para proceder. Todos los ficheros procesados se copiarán a la papelera de reciclaje, para que puedas restaurarlos fácilmente. Puedes desactivar que se muevan los ficheros a la papelera de reciclaje. Haz doble clic para previsualizar el elemento."
+msgid "&Cancel"
+msgstr "Cancelar"
+
+msgid "Discard any changes made to options."
+msgstr ""
+
+msgid "&OK"
+msgstr "Vale"
+
+msgid "Accept and apply all changes made to options."
+msgstr ""
+
+msgid "&Restore defaults"
+msgstr ""
+
+msgid "Restore all options to its factory settings values."
+msgstr ""
+
+msgid "&Recurse"
+msgstr ""
+
+msgid "Enable optimization inside archives (recursive optimization)."
+msgstr ""
+
+msgid "&Copy metadata"
+msgstr "Copiar metadata"
+
+msgid "Copy file metadata. Else strip all unneded information."
+msgstr ""
+
+msgid "&Enable Leanify"
+msgstr ""
+
+msgid "Enable Leanify. Results in smaller files, but can happen they are not editable anymore."
+msgstr ""
+
+msgid "&Allow lossy optimizations"
+msgstr ""
+
+msgid "Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not"
+msgstr ""
+
+msgid "&Skip layered"
+msgstr ""
+
+msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
+msgstr ""
+
+msgid "Compression profile, from less size, to best quality."
+msgstr ""
+
+msgid "Add extra extensions to be threated as JS/JSON."
+msgstr ""
+
+msgid "&Enable JSMin"
+msgstr ""
+
+msgid "Enable jsmin. Results in smaller files, but can happen they are not editable anymore."
+msgstr ""
+
+msgid "&Use arithmetic encoding"
+msgstr ""
+
+msgid "Arithmetic encoding gives additional saving reductions, but is incompatible with most programs."
+msgstr ""
+
+msgid "&Enable Tidy"
+msgstr ""
+
+msgid "Enable Tidy. Results in smaller files, but can happen they are not editable anymore. Note that this applies to both SVG and HTML file types"
+msgstr ""
+
+msgid "&Enable UPX"
+msgstr ""
+
+msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
+msgstr ""
+
+msgid "&Disable PETrim"
+msgstr ""
+
+msgid "Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."
+msgstr ""
+
+msgid "Compression template, from safer and worse compression, to highest compression"
+msgstr ""
+
+msgid "Enable tidy. Results in smaller files, but can happen they are not editable anymore."
+msgstr ""
+
+msgid "&Hide ads"
+msgstr ""
+
+msgid "Hide ads from being displayed."
+msgstr ""
+
+msgid "Specify the format to display filenames in the list."
+msgstr ""
+
+msgid "&Always on top"
+msgstr ""
+
+msgid "Show main window always on top."
+msgstr ""
+
+msgid "&Show toolbar"
+msgstr ""
+
+msgid "Show icons toolbar on main window"
+msgstr ""
+
+msgid "If you have already donated to support FileOptimizer development, enter here the email address or name you used"
+msgstr ""
+
+msgid "&Enable cache"
+msgstr ""
+
+msgid "Enable cache of already optimized files to automatically skip them."
+msgstr ""
+
+msgid "&Allow duplicates"
+msgstr ""
+
+msgid "Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."
+msgstr ""
+
+msgid "&Clear when complete"
+msgstr ""
+
+msgid "Automatically clear file list when optimization is completed."
+msgstr ""
+
+msgid "&Shutdown when done"
+msgstr ""
+
+msgid "Shutdown computer when optimization completes."
+msgstr ""
+
+msgid "&Beep when done"
+msgstr ""
+
+msgid "Beep the speaker when optimization completes."
+msgstr ""
+
+msgid "If not empty specified directory will be used for temporary storage instead of system's %TEMP%."
+msgstr ""
+
+msgid "&Allow multiple instances"
+msgstr ""
+
+msgid "Allow having more than one FileOptimizer instance. If not, a warning will appear."
+msgstr ""
+
+msgid "If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included."
+msgstr ""
+
+msgid "Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded."
+msgstr ""
+
+msgid "&Do not use recycle bin"
+msgstr ""
+
+msgid "When checked original files will not be backed up in the system trashcan."
+msgstr ""
+
+msgid "Debugging level to output on program log."
+msgstr ""
+
+msgid "Automatically check for program updates."
+msgstr ""
+
+msgid "Process priority from most conservative to best performance."
+msgstr ""
+
+msgid "Optimization level from best speed to best compression."
+msgstr ""
+
+msgid "&Keep file attributes"
+msgstr ""
+
+msgid "Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."
+msgstr ""
+
+msgid "&Close"
+msgstr ""
+
