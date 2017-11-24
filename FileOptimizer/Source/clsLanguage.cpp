@@ -61,6 +61,11 @@ void __fastcall clsLanguage::LoadLanguage(String psPath)
 		{
 			mlstLanguage->LoadFromFile(psPath, TEncoding::Unicode);
 		}
+		if (clsUtil::ExistsFile(_T("1033.po")))
+		{
+			mlstTranslate->LoadFromFile("1033.po", TEncoding::Unicode);
+		}
+
 	}
 }
 
