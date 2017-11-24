@@ -101,7 +101,7 @@ void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 void clsLanguage::EnumerateControls(TComponent *poControl)
 {
 	//Missing main menu and TLabel
-	String s = poControl->Name;
+	//String s = poControl->Name;
 
 	//TForm
 	{
@@ -278,35 +278,37 @@ TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText, TCHAR *pacPath)
 // ---------------------------------------------------------------------------
 String __fastcall clsLanguage::Get(String psText, String psPath)
 {
-	if (psPath == "")
-	{
-		psPath = GetLanguagePath();
-	}
-	if (psPath != "1033.po")
-	{
-		Set(psText);
-	}
-
+	TStringList *lstTemp;
 
 	if (!mlstLanguage)
 	{
 		LoadLanguage();
 	}
 
+	if (psPath != "1033.po")
+	{
+		lstTemp = mlstLanguage;
+		Set(psText);
+	}
+	else
+	{
+		lstTemp = mlstTranslate;
+	}
+
 	//Search for text to be translated
 	String sSearch = "msgid \"" + psText + "\"";
 
-	int iLine = mlstLanguage->IndexOf(sSearch);
+	int iLine = lstTemp->IndexOf(sSearch);
 	if (iLine >= 0)
 	{
 		String sLine;
 		//Skip lines not starting with mgstr
 		do
 		{
-			sLine = mlstLanguage->Strings[iLine];
+			sLine = lstTemp->Strings[iLine];
 			iLine++;
 		}
-		while ((PosEx("msgstr \"", sLine) <= 0) && (iLine < mlstLanguage->Count));
+		while ((PosEx("msgstr \"", sLine) <= 0) && (iLine < lstTemp->Count));
 		psText = sLine;
 		psText = psText.SubString(8, psText.Length() - 10);	//Remove first msgstr \" and last quote and return
 		psText = ReplaceStr(psText, "\\\\", "\\");			//Unescape PO
@@ -325,6 +327,7 @@ void __fastcall clsLanguage::Set(String psText)
 {
 	if (psText != "")
 	{
+		//String s = Get(psText, "1033.po");
 		if (Get(psText, "1033.po") != "")
 		{
 			//Check if already exists
