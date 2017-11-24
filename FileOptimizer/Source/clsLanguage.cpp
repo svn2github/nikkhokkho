@@ -93,9 +93,9 @@ void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 
 
 // ---------------------------------------------------------------------------
-void clsLanguage::EnumerateControls(TWinControl *poControl)
+void clsLanguage::EnumerateControls(TComponent *poControl)
 {
-    //Missing main menu and TLabel
+	//Missing main menu and TLabel
 	String s = poControl->Name;
 
 	//TForm
@@ -190,23 +190,13 @@ void clsLanguage::EnumerateControls(TWinControl *poControl)
 			oControl->Hint = Get(oControl->Hint);
 		}
 	}
-	//TMainMenu
+	//TMenuItem
 	{
-		TMainMenu *oControl = dynamic_cast<TMainMenu *>(poControl);
+		TMenuItem *oControl = dynamic_cast<TMenuItem *>(poControl);
 		if (oControl)
 		{
-			for (int iMenu = oControl->Items->Count; iMenu >= 0; iMenu--)
-			{
-				/*
-				TMenuItem *oMenu = dynamic_cast<TMenuItem *>(oControl->Items[iMenu]);
-				if (oMenu)
-				{
-					oMenu->Caption = Get(oMenu->Caption);
-					oMenu->Hint = Get(oMenu->Hint);
-					EnumerateControls(oMenu);
-				}
-                */
-			}
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
 		}
 	}
 	//TToolBar
@@ -229,32 +219,33 @@ void clsLanguage::EnumerateControls(TWinControl *poControl)
 			}
 		}
 	}
-	//TPageControl
+	//TAction
 	{
-		TPageControl *oControl = dynamic_cast<TPageControl *>(poControl);
+		TAction *oControl = dynamic_cast<TAction *>(poControl);
 		if (oControl)
 		{
-			for (int iPage = oControl->PageCount - 1; iPage >= 0; iPage--)
-			{
-				TTabSheet *oPage = dynamic_cast<TTabSheet *>(oControl->Pages[iPage]);
-				if (oPage)
-				{
-					oPage->Caption = Get(oPage->Caption);
-					oPage->Hint = Get(oPage->Hint);
-					EnumerateControls(oPage);
-				}
-			}
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
+	//TTabSheet
+	{
+		TTabSheet *oControl = dynamic_cast<TTabSheet *>(poControl);
+		if (oControl)
+		{
+			oControl->Caption = Get(oControl->Caption);
+			oControl->Hint = Get(oControl->Hint);
 		}
 	}
 
 
 	//Childs
-	for (int iControl = poControl->ControlCount - 1; iControl >= 0; iControl--)
+	for (int iControl = poControl->ComponentCount - 1; iControl >= 0; iControl--)
 	{
-		TWinControl *oControl = dynamic_cast<TWinControl *>(poControl->Controls[iControl]);
+		TComponent *oControl = dynamic_cast<TComponent *>(poControl->Components[iControl]);
 		if (oControl)
 		{
-            String q = oControl->Name;
+			String q = oControl->Name;
 			EnumerateControls(oControl);
 		}
 	}
@@ -264,7 +255,15 @@ void clsLanguage::EnumerateControls(TWinControl *poControl)
 // ---------------------------------------------------------------------------
 TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText, TCHAR *pacPath)
 {
-	String sRes = Get((String) pacText, (String) pacPath);
+	String sRes;
+	if (pacPath)
+	{
+		sRes = Get((String) pacText, (String) pacPath);
+	}
+	else
+	{
+		sRes = Get((String) pacText, "");
+	}
 	return(sRes.c_str());
 }
 
@@ -345,9 +344,9 @@ void __fastcall clsLanguage::Set(String psText)
 				psText = ReplaceStr(psText, "\r", "\\r");
 				psText = ReplaceStr(psText, "\t", "\\t");
 				psText = ReplaceStr(psText, "\"", "\\\"");
-				psText = "msgid \"" + psText + "\"\n";
+				psText = "msgid \"" + psText + "\"";
 				mlstTranslate->Add(psText);				
-				mlstTranslate->Add("msgstr \"\"");
+				mlstTranslate->Add("msgstr \"\"\n");
 			}
 		}
 	}
