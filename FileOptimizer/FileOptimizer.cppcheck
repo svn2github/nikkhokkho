@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="1">
+    <analyze-all-vs-configs>true</analyze-all-vs-configs>
+    <includedir>
+        <dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/"/>
+	<dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/rtl/"/>
+	<dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/sdk/"/>
+	<dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/vcl/"/>
+    </includedir>
+    <defines>
+        <define name="PATH_MAX=256"/>
+    </defines>
     <paths>
         <dir name="./"/>
     </paths>
     <exclude>
-        <path name="gifsicle/"/>
-        <path name="jpegoptim/"/>
-        <path name="jsmin/"/>
-        <path name="mp4v2/"/>
-	<path name="sqlite/"/>
+        <path name="Source/gifsicle/"/>
+        <path name="Source/jpegoptim/"/>
+        <path name="Source/jsmin/"/>
+        <path name="Source/mp4v2/"/>
+        <path name="Source/sqlite/"/>
+        <path name="Source/gifsicle-lossy/"/>
     </exclude>
+    <libraries>
+        <library>windows</library>
+    </libraries>
+    <addons>
+        <addon>threadsafety</addon>
+        <addon>y2038</addon>
+        <addon>cert</addon>
+    </addons>
 </project>
