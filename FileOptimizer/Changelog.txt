@@ -1,13 +1,7 @@
 Add missing controls recursively
-Save Stringlist
-Call SaveStringList
-Dll
-Ítem desactivado
 Tlabel
 Enumerar todos los controles
-Idioma o idioma primario
 https://bitbucket.org/chromiumembedded/cef
-Webbrowser Quit
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
@@ -151,10 +145,10 @@ ndo
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
-- mutool 1.11 - http://mupdf.com/downloads/
+- mutool 1.12 RC1 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.92e - http://css-ig.net/pingo
+- pingo 0.92g - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.2 - http://www.pngquant.org
@@ -178,7 +172,9 @@ X.XX - YYYY
 - Delay load SHCORE.DLL to prevent startup errors under Wine (trlkly #25).
 - Optimized precompiled headers.
 - Updated TruePNG to 0.6.2.4 (Mike).
-
+- Updated pingo to 0.92g x86 and x64 versions.
+- Updated to mutool 1.12 RC1.
+- Some minor optimizations and code cleanup.
 
 
 11.40 - 2017/11/21

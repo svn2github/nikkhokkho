@@ -57,22 +57,10 @@ void __fastcall clsLanguage::LoadLanguage(String psPath)
 		{
 			psPath = GetLanguagePath();
 		}
-		try
+		if (clsUtil::ExistsFile(psPath.c_str()))
 		{
-			mlstLanguage->LoadFromFile(psPath);
+			mlstLanguage->LoadFromFile(psPath, TEncoding::Unicode);
 		}
-		catch (Exception &excE)
-		{
-		}
-		
-		try
-		{
-			mlstTranslate->LoadFromFile("1033.po");
-		}
-		catch (Exception &excE)
-		{
-		}
-		
 	}
 }
 
@@ -86,9 +74,9 @@ void __fastcall clsLanguage::SaveLanguage(void)
 		try
 		{
 
-			mlstTranslate->SaveToFile("1033.po");
+			mlstTranslate->SaveToFile("1033.po", TEncoding::Unicode);
 		}
-		catch (Exception &excE)
+		catch (EFCreateError &excE)
 		{
 		}	
 	}

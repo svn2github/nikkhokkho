@@ -40,6 +40,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	clsLanguage::TranslateForm(this);
 
+	Caption = Application->Name;
 	Icon = Application->Icon;
 	lblCopyright->Hint = KS_APP_URL;
 
@@ -73,6 +74,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SaveForm(this);
 	clsLanguage::SaveLanguage();
 	SaveOptions();
+	webAds->Stop();
 }
 
 
@@ -849,7 +851,6 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 {
 	gbStop = true;
 	Hide();
-	webAds->Stop();
 	Close();
 }
 

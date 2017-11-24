@@ -2,7 +2,6 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   ActiveControl = grdFiles
-  Caption = 'FileOptimizer'
   ClientHeight = 415
   ClientWidth = 814
   Color = clWindow
@@ -358,34 +357,26 @@ object frmMain: TfrmMain
         Items = <
           item
             Action = actOptimize
-            ImageIndex = 5
             ShortCut = 16463
           end
           item
             Action = actStop
-            ImageIndex = 8
           end
           item
             Action = actOptions
-            Caption = 'Op&tions...'
-            ImageIndex = 6
           end>
       end
       item
         Items = <
           item
             Action = actInformation
-            ImageIndex = 12
             ShortCut = 16457
           end
           item
             Action = actAbout
-            ImageIndex = 1
           end
           item
             Action = actDonate
-            Caption = '&Donate...'
-            ImageIndex = 9
             ShortCut = 16452
           end>
       end
@@ -399,26 +390,21 @@ object frmMain: TfrmMain
             Items = <
               item
                 Action = actOptimize
-                ImageIndex = 5
                 ShortCut = 16463
               end
               item
                 Action = actStop
-                ImageIndex = 8
               end
               item
                 Action = actAdd
-                ImageIndex = 4
                 ShortCut = 8237
               end
               item
                 Action = actRemove
-                ImageIndex = 3
                 ShortCut = 8238
               end
               item
                 Action = actClear
-                ImageIndex = 0
                 ShortCut = 16430
               end
               item
@@ -426,18 +412,13 @@ object frmMain: TfrmMain
               end
               item
                 Action = actInformation
-                ImageIndex = 2
                 ShortCut = 16457
               end
               item
                 Action = actAbout
-                Caption = 'A&bout...'
-                ImageIndex = 1
               end
               item
                 Action = actDonate
-                Caption = '&Donate...'
-                ImageIndex = 9
                 ShortCut = 16452
               end
               item
@@ -445,7 +426,6 @@ object frmMain: TfrmMain
               end
               item
                 Action = actExit
-                ImageIndex = 7
                 ShortCut = 16465
               end>
             Action = actAbout
@@ -458,27 +438,21 @@ object frmMain: TfrmMain
         Items = <
           item
             Action = actAdd
-            ImageIndex = 4
             ShortCut = 8237
           end
           item
             Action = actRemove
-            ImageIndex = 3
             ShortCut = 8238
           end
           item
             Action = actClear
-            ImageIndex = 0
             ShortCut = 16430
           end
           item
             Action = actOpen
-            ImageIndex = 11
           end
           item
             Action = actOpenFolder
-            Caption = 'O&pen containing folder...'
-            ImageIndex = 10
           end>
       end>
     Images = imgMain
@@ -584,7 +558,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D0011009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1142,7 +1116,6 @@ object frmMain: TfrmMain
       end
       object mnuFileOpenSelected: TMenuItem
         Action = actOpen
-        Caption = '&Open selected files...'
       end
       object mnuFileOpenFolder: TMenuItem
         Action = actOpenFolder
