@@ -15,6 +15,7 @@ class clsLanguage
 	public:
 		static const TCHAR * __fastcall GetLanguagePath(void);
 		static void __fastcall LoadLanguage(String psPath = "");
+		static void __fastcall SaveLanguage(void);
 		static void __fastcall TranslateForm(TForm *pfrmForm);
 		static void EnumerateControls(TWinControl *poControl);
 		static String __fastcall Get(String psText, String psPath = "");

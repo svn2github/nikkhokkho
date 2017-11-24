@@ -5,7 +5,8 @@
 // ---------------------------------------------------------------------------
 #include "clsLanguage.h"
 
-static TStringList *mlstLanguage = NULL;
+TStringList *mlstLanguage = NULL;
+TStringList *mlstTranslate = NULL;
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,11 +47,50 @@ void __fastcall clsLanguage::LoadLanguage(String psPath)
 		mlstLanguage = new TStringList();
 		mlstLanguage->CaseSensitive = true;
 		mlstLanguage->Duplicates = System::Classes::dupAccept;
+
+		mlstTranslate = new TStringList();
+		mlstTranslate->CaseSensitive = true;
+		mlstTranslate->Duplicates = System::Classes::dupAccept;
+
+
 		if (psPath == "")
 		{
 			psPath = GetLanguagePath();
 		}
-		mlstLanguage->LoadFromFile(psPath);
+		try
+		{
+			mlstLanguage->LoadFromFile(psPath);
+		}
+		catch (Exception &excE)
+		{
+		}
+		
+		try
+		{
+			mlstTranslate->LoadFromFile("1033.po");
+		}
+		catch (Exception &excE)
+		{
+		}
+		
+	}
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsLanguage::SaveLanguage(void)
+{
+	if (mlstTranslate)
+	{
+		try
+		{
+
+			mlstTranslate->SaveToFile("1033.po");
+		}
+		catch (Exception &excE)
+		{
+		}	
 	}
 }
 
@@ -283,6 +323,7 @@ String __fastcall clsLanguage::Get(String psText, String psPath)
 		psText = ReplaceStr(psText, "\\t", "\t");
 		psText = ReplaceStr(psText, "\\\"", "\"");
 	}
+    return(psText);
 }
 
 
@@ -295,34 +336,30 @@ void __fastcall clsLanguage::Set(String psText)
 		if (Get(psText, "1033.po") != "")
 		{
 			//Check if already exists
-			FILE *pLanguage = _tfopen(_T("1033.po"), _T("r"));
-			if (pLanguage)
+			if (mlstTranslate->Count <= 0)
 			{
-				fclose(pLanguage);
-				pLanguage = _tfopen(_T("1033.po"), _T("a"));
+				//Write header
+				mlstTranslate->Add("# Language ID: 1033 (0x0409)");
+				mlstTranslate->Add("# Language Name: English - United States");
+				mlstTranslate->Add("\"Project-Id-Version: " + Application->Name + " " + (String) clsUtil::ExeVersion(Application->ExeName.c_str()) + "\"");
+				mlstTranslate->Add("\"POT-Creation-Date: " + (String) __DATE__ + "\"");
+				mlstTranslate->Add("\"Language: en_US\"");
+				mlstTranslate->Add("\"Last-Translator: Javier Gutiérrez Chamorro\"");
+				mlstTranslate->Add("\"Language-Team: Javier Gutiérrez Chamorro\"");
+				mlstTranslate->Add("\"Plural-Forms: nplurals=2; plural=(n != 1);\"");
+				mlstTranslate->Add("");
 			}
 			else
 			{
-				//Write header
-				pLanguage = _tfopen(_T("1033.po"), _T("a"));
-				if (pLanguage)
-				{
-					String sHeader = "# Language ID: 1033 (0x0409)\n# Language Name: English - United States\n\"Project-Id-Version: " + Application->Name + " " + (String) clsUtil::ExeVersion(Application->ExeName.c_str()) + "\"\n\"POT-Creation-Date: " + (String) __DATE__ + "\"\n\"Language: en_US\"\n""Last-Translator: Javier Gutiérrez Chamorro\"\n\"Language-Team: Javier Gutiérrez Chamorro\"\n\"Plural-Forms: nplurals=2; plural=(n != 1);\"\n\n";
-					_fputts(sHeader.c_str(), pLanguage);
-				}
-			}
-			//Write text
-			if (pLanguage)
-			{
+				//Write text
 				psText = ReplaceStr(psText, "\\", "\\\\");			//Escape PO
 				psText = ReplaceStr(psText, "\n", "\\n");
 				psText = ReplaceStr(psText, "\r", "\\r");
 				psText = ReplaceStr(psText, "\t", "\\t");
 				psText = ReplaceStr(psText, "\"", "\\\"");
 				psText = "msgid \"" + psText + "\"\n";
-				_fputts(psText.c_str(), pLanguage);
-				_fputts(_T("msgstr \"\"\n\n"), pLanguage);
-				fclose(pLanguage);
+				mlstTranslate->Add(psText);				
+				mlstTranslate->Add("msgstr \"\"");
 			}
 		}
 	}

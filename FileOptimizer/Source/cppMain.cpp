@@ -71,6 +71,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 {
 	clsUtil::SaveForm(this);
+	clsLanguage::SaveLanguage();
 	SaveOptions();
 }
 

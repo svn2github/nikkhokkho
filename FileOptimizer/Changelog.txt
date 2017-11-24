@@ -1,6 +1,13 @@
-Translate Set to use TTringlist
-Add missing controls
-
+Add missing controls recursively
+Save Stringlist
+Call SaveStringList
+Dll
+Ítem desactivado
+Tlabel
+Enumerar todos los controles
+Idioma o idioma primario
+https://bitbucket.org/chromiumembedded/cef
+Webbrowser Quit
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
@@ -168,6 +175,7 @@ X.XX - YYYY
 - Allow reading INI options from all users if available.
 - Made INI parsing stronger against errors.
 - Improved uninstaller to remove also .INI and .LOG files on user profile.
+- Delay load SHCORE.DLL to prevent startup errors under Wine (trlkly #25).
 - Optimized precompiled headers.
 - Updated TruePNG to 0.6.2.4 (Mike).
 
