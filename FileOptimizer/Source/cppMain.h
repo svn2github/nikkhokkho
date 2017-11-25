@@ -117,7 +117,7 @@ struct udtOptions
 	TCHAR acExcludeMask[128];
 	TCHAR acDonator[128];
 	TCHAR acDonation[128];
-	TCHAR acDisablePluginMask[128];
+	TCHAR acDisablePluginMask[512];
 	bool bBeepWhenDone;
 	bool bShutdownWhenDone;
 	bool bAlwaysOnTop;

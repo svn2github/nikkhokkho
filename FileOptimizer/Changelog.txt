@@ -167,6 +167,7 @@ X.XX - YYYY
 - Hardened buffers in update checker (Tom B, Abdulaziz Alnasi).
 - Implemented ability to read options from registry to prevent users changing them in corporate environments. It will never write in the registry nevertheless (srobert698).
 - Allow reading INI options from all users if available.
+- Increased disable plugin mask to 512 characters (olavrb).
 - Made INI parsing stronger against errors.
 - Improved uninstaller to remove also .INI and .LOG files on user profile.
 - Delay load SHCORE.DLL to prevent startup errors under Wine (trlkly #25).

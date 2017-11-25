@@ -410,7 +410,7 @@ object frmOptions: TfrmOptions
           'icolon as separator.'
         AutoSize = False
         HideSelection = False
-        MaxLength = 127
+        MaxLength = 511
         ParentShowHint = False
         ShowHint = True
         TabOrder = 0
