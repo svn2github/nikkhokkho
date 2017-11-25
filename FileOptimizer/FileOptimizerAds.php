@@ -21,7 +21,7 @@
 		$iRnd = mt_rand(0, 100);
 		$iCont++;
 
-		if ($iRnd < 1)
+		if ($iRnd < 2)
 		{
 			if ($iHeight >= 90)
 			{
@@ -34,7 +34,7 @@
 				$sBanner = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6958213404940013" data-ad-slot="8676613408" data-ad-format="auto"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 			}
 		}
-		else if ($iRnd < 2)
+		else if ($iRnd < 4)
 		{
 			if ($iHeight >= 90)
 			{
