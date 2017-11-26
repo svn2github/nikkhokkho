@@ -168,6 +168,7 @@ X.XX - YYYY
 - Made INI parsing stronger against errors.
 - Improved uninstaller to remove also .INI and .LOG files on user profile.
 - Delay load SHCORE.DLL to prevent startup errors under Wine (trlkly #25).
+- Fixed ads were loaded even if hidden (Special).
 - Added -perfect to mozjpegtran (Psykauze).
 - Optimized precompiled headers.
 - Updated TruePNG to 0.6.2.4 (Mike).

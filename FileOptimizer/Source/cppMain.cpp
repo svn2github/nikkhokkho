@@ -56,12 +56,8 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	actClearExecute(Sender);
 	FormResize(Sender);
+	
 	UpdateTheme();
-
-	webAds->Hide();
-	//Hidding is not enought for it to disapear
-	webAds->Height = 0;
-	UpdateAds();
 
 	//GetSystemInfo(&gudtSystemInfo);
 }
@@ -2193,7 +2189,6 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		{
 			CheckForUpdates(true);
 		}
-        UpdateTheme();
 	}
 	//1 second: Process command-line arguments
 	else if (tmrMain->Interval >= 1000)
@@ -3190,7 +3185,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 
 	//Ads require internet connection, and Internet Explorer 9 or later, so Vista or newer
 	unsigned int iWindowsVersion = clsUtil::GetWindowsVersion();
-	if ((InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
+	if ((webAds->Visible) && (InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
 	{
 		unsigned int iBrowserEmulation;
 		//7, 8 and 10 IE11
@@ -3212,6 +3207,9 @@ void __fastcall TfrmMain::UpdateAds(void)
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
+
+		webAds->Height = 90;
+		webAds->Show();
 	}
 	else
 	{
@@ -3227,6 +3225,8 @@ void __fastcall TfrmMain::UpdateAds(void)
 void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString Text)
 {
 	static String sLastOpenedUrl = "";
+	
+	
 	//Finished loading
 	if (!webAds->Busy)
 	{
@@ -3279,19 +3279,9 @@ void __fastcall TfrmMain::UpdateTheme(void)
 
 	tooMain->Visible = gudtOptions.bShowToolBar;
 
+    webAds->Visible = !gudtOptions.bHideAds;
 
-	if (gudtOptions.bHideAds)
-	{
-		webAds->Hide();
-		//Hidding is not enought for it to disapear
-		webAds->Height = 0;
-		//webAds->Stop();
-	}
-	else
-	{
-		webAds->Height = 90;
-		webAds->Show();
-	}
+    UpdateAds();
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);
