@@ -1,12 +1,13 @@
-// --------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
  1.00. 22/11/2017. FileOptimizer. Initial version
  */
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #include "clsLanguage.h"
 
-TStringList *mlstLanguage = NULL;
-TStringList *mlstTranslate = NULL;
+
+THashedStringList *mlstLanguage = NULL;
+THashedStringList *mlstTranslate = NULL;
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -19,17 +20,19 @@ const TCHAR * __fastcall clsLanguage::GetLanguagePath(void)
 	if (acPath[0] == NULL)
 	{
 		LANGID iLanguage = GetSystemDefaultUILanguage();
-
-		_itot(iLanguage, acPath, 10);
-		_tcscat(acPath, _T(".po"));
-
-		if (!clsUtil::ExistsFile(acPath))
+		//Never load en-US because is built-int
+		if (iLanguage != 1033)
 		{
-			_itot(PRIMARYLANGID(iLanguage), acPath, 10);
+			_itot(iLanguage, acPath, 10);
 			_tcscat(acPath, _T(".po"));
 			if (!clsUtil::ExistsFile(acPath))
 			{
-				_tcscpy(acPath, _T("0.po"));
+				_itot(PRIMARYLANGID(iLanguage), acPath, 10);
+				_tcscat(acPath, _T(".po"));
+				if (!clsUtil::ExistsFile(acPath))
+				{
+					_tcscpy(acPath, _T("0.po"));
+				}
 			}
 		}
 	}
@@ -44,11 +47,11 @@ void __fastcall clsLanguage::LoadLanguage(String psPath)
 
 	if (!mlstLanguage)
 	{
-		mlstLanguage = new TStringList();
+		mlstLanguage = new THashedStringList();
 		mlstLanguage->CaseSensitive = true;
 		mlstLanguage->Duplicates = System::Classes::dupAccept;
 
-		mlstTranslate = new TStringList();
+		mlstTranslate = new THashedStringList();
 		mlstTranslate->CaseSensitive = true;
 		mlstTranslate->Duplicates = System::Classes::dupAccept;
 
@@ -65,7 +68,6 @@ void __fastcall clsLanguage::LoadLanguage(String psPath)
 		{
 			mlstTranslate->LoadFromFile("1033.po", TEncoding::Unicode);
 		}
-
 	}
 }
 
@@ -74,11 +76,11 @@ void __fastcall clsLanguage::LoadLanguage(String psPath)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall clsLanguage::SaveLanguage(void)
 {
-	if (mlstTranslate)
+    //Need to save language?
+	if ((mlstTranslate) && (StrStrI(GetCommandLine(), _T("/SAVELANGUAGE")) != NULL))
 	{
 		try
 		{
-
 			mlstTranslate->SaveToFile("1033.po", TEncoding::Unicode);
 		}
 		catch (EFCreateError &excE)
@@ -278,14 +280,16 @@ TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText, TCHAR *pacPath)
 // ---------------------------------------------------------------------------
 String __fastcall clsLanguage::Get(String psText, String psPath)
 {
-	TStringList *lstTemp;
+	THashedStringList *lstTemp;
 
 	if (!mlstLanguage)
 	{
 		LoadLanguage();
 	}
 
-	if (psPath != "1033.po")
+
+    //If need to update 1033.po
+	if ((StrStrI(GetCommandLine(), _T("/SAVELANGUAGE")) != NULL) && (psPath != "1033.po"))
 	{
 		lstTemp = mlstLanguage;
 		Set(psText);
@@ -298,8 +302,10 @@ String __fastcall clsLanguage::Get(String psText, String psPath)
 	//Search for text to be translated
 	String sSearch = "msgid \"" + psText + "\"";
 
-	int iLine = lstTemp->IndexOf(sSearch);
-	if (iLine >= 0)
+	//int iLine = lstTemp->IndexOf(sSearch);
+	//if (iLine >= 0)
+	int iLine;
+	if (lstTemp->Find(sSearch, iLine))
 	{
 		String sLine;
 		//Skip lines not starting with mgstr

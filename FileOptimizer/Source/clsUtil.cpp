@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
  3.47. 22/11/2017. FileOptimizer. Added EscapeIniValue, UnescapeIniValue, EscapeIniKey, UnescapeIniKey.
  3.46. 21/11/2017. FileOptimizer. Added GetRegistryPath.
@@ -16,8 +16,10 @@
  2.00. 09/08/2012. FileOptimizer. Added clsUtil static class wrapper, optimized SizeFile, mapped to TCHAR and merged clsPreferences common functions
  1.00. 18/08/2011. TBClamAV. Initial version
  */
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #include "clsUtil.h"
+
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len)
@@ -35,7 +37,7 @@ void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *
 			{
 				return (p);
 			}
-			else  
+			else
 			{
 				p++;
 			}
@@ -1264,6 +1266,7 @@ bool __fastcall clsUtil::SaveForm(TForm *pfrmForm)
 	SetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), (int) pfrmForm->DefaultMonitor);
 	return (true);
 }
+
 
 
 // ---------------------------------------------------------------------------
