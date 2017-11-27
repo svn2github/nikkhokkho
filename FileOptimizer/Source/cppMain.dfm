@@ -57,7 +57,7 @@ object frmMain: TfrmMain
     Left = 3
     Top = 57
     Width = 808
-    Height = 26
+    Height = 52
     Align = alTop
     Alignment = taCenter
     AutoSize = False
@@ -73,8 +73,6 @@ object frmMain: TfrmMain
     ShowHint = True
     Layout = tlCenter
     WordWrap = True
-    ExplicitLeft = 0
-    ExplicitWidth = 728
   end
   object tooMain: TToolBar
     AlignWithMargins = True
@@ -211,9 +209,9 @@ object frmMain: TfrmMain
   end
   object grdFiles: TStringGrid
     Left = 0
-    Top = 86
+    Top = 112
     Width = 814
-    Height = 220
+    Height = 194
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
       'y, click on the right button context menu to proceed. All proces' +
@@ -234,6 +232,8 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
+    ExplicitTop = 86
+    ExplicitHeight = 220
     ColWidths = (
       512
       512
@@ -456,7 +456,7 @@ object frmMain: TfrmMain
     Left = 560
     Top = 304
     Bitmap = {
-      494C01010D001100B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D001100B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

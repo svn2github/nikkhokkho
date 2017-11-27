@@ -272,9 +272,9 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 		while (FindNextFile(hFindFile, &udtFindFileData) != 0);
 		FindClose(hFindFile);
 
-		String sPrompt;
-		sPrompt.printf(_(_T("Optimization is still running. Do you want to stop and exit %s?")), Application->Name.c_str());
-		if ((bRunning) && (clsUtil::MsgBox(Handle, sPrompt.c_str(), _(_T("Exit")), MB_YESNO | MB_ICONQUESTION) == ID_NO))
+		String sCaption;
+		sCaption.printf(_(_T("Optimization is still running. Do you want to stop and exit %s?")), Application->Name.c_str());
+		if ((bRunning) && (clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Exit")), MB_YESNO | MB_ICONQUESTION) == ID_NO))
 		{
 			CanClose = false;
 			return;
@@ -582,8 +582,7 @@ void __fastcall TfrmMain::actAddFolderExecute(TObject *Sender)
 {
 	String sDirectory = "";
 
-	//if (SelectDirectory("Add folder", sDirectory, TSelectDirOpts() << sdAllowCreate << sdPerformCreate << sdPrompt, NULL))
-	if (SelectDirectory("Add folder", _T(""), sDirectory, TSelectDirExtOpts() << sdNewFolder << sdShowEdit << sdShowShares << sdNewUI << sdValidateDir, this))
+	if (SelectDirectory(_("Add folder"), _T(""), sDirectory, TSelectDirExtOpts() << sdNewFolder << sdShowEdit << sdShowShares << sdNewUI << sdValidateDir, this))
 	{
 		Screen->Cursor = crAppStart;
 		grdFiles->Enabled = false;  //Prevent grid modifications while adding files
@@ -759,7 +758,6 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	unsigned int iPercentBytes;
 	if (lTotalBytes != 0)
 	{
-		//iPercentBytes = ((unsigned long long) lTotalBytes - lSavedBytes) * 100 / lTotalBytes;
 		iPercentBytes = ((unsigned int) ((double) (lTotalBytes - lSavedBytes) / lTotalBytes * 100));
 	}
 	else
@@ -897,14 +895,14 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		}
 		else
 		{
-			sText += "and " + sExtension + " file formats among many others.";
+			sText += sText.sprintf(_(_T("and %s file formats among many others.")), sExtension.c_str());
 		}
 	}
 	delete lstTemp;
 	
-	sText = Application->Name + " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: " + sText;
+	sText = Application->Name + _(" is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: ") + sText;
 
-	sText += "\n\nDONATOR INFORMATION\n";
+	sText += _("\n\nDONATOR INFORMATION\n");
 	if (gudtOptions.acDonation[0] != NULL)
 	{
 		sText += (String) gudtOptions.acDonation;
@@ -912,20 +910,25 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	}
 	else
 	{
-		sText += "Have not donated yet!";
+		sText += _("Have not donated yet!");
 
 	}
-	sText += "\nUser since " + Application->Name + " " + (String) gudtOptions.acVersion;
+	sText += sText.sprintf(_(_T("\nUser since %s %s")), Application->Name.c_str(), gudtOptions.acVersion);
 
 
 	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) gudtOptions.lStatTime * 1000, sizeof(acTime) - 1);
-	sText += "\n\nUSAGE STATISTICS\n"
-		"- Time: " + (String) acTime + "\n"
-		"- Opens: " + FormatNumberThousand(gudtOptions.iStatOpens) + "\n"
-		"- Files: " + FormatNumberThousand(gudtOptions.iStatFiles) + "\n"
-		"- Total: " + FormatNumberThousandUnit(gudtOptions.lStatTotalBytes) + "\n"
-		"- Saved: " + FormatNumberThousandUnit(gudtOptions.lStatSavedBytes) + "\n";
-	clsUtil::MsgBox(Handle, sText.c_str(), _T("Information"), MB_ICONINFORMATION | MB_OK);
+	sText += sText.sprintf(_(_T("\n\nUSAGE STATISTICS\n"
+		"- Time: %s\n"
+		"- Opens: %s\n"
+		"- Files: %s\n"
+		"- Total: %s\n"
+		"- Saved: %s\n")),
+		acTime, 
+		FormatNumberThousand(gudtOptions.iStatOpens).c_str(),
+		FormatNumberThousandUnit(gudtOptions.lStatTotalBytes).c_str(),
+		FormatNumberThousandUnit(gudtOptions.lStatSavedBytes).c_str());
+
+	clsUtil::MsgBox(Handle, sText.c_str(), _(_T("Information")), MB_ICONINFORMATION | MB_OK);
 }
 
 
@@ -1070,7 +1073,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 	
 
 	//Skip it if already in optimization cache
-	if ((gudtOptions.bEnableCache) && (grdFiles->Cells[KI_GRID_STATUS][(int) iCount] == "Optimized"))
+	if ((gudtOptions.bEnableCache) && (grdFiles->Cells[KI_GRID_STATUS][(int) iCount] == _("Optimized")))
 	{
 		bExcluded = true;
 	}
@@ -1080,7 +1083,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 	{
 		if (!gudtOptions.bDoNotUseRecycleBin)
 		{
-			grdFiles->Cells[KI_GRID_STATUS][iCount] = "Copying to Recyclebin...";
+			grdFiles->Cells[KI_GRID_STATUS][iCount] = _("Copying to Recyclebin...");
 			clsUtil::CopyToRecycleBin(sInputFile.c_str());
 		}
 
@@ -2146,14 +2149,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 	}
 
 	//If file was not processed, mark it as skipped because not supported extension, or skipped because user preference (do not process JS for instance)
-	if ((grdFiles->Cells[KI_GRID_STATUS][iCount] == "Pending") || (grdFiles->Cells[KI_GRID_STATUS][iCount] == "Copying to Recyclebin..."))
+	if ((grdFiles->Cells[KI_GRID_STATUS][iCount] == _("Pending")) || (grdFiles->Cells[KI_GRID_STATUS][iCount] == _("Copying to Recyclebin...")))
 	{
-		grdFiles->Cells[KI_GRID_STATUS][iCount] = "Skipped";
+		grdFiles->Cells[KI_GRID_STATUS][iCount] = _("Skipped");
 	}
-	else if (grdFiles->Cells[KI_GRID_STATUS][iCount] != "Optimized")
+	else if (grdFiles->Cells[KI_GRID_STATUS][iCount] != _("Optimized"))
 	{
 		unsigned int iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
-		grdFiles->Cells[KI_GRID_STATUS][iCount] = grdFiles->Cells[KI_GRID_STATUS][iCount].sprintf(_T("Done (%3d%%)."), iPercentBytes);
+		grdFiles->Cells[KI_GRID_STATUS][iCount].printf(_(_T("Done (%3d%%).")), iPercentBytes);
 
 		//Update cache
 		if (gudtOptions.bEnableCache)
@@ -2183,7 +2186,9 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		tmrMain->Enabled = false;
 		if (gudtOptions.iCheckForUpdates < 0)
 		{
-			gudtOptions.iCheckForUpdates = (clsUtil::MsgBox(Handle, ("Do you want " + Application->Name + " to automatically check for updates?").c_str(), _T("Check for updates"), MB_YESNO | MB_ICONQUESTION) == ID_YES);
+			String sCaption;
+			sCaption.printf(_(_T("Do you want %s to automatically check for updates?")), Application->Name.c_str());
+			gudtOptions.iCheckForUpdates = (clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Check for updates")), MB_YESNO | MB_ICONQUESTION) == ID_YES);
 		}
 		else if (gudtOptions.iCheckForUpdates == 1)
 		{
@@ -2384,12 +2389,12 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 						//In cache, show it as already optimized
 						if (_tcscmp(clsUtil::GetIni(_T("Cache"), ((String) iHashKey).c_str(), _T("")), _T("")) != 0)
 						{
-							lstRow->Add("Optimized"); //4: Status
+							lstRow->Add(_("Optimized")); //4: Status
 						}
 					}
 					else
 					{
-						lstRow->Add("Pending"); //4: Status
+						lstRow->Add(_("Pending")); //4: Status
 					}
 					grdFiles->Rows[(int) iRows] = lstRow;
 					delete lstRow;
@@ -2602,18 +2607,18 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
             gudtOptions.acDonation[0] = NULL;
             if ((gudtOptions.iStatOpens > 10) && (clsUtil::Random(0, 50) == 5))
 			{
-				String sPrompt;
-				sPrompt.printf(_(_T("Thank you for using my program!\n\nYou have used it %s times and have optimized %s files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.")), FormatNumberThousand(gudtOptions.iStatOpens).c_str(), FormatNumberThousand(gudtOptions.iStatFiles).c_str());
-				clsUtil::MsgBox(Handle, sPrompt.c_str(), (_("Thank you for using ") + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION, 60000);
+				String sCaption;
+				sCaption.printf(_(_T("Thank you for using my program!\n\nYou have used it %s times and have optimized %s files.\n\nYou can continue using it free of charge.\n\nIf you are happy, please contribute to the active development by donating via Paypal. It is secure, safe and convenient.\n\nDonators will receive priority support and consultancy, while those cannot be guaranteed to non-donors.")), FormatNumberThousand(gudtOptions.iStatOpens).c_str(), FormatNumberThousand(gudtOptions.iStatFiles).c_str());
+				clsUtil::MsgBox(Handle, sCaption.c_str(), (_("Thank you for using ") + Application->Name).c_str(), MB_OK|MB_ICONEXCLAMATION, 60000);
 				actDonateExecute(NULL);
 			}
 		}
 
 		if (_tcsncmp(acWide, (TCHAR *) acBuffer, 10) > 0)
 		{
-			String sPrompt;
-			sPrompt.printf(_(_T("%s version %s is available.\r\nDo you want to download it now?")), Application->Name.c_str(), Trim(acWide).c_str());
-			if (clsUtil::MsgBox(Handle, (sPrompt).c_str(), _(_T("Check updates")), MB_YESNO | MB_ICONQUESTION) == ID_YES)
+			String sCaption;
+			sCaption.printf(_(_T("%s version %s is available.\r\nDo you want to download it now?")), Application->Name.c_str(), Trim(acWide).c_str());
+			if (clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Check updates")), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
 				ShellExecute(NULL, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 			}
@@ -2621,9 +2626,9 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 		else if (!pbSilent)
 		{
 
-			String sPrompt;
-			sPrompt.printf(_(_T("You already have latest %s? version.")), Application->Name.c_str());
-			clsUtil::MsgBox(Handle, sPrompt.c_str(), _(_T("Check updates")), MB_OK|MB_ICONINFORMATION);
+			String sCaption;
+			sCaption.printf(_(_T("You already have latest %s? version.")), Application->Name.c_str());
+			clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Check updates")), MB_OK|MB_ICONINFORMATION);
 		}
 	}
 
