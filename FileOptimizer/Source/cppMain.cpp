@@ -2283,6 +2283,7 @@ void __fastcall TfrmMain::AddFilesInitializeExist(void)
 			mlstFilesExist = new THashedStringList();
 			mlstFilesExist->CaseSensitive = true;
 			mlstFilesExist->Duplicates = System::Classes::dupIgnore;
+			mlstFilesExist->Sorted = true;
 		}
 		else
 		{
@@ -2302,7 +2303,6 @@ bool __fastcall TfrmMain::AddFilesExist(String psFile)
 	if ((!gudtOptions.bAllowDuplicates) && (mlstFilesExist))
 	{
 		int iIndex = 0;
-		//bRes = (mlstFilesExist->IndexOf(psFile) > 0);
 		bRes = mlstFilesExist->Find(psFile, iIndex);
 		if (!bRes)
 		{

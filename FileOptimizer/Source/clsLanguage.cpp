@@ -7,66 +7,56 @@
 
 
 THashedStringList *mlstLanguage = NULL;
-THashedStringList *mlstTranslate = NULL;
+THashedStringList *mlst1033 = NULL;
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-const TCHAR * __fastcall clsLanguage::GetLanguagePath(void)
+void __fastcall clsLanguage::LoadLanguages(void)
 {
-	static TCHAR acPath[PATH_MAX] = _T("");
-
-
-	// Check if we already have it cached
-	if (acPath[0] == NULL)
-	{
-		LANGID iLanguage = GetSystemDefaultUILanguage();
-		//Never load en-US because is built-int
-		if (iLanguage != 1033)
-		{
-			_itot(iLanguage, acPath, 10);
-			_tcscat(acPath, _T(".po"));
-			if (!clsUtil::ExistsFile(acPath))
-			{
-				_itot(PRIMARYLANGID(iLanguage), acPath, 10);
-				_tcscat(acPath, _T(".po"));
-				if (!clsUtil::ExistsFile(acPath))
-				{
-					_tcscpy(acPath, _T("0.po"));
-				}
-			}
-		}
-	}
-	return (acPath);
-}
-
-
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsLanguage::LoadLanguage(String psPath)
-{
-
+	//If not yet loaded	
 	if (!mlstLanguage)
 	{
 		mlstLanguage = new THashedStringList();
 		mlstLanguage->CaseSensitive = true;
 		mlstLanguage->Duplicates = System::Classes::dupAccept;
 
-		mlstTranslate = new THashedStringList();
-		mlstTranslate->CaseSensitive = true;
-		mlstTranslate->Duplicates = System::Classes::dupAccept;
+		TCHAR acPath[PATH_MAX] = _T("");
 
+		// Check if we already have it cached
+		LANGID iLanguage = GetSystemDefaultUILanguage();
 
-		if (psPath == "")
+		//Never load en-US because is built-int
+		if (iLanguage != 1033)
 		{
-			psPath = GetLanguagePath();
+			//Try to load locale
+			_itot(iLanguage, acPath, 10);
+			_tcscat(acPath, _T(".po"));
+			if (clsUtil::ExistsFile(acPath))
+			{
+				mlstLanguage->LoadFromFile(acPath, TEncoding::UTF8);
+			}
+			else
+			{
+				//Try to load primary language
+				_itot(PRIMARYLANGID(iLanguage), acPath, 10);
+				_tcscat(acPath, _T(".po"));
+				if (clsUtil::ExistsFile(acPath))
+				{
+					mlstLanguage->LoadFromFile(acPath, TEncoding::UTF8);
+				}
+			}
 		}
-		if (clsUtil::ExistsFile(psPath.c_str()))
-		{
-			mlstLanguage->LoadFromFile(psPath, TEncoding::Unicode);
-		}
+	}
+
+	//Need to load language?
+	if ((!mlst1033) && (StrStrI(GetCommandLine(), _T("/SAVELANGUAGE")) != NULL))
+	{
+		mlst1033 = new THashedStringList();
+		mlst1033->CaseSensitive = true;
+		mlst1033->Duplicates = System::Classes::dupAccept;
 		if (clsUtil::ExistsFile(_T("1033.po")))
 		{
-			mlstTranslate->LoadFromFile("1033.po", TEncoding::Unicode);
+			mlst1033->LoadFromFile("1033.po", TEncoding::UTF8);
 		}
 	}
 }
@@ -77,16 +67,112 @@ void __fastcall clsLanguage::LoadLanguage(String psPath)
 void __fastcall clsLanguage::SaveLanguage(void)
 {
     //Need to save language?
-	if ((mlstTranslate) && (StrStrI(GetCommandLine(), _T("/SAVELANGUAGE")) != NULL))
+	if (mlst1033)
 	{
 		try
 		{
-			mlstTranslate->SaveToFile("1033.po", TEncoding::Unicode);
+			mlst1033->SaveToFile("1033.po", TEncoding::UTF8);
 		}
 		catch (EFCreateError &excE)
 		{
 		}	
 	}
+}
+
+
+// ---------------------------------------------------------------------------
+TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText)
+{
+	String sRes = Get((String) pacText);
+
+	return(sRes.c_str());
+}
+
+
+
+// ---------------------------------------------------------------------------
+String __fastcall clsLanguage::Search(String psText, THashedStringList *plstLanguage)
+{
+	//Search for text to be translated
+	String sSearch = "msgid \"" + psText + "\"";
+
+	//int iLine = 0;
+	int iLine = plstLanguage->IndexOf(sSearch);
+	if (iLine > 0)
+	{
+		String sLine;
+		//Skip lines not starting with mgstr
+		do
+		{
+	        iLine++;
+			sLine = plstLanguage->Strings[iLine];
+		}
+		while ((PosEx("msgstr \"", sLine) <= 0) && (iLine < plstLanguage->Count));
+		psText = sLine;
+		psText = ReplaceStr(psText, "\n", "");
+		psText = psText.SubString(9, psText.Length() - 9);	//Remove first msgstr \" and last quote
+		psText = ReplaceStr(psText, "\\\\", "\\");			//Unescape PO
+		psText = ReplaceStr(psText, "\\n", "\n");
+		psText = ReplaceStr(psText, "\\r", "\r");
+		psText = ReplaceStr(psText, "\\t", "\t");
+		psText = ReplaceStr(psText, "\\\"", "\"");
+	}
+	else
+	{
+		psText = "NOT_FOUND";
+	}
+	return(psText);
+}
+
+
+
+// ---------------------------------------------------------------------------
+String __fastcall clsLanguage::Get(String psText)
+{
+	if (psText.Length() > 0)
+	{
+		LoadLanguages();
+
+		String sTranslated;
+		//If need to update 1033.po
+		if (mlst1033)
+		{
+			//Not found in 1033.po
+			sTranslated = Search(psText, mlst1033);
+			if (sTranslated == "NOT_FOUND")
+			{
+				//Check if already exists
+				if (mlst1033->Count <= 0)
+				{
+					//Write header
+					mlst1033->Add("# Language ID: 1033 (0x0409)");
+					mlst1033->Add("# Language Name: English - United States");
+					mlst1033->Add("\"Project-Id-Version: " + Application->Name + " " + (String) clsUtil::ExeVersion(Application->ExeName.c_str()) + "\"");
+					mlst1033->Add("\"POT-Creation-Date: " + (String) __DATE__ + "\"");
+					mlst1033->Add("\"Language: en_US\"");
+					mlst1033->Add("\"Last-Translator: Javier Gutiérrez Chamorro\"");
+					mlst1033->Add("\"Language-Team: Javier Gutiérrez Chamorro\"");
+					mlst1033->Add("\"Plural-Forms: nplurals=2; plural=(n != 1);\"\n");
+				}
+				//Write text
+				sTranslated = psText;
+				sTranslated = ReplaceStr(sTranslated, "\\", "\\\\");			//Escape PO
+				sTranslated = ReplaceStr(sTranslated, "\n", "\\n");
+				sTranslated = ReplaceStr(sTranslated, "\r", "\\r");
+				sTranslated = ReplaceStr(sTranslated, "\t", "\\t");
+				sTranslated = ReplaceStr(sTranslated, "\"", "\\\"");
+				sTranslated = "msgid \"" + sTranslated + "\"";
+				mlst1033->Add(sTranslated);
+				mlst1033->Add("msgstr \"\"\n");
+			}
+		}
+		sTranslated = Search(psText, mlstLanguage);
+		if (sTranslated != "NOT_FOUND")
+		{
+			psText = sTranslated;
+		}
+	}
+	return(psText);
 }
 
 
@@ -257,112 +343,3 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 }
-
-
-// ---------------------------------------------------------------------------
-TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText, TCHAR *pacPath)
-{
-	String sRes;
-	if (pacPath)
-	{
-		sRes = Get((String) pacText, (String) pacPath);
-	}
-	else
-	{
-		sRes = Get((String) pacText, "");
-	}
-	return(sRes.c_str());
-}
-
-
-
-
-// ---------------------------------------------------------------------------
-String __fastcall clsLanguage::Get(String psText, String psPath)
-{
-	THashedStringList *lstTemp;
-
-	if (!mlstLanguage)
-	{
-		LoadLanguage();
-	}
-
-
-    //If need to update 1033.po
-	if ((StrStrI(GetCommandLine(), _T("/SAVELANGUAGE")) != NULL) && (psPath != "1033.po"))
-	{
-		lstTemp = mlstLanguage;
-		Set(psText);
-	}
-	else
-	{
-		lstTemp = mlstTranslate;
-	}
-
-	//Search for text to be translated
-	String sSearch = "msgid \"" + psText + "\"";
-
-	//int iLine = lstTemp->IndexOf(sSearch);
-	//if (iLine >= 0)
-	int iLine;
-	if (lstTemp->Find(sSearch, iLine))
-	{
-		String sLine;
-		//Skip lines not starting with mgstr
-		do
-		{
-			sLine = lstTemp->Strings[iLine];
-			iLine++;
-		}
-		while ((PosEx("msgstr \"", sLine) <= 0) && (iLine < lstTemp->Count));
-		psText = sLine;
-		psText = psText.SubString(8, psText.Length() - 10);	//Remove first msgstr \" and last quote and return
-		psText = ReplaceStr(psText, "\\\\", "\\");			//Unescape PO
-		psText = ReplaceStr(psText, "\\n", "\n");
-		psText = ReplaceStr(psText, "\\r", "\r");
-		psText = ReplaceStr(psText, "\\t", "\t");
-		psText = ReplaceStr(psText, "\\\"", "\"");
-	}
-    return(psText);
-}
-
-
-
-// ---------------------------------------------------------------------------
-void __fastcall clsLanguage::Set(String psText)
-{
-	if (psText != "")
-	{
-		//String s = Get(psText, "1033.po");
-		if (Get(psText, "1033.po") != "")
-		{
-			//Check if already exists
-			if (mlstTranslate->Count <= 0)
-			{
-				//Write header
-				mlstTranslate->Add("# Language ID: 1033 (0x0409)");
-				mlstTranslate->Add("# Language Name: English - United States");
-				mlstTranslate->Add("\"Project-Id-Version: " + Application->Name + " " + (String) clsUtil::ExeVersion(Application->ExeName.c_str()) + "\"");
-				mlstTranslate->Add("\"POT-Creation-Date: " + (String) __DATE__ + "\"");
-				mlstTranslate->Add("\"Language: en_US\"");
-				mlstTranslate->Add("\"Last-Translator: Javier Gutiérrez Chamorro\"");
-				mlstTranslate->Add("\"Language-Team: Javier Gutiérrez Chamorro\"");
-				mlstTranslate->Add("\"Plural-Forms: nplurals=2; plural=(n != 1);\"");
-				mlstTranslate->Add("");
-			}
-			else
-			{
-				//Write text
-				psText = ReplaceStr(psText, "\\", "\\\\");			//Escape PO
-				psText = ReplaceStr(psText, "\n", "\\n");
-				psText = ReplaceStr(psText, "\r", "\\r");
-				psText = ReplaceStr(psText, "\t", "\\t");
-				psText = ReplaceStr(psText, "\"", "\\\"");
-				psText = "msgid \"" + psText + "\"";
-				mlstTranslate->Add(psText);				
-				mlstTranslate->Add("msgstr \"\"\n");
-			}
-		}
-	}
-}
-

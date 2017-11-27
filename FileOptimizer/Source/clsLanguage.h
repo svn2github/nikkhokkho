@@ -13,15 +13,14 @@
 class clsLanguage
 {
 	public:
-		static const TCHAR * __fastcall GetLanguagePath(void);
-		static void __fastcall LoadLanguage(String psPath = "");
 		static void __fastcall SaveLanguage(void);
 		static void __fastcall TranslateForm(TForm *pfrmForm);
-		static void EnumerateControls(TComponent *poControl);
-		static String __fastcall Get(String psText, String psPath = "");
-		static TCHAR * __fastcall Get(TCHAR *pacText, TCHAR *pacPath = NULL);
-		static void __fastcall Set(String psText);
+		static String __fastcall Get(String psText);
+		static TCHAR * __fastcall Get(TCHAR *pacText);
 	private:
+		static void __fastcall LoadLanguages(void);
+		static void EnumerateControls(TComponent *poControl);
+		static String __fastcall Search(String psText, THashedStringList *plstLanguage);
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

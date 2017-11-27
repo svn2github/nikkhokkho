@@ -1,3 +1,5 @@
+- 1033 has duplicates
+
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
