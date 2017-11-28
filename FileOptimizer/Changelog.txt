@@ -1,5 +1,5 @@
-- Combo restaurar idioma
-- Aumentar combos
+- Aumentar combos y labels
+- No se restaura el memo
 
 
 [i]How to translate FileOptimizer in your own language?[/i]

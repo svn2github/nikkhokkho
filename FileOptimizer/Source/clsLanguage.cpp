@@ -6,8 +6,8 @@
 #include "clsLanguage.h"
 
 
-TStringList *mlstLanguage = NULL;   //Could not use THashedStringList because they are limited to a length of 256 chars
-TStringList *mlst1033 = NULL;
+THashedStringList *mlstLanguage = NULL;   //Could not use THashedStringList because they are limited to a length of 256 chars
+THashedStringList *mlst1033 = NULL;
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ void __fastcall clsLanguage::Load(unsigned int piLanguage, bool pbForce)
 	//If not yet loaded	
 	if (!mlstLanguage)
 	{
-		mlstLanguage = new TStringList();
+		mlstLanguage = new THashedStringList();
 		mlstLanguage->CaseSensitive = true;
 		mlstLanguage->Duplicates = System::Classes::dupAccept;
 
@@ -68,7 +68,7 @@ void __fastcall clsLanguage::Load(unsigned int piLanguage, bool pbForce)
 	//Need to load language?
 	if ((!mlst1033) && (StrStrI(GetCommandLine(), _T("/SAVELANGUAGE")) != NULL))
 	{
-		mlst1033 = new TStringList();
+		mlst1033 = new THashedStringList();
 		mlst1033->CaseSensitive = true;
 		mlst1033->Duplicates = System::Classes::dupAccept;
 		if (clsUtil::ExistsFile(_T("1033.po")))
@@ -110,13 +110,12 @@ const TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText)
 
 
 // ---------------------------------------------------------------------------
-String __fastcall clsLanguage::Search(String psText, TStringList *plstLanguage)
+String __fastcall clsLanguage::Search(String psText, THashedStringList *plstLanguage)
 {
 	if ((plstLanguage) && (plstLanguage->Count > 0))
 	{
 		//Search for text to be translated
-		String sSearch = "msgid \"" + psText.SubString(0, 240) + "\"";
-		sSearch = sSearch.SubString(0, 255);
+		String sSearch = "msgid \"" + psText + "\"";
 
 		//int iLine = 0;
 		int iLine = plstLanguage->IndexOf(sSearch);
@@ -249,7 +248,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		TMemo *oControl = dynamic_cast<TMemo *>(poControl);
 		if (oControl)
 		{
-			oControl->Text = Get(oControl->Text);
+			oControl->Lines->Text = Get(oControl->Lines->Text);
 			oControl->Hint = Get(oControl->Hint);
 		}
 	}

@@ -206,7 +206,7 @@ msgid "Screen: 72 dpi"
 msgstr "Pantalla: 72 ppp"
 
 msgid "None: No downsampling (Default)"
-msgstr "Ninguno: sin disminución de muestreo (predeterminado)"
+msgstr "Ninguno: sin disminución de muestreo (Defecto)"
 
 msgid "&Custom DPI"
 msgstr "&DPI personalizado"
@@ -296,7 +296,7 @@ msgid "High"
 msgstr "Alto"
 
 msgid "Low (Default)"
-msgstr "Bajo (predeterminado)"
+msgstr "Bajo (Defecto)"
 
 msgid "Enable tidy. Results in smaller files, but can happen they are not editable anymore."
 msgstr "Habilitar ordenado. Resultados en archivos más pequeños, pero puede suceder que ya no se pueden editar."
@@ -329,7 +329,7 @@ msgid "Filename only"
 msgstr "Solo nombre de archivo"
 
 msgid "Full path and Filename (Default)"
-msgstr "Ruta completa y nombre de archivo (predeterminado)"
+msgstr "Ruta completa y nombre de archivo (Defecto)"
 
 msgid "&Always on top"
 msgstr "&Siempre en la cima"
@@ -422,19 +422,19 @@ msgid "Debugging level to output on program log."
 msgstr "Nivel de depuración a la salida en el registro del programa."
 
 msgid "4: Information"
-msgstr "23 Información."
+msgstr "4: Información."
 
 msgid "3: Warning"
-msgstr "ADVERTENCIA:"
+msgstr "3: Advertencia"
 
 msgid "2: Error"
-msgstr "Error 401"
+msgstr "2: Error"
 
 msgid "1: Critical"
-msgstr "crítico"
+msgstr "1: Crítico"
 
 msgid "0: None (Default)"
-msgstr "0: ninguno (predeterminado)"
+msgstr "0: Ninguno (Defecto)"
 
 msgid "Automatically check for program updates."
 msgstr "Verifica automáticamente las actualizaciones del programa."
@@ -443,7 +443,7 @@ msgid "Never"
 msgstr "Nunca"
 
 msgid "Automatically (Default)"
-msgstr "Automáticamente (predeterminado)"
+msgstr "Automáticamente (Defecto)"
 
 msgid "Ask"
 msgstr "Pregunte"
@@ -452,7 +452,7 @@ msgid "Process priority from most conservative to best performance."
 msgstr "Prioridad de proceso del más conservador al mejor rendimiento."
 
 msgid "Realtime"
-msgstr "Tiempo real "
+msgstr "Tiempo real"
 
 msgid "Above normal"
 msgstr "Por encima de lo normal"
@@ -548,16 +548,16 @@ msgid " is an advanced file optimizer featuring a lossless (no quality loss) fil
 msgstr " es un optimizador de archivos avanzado que ofrece una reducción de tamaño de archivo sin pérdida (sin pérdida de calidad) que admite: "
 
 msgid "\n\nDONATOR INFORMATION\n"
-msgstr "\ n \ nDATOS DEL DONADOR \ n"
+msgstr "\n\nDATOS DEL DONADOR\n"
 
 msgid "Have not donated yet!"
 msgstr "¡No has donado todavía!"
 
 msgid "\nUser since %s %s"
-msgstr "\ nUsuario desde %s %s"
+msgstr "\nUsuario desde %s %s"
 
 msgid "\n\nUSAGE STATISTICS\n- Time: %s\n- Opens: %s\n- Files: %s\n- Total: %s\n- Saved: %s\n"
-msgstr "\ n \ n ESTADÍSTICAS DE USO \ n- Hora: %s \ n- Abre: %s \ n- Archivos: %s \ n- Total: %s \ n- Guardado: %s \ n"
+msgstr "\n\n ESTADÍSTICAS DE USO\n- Hora: %s\n- Abre: %s\n- Archivos: %s\n- Total: %s\n- Guardado: %s\n"
 
 msgid "Information"
 msgstr "Información"
@@ -566,7 +566,7 @@ msgid "About"
 msgstr "Sobre "
 
 msgid "Except where otherwise noted, all of the documentation and software \r\nincluded in the package is copyrighted by Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). All rights reserved.\r\n\r\nThis software is provided \"as-is,\" without any express or implied warranty.\r\nIn no event shall the author be held liable for any damages arising from the\r\nuse of this software.\r\n\r\nPermission is granted to anyone to use this software for any purpose,\r\nincluding commercial applications, and to alter and redistribute it,\r\nprovided that the following conditions are met:\r\n\r\n1. All redistributions of source code files must retain all copyright\r\n   notices that are currently in place, and this list of conditions without\r\n   modification.\r\n\r\n2. All redistributions in binary form must retain all occurrences of the\r\n   above copyright notice and web site addresses that are currently in\r\n   place (for example, in the About boxes).\r\n\r\n3. The origin of this software must not be misrepresented; you must not\r\n   claim that you wrote the original software. If you use this software to\r\n   distribute a product, an acknowledgment in the product documentation\r\n   would be appreciated but is not required.\r\n\r\n4. Modified versions in source or binary form must be plainly marked as\r\n   such, and must not be misrepresented as being the original software.\r\n"
-msgstr "Salvo que se indique lo contrario, toda la documentación y el software incluidos en el paquete son propiedad de Javier Gutiérrez Chamorro (Guti). \ R \ n \ r \ nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). Todos los derechos reservados. \ R \ n \ r \ nEste software se proporciona \ "tal cual, \" sin ninguna garantía expresa o implícita. \ N \ nEn ningún caso se hará responsable al autor de los daños que surjan de la \ r \ n \ nuse de este software. \ r \ n \ r \ nSe otorga autorización a cualquier persona para usar este software para cualquier fin, \ r \ nincluyendo aplicaciones comerciales, y para alterarlo y redistribuirlo \ r \ n, siempre que se cumplan las siguientes condiciones : \ r \ n \ r \ n1. Todas las redistribuciones de los archivos de código fuente deben conservar todos los avisos de copyright \ r \ n que estén actualmente en su lugar, y esta lista de condiciones sin \ r \ n modificación. \ R \ n \ r \ n2. Todas las redistribuciones en forma binaria deben conservar todas las apariciones del \ r \ n aviso de copyright anterior y las direcciones del sitio web que están actualmente en \ r \ n lugar (por ejemplo, en los cuadros Acerca de). \ R \ n \ r \ n3. El origen de este software no debe ser tergiversado; no debe \ r \ n reclamar que escribió el software original. Si utiliza este software para \ r \ n distribuir un producto, se agradecerá un acuse de recibo en la documentación del producto \ r \ n, pero no es obligatorio. \ R \ n \ r \ n4. Las versiones modificadas en formato fuente o binario deben estar claramente marcadas como \ r \ n tales, y no deben tergiversarse como el software original. \ R \ n"
+msgstr "Salvo que se indique lo contrario, toda la documentación y el software incluidos en el paquete son propiedad de Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). Todos los derechos reservados.\r\n\r\nEste software se proporciona \"tal cual, \" sin ninguna garantía expresa o implícita.\n\nEn ningún caso se hará responsable al autor de los daños que surjan de la\r\n\nuse de este software.\r\n\r\nSe otorga autorización a cualquier persona para usar este software para cualquier fin,\r\nincluyendo aplicaciones comerciales, y para alterarlo y redistribuirlo\r\n, siempre que se cumplan las siguientes condiciones :\r\n\r\n1. Todas las redistribuciones de los archivos de código fuente deben conservar todos los avisos de copyright\r\n que estén actualmente en su lugar, y esta lista de condiciones sin\r\n modificación.\r\n\r\n2. Todas las redistribuciones en forma binaria deben conservar todas las apariciones del\r\n aviso de copyright anterior y las direcciones del sitio web que están actualmente en\r\n lugar (por ejemplo, en los cuadros Acerca de).\r\n\r\n3. El origen de este software no debe ser tergiversado; no debe\r\n reclamar que escribió el software original. Si utiliza este software para\r\n distribuir un producto, se agradecerá un acuse de recibo en la documentación del producto\r\n, pero no es obligatorio.\r\n\r\n4. Las versiones modificadas en formato fuente o binario deben estar claramente marcadas como\r\n tales, y no deben tergiversarse como el software original.\r\n"
 
 msgid "&Close"
 msgstr "&Cerrar"
@@ -578,26 +578,26 @@ msgid "0 / %s files"
 msgstr "0 / %s archivos"
 
 msgid "%s / %s files. %s bytes saved (%s%%)"
-msgstr "%s / %s archivos. %s bytes guardados ( %s %% )"
+msgstr "%s / %s archivos. %s bytes guardados (%s %%)"
 
 msgid "Processing %s..."
-msgstr "Procesando %s ..."
+msgstr "Procesando %s..."
 
 msgid "Copying to Recyclebin..."
-msgstr "Copiando a Recyclebin ..."
+msgstr "Copiando a la papelera..."
 
 msgid "Running %s..."
-msgstr "Ejecutando %s ..."
+msgstr "Ejecutando %s..."
 
 msgid "Optimized"
 msgstr "Optomizado"
 
 msgid "Done (%3u%%)."
-msgstr "Hecho (% 3u %%)."
+msgstr "Hecho (%3u%%)."
 
 msgid "%s files processed. %s bytes saved (%s%%)"
-msgstr "%s archivos procesados. %s bytes guardados ( %s %% )"
+msgstr "%s archivos procesados. %s bytes guardados (%s%%)"
 
 msgid "Optimization is still running. Do you want to stop and exit %s?"
-msgstr "La optimización aún se está ejecutando. ¿Quieres parar y salir de %s ?"
+msgstr "La optimización aún se está ejecutando. ¿Quieres parar y salir de %s?"
 

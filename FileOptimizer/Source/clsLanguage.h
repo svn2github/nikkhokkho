@@ -22,7 +22,7 @@ class clsLanguage
 		static const TCHAR * __fastcall Get(TCHAR *pacText);
 	private:
 		static void EnumerateControls(TComponent *poControl);
-		static String __fastcall Search(String psText, TStringList *plstLanguage);
+		static String __fastcall Search(String psText, THashedStringList *plstLanguage);
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -607,7 +607,6 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 5
-        OnChange = cboPDFProfileChange
       end
     end
     object pagBMP: TTabSheet
