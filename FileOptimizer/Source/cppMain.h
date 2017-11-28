@@ -131,6 +131,7 @@ struct udtOptions
 	int iLogLevel;
 	int iFilenameFormat;
 	int iLeanifyIterations;
+	int iLanguage;
 	bool bHideAds;
 	bool bShowToolBar;
 	TCHAR acVersion[16];

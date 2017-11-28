@@ -188,6 +188,52 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	chkXMLEnableLeanify->Checked = gudtOptions.bXMLEnableLeanify;
 	chkZIPCopyMetadata->Checked = gudtOptions.bZIPCopyMetadata;
 	chkZIPRecurse->Checked = gudtOptions.bZIPRecurse;
+
+	//Fill available languages
+	cboLanguage->Items->Add(_("Automatic: System default"));
+	cboLanguage->Items->Add(_("3082: English - United States (Built-in)"));
+
+	unsigned int iIndex = 2;
+	WIN32_FIND_DATA udtFindFileData;
+	HANDLE hFindFile = FindFirstFile(_T("*.po"), &udtFindFileData);
+	do
+	{
+		char acBuffer[2048];
+		memset(acBuffer, 0, sizeof(acBuffer));
+		unsigned int iRead = sizeof(acBuffer);
+		clsUtil::ReadFile(udtFindFileData.cFileName, acBuffer, &iRead, 1);
+		char *pcStart = strstr(acBuffer, "\"Language Name:");
+		if (pcStart)
+		{
+			char *pcEnd = strstr(pcStart + 15, "\"");
+			if (pcEnd)
+			{
+				String sLanguage = ReplaceStr(ExtractFileName(udtFindFileData.cFileName), ExtractFileExt(udtFindFileData.cFileName), "");
+				strncpy(acBuffer, pcStart + 16, (size_t) (pcEnd - pcStart - 16));
+				acBuffer[pcEnd - pcStart - 16] = NULL;
+				sLanguage += ": " + UTF8ToString(acBuffer);
+				cboLanguage->Items->Add(sLanguage);
+				//Selected?
+				if (PosEx((String) gudtOptions.iLanguage + ": ", sLanguage) == 1)
+				{
+					cboLanguage->ItemIndex = iIndex;
+				}
+				iIndex++;
+			}
+		}
+	}
+	while (FindNextFile(hFindFile, &udtFindFileData) != 0);
+	FindClose(hFindFile);
+
+	if (gudtOptions.iLanguage == 0)
+	{
+		cboLanguage->ItemIndex = 0;
+	}
+	else if (gudtOptions.iLanguage == 3082)
+	{
+		cboLanguage->ItemIndex = 1;
+	}
+
 }
 
 
@@ -330,8 +376,32 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.bZIPCopyMetadata = chkZIPCopyMetadata->Checked;
 	gudtOptions.bZIPRecurse = chkZIPRecurse->Checked;
 
+	int iOldLanguage = gudtOptions.iLanguage;
+	//Save selected language
+	int iPos = PosEx(": ", cboLanguage->Text);
+	if (iPos > 0)
+	{
+		String sLanguage = cboLanguage->Text.SubString(0, iPos - 1);
+		gudtOptions.iLanguage = _ttoi(sLanguage.c_str());
+	}
+	else
+	{
+        gudtOptions.iLanguage = 0;
+    }
+
 	frmMain->SaveOptions();
 	frmMain->UpdateTheme();
+
+	if (iOldLanguage != gudtOptions.iLanguage)
+	{
+			String sCaption;
+			sCaption.printf(_(_T("Some changed settings require %s to be restarted.\nDo you want to restart it now?")), Application->Name.c_str());
+			if (clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Restart")), MB_YESNO | MB_ICONQUESTION) == ID_YES)
+			{
+				ShellExecute(NULL, _T("open"), Application->ExeName.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+				Application->Terminate();
+			}
+	}
 	Close();
 }
 

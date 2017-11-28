@@ -120,7 +120,7 @@ object frmOptions: TfrmOptions
     Top = 65
     Width = 567
     Height = 303
-    ActivePage = pagGeneral1
+    ActivePage = pagAppearance
     Align = alCustom
     HotTrack = True
     ParentShowHint = False
@@ -495,8 +495,8 @@ object frmOptions: TfrmOptions
     object pagAppearance: TTabSheet
       Caption = '&Appearance'
       ImageIndex = 13
-      ExplicitLeft = 0
-      ExplicitTop = 25
+      ExplicitLeft = -4
+      ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
       object lblDonator: TLabel
@@ -518,6 +518,17 @@ object frmOptions: TfrmOptions
         AutoSize = False
         Caption = '&Filename format'
         FocusControl = cboFilenameFormat
+        ParentShowHint = False
+        ShowHint = False
+      end
+      object lblLanguage: TLabel
+        Left = 7
+        Top = 131
+        Width = 155
+        Height = 13
+        AutoSize = False
+        Caption = '&Language'
+        FocusControl = cboLanguage
         ParentShowHint = False
         ShowHint = False
       end
@@ -585,6 +596,18 @@ object frmOptions: TfrmOptions
         ParentShowHint = False
         ShowHint = True
         TabOrder = 2
+      end
+      object cboLanguage: TComboBox
+        Left = 168
+        Top = 131
+        Width = 245
+        Height = 21
+        Hint = 'User interface language'
+        Style = csDropDownList
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 5
+        OnChange = cboPDFProfileChange
       end
     end
     object pagBMP: TTabSheet

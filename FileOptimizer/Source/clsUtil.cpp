@@ -22,7 +22,7 @@
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len)
+const void * __fastcall clsUtil::MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len)
 {
 	unsigned char *bf = (unsigned char *) buf;
 	unsigned char *bs = (unsigned char *) byte_sequence;
@@ -717,13 +717,13 @@ const TCHAR * __fastcall clsUtil::GetIniPath(bool pbAllUsers)
 		if (hFile == INVALID_HANDLE_VALUE)
 		{
 			_stprintf(acPath, _T("%s\\%s"), _tgetenv(_T("USERPROFILE")), (Application->Name + ".ini").c_str());
-			_tcscpy(acPathAllUsers, acTmp);
+			_tcsncpy(acPathAllUsers, acTmp, (sizeof(acPathAllUsers) / sizeof(TCHAR)) - 1);
 		}
 		else
 		{
 			CloseHandle(hFile);
 			_stprintf(acPath, acTmp);
-			_tcscpy(acPathAllUsers, acPath);
+			_tcsncpy(acPathAllUsers, acPath, (sizeof(acPathAllUsers) / sizeof(TCHAR)) - 1);
 		}
 	}
 	if (pbAllUsers)
@@ -823,7 +823,7 @@ bool __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, bo
 		_tcscpy(acDefault, _T("false"));
 	}
 
-	_tcscpy(acValue, GetIni(pacSection, pacKey, acDefault));
+	_tcsncpy(acValue, GetIni(pacSection, pacKey, acDefault), (sizeof(acValue) / sizeof(TCHAR)) - 1);
 	return((_tcsicmp(acValue, _T("true")) == 0) || (_tcsicmp(acValue, _T("yes")) == 0) || (_tcsicmp(acValue, _T("on")) == 0) || (_tcscmp(acValue, _T("1")) == 0));
 }
 
@@ -853,7 +853,7 @@ bool __fastcall clsUtil::SetIni(const TCHAR *pacSection, const TCHAR *pacKey, co
 	{
 		TCHAR acValue[2048];
 
-		_tcscpy(acValue, pacValue);
+		_tcsncpy(acValue, pacValue, (sizeof(acValue) / sizeof(TCHAR)) - 1);
 		_tcscat(acValue, _T("\t\t; "));
 		_tcscat(acValue, pacComment);
 		//Try to save for all users
@@ -1202,7 +1202,7 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 		else
 		{
 			CloseHandle(hFile);
-			_tcscpy(acPath, acTmp);
+			_tcsncpy(acPath, acTmp, (sizeof(acPath) / sizeof(TCHAR)) - 1);
 		}
 	}
 	return (acPath);
@@ -1219,7 +1219,7 @@ void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *p
 
 	if ((piDesiredLevel) > piLevel)
 	{
-		_tcscpy(acPath, GetLogPath());
+		_tcsncpy(acPath, GetLogPath(), (sizeof(acPath) / sizeof(TCHAR)) - 1);
 		FILE *pLog = _tfopen(acPath, _T("at"));
 		TDateTime dteDate = dteDate.CurrentDateTime();
 		_ftprintf(pLog, _T("[%s %s]	%s	%s	(%d)	%s()	%s\n"), dteDate.DateString().c_str(), dteDate.TimeString().c_str(), acLevel[piLevel], pacFile, piLine, pacFunc, pacValue);
@@ -1279,8 +1279,8 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 
 	Application->ProcessMessages();
 	// ShFileOperation expect strings ending in double NULL
-	_tcscpy(acSource, pacSource);
-	_tcscpy(acDestination, acSource);
+	_tcsncpy(acSource, pacSource, (sizeof(acSource) / sizeof(TCHAR)) - 1);
+	_tcsncpy(acDestination, acSource, (sizeof(acDestination) / sizeof(TCHAR)) - 5);
 	_tcscat(acDestination, _T(".tmp"));
 
 	CopyFile(acSource, acDestination);

@@ -6,43 +6,60 @@
 #include "clsLanguage.h"
 
 
-THashedStringList *mlstLanguage = NULL;
-THashedStringList *mlst1033 = NULL;
+TStringList *mlstLanguage = NULL;   //Could not use THashedStringList because they are limited to a length of 256 chars
+TStringList *mlst1033 = NULL;
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsLanguage::LoadLanguages(void)
+void __fastcall clsLanguage::Load(unsigned int piLanguage, bool pbForce)
 {
+	if ((pbForce) && (mlstLanguage))
+	{
+		delete mlstLanguage;
+        mlstLanguage = NULL;
+	}
+	
 	//If not yet loaded	
 	if (!mlstLanguage)
 	{
-		mlstLanguage = new THashedStringList();
+		mlstLanguage = new TStringList();
 		mlstLanguage->CaseSensitive = true;
 		mlstLanguage->Duplicates = System::Classes::dupAccept;
 
 		TCHAR acPath[PATH_MAX] = _T("");
-
-		// Check if we already have it cached
-		LANGID iLanguage = GetSystemDefaultUILanguage();
-
-		//Never load en-US because is built-int
-		if (iLanguage != 1033)
+		if (piLanguage != 0)
 		{
 			//Try to load locale
-			_itot(iLanguage, acPath, 10);
+			_itot(piLanguage, acPath, 10);
 			_tcscat(acPath, _T(".po"));
 			if (clsUtil::ExistsFile(acPath))
 			{
 				mlstLanguage->LoadFromFile(acPath, TEncoding::UTF8);
 			}
-			else
+		}
+		else
+		{
+			// Check if we already have it cached
+			LANGID iLanguage = GetSystemDefaultUILanguage();
+			//Never load en-US because is built-int
+			if (iLanguage != 1033)
 			{
-				//Try to load primary language
-				_itot(PRIMARYLANGID(iLanguage), acPath, 10);
+				//Try to load locale
+				_itot(iLanguage, acPath, 10);
 				_tcscat(acPath, _T(".po"));
 				if (clsUtil::ExistsFile(acPath))
 				{
 					mlstLanguage->LoadFromFile(acPath, TEncoding::UTF8);
+				}
+				else
+				{
+					//Try to load primary language
+					_itot(PRIMARYLANGID(iLanguage), acPath, 10);
+					_tcscat(acPath, _T(".po"));
+					if (clsUtil::ExistsFile(acPath))
+					{
+						mlstLanguage->LoadFromFile(acPath, TEncoding::UTF8);
+					}
 				}
 			}
 		}
@@ -51,7 +68,7 @@ void __fastcall clsLanguage::LoadLanguages(void)
 	//Need to load language?
 	if ((!mlst1033) && (StrStrI(GetCommandLine(), _T("/SAVELANGUAGE")) != NULL))
 	{
-		mlst1033 = new THashedStringList();
+		mlst1033 = new TStringList();
 		mlst1033->CaseSensitive = true;
 		mlst1033->Duplicates = System::Classes::dupAccept;
 		if (clsUtil::ExistsFile(_T("1033.po")))
@@ -64,7 +81,7 @@ void __fastcall clsLanguage::LoadLanguages(void)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void __fastcall clsLanguage::SaveLanguage(void)
+void __fastcall clsLanguage::Save(void)
 {
     //Need to save language?
 	if (mlst1033)
@@ -81,41 +98,51 @@ void __fastcall clsLanguage::SaveLanguage(void)
 
 
 // ---------------------------------------------------------------------------
-TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText)
+const TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText)
 {
-	String sRes = Get((String) pacText);
+	TCHAR acRes[2048];
 
-	return(sRes.c_str());
+	String sRes = Get((String) pacText);
+	_tcsncpy(acRes, sRes.c_str(), (sizeof(acRes) / sizeof(TCHAR)) - 1);
+	return(acRes);
 }
 
 
 
 // ---------------------------------------------------------------------------
-String __fastcall clsLanguage::Search(String psText, THashedStringList *plstLanguage)
+String __fastcall clsLanguage::Search(String psText, TStringList *plstLanguage)
 {
-	//Search for text to be translated
-	String sSearch = "msgid \"" + psText + "\"";
-
-	//int iLine = 0;
-	int iLine = plstLanguage->IndexOf(sSearch);
-	if (iLine > 0)
+	if ((plstLanguage) && (plstLanguage->Count > 0))
 	{
-		String sLine;
-		//Skip lines not starting with mgstr
-		do
+		//Search for text to be translated
+		String sSearch = "msgid \"" + psText.SubString(0, 240) + "\"";
+		sSearch = sSearch.SubString(0, 255);
+
+		//int iLine = 0;
+		int iLine = plstLanguage->IndexOf(sSearch);
+		if (iLine >= 0)
 		{
-	        iLine++;
-			sLine = plstLanguage->Strings[iLine];
+			String sLine;
+			//Skip lines not starting with mgstr
+			do
+			{
+				iLine++;
+				sLine = plstLanguage->Strings[iLine];
+			}
+			while ((PosEx("msgstr \"", sLine) <= 0) && (iLine < plstLanguage->Count));
+			psText = sLine;
+			psText = ReplaceStr(psText, "\n", "");
+			psText = psText.SubString(9, psText.Length() - 9);	//Remove first msgstr \" and last quote
+			psText = ReplaceStr(psText, "\\\\", "\\");			//Unescape PO
+			psText = ReplaceStr(psText, "\\n", "\n");
+			psText = ReplaceStr(psText, "\\r", "\r");
+			psText = ReplaceStr(psText, "\\t", "\t");
+			psText = ReplaceStr(psText, "\\\"", "\"");
 		}
-		while ((PosEx("msgstr \"", sLine) <= 0) && (iLine < plstLanguage->Count));
-		psText = sLine;
-		psText = ReplaceStr(psText, "\n", "");
-		psText = psText.SubString(9, psText.Length() - 9);	//Remove first msgstr \" and last quote
-		psText = ReplaceStr(psText, "\\\\", "\\");			//Unescape PO
-		psText = ReplaceStr(psText, "\\n", "\n");
-		psText = ReplaceStr(psText, "\\r", "\r");
-		psText = ReplaceStr(psText, "\\t", "\t");
-		psText = ReplaceStr(psText, "\\\"", "\"");
+		else
+		{
+			psText = "NOT_FOUND";
+		}
 	}
 	else
 	{
@@ -129,10 +156,8 @@ String __fastcall clsLanguage::Search(String psText, THashedStringList *plstLang
 // ---------------------------------------------------------------------------
 String __fastcall clsLanguage::Get(String psText)
 {
-	if (psText.Length() > 0)
+	if (!psText.IsEmpty())
 	{
-		LoadLanguages();
-
 		String sTranslated;
 		//If need to update 1033.po
 		if (mlst1033)
@@ -145,14 +170,17 @@ String __fastcall clsLanguage::Get(String psText)
 				if (mlst1033->Count <= 0)
 				{
 					//Write header
-					mlst1033->Add("# Language ID: 1033 (0x0409)");
-					mlst1033->Add("# Language Name: English - United States");
-					mlst1033->Add("\"Project-Id-Version: " + Application->Name + " " + (String) clsUtil::ExeVersion(Application->ExeName.c_str()) + "\"");
-					mlst1033->Add("\"POT-Creation-Date: " + (String) __DATE__ + "\"");
-					mlst1033->Add("\"Language: en_US\"");
-					mlst1033->Add("\"Last-Translator: Javier Gutiérrez Chamorro\"");
-					mlst1033->Add("\"Language-Team: Javier Gutiérrez Chamorro\"");
-					mlst1033->Add("\"Plural-Forms: nplurals=2; plural=(n != 1);\"\n");
+					mlst1033->Add("# \"Language ID: 1033 (0x0409)\"");
+					mlst1033->Add("# \"Language Name: English - United States\"");
+					mlst1033->Add("# \"Project-Id-Version: " + Application->Name + " " + (String) clsUtil::ExeVersion(Application->ExeName.c_str()) + "\"");
+					mlst1033->Add("# \"POT-Creation-Date: " + (String) __DATE__ + "\"");
+					mlst1033->Add("# \"MIME-Version: 1.0\"");
+					mlst1033->Add("# \"Content-Type: text/plain; charset=ISO-8859-1\"");
+					mlst1033->Add("# \"Content-Transfer-Encoding: 8bit\"");
+					mlst1033->Add("# \"Language: en_US\"");
+					mlst1033->Add("# \"Last-Translator: Javier Gutiérrez Chamorro\"");
+					mlst1033->Add("# \"Language-Team: Javier Gutiérrez Chamorro\"");
+					mlst1033->Add("# \"Plural-Forms: nplurals=2; plural=(n != 1);\"\n");
 				}
 				//Write text
 				sTranslated = psText;
@@ -166,6 +194,7 @@ String __fastcall clsLanguage::Get(String psText)
 				mlst1033->Add("msgstr \"\"\n");
 			}
 		}
+		//Look on regular PO dictionary
 		sTranslated = Search(psText, mlstLanguage);
 		if (sTranslated != "NOT_FOUND")
 		{
@@ -188,9 +217,6 @@ void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 // ---------------------------------------------------------------------------
 void clsLanguage::EnumerateControls(TComponent *poControl)
 {
-	//Missing main menu and TLabel
-	//String s = poControl->Name;
-
 	//TForm
 	{
 		TForm *oControl = dynamic_cast<TForm *>(poControl);
@@ -292,26 +318,6 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 			oControl->Hint = Get(oControl->Hint);
 		}
 	}
-	//TToolBar
-	{
-		TToolBar *oControl = dynamic_cast<TToolBar *>(poControl);
-		if (oControl)
-		{
-			for (int iButton = oControl->ButtonCount - 1; iButton >= 0; iButton--)
-			{
-				TToolButton *oButton = dynamic_cast<TToolButton *>(oControl->Buttons[iButton]);
-				if (oButton)
-				{
-					TAction *oAction = dynamic_cast<TAction *>(oButton->Action);
-					if (oAction)
-					{
-						oAction->Caption = Get(oAction->Caption);
-						oAction->Hint = Get(oAction->Hint);
-					}
-				}
-			}
-		}
-	}
 	//TAction
 	{
 		TAction *oControl = dynamic_cast<TAction *>(poControl);
@@ -330,7 +336,6 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 			oControl->Hint = Get(oControl->Hint);
 		}
 	}
-
 
 	//Childs
 	for (int iControl = poControl->ComponentCount - 1; iControl >= 0; iControl--)

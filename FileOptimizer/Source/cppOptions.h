@@ -116,6 +116,8 @@ __published: // IDE-managed Components
 	TLabel *lblFilenameFormat;
 	TComboBox *cboFilenameFormat;
 	TCheckBox *chkHideAds;
+	TComboBox *cboLanguage;
+	TLabel *lblLanguage;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);

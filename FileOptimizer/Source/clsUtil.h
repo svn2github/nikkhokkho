@@ -38,7 +38,7 @@
 class clsUtil
 {
 	public:
-		static void * __fastcall MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len);
+		static const void * __fastcall MemMem (const void *buf, size_t buf_len, const void *byte_sequence, size_t byte_sequence_len);
 		static HRESULT CALLBACK TaskDialogCallbackProc (HWND phWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData);
 		static int __fastcall MsgBox(HWND phWnd, const TCHAR *pacText, const TCHAR *pacTitle, unsigned int piType, unsigned int piTimeout = 0);
 		static HANDLE __fastcall FindProcess(const TCHAR *pacProcess);

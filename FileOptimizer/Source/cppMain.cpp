@@ -38,8 +38,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	TCHAR acPath[PATH_MAX];
 
 
-	clsLanguage::TranslateForm(this);
-
 	Caption = Application->Name;
 	Icon = Application->Icon;
 	lblCopyright->Hint = KS_APP_URL;
@@ -51,13 +49,13 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	clsUtil::LoadForm(this);
 	LoadOptions();
+	UpdateTheme();
+	FormResize(Sender);
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 
 	actClearExecute(Sender);
-	FormResize(Sender);
-	
-	UpdateTheme();
+
 
 	//GetSystemInfo(&gudtSystemInfo);
 }
@@ -68,7 +66,7 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 {
 	clsUtil::SaveForm(this);
-	clsLanguage::SaveLanguage();
+	clsLanguage::Save();
 	SaveOptions();
 	webAds->Stop();
 }
@@ -139,6 +137,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bClearWhenComplete = GetOption(_T("Options"), _T("ClearWhenComplete"), false);
 	gudtOptions.bEnableCache = GetOption(_T("Options"), _T("EnableCache"), false);
 	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
+	gudtOptions.iLanguage = GetOption(_T("Options"), _T("Language"), 0);
 	gudtOptions.iProcessPriority = GetOption(_T("Options"), _T("ProcessPriority"), NORMAL_PRIORITY_CLASS);
 	gudtOptions.iCheckForUpdates = GetOption(_T("Options"), _T("CheckForUpdates"), 1);
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
@@ -147,7 +146,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 
 	GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
-	_tcscpy(acPath, clsUtil::ExeVersion(acPath));
+	_tcsncpy(acPath, clsUtil::ExeVersion(acPath), (sizeof(acPath) / sizeof(TCHAR)) - 1);
 	_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), (sizeof(gudtOptions.acVersion) / sizeof(TCHAR)) - 1);
 
 	//Statistics
@@ -218,6 +217,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("ClearWhenComplete"), gudtOptions.bClearWhenComplete, _T("Boolean. Default: false. Automatically clear file list when optimization is completed."));
 	clsUtil::SetIni(_T("Options"), _T("EnableCache"), gudtOptions.bEnableCache, _T("Boolean. Default: false. Enable cache of already optimized files to automatically skip them."));
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel, _T("Number. Default: 5. Optimization level from best speed to best compression."));
+	clsUtil::SetIni(_T("Options"), _T("Language"), gudtOptions.iLanguage, _T("Number. Default: 0 (System default). Interface language/locale code in decimal."));
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority, _T("Number. Default: 2 (Normal). Process priority from most conservative to best performance."));
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates, _T("Number. Default: 1. Automatically check for program updates."));
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel, _T("Number. Default: 0. Debugging level to output on program log."));
@@ -503,7 +503,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 			for (int iRow = (int) iRows; iRow > 0; iRow--)
 			{
 				//Remove already optimized files
-				if (PosEx("Done", grdFiles->Cells[KI_GRID_STATUS][(int) iRow]) > 0)
+				if (PosEx(_("Done"), grdFiles->Cells[KI_GRID_STATUS][(int) iRow]) > 0)
 				{
 					for (int iSelectedRow = iRow; iSelectedRow < (int) iRows - 1; iSelectedRow++)
 					{
@@ -642,7 +642,7 @@ void __fastcall TfrmMain::actClearExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actHelpExecute(TObject *Sender)
 {
-	ShellExecute(NULL, _T("open"), Application->HelpFile.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+	ShellExecute(Handle, _T("open"), Application->HelpFile.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
 }
 
 
@@ -656,7 +656,7 @@ void __fastcall TfrmMain::actOpenExecute(TObject *Sender)
 
 	if ((iRow > 0) && (iCol == KI_GRID_FILE))
 	{
-		ShellExecute(NULL, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+		ShellExecute(Handle, _T("open"), GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
 	}
 }
 
@@ -671,7 +671,7 @@ void __fastcall TfrmMain::actOpenFolderExecute(TObject *Sender)
 
 	if ((iRow > 0) && (iCol == KI_GRID_FILE))
 	{
-		ShellExecute(NULL, _T("open"), ExtractFilePath(GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1)).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+		ShellExecute(Handle, _T("open"), ExtractFilePath(GetCellValue(grdFiles->Cells[KI_GRID_FILE][(int) iRow], 1)).c_str(), _T(""), _T(""), SW_SHOWNORMAL);
 	}
 }
 
@@ -765,7 +765,11 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 		iPercentBytes = 0;
 	}
 
-	stbMain->Panels->Items[0]->Text = FormatNumberThousand(iCount - 1) + " files processed. " + FormatNumberThousand(lSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
+	//Required indirection
+	String sCaption;
+	sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%)")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str());
+	stbMain->Panels->Items[0]->Text = sCaption;
+
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
 	Caption = stbMain->Hint + " - " + Application->Name;
 	Application->Title = Caption;	
@@ -895,7 +899,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		}
 		else
 		{
-			sText += sText.sprintf(_(_T("and %s file formats among many others.")), sExtension.c_str());
+			sText.cat_printf(_(_T("and %s file formats among many others.")), sExtension.c_str());
 		}
 	}
 	delete lstTemp;
@@ -913,11 +917,11 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		sText += _("Have not donated yet!");
 
 	}
-	sText += sText.sprintf(_(_T("\nUser since %s %s")), Application->Name.c_str(), gudtOptions.acVersion);
+	sText.cat_printf(_(_T("\nUser since %s %s")), Application->Name.c_str(), gudtOptions.acVersion);
 
 
 	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) gudtOptions.lStatTime * 1000, sizeof(acTime) - 1);
-	sText += sText.sprintf(_(_T("\n\nUSAGE STATISTICS\n"
+	sText.cat_printf(_(_T("\n\nUSAGE STATISTICS\n"
 		"- Time: %s\n"
 		"- Opens: %s\n"
 		"- Files: %s\n"
@@ -925,6 +929,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		"- Saved: %s\n")),
 		acTime, 
 		FormatNumberThousand(gudtOptions.iStatOpens).c_str(),
+		FormatNumberThousandUnit(gudtOptions.iStatFiles).c_str(),
 		FormatNumberThousandUnit(gudtOptions.lStatTotalBytes).c_str(),
 		FormatNumberThousandUnit(gudtOptions.lStatSavedBytes).c_str());
 
@@ -936,7 +941,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actDonateExecute(TObject *Sender)
 {
-	ShellExecute(NULL, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
+	ShellExecute(Handle, _T("open"), KS_APP_DONATE_URL, _T(""), _T(""), SW_SHOWMAXIMIZED);
 }
 
 
@@ -1029,7 +1034,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 	};
 	//OptimizeProgressThread(a);
 
-	stbMain->Panels->Items[0]->Text = "Processing " + sInputFile + "...";
+	//Required indirection
+	String sCaption;
+	sCaption.printf(_(_T("Processing %s...")), sInputFile.c_str());
+	stbMain->Panels->Items[0]->Text = sCaption;
+
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
 	//Caption = stbMain->Hint + " - " + Application->Name;
 	//Application->Title = Caption;
@@ -1412,7 +1421,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			else
 			{
 				sFlags += "-purejpg -di -dx -dt -zt ";
-			}	
+			}
 			RunPlugin((unsigned int) iCount, "jhead", (sPluginsDirectory + "jhead.exe -q -autorot " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
 			
 			sFlags = "";
@@ -1671,7 +1680,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					sFlags += "-dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Bicubic -dOptimize=true -dConvertCMYKImagesToRGB=true -dColorConversionStrategy=/sRGB -q -dBATCH -dNOPAUSE -dSAFER -dDELAYSAFER -dNOPROMPT -sDEVICE=pdfwrite -dDetectDuplicateImages=true -dAutoRotatePages=/None -dCompatibilityLevel=1.4 ";
 					
 					TCHAR acTmpFilePdf[PATH_MAX];
-					_tcscpy(acTmpFilePdf, sInputFile.c_str());
+					_tcsncpy(acTmpFilePdf, sInputFile.c_str(), (sizeof(acTmpFilePdf) / sizeof(TCHAR)) - 5);
 					_tcscat(acTmpFilePdf, _T(".pdf"));
 
 					//RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0);
@@ -2022,7 +2031,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			sFlags += "-m " + (String) iLevel + " ";
 
 			TCHAR acTmpFileWebp[PATH_MAX];
-			_tcscpy(acTmpFileWebp, sInputFile.c_str());
+			_tcsncpy(acTmpFileWebp, sInputFile.c_str(), (sizeof(acTmpFileWebp) / sizeof(TCHAR)) - 5);
 			_tcscat(acTmpFileWebp, _T(".png"));
 
 			if (RunPlugin((unsigned int) iCount, "dwebp", (sPluginsDirectory + "dwebp.exe -mt \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sPluginsDirectory, sInputFile, "", 0, 0) == 0)
@@ -2156,7 +2165,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 	else if (grdFiles->Cells[KI_GRID_STATUS][iCount] != _("Optimized"))
 	{
 		unsigned int iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
-		grdFiles->Cells[KI_GRID_STATUS][iCount].printf(_(_T("Done (%3d%%).")), iPercentBytes);
+
+		//Required indirection
+		String sCaption;
+		sCaption.printf(_(_T("Done (%3u%%).")), iPercentBytes);
+		grdFiles->Cells[KI_GRID_STATUS][iCount] = sCaption;
 
 		//Update cache
 		if (gudtOptions.bEnableCache)
@@ -2233,7 +2246,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::lblCopyrightClick(TObject *Sender)
 {
-	ShellExecute(NULL, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
+	ShellExecute(Handle, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 }
 
 
@@ -2351,7 +2364,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 				//Check if already added
 				if (!gudtOptions.bAllowDuplicates)
 				{
-					//if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) != -1)
+					//if (grdFiles->Cols[KI_GRID_FILE]->IndexOf(sCellFile) >= 0)
 					if (AddFilesExist(sCellFile))
 					{
 						return;
@@ -2420,7 +2433,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		//Close();
 		return (0);
 	}
-	
+
 	//Check if it is an excluded plugins
 	TCHAR *acToken = _tcstok(((String) gudtOptions.acDisablePluginMask).UpperCase().c_str(), _T(";"));
 	while (acToken)
@@ -2435,7 +2448,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	sInputFile = psInputFile;
 	sOutputFile = psOutputFile;
 	sCommandLine = psCommandLine;
-	
+
 	//Avoid temporary name collisions across different instances
 	unsigned int iRandom = (unsigned int) clsUtil::Random(0, 9999);
 
@@ -2447,7 +2460,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		{
 			_tcscat(gudtOptions.acTempDirectory, _T("\\"));
 		}
-		_tcscpy(acTempPath, gudtOptions.acTempDirectory);
+		_tcsncpy(acTempPath, gudtOptions.acTempDirectory, (sizeof(acTempPath) / sizeof(TCHAR)) - 1);
 	}
 	else
 	{
@@ -2465,14 +2478,18 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 
 	DeleteFile(sTmpInputFile.c_str());
 	DeleteFile(sTmpOutputFile.c_str());
-	
-	grdFiles->Cells[KI_GRID_STATUS][(int) piCurrent] = _("Running ") + psStatus + "...";
+
+	//Required indirection
+	String sCaption;
+	sCaption.printf(_(_T("Running %s...")), psStatus.c_str());
+	grdFiles->Cells[KI_GRID_STATUS][(int) piCurrent] = sCaption;
+
 	unsigned long long lSize = clsUtil::SizeFile(sInputFile.c_str());
 	unsigned long long lSizeNew = lSize;
 	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
 
 	Application->ProcessMessages();
-	
+
 	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
 	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 	{
@@ -2586,19 +2603,19 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 				return;
 			}
 		}
-		
+
 		gudtOptions.iAdsShown = 0;
 
 		GetModuleFileName(NULL, (TCHAR *) acPath, KI_BUFFER_SIZE);
-		_tcscpy(acTemp, clsUtil::ExeVersion((TCHAR *) acPath));
+		_tcsncpy(acTemp, clsUtil::ExeVersion((TCHAR *) acPath), KI_BUFFER_SIZE - 1);
 		_stprintf((TCHAR *) acBuffer, _T("%10s"), (TCHAR *) acTemp);
 
-		_tcscpy((TCHAR *) acTemp, acWide);
+		_tcsncpy((TCHAR *) acTemp, acWide, KI_BUFFER_SIZE - 1);
 		_stprintf(acWide, _T("%10s"), (TCHAR *) acTemp);
 
-		if (StrStr(acTemp, _T(" (")) != NULL)
+		if (_tcsstr(acTemp, _T(" (")) != NULL)
 		{
-			_tcscpy(gudtOptions.acDonation, StrStr(acTemp, _T(" (")) + 2);
+			_tcsncpy(gudtOptions.acDonation, _tcsstr(acTemp, _T(" (")) + 2, (sizeof(gudtOptions.acDonation) / sizeof(TCHAR)) - 1);
 			StrTrim(gudtOptions.acDonation, _T(" ()"));
 		}
 		else
@@ -2620,7 +2637,7 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 			sCaption.printf(_(_T("%s version %s is available.\r\nDo you want to download it now?")), Application->Name.c_str(), Trim(acWide).c_str());
 			if (clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Check updates")), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
-				ShellExecute(NULL, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
+				ShellExecute(Handle, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 			}
 		}
 		else if (!pbSilent)
@@ -2660,7 +2677,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	{
 		unsigned int iSize;
 		memset(acBuffer, 0, sizeof(acBuffer));
-		
+
 		//Read footer
 		iSize = sizeof(acBuffer) >> 1;
 		clsUtil::ReadFile(psFilename.c_str(), &acBuffer[512], &iSize, (unsigned int) clsUtil::SizeFile(psFilename.c_str()) - 512);
@@ -3247,7 +3264,7 @@ void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString T
 			if (sLastOpenedUrl != webAds->LocationURL)
 			{
 				sLastOpenedUrl = webAds->LocationURL;
-				ShellExecute(NULL, _T("open"), sLastOpenedUrl.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+				ShellExecute(Handle, _T("open"), sLastOpenedUrl.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
 			}
 		}
 		UpdateAds();
@@ -3261,6 +3278,9 @@ void __fastcall TfrmMain::UpdateTheme(void)
 {
 	//Prevent flickering
 	LockWindowUpdate(Handle);
+
+	clsLanguage::Load(gudtOptions.iLanguage, true);
+	clsLanguage::TranslateForm(this);
 
 	//Change instructions depending on Recycle Bin settins
 	if (gudtOptions.bDoNotUseRecycleBin)
@@ -3315,7 +3335,12 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 		{
 			iPercentBytes = 0;
 		}
-		stbMain->Panels->Items[0]->Text = FormatNumberThousand(piCurrent) + " / " + FormatNumberThousand(grdFiles->RowCount - 1) + " files. " + FormatNumberThousand(plSavedBytes) + " bytes saved (" + FormatNumberThousand(iPercentBytes) + "%)";
+
+		//Required indirection
+		String sCaption;
+		sCaption.printf(_(_T("%s / %s files. %s bytes saved (%s%%)")), FormatNumberThousand(piCurrent).c_str(), FormatNumberThousand(grdFiles->RowCount - 1).c_str(), FormatNumberThousand(plSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str());
+		stbMain->Panels->Items[0]->Text = sCaption;
+
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
 		Caption = stbMain->Hint + " - " + Application->Name;
 		Application->Title = Caption;
@@ -3351,7 +3376,11 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 		{
 			if (grdFiles->RowCount > 1)
 			{
-				stbMain->Panels->Items[0]->Text = "0 / " + FormatNumberThousand(grdFiles->RowCount - 1) + " files";
+				//Required indirection
+				String sCaption;
+				sCaption.printf(_(_T("0 / %s files")), FormatNumberThousand(grdFiles->RowCount - 1).c_str());
+				stbMain->Panels->Items[0]->Text = sCaption;
+
 				stbMain->Hint = stbMain->Panels->Items[0]->Text;
 				Caption = stbMain->Hint + " - " + Application->Name;
 				Application->Title = Caption;
@@ -3479,7 +3508,7 @@ const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 
 
 	acArgument[0] = '/';
-	_tcscpy(&acArgument[1], pacKey);
+	_tcsncpy(&acArgument[1], pacKey, (sizeof(acArgument) / sizeof(TCHAR)) - 2);
 	pcStart = StrStrI(GetOptionCommandLine(), acArgument);
 	if (pcStart)
 	{
@@ -3502,19 +3531,19 @@ const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHA
 
 
 	/* Get it via global registry */
-	_tcscpy(acRes, clsUtil::GetRegistry(HKEY_LOCAL_MACHINE, clsUtil::GetRegistryPath(), pacKey));
+	_tcsncpy(acRes, clsUtil::GetRegistry(HKEY_LOCAL_MACHINE, clsUtil::GetRegistryPath(), pacKey), (sizeof(acRes) / sizeof(TCHAR)) - 1);
 	if (acRes[0] == NULL)
 	{
 		/* Get it via user registry */
-		_tcscpy(acRes, clsUtil::GetRegistry(HKEY_CURRENT_USER, clsUtil::GetRegistryPath(), pacKey));
+		_tcsncpy(acRes, clsUtil::GetRegistry(HKEY_CURRENT_USER, clsUtil::GetRegistryPath(), pacKey), (sizeof(acRes) / sizeof(TCHAR)) - 1);
 		if (acRes[0] == NULL)
 		{
 			/* Get it via command-line */
-			_tcscpy(acRes, GetOptionArgument(pacKey));
+			_tcsncpy(acRes, GetOptionArgument(pacKey), (sizeof(acRes) / sizeof(TCHAR)) - 1);
 			if (acRes[0] == NULL)
 			{
 				//Get it via INI file
-				_tcscpy(acRes, clsUtil::GetIni(pacSection, pacKey, pacDefault));
+				_tcsncpy(acRes, clsUtil::GetIni(pacSection, pacKey, pacDefault), (sizeof(acRes) / sizeof(TCHAR)) - 1);
 			}
 		}
 	}
@@ -3530,7 +3559,7 @@ int __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey,
 	int iRes;
 
 
-	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
 		iRes = _ttoi(acDefault);
@@ -3551,7 +3580,7 @@ long long __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *p
 	long long lRes;
 
 
-	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
 		lRes = _ttoi64(acDefault);
@@ -3572,7 +3601,7 @@ double __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacK
 	double dRes;
 
 
-	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
 		dRes = _ttof(acDefault);
@@ -3593,7 +3622,7 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 	bool bRes;
 
 
-	_tcscpy(acDefault, GetOption(pacSection, pacKey, _T("")));
+	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
 		bRes = (_tcsicmp(acDefault, _T("true")) == 0);
