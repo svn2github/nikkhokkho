@@ -1,7 +1,7 @@
 # "Language ID: 10 (0x0A)"
 # "Language Name: Español"
-# "Project-Id-Version: FileOptimizer 11.40.2125"
-# "POT-Creation-Date: Nov 28 2017"
+# "Project-Id-Version: FileOptimizer 12.00.2132"
+# "POT-Creation-Date: Nov 29 2017"
 # "MIME-Version: 1.0
 # "Content-Type: text/plain; charset=ISO-8859-1"
 # "Content-Transfer-Encoding: 8bit"

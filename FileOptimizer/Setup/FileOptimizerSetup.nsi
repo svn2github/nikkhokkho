@@ -22,7 +22,7 @@ Unicode true
 !define APP_COMPANY	"Javier Gutiérrez Chamorro (Guti)"
 !define APP_COPYRIGHT	"© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti)"
 !define APP_WEB		"http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer"
-!define APP_VERSION 	"11.4.0.0"
+!define APP_VERSION 	"12.0.0.0"
 
 
 
@@ -59,6 +59,8 @@ Section "Files"
 
 	SetOutPath $INSTDIR
 	File ..\Win32\Release\*.chm
+	File ..\Win32\Release\*.po
+
 	CreateDirectory "$SMPROGRAMS\${APP_NAME}";
 	${If} ${RunningX64}
 		File ..\Win32\Release\*64.exe

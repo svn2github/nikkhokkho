@@ -1,8 +1,11 @@
+- Backup de controles y así no tener que reiniciar
 - Aumentar combos y labels
 - No se restaura el memo
 
 
 [i]How to translate FileOptimizer in your own language?[/i]
+Since FileOptimizer 12, user inteface is multilanguage/multilocale capabled. You can translate it to your own language.
+
 1) Execute FileOptimizer with the /SAVELANGUAGE command-line argument, like this: D:\\PROYECTOS\\FileOptimizer\\FileOptimizer64.exe /savelanguage
 
 2) Browse all secondary windows (Options, About, Information, ...) and keep using FO for some time.
@@ -122,7 +125,6 @@ y:
 - imagew jpeg loseless, miff?
 - Animación de prograso tipo ... o \|/ en el wait del runprocess
 - Multithread
-- Idiomas
 
 
 - Improved CHM compression by recompressing contents recursively with Keytools (maadjordan) http://encode.ru/threads/936-Suggestions-for-Preprocessors-filters-or-file-specific-compression?p=17803&viewfull=1#post17803
