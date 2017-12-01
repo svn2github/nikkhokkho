@@ -1,0 +1,603 @@
+﻿# "Language ID: 12 (0x0C)"
+# "Language Name: Francais"
+# "Project-Id-Version: FileOptimizer 12.00.2132"
+# "POT-Creation-Date: Nov 29 2017"
+# "MIME-Version: 1.0
+# "Content-Type: text/plain; charset=ISO-8859-1"
+# "Content-Transfer-Encoding: 8bit"
+# "Language: en_FR"
+# "Last-Translator: Victor Bernoni"
+# "Language-Team: Victor Bernoni"
+# "Plural-Forms: nplurals=2; plural=(n != 1);"
+
+msgid "&A propos de..."
+msgstr "&Sobre"
+
+msgid "Ouvrez la fenêtre avec interne environ et les informations légales"
+msgstr "Ouvrez la fenêtre de rapprochement des informations internes et légales"
+
+msgid "-"
+msgstr "-"
+
+msgid "Donation..."
+msgstr "Donar"
+
+msgid "Support the development by easily and securely money donations"
+msgstr "Soutenir le développement par le biais de dons d’argent facilement et en toute sécurité"
+
+msgid "&Information..."
+msgstr "&Información..."
+
+msgid "Open information window with the list of currently supported file formats"
+msgstr "Ouvrez la fenêtre d’information avec la liste des formats de fichier pris en charge actuellement"
+
+msgid "Help topics..."
+msgstr "Rubriques d’aide"
+
+msgid "&Aide"
+msgstr "&Aide"
+
+msgid "&Options..."
+msgstr "Options"
+
+msgid "Open configuration options window"
+msgstr "Ouvrir la fenêtre des paramètres"
+
+msgid "&Stop"
+msgstr "&Arrêter"
+
+msgid "Stop in-progress optimizations"
+msgstr "Arrêter les optimisations en cours"
+
+msgid "&Optimize all files"
+msgstr "&Optimisee les fichiers"
+
+msgid "Optimize files in the optimization list"
+msgstr "Optimiser les fichiers dans la liste d’optimisation"
+
+msgid "&Optimize"
+msgstr "&Optimiser"
+
+msgid "Sortie..."
+msgstr "&Sortie..."
+
+msgid "Exit the program"
+msgstr "Quitter le programme"
+
+msgid "Open &containing folder..."
+msgstr "&Ouvrir dossier contenant..."
+
+msgid "&Open selected file"
+msgstr "&Ouvrir le fichier sélectionné"
+
+msgid "&Clear all files"
+msgstr "&Supprimez tous les fichiers"
+
+msgid "Empty all files in the optimization list"
+msgstr "Vider tous les fichiers dans la liste d’optimisation"
+
+msgid "&Remove selected files"
+msgstr "&Supprimer les fichiers sélectionnés"
+
+msgid "Remove selected files from the optimization list"
+msgstr "Supprimer les fichiers sélectionnés dans la liste d’optimisation"
+
+msgid "A&dd folder..."
+msgstr "&Ajouter un dossier..."
+
+msgid "Add folder contents recursively from your computer to the optimization list"
+msgstr "Récursivement ajouter le contenu du dossier de votre ordinateur à la liste d’optimisation"
+
+msgid "&Add files..."
+msgstr "&Ajouter des fichiers..."
+
+msgid "Add files from your computer to the optimization list"
+msgstr "Ajouter des fichiers depuis votre ordinateur à la liste d’optimisation"
+
+msgid "&File"
+msgstr "&Fichier"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Extension (Type)"
+msgstr "Classe d’extension"
+
+msgid "Original size"
+msgstr "Taille d’origine"
+
+msgid "Optimized size"
+msgstr "Taille optimisée"
+
+msgid "Status"
+msgstr "État"
+
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "Faites glisser la liste alors les fichiers que vous souhaitez optimiser et lorsque vous êtes prêt, cliquez sur le menu de contexte de bouton de droite pour continuer. Tous les fichiers traités sont copiés vers la corbeille, donc vous pouvez les restaurer facilement. Si vous le souhaitez, vous pouvez désactiver le mouvement vers la corbeille. Double-cliquez sur un élément pour obtenir un aperçu."
+
+msgid "Add folder"
+msgstr "Ajouter un dossier"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "&Cancel"
+msgstr "&Annuler"
+
+msgid "Ignorer toutes les modifications apportées aux options."
+msgstr "Ignorer les modifications apportées dans les options."
+
+msgid "&OK"
+msgstr "&Accepté"
+
+msgid "Accept and apply all changes made to options."
+msgstr "Accepter et d’appliquer toutes les modifications apportées aux options."
+
+msgid "&Restore defaults"
+msgstr "&Restaurer par défaut"
+
+msgid "Restore all options to its factory settings values."
+msgstr "Réinitialiser toutes les options à leurs valeurs de paramètres d’usine."
+
+msgid "&Recurse"
+msgstr "&Recurse"
+
+msgid "Enable optimization inside archives (recursive optimization)."
+msgstr "Activer l’optimisation dans les fichiers (optimisation de récursive)."
+
+msgid "&Copy metadata"
+msgstr "&Copier les métadonnées"
+
+msgid "Copy file metadata. Else strip all unneded information."
+msgstr "Copiez les fichiers de métadonnées dans le cas contraire, enlevez toutes les informations inutiles."
+
+msgid "&ZIP"
+msgstr "&CREMALLERA"
+
+msgid "&Enable Leanify"
+msgstr "&Activer Leanify"
+
+msgid "Enable Leanify. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Habilite Leanify. Résultats en fichiers plus petits, mais peut se produisent que déjà ils ne peut pas modifier."
+
+msgid "&XML"
+msgstr "&XML"
+
+msgid "&TIFF"
+msgstr "&PELEA"
+
+msgid "&TGA"
+msgstr "&TGA"
+
+msgid "&Allow lossy optimizations"
+msgstr "&Permettre des optimisations avec perte"
+
+msgid "Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not"
+msgstr "Pour activer les optimisations avec pertes, obtient une plus grande réduction des fichiers au détriment d’une perte de qualité, même si non il montre visuellement ou non"
+
+msgid "&PNG"
+msgstr "&PNG"
+
+msgid "&Skip layered"
+msgstr "&Sauter en couches"
+
+msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
+msgstr "Ignore le traitement des fichiers PDF contenant des objets en couches. Résultats en plus compatible avec des fichiers plus volumineux."
+
+msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgstr "Lorsque vous choisissez un profil personnalisé, il vous permet de spécifier un DPI personnalisé pour des exemples d’images basse résolution"
+
+msgid "Compression profile, from less size, to best quality."
+msgstr "Profil de compression, du moins la taille jusqu'à la meilleure qualité."
+
+msgid "Custom"
+msgstr "Personnalisation"
+
+msgid "Prepress: 300 dpi and color preserve"
+msgstr "Prépresse: 300 dpi et la conservation de la couleur"
+
+msgid "Printer: 300 dpi"
+msgstr "Impresion: 300 ppp"
+
+msgid "Ebook: 150 dpi"
+msgstr "Ebook: 150 ppp"
+
+msgid "Screen: 72 dpi"
+msgstr "Écran: 72 ppp"
+
+msgid "None: No downsampling (Default)"
+msgstr "Aucun : aucune diminution d’échantillonnage (valeur par défaut)"
+
+msgid "&Custom DPI"
+msgstr "&DPI personnalisé"
+
+msgid "&Profile"
+msgstr "&Voir le profil"
+
+msgid "&PDF"
+msgstr "&PDF"
+
+msgid "&PCX"
+msgstr "&PCX"
+
+msgid "&MP4"
+msgstr "&MP4"
+
+msgid "&MP3"
+msgstr "&MP3"
+
+msgid "&Miscelaneous"
+msgstr "&Divers"
+
+msgid "&LUA"
+msgstr "&LUA"
+
+msgid "Add extra extensions to be threated as JS/JSON."
+msgstr "Ajouter des extensions supplémentaires pour menacer comme JS / JSON."
+
+msgid "&Enable JSMin"
+msgstr "&Activer JSMin"
+
+msgid "Enable jsmin. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Activer jsmin. Résultats en fichiers plus petits, mais peut se produisent que déjà ils ne peut pas modifier."
+
+msgid "&Additional Extensions"
+msgstr "&Extensions supplémentaires"
+
+msgid "&JS"
+msgstr "&JS"
+
+msgid "&Use arithmetic encoding"
+msgstr "&Utiliser le codage arithmétique"
+
+msgid "Arithmetic encoding gives additional saving reductions, but is incompatible with most programs."
+msgstr "Codage arithmétique offre d’autres économies supplémentaires, mais n’est pas compatible avec la plupart des programmes."
+
+msgid "&JPEG"
+msgstr "&JPEG"
+
+msgid "&Enable Tidy"
+msgstr "&Activez ordonnée"
+
+msgid "Enable Tidy. Results in smaller files, but can happen they are not editable anymore. Note that this applies to both SVG and HTML file types"
+msgstr "Activez Tidy. Résultats en fichiers plus petits, mais il peut se produisent qu'ils ne peuvent pas être modifiés. Veuillez noter que ceci s’applique aux deux types de fichiers HTML et SVG"
+
+msgid "&HTML"
+msgstr "&HTML"
+
+msgid "&GZ"
+msgstr "&GZ"
+
+msgid "&GIF"
+msgstr "&GIF"
+
+msgid "&Enable UPX"
+msgstr "&Activez UPX"
+
+msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
+msgstr "Permettre l’exclusion de certains plug-ins en cours d’exécution. Il ne distingue pas les majuscules des minuscules et vous permet de spécifier plusieurs éléments en utilisant le point-virgule comme séparateur."
+
+msgid "&Disable PETrim"
+msgstr "&Désactiver PETrim"
+
+msgid "Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."
+msgstr "Désactiver PETrim. Lorsqu’est activé, PETrim ne sera pas utilisé, ce qui entraîne moins de corruption de EXE au détriment d’un fichier de taille supérieure."
+
+msgid "&EXE"
+msgstr "&EXE"
+
+msgid "Compression template, from safer and worse compression, to highest compression"
+msgstr "Modèle de compression, de plus sûr et plus encore, jusqu'à ce que la compression de compression plus élevée"
+
+msgid "Highest"
+msgstr "Plus élevé"
+
+msgid "High"
+msgstr "Haut"
+
+msgid "Low (Default)"
+msgstr "Faible (par défaut)"
+
+msgid "Enable tidy. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Activez ordonnée. Résultats en fichiers plus petits, mais peut se produisent qu'ils ne peut pas êtres modifiés."
+
+msgid "&Template"
+msgstr "&Modèle"
+
+msgid "&CSS"
+msgstr "&CSS"
+
+msgid "&BMP"
+msgstr "&BMP"
+
+msgid "&Hide ads"
+msgstr "&Cacher les annonces"
+
+msgid "Hide ads from being displayed."
+msgstr "Cacher les annonces afin qu’elles ne soient pas affichées."
+
+msgid "Specify the format to display filenames in the list."
+msgstr "Spécifier le format pour afficher les noms de fichiers dans la liste."
+
+msgid "Drive letter + Partial (path + Filename)"
+msgstr "Lecteur de lettre + partielle (chemin + fichier nom))"
+
+msgid "Drive letter + Partial path + Filename"
+msgstr "Lettre de lecteur + chemin d’accès partiel + nom de fichier"
+
+msgid "Filename only"
+msgstr "Nom de fichier uniquement"
+
+msgid "Full path and Filename (Default)"
+msgstr "Chemin d’accès complet et nom du fichier (par défaut)"
+
+msgid "&Always on top"
+msgstr "&Toujours sur le dessus"
+
+msgid "Show main window always on top."
+msgstr "Afficher la fenêtre principale toujours sur le dessus."
+
+msgid "&Show toolbar"
+msgstr "&Affichez la barre d’outils"
+
+msgid "Show icons toolbar on main window"
+msgstr "Afficher les icônes dans la barre d’outils de la fenêtre principale"
+
+msgid "If you have already donated to support FileOptimizer development, enter here the email address or name you used"
+msgstr "Si vous avez déjà fait don pour soutenir le développement de FileOptimizer, Entrez ici l’adresse e-mail ou le nom utilisé"
+
+msgid "&Filename format"
+msgstr "&Format de nom de fichier"
+
+msgid "&Donator"
+msgstr "&Monétaire"
+
+msgid "&Appearance"
+msgstr "&Apparence"
+
+msgid "&Enable cache"
+msgstr "&Activer le cache"
+
+msgid "Enable cache of already optimized files to automatically skip them."
+msgstr "Activer les fichiers de cache déjà optimisée pour les ignorer automatiquement."
+
+msgid "If specified, number of trial iterations in all Leanify executions will use this vaule. If not, iterations are calculated depending on the Optimization level."
+msgstr "Si spécifié, le nombre d’itérations de test sur toutes les courses de Leanify utilisera cette valeur. Dans le cas contraire, les itérations sont calculées selon le niveau d’optimisation."
+
+msgid "&Allow duplicates"
+msgstr "&Autoriser les doublons"
+
+msgid "Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."
+msgstr "Permet d’ajouter le même fichier plusieurs fois. Si cette option est activée, ajouter à la grille sera beaucoup plus rapide, surtout dans les très grandes grilles."
+
+msgid "&Clear when complete"
+msgstr "&Nettoyer à la fin"
+
+msgid "Automatically clear file list when optimization is completed."
+msgstr "Supprimer la liste des fichiers automatiquement lorsque l’optimisation est terminée."
+
+msgid "&Shutdown when done"
+msgstr "&Éteindre à la fin"
+
+msgid "Shutdown computer when optimization completes."
+msgstr "Éteindre l’ordinateur lorsqu’il est terminé à l’optimisation."
+
+msgid "&Beep when done"
+msgstr "&Un bip sonore lorsque vous avez terminé"
+
+msgid "Beep the speaker when optimization completes."
+msgstr "Émet un signal sonore du haut-parleur lorsque l’optimisation est terminée."
+
+msgid "&Leanify iterations"
+msgstr "&Leanify itérations"
+
+msgid "&Disable plugin mask"
+msgstr "&Désactiver masque supplémebntaire"
+
+msgid "General &2"
+msgstr "Général y 2"
+
+msgid "If not empty specified directory will be used for temporary storage instead of system's %TEMP%."
+msgstr "S’il n’est pas vide, le répertoire spécifié sera utilisé pour le stockage temporaire au lieu del% TEMP% du système."
+
+msgid "&Allow multiple instances"
+msgstr "&Permettre plusieurs instances"
+
+msgid "Allow having more than one FileOptimizer instance. If not, a warning will appear."
+msgstr "Permettre plusieurs instances de FileOptimizer. Sinon, un avertissement s’affiche."
+
+msgid "If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included."
+msgstr "Si ce n'est pas vide, inclure uniquement les fichiers qui contiennent ce masque (sous-chaîne) dans le nom ou le chemin de l’optimisation. Vous pouvez utiliser des points-virgules pour spécifier plus d’une sous-chaîne incluse."
+
+msgid "Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded."
+msgstr "Les fichiers qui contiennent ce masque (sous-chaîne) dans le nom ou le chemin d’accès seront exclus de l’optimisation. Vous pouvez utiliser des points-virgules ( ;) pour spécifier plus d’une sous-chaîne qui est exclue."
+
+msgid "&Do not use recycle bin"
+msgstr "&Ne pas utiliser la corbeille"
+
+msgid "When checked original files will not be backed up in the system trashcan."
+msgstr "Lorsqu’ils sont examinés les fichiers d’origine ne sont pas copiés dans le système de recyclage."
+
+msgid "Debugging level to output on program log."
+msgstr "Niveau à la sortie dans le journal du programme de débogage."
+
+msgid "4: Information"
+msgstr "4: Informations."
+
+msgid "3: Warning"
+msgstr "3: Mise en garde"
+
+msgid "2: Error"
+msgstr "2: Error"
+
+msgid "1: Critical"
+msgstr "1: Critique"
+
+msgid "0: None (Default)"
+msgstr "0: Aucun (par défaut)"
+
+msgid "Automatically check for program updates."
+msgstr "Vérifier les mises à jour automatiquement."
+
+msgid "Never"
+msgstr "Jamais"
+
+msgid "Automatically (Default)"
+msgstr "Automatiquement (par défaut)"
+
+msgid "Ask"
+msgstr "Demander"
+
+msgid "Process priority from most conservative to best performance."
+msgstr "Priorité des processus pour conserver la meilleure performance."
+
+msgid "Realtime"
+msgstr "Temps réel"
+
+msgid "Above normal"
+msgstr "Supérieur à la normale"
+
+msgid "Normal (Default)"
+msgstr "Normal (par défaut)"
+
+msgid "Below normal"
+msgstr "Inférieure à la normale"
+
+msgid "Idle"
+msgstr "Idle"
+
+msgid "Optimization level from best speed to best compression."
+msgstr "Niveau d’optimisation de la vitesse optimale pour la meilleure compression."
+
+msgid "9: Best"
+msgstr "9: Le meilleur"
+
+msgid "8: Better"
+msgstr "8: Meilleur."
+
+msgid "7: Good"
+msgstr "7: Bon"
+
+msgid "6:"
+msgstr "6: "
+
+msgid "5: Normal (Default)"
+msgstr "5: Normal (Par défaut)"
+
+msgid "4:"
+msgstr "4: "
+
+msgid "3:"
+msgstr "3: "
+
+msgid "2: Fast"
+msgstr "2: Rapide"
+
+msgid "1: Faster"
+msgstr "1: Plus vite"
+
+msgid "0: Fastest"
+msgstr "0: Le plus rapide"
+
+msgid "&Keep file attributes"
+msgstr "&Préserver les attributs de fichier"
+
+msgid "Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."
+msgstr "Conserver les attributs originaux de lecture seule, système, caché et Archives, ainsi que les sceaux de l’époque de création et de modification."
+
+msgid "&Temp directory"
+msgstr "&Répertoire Temp"
+
+msgid "&Include mask"
+msgstr "&Inclure le masque"
+
+msgid "&Exclude mask"
+msgstr "&Exclure le masque"
+
+msgid "&Log level"
+msgstr "&Niveau d’enregistrement"
+
+msgid "&Check for updates"
+msgstr "&Recherche des mises à jour"
+
+msgid "&Process priority"
+msgstr "&Processus prioritaire"
+
+msgid "&Optimization level"
+msgstr "&Niveau d’optimisation"
+
+msgid "General &1"
+msgstr "Général &1"
+
+msgid "Configure the appearance and behaviour of FileOptimizer"
+msgstr "Configurer l’apparence et le comportement de FileOptimizer"
+
+msgid "General program options affecting all extensions (1/2)"
+msgstr "Options de programme général qui affectent toutes les extensions (1/2)"
+
+msgid "General program options affecting all extensions (2/2)"
+msgstr "Options de programme général qui affectent toutes les extensions (2/2)"
+
+msgid "Extensions affected: "
+msgstr "Extensions concernées: "
+
+msgid "and %s file formats among many others."
+msgstr "et %s parmi beaucoup d’autres formats de fichier."
+
+msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
+msgstr " C’est un optimiseur fichier avancé offrant une réduction de taille de fichier lossless (sans perte de qualité) qui prend en charge: "
+
+msgid "\n\nDONATOR INFORMATION\n"
+msgstr "\n\nDONNÉES RELATIVES AUX DONNEURS\n"
+
+msgid "Have not donated yet!"
+msgstr "¡Vous n’avez pas encore donné !"
+
+msgid "\nUser since %s %s"
+msgstr "\nMembre depuis %s %s"
+
+msgid "\n\nUSAGE STATISTICS\n- Time: %s\n- Opens: %s\n- Files: %s\n- Total: %s\n- Saved: %s\n"
+msgstr "\n\n STATISTIQUES D’UTILISATION\n- Heure: %s\n- Ouvert: %s\n- Fichiers: %s\n- Total: %s\n- Enregistré: %s\n"
+
+msgid "Information"
+msgstr "Informations"
+
+msgid "About"
+msgstr "A propos de "
+
+msgid "Except where otherwise noted, all of the documentation and software \r\nincluded in the package is copyrighted by Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). All rights reserved.\r\n\r\nThis software is provided \"as-is,\" without any express or implied warranty.\r\nIn no event shall the author be held liable for any damages arising from the\r\nuse of this software.\r\n\r\nPermission is granted to anyone to use this software for any purpose,\r\nincluding commercial applications, and to alter and redistribute it,\r\nprovided that the following conditions are met:\r\n\r\n1. All redistributions of source code files must retain all copyright\r\n   notices that are currently in place, and this list of conditions without\r\n   modification.\r\n\r\n2. All redistributions in binary form must retain all occurrences of the\r\n   above copyright notice and web site addresses that are currently in\r\n   place (for example, in the About boxes).\r\n\r\n3. The origin of this software must not be misrepresented; you must not\r\n   claim that you wrote the original software. If you use this software to\r\n   distribute a product, an acknowledgment in the product documentation\r\n   would be appreciated but is not required.\r\n\r\n4. Modified versions in source or binary form must be plainly marked as\r\n   such, and must not be misrepresented as being the original software.\r\n"
+msgstr "Sauf indication contraire, tous les documents et logiciels inclus dans le forfait sont la propriété de Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). Tous droits réservés.\r\n\r\nCe logiciel est fourni \"comme c’est, \" sans aucune garantie expresse ou implicite.\n\nEn aucun cas être tenu responsable à l’auteur du dommage résultant de\r\n\l'nutilisation de ce logiciel.\r\n\r\nIl est permis à quiconque d’utiliser ce logiciel à des fins,\r\ny compris les applications commerciales et de le modifier et le redistribuer\r\n, sous réserve que les conditions suivantes sont réunies :\r\n\r\n1. Toutes les Redistributions des fichiers de code source doivent conserver tous les avis de copyright\r\n qui sont actuellement en place et cette liste de conditions sans\r\n modification.\r\n\r\n2. Toutes les Redistributions sous forme binaire doivent conserver toutes les occurrences de \r\n ci-dessus les adresses de site web et les avis du droit d’auteur qui sont actuellement en\r\n placer (par exemple, dans les images sur).\r\n\r\n3. L’origine de ce logiciel ne doit pas être déformé ; ne doit pas\r\n prétendre que vous avez écrit le logiciel original. Si vous utilisez ce logiciel pour\r\n distribuer un produit, un accusé de réception de la documentation produit est apprécié\r\n, mais il n’est pas obligatoire.\r\n\r\n4. Les versions en format source ou binaire doivent être clairement identifiées comme\r\n ces et ne doit pas représenter faussement comme d’origine logiciel.\r\n"
+
+msgid "&Close"
+msgstr "&Fermer"
+
+msgid "Pending"
+msgstr "En attente"
+
+msgid "0 / %s files"
+msgstr "0 / %s fichiers"
+
+msgid "%s / %s files. %s bytes saved (%s%%)"
+msgstr "%s / %s fichiers. %s bytes enregistré (%s %%)"
+
+msgid "Processing %s..."
+msgstr "Traitement %s..."
+
+msgid "Copying to Recyclebin..."
+msgstr "Copie vers la corbeille..."
+
+msgid "Running %s..."
+msgstr "En cours d’exécution %s..."
+
+msgid "Optimized"
+msgstr "Optimisé"
+
+msgid "Done (%3u%%)."
+msgstr "Fait (%3u%%)."
+
+msgid "%s files processed. %s bytes saved (%s%%)"
+msgstr "%s fichiers traités. %s bytes enregistré (%s%%)"
+
+msgid "Optimization is still running. Do you want to stop and exit %s?"
+msgstr "L’optimisation est encore en cours d’exécution. ¿Vous voulez arrêter et sortir de %s?"
+

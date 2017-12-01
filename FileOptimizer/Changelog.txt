@@ -1,4 +1,5 @@
-- Revisar truepng
+- Translation glitches https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/746b6fa6/ (Nicolas).
+
 - Backup de controles y así no tener que reiniciar
 - Aumentar combos y labels
 - No se restaura el memo
@@ -201,6 +202,8 @@ X.XX - YYYY
 - Added -perfect to mozjpegtran (Psykauze).
 - Workarrounded again ImageMagick GIF processing flags as in 11.30 because it is not yet fixed (#26 Dr. Sassafras).
 - Optimized precompiled headers.
+- Added spanish translation (Javier Gutiérrez Chamorro).
+- Added french translation (Victor Bernoni).
 - Updated TruePNG to 0.6.2.4 (Mike).
 - Updated pngquant to 2.11.4.
 - Updated libwebp to 0.6.1 RC2.
