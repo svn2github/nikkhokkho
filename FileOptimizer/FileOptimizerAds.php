@@ -21,7 +21,7 @@
 		$iRnd = mt_rand(0, 100);
 		$iCont++;
 
-		if ($iRnd < 2)
+		if ($iRnd < 0)
 		{
 			if ($iHeight >= 90)
 			{
@@ -34,7 +34,7 @@
 				$sBanner = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6958213404940013" data-ad-slot="8676613408" data-ad-format="auto"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 			}
 		}
-		else if ($iRnd < 4)
+		else if ($iRnd < 0)
 		{
 			if ($iHeight >= 90)
 			{
@@ -47,7 +47,7 @@
 				$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [320, 50], "div-gpt-ad-1506001695132-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506001695132-' . $iCont . '" style="height:50px; width:320px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506001695132-' . $iCont . '"); });</script></div>';
 			}
 		}
-		else if ($iRnd < 5)
+		else if ($iRnd < 0)
 		{
 			if ($iHeight >= 15)
 			{
@@ -60,7 +60,7 @@
 				$sBanner = '<script type="text/javascript">ad_idzone="1306998"; ad_width="320"; ad_height="50";</script><script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>';
 			}
 		}
-		else
+		else if ($iRnd < 0)
 		{
 			if ($iHeight >= 90)
 			{
@@ -72,6 +72,11 @@
 				//Chitika 320x50
 				$sBanner = '<script type="text/javascript">( function() { if (window.CHITIKA === undefined) { window.CHITIKA = { \'units\' : [] }; }; var unit = {"calltype":"async[2]","publisher":"guti","width":320,"height":50,"sid":"Chitika Default"}; var placement_id = window.CHITIKA.units.length; window.CHITIKA.units.push(unit); document.write(\'<div id="chitikaAdBlock-\' + placement_id + \'"></div>\');}());</script><script type="text/javascript" src="https://cdn.chitika.net/getads.js" async></script>';
 			}
+		}
+		else
+		{
+			$sBanner = '<div id="taboola-below-article-thumbnails"></div><script type="text/javascript">window._taboola = window._taboola || []; _taboola.push({mode: \'thumbnails-a\', container: \'taboola-below-article-thumbnails\', placement: \'Below Article Thumbnails\', target_type: \'mix\'});</script>';
+
 		}
 		return($sBanner);
 	}
@@ -100,6 +105,24 @@
 			overflow: hidden;
 		}
 	</style>
+
+	<script type="text/javascript">window._taboola = window._taboola || []; _taboola.push({article:'auto'}); !function (e, f, u, i)
+	{
+		if (!document.getElementById(i))
+		{
+			e.async = 1;
+			e.src = u;
+			e.id = i;
+			f.parentNode.insertBefore(e, f);
+		}
+	}
+	(document.createElement('script'), document.getElementsByTagName('script')[0], '//cdn.taboola.com/libtrc/nikkhokkho/loader.js', 'tb_loader_script');
+	if(window.performance && typeof window.performance.mark == 'function')
+	{
+		window.performance.mark('tbl_ic');
+	}
+	</script> 
+	
 	<base target="_blank"/>
 </head>
 	
@@ -107,7 +130,9 @@
 
 <table border=0 cellspacing=0 cellpadding=0 width="100%">
 	<?php
-		if ($iHeight >= 90)
+		$iBanners = 1;
+	/*
+		else if ($iHeight >= 90)
 		{
 			$iBanners = ceil($iWidth / 728);
 		}
@@ -115,6 +140,7 @@
 		{
 			$iBanners = ceil($iWidth / 320);
 		}
+		*/
 	?>
 	<tr height="<?php echo $iHeight; ?>">
 		<?php
@@ -145,6 +171,8 @@
 	<?php
 		}
 	?>
+	window._taboola = window._taboola || [];  _taboola.push({flush: true});
+</script> 		
 </script>
 
 
