@@ -398,7 +398,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 			sCaption.printf(_(_T("Some changed settings require %s to be restarted.\nDo you want to restart it now?")), Application->Name.c_str());
 			if (clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Restart")), MB_YESNO | MB_ICONQUESTION) == ID_YES)
 			{
-				ShellExecute(NULL, _T("open"), Application->ExeName.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+				ShellExecute(NULL, _T("open"), Application->ExeName.c_str(), _T("/AllowMultipleInstances=true"), _T(""), SW_SHOWNORMAL);
 				Application->Terminate();
 			}
 	}
