@@ -546,7 +546,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 		}
 	}
     //Make DEL Shortcut
-	else if ((Key == VK_DELETE) && (!Shift.Contains(ssCtrl)) && (!Shift.Contains(ssAlt)) && (!Shift.Contains(ssAlt)))
+	else if ((Key == VK_DELETE) && (!Shift.Contains(ssCtrl)) && (!Shift.Contains(ssAlt)) && (!Shift.Contains(ssShift)))
 	{
 		actRemoveExecute(Sender);
 	}

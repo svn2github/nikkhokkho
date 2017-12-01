@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="1">
     <analyze-all-vs-configs>true</analyze-all-vs-configs>
-    <includedir>
-        <dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/"/>
-	<dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/rtl/"/>
-	<dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/sdk/"/>
-	<dir name="C:/Program Files (x86)/Embarcadero/Studio/19.0/include/windows/vcl/"/>
-    </includedir>
     <defines>
         <define name="PATH_MAX=256"/>
     </defines>
