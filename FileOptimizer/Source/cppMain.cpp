@@ -906,7 +906,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	
 	sText = Application->Name + _(" is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: ") + sText;
 
-	sText.cat_printf(_("\n\nDONATOR INFORMATION\n"));
+	sText.cat_printf(_(_T("\n\nDONATOR INFORMATION\n")));
 	if (gudtOptions.acDonation[0] != NULL)
 	{
 		sText += (String) gudtOptions.acDonation;
@@ -914,7 +914,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 	}
 	else
 	{
-		sText.cat_printf(("Have not donated yet!"))
+		sText.cat_printf(_(_T("Have not donated yet!")));
 
 	}
 	sText.cat_printf(_(_T("\nUser since %s %s")), Application->Name.c_str(), gudtOptions.acVersion);

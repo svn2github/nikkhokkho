@@ -193,6 +193,7 @@ ndo
 
 X.XX - YYYY
 - Implemented multilanguage support via standard PO files.
+- New icons. Better quality and higher resolution (Nicolas).
 - Implemented ability to read options from registry to prevent users changing them in corporate environments. It will never write in the registry nevertheless (srobert698).
 - Made adding files even faster.
 - Hardened buffers in update checker to avoid crashed with certain AV/firewalls (Tom B, Abdulaziz Alnasi).

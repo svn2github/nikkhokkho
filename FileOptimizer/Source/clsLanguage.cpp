@@ -100,7 +100,7 @@ void __fastcall clsLanguage::Save(void)
 // ---------------------------------------------------------------------------
 const TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText)
 {
-	TCHAR acRes[2048];
+	static TCHAR acRes[2048];
 
 	String sRes = Get((String) pacText);
 	_tcsncpy(acRes, sRes.c_str(), (sizeof(acRes) / sizeof(TCHAR)) - 1);

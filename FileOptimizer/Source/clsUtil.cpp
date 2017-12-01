@@ -741,7 +741,7 @@ const TCHAR * __fastcall clsUtil::GetIniPath(bool pbAllUsers)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *pacKey, const TCHAR *pacDefault)
 {
-	TCHAR acRes[2048];
+	static TCHAR acRes[2048];
 	TCHAR *pcSemicolon;
 	
 
@@ -953,7 +953,7 @@ const TCHAR * __fastcall clsUtil::GetRegistryPath(void)
 const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName)
 {
 	HKEY hKey;
-	TCHAR acRes[2048] = {};
+	static TCHAR acRes[2048] = {};
 
 
 	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey);
