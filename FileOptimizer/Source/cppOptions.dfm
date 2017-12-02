@@ -680,9 +680,7 @@ object frmOptions: TfrmOptions
         Width = 281
         Height = 17
         Hint = 
-          'Enable UPX executable compression. When enabled, UPX will not be' +
-          ' used, resulting EXE and DLL size reduction at the cost of runti' +
-          'me decompression.'
+          'Enable UPX executable compression. When enabled, UPX will be used, resulting EXE and DLL size reduction at the cost of runtime decompression.'
         Caption = '&Enable UPX'
         ParentShowHint = False
         ShowHint = True

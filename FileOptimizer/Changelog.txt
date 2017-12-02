@@ -1,3 +1,5 @@
+- Delete all INIs and all registry in reset defaults.
+
 - Backup de controles y así no tener que reiniciar
 - Aumentar combos y labels
 - No se restaura el memo

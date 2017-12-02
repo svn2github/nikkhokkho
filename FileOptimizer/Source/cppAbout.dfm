@@ -326,56 +326,54 @@ object frmAbout: TfrmAbout
       ''
       
         'This software is provided "as-is," without any express or implie' +
-        'd warranty.'
+        'd warranty. In '
       
-        'In no event shall the author be held liable for any damages aris' +
-        'ing from the'
-      'use of this software.'
+        'no event shall the author be held liable for any damages arising' +
+        ' from the use '
+      'of this software.'
       ''
       
         'Permission is granted to anyone to use this software for any pur' +
-        'pose,'
+        'pose, '
       
         'including commercial applications, and to alter and redistribute' +
-        ' it,'
-      'provided that the following conditions are met:'
+        ' it, provided that '
+      'the following conditions are met:'
       ''
       
         '1. All redistributions of source code files must retain all copy' +
-        'right'
+        'right notices that '
       
-        '   notices that are currently in place, and this list of conditi' +
-        'ons without'
-      '   modification.'
+        'are currently in place, and this list of conditions without modi' +
+        'fication.'
       ''
       
         '2. All redistributions in binary form must retain all occurrence' +
-        's of the'
+        's of the above '
       
-        '   above copyright notice and web site addresses that are curren' +
-        'tly in'
-      '   place (for example, in the About boxes).'
+        'copyright notice and web site addresses that are currently in pl' +
+        'ace (for '
+      'example, in the About boxes).'
       ''
       
         '3. The origin of this software must not be misrepresented; you m' +
-        'ust not'
+        'ust not claim '
       
-        '   claim that you wrote the original software. If you use this s' +
-        'oftware to'
+        'that you wrote the original software. If you use this software t' +
+        'o distribute a '
       
-        '   distribute a product, an acknowledgment in the product docume' +
-        'ntation'
-      '   would be appreciated but is not required.'
+        'product, an acknowledgment in the product documentation would be' +
+        ' '
+      'appreciated but is not required.'
       ''
       
         '4. Modified versions in source or binary form must be plainly ma' +
-        'rked as'
-      
-        '   such, and must not be misrepresented as being the original so' +
-        'ftware.')
+        'rked as such, '
+      'and must not be misrepresented as being the original software.'
+      ''
+      'Includes icons by icons8.com.')
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 0
-    WantTabs = True
   end
 end

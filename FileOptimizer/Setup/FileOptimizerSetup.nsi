@@ -125,13 +125,14 @@ Section "Uninstall"
 	Delete "$PROFILE\${APP_NAME}.log"
 	Delete "$PROFILE\${APP_NAME}32.log"
 	Delete "$PROFILE\${APP_NAME}64.log"
-
 	Delete "$DESKTOP\${APP_NAME}.lnk"
 	Delete "$QUICKLAUNCH\${APP_NAME}.lnk"
 	Delete "$SENDTO\${APP_NAME}.lnk"
 	Delete "$FAVORITES\${APP_NAME} Home Page.lnk"
 	DeleteRegKey HKCU "Software\${APP_NAME}"
 	DeleteRegKey HKLM "Software\${APP_NAME}"
+	DeleteRegKey HKCU "Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION\${APP_NAME}32.exe"
+	DeleteRegKey HKCU "Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION\${APP_NAME}64.exe"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
 SectionEnd
 
