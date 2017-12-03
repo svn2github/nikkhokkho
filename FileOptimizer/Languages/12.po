@@ -1,13 +1,13 @@
 # "Language ID: 12 (0x0C)"
 # "Language Name: Français"
 # "Project-Id-Version: FileOptimizer 12.00.2132"
-# "POT-Creation-Date: Nov 30 2017"
-# "MIME-Version: 1.0
+# "POT-Creation-Date: Dec  3 2017"
+# "MIME-Version: 1.0"
 # "Content-Type: text/plain; charset=ISO-8859-1"
 # "Content-Transfer-Encoding: 8bit"
 # "Language: fr_FR"
 # "Last-Translator: Nicolas F."
-# "Language-Team: Nicolas F., Victor Bernon"
+# "Language-Team: Nicolas F., Victor Bernoni"
 # "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "&About..."
@@ -33,6 +33,9 @@ msgstr "Ouvrir la fenêtre Information pour afficher la liste des formats de fic
 
 msgid "Help topics..."
 msgstr "Rubriques d’aide..."
+
+msgid "Open help topics"
+msgstr "Ouvrir l'aide"
 
 msgid "&Help"
 msgstr "&Aide"
@@ -67,8 +70,14 @@ msgstr "Quitter le programme"
 msgid "Open &containing folder..."
 msgstr "Ouvrir l'&emplacement du fichier..."
 
+msgid "Open folder containing selected item"
+msgstr "Ouvrir le dossier contenant l'élément sélectionné"
+
 msgid "&Open selected file"
 msgstr "&Ouvrir le fichier sélectionné"
+
+msgid "Open selected file with the associated program"
+msgstr "Ouvrir le fichier sélectionné avec le programme associé"
 
 msgid "&Clear all files"
 msgstr "&Retirer tous les fichiers"
@@ -100,6 +109,9 @@ msgstr "&Fichier"
 msgid "© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti)"
 msgstr "© Copyright 2012-2018 par Javier Gutiérrez Chamorro (Guti)"
 
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "Faites glisser les fichiers que vous souhaitez optimiser sur la liste ci-dessous. Lorsque vous êtes prêt, utilisez le menu contextuel du bouton droit pour continuer. Tous les fichiers traités sont copiés dans la Corbeille, ce qui vous permet de les restaurer facilement. Vous pouvez désactiver le déplacement vers la corbeille si vous le souhaitez. Double-cliquez sur un élément pour le prévisualiser."
+
 msgid "File"
 msgstr "Fichier"
 
@@ -115,8 +127,26 @@ msgstr "Taille optimisée"
 msgid "Status"
 msgstr "Statut"
 
-msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
-msgstr "Faites glisser les fichiers que vous souhaitez optimiser sur la liste ci-dessous. Lorsque vous êtes prêt, utilisez le menu contextuel du bouton droit pour continuer. Tous les fichiers traités sont copiés dans la Corbeille, ce qui vous permet de les restaurer facilement. Vous pouvez désactiver le déplacement vers la corbeille si vous le souhaitez. Double-cliquez sur un élément pour le prévisualiser."
+msgid "and %s file formats among many others."
+msgstr "et les fichiers au format %s parmi beaucoup d'autres."
+
+msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
+msgstr " est un optimiseur de fichiers avancé qui permet une réduction de taille de fichier sans perte de qualité qui prend en charge : "
+
+msgid "\n\nDONATOR INFORMATION\n"
+msgstr "\n\nINFORMATIONS DONATEUR\n"
+
+msgid "Have not donated yet!"
+msgstr "Vous n'avez pas encore donné !"
+
+msgid "\nUser since %s %s"
+msgstr "\nUtilisateur depuis %s %s"
+
+msgid "\n\nUSAGE STATISTICS\n- Time: %s\n- Opens: %s\n- Files: %s\n- Total: %s\n- Saved: %s\n"
+msgstr "\n\nSTATISTIQUES D'UTILISATION\n- Temps : %s\n- Ouvertures : %s\n- Fichiers : %s\n- Total : %s\n- Économisé : %s\n"
+
+msgid "Information"
+msgstr "Informations"
 
 msgid "Add folder"
 msgstr "Ajouter un dossier"
@@ -277,8 +307,8 @@ msgstr "&GIF"
 msgid "&Enable UPX"
 msgstr "&Activer UPX"
 
-msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
-msgstr "Désactiver l'exécution de certains plugins. Cette liste est insensible à la casse et permet de spécifier plusieurs plugins en utilisant un point-virgule comme séparateur."
+msgid "Enable UPX executable compression. When enabled, UPX will be used, resulting EXE and DLL size reduction at the cost of runtime decompression."
+msgstr "Activer la compression d'exécutables UPX. Lorsque cette option est activée, UPX sera utilisé, ce qui entraîne la réduction de la taille des fichiers EXE et DLL mais nécessite la décompression des fichiers à l'exécution."
 
 msgid "&Disable PETrim"
 msgstr "&Désactiver PETrim"
@@ -396,6 +426,9 @@ msgstr "&Bipper une fois terminé"
 
 msgid "Beep the speaker when optimization completes."
 msgstr "Fait un bip lorsque l'optimisation est terminée."
+
+msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
+msgstr "Désactiver l'exécution de certains plugins. Cette liste est insensible à la casse et permet de spécifier plusieurs plugins en utilisant un point-virgule comme séparateur."
 
 msgid "&Leanify iterations"
 msgstr "&Nombre d'itérations Leanify"
@@ -552,32 +585,11 @@ msgstr "Extensions concernées : "
 
 msgid "Automatic: System default"
 msgstr "Automatique: langue par défaut du système"
-
-msgid "and %s file formats among many others."
-msgstr "et %s formats de fichiers parmi beaucoup d'autres."
-
-msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
-msgstr " est un optimiseur de fichiers avancé qui permet une réduction de taille de fichier sans perte de qualité qui prend en charge : "
-
-msgid "\n\nDONATOR INFORMATION\n"
-msgstr "\n\nINFORMATIONS DONATEUR\n"
-
-msgid "Have not donated yet!"
-msgstr "Vous n'avez pas encore donné !"
-
-msgid "\nUser since %s %s"
-msgstr "\nUtilisateur depuis %s %s"
-
-msgid "\n\nUSAGE STATISTICS\n- Time: %s\n- Opens: %s\n- Files: %s\n- Total: %s\n- Saved: %s\n"
-msgstr "\n\nSTATISTIQUES D'UTILISATION\n- Temps : %s\n- Ouvertures : %s\n- Fichiers : %s\n- Total : %s\n- Économisé : %s\n"
-
-msgid "Information"
-msgstr "Informations"
-
+		 
 msgid "About"
 msgstr "À propos"
 
-msgid "Except where otherwise noted, all of the documentation and software \r\nincluded in the package is copyrighted by Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). All rights reserved.\r\n\r\nThis software is provided \"as-is,\" without any express or implied warranty.\r\nIn no event shall the author be held liable for any damages arising from the\r\nuse of this software.\r\n\r\nPermission is granted to anyone to use this software for any purpose,\r\nincluding commercial applications, and to alter and redistribute it,\r\nprovided that the following conditions are met:\r\n\r\n1. All redistributions of source code files must retain all copyright\r\n   notices that are currently in place, and this list of conditions without\r\n   modification.\r\n\r\n2. All redistributions in binary form must retain all occurrences of the\r\n   above copyright notice and web site addresses that are currently in\r\n   place (for example, in the About boxes).\r\n\r\n3. The origin of this software must not be misrepresented; you must not\r\n   claim that you wrote the original software. If you use this software to\r\n   distribute a product, an acknowledgment in the product documentation\r\n   would be appreciated but is not required.\r\n\r\n4. Modified versions in source or binary form must be plainly marked as\r\n   such, and must not be misrepresented as being the original software.\r\n"
+msgid "Except where otherwise noted, all of the documentation and software \r\nincluded in the package is copyrighted by Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). All rights reserved.\r\n\r\nThis software is provided \"as-is,\" without any express or implied warranty. In \r\nno event shall the author be held liable for any damages arising from the use \r\nof this software.\r\n\r\nPermission is granted to anyone to use this software for any purpose, \r\nincluding commercial applications, and to alter and redistribute it, provided that \r\nthe following conditions are met:\r\n\r\n1. All redistributions of source code files must retain all copyright notices that \r\nare currently in place, and this list of conditions without modification.\r\n\r\n2. All redistributions in binary form must retain all occurrences of the above \r\ncopyright notice and web site addresses that are currently in place (for \r\nexample, in the About boxes).\r\n\r\n3. The origin of this software must not be misrepresented; you must not claim \r\nthat you wrote the original software. If you use this software to distribute a \r\nproduct, an acknowledgment in the product documentation would be \r\nappreciated but is not required.\r\n\r\n4. Modified versions in source or binary form must be plainly marked as such, \r\nand must not be misrepresented as being the original software.\r\n\r\nIncludes icons by icons8.com.\r\n"
 msgstr " Sauf indication contraire, tous les documents et logiciels inclus dans ce package sont la propriété de Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). Tous droits réservés.\r\n\r\nThis software is provided \"as-is,\" without any express or implied warranty.\r\nIn no event shall the author be held liable for any damages arising from the\r\nuse of this software.\r\n\r\nPermission is granted to anyone to use this software for any purpose,\r\nincluding commercial applications, and to alter and redistribute it,\r\nprovided that the following conditions are met:\r\n\r\n1. All redistributions of source code files must retain all copyright\r\n   notices that are currently in place, and this list of conditions without\r\n   modification.\r\n\r\n2. All redistributions in binary form must retain all occurrences of the\r\n   above copyright notice and web site addresses that are currently in\r\n   place (for example, in the About boxes).\r\n\r\n3. The origin of this software must not be misrepresented; you must not\r\n   claim that you wrote the original software. If you use this software to\r\n   distribute a product, an acknowledgment in the product documentation\r\n   would be appreciated but is not required.\r\n\r\n4. Modified versions in source or binary form must be plainly marked as\r\n   such, and must not be misrepresented as being the original software.\r\n"
 
 msgid "&Close"
@@ -612,4 +624,7 @@ msgstr "%s fichiers traités. Réduction de %s octets (%s%%)"
 
 msgid "Optimization is still running. Do you want to stop and exit %s?"
 msgstr "L'optimisation est toujours en cours. Voulez-vous arrêter et quitter %s ?"
+
+msgid "O&pen containing folder..."
+msgstr "Ouvrir l'&emplacement du fichier..."
 
