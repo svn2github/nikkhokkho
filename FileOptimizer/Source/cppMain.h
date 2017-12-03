@@ -283,8 +283,8 @@ private: // User declarations
 	String __inline FormatNumberThousand (unsigned long long plNumber);
 	String __inline FormatNumberThousandUnit (unsigned long long plNumber);
 	unsigned long long __inline ParseNumberThousand (String psNumber);
-	int __fastcall RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psDirectory, String psInputFile, String psOutputFile, int piErrorMin = INT_MIN, int piErrorMax = INT_MAX);
-	unsigned long __fastcall RunProcess(const TCHAR *pacProcess, const TCHAR *pacDirectory, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
+	int __fastcall RunPlugin(unsigned int piCurrent, String psStatus, String psCommandLine, String psInputFile, String psOutputFile, int piErrorMin = INT_MIN, int piErrorMax = INT_MAX);
+	unsigned long __fastcall RunProcess(const TCHAR *pacProcess, TCHAR *pacOutput, unsigned int piOutputLen, bool pbWait);
 	void __fastcall WMDropFiles(TWMDropFiles &udtMessage);
 	void __fastcall AddFilesInitializeExist(void);
 	bool __fastcall AddFilesExist(String psFile);

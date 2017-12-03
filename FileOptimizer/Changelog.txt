@@ -1,5 +1,3 @@
-- Delete all INIs and all registry in reset defaults.
-
 - Backup de controles y así no tener que reiniciar
 - Aumentar combos y labels
 - No se restaura el memo
@@ -194,6 +192,7 @@ X.XX - YYYY
 - Implemented ability to read options from registry to prevent users changing them in corporate environments. It will never write in the registry nevertheless (srobert698).
 - Made adding files even faster.
 - Hardened buffers in update checker to avoid crashed with certain AV/firewalls (Tom B, Abdulaziz Alnasi).
+- Fixed creation of process because some of them like TruePNG do not like to be started in different folders (Hacker).
 - Allow reading INI options from all users if available.
 - Increased disable plugin mask to 512 characters (olavrb).
 - Made INI parsing stronger against errors.

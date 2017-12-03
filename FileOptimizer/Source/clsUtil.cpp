@@ -611,7 +611,7 @@ const TCHAR * __fastcall clsUtil::ExeVersion(const TCHAR *pacFile)
 	TCHAR *pacVersionData;
 	void *a;
 	VS_FIXEDFILEINFO udtVersionInfo;
-	TCHAR acRes[2048] = _T("");
+	static TCHAR acRes[2048] = _T("");
 
 
 	iVersionSize = GetFileVersionInfoSize(pacFile, 0);
@@ -964,6 +964,30 @@ const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey
 }
 
 
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue)
+{
+	bool bRes = false;
+	HKEY hKey;
+
+
+	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
+	{
+		if (pacValue)
+		{
+			bRes = (RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) pacValue, _tcslen(pacValue) + 1) == ERROR_SUCCESS);
+		}
+		else
+		{
+			bRes = (RegDeleteValue(hKey, pacName) == ERROR_SUCCESS);
+        }
+		RegCloseKey(hKey);
+	}
+	return(bRes);
+}
+
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, unsigned int piValue)
 {
@@ -973,10 +997,7 @@ bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const T
 
 	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
 	{
-		if (RegSetValueEx(hKey, pacName, NULL, REG_DWORD, (BYTE *) &piValue, sizeof(piValue)) == ERROR_SUCCESS)
-		{
-			bRes = true;
-		}
+		bRes = (RegSetValueEx(hKey, pacName, NULL, REG_DWORD, (BYTE *) &piValue, sizeof(piValue)) == ERROR_SUCCESS);
 		RegCloseKey(hKey);
 	}
 	return(bRes);
@@ -993,34 +1014,12 @@ bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const T
 
 	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
 	{
-		if (RegSetValueEx(hKey, pacName, NULL, REG_QWORD, (BYTE *) &plValue, sizeof(plValue)) == ERROR_SUCCESS)
-		{
-			bRes = true;
-		}
+		bRes = (RegSetValueEx(hKey, pacName, NULL, REG_QWORD, (BYTE *) &plValue, sizeof(plValue)) == ERROR_SUCCESS);
 		RegCloseKey(hKey);
 	}
 	return(bRes);
 }
 
-
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-bool __fastcall clsUtil::SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, const TCHAR *pacValue)
-{
-	bool bRes = false;
-	HKEY hKey;
-
-
-	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
-	{
-		if (RegSetValueEx(hKey, pacName, NULL, REG_SZ, (BYTE *) pacValue, _tcslen(pacValue) + 1) == ERROR_SUCCESS)
-		{
-			bRes = true;
-		}
-		RegCloseKey(hKey);
-	}
-	return(bRes);
-}
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
