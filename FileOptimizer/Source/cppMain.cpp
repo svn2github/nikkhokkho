@@ -3504,10 +3504,10 @@ const TCHAR * __fastcall TfrmMain::GetOptionCommandLine(void)
 const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 {
 	TCHAR acArgument[PATH_MAX];
-	static TCHAR acRes[PATH_MAX] = _T("");
+	static TCHAR acRes[PATH_MAX];
 	TCHAR *pcStart;
 
-
+    memset(acRes, 0, sizeof(acRes));
 	acArgument[0] = '/';
 	_tcsncpy(&acArgument[1], pacKey, (sizeof(acArgument) / sizeof(TCHAR)) - 2);
 	pcStart = StrStrI(GetOptionCommandLine(), acArgument);
