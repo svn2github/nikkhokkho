@@ -99,12 +99,6 @@
 	<?php
 		}
 	?>
-	<style type="text/css">
-		html, body
-		{
-			overflow: hidden;
-		}
-	</style>
 
 	<script type="text/javascript">window._taboola = window._taboola || []; _taboola.push({article:'auto'}); !function (e, f, u, i)
 	{
@@ -126,7 +120,7 @@
 	<base target="_blank"/>
 </head>
 	
-<body leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0 scroll="no">
+<body leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0>
 
 <table border=0 cellspacing=0 cellpadding=0 width="100%">
 	<?php
@@ -155,26 +149,50 @@
 </table>
 
 <br><br><br><br><br><br><br>
-<?php echo $sSearch; ?>			
-			
-<script language="Javascript" type="text/javascript">
-	"use strict";
-
-	<?php
-		if ($iDebug !== 1)
-		{
-	?>
-			document.addEventListener('contextmenu', function(poEvent)
-			{
-		    	poEvent.preventDefault();
-			}, false);
-	<?php
-		}
-	?>
-	window._taboola = window._taboola || [];  _taboola.push({flush: true});
-</script> 		
-</script>
+<?php echo $sSearch; ?><br><br>
+ 	
+<b>Introduction</b><br><br>
+FileOptimizer is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: .3G2, .3GG, .3GP, .7Z, .A, .AAI, .AC, .ACC, .ADP, .AI, .AIR, .APK, .APNG, .APPX, .APR, .ART, .ART, .AVI, .AVS, .BAR, .BMP, .BPG, .BPL, .BSZ, .CBT, .CBZ, .CDR, .CDT, .CHI, .CHM, .CHQ, .CHS, .CHW, .CIN, .CMYK, .CMYKA, .CPL, .CSL, .CSS, .CUR, .DB, .DB, .DCX, .DDS, .DEB, .DES, .DIB, .DLL, .DOC, .DOCM, .DOCX, .DOT, .DOTM, .DOTX, .DPX, .DRV, .DWF, .DWFX, .EAR, .EASM, .EML, .EMLX, .EPDF, .EPDF, .EPRT, .EPUB, .EXE, .FAX, .FAX, .FB2, .FDF, .FITS, .FLA, .FLAC, .FLV, .FPX, .FPX, .FXG, .FXG, .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .GIF, .GRAY, .GRS, .GZ, .HDR, .HRZ, .HTM, .HTML, .ICB, .ICL, .ICO, .ICO, .INK, .INLINE, .IPA, .IPK, .IPSW, .ITA, .ITS, .ITZ, .J2C, .J2K, .JAR, .JFI, .JFIF, .JIF, .JNG, .JP2, .JPC, .JPE, .JPEG, .JPG, .JPS, .JPT, .JS, .JSON, .KML, .KMZ, .KMZ, .KSF, .LIB, .LIT, .LUA, .LUAC, .LXF, .LZL, .LZMA, .M4A, .M4B, .M4P, .M4R, .M4V, .MAX, .MBX, .MCE, .MDB, .MDT, .MDZ, .MHT, .MHT, .MHTML, .MHTML, .MIC, .MIF, .MIFF, .MIX, .MIZ, .MK3D, .MKA, .MKS, .MKV, .MMIP, .MNG, .MONO, .MOV, .MP3, .MP4, .MPC, .MPD, .MPEG, .MPG, .MPO, .MPP, .MPP, .MPR, .MPT, .MSC, .MSG, .MSG, .MSI, .MSL, .MSP, .MST, .MSZ, .MTV, .MTW, .MVG, .MVZ, .MZZ, .NAR, .NBK, .NOTEBOOK, .O, .OBJ, .OCX, .ODB, .ODF, .ODG, .ODP, .ODS, .ODT, .OEX, .OGA, .OGG, .OGG, .OGV, .OGX, .OGX, .OLE, .OLE2, .ONE, .OPT, .OSK, .OST, .OTB, .OXPS, .P7, .PALM, .PBM, .PCC, .PCD, .PCDS, .PCL, .PCLS, .PCX, .PDB, .PDF, .PFM, .PFS, .PGM, .PIC, .PICON, .PICT, .PK3, .PNG, .PNM, .PNS, .POTM, .POTX, .PPAM, .PPM, .PPS, .PPSM, .PPSX, .PPT, .PPTM, .PPTX, .PSB, .PSD, .PTIF, .PTIF, .PTIFF, .PTIFF, .PUB, .PUB, .PUZ, .QT, .QWK, .R2SKIN, .RA, .RAM, .RDB, .RFA, .RFG, .RFT, .RGB, .RGBA, .RLL, .RM, .RMSKIN, .RMVB, .RTE, .RV, .RVT, .S3Z, .SCR, .SGI, .SGML, .SLDASM, .SLDDRW, .SLDM, .SLDPRT, .SLDX, .SMIL, .SOU, .SPL, .SPO, .SQLITE, .SQLITE2, .SQLITE3, .STZ, .SUN, .SVG, .SVGZ, .SWC, .SWF, .SYS, .TAR, .TGA, .TGZ, .THM, .TIF, .TIFF, .UYVY, .VBX, .VCARD, .VCF, .VDA, .VDX, .VICAR, .VIFF, .VLT, .VOB, .VSD, .VSS, .VST, .VST, .VSX, .VTX, .WAL, .WAR, .WBA, .WBMP, .WEBA, .WEBM, .WEBP, .WIZ, .WMA, .WMV, .WMZ, .WPS, .WSZ, .X, .XAP, .XBM, .XHTML, .XHTML, .XL, .XLA, .XLAM, .XLC, .XLM, .XLS, .XLSM, .XLSX, .XLTM, .XLTX, .XLW, .XML, .XML, .XMZ, .XNK, .XPI, .XPM, .XPS, .XSF, .XSL, .XSLT, .XSN, .XWD, .YCBR, .YCBRA, .YUB, .Z01, .Z02, .Z03, .Z04, .Z05, .Z06, .Z07, .Z08, .Z09, .Z10, .ZIP, .ZIPX, .ZX01, .ZX02, .ZX03, .ZX04, .ZX05, .ZX05, .ZX06, .ZX07, .ZX08, .ZX09, .ZX10, STICKYNOTES.SNT, and THUMBS.DB file formats among many others.<br><br>
+It keeps the behavior of the file untouched, but with its size reduced thanks to several recompression and optimization techniques.<br><br>
 
 
+<b>Quick facts</b><br><br>
+- More than 90 third party tools integrated in one same tool (plugins).<br>
+- More than 400 file extensions supported, being the most complete tool available of this type.<br>
+- Smart detection of file types by analyzing its contents, no matter of what extension they have.<br>
+- Multilanguage.<br>
+- Simple program interface.<br>
+- Easy to use.<br>
+- Powerful automation via command-line.<br>
+- Enterprise deployment restrictions for current user and all users.<br>
+- Free and open source.<br><br>
+
+
+<b>Key features</b><br><br>
+- Suitable for home users that need to speedup file transfers no matter if they are in email attachments, P2P or shared upload servers.<br>
+- Suitable for webmasters to increase the page load speed.<br>
+- Suitable for web developers to reduce content weight.<br>
+- Suitable for desktop developers in any platform (Windows, Linux, MacOS, ...) to reduce distribution sizes and reduce load times.<br>
+- Suitable for mobile developers (Android, iOS, Windows Phone, ...) to reduce distribution sizes and reduce load times.<br>
+- Suitable for server administrators that could integrate FileOptimizer via command-line.<br>
+- Suitable for content creators and distributors to reduce content weights.<br><br>
+
+<b>Description:</b><br><br>
+Drag the files you want to optimize to the files grid in FileOptimizer, right click with the mouse to open the contextual menu, and then click on Optimize. This will process all supported files added, and overwrite them with the optimized version.<br><br>
+Alternatively you can add the files and directories to process on the program's command-line, or dragging them to the executable file. A context menu for Add files, also does it.<br><br>
+By default, FileOptimizer will remove additional metadata, and other unneeded information, but will keep original files in your recycle bin just in case you want to further modify the originals.<br><br>
+
+<b>License</b><br>
+FileOptimizer is provided free of charge covered by the GNU Lesser General Public License (LGPL). Of course if you are using it in a commercial environment, a small donation will be highly appreciated.<br><br>
+
+<b>Requirements</b><br>
+- Operating System: Windows XP, 2003, Vista, 2008, 7, 8, 2012, 10 or 2016 (x86 and x64 compatible).<br>
+- 32 Mb of free memory.<br>
+- 150 Mb of disk space available.<br><br>
+
+<b>Language</b><br>
+Currently FileOptimizer is multilanguage enabled. Out of the box it supports english, as well as additional localizations via standard PO files. Spanish language is included. See the FAQ to learn how to support your own language.<br><br>
+	
+<a href="/">Back to home</a>
 </body>
 </html>
