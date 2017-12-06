@@ -204,6 +204,7 @@ X.XX - YYYY
 - Optimized precompiled headers.
 - Added spanish translation (Javier Gutiérrez Chamorro).
 - Added french translation (Nicolas F., Victor Bernoni).
+- Using IDE Fix Pack 6.1.1.
 - Updated TruePNG to 0.6.2.4 (Mike).
 - Updated pngquant to 2.11.4.
 - Updated libwebp to 0.6.1 RC2.
