@@ -1,32 +1,3 @@
-- Backup de controles y así no tener que reiniciar
-- Aumentar combos y labels
-- No se restaura el memo
-
-
-[i]How to translate FileOptimizer in your own language?[/i]
-Since FileOptimizer 12, user inteface is multilanguage/multilocale capabled. You can translate it to your own language.
-
-1) Execute FileOptimizer with the /SAVELANGUAGE command-line argument, like this: D:\\PROYECTOS\\FileOptimizer\\FileOptimizer64.exe /savelanguage
-
-2) Browse all secondary windows (Options, About, Information, ...) and keep using FO for some time.
-
-3) If everything went OK because there was write permissions on FileOptimizer folder, when you close it a file called 1033.po will be available. This file will contain all english strings that have been presented.
-
-4) Make a copy of 1033.po, and name it as the language (LANGID) or locale (LCID) you will be translating to. You can use reference table available here: https://msdn.microsoft.com/library/windows/desktop/dd318693(v=vs.14.0).aspx
-
-For example, if you want to translate it to "Spanish Modern Sort (ES)" name it 3082.po (3082 is 0x0C0A in decimal). If you want to translate it to "Spanish Dominican Republic (DO)" name it 7178.po (7178 is 1C0A in decimal). In the case you want to translate to a language instead of a locale, for instance to "Spanish (es)" for all countries, you should name it 10.po (10 is 0A in decimal).
-
-5) Translate the contents of the copied PO file. It is a text file where for each msgid containing the original english text, you have an empty msgstr with the translation. You can use any text editor like notepad, or dedicated PO utilities, even if they are cloud based (Online PO Editor).
-
-6) When finished, put your new PO file together with FileOptimizer32.exe or FileOptimizer64.exe. If you current system locale is set to the primary language or locale you translated to, FileOptimizer will read it, and translate all the texts according to your translation. Double check nothing is broken, no texts are missing, and lengths is enought to fit on all items in screen.
-
-7) You are now done. You can erase 1033.po. Please post your translation onto https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/ if you will it to be officially included in FileOptimizer.
-
-
-
-
-
-
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
@@ -187,8 +158,10 @@ ndo
 
 
 X.XX - YYYY
+
+12.00 - 2017/12/08
 - Implemented multilanguage support via standard PO files.
-- New icons. Better quality and higher resolution (Nicolas).
+- New icons. Better quality and higher resolution (Nicolas, trlkly).
 - Implemented ability to read options from registry to prevent users changing them in corporate environments. It will never write in the registry nevertheless (srobert698).
 - Made adding files even faster.
 - Hardened buffers in update checker to avoid crashed with certain AV/firewalls (Tom B, Abdulaziz Alnasi).
@@ -197,7 +170,6 @@ X.XX - YYYY
 - Increased disable plugin mask to 512 characters (olavrb).
 - Made INI parsing stronger against errors.
 - Improved uninstaller to remove also .INI and .LOG files on user profile.
-- Delay load SHCORE.DLL to prevent startup errors under Wine (trlkly #25).
 - Fixed ads were loaded even if hidden (Special).
 - Added -perfect to mozjpegtran (Psykauze).
 - Workarrounded again ImageMagick GIF processing flags as in 11.30 because it is not yet fixed (#26 Dr. Sassafras).
@@ -213,7 +185,6 @@ X.XX - YYYY
 - Updated to mutool 1.12 RC1.
 - Updated ImageMagick to 7.0.7.13 with HDRI support.
 - Some minor optimizations and code cleanup.
-
 
 11.40 - 2017/11/21
 - Permanently removed theme logic as advised in 11.30.
