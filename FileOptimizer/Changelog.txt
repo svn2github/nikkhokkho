@@ -159,6 +159,7 @@ ndo
 
 X.XX - YYYY
 - Updated libwebp to 0.6.1 (Olav R. Birkeland).
+- Compiled with latest C++ Builder 10.2.2 (Tokyo Update 2).
 
 
 12.00 - 2017/12/08
