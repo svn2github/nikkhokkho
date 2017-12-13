@@ -158,6 +158,7 @@ ndo
 
 
 X.XX - YYYY
+- Delay load SHCORE.DLL to avoid a runtime bug in Wine < 2 (#25 trlkly).
 - Updated libwebp to 0.6.1 (Olav R. Birkeland).
 - Compiled with latest C++ Builder 10.2.2 (Tokyo Update 2).
 
