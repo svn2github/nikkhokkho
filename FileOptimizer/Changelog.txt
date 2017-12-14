@@ -139,7 +139,7 @@ ndo
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
-- mutool 1.12 RC1 - http://mupdf.com/downloads/
+- mutool 1.12 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - pingo 0.92m - http://css-ig.net/pingo
@@ -162,6 +162,7 @@ X.XX - YYYY
 - Disabled File system redirection unneded in x64 builds.
 - Updated libwebp to 0.6.1 (Olav R. Birkeland).
 - Updated pingo to 0.92m x86 and x64 versions.
+- Updated to mutool 1.12.
 - Compiled with latest C++ Builder 10.2.2 (Tokyo Update 2).
 
 
