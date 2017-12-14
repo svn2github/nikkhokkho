@@ -75,19 +75,22 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			}
 		}
 		Screen->Cursor = crAppStart;
-		// Disable file system redirection on Win64 environments
-		HMODULE hKernel32 = LoadLibrary(_T("KERNEL32.DLL"));
-		if (hKernel32)
-		{
-			typedef BOOL (WINAPI Wow64DisableWow64FsRedirectionType)(PVOID *);
-			Wow64DisableWow64FsRedirectionType *Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hKernel32, "Wow64DisableWow64FsRedirection");
-			if (Wow64DisableWow64FsRedirectionProc)
+		
+		#if !defined(_WIN64)
+			// Disable file system redirection on Win64 environments
+			HMODULE hKernel32 = LoadLibrary(_T("KERNEL32.DLL"));
+			if (hKernel32)
 			{
-				PVOID pOldWin64Redirect;
-				Wow64DisableWow64FsRedirectionProc(&pOldWin64Redirect);
+				typedef BOOL (WINAPI Wow64DisableWow64FsRedirectionType)(PVOID *);
+				Wow64DisableWow64FsRedirectionType *Wow64DisableWow64FsRedirectionProc = (Wow64DisableWow64FsRedirectionType *) GetProcAddress(hKernel32, "Wow64DisableWow64FsRedirection");
+				if (Wow64DisableWow64FsRedirectionProc)
+				{
+					PVOID pOldWin64Redirect;
+					Wow64DisableWow64FsRedirectionProc(&pOldWin64Redirect);
+				}
+				FreeLibrary(hKernel32);
 			}
-			FreeLibrary(hKernel32);
-		}
+		#endif
 
 		// Enable drag and drop between non-elevated processes and elevated ones in Vista and later
 		HMODULE hUser32 = LoadLibrary(_T("USER32.DLL"));
