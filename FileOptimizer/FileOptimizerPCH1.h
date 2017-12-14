@@ -1,6 +1,8 @@
 // ---------------------------------------------------------------------------
+#pragma once
 #ifndef FileOptimizerPCH1H
 #define FileOptimizerPCH1H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,18 +14,19 @@
 #include <tchar.h>
 
 #include <System.hpp>
+#include <System.Actions.hpp>
+#include <System.Classes.hpp>
+#include <System.ImageList.hpp>
+
 #include <System.StrUtils.hpp>
+#include <System.SyncObjs.hpp>
 #include <System.SysUtils.hpp>
 #include <System.Threading.hpp>
-#include <System.SyncObjs.hpp>
-#include <System.Classes.hpp>
-#include <System.Actions.hpp>
-#include <System.ImageList.hpp>
 
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
-#include <Vcl.Forms.hpp>
 #include <Vcl.ComCtrls.hpp>
+#include <Vcl.Forms.hpp>
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Graphics.hpp>
 #include <Vcl.Grids.hpp>
@@ -41,6 +44,8 @@
 #include <Vcl.OleCtrls.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
+#include <Vcl.Styles.hpp>
+
 #include <Vcl.Imaging.jpeg.hpp>
 
 #include <FileCtrl.hpp>
