@@ -12,8 +12,8 @@
 
 //---------------------------------------------------------------------------
 USEFORM("Source\cppAbout.cpp", frmAbout);
-USEFORM("Source\cppOptions.cpp", frmOptions);
 USEFORM("Source\cppMain.cpp", frmMain);
+USEFORM("Source\cppOptions.cpp", frmOptions);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacCmdLine, int piShow)
 {
