@@ -116,7 +116,7 @@ ndo
 - defluff 0.3.2 - http://j-o.users.sourceforge.net
 - Document Press Version 6.01 - http://encode.ru/threads/336-Document-Press-6-01
 - ECT 0.8.2 (9290a5cf7ea0) - https://github.com/fhanau/Efficient-Compression-Tool
-- ffmpeg 3.3.4 - http://ffmpeg.zeranoe.com/builds/
+- ffmpeg 3.4.1 - http://ffmpeg.zeranoe.com/builds/
 - FLAC 1.3.2 - https://xiph.org/flac/
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
@@ -163,6 +163,7 @@ X.XX - YYYY
 - Updated libwebp to 0.6.1 (Olav R. Birkeland).
 - Updated pingo to 0.92m x86 and x64 versions.
 - Updated to mutool 1.12.
+- Updated ffmpeg to 3.4.1.
 - Compiled with latest C++ Builder 10.2.2 (Tokyo Update 2).
 
 
