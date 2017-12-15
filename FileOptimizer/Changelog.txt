@@ -166,7 +166,7 @@ X.XX - YYYY
 - Updated ffmpeg to 3.4.1.
 - AQtime 8 performance improvements (Armin).
 - Compiled with latest C++ Builder 10.2.2 (Tokyo Update 2).
-
+- Some minor optimizations and code cleanup.
 
 12.00 - 2017/12/08
 - Implemented multilanguage support via standard PO files.
