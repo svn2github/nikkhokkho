@@ -1,7 +1,6 @@
 // ---------------------------------------------------------------------------
-#pragma once
-#ifndef FileOptimizerPCH1H
-#define FileOptimizerPCH1H
+//#ifndef FileOptimizerPCH1H
+//#define FileOptimizerPCH1H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,6 +47,7 @@
 
 #include <Vcl.Imaging.jpeg.hpp>
 
+#include <windows.h>
 #include <FileCtrl.hpp>
 #include <IniFiles.hpp>
 #include <SHDocVw.hpp>
@@ -55,4 +55,4 @@
 #include <Tlhelp32.h>
 
 #pragma hdrstop
-#endif
+//#endif

@@ -217,6 +217,7 @@ void __fastcall clsLanguage::TranslateForm(TForm *pfrmForm)
 void clsLanguage::EnumerateControls(TComponent *poControl)
 {
 	//TForm
+	if (poControl->InheritsFrom(__classid(TForm)))
 	{
 		TForm *oControl = dynamic_cast<TForm *>(poControl);
 		if (oControl)
@@ -226,6 +227,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TLabel
+	else if (poControl->InheritsFrom(__classid(TLabel)))
 	{
 		TLabel *oControl = dynamic_cast<TLabel *>(poControl);
 		if (oControl)
@@ -235,6 +237,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TEdit
+	else if (poControl->InheritsFrom(__classid(TEdit)))
 	{
 		TEdit *oControl = dynamic_cast<TEdit *>(poControl);
 		if (oControl)
@@ -244,6 +247,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TMemo
+	else if (poControl->InheritsFrom(__classid(TMemo)))
 	{
 		TMemo *oControl = dynamic_cast<TMemo *>(poControl);
 		if (oControl)
@@ -253,6 +257,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TSpinEdit
+	else if (poControl->InheritsFrom(__classid(TSpinEdit)))
 	{
 		TSpinEdit *oControl = dynamic_cast<TSpinEdit *>(poControl);
 		if (oControl)
@@ -261,6 +266,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TCheckBox
+	else if (poControl->InheritsFrom(__classid(TCheckBox)))
 	{
 		TCheckBox *oControl = dynamic_cast<TCheckBox *>(poControl);
 		if (oControl)
@@ -270,6 +276,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TComboBox
+	else if (poControl->InheritsFrom(__classid(TComboBox)))
 	{
 		TComboBox *oControl = dynamic_cast<TComboBox *>(poControl);
 		if (oControl)
@@ -283,6 +290,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TImage
+	else if (poControl->InheritsFrom(__classid(TImage)))
 	{
 		TImage *oControl = dynamic_cast<TImage *>(poControl);
 		if (oControl)
@@ -291,6 +299,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TMenuItem
+	else if (poControl->InheritsFrom(__classid(TMenuItem)))
 	{
 		TMenuItem *oControl = dynamic_cast<TMenuItem *>(poControl);
 		if (oControl)
@@ -300,6 +309,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TButton
+	else if (poControl->InheritsFrom(__classid(TButton)))
 	{
 		TButton *oControl = dynamic_cast<TButton *>(poControl);
 		if (oControl)
@@ -308,16 +318,8 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 			oControl->Hint = Get(oControl->Hint);
 		}
 	}
-	//TMenuItem
-	{
-		TMenuItem *oControl = dynamic_cast<TMenuItem *>(poControl);
-		if (oControl)
-		{
-			oControl->Caption = Get(oControl->Caption);
-			oControl->Hint = Get(oControl->Hint);
-		}
-	}
 	//TAction
+	else if (poControl->InheritsFrom(__classid(TAction)))
 	{
 		TAction *oControl = dynamic_cast<TAction *>(poControl);
 		if (oControl)
@@ -327,6 +329,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		}
 	}
 	//TTabSheet
+	else if (poControl->InheritsFrom(__classid(TTabSheet)))
 	{
 		TTabSheet *oControl = dynamic_cast<TTabSheet *>(poControl);
 		if (oControl)
@@ -342,7 +345,6 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 		TComponent *oControl = dynamic_cast<TComponent *>(poControl->Components[iControl]);
 		if (oControl)
 		{
-			String q = oControl->Name;
 			EnumerateControls(oControl);
 		}
 	}
