@@ -2210,7 +2210,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		}
 	}
 	//1 second: Process command-line arguments
-	else if (tmrMain->Interval >= 1000)
+	else if (tmrMain->Interval >= 2000)
 	{
 		tmrMain->Interval = 30000;
 
