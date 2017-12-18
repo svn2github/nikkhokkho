@@ -125,7 +125,7 @@ ndo
 - Ghostscript 9.22 - http://www.ghostscript.com
 - GNU Strip 2.29.1 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.7.13 - http://www.imagemagick.org
+- ImageMagick 7.0.7.15 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -164,6 +164,7 @@ X.XX - YYYY
 - Updated pingo to 0.92o x86 and x64 versions.
 - Updated to mutool 1.12.
 - Updated ffmpeg to 3.4.1.
+- Updated ImageMagick to 7.0.7.15 with HDRI support.
 - AQtime 8 performance improvements (Armin).
 - Compiled with latest C++ Builder 10.2.2 (Tokyo Update 2).
 - Some minor optimizations and code cleanup.
