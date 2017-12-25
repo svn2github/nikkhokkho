@@ -1,3 +1,5 @@
+https://sourceforge.net/p/nikkhokkho/tickets/27/
+
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
@@ -142,7 +144,7 @@ ndo
 - mutool 1.12 - http://mupdf.com/downloads/
 - OptiPNG 0.7.6 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.92q - http://css-ig.net/pingo
+- pingo 0.92u - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.4 - http://www.pngquant.org
@@ -161,7 +163,7 @@ X.XX - YYYY
 - Delay load SHCORE.DLL to avoid a runtime bug in Wine < 2 (#25 trlkly).
 - Disabled File system redirection unneded in x64 builds.
 - Updated libwebp to 0.6.1 (Olav R. Birkeland).
-- Updated pingo to 0.92q x86 and x64 versions.
+- Updated pingo to 0.92u x86 and x64 versions.
 - Updated to mutool 1.12.
 - Updated ffmpeg to 3.4.1.
 - Updated ImageMagick to 7.0.7.15 with HDRI support.
