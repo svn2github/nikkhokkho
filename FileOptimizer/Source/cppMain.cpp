@@ -2211,7 +2211,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		}
 	}
 	//1 second: Process command-line arguments
-	else if (tmrMain->Interval >= 2000)
+	else if (tmrMain->Interval >= 1000)
 	{
 		tmrMain->Interval = 30000;
 
@@ -2219,6 +2219,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		{
 			Screen->Cursor = crAppStart;
 			grdFiles->Enabled = false;  //Prevent grid modifications while adding files
+			Show();	//Required because some themes do not automatically refresh
 			Application->ProcessMessages();
 			AddFilesInitializeExist();
 			bool bAdded = false;

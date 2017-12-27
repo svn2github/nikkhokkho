@@ -153,15 +153,17 @@ ndo
 - rehuff - http://wiki.xiph.org/Rehuff
 - SQLite 3.21.0 - http://www.sqlite.org
 - Tidy 5.6.0 - http://www.html-tidy.org
-- TruePNG 0.6.2.4 - http://x128.ho.ua/pngutils.html
+- TruePNG 0.6.2.5 - http://x128.ho.ua/pngutils.html
 - UPX 3.94 - https://upx.github.io
 - ZLib 1.2.8 - http://www.zlib.net
 - zRecompress 2.12 - http://nikkhokkho.sourceforge.net/static.php?page=zRecompress
 
 
 X.XX - YYYY
+- Hopefully fixed refreshing issues (trlkly).
 - Delay load SHCORE.DLL to avoid a runtime bug in Wine < 2 (#25 trlkly).
 - Disabled File system redirection unneded in x64 builds.
+- Updated TruePNG to 0.6.2.5.
 - Updated libwebp to 0.6.1 (Olav R. Birkeland).
 - Updated pingo to 0.92u x86 and x64 versions.
 - Updated to mutool 1.12.
