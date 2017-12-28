@@ -149,6 +149,8 @@
 </table>
 
 <br><br><br><br><br><br><br>
+<iframe src="//mediacpm.pl/serve/show.php?a=19114&b=728x90" width="728" height="90" frameBorder="0" scrolling="no" marginwidth="0" marginheight="0"></iframe><br><br>
+	
 <?php echo $sSearch; ?><br><br>
  	
 <b>Introduction</b><br><br>
