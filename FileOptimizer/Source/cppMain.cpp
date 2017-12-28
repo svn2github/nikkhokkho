@@ -734,8 +734,8 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	InitializeCriticalSection(&mudtCriticalSection);
 
 	//Use multithreaded parallel for (PPL)
-	//if ((false) && (iRows > 2))
-	if (iRows > 2)
+	if ((false) && (iRows > 2))
+	//if (iRows > 2)
 	{
 		TParallel::For(this, 1, (int) (iRows - 1), actOptimizeForThread);
 	}

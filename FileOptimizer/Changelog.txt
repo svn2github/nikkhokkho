@@ -160,8 +160,12 @@ ndo
 
 
 X.XX - YYYY
-- Updated ImageMagick to 7.0.7.17 with HDRI support.
 
+
+
+12.11 - 2017/12/28
+- Fixed accidentally left experimental multithreading code that avoids optimization (Alex Devero).
+- Updated ImageMagick to 7.0.7.17 with HDRI support.
 
 12.10 - 2017/12/28
 - Fixed refreshing issues (trlkly).
