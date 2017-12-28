@@ -160,7 +160,10 @@ ndo
 
 
 X.XX - YYYY
-- Hopefully fixed refreshing issues (trlkly).
+
+
+12.10 - 2017/12/28
+- Fixed refreshing issues (trlkly).
 - Delay load SHCORE.DLL to avoid a runtime bug in Wine < 2 (#25 trlkly).
 - Disabled File system redirection unneded in x64 builds.
 - Updated OptiPNG to 0.7.7.
