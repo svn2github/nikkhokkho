@@ -283,6 +283,7 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	gbStop = true;
 	CanClose = true;
 	Hide();
+	Application->ProcessMessages();	
 }
 
 
@@ -855,6 +856,7 @@ void __fastcall TfrmMain::actExitExecute(TObject *Sender)
 {
 	gbStop = true;
 	Hide();
+	Application->ProcessMessages();
 	Close();
 }
 
