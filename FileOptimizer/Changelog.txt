@@ -160,7 +160,7 @@ ndo
 
 
 X.XX - YYYY
-
+- Fixed formatting of total files in Information window.
 
 
 12.11 - 2017/12/28

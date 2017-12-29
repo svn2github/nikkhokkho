@@ -932,7 +932,7 @@ void __fastcall TfrmMain::actInformationExecute(TObject *Sender)
 		"- Saved: %s\n")),
 		acTime, 
 		FormatNumberThousand(gudtOptions.iStatOpens).c_str(),
-		FormatNumberThousandUnit(gudtOptions.iStatFiles).c_str(),
+		FormatNumberThousand(gudtOptions.iStatFiles).c_str(),
 		FormatNumberThousandUnit(gudtOptions.lStatTotalBytes).c_str(),
 		FormatNumberThousandUnit(gudtOptions.lStatSavedBytes).c_str());
 
@@ -966,6 +966,7 @@ void __fastcall TfrmMain::OptimizeProgressThread(struct udtOptimizeProgress pudt
 
 	//http://docwiki.embarcadero.com/RADStudio/Seattle/en/Using_the_Main_VCL_Thread
 	//TThread::Synchronize((TThreadMethod) OptimizeProgressVCL);
+	//TInterlocked::Increment((int &) miTot);
 	//Use a timer to refresh?
 
 	LeaveCriticalSection(&mudtCriticalSection);
