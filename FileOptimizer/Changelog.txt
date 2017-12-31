@@ -160,7 +160,9 @@ ndo
 
 
 X.XX - YYYY
+- Fixed a regression in getting donator information (Johnson Lam).
 - Fixed formatting of total files in Information window.
+- Some minor optimizations and code cleanup.
 
 
 12.11 - 2017/12/28

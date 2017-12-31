@@ -201,7 +201,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 		char acBuffer[2048];
 		memset(acBuffer, 0, sizeof(acBuffer));
 		unsigned int iRead = sizeof(acBuffer);
-		clsUtil::ReadFile(udtFindFileData.cFileName, acBuffer, &iRead, 1);
+		clsUtil::ReadFile(udtFindFileData.cFileName, acBuffer, &iRead);
 		char *pcStart = strstr(acBuffer, "\"Language Name:");
 		if (pcStart)
 		{
@@ -216,7 +216,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 				//Selected?
 				if (PosEx((String) gudtOptions.iLanguage + ": ", sLanguage) == 1)
 				{
-					cboLanguage->ItemIndex = iIndex;
+					cboLanguage->ItemIndex = (int) iIndex;
 				}
 				iIndex++;
 			}

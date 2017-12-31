@@ -1018,7 +1018,7 @@ void __fastcall TfrmMain::actOptimizeForThread(TObject *Sender, int AIndex, TPar
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 {
-	unsigned int iCount = (unsigned int) AIndex;
+	int iCount = AIndex;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags;
 
@@ -2565,12 +2565,11 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 	TCHAR *acTemp = new TCHAR[KI_BUFFER_SIZE];
 	char *acPath = new char[KI_BUFFER_SIZE];
 	char *acBuffer = new char[KI_BUFFER_SIZE];
-
 	unsigned int iSize;
 
 
 	strcpy(acPath, "ini=");
-	iSize = (unsigned int) sizeof(acBuffer) - 256;
+	iSize = KI_BUFFER_SIZE - 256;
 	clsUtil::ReadFile(clsUtil::GetIniPath(), (void *) acBuffer, &iSize);
     //Remove cache part
 	char *pcCache = strstr(acBuffer, "[Cache]");
@@ -3285,7 +3284,7 @@ void __fastcall TfrmMain::UpdateTheme(void)
 	//Prevent flickering
 	LockWindowUpdate(Handle);
 
-	clsLanguage::Load(gudtOptions.iLanguage, true);
+	clsLanguage::Load((unsigned int) gudtOptions.iLanguage, true);
 	clsLanguage::TranslateForm(this);
 
 	//Change instructions depending on Recycle Bin settins
@@ -3344,7 +3343,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 
 		//Required indirection
 		String sCaption;
-		sCaption.printf(_(_T("%s / %s files. %s bytes saved (%s%%)")), FormatNumberThousand(piCurrent).c_str(), FormatNumberThousand(grdFiles->RowCount - 1).c_str(), FormatNumberThousand(plSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str());
+		sCaption.printf(_(_T("%s / %s files. %s bytes saved (%s%%)")), FormatNumberThousand(piCurrent).c_str(), FormatNumberThousand((unsigned long long) grdFiles->RowCount - 1).c_str(), FormatNumberThousand(plSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str());
 		stbMain->Panels->Items[0]->Text = sCaption;
 
 		stbMain->Hint = stbMain->Panels->Items[0]->Text;
@@ -3384,7 +3383,7 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 			{
 				//Required indirection
 				String sCaption;
-				sCaption.printf(_(_T("0 / %s files")), FormatNumberThousand(grdFiles->RowCount - 1).c_str());
+				sCaption.printf(_(_T("0 / %s files")), FormatNumberThousand((unsigned long long) grdFiles->RowCount - 1).c_str());
 				stbMain->Panels->Items[0]->Text = sCaption;
 
 				stbMain->Hint = stbMain->Panels->Items[0]->Text;
