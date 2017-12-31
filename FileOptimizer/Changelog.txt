@@ -161,6 +161,7 @@ ndo
 
 X.XX - YYYY
 - Fixed a regression in getting donator information (Johnson Lam).
+- Fixed enabling and disabling ads causing a CPU leak (avalanch).
 - Fixed formatting of total files in Information window.
 - Some minor optimizations and code cleanup.
 

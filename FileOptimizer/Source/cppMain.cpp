@@ -3234,15 +3234,15 @@ void __fastcall TfrmMain::UpdateAds(void)
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
-
 		webAds->Height = 90;
 		webAds->Show();
 	}
 	else
 	{
+		webAds->Stop();
 		webAds->Hide();
 		webAds->Height = 0;
-		webAds->Stop();
+		webAds->Navigate("about:blank");
 	}
 }
 
@@ -3252,28 +3252,32 @@ void __fastcall TfrmMain::UpdateAds(void)
 void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString Text)
 {
 	static String sLastOpenedUrl = "";
-	
-	
-	//Finished loading
-	if (!webAds->Busy)
+
+
+	if (webAds->Visible)
 	{
-		gudtOptions.iAdsShown++;
+		//Finished loading
+		if (!webAds->Busy)
+		{
+			gudtOptions.iAdsShown++;
+		}
+
+		//URL moved from ads page
+		if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
+		{
+			if ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0))
+			{
+				//Prevent double opening
+				if (sLastOpenedUrl != webAds->LocationURL)
+				{
+					sLastOpenedUrl = webAds->LocationURL;
+					ShellExecute(Handle, _T("open"), sLastOpenedUrl.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
+				}
+			}
+			UpdateAds();
+		}
 	}
 
-	//URL moved from ads page
-	if (PosEx((String) KS_APP_ADS_URL, webAds->LocationURL) == 0)
-	{
-		if ((webAds->Height > 0) && ((PosEx("http://", webAds->LocationURL) != 0) || (PosEx("https://", webAds->LocationURL) != 0)))
-		{
-        	//Prevent double opening
-			if (sLastOpenedUrl != webAds->LocationURL)
-			{
-				sLastOpenedUrl = webAds->LocationURL;
-				ShellExecute(Handle, _T("open"), sLastOpenedUrl.c_str(), _T(""), _T(""), SW_SHOWNORMAL);
-			}
-		}
-		UpdateAds();
-	}
 }
 
 
@@ -3311,7 +3315,7 @@ void __fastcall TfrmMain::UpdateTheme(void)
 
     webAds->Visible = !gudtOptions.bHideAds;
 
-    UpdateAds();
+	UpdateAds();
 
 	//Reenable form updates
 	LockWindowUpdate(NULL);
