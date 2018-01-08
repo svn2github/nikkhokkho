@@ -160,13 +160,14 @@ ndo
 
 
 X.XX - YYYY
+
+12.20 - 2018/01/08
 - Fixed a regression in getting donator information (Johnson Lam).
 - Fixed enabling and disabling ads causing a CPU leak (avalanch).
 - Fixed formatting of total files in Information window.
 - Updated gifsicle to 1.91 (custom build).
 - Updated ImageMagick to 7.0.7.19 with HDRI support.
 - Some minor optimizations and code cleanup.
-
 
 12.11 - 2017/12/28
 - Fixed accidentally left experimental multithreading code that avoids optimization (Alex Devero).
