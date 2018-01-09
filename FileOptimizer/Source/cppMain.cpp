@@ -131,7 +131,19 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bShowToolBar = GetOption(_T("Options"), _T("ShowToolBar"), false);
-	gudtOptions.bHideAds = GetOption(_T("Options"), _T("HideAds"), false);
+	
+	//Check if ad display was not set
+	_tcsncpy(acPath, GetOption(_T("Options"), _T("HideAds"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
+	if ((acPath[0] == NULL) && (!gudtOptions.acDonator[0]))
+	{
+		String sCaption;
+		sCaption.printf(_(_T("This is the first time you run %s.\n\nDo you want to support its development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.\n\nYou can change this option at any time from the Options menu.")), Application->Name.c_str());
+		gudtOptions.bHideAds = !(clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Support")), MB_YESNO | MB_ICONQUESTION) == ID_YES);
+	}
+	else
+	{
+		gudtOptions.bHideAds = GetOption(_T("Options"), _T("HideAds"), false);
+	}
 	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
 	gudtOptions.bAllowMultipleInstances = GetOption(_T("Options"), _T("AllowMultipleInstances"), false);
 	gudtOptions.bClearWhenComplete = GetOption(_T("Options"), _T("ClearWhenComplete"), false);

@@ -241,6 +241,13 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 {
+	if ((txtDonator->Text.Length() < 1) && (chkHideAds->Checked))
+	{
+		String sCaption;
+		sCaption.printf(_(_T("Do you want to contribute %s development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.")), Application->Name.c_str());
+		chkHideAds->Checked = !(clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Support")), MB_YESNO | MB_ICONQUESTION) == ID_YES);
+	}
+
 	Hide();
 
 	gudtOptions.bAllowDuplicates = chkAllowDuplicates->Checked;

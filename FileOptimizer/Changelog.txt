@@ -160,6 +160,8 @@ ndo
 
 
 X.XX - YYYY
+- Added ask to user if he wants to show ads on first execution to avoid flagging it as "Ad Supported" in Softpedia and other channels.
+
 
 12.20 - 2018/01/08
 - Fixed a regression in getting donator information (Johnson Lam).
