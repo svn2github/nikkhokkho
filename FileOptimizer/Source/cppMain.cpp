@@ -1518,7 +1518,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				sFlags += "-s" + (String) iLevel + " ";
 				if (iLevel >= 8)
 				{
-					sFlags += "-alltables ";
+					sFlags += "-table=6 ";
 				}
 				if (gudtOptions.bJPEGAllowLossy)
 				{
@@ -1874,7 +1874,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				sFlags += "-s" + (String) iLevel + " ";
 				if (gudtOptions.bPNGAllowLossy)
 				{
-					sFlags += "-x3 ";
+					sFlags += "-x3 -lossyfilter ";
 				}
 				RunPlugin((unsigned int) iCount, "pingo", (sPluginsDirectory + "pingo.exe " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
