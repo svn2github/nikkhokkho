@@ -162,6 +162,7 @@ ndo
 X.XX - YYYY
 - Added ask to user if he wants to show ads on first execution to avoid flagging it as "Ad Supported" in Softpedia and other channels.
 - Updated ImageMagick to 7.0.7.21 with HDRI support.
+- Updated to cppcheck 1.82.
 - Upgraded distributions to 7-Zip 18.00.
 
 
