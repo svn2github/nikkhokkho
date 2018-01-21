@@ -1,3 +1,5 @@
+- Ability to create .bak instead of moving to Recyclebin (bianamaran).
+
 https://sourceforge.net/p/nikkhokkho/tickets/27/
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
