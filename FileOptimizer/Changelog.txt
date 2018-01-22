@@ -146,7 +146,7 @@ ndo
 - mutool 1.12 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.94b - http://css-ig.net/pingo
+- pingo 0.95 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.4 - http://www.pngquant.org
@@ -164,7 +164,7 @@ ndo
 X.XX - YYYY
 - Added ask to user if he wants to show ads on first execution to avoid flagging it as "Ad Supported" in Softpedia and other channels.
 - Updated to ECT 0.8.2 (50e32cde31e6) x86 and x64 daily optimized builds (thanks przemoc).
-- Updated pingo to 0.94b x86 and x64 versions.
+- Updated pingo to 0.95 x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.21 with HDRI support.
 - Updated to cppcheck 1.82.
 - Upgraded distributions to 7-Zip 18.00.
