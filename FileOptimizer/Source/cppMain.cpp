@@ -3297,7 +3297,6 @@ void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString T
 			UpdateAds();
 		}
 	}
-
 }
 
 

@@ -162,6 +162,7 @@ ndo
 X.XX - YYYY
 - Added creation of file backups before optimization, enabled by default, to avoid issues with large files in recyclebin. Can be disabled in Options (bianamaran).
 - Added ask to user if he wants to show ads on first execution to avoid flagging it as "Ad Supported" in Softpedia and other channels.
+- Improved startup logic.
 - Updated SQLite to 3.22.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated to ECT 0.8.2 (50e32cde31e6) x86 and x64 daily optimized builds (thanks przemoc).
 - Updated pingo to 0.95d x86 and x64 versions.
