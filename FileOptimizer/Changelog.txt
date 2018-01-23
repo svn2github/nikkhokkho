@@ -153,7 +153,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
-- SQLite 3.21.0 - http://www.sqlite.org
+- SQLite 3.22.0 - http://www.sqlite.org
 - Tidy 5.6.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.5 - http://x128.ho.ua/pngutils.html
 - UPX 3.94 - https://upx.github.io
@@ -163,6 +163,7 @@ ndo
 
 X.XX - YYYY
 - Added ask to user if he wants to show ads on first execution to avoid flagging it as "Ad Supported" in Softpedia and other channels.
+- Updated SQLite to 3.22.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated to ECT 0.8.2 (50e32cde31e6) x86 and x64 daily optimized builds (thanks przemoc).
 - Updated pingo to 0.95d x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.21 with HDRI support.
