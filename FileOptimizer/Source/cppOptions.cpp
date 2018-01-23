@@ -79,6 +79,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	txtDisablePluginMask->Text = gudtOptions.acDisablePluginMask;
 	txtDonator->Text = gudtOptions.acDonator;
 	chkDoNotUseRecycleBin->Checked = gudtOptions.bDoNotUseRecycleBin;
+	chkDoNotCreateBackups->Checked = gudtOptions.bDoNotCreateBackups;
 	chkEnableCache->Checked = gudtOptions.bEnableCache;
 	txtExcludeMask->Text = gudtOptions.acExcludeMask;
 	cboFilenameFormat->ItemIndex = gudtOptions.iFilenameFormat;
@@ -272,6 +273,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	gudtOptions.bEnableCache = chkEnableCache->Checked;
 	gudtOptions.bKeepAttributes = chkKeepAttributes->Checked;
 	gudtOptions.bDoNotUseRecycleBin = chkDoNotUseRecycleBin->Checked;
+	gudtOptions.bDoNotCreateBackups = chkDoNotCreateBackups->Checked;
 	_tcscpy(gudtOptions.acDisablePluginMask, txtDisablePluginMask->Text.c_str());
 	_tcscpy(gudtOptions.acDonator, txtDonator->Text.c_str());
 	_tcscpy(gudtOptions.acExcludeMask, txtExcludeMask->Text.c_str());

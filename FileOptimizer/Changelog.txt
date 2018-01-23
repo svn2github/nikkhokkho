@@ -1,5 +1,3 @@
-- Ability to create .bak instead of moving to Recyclebin (bianamaran).
-
 https://sourceforge.net/p/nikkhokkho/tickets/27/
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
@@ -162,6 +160,7 @@ ndo
 
 
 X.XX - YYYY
+- Added creation of file backups before optimization, enabled by default, to avoid issues with large files in recyclebin. Can be disabled in Options (bianamaran).
 - Added ask to user if he wants to show ads on first execution to avoid flagging it as "Ad Supported" in Softpedia and other channels.
 - Updated SQLite to 3.22.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated to ECT 0.8.2 (50e32cde31e6) x86 and x64 daily optimized builds (thanks przemoc).

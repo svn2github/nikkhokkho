@@ -115,6 +115,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bZIPRecurse = GetOption(_T("Options"), _T("ZIPRecurse"), false);
 	gudtOptions.bKeepAttributes = GetOption(_T("Options"), _T("KeepAttributes"), false);
 	gudtOptions.bDoNotUseRecycleBin = GetOption(_T("Options"), _T("DoNotUseRecycleBin"), false);
+	gudtOptions.bDoNotCreateBackups = GetOption(_T("Options"), _T("DoNotCreateBackups"), false);
 	_tcsncpy(gudtOptions.acIncludeMask, GetOption(_T("Options"), _T("IncludeMask"), _T("")), (sizeof(gudtOptions.acIncludeMask) / sizeof(TCHAR)) - 1);
 	_tcsncpy(gudtOptions.acExcludeMask, GetOption(_T("Options"), _T("ExcludeMask"), _T("")), (sizeof(gudtOptions.acExcludeMask) / sizeof(TCHAR)) - 1);
 	_tcsncpy(gudtOptions.acDonator, GetOption(_T("Options"), _T("Donator"), _T("")), (sizeof(gudtOptions.acDonator) / sizeof(TCHAR)) -1 );
@@ -214,6 +215,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("ZIPRecurse"), gudtOptions.bZIPRecurse, _T("Boolean. Default: false. Enable optimization inside archives (recursive optimization)."));
 	clsUtil::SetIni(_T("Options"), _T("KeepAttributes"), gudtOptions.bKeepAttributes, _T("Boolean. Default: false. Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."));
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin, _T("Boolean. Default: false. When checked original files will not be backed up in the system trashcan."));
+	clsUtil::SetIni(_T("Options"), _T("DoNotCreateBackups"), gudtOptions.bDoNotCreateBackups, _T("Boolean. Default: false. When checked original files will not be backed up in the current folder as a .BAK files."));
 	clsUtil::SetIni(_T("Options"), _T("IncludeMask"), gudtOptions.acIncludeMask, _T("String. Default: ''. If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included."));
 	clsUtil::SetIni(_T("Options"), _T("ExcludeMask"), gudtOptions.acExcludeMask, _T("String. Default: ''. Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon to specify more than one substring being excluded."));
 	clsUtil::SetIni(_T("Options"), _T("Donator"), gudtOptions.acDonator, _T("String. Default: ''. Donator name if you have supported the project."));
@@ -1110,6 +1112,12 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		{
 			grdFiles->Cells[KI_GRID_STATUS][iCount] = _("Copying to Recyclebin...");
 			clsUtil::CopyToRecycleBin(sInputFile.c_str());
+		}
+
+		if (!gudtOptions.bDoNotCreateBackups)
+		{
+			grdFiles->Cells[KI_GRID_STATUS][iCount] = _("Creating backup...");
+			CopyFile(sInputFile.c_str(), (sInputFile + ".bak").c_str(), false);
 		}
 
 		unsigned int iFileAttributes = INVALID_FILE_ATTRIBUTES;
@@ -2175,7 +2183,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 	}
 
 	//If file was not processed, mark it as skipped because not supported extension, or skipped because user preference (do not process JS for instance)
-	if ((grdFiles->Cells[KI_GRID_STATUS][iCount] == _("Pending")) || (grdFiles->Cells[KI_GRID_STATUS][iCount] == _("Copying to Recyclebin...")))
+	if ((grdFiles->Cells[KI_GRID_STATUS][iCount] == _("Pending")) || (grdFiles->Cells[KI_GRID_STATUS][iCount] == _("Copying to Recyclebin...")) || (grdFiles->Cells[KI_GRID_STATUS][iCount] == _("Creating backup...")))
 	{
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = _("Skipped");
 	}

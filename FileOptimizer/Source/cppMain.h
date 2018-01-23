@@ -112,6 +112,7 @@ struct udtOptions
 	bool bZIPCopyMetadata;
 	bool bZIPRecurse;
 	bool bDoNotUseRecycleBin;
+	bool bDoNotCreateBackups;
 	bool bKeepAttributes;
 	TCHAR acIncludeMask[128];
 	TCHAR acExcludeMask[128];

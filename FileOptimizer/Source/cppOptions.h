@@ -105,7 +105,7 @@ __published: // IDE-managed Components
 	TCheckBox *chkAlwaysOnTop;
 	TCheckBox *chkPDFSkipLayered;
 	TCheckBox *chkAllowDuplicates;
-	TCheckBox *chkAllowMultipleInstances;
+	TCheckBox *chkDoNotCreateBackups;
 	TLabel *lblJSAdditionalExtensions;
 	TEdit *txtJSAdditionalExtensions;
 	TLabel *lblTempDirectory;
@@ -118,6 +118,7 @@ __published: // IDE-managed Components
 	TCheckBox *chkHideAds;
 	TComboBox *cboLanguage;
 	TLabel *lblLanguage;
+	TCheckBox *chkAllowMultipleInstances;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCancelClick(TObject *Sender);
 	void __fastcall butOKClick(TObject *Sender);
