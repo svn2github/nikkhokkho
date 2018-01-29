@@ -169,7 +169,7 @@ X.XX - YYYY
 - Updated pingo to 0.95i x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.22 with HDRI support.
 - Updated to cppcheck 1.82.
-- Upgraded distributions to 7-Zip 18.00.
+- Upgraded distributions to 7-Zip 18.01.
 
 
 12.20 - 2018/01/08
