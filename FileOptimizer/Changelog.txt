@@ -134,7 +134,7 @@ ndo
 - jpegoptim 1.4.4 git-9578d79 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9 - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.208 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.209 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libwebp 0.6.1 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
 - mkclean 0.8.10 - http://www.matroska.org/downloads/mkclean.html
@@ -166,6 +166,7 @@ X.XX - YYYY
 - Tested against Google File Stream and Microsoft OneDrive virtual file systems.
 - Updated SQLite to 3.22.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated to ECT 0.8.2 (50e32cde31e6) x86 and x64 daily optimized builds (thanks przemoc).
+- Updated Leanify to 0.4.3.209 daily binaries.
 - Updated pingo to 0.95i x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.22 with HDRI support.
 - Updated to cppcheck 1.82.
