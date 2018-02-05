@@ -144,7 +144,7 @@ ndo
 - mutool 1.12 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.95i - http://css-ig.net/pingo
+- pingo 0.95q - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.4 - http://www.pngquant.org
@@ -167,7 +167,7 @@ X.XX - YYYY
 - Updated SQLite to 3.22.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated to ECT 0.8.2 (50e32cde31e6) x86 and x64 daily optimized builds (thanks przemoc).
 - Updated Leanify to 0.4.3.209 daily binaries.
-- Updated pingo to 0.95i x86 and x64 versions.
+- Updated pingo to 0.95q x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.22 with HDRI support.
 - Updated to cppcheck 1.82.
 - Updated to NSIS 3.03.
