@@ -44,7 +44,14 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		), _T("Command-line help"), MB_OK | MB_ICONINFORMATION);
 		return(-1);
 	}
-	
+
+
+	Application->Initialize();
+	Application->Name = "FileOptimizer";
+	Application->Title = Application->Name;
+	Application->HelpFile = Application->Name + ".chm";
+	Application->MainFormOnTaskBar = true;
+
 	if (!TfrmMain::GetOption(_T("Options"), _T("AllowMultipleInstances"), false))
 	{
 		hMutex = OpenMutex(MUTEX_ALL_ACCESS, false, Application->Name.c_str());
@@ -60,7 +67,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			}
 		}
 	}
-	
+
 	#if !defined(_WIN64)
 		// Disable file system redirection on Win64 environments
 		HMODULE hKernel32 = LoadLibrary(_T("KERNEL32.DLL"));
@@ -97,20 +104,11 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 	#endif
 	SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
 	SetMinimumBlockAlignment(mba16Byte);
-	
+
 
 	try
 	{
-		//Screen->Cursor = crAppStart;
-		Application->Initialize();
-		Application->Name = "FileOptimizer";
-		Application->Title = Application->Name;
-		Application->HelpFile = Application->Name + ".chm";
-		Application->MainFormOnTaskBar = true;
-		
-		//TStyleManager::TrySetStyle("Windows");
 		Application->CreateForm(__classid(TfrmMain), &frmMain);
-		//Screen->Cursor = crDefault;
 		Application->Run();
 	}
 	catch (Exception &excE)

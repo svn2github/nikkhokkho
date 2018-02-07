@@ -957,10 +957,12 @@ const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey
 	static TCHAR acRes[2048] = {};
 
 
-	RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey);
-	unsigned int iSize = sizeof(acRes);
-	RegQueryValueEx(hKey, pacName, NULL, NULL, (BYTE *) acRes, (LPDWORD) &iSize);
-	RegCloseKey(hKey);
+	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey) == ERROR_SUCCESS)
+	{
+		unsigned int iSize = sizeof(acRes);
+		RegQueryValueEx(hKey, pacName, NULL, NULL, (BYTE *) acRes, (LPDWORD) &iSize);
+		RegCloseKey(hKey);
+    }
 	return (acRes);
 }
 

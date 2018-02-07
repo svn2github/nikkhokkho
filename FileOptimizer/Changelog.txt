@@ -160,6 +160,7 @@ ndo
 
 
 X.XX - YYYY
+- Fixed a regression in 12.30 which caused registry values not being properly read (srobert698).
 
 
 12.30 - 2018/02/06
