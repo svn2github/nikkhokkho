@@ -160,6 +160,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+12.30 - 2018/02/06
 - Added creation of file backups before optimization, enabled by default, to avoid issues with large files in recyclebin. Can be disabled in Options (bianamaran).
 - Added ask to user if he wants to show ads on first execution to avoid flagging it as "Ad Supported" in Softpedia and other channels.
 - Improved startup logic.
@@ -172,7 +175,6 @@ X.XX - YYYY
 - Updated to cppcheck 1.82.
 - Updated to NSIS 3.03.
 - Upgraded distributions to 7-Zip 18.01.
-
 
 12.20 - 2018/01/08
 - Fixed a regression in getting donator information (Johnson Lam).
