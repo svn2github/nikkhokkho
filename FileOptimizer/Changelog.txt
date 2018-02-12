@@ -1,3 +1,5 @@
+DONATOR INFORMATION and USAGE STATISTICS are not translated (Luc).
+
 https://sourceforge.net/p/nikkhokkho/tickets/27/
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
@@ -162,6 +164,7 @@ ndo
 X.XX - YYYY
 - Included dutch translation. Thanks Luc.
 - Made installer multilanguage.
+- Implemented Some translation improvements (Luc).
 - Fixed a regression in 12.30 which caused registry values not being properly read (srobert698).
 
 

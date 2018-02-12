@@ -1104,7 +1104,7 @@ object frmOptions: TfrmOptions
   object butRestoreDefaults: TButton
     Left = 8
     Top = 374
-    Width = 95
+    Width = 125
     Height = 25
     Hint = 'Restore all options to its factory settings values.'
     Caption = '&Restore defaults'
