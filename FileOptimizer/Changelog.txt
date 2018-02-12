@@ -160,6 +160,7 @@ ndo
 
 
 X.XX - YYYY
+- Included dutch translation. Thanks Luc.
 - Made installer multilanguage.
 - Fixed a regression in 12.30 which caused registry values not being properly read (srobert698).
 

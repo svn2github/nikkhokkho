@@ -1,0 +1,754 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: FileOptimizer\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Doggydaddy <l_s@generalmail.com>\n"
+"Language-Team: doggydaddy l_s@generalmail.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"X-Generator: Poedit 2.0.6\n"
+
+# "Language Name: Nederlands - België"
+# "Project-Id-Version: FileOptimizer 12.30.2205"
+# "POT-Creation-Date: Feb  6 2018"
+# "MIME-Version: 1.0"
+# "Content-Type: text/plain; charset=ISO-8859-1"
+# "Content-Transfer-Encoding: 8bit"
+# "Language: nl_BE"
+# "Last-Translator: Javier GutiÃ©rrez Chamorro"
+# "Language-Team: Javier GutiÃ©rrez Chamorro"
+# "Plural-Forms: nplurals=2; plural=(n != 1);"
+
+msgid "FileOptimizer"
+msgstr "FileOptimizer"
+
+msgid "&About..."
+msgstr "&Over..."
+
+msgid "Open the about window with internal and legal information"
+msgstr "Open het 'Over' venster met interne en wettelijke informatie"
+
+msgid "-"
+msgstr "-"
+
+msgid "Donate..."
+msgstr "Doneren..."
+
+msgid "Support the development by easily and securely money donations"
+msgstr "Ondersteun de ontwikkeling door een eenvoudige en beveiligde schenking"
+
+msgid "&Information..."
+msgstr "&Informatie..."
+
+msgid "Open information window with the list of currently supported file formats"
+msgstr "Infovenster met de lijst van thans ondersteunde bestandsformaten openen"
+
+msgid "Help topics..."
+msgstr "Help onderwerpen..."
+
+msgid "Open help topics"
+msgstr "Help onderwerpen openen"
+
+msgid "&Help"
+msgstr "&Help"
+
+msgid "&Options..."
+msgstr "&Opties..."
+
+msgid "Open configuration options window"
+msgstr "Configuratieopties venster openen"
+
+msgid "&Stop"
+msgstr "&Stop"
+
+msgid "Stop in-progress optimizations"
+msgstr "Stop lopende optimaliseringen"
+
+msgid "&Optimize all files"
+msgstr "&Optimaliseer alle bestanden"
+
+msgid "Optimize files in the optimization list"
+msgstr "Optimaliseer bestanden in optimalisatielijst"
+
+msgid "&Optimize"
+msgstr "&Optimaliseren"
+
+msgid "E&xit..."
+msgstr "&Afsluiten..."
+
+msgid "Exit the program"
+msgstr "Programma afsluiten"
+
+msgid "Open &containing folder..."
+msgstr "Open bevattende ma&p..."
+
+msgid "Open folder containing selected item"
+msgstr "Open map die geselecteerd item bevat"
+
+msgid "&Open selected file"
+msgstr "Open geselecteerd b&estand"
+
+msgid "Open selected file with the associated program"
+msgstr "Open geselecteerd bestand met bijhorend programma"
+
+msgid "&Clear all files"
+msgstr "Alle bestanden &verwijderen"
+
+msgid "Empty all files in the optimization list"
+msgstr "Verwijder alle bestanden uit optimalisatielijst"
+
+msgid "&Remove selected files"
+msgstr "&Geselecteerde bestanden verwijderen"
+
+msgid "Remove selected files from the optimization list"
+msgstr "Verwijder geselecteerde bestanden uit optimalisatielijst"
+
+msgid "A&dd folder..."
+msgstr "&Mappen toevoegen..."
+
+msgid "Add folder contents recursively from your computer to the optimization list"
+msgstr "Mappen van uw computer recursief toevoegen aan de optimalisatielijst"
+
+msgid "&Add files..."
+msgstr "&Bestanden toevoegen..."
+
+msgid "Add files from your computer to the optimization list"
+msgstr "Bestanden van computer aan optimalisatielijst toevoegen"
+
+msgid "&File"
+msgstr "&Bestand"
+
+msgid "Â© Copyright 2012-2018 by Javier GutiÃ©rrez Chamorro (Guti)"
+msgstr "© Copyright 2012-2018 door Javier Gutiérrez Chamorro (Guti)"
+
+msgid "https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer"
+msgstr "https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer"
+
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "Sleep bestanden die u wil optimaliseren naar de lijst beneden, indien klaar, klik rechts voor het contextmenu. Verwerkte bestanden worden naar de Prullenbak gekopiëerd zodat u ze gemakkelijk kan terugzetten. U kan verplaatsen naar de Prullenbak uitschakelen als u wilt. Dubbelklik op een item voor een voorbeeld."
+
+msgid "File"
+msgstr "Bestand"
+
+msgid "Extension (Type)"
+msgstr "Extensie (type)"
+
+msgid "Original size"
+msgstr "Oorspronkelijke grootte"
+
+msgid "Optimized size"
+msgstr "Geoptimaliseerde grootte"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Pending"
+msgstr "In afwachting"
+
+msgid "0 / %s files"
+msgstr "0 / %s bestanden"
+
+msgid "Options"
+msgstr "Opties"
+
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+msgid "Discard any changes made to options."
+msgstr "Verwerp alle veranderingen aan opties."
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "Accept and apply all changes made to options."
+msgstr "Accepteer aanpassingen aan de opties en pas toe."
+
+msgid "&Restore defaults"
+msgstr "Terug &standaard"
+
+msgid "Restore all options to its factory settings values."
+msgstr "Alle opties terugzetten naar fabrieksinstellingen."
+
+msgid "&Recurse"
+msgstr "&Recursief"
+
+msgid "Enable optimization inside archives (recursive optimization)."
+msgstr "Schakel optimaliseren in archieven in (recursieve optimalisatie)."
+
+msgid "&Copy metadata"
+msgstr "&Kopieer metadata"
+
+msgid "Copy file metadata. Else strip all unneded information."
+msgstr "Kopiëer bestands metadata. Verwijder anders alle onnodige informatie."
+
+msgid "&ZIP"
+msgstr "&ZIP"
+
+msgid "&Enable Leanify"
+msgstr "&Activeer Leanify"
+
+msgid "Enable Leanify. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Leanify inschakelen. Geeft kleinere bestanden maar kunnen mogelijk niet meer bewerkt worden."
+
+msgid "&XML"
+msgstr "&XML"
+
+msgid "&TIFF"
+msgstr "&TIFF"
+
+msgid "&TGA"
+msgstr "&TGA"
+
+msgid "&Allow lossy optimizations"
+msgstr "&Optimalisatie met verlies toestaan"
+
+msgid "Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not"
+msgstr "Optimalisatie met kwaliteitsverlies toestaan geeft kleinere bestanden met de prijs van kwaliteitsverlies, zichtbaar of niet"
+
+msgid "&PNG"
+msgstr "&PNG"
+
+msgid "&Skip layered"
+msgstr "&Sla gelaagde over"
+
+msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
+msgstr "Verwerken van PDF-bestanden met objecten in lagen overslaan. Geeft grotere, beter compatibele bestanden."
+
+msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgstr "Met een aangepast profiel geselecteerd, kan u een aangepaste DPI specifiëren om afbeeldingen te verkleinen"
+
+msgid "Compression profile, from less size, to best quality."
+msgstr "Compressie profiel, van kleinere grootte tot beste kwaliteit."
+
+msgid "Custom"
+msgstr "Aangepast"
+
+msgid "Prepress: 300 dpi and color preserve"
+msgstr "Prepress: 300 dpi en kleuren bewaren"
+
+msgid "Printer: 300 dpi"
+msgstr "Printer: 300 dpi"
+
+msgid "Ebook: 150 dpi"
+msgstr "Ebook: 150 dpi"
+
+msgid "Screen: 72 dpi"
+msgstr "Scherm : 72 dpi"
+
+msgid "None: No downsampling (Default)"
+msgstr "Geen: Niet verkleinen (standaard)"
+
+msgid "&Custom DPI"
+msgstr "&Aangepast DPI"
+
+msgid "&Profile"
+msgstr "&Profiel"
+
+msgid "&PDF"
+msgstr "&PDF"
+
+msgid "&PCX"
+msgstr "&PCX"
+
+msgid "&MP4"
+msgstr "&MP4"
+
+msgid "&MP3"
+msgstr "&MP3"
+
+msgid "&Miscelaneous"
+msgstr "&Diversen"
+
+msgid "&LUA"
+msgstr "&LUA"
+
+msgid "Add extra extensions to be threated as JS/JSON."
+msgstr "Voeg extra extensies toe om te behandelen als JS/JSON."
+
+msgid "&Enable JSMin"
+msgstr "&Schakel JSMin in"
+
+msgid "Enable jsmin. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Jsmin inschakelen. Geeft kleinere bestanden maar kunnen mogelijk niet meer bewerkt worden."
+
+msgid "&Additional Extensions"
+msgstr "&Aanvullende extensies"
+
+msgid "&JS"
+msgstr "&JS"
+
+msgid "&Use arithmetic encoding"
+msgstr "&Rekenkundige codering gebruiken"
+
+msgid "Arithmetic encoding gives additional saving reductions, but is incompatible with most programs."
+msgstr "Rekenkundige codering geeft bijkomende verkleining maar is incompatibel met de meeste programma's."
+
+msgid "&JPEG"
+msgstr "&JPEG"
+
+msgid "&Enable Tidy"
+msgstr "Tidy &inschakelen"
+
+msgid "Enable Tidy. Results in smaller files, but can happen they are not editable anymore. Note that this applies to both SVG and HTML file types"
+msgstr "Tidy inschakelen. Geeft kleinere bestanden maar kunnen mogelijk niet meer bewerkt worden. NB dit geldt zowel voor SVG als HTML type bestanden"
+
+msgid "&HTML"
+msgstr "&HTML"
+
+msgid "&GZ"
+msgstr "&GZ"
+
+msgid "&GIF"
+msgstr "&GIF"
+
+msgid "&Enable UPX"
+msgstr "UPX &inschakelen"
+
+msgid "Enable UPX executable compression. When enabled, UPX will be used, resulting EXE and DLL size reduction at the cost of runtime decompression."
+msgstr "UPX uitvoerbare compressie inschakelen. Indien ingeschakeld, zal UPX gebruikt worden met als gevolg kleinere EXE's en DLL's ten koste van runtime decompressie."
+
+msgid "&Disable PETrim"
+msgstr "PETrim &uitschakelen"
+
+msgid "Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."
+msgstr "Petrim uitschakelen. Indien uitgeschakeld, zal PETrim niet gebruikt worden met als gevolg minder EXE corruptie maar ten koste van grotere bestanden."
+
+msgid "&EXE"
+msgstr "&EXE"
+
+msgid "Compression template, from safer and worse compression, to highest compression"
+msgstr "Compressie template, van veiligere en mindere compressie tot de hoogste compressie"
+
+msgid "Highest"
+msgstr "Hoogste"
+
+msgid "High"
+msgstr "Hoog"
+
+msgid "Low (Default)"
+msgstr "Laag (standaard)"
+
+msgid "Enable tidy. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Tidy inschakelen. Geeft kleinere bestanden maar soms niet meer te bewerken."
+
+msgid "&Template"
+msgstr "&Template"
+
+msgid "&CSS"
+msgstr "&CSS"
+
+msgid "&BMP"
+msgstr "&BMP"
+
+msgid "User interface language"
+msgstr "Taal van de gebruiker interface"
+
+msgid "&Hide ads"
+msgstr "&Reclame verbergen"
+
+msgid "Hide ads from being displayed."
+msgstr "Geen advertenties tonen."
+
+msgid "Specify the format to display filenames in the list."
+msgstr "Specifieer het formaat om bestandsnamen te tonen in de lijst."
+
+msgid "Drive letter + Partial (path + Filename)"
+msgstr "Stationsletter + gedeeltelijk (pad + bestandsnaam)"
+
+msgid "Drive letter + Partial path + Filename"
+msgstr "Stationsletter + gedeeltelijk pad + bestandsnaam"
+
+msgid "Filename only"
+msgstr "Enkel bestandsnaam"
+
+msgid "Full path and Filename (Default)"
+msgstr "Volledig pad en bestandsnaam (standaard)"
+
+msgid "&Always on top"
+msgstr "&Altijd bovenaan"
+
+msgid "Show main window always on top."
+msgstr "Hoofdvenster altijd boven."
+
+msgid "&Show toolbar"
+msgstr "&Werkbalk tonen"
+
+msgid "Show icons toolbar on main window"
+msgstr "Icoonwerkbalk tonen in hoofdvenster"
+
+msgid "If you have already donated to support FileOptimizer development, enter here the email address or name you used"
+msgstr "Als u al gedoneerd hebt om de ontwikkeling van FileOptimizer te steunen, voer dan hier het e-mailadres of de naam in die u gebruikte"
+
+msgid "&Language"
+msgstr "&Taal"
+
+msgid "&Filename format"
+msgstr "&Bestandsnaam vorm"
+
+msgid "&Donator"
+msgstr "&Doneur"
+
+msgid "&Appearance"
+msgstr "&Uitzicht"
+
+msgid "&Allow multiple instances"
+msgstr "&Laat meerdere exemplaren toe"
+
+msgid "Allow having more than one FileOptimizer instance. If not, a warning will appear."
+msgstr "Meer dan één FileOptimizer exemplaar toelaten. Indien niet toegelaten zal een waarschuwing verschijnen."
+
+msgid "&Enable cache"
+msgstr "&Cache inschakelen"
+
+msgid "Enable cache of already optimized files to automatically skip them."
+msgstr "Cache inschakelen voor reeds geoptimaliseerde bestanden om ze automatisch over te slaan."
+
+msgid "If specified, number of trial iterations in all Leanify executions will use this vaule. If not, iterations are calculated depending on the Optimization level."
+msgstr "Indien gespecifieerd, het aantal herhalingen in alle Leanify uitvoeringen zal deze waarde gebruiken. Indien niet worden herhalingen berekend afhankelijk van het optimalisatieniveau."
+
+msgid "&Allow duplicates"
+msgstr "&Dubbels toelaten"
+
+msgid "Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."
+msgstr "Meermaals toevoegen van hetzelfde bestand toelaten. Indien ingeschakeld, zal toevoegen aan het grid veel sneller gaan, zeker bij heel grote grid's."
+
+msgid "&Clear when complete"
+msgstr "&Indien klaar, lijst leegmaken"
+
+msgid "Automatically clear file list when optimization is completed."
+msgstr "Bestandslijst automatisch leeg maken als optimalisatie klaar is."
+
+msgid "&Shutdown when done"
+msgstr "&Afsluiten wanneer klaar"
+
+msgid "Shutdown computer when optimization completes."
+msgstr "Computer afsluiten als optimalisatie klaar is."
+
+msgid "&Beep when done"
+msgstr "&Biep waneer klaar"
+
+msgid "Beep the speaker when optimization completes."
+msgstr "Luidspreker laten biepen als optimalisatie klaar is."
+
+msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
+msgstr "Uitsluiten van bepaalde plug-ins toestaan. Hoofdletterongevoelig en laat toe om meer dan één item te specifiëren door puntkomma's als scheidingsteken te gebruiken."
+
+msgid "&Leanify iterations"
+msgstr "&Leanify herhalingen"
+
+msgid "&Disable plugin mask"
+msgstr "&Plug-in mask uitschakelen"
+
+msgid "General &2"
+msgstr "Algemeen &2"
+
+msgid "If not empty specified directory will be used for temporary storage instead of system's %TEMP%."
+msgstr "Indien niet leeg zal de gespecifieerde map gebruikt worden voor tijdelijke opslag i.p.v. systeem %TEMP%."
+
+msgid "D&o not create backups"
+msgstr "Maak geen &back-ups"
+
+msgid "When checked original files will not be backed up in the current folder as a .BAK files."
+msgstr "Indien aangevinkt zullen originele bestanden niet geback-upt worden in de huidige map als .bak bestanden."
+
+msgid "If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included."
+msgstr "Indien niet leeg zullen enkel bestanden die dit mask (substring) bevatten in naam of pad inbegrepen worden voor optimalisatie. U kan puntkomma's gebruiken om meer dan één substring te specifiëren om toe te voegen."
+
+msgid "Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded."
+msgstr "Bestanden die dit mask (substring) bevatten in naam of pad zullen niet geoptimaliseerd worden. U kan puntkomma's gebruiken om er meer dan één te specifiëren om uit te sluiten."
+
+msgid "&Do not use recycle bin"
+msgstr "&Gebruik de prullenbak niet"
+
+msgid "When checked original files will not be backed up in the system trashcan."
+msgstr "Indien aangekruist zullen originele bestanden niet geback-upt worden in de prullenbak v/h systeem."
+
+msgid "Debugging level to output on program log."
+msgstr "Foutzoekniveau te vermelden in programma log."
+
+msgid "4: Information"
+msgstr "4: Informatie"
+
+msgid "3: Warning"
+msgstr "3: Waarschuwing"
+
+msgid "2: Error"
+msgstr "2: Fout"
+
+msgid "1: Critical"
+msgstr "1: Kritiek"
+
+msgid "0: None (Default)"
+msgstr "0: Geen (standaard)"
+
+msgid "Automatically check for program updates."
+msgstr "Controleer automatisch op updates."
+
+msgid "Never"
+msgstr "Nooit"
+
+msgid "Automatically (Default)"
+msgstr "Automatisch (standaard)"
+
+msgid "Ask"
+msgstr "Vragen"
+
+msgid "Process priority from most conservative to best performance."
+msgstr "Proces prioriteit van meest conservatieve tot beste prestatie."
+
+msgid "Realtime"
+msgstr "Realtime"
+
+msgid "Above normal"
+msgstr "Meer dan normaal"
+
+msgid "Normal (Default)"
+msgstr "Normaal (standaard)"
+
+msgid "Below normal"
+msgstr "Minder dan normaal"
+
+msgid "Idle"
+msgstr "Inactief"
+
+msgid "Optimization level from best speed to best compression."
+msgstr "Optimalisatieniveau van hoogste snelheid tot beste compressie."
+
+msgid "9: Best"
+msgstr "9: Beste"
+
+msgid "8: Better"
+msgstr "8: Beter"
+
+msgid "7: Good"
+msgstr "7: Goed"
+
+msgid "6:"
+msgstr "6:"
+
+msgid "5: Normal (Default)"
+msgstr "5: Normaal (standaard)"
+
+msgid "4:"
+msgstr "4:"
+
+msgid "3:"
+msgstr "3:"
+
+msgid "2: Fast"
+msgstr "2: Snel"
+
+msgid "1: Faster"
+msgstr "1: Sneller"
+
+msgid "0: Fastest"
+msgstr "0: Snelst"
+
+msgid "&Keep file attributes"
+msgstr "&Behoud bestandskenmerken"
+
+msgid "Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."
+msgstr "Behoud de originele alleen-lezen, systeem, verborgen en archief attributen zowel als de 'gemaakt' en 'gewijzigd' tijdstempels."
+
+msgid "&Temp directory"
+msgstr "&Tijdelijke map"
+
+msgid "&Include mask"
+msgstr "Mask &inbegrepen"
+
+msgid "&Exclude mask"
+msgstr "Mask &niet inbegrepen"
+
+msgid "&Log level"
+msgstr "&Log niveau"
+
+msgid "&Check for updates"
+msgstr "&Controleer op updates"
+
+msgid "&Process priority"
+msgstr "&Prioriteit proces"
+
+msgid "&Optimization level"
+msgstr "&Optimalisatie niveau"
+
+msgid "General &1"
+msgstr "Algemeen &1"
+
+msgid "Configure the appearance and behaviour of FileOptimizer"
+msgstr "Configureer het uitzicht en gedrag van FileOptimizer"
+
+msgid "General program options affecting all extensions (1/2)"
+msgstr "Algemene programma opties die alle extensies beïnvloeden (1/2)"
+
+msgid "General program options affecting all extensions (2/2)"
+msgstr "Algemene programma opties die alle extensies beïnvloeden (2/2)"
+
+msgid "Extensions affected: "
+msgstr "Beïnvloedde extensies: "
+
+msgid "Automatic: System default"
+msgstr "Automatisch: Systeem standaard"
+
+msgid "3082: English - United States (Built-in)"
+msgstr "3082: engels - Verenigde Staten (ingebouwd)"
+
+msgid ""
+"This is the first time you run %s.\n"
+"\n"
+"Do you want to support its development by showing ads while it is in use?\n"
+"\n"
+"This will encourage its future maintenance and upgrades, being highly appreciated.\n"
+"\n"
+"You can change this option at any time from the Options menu."
+msgstr ""
+"Dit is de eerste keer dat u %s draait.\n"
+"\n"
+"Wilt u de ontwikkeling ondersteunen door advertenties te tonen tijdens het gebruik?\n"
+"\n"
+"Dit zal de verdere ontwikkeling en updates aanmoedigen en wordt ten zeerste gewaardeerd.\n"
+"\n"
+"U kan deze optie ten allen tijde veranderen in het 'opties' menu."
+
+msgid "Support"
+msgstr "Ondersteuning"
+
+msgid "0 / 1 files - FileOptimizer"
+msgstr "0 / 1 bestanden - FileOptimizer"
+
+msgid "O&ptions..."
+msgstr "O&pties..."
+
+msgid "O&pen containing folder..."
+msgstr "&Open bevattende map..."
+
+msgid "%s / %s files. %s bytes saved (%s%%)"
+msgstr "%s / %s bestanden, %s bytes bespaard (%s%%)"
+
+msgid "Processing %s..."
+msgstr "Aan het verwerken %s..."
+
+msgid "Copying to Recyclebin..."
+msgstr "Aan het kopiëren naar prullenbak..."
+
+msgid "Creating backup..."
+msgstr "Back-up aan het maken..."
+
+msgid "Running %s..."
+msgstr "Lopend %s..."
+
+msgid "and %s file formats among many others."
+msgstr "en %s bestandsformaten onder vele andere."
+
+msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
+msgstr " is een geavanceerde bestandsoptimaliseerder met een verliesvrije (geen kwaliteitsverlies) bestandsgrootte vermindering en ondersteunt: "
+
+msgid "DONATOR INFORMATION"
+msgstr "DONEUR INFORMATIE"
+
+msgid "Have not donated yet!"
+msgstr "Heeft nog niet gedoneerd!"
+
+msgid "User since %s %s"
+msgstr "Gebruiker sinds %s %s"
+
+msgid ""
+"\n"
+"\n"
+"USAGE STATISTICS\n"
+"- Time: %s\n"
+"- Opens: %s\n"
+"- Files: %s\n"
+"- Total: %s\n"
+"- Saved: %s\n"
+msgstr ""
+"\n"
+"\n"
+"GEBRUIKSSTATISTIEKEN\n"
+"- Tijd: %s\n"
+"- Geopend: %s\n"
+"- Bestanden: %s\n"
+"- Totaal: %s\n"
+"- Bespaard: %s\n"
+
+msgid "Information"
+msgstr "Informatie"
+
+msgid "Optimized"
+msgstr "Geoptimaliseerd"
+
+msgid "Done (%3u%%)."
+msgstr "Klaar (%3u%%)."
+
+msgid "%s files processed. %s bytes saved (%s%%)"
+msgstr "%s bestanden verwerkt, %s bytes bespaard (%s%%)"
+
+msgid "About"
+msgstr "Over"
+
+msgid ""
+"Except where otherwise noted, all of the documentation and software \r\n"
+"included in the package is copyrighted by Javier Gutiérrez Chamorro (Guti).\r\n"
+"\r\n"
+"Copyright © 2012- Javier Gutiérrez Chamorro (Guti). All rights reserved.\r\n"
+"\r\n"
+"This software is provided \"as-is,\" without any express or implied warranty. In \r\n"
+"no event shall the author be held liable for any damages arising from the use \r\n"
+"of this software.\r\n"
+"\r\n"
+"Permission is granted to anyone to use this software for any purpose, \r\n"
+"including commercial applications, and to alter and redistribute it, provided that \r\n"
+"the following conditions are met:\r\n"
+"\r\n"
+"1. All redistributions of source code files must retain all copyright notices that \r\n"
+"are currently in place, and this list of conditions without modification.\r\n"
+"\r\n"
+"2. All redistributions in binary form must retain all occurrences of the above \r\n"
+"copyright notice and web site addresses that are currently in place (for \r\n"
+"example, in the About boxes).\r\n"
+"\r\n"
+"3. The origin of this software must not be misrepresented; you must not claim \r\n"
+"that you wrote the original software. If you use this software to distribute a \r\n"
+"product, an acknowledgment in the product documentation would be \r\n"
+"appreciated but is not required.\r\n"
+"\r\n"
+"4. Modified versions in source or binary form must be plainly marked as such, \r\n"
+"and must not be misrepresented as being the original software.\r\n"
+"\r\n"
+"Includes icons by icons8.com.\r\n"
+msgstr ""
+"Behalve waar anders beschreven, is alle documentatie en software \r\n"
+"inbegrepen in het pakket copyright van Javier Gutiérrez Chamorro (Guti).\r\n"
+"\r\n"
+"Copyright © 2012- Javier Gutiérrez Chamorro (Guti). Alle rechten voorbehouden.\r\n"
+"\r\n"
+"Deze software wordt geleverd \"as-is,\" zonder enige ex- of impliciete waarborg. In \r\n"
+"geen enkel geval zal de auteur aansprakelijk gesteld kunnen worden voor schade \r\n"
+"voorkomend van het gebruik van deze software.\r\n"
+"\r\n"
+"Toelating wordt gegeven aan iedereen om deze software te gebruiken voor eender welk doel, \r\n"
+"inbegrepen commerciële toepassingen, en om hem te veranderen en verder te distributeren, \r\n"
+"op voorwaarde dat volgende condities worden nageleefd:\r\n"
+"\r\n"
+"1. Alle wederdistributies van broncodebestanden moeten alle auteursrechtenvermeldingen \r\n"
+"behouden die aanwezig zijn en deze lijst met voorwaarden zonder aanpassing.\r\n"
+"\r\n"
+"2. Alle wederdistributies in binaire vorm moeten alle vermeldingen behouden van \r\n"
+"de bovenvermelde auteursrechtenvermelding en website adressen die nu aanwezig zijn \r\n"
+"(bv. in de Over vensters).\r\n"
+"\r\n"
+"3. De oorsprong van deze software mag niet foutief voorgesteld worden; u mag niet \r\n"
+"beweren dat u de originele software schreef. Als u deze software gebruikt om een product \r\n"
+"te distributeren, wordt een erkenning in de documentatie van het product op prijs \r\n"
+"gesteld maar is niet noodzakelijk.\r\n"
+"\r\n"
+"4. Aangepaste versies in broncode of binaire vorm moeten duidelijk als zodanig \r\n"
+"gekenmerkt worden en mogen niet als de originele software voorgesteld worden.\r\n"
+"\r\n"
+"Inbegrepen iconen by icons8.com.\r\n"
+
+msgid "&Close"
+msgstr "&Sluiten"
