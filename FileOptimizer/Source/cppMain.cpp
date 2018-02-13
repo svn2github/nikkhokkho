@@ -3534,7 +3534,8 @@ const TCHAR * __fastcall TfrmMain::GetOptionArgument(const TCHAR *pacKey)
 	static TCHAR acRes[PATH_MAX];
 	TCHAR *pcStart;
 
-    memset(acRes, 0, sizeof(acRes));
+
+	memset(acRes, 0, sizeof(acRes));
 	acArgument[0] = '/';
 	_tcsncpy(&acArgument[1], pacKey, (sizeof(acArgument) / sizeof(TCHAR)) - 2);
 	pcStart = StrStrI(GetOptionCommandLine(), acArgument);
@@ -3558,6 +3559,7 @@ const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHA
 	static TCHAR acRes[2048];
 
 
+    memset(acRes, 0, sizeof(acRes));
 	/* Get it via global registry */
 	_tcsncpy(acRes, clsUtil::GetRegistry(HKEY_LOCAL_MACHINE, clsUtil::GetRegistryPath(), pacKey), (sizeof(acRes) / sizeof(TCHAR)) - 1);
 	if (acRes[0] == NULL)
@@ -3586,7 +3588,7 @@ int __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey,
 	static TCHAR acDefault[2048];
 	int iRes;
 
-
+	memset(acDefault, 0, sizeof(acDefault));
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
@@ -3608,6 +3610,7 @@ long long __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *p
 	long long lRes;
 
 
+	memset(acDefault, 0, sizeof(acDefault));
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
@@ -3629,6 +3632,7 @@ double __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacK
 	double dRes;
 
 
+    memset(acDefault, 0, sizeof(acDefault));
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
@@ -3650,6 +3654,7 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 	bool bRes;
 
 
+	memset(acDefault, 0, sizeof(acDefault));
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{

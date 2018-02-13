@@ -746,6 +746,7 @@ const TCHAR * __fastcall clsUtil::GetIni(const TCHAR *pacSection, const TCHAR *p
 	TCHAR *pcSemicolon;
 	
 
+	memset(acRes, 0, sizeof(acRes));
 	UnescapeIniKey((TCHAR *) pacKey);
 	GetPrivateProfileString(pacSection, pacKey, pacDefault, acRes, (sizeof(acRes) / sizeof(TCHAR)) - 1, GetIniPath(true));
 	if (acRes[0] == NULL)
@@ -954,9 +955,10 @@ const TCHAR * __fastcall clsUtil::GetRegistryPath(void)
 const TCHAR * __fastcall clsUtil::GetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName)
 {
 	HKEY hKey;
-	static TCHAR acRes[2048] = {};
+	static TCHAR acRes[2048];
 
 
+	memset(acRes, 0, sizeof(acRes));
 	if (RegOpenKeyEx(phKey, pacSubkey, NULL, KEY_QUERY_VALUE, &hKey) == ERROR_SUCCESS)
 	{
 		unsigned int iSize = sizeof(acRes);
