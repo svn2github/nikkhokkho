@@ -166,6 +166,7 @@ X.XX - YYYY
 - Made installer multilanguage.
 - Implemented Some translation improvements (Luc).
 - Fixed a regression in 12.30 which caused registry values not being properly read (srobert698).
+- Fixed access violations on some circunstances (Ramon E).
 
 
 12.30 - 2018/02/06

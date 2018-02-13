@@ -4,6 +4,14 @@ SetCompressorDictSize 220
 Unicode true
 
 
+; -------------------------------------------------------------------------------------------------
+!define APP_NAME 	"FileOptimizer"
+!define APP_DESCRIPTION	"Lossless file size optimizer"
+!define APP_COMPANY	"Javier Gutiérrez Chamorro (Guti)"
+!define APP_COPYRIGHT	"© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti)"
+!define APP_WEB		"http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer"
+!define APP_VERSION 	"12.4.0.0"
+
 
 ; -------------------------------------------------------------------------------------------------
 !include "MUI.nsh"
@@ -80,16 +88,6 @@ Unicode true
 
 !include x64.nsh
 !include "FileFunc.nsh"
-
-
-; -------------------------------------------------------------------------------------------------
-!define APP_NAME 	"FileOptimizer"
-!define APP_DESCRIPTION	"Lossless file size optimizer"
-!define APP_COMPANY	"Javier Gutiérrez Chamorro (Guti)"
-!define APP_COPYRIGHT	"© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti)"
-!define APP_WEB		"http://nikkhokkho.sourceforge.net/static.php?page=FileOptimizer"
-!define APP_VERSION 	"12.3.0.0"
-
 
 
 ; -------------------------------------------------------------------------------------------------

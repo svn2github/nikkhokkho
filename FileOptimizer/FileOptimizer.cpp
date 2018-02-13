@@ -20,6 +20,19 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 	HANDLE hMutex = NULL;
 
 
+	#if defined( _DEBUG)
+		ReportMemoryLeaksOnShutdown = true;
+	#endif
+
+	SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
+	SetMinimumBlockAlignment(mba16Byte);
+
+	Application->Initialize();
+	Application->Name = "FileOptimizer";
+	Application->Title = Application->Name;
+	Application->HelpFile = Application->Name + ".chm";
+	Application->MainFormOnTaskBar = true;
+
 	//Simple command line help
 	if (_tcsnccmp(pacCmdLine, _T("/?"), 2) == 0)
 	{
@@ -44,13 +57,6 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		), _T("Command-line help"), MB_OK | MB_ICONINFORMATION);
 		return(-1);
 	}
-
-
-	Application->Initialize();
-	Application->Name = "FileOptimizer";
-	Application->Title = Application->Name;
-	Application->HelpFile = Application->Name + ".chm";
-	Application->MainFormOnTaskBar = true;
 
 	if (!TfrmMain::GetOption(_T("Options"), _T("AllowMultipleInstances"), false))
 	{
@@ -99,13 +105,6 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 		FreeLibrary(hUser32);
 	}
 	
-	#if defined( _DEBUG)
-		ReportMemoryLeaksOnShutdown = true;
-	#endif
-	SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
-	SetMinimumBlockAlignment(mba16Byte);
-
-
 	try
 	{
 		Application->CreateForm(__classid(TfrmMain), &frmMain);
@@ -113,7 +112,9 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 	}
 	catch (Exception &excE)
 	{
-		Application->ShowException(&excE);
+		#if defined( _DEBUG)
+			Application->ShowException(&excE);
+		#endif
 	}
 
 	if (hMutex)
