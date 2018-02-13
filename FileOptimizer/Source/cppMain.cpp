@@ -68,7 +68,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SaveForm(this);
 	clsLanguage::Save();
 	SaveOptions();
-	webAds->Stop();
+	//webAds->Stop();
 }
 
 
@@ -3259,7 +3259,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 	}
 	else
 	{
-		webAds->Stop();
+		//webAds->Stop();
 		webAds->Hide();
 		webAds->Height = 0;
 		webAds->Navigate("about:blank");
