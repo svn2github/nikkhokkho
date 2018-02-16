@@ -86,6 +86,8 @@ class clsUtil
 		static unsigned int __fastcall GetWindowsVersion(void);
 		static bool __fastcall IsWindows64(void);
 		static bool __fastcall ShutdownWindows(unsigned int piMode = 0);
+		static String __fastcall GetShortName(String psLongName);
+		static bool __fastcall DeleteFile(const TCHAR *pacFile);
 	private:
 		static void __fastcall EscapeIniKey (TCHAR *pacBuffer);
 		static void __fastcall UnescapeIniKey (TCHAR *pacBuffer);

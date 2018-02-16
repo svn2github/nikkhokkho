@@ -1725,7 +1725,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 							clsUtil::CopyFile(acTmpFilePdf, sInputFile.c_str());
 						}
 					}
-					DeleteFile(acTmpFilePdf);
+					clsUtil::DeleteFile(acTmpFilePdf);
 				}
 					
 				RunPlugin((unsigned int) iCount, "cpdf", (sPluginsDirectory + "cpdf.exe -squeeze \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
@@ -1916,7 +1916,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				clsUtil::CopyFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str(), sInputFile.c_str());
 			}
 			//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
-			DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
+			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
 			RunPlugin((unsigned int) iCount, "flasm", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
@@ -1925,7 +1925,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				clsUtil::CopyFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str(), sInputFile.c_str());
 			}
 			//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
-			DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
+			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
 			RunPlugin((unsigned int) iCount, "zRecompress", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
@@ -2067,7 +2067,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					clsUtil::CopyFile(acTmpFileWebp, sInputFile.c_str());
 				}
 			}
-			DeleteFile(acTmpFileWebp);
+			clsUtil::DeleteFile(acTmpFileWebp);
 
 			//RunPlugin((unsigned int) iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
@@ -2348,7 +2348,7 @@ bool __fastcall TfrmMain::AddFilesExist(String psFile)
 			mlstFilesExist->Add(psFile);
 		}
 	}
-	return(bRes);
+	return (bRes);
 }
 
 
@@ -2466,7 +2466,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	{
 		if (PosEx((String) acToken, psCommandLine.UpperCase()) != 0)
 		{
-			return(0);
+			return (0);
 		}
 		acToken = _tcstok(NULL, _T(";"));
 	}
@@ -2502,8 +2502,8 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 
 	sTmpOutputFile = (String) acTempPath + Application->Name + "_Output_" + (String) iRandom + "_" + ExtractFileName(sInputFile);
 
-	DeleteFile(sTmpInputFile.c_str());
-	DeleteFile(sTmpOutputFile.c_str());
+	clsUtil::DeleteFile(sTmpInputFile.c_str());
+	clsUtil::DeleteFile(sTmpOutputFile.c_str());
 
 	//Required indirection
 	String sCaption;
@@ -2561,8 +2561,8 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		}
 	}
 
-	DeleteFile(sTmpInputFile.c_str());
-	DeleteFile(sTmpOutputFile.c_str());
+	clsUtil::DeleteFile(sTmpInputFile.c_str());
+	clsUtil::DeleteFile(sTmpOutputFile.c_str());
 
 	if ((lSizeNew == 0) || (lSizeNew > lSize))
 	{
@@ -2856,7 +2856,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 	{
 		//Do nothing. Use regular file extension
 	}
-	return(sRes);
+	return (sRes);
 }
 
 
@@ -2865,7 +2865,7 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 //---------------------------------------------------------------------------
 String __inline TfrmMain::FormatNumberThousand (unsigned long long plNumber)
 {
-	//return(FloatToStrF(plNumber, (TFloatFormat) ffNumber, 18, 0));
+	//return (FloatToStrF(plNumber, (TFloatFormat) ffNumber, 18, 0));
 	TCHAR acNumber[64];
 	TCHAR acFormatedNumber[64];
 	TCHAR *pcDecimal;
@@ -2899,7 +2899,7 @@ String __inline TfrmMain::FormatNumberThousandUnit (unsigned long long plNumber)
 //---------------------------------------------------------------------------
 unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 {
-	//return(StrToInt64Def(psNumber, FormatSettings.ThousandSeparator, ""), 0));
+	//return (StrToInt64Def(psNumber, FormatSettings.ThousandSeparator, ""), 0));
 	TCHAR *acNumber, acRes[64];
 
 
@@ -2917,7 +2917,7 @@ unsigned long long __inline TfrmMain::ParseNumberThousand (String psNumber)
 		}
 	}
 	acRes[iResPos] = NULL;
-	return((unsigned long long) _ttoi64(acRes));
+	return ((unsigned long long) _ttoi64(acRes));
 }
 
 
@@ -3246,11 +3246,12 @@ void __fastcall TfrmMain::UpdateAds(void)
 			iBrowserEmulation = 9999;
 		}
 		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
-		OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
-
+		
 		#if defined (_DEBUG)
+			OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=1&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#else
+			OleVariant oFlags = Shdocvw::navNoHistory;
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
@@ -3462,7 +3463,7 @@ String __fastcall TfrmMain::Hash(String psFilename)
 	lSize = clsUtil::SizeFile(psFilename.c_str());
 	clsUtil::GetFileTimestamp(psFilename.c_str(), &udtFileCreated, &udtFileAccessed, &udtFileModified);
 	sHash = psFilename + _T("|") + (String) lSize + _T("|") + (String) udtFileModified.dwHighDateTime + (String) udtFileModified.dwLowDateTime;
-	return(sHash);
+	return (sHash);
 }
 
 
@@ -3475,7 +3476,7 @@ String __inline TfrmMain::GetCellValue(String psValue, unsigned int piPos)
 	{
 		psValue = asValue[piPos];
 	}
-	return(psValue);
+	return (psValue);
 }
 
 
@@ -3507,7 +3508,7 @@ String __inline TfrmMain::SetCellFileValue(String psValue)
 		sRes = psValue;
 	}
 	sRes += "\r" + psValue;
-	return(sRes);
+	return (sRes);
 }
 
 
@@ -3585,10 +3586,10 @@ const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHA
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, int piDefault)
 {
-	static TCHAR acDefault[2048];
 	int iRes;
+	TCHAR acDefault[2048] = {};
 
-	memset(acDefault, 0, sizeof(acDefault));
+
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
@@ -3606,11 +3607,10 @@ int __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey,
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 long long __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, long long plDefault)
 {
-	static TCHAR acDefault[2048];
 	long long lRes;
+	TCHAR acDefault[2048] = {};
 
 
-	memset(acDefault, 0, sizeof(acDefault));
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
@@ -3628,11 +3628,10 @@ long long __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *p
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 double __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, double pdDefault)
 {
-	static TCHAR acDefault[2048];
 	double dRes;
+	TCHAR acDefault[2048] = {};
 
 
-    memset(acDefault, 0, sizeof(acDefault));
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
@@ -3650,11 +3649,10 @@ double __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacK
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey, bool pbDefault)
 {
-	static TCHAR acDefault[2048];
 	bool bRes;
+	TCHAR acDefault[2048] = {};
 
 
-	memset(acDefault, 0, sizeof(acDefault));
 	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
@@ -3669,7 +3667,8 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 
 
 
-//---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 

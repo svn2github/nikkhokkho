@@ -72,6 +72,8 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 		imgAbout->Hint = "Embarcadero C++ Builder 10.2 Tokyo";
 	#elif ((__BORLANDC__ >= 0x0740) && (__BORLANDC__ <= 0x0749))
 		imgAbout->Hint = "Embarcadero C++ Builder 10.3";
+	#elif ((__BORLANDC__ >= 0x0750) && (__BORLANDC__ <= 0x0759))
+		imgAbout->Hint = "Embarcadero C++ Builder 10.4";
 	#else
 		imgAbout->Hint = "Borland/Inprise/CodeGear/Embarcadero C++ Builder";
 	#endif
@@ -100,7 +102,7 @@ void __fastcall TfrmAbout::butCloseClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmAbout::lblCopyrightClick(TObject *Sender)
 {
-	ShellExecute(0, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
+	ShellExecute(Handle, _T("open"), KS_APP_URL, _T(""), _T(""), SW_SHOWNORMAL);
 }
 
 

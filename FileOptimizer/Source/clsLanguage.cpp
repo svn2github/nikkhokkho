@@ -102,9 +102,11 @@ const TCHAR * __fastcall clsLanguage::Get(TCHAR *pacText)
 {
 	static TCHAR acRes[2048];
 
+	
+	memset(acRes, 0, sizeof(acRes));
 	String sRes = Get((String) pacText);
 	_tcsncpy(acRes, sRes.c_str(), (sizeof(acRes) / sizeof(TCHAR)) - 1);
-	return(acRes);
+	return (acRes);
 }
 
 
@@ -115,6 +117,11 @@ String __fastcall clsLanguage::Search(String psText, THashedStringList *plstLang
 	if ((plstLanguage) && (plstLanguage->Count > 0))
 	{
 		//Search for text to be translated
+		psText = ReplaceStr(psText, "\\", "\\\\");			//Escape PO
+		psText = ReplaceStr(psText, "\n", "\\n");
+		psText = ReplaceStr(psText, "\r", "\\r");
+		psText = ReplaceStr(psText, "\t", "\\t");
+		psText = ReplaceStr(psText, "\"", "\\\"");
 		String sSearch = "msgid \"" + psText + "\"";
 
 		//int iLine = 0;
@@ -147,7 +154,7 @@ String __fastcall clsLanguage::Search(String psText, THashedStringList *plstLang
 	{
 		psText = "NOT_FOUND";
 	}
-	return(psText);
+	return (psText);
 }
 
 
@@ -200,7 +207,7 @@ String __fastcall clsLanguage::Get(String psText)
 			psText = sTranslated;
 		}
 	}
-	return(psText);
+	return (psText);
 }
 
 

@@ -443,8 +443,8 @@ void __fastcall TfrmOptions::butRestoreDefaultsClick(TObject *Sender)
 {
 	Hide();
 	
-	DeleteFile(clsUtil::GetIniPath(false));
-	DeleteFile(clsUtil::GetIniPath(true));
+	clsUtil::DeleteFile(clsUtil::GetIniPath(false));
+	clsUtil::DeleteFile(clsUtil::GetIniPath(true));
 	clsUtil::DeleteRegistry(HKEY_LOCAL_MACHINE, clsUtil::GetRegistryPath());
 	clsUtil::DeleteRegistry(HKEY_CURRENT_USER, clsUtil::GetRegistryPath());
 	clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), (TCHAR *) NULL);

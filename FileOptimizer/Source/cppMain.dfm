@@ -275,9 +275,10 @@ object frmMain: TfrmMain
     Cursor = crHandPoint
     TabStop = False
     Align = alBottom
+    DragCursor = crNo
     TabOrder = 4
     OnTitleChange = webAdsTitleChange
-    ExplicitTop = 305
+    ExplicitTop = 308
     ControlData = {
       4C000000215400004D0900000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
