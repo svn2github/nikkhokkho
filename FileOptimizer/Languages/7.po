@@ -1,5 +1,5 @@
 # "Language ID: 7 (0x07)"
-# "Language Name: Français"
+# "Language Name: German"
 # "Project-Id-Version: FileOptimizer 12.40.2214"
 # "POT-Creation-Date: Feb 19 2018"
 # "MIME-Version: 1.0"

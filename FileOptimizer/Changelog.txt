@@ -160,6 +160,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+12.40 - 2018/02/19
 - Added dutch translation. Thanks Luc.
 - Added german translation. Thanks Oliver.
 - Made installer multilanguage.
@@ -171,7 +174,6 @@ X.XX - YYYY
 - Fixed some strings not being translated due to line breaks (Luc).
 - Updated AdvanceCOMP to 2.10.
 - Some minor optimizations and code cleanup.
-
 
 12.30 - 2018/02/06
 - Added creation of file backups before optimization, enabled by default, to avoid issues with large files in recyclebin. Can be disabled in Options (bianamaran).
