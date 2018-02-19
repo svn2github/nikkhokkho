@@ -161,6 +161,7 @@ ndo
 
 X.XX - YYYY
 - Added dutch translation. Thanks Luc.
+- Added german translation. Thanks Oliver.
 - Made installer multilanguage.
 - Made all internal file operations use short names if available to avoid long path errors (#32 Ramon E).
 - Implemented some translation improvements (Luc).
