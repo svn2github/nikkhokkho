@@ -1,4 +1,3 @@
-- Resizable About and Options windows.
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
@@ -127,7 +126,7 @@ ndo
 - Ghostscript 9.22 - http://www.ghostscript.com
 - GNU Strip 2.29.1 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.7.22 - http://www.imagemagick.org
+- ImageMagick 7.0.7.23 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
@@ -144,10 +143,10 @@ ndo
 - mutool 1.12 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.95q - http://css-ig.net/pingo
+- pingo 0.95t - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
-- pngquant 2.11.4 - http://www.pngquant.org
+- pngquant 2.11.7 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -160,6 +159,12 @@ ndo
 
 
 X.XX - YYYY
+- Switched to AGPL license to protect it from modifications in network environments and making it compatible with Ghostcript (Robin Watts #33).
+- Added full licensing files to all plugins to avoid any confusion.
+- Made About and Option windows resizable.
+- Updated pngquant to 2.11.7.
+- Updated ImageMagick to 7.0.7.23 with HDRI support.
+- Updated pingo to 0.95t x86 and x64 versions.
 
 
 12.40 - 2018/02/19

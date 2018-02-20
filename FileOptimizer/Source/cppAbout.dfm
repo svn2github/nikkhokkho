@@ -2,11 +2,9 @@ object frmAbout: TfrmAbout
   Left = 192
   Top = 114
   ActiveControl = mmoLicense
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsSingle
   Caption = 'About'
-  ClientHeight = 389
-  ClientWidth = 425
+  ClientHeight = 443
+  ClientWidth = 458
   Color = clWhite
   DoubleBuffered = True
   Font.Charset = ANSI_CHARSET
@@ -20,13 +18,17 @@ object frmAbout: TfrmAbout
   Position = poScreenCenter
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
+  DesignSize = (
+    458
+    443)
   PixelsPerInch = 96
   TextHeight = 13
   object imgAbout: TImage
     Left = 0
     Top = 0
-    Width = 425
+    Width = 458
     Height = 65
+    Anchors = [akLeft, akTop, akRight]
     ParentShowHint = False
     Picture.Data = {
       0A544A504547496D616765CE1B0000FFD8FFE000104A46494600010100000100
@@ -252,16 +254,17 @@ object frmAbout: TfrmAbout
       9A60AC6E80A9C2A6C4F255191A2C816161696C0B60754571C51B49D657179E43
       4A1B15A15AA5CBA598F6371192C8094C4B634BC793FD3D4247D27A83D40F8E8E
       44F21B58CD6DAD957352B3FBA7EC23F1D6917B7EBE1AF4FEC23DB3FFD9}
-    Proportional = True
     ShowHint = True
     Stretch = True
+    ExplicitWidth = 425
   end
   object lblProduct: TLabel
     Left = 8
     Top = 72
-    Width = 257
+    Width = 290
     Height = 15
     Align = alCustom
+    Anchors = [akLeft, akTop, akRight]
     AutoSize = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -269,13 +272,15 @@ object frmAbout: TfrmAbout
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
+    ExplicitWidth = 257
   end
   object lblCopyright: TLabel
     Left = 8
-    Top = 364
-    Width = 328
-    Height = 13
+    Top = 419
+    Width = 341
+    Height = 16
     Cursor = crHandPoint
+    Anchors = [akLeft, akRight, akBottom]
     AutoSize = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -286,94 +291,72 @@ object frmAbout: TfrmAbout
     ParentShowHint = False
     ShowHint = True
     OnClick = lblCopyrightClick
+    ExplicitTop = 368
+    ExplicitWidth = 347
   end
   object lblDetail: TLabel
     Left = 259
     Top = 72
-    Width = 153
+    Width = 191
     Height = 15
     Align = alCustom
     Alignment = taRightJustify
+    Anchors = [akLeft, akTop, akRight]
     AutoSize = False
+    ExplicitWidth = 192
   end
   object butClose: TButton
-    Left = 340
-    Top = 359
-    Width = 75
-    Height = 25
+    Left = 360
+    Top = 413
+    Width = 90
+    Height = 27
+    Anchors = [akRight, akBottom]
     Cancel = True
     Caption = '&Close'
     Default = True
     TabOrder = 1
     OnClick = butCloseClick
+    ExplicitLeft = 361
+    ExplicitTop = 362
   end
   object mmoLicense: TMemo
     Left = 8
     Top = 93
-    Width = 407
-    Height = 260
+    Width = 440
+    Height = 314
+    Anchors = [akLeft, akTop, akRight, akBottom]
     Lines.Strings = (
       
-        'Except where otherwise noted, all of the documentation and softw' +
-        'are '
+        'This program is free software: you can redistribute it and/or mo' +
+        'dify it under the '
       
-        'included in the package is copyrighted by Javier Guti'#233'rrez Chamo' +
-        'rro (Guti).'
+        'terms of the GNU Affero General Public License as published by t' +
+        'he Free Software '
+      
+        'Foundation, either version 3 of the License, or (at your option)' +
+        ' any later version.'
       ''
       
-        'Copyright '#169' 2012- Javier Guti'#233'rrez Chamorro (Guti). All rights r' +
-        'eserved.'
+        'This program is distributed in the hope that it will be useful, ' +
+        'but WITHOUT ANY '
+      
+        'WARRANTY; without even the implied warranty of MERCHANTABILITY o' +
+        'r FITNESS '
+      
+        'FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public Lic' +
+        'ense for more '
+      'details.'
       ''
       
-        'This software is provided "as-is," without any express or implie' +
-        'd warranty. In '
-      
-        'no event shall the author be held liable for any damages arising' +
-        ' from the use '
-      'of this software.'
-      ''
-      
-        'Permission is granted to anyone to use this software for any pur' +
-        'pose, '
-      
-        'including commercial applications, and to alter and redistribute' +
-        ' it, provided that '
-      'the following conditions are met:'
-      ''
-      
-        '1. All redistributions of source code files must retain all copy' +
-        'right notices that '
-      
-        'are currently in place, and this list of conditions without modi' +
-        'fication.'
-      ''
-      
-        '2. All redistributions in binary form must retain all occurrence' +
-        's of the above '
-      
-        'copyright notice and web site addresses that are currently in pl' +
-        'ace (for '
-      'example, in the About boxes).'
-      ''
-      
-        '3. The origin of this software must not be misrepresented; you m' +
-        'ust not claim '
-      
-        'that you wrote the original software. If you use this software t' +
-        'o distribute a '
-      
-        'product, an acknowledgment in the product documentation would be' +
-        ' '
-      'appreciated but is not required.'
-      ''
-      
-        '4. Modified versions in source or binary form must be plainly ma' +
-        'rked as such, '
-      'and must not be misrepresented as being the original software.'
+        'You should have received a copy of the GNU Affero General Public' +
+        ' License along with '
+      'this program. If not, see  https://www.gnu.org/licenses/.'
       ''
       'Includes icons by icons8.com.')
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 0
+    ExplicitWidth = 397
+    ExplicitHeight = 250
   end
 end

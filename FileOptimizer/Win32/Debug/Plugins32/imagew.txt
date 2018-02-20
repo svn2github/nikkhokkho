@@ -1,6 +1,6 @@
 ImageWorsener is a raster image scaling and processing utility.
-Version 1.0.0
-Copyright (c) 2011-2012 Jason Summers  <jason1@pobox.com>
+Version 1.3.2
+Copyright (c) 2011-2017 Jason Summers  <jason1@pobox.com>
 
 Web site: http://entropymine.com/imageworsener/
 
@@ -10,24 +10,10 @@ little as possible.
 
 ===========================================================================
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
+This program is distributed under an MIT-style license. Refer to the
+included COYPING.txt file for more information.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
-
-===========================================================================
-
-A copy of the GNU General Public License is included in the file
-COPYING.txt.
+Versions up to 1.1.0 used the GPLv3+ license.
 
 If source code is not included in this package, it may be downloaded from
 the web site at <http://entropymine.com/imageworsener/>.
@@ -98,7 +84,7 @@ relatively slow. Among the things it (hopefully) does right:
 
 Other information:
  - The command-line utility fully supports PNG, JPEG, BMP, and WebP files, and
-   has partial support for GIF, TIFF, and MIFF.
+   has partial support for GIF, TIFF, MIFF, and PPM/PGM/PBM/PAM.
  - The library is (more or less) not specific to a particular file format.
  - Full support for high color depth (16 bits per sample).
  - Some options can be set differently for the different dimensions
@@ -112,12 +98,14 @@ Other information:
    files for Visual Studio 2008.
 
 
-Documentation for the ImageWorsener C library
----------------------------------------------
+The ImageWorsener C library
+---------------------------
 
-There is no documentation for the library at this time, aside from the
-comments in the imagew.h header file. Improving the documentation is a high
-priority.
+Unfortunately, there is no documentation for the library, aside from the
+comments in the imagew.h header file. The original idea was to have a well-
+designed, stable, and documented library, but that hasn't worked out very well.
+The API won't be broken for no reason, but I can't make promises about
+compatibility between versions.
 
 
 Documentation for the "imagew" command line utility
@@ -134,6 +122,10 @@ The order of the options usually does not matter.
 that resources other than regular files can be supported. If your filename may
 contain a colon, prefix it with "file:". In the Windows version, you can use
 "clip:" to refer to the clipboard.
+
+A scheme of "stdin:" or "stdout:" means the standard input or output stream
+(this may not be supported for all formats). As a shortcut, a file name of
+"-" may be used instead.
 
 Numbers on the command line may be specified as rational numbers, using a
 slash. For example, instead of "-w x0.666666666", you can use "-w x2/3".
@@ -164,6 +156,16 @@ Options:
    the source image may have non-square pixels.
    Incompatible with -bestfit and the sizing options.
 
+ -imagesize <width>,<height>
+   The other sizing options set the size of the entire output image. Normally,
+   the region of that image corresponding to the input image will be that same
+   size. However, you can use -imagesize to make that region be a different
+   size. For example, you can shrink the image, to effectively
+   add a border around it.
+   Note that <height> and <width> do not have to be integers.
+   If you use -imagesize, you should probably also use -translate and
+   "-edge t".
+
  -infmt <fmt>  -outfmt <fmt>
    Specifies the image file format of the input or output file. If not used,
    imagew will try to figure out the format based on the contents of the file,
@@ -177,29 +179,45 @@ Options:
      gif: GIF (-infmt only)
      tiff, tif: TIFF (-outfmt only)
      miff: MIFF (experimental; limited support)
+     pnm, ppm, pgm, pbm: Netpbm formats (only the binary formats are supported,
+       not the rare "plain"/ASCII variants)
 
  -depth <n>  (-depthgray, -depthalpha)
  -depth <r>,<g>,<b>[,<a>]
+ -depthcc <cc>
    The general number of bits of precision used per color channel in the
    output image. Valid values for <n>:
     "8" is the default for most formats.
     "16" is supported for PNG and TIFF formats.
-    "32" and "64" are used with MIFF format (floating point).
+    "32" is used with MIFF format (floating point).
    Other depths are supported in some special cases. Use with caution -- this
-    may not do what you expect, and may disable optimizations. Use -cc instead
-    if possible.
+    can be useful, but it may not do what you expect, and may disable
+    optimizations. Consider whether you should use -cc instead.
    With BMP format, requesting an unusual depth will cause a 16 bits/pixel
-    image to be written, so the sum total can be no more than 16. Depths
-    "5,6,5" and "5,5,5" are the most common and most portable.
+    image to be written if the total number of bits is no more than 16,
+    or a 32 bits/pixel image otherwise. The total number of bits may not be
+    more than 32, and no channel may have more than 16 bits. Depths "5,6,5"
+    and "5,5,5" are the most common and most portable.
    PNG format supports arbitrary depths (from 1 to 16), using "sBIT" chunks,
     but these are ignored by most image viewers.
+   The PPM and PGM formats support any bit depth from 1 to 16.
    If you use a depth less than 8, consider using -dither.
 
    Within the overall depth, you can reduce the number of colors that will
    actually be used, by using the "-cc" options.
    Note that this doesn't necessarily determine the depth used in the output
    file. If the image can be encoded at a smaller depth with no loss of
-   information, IW may choose to do that.
+   information, IW may choose to do that (see also -noopt).
+
+   The -depthcc option sets the depth based on the number of color levels,
+   instead of the number of bits used to represent a color level. For example,
+   "-depthcc 32" is equivalent to "-depth 5". This allows for greater
+   flexibility, if the output format supports it. Currently, it's only useful
+   with PPM, PGM, and PAM formats.
+
+ -sampletype <type>
+   Request that the output samples be written as unsigned integers (type="u"),
+   or floating-point (type="f"). This option currently has no effect.
 
  -filter <name> (-filterx -filtery)
    The resizing algorithm to use. (It would be more accurate if this option
@@ -406,8 +424,14 @@ Options:
      "v1,0,0" and "v0.5,0,0.5" have been suggested as grayscale conversion
      formulas, though they should be used with caution.
 
+ -negate
+   Negate the image's colors. The operation is performed in the output
+   colorspace. If a background color is applied to the image, it happens before
+   negation, so the background will be negated. If a background color label is
+   written to the file, it is not affected by -negate.
+
  -bkgd <color1>[,<color2>]
-   Apply a background color to the transparent or partially-transparent parts
+   Apply a background color to the transparent and partially-transparent parts
    of the image. This is the only way to remove transparency from an image.
 
    The color uses an HTML-like format with 3, 6, or 12 hex digits. For
@@ -417,10 +441,18 @@ Options:
     -bkgd ffff00000000 = the same red color as above
     -bkgd 999          = medium gray
 
+   Colors with transparency may also be specified, by using 4, 8, or 16 hex
+   digits. The final component is the alpha value (0 means fully transparent).
+   The alpha value will be ignored if the image format does not support
+   transparency.
+
    Background colors are always specified in the sRGB color space. They will
    be converted to whatever colorspace is used by the image.
 
    If you supply two colors, a checkerboard background will be used.
+
+   This does not affect the background color label that may be written to the
+   output image's metadata. Use -bkgdlabel for that.
 
  -checkersize <n>
    For checkerboard backgrounds, specifies the size of the squares in pixels.
@@ -431,11 +463,20 @@ Options:
    background.
 
  -usebkgdlabel
-   If the input file contains a background color label (a PNG bKGD chunk),
-   and you used the -bkgd option, IW has to decide which of those background
-   color to prefer. Normally, it prefers the color from the -bkgd option. But
-   if you use the -usebkgdlabel option, it will prefer the color from the
-   input file.
+   If the input file contains a background color label (e.g. a PNG bKGD chunk),
+   and you used the -bkgd option, IW has to decide which of these background
+   colors to prefer in the event that a background is applied to the image.
+   Normally, it prefers the color from the -bkgd option. But if you use the
+   -usebkgdlabel option, it will prefer the color from the input file.
+
+ -bkgdlabel <color>
+   Specify the background color to write to the output file's metadata, if
+   supported by the file format. The color is always given in the sRGB
+   colorspace. The format of <color> is the same as for the -bkgd option.
+
+ -nobkgdlabel
+   Do not copy the input file's background color label to the output file.
+   Incompatible with -bkgdlabel.
 
  -cc <n>  (-cccolor -ccalpha -ccred -ccgreen -ccblue -ccgray)
  -cc <r>,<g>,<b>[,<a>]
@@ -446,6 +487,16 @@ Options:
    the possible values (based on -depth) in the output color space. An
    optimized palette is not used. If you use "-cc", consider also using
    "-dither".
+
+   The -cc option should usually not be used when writing to a lossy image
+   format (JPEG, WebP). Lossy formats do not store colors precisely enough,
+   so the resulting image will have more colors than requested.
+
+   If you use -cc expecting to get a PNG image in a particular format, be aware
+   that background color labels are not affected by -cc, and can prevent some
+   image format optimizations from occurring. For example, "-grayscale -cc 2"
+   will not always produce a 1-bpp grayscale image, unless you also use
+   -nobkgdlabel.
 
    The -ccX options let you have a different setting for different channels.
    If you specify overlapping options, the most specific option will have
@@ -493,19 +544,40 @@ Options:
    *look* about the same regardless of what colorspace you choose. But it
    might not if your viewer doesn't support color correction, or the image
    format doesn't support colorspace labels, or IW doesn't know how to write
-   an appropriate label. This is fairly safe to use when writing PNG files,
-   but should be used with caution with most other formats.
+   an appropriate label, or you use the -negate option. This is fairly safe to
+   use when writing PNG files, but should be used with caution with most other
+   formats.
 
-   <colorspace> =  linear | gamma<gamma> | srgb | srgb[prsa]
+   <colorspace> =  linear | gamma<gamma> | srgb | srgb[prsa] | rec709
 
    <gamma> = The gamma value. This is an "image gamma", like 2.2 (not a "file
     gamma" like 0.4545"). "g1.0" is the same as "linear".
 
    "srgb": sRGB colorspace. Can optionally be followed by a letter indicating
-    the "rendering intent". p=perceptual, r=relative, s=saturation, a=absolute.
+    the "rendering intent" (equivalent to using the -intent option):
+    p=perceptual, r=relative, s=saturation, a=absolute.
+
+   "rec709": The color response curve defined by ITU-R Recommendation BT.709
+    (Rec. 709).
 
    By default IW will choose a colorspace that works with the output format;
    almost always sRGB.
+
+ -intent <rendering-intent>
+   Specify the color profile "rendering intent" setting to be written to the
+   output file. This does not affect image processing.
+
+   By default, the rendering intent of the input image will be used. If that's
+   not possible, a default setting will be used that may depend on the output
+   image format.
+
+   Rendering intents available:
+    "p" or "perceptual"
+    "r" or "relative"
+    "s" or "saturation"
+    "a" or "absolute"
+    "default": Ignore the intent of the input image.
+    "none": Request that no rendering intent be written.
 
  -inputcs <colorspace>
    Assume the input image is in the given colorspace. This is intended to be
@@ -556,9 +628,9 @@ Options:
 
  -translate [s]<x>,<y>
    Move the entire image by the given amount, measured in target pixels. This
-   is mainly intended for fine-tuning the image's position relative to the
-   pixel grid, so it's expected that the absolute value of x and y will be
-   less than 1.
+   is mainly intended for use with -imagesize, or for fine-tuning the image's
+   position relative to the pixel grid.
+   Note that x and y do not have to be integers.
    If you use the "s" prefix, the measurements are in source pixels instead of
    target pixels.
 
@@ -597,6 +669,9 @@ Options:
     will only be used if the number of colors is 256 or fewer.
    For all other formats, this option currently has no effect.
 
+ -colortype <name>
+   Deprecated. Use "-opt jpeg:colortype=<name>".
+
  -interlace
    Write an interlaced PNG image, or a progressive JPEG image.
 
@@ -621,55 +696,73 @@ Options:
    Currently, this only works with GIF files. It does not play through the GIF
    animation, so you might only get a partial image.
 
+ -opt <format>:<option-name>=<value>
+   Set a format-specific option. The syntax may be slightly inconvenient, but
+   it allows for a large number of options to exist, without much trouble.
+   Note that you will not get any warnings if you use an unrecognized option.
+   Options:
+    "bmp:version=<n>": The BMP file version to write. Currently supports "2"
+      (Windows BMP v2, also known as OS/2 BMP v1), and "3" (the default; the
+      standard version that's compatible with almost everything), and "5"
+      (supports transparency).
+    "deflate:cmprlevel=<n>": zlib-style compression level setting for
+      zip/deflate/zlib compression. This applies to all PNG files, and to MIFF
+      files that use zip compression.
+      Values range from 0 (no compression) to 9 (best, slowest).
+      "-1" can be used to mean "default", but the exact meaning of this is not
+      well-defined.
+    "jpeg:arith": When writing a JPEG file, use arithmetic coding instead of
+      Huffman coding. This reduces the file size by about 5 to 10% for free,
+      but many image viewers don't support JPEG files with arithmetic coding.
+    "jpeg:bgycc": Enable libjpeg's "big gamut YCC" mode. (For experimental use
+      only.)
+    "jpeg:block=<n>": Set the DCT block size. Valid values are 1 to 16. (For
+      experimental use only.)
+    "jpeg:colortype=<name>": Suggest the color type to use for the output
+      image. This option is recommended for experts only.
+      JPEG color types:
+       "rgb": If a color image is written to a JPEG file, leave it in RGB
+         format instead of converting it to YCbCr. The resulting file will
+         likely be larger and less portable.
+       "rgb1": Use libjpeg's "reversible color transform" feature. (For
+         experimental use only.)
+       "ycbcr": Convert color JPEG images to YCbCr (the default).
+    "jpeg:quality=<n>": libjpeg-style quality setting to use if a JPEG file is
+      written. Default is (probably) 75.
+    "jpeg:sampling=<x>,<y>": The sampling factors to use if a color JPEG file
+      is written. For example, 2 means the chroma channels will have 1/2 as
+      many samples as the luma channel. For highest quality, use "1,1". The
+      default depends on the "jpeg:quality" setting. Each factor must be
+      between 1 and 4. Not all combinations are allowed.
+    "webp:quality": WebP-style quality setting to use if a WebP file is
+      written. This is on a scale from 0 to 100. Default is 80.
+
  -includescreen
  -noincludescreen
    By default, a GIF image will be painted onto the GIF "screen". Use
    -noincludescreen to extract just the individual image.
 
  -zipcmprlevel <n>
-   zlib-style compression level setting for zip/deflate/zlib compression.
-   This applies to all PNG files, and to MIFF files that use zip compression.
-   Values range from 0 (no compression) to 9 (best, slowest).
-   "-1" can be used to mean "default", but the exact meaning of this is not
-   well-defined.
+   Deprecated. Same as "-opt deflate:cmprlevel=<n>".
 
  -jpegquality <n>
-   libjpeg-style quality setting to use if a JPEG file is written. Default is
-   (probably) 75.
+   Deprecated. Same as "-opt jpeg:quality=<n>".
 
  -jpegsampling <x>,<y>
-   The sampling factors to use if a color JPEG file is written. For example, 2
-   means the chroma channels will have 1/2 as many samples as the luma
-   channel. For highest quality, use "1,1". Default is (probably) "2,2".
-   Each factor must be between 1 and 4. Not all combinations are allowed, for
-   reasons unknown to the author of IW.
+   Deprecated. Same as "-opt jpeg:sampling=<x>,<y>".
 
  -jpegarith
-   When writing a JPEG file, use arithmetic coding instead of Huffman coding.
-   This reduces the file size by about 10%, but many image viewers don't
-   support JPEG files with arithmetic coding.
+   Deprecated. Same as "-opt jpeg:arith".
 
  -bmpversion <n>
-   The BMP file version to write. Currently supports "2" (OS/2-style), and "3"
-   (the default; the standard version that's compatible with almost
-   everything), and "5" (supports transparency).
+   Deprecated. Same as "-opt bmp:version=<n>".
 
  -bmptrns
    Attempt to write a BMP image with transparency. Refer to technical.txt for
    more information.
 
  -webpquality <n>
-   WebP-style quality setting to use if a WebP file is written. This is on a
-   scale from 0 to 100. Default is 80.
-
- -precision <n>
-   The minimum size, in bits, of a floating point number used to represent a
-   sample. Default is 64. Setting this to 32 will save memory, with minimal
-   reduction in accuracy. The effect on performance is not clear.
-
-   Generally speaking, 64-bit floating point will be used for all calculations,
-   regardless of the -precision setting. If -precision is set to 32, 32-bit
-   floating point will be used when storing large amounts of data in memory.
+   Deprecated. Same as "-opt webp:quality=<n>".
 
  -encoding <encoding>
    Set the encoding used for text output (informational and error messages).
@@ -702,3 +795,25 @@ Options:
    Display a brief help message.
 
 --- End ---
+ImageWorsener v1.2.0+ is distributed under an MIT-style license.
+
+Copyright (c) 2011-2017 Jason Summers
+<jason1@pobox.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
