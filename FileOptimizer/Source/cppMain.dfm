@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   ActiveControl = grdFiles
   ClientHeight = 415
-  ClientWidth = 814
+  ClientWidth = 699
   Color = clWindow
   Constraints.MinHeight = 450
   Constraints.MinWidth = 715
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
   OnKeyDown = FormKeyDown
   OnResize = FormResize
   DesignSize = (
-    814
+    699
     415)
   PixelsPerInch = 96
   TextHeight = 13
@@ -32,7 +32,7 @@ object frmMain: TfrmMain
     AlignWithMargins = True
     Left = 3
     Top = 38
-    Width = 808
+    Width = 693
     Height = 13
     Cursor = crHandPoint
     Align = alTop
@@ -56,7 +56,7 @@ object frmMain: TfrmMain
     AlignWithMargins = True
     Left = 3
     Top = 57
-    Width = 808
+    Width = 693
     Height = 52
     Align = alTop
     Alignment = taCenter
@@ -73,12 +73,13 @@ object frmMain: TfrmMain
     ShowHint = True
     Layout = tlCenter
     WordWrap = True
+    ExplicitWidth = 808
   end
   object tooMain: TToolBar
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 808
+    Width = 693
     Height = 29
     ButtonHeight = 32
     ButtonWidth = 32
@@ -88,6 +89,7 @@ object frmMain: TfrmMain
     TabOrder = 2
     Transparent = False
     Wrapable = False
+    ExplicitWidth = 808
     object tooFileAdd: TToolButton
       Left = 0
       Top = 0
@@ -210,7 +212,7 @@ object frmMain: TfrmMain
   object grdFiles: TStringGrid
     Left = 0
     Top = 112
-    Width = 814
+    Width = 699
     Height = 194
     Hint = 
       'Drag on the list below files you want to optimize, and when read' +
@@ -232,6 +234,7 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
+    ExplicitWidth = 814
     ColWidths = (
       512
       512
@@ -242,18 +245,19 @@ object frmMain: TfrmMain
       24)
   end
   object pgbProgress: TProgressBar
-    Left = 647
+    Left = 545
     Top = 404
     Width = 150
     Height = 17
     Anchors = []
     Step = 1
     TabOrder = 1
+    ExplicitLeft = 647
   end
   object stbMain: TStatusBar
     Left = 0
     Top = 396
-    Width = 814
+    Width = 699
     Height = 19
     Panels = <
       item
@@ -266,11 +270,12 @@ object frmMain: TfrmMain
     ParentShowHint = False
     ShowHint = True
     OnDrawPanel = stbMainDrawPanel
+    ExplicitWidth = 814
   end
   object webAds: TWebBrowser
     Left = 0
     Top = 306
-    Width = 814
+    Width = 699
     Height = 90
     Cursor = crHandPoint
     TabStop = False
@@ -279,8 +284,9 @@ object frmMain: TfrmMain
     TabOrder = 4
     OnTitleChange = webAdsTitleChange
     ExplicitTop = 308
+    ExplicitWidth = 814
     ControlData = {
-      4C000000215400004D0900000000000000000000000000000000000000000000
+      4C0000003E4800004D0900000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
       2B2E126202000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000

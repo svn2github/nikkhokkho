@@ -4,8 +4,10 @@ object frmOptions: TfrmOptions
   ActiveControl = tabOptions
   Caption = 'Options'
   ClientHeight = 395
-  ClientWidth = 672
+  ClientWidth = 592
   Color = clWindow
+  Constraints.MinHeight = 434
+  Constraints.MinWidth = 608
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,14 +20,14 @@ object frmOptions: TfrmOptions
   Position = poScreenCenter
   OnCreate = FormCreate
   DesignSize = (
-    672
+    592
     395)
   PixelsPerInch = 96
   TextHeight = 13
   object shpDialogBackground: TShape
     Left = 0
     Top = 0
-    Width = 667
+    Width = 587
     Height = 58
     Anchors = [akLeft, akTop, akRight]
     Brush.Style = bsClear
@@ -51,7 +53,7 @@ object frmOptions: TfrmOptions
     WordWrap = True
   end
   object imgDialogPicture: TImage
-    Left = 624
+    Left = 544
     Top = 0
     Width = 48
     Height = 395
@@ -91,7 +93,7 @@ object frmOptions: TfrmOptions
   object lblDescription: TLabel
     Left = 8
     Top = 25
-    Width = 610
+    Width = 530
     Height = 31
     Align = alCustom
     Anchors = [akLeft, akTop, akRight]
@@ -107,7 +109,7 @@ object frmOptions: TfrmOptions
   object shpDialogLineG1: TShape
     Left = 0
     Top = 56
-    Width = 667
+    Width = 587
     Height = 2
     Anchors = [akLeft, akTop, akRight]
     Brush.Color = clGray
@@ -117,7 +119,7 @@ object frmOptions: TfrmOptions
   object tabOptions: TPageControl
     Left = 0
     Top = 65
-    Width = 668
+    Width = 588
     Height = 294
     ActivePage = pagGeneral1
     Align = alCustom
@@ -126,14 +128,12 @@ object frmOptions: TfrmOptions
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    ExplicitWidth = 567
-    ExplicitHeight = 303
+    ExplicitWidth = 668
     object pagGeneral1: TTabSheet
       Caption = 'General &1'
       ParentShowHint = False
       ShowHint = True
-      ExplicitWidth = 559
-      ExplicitHeight = 275
+      ExplicitWidth = 660
       object lblOptimizationLevel: TLabel
         Left = 7
         Top = 22
@@ -373,6 +373,8 @@ object frmOptions: TfrmOptions
     object pagGeneral2: TTabSheet
       Caption = 'General &2'
       ImageIndex = 21
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object lblDisablePluginMask: TLabel
@@ -506,6 +508,8 @@ object frmOptions: TfrmOptions
     object pagAppearance: TTabSheet
       Caption = '&Appearance'
       ImageIndex = 13
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object lblDonator: TLabel
@@ -621,6 +625,8 @@ object frmOptions: TfrmOptions
     object pagBMP: TTabSheet
       Caption = '&BMP'
       ImageIndex = 15
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkBMPCopyMetadata: TCheckBox
@@ -638,6 +644,8 @@ object frmOptions: TfrmOptions
     object pagCSS: TTabSheet
       Caption = '&CSS'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object lblCSSTemplate: TLabel
@@ -686,6 +694,8 @@ object frmOptions: TfrmOptions
     object pagEXE: TTabSheet
       Caption = '&EXE'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkEXEDisablePETrim: TCheckBox
@@ -719,6 +729,8 @@ object frmOptions: TfrmOptions
     object pagGIF: TTabSheet
       Caption = '&GIF'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkGIFCopyMetadata: TCheckBox
@@ -750,6 +762,8 @@ object frmOptions: TfrmOptions
     object pagGZ: TTabSheet
       Caption = '&GZ'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkGZCopyMetadata: TCheckBox
@@ -767,6 +781,8 @@ object frmOptions: TfrmOptions
     object pagHTML: TTabSheet
       Caption = '&HTML'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkHTMLEnableTidy: TCheckBox
@@ -787,6 +803,8 @@ object frmOptions: TfrmOptions
     object pagJPEG: TTabSheet
       Caption = '&JPEG'
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkJPEGCopyMetadata: TCheckBox
@@ -831,6 +849,8 @@ object frmOptions: TfrmOptions
     object pagJS: TTabSheet
       Caption = '&JS'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object lblJSAdditionalExtensions: TLabel
@@ -874,6 +894,8 @@ object frmOptions: TfrmOptions
     object pagLUA: TTabSheet
       Caption = '&LUA'
       ImageIndex = 12
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkLUAEnableLeanify: TCheckBox
@@ -893,6 +915,8 @@ object frmOptions: TfrmOptions
     object pagMisc: TTabSheet
       Caption = '&Miscelaneous'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkMiscCopyMetadata: TCheckBox
@@ -910,6 +934,8 @@ object frmOptions: TfrmOptions
     object pagMP3: TTabSheet
       Caption = '&MP3'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkMP3CopyMetadata: TCheckBox
@@ -927,6 +953,8 @@ object frmOptions: TfrmOptions
     object pagMP4: TTabSheet
       Caption = '&MP4'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkMP4CopyMetadata: TCheckBox
@@ -944,6 +972,8 @@ object frmOptions: TfrmOptions
     object pagPCX: TTabSheet
       Caption = '&PCX'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkPCXCopyMetadata: TCheckBox
@@ -961,6 +991,8 @@ object frmOptions: TfrmOptions
     object pagPDF: TTabSheet
       Caption = '&PDF'
       ImageIndex = 7
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object lblPDFProfile: TLabel
@@ -1037,6 +1069,8 @@ object frmOptions: TfrmOptions
     object pagPNG: TTabSheet
       Caption = '&PNG'
       ImageIndex = 10
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkPNGCopyMetadata: TCheckBox
@@ -1068,6 +1102,8 @@ object frmOptions: TfrmOptions
     object pagTGA: TTabSheet
       Caption = '&TGA'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkTGACopyMetadata: TCheckBox
@@ -1085,6 +1121,8 @@ object frmOptions: TfrmOptions
     object pagTIFF: TTabSheet
       Caption = '&TIFF'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkTIFFCopyMetadata: TCheckBox
@@ -1102,6 +1140,8 @@ object frmOptions: TfrmOptions
     object pagXML: TTabSheet
       Caption = '&XML'
       ImageIndex = 11
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkXMLEnableLeanify: TCheckBox
@@ -1121,6 +1161,8 @@ object frmOptions: TfrmOptions
     object pagZIP: TTabSheet
       Caption = '&ZIP'
       ImageIndex = 9
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 559
       ExplicitHeight = 275
       object chkZIPCopyMetadata: TCheckBox
@@ -1159,10 +1201,9 @@ object frmOptions: TfrmOptions
     ShowHint = True
     TabOrder = 3
     OnClick = butRestoreDefaultsClick
-    ExplicitTop = 374
   end
   object butOK: TButton
-    Left = 505
+    Left = 425
     Top = 363
     Width = 75
     Height = 25
@@ -1174,11 +1215,10 @@ object frmOptions: TfrmOptions
     ShowHint = True
     TabOrder = 2
     OnClick = butOKClick
-    ExplicitLeft = 407
-    ExplicitTop = 374
+    ExplicitLeft = 505
   end
   object butCancel: TButton
-    Left = 586
+    Left = 506
     Top = 363
     Width = 75
     Height = 25
@@ -1190,7 +1230,6 @@ object frmOptions: TfrmOptions
     ShowHint = True
     TabOrder = 1
     OnClick = butCancelClick
-    ExplicitLeft = 488
-    ExplicitTop = 374
+    ExplicitLeft = 586
   end
 end
