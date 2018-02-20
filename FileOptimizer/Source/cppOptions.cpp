@@ -29,6 +29,7 @@ __fastcall TfrmOptions::~TfrmOptions()
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 {
+	clsUtil::LoadForm(this);
 	clsLanguage::TranslateForm(this);
 
 	Icon = Application->Icon;
@@ -455,5 +456,11 @@ void __fastcall TfrmOptions::butRestoreDefaultsClick(TObject *Sender)
 }
 
 
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmOptions::FormClose(TObject *Sender, TCloseAction &Action)
+{
+	clsUtil::SaveForm(this);
+}
 //---------------------------------------------------------------------------
 

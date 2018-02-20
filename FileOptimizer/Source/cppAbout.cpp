@@ -31,6 +31,7 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 	TCHAR acName[256];
 
 
+	clsUtil::LoadForm(this);
 	clsLanguage::TranslateForm(this);
 
 	Icon = Application->Icon;
@@ -118,5 +119,12 @@ void __fastcall TfrmAbout::FormKeyPress(TObject *Sender, System::WideChar &Key)
 
 
 
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmAbout::FormClose(TObject *Sender, TCloseAction &Action)
+{
+	clsUtil::SaveForm(this);
+}
 //---------------------------------------------------------------------------
 

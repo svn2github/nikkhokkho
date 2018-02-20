@@ -125,6 +125,7 @@ __published: // IDE-managed Components
 	void __fastcall chkCSSEnableTidyClick(TObject *Sender);
 	void __fastcall butRestoreDefaultsClick(TObject *Sender);
 	void __fastcall cboPDFProfileChange(TObject *Sender);
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 private: // User declarations
 public: // User declarations
 	__fastcall TfrmOptions(TComponent* Owner);

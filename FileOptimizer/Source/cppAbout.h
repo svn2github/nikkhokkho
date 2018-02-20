@@ -27,6 +27,7 @@ __published:	// IDE-managed Components
 	void __fastcall butCloseClick(TObject *Sender);
 	void __fastcall lblCopyrightClick(TObject *Sender);
 	void __fastcall FormKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 private:	// User declarations
 	int __fastcall GetFileVersionField(const TCHAR *fn, const TCHAR *info, TCHAR *ret, int len);
 public:		// User declarations

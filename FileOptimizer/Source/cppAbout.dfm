@@ -18,6 +18,7 @@ object frmAbout: TfrmAbout
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   DesignSize = (

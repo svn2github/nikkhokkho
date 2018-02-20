@@ -18,6 +18,7 @@ object frmOptions: TfrmOptions
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   DesignSize = (
     592
@@ -128,12 +129,10 @@ object frmOptions: TfrmOptions
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    ExplicitWidth = 668
     object pagGeneral1: TTabSheet
       Caption = 'General &1'
       ParentShowHint = False
       ShowHint = True
-      ExplicitWidth = 660
       object lblOptimizationLevel: TLabel
         Left = 7
         Top = 22
@@ -1215,7 +1214,6 @@ object frmOptions: TfrmOptions
     ShowHint = True
     TabOrder = 2
     OnClick = butOKClick
-    ExplicitLeft = 505
   end
   object butCancel: TButton
     Left = 506
@@ -1230,6 +1228,5 @@ object frmOptions: TfrmOptions
     ShowHint = True
     TabOrder = 1
     OnClick = butCancelClick
-    ExplicitLeft = 586
   end
 end
