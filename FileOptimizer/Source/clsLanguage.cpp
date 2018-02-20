@@ -6,8 +6,8 @@
 #include "clsLanguage.h"
 
 
-THashedStringList *mlstLanguage = NULL;   //Could not use THashedStringList because they are limited to a length of 256 chars
-THashedStringList *mlst1033 = NULL;
+static THashedStringList *mlstLanguage = NULL;   //Could not use THashedStringList because they are limited to a length of 256 chars
+static THashedStringList *mlst1033 = NULL;
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
