@@ -1,19 +1,19 @@
 # "Language ID: 7 (0x07)"
 # "Language Name: German"
-# "Project-Id-Version: FileOptimizer 12.40.2214"
+# "Project-Id-Version: FileOptimizer 12.40.2217"
 # "POT-Creation-Date: Feb 19 2018"
 # "MIME-Version: 1.0"
 # "Content-Type: text/plain; charset=ISO-8859-1"
 # "Content-Transfer-Encoding: 8bit"
 # "Language: de_DE"
-# "Last-Translator: Oliver"
-# "Language-Team: Oliver"
+# "Last-Translator: Oliver Hönow"
+# "Language-Team: Oliver Hönow"
 # "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 msgid "&About..."
 msgstr "&Über..."
 
 msgid "Open the about window with internal and legal information"
-msgstr "Öffnen Sie das Über-Fenster für interne und rechtlichen Informationen"
+msgstr "Öffnet das Info-Fenster für interne und rechtlichen Informationen"
 
 msgid "-"
 msgstr "-"
@@ -28,7 +28,7 @@ msgid "&Information..."
 msgstr "&Information..."
 
 msgid "Open information window with the list of currently supported file formats"
-msgstr "Öffnen Sie das Informationsfenster mit der Liste der aktuell unterstützten Dateiformate"
+msgstr "Öffnet das Informationsfenster mit der Liste der aktuell unterstützten Dateiformate"
 
 msgid "Help topics..."
 msgstr "Hilfe-Themen..."
@@ -52,7 +52,7 @@ msgid "&Optimize all files"
 msgstr "&Optimiere alle Dateien"
 
 msgid "Optimize files in the optimization list"
-msgstr "Optimieren Sie Dateien in der Optimierungsliste"
+msgstr "Optimiert die Dateien in der Optimierungsliste"
 
 msgid "&Optimize"
 msgstr "&Optimieren"
@@ -85,13 +85,13 @@ msgid "A&dd folder..."
 msgstr "&Ordner hinzufügen..."
 
 msgid "Add folder contents recursively from your computer to the optimization list"
-msgstr "Fügen Sie den Ordnerinhalt rekursiv von Ihrem Computer zur Optimierungsliste hinzu"
+msgstr "Fügt den Ordnerinhalt rekursiv von Ihrem Computer zur Optimierungsliste hinzu"
 
 msgid "&Add files..."
 msgstr "&Dateien hinzufügen..."
 
 msgid "Add files from your computer to the optimization list"
-msgstr "Fügen Sie Dateien von Ihrem Computer zur Optimierungsliste hinzu"
+msgstr "Fügt Dateien von Ihrem Computer zur Optimierungsliste hinzu"
 
 msgid "&File"
 msgstr "&Datei"
@@ -112,7 +112,7 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
-msgstr "Ziehen Sie gewünschte Dateien, welche Sie optimieren möchten, unten in die Liste  und klicken Sie dann auf den entsprechenden Button im Kontextmenü (rechte Maustaste), um fortzufahren. Alle verarbeiteten Dateien werden in den Papierkorb kopiert, sodass Sie sie problemlos wiederherstellen können. Sie können das Verschieben in den Papierkorb deaktivieren, wenn Sie möchten. Doppelklicken Sie auf ein Objekt, um eine Vorschau anzuzeigen."
+msgstr "Ziehen Sie gewünschte Dateien, welche Sie optimieren möchten, unten in die Liste und klicken Sie dann auf den entsprechenden Button im Kontextmenü (rechte Maustaste), um fortzufahren. Alle verarbeiteten Dateien werden in den Papierkorb kopiert, sodass Sie sie problemlos wiederherstellen können. Sie können das Verschieben in den Papierkorb deaktivieren, wenn Sie möchten. Doppelklicken Sie auf ein Objekt, um eine Vorschau anzuzeigen."
 
 msgid "Add folder"
 msgstr "Ordner hinzufügen"
@@ -157,7 +157,7 @@ msgid "&Enable Leanify"
 msgstr "&Leanify aktivieren"
 
 msgid "Enable Leanify. Results in smaller files, but can happen they are not editable anymore."
-msgstr "Aktivieren Sie Leanify. Ergebnis sind kleinere Dateien, welche ggf. jedoch nicht mehr bearbeitet werden können."
+msgstr "Aktiviert Leanify. Ergebnis sind kleinere Dateien, welche ggf. jedoch nicht mehr bearbeitet werden können."
 
 msgid "&XML"
 msgstr "&XML"
@@ -196,7 +196,7 @@ msgid "Prepress: 300 dpi and color preserve"
 msgstr "Vordruck: 300 dpi und Farbkonservierung"
 
 msgid "Printer: 300 dpi"
-msgstr "Druckerr: 300 dpi"
+msgstr "Drucker: 300 dpi"
 
 msgid "Ebook: 150 dpi"
 msgstr "Ebook: 150 dpi"
@@ -277,7 +277,7 @@ msgid "Allow excluding execution of certain plugins. It is case insensitive, and
 msgstr "Erlaube die Ausführung bestimmter Plugins auszuschließen. Es wird nicht zwischen Groß- und Kleinschreibung unterschieden, und es können mehr als ein Element angegeben werden, indem ein Semikolon als Trennzeichen verwendet wird."
 
 msgid "&Disable PETrim"
-msgstr "&Deaktivieren von PETrim"
+msgstr "&PETrim deaktivieren"
 
 msgid "Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."
 msgstr "Deaktivieren von PETrim. Wenn aktiviert, wird PETrim nicht verwendet, was zu weniger EXE-Beschädigung auf Kosten größerer Dateien führt."
@@ -345,6 +345,8 @@ msgstr "Symbolleiste für Symbole im Hauptfenster anzeigen"
 msgid "If you have already donated to support FileOptimizer development, enter here the email address or name you used"
 msgstr "Wenn Sie bereits gespendet haben, um die Entwicklung von FileOptimizer zu unterstützen, geben Sie hier die von Ihnen verwendete E-Mail-Adresse oder den von Ihnen verwendeten Namen ein."
 
+msgid "&Language"
+msgstr "&Sprache"
 msgid "&Filename format"
 msgstr "&Dateinamen-Format"
 
@@ -358,7 +360,7 @@ msgid "&Enable cache"
 msgstr "&Cache aktivieren"
 
 msgid "Enable cache of already optimized files to automatically skip them."
-msgstr "Aktivieren Sie den Cache für bereits optimierte Dateien, um diese automatisch zu überspringen."
+msgstr "Aktiviert den Cache für bereits optimierte Dateien, um diese automatisch zu überspringen."
 
 msgid "If specified, number of trial iterations in all Leanify executions will use this vaule. If not, iterations are calculated depending on the Optimization level."
 msgstr "Falls angegeben, wird die Anzahl der Testiterationen in allen Leanify-Ausführungen diesen Wert verwenden. Wenn nicht, werden Iterationen abhängig von der Optimierungsstufe berechnet."
@@ -412,7 +414,7 @@ msgid "Files containing this mask (substring) on name or path will be excluded f
 msgstr "Dateien, die diese Maske (Teilzeichenfolge) für Name oder Pfad enthalten, werden von der Optimierung ausgeschlossen. Sie können das Semikolon (;) verwenden, um mehr als einen Teilstring auszuschliessen.."
 
 msgid "&Do not use recycle bin"
-msgstr "&Verwenden Sie keinen Papierkorb"
+msgstr "&Keinen Papierkorb verwenden"
 
 msgid "When checked original files will not be backed up in the system trashcan."
 msgstr "Wenn diese Option aktiviert ist, werden Originaldateien nicht im Papierkorb des Systems verschoben."
@@ -539,6 +541,9 @@ msgstr "Allgemeine Programmoptionen, welche alle Erweiterungen betreffen (2/2)"
 
 msgid "Extensions affected: "
 msgstr "Betroffene Erweiterungen: "
+
+msgid "Automatic: System default"
+msgstr "Automatisch: System-Standard"
 
 msgid "and %s file formats among many others."
 msgstr "und %s Dateiformate unter vielen anderen."
@@ -682,3 +687,6 @@ msgstr "%s Dateien wurden verarbeitet. %s Bytes eingespart (%s%%)"
 
 msgid "Optimization is still running. Do you want to stop and exit %s?"
 msgstr "Die Optimierung läuft noch. Möchten Sie %s anhalten und beenden?"
+
+msgid "D&o not create backups"
+msgstr "Keine Backups erstellen"
