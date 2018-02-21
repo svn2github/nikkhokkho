@@ -3232,7 +3232,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 
 	//Ads require internet connection, and Internet Explorer 9 or later, so Vista or newer
 	unsigned int iWindowsVersion = clsUtil::GetWindowsVersion();
-	if ((webAds->Visible) && (InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
+	if ((!webAds->Offline) && (InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
 	{
 		unsigned int iBrowserEmulation;
 		//7, 8 and 10 IE11
@@ -3246,7 +3246,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 			iBrowserEmulation = 9999;
 		}
 		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
-		
+
 		#if defined (_DEBUG)
 			OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=1&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
@@ -3275,7 +3275,7 @@ void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString T
 	static String sLastOpenedUrl = "";
 
 
-	if (webAds->Visible)
+	if (!webAds->Offline)
 	{
 		//Finished loading
 		if (!webAds->Busy)
@@ -3333,7 +3333,7 @@ void __fastcall TfrmMain::UpdateTheme(void)
 
 	tooMain->Visible = gudtOptions.bShowToolBar;
 
-    webAds->Visible = !gudtOptions.bHideAds;
+	webAds->Offline = gudtOptions.bHideAds;
 
 	UpdateAds();
 

@@ -89,7 +89,6 @@ object frmMain: TfrmMain
     TabOrder = 2
     Transparent = False
     Wrapable = False
-    ExplicitWidth = 808
     object tooFileAdd: TToolButton
       Left = 0
       Top = 0
@@ -234,7 +233,6 @@ object frmMain: TfrmMain
     OnDrawCell = grdFilesDrawCell
     OnFixedCellClick = grdFilesFixedCellClick
     OnMouseMove = grdFilesMouseMove
-    ExplicitWidth = 814
     ColWidths = (
       512
       512
@@ -252,7 +250,6 @@ object frmMain: TfrmMain
     Anchors = []
     Step = 1
     TabOrder = 1
-    ExplicitLeft = 647
   end
   object stbMain: TStatusBar
     Left = 0
@@ -270,7 +267,6 @@ object frmMain: TfrmMain
     ParentShowHint = False
     ShowHint = True
     OnDrawPanel = stbMainDrawPanel
-    ExplicitWidth = 814
   end
   object webAds: TWebBrowser
     Left = 0
@@ -278,7 +274,6 @@ object frmMain: TfrmMain
     Width = 699
     Height = 90
     Cursor = crHandPoint
-    TabStop = False
     Align = alBottom
     DragCursor = crNo
     TabOrder = 4
@@ -288,7 +283,7 @@ object frmMain: TfrmMain
     ControlData = {
       4C0000003E4800004D0900000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
-      2B2E126202000000000000004C0000000114020000000000C000000000000046
+      2B2E126203000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000
       00000000000000000100000000000000000000000000000000000000}
   end
