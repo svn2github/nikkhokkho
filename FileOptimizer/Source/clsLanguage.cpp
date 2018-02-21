@@ -90,7 +90,8 @@ void __fastcall clsLanguage::Save(void)
 		{
 			mlst1033->SaveToFile("1033.po", TEncoding::UTF8);
 		}
-		catch (EFCreateError &excE)
+		//catch (EFCreateError &excE)
+		catch (...)
 		{
 		}	
 	}

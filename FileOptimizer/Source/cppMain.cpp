@@ -2192,7 +2192,6 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		unsigned int iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 
 		//Required indirection
-		String sCaption;
 		sCaption.printf(_(_T("Done (%3u%%).")), iPercentBytes);
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = sCaption;
 

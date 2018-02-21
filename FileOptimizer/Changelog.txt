@@ -166,6 +166,7 @@ X.XX - YYYY
 - Made ads load smoother.
 - Updated pingo to 0.95u x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.23 with HDRI support.
+- Some minor optimizations and code cleanup.
 
 
 12.40 - 2018/02/19
