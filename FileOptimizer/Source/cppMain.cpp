@@ -68,7 +68,7 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SaveForm(this);
 	clsLanguage::Save();
 	SaveOptions();
-	//webAds->Stop();
+	webAds->Stop();
 }
 
 
@@ -132,18 +132,26 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bShowToolBar = GetOption(_T("Options"), _T("ShowToolBar"), false);
-	
-	//Check if ad display was not set
-	_tcsncpy(acPath, GetOption(_T("Options"), _T("HideAds"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
-	if ((acPath[0] == NULL) && (!gudtOptions.acDonator[0]))
+
+    //Disable ads in XP
+	if (clsUtil::GetWindowsVersion() >= 600)
 	{
-		String sCaption;
-		sCaption.printf(_(_T("This is the first time you run %s.\n\nDo you want to support its development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.\n\nYou can change this option at any time from the Options menu.")), Application->Name.c_str());
-		gudtOptions.bHideAds = !(clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Support")), MB_YESNO | MB_ICONQUESTION) == ID_YES);
+		//Check if ad display was not set
+		_tcsncpy(acPath, GetOption(_T("Options"), _T("HideAds"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
+		if ((acPath[0] == NULL) && (!gudtOptions.acDonator[0]))
+		{
+			String sCaption;
+			sCaption.printf(_(_T("This is the first time you run %s.\n\nDo you want to support its development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.\n\nYou can change this option at any time from the Options menu.")), Application->Name.c_str());
+			gudtOptions.bHideAds = !(clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Support")), MB_YESNO | MB_ICONQUESTION) == ID_YES);
+		}
+		else
+		{
+			gudtOptions.bHideAds = GetOption(_T("Options"), _T("HideAds"), false);
+		}
 	}
 	else
 	{
-		gudtOptions.bHideAds = GetOption(_T("Options"), _T("HideAds"), false);
+		gudtOptions.bHideAds = true;
 	}
 	gudtOptions.bAllowDuplicates = GetOption(_T("Options"), _T("AllowDuplicates"), false);
 	gudtOptions.bAllowMultipleInstances = GetOption(_T("Options"), _T("AllowMultipleInstances"), false);
@@ -3231,21 +3239,26 @@ void __fastcall TfrmMain::UpdateAds(void)
 
 	//Ads require internet connection, and Internet Explorer 9 or later, so Vista or newer
 	unsigned int iWindowsVersion = clsUtil::GetWindowsVersion();
-	if ((!webAds->Offline) && (InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
+	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
 	{
-		unsigned int iBrowserEmulation;
-		//7, 8 and 10 IE11
-		if (iWindowsVersion >= 602)
+		if (webAds->Height == 0)
 		{
-			iBrowserEmulation = 11001;
+			unsigned int iBrowserEmulation;
+			//7, 8 and 10 IE11
+			if (iWindowsVersion >= 602)
+			{
+				iBrowserEmulation = 11001;
+			}
+			//Vista IE9
+			else
+			{
+				iBrowserEmulation = 9999;
+			}
+			clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
+			webAds->Offline = false;
+			webAds->Height = 90;
+			webAds->Show();
 		}
-		//Vista IE9
-		else
-		{
-			iBrowserEmulation = 9999;
-		}
-		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
-
 		#if defined (_DEBUG)
 			OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=1&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
@@ -3254,15 +3267,14 @@ void __fastcall TfrmMain::UpdateAds(void)
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
-		webAds->Height = 90;
-		webAds->Show();
 	}
-	else
+	else if (webAds->Height > 0)
 	{
-		//webAds->Stop();
+		webAds->Stop();
 		webAds->Hide();
 		webAds->Height = 0;
 		webAds->Navigate("about:blank");
+		webAds->Offline = true;
 	}
 }
 
@@ -3274,7 +3286,7 @@ void __fastcall TfrmMain::webAdsTitleChange(TObject *ASender, const WideString T
 	static String sLastOpenedUrl = "";
 
 
-	if (!webAds->Offline)
+	if (!gudtOptions.bHideAds)
 	{
 		//Finished loading
 		if (!webAds->Busy)
@@ -3331,8 +3343,6 @@ void __fastcall TfrmMain::UpdateTheme(void)
 	}
 
 	tooMain->Visible = gudtOptions.bShowToolBar;
-
-	webAds->Offline = gudtOptions.bHideAds;
 
 	UpdateAds();
 

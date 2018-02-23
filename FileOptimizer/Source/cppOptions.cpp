@@ -116,7 +116,18 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	}
 
 	chkShowToolBar->Checked = gudtOptions.bShowToolBar;
-	chkHideAds->Checked = gudtOptions.bHideAds;
+
+    //Disable ads in XP
+	if (clsUtil::GetWindowsVersion() >= 600)
+	{
+		chkHideAds->Checked = gudtOptions.bHideAds;
+		chkHideAds->Enabled = true;
+	}
+	else
+	{
+		chkHideAds->Checked = true;
+		chkHideAds->Enabled = false;
+	}
 	chkShutdownWhenDone->Checked = gudtOptions.bShutdownWhenDone;
 	txtTempDirectory->Text = gudtOptions.acTempDirectory;
 
@@ -243,10 +254,10 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 {
-	if ((txtDonator->Text.Length() < 1) && (chkHideAds->Checked))
+	if ((txtDonator->Text.Length() < 1) && (chkHideAds->Checked) && (chkHideAds->Enabled))
 	{
 		String sCaption;
-		sCaption.printf(_(_T("Do you want to contribute %s development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.")), Application->Name.c_str());
+		sCaption.printf(_(_T("Do you want to contribute %s development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.")), Application->Name.c_str());			
 		chkHideAds->Checked = !(clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Support")), MB_YESNO | MB_ICONQUESTION) == ID_YES);
 	}
 
