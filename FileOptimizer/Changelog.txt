@@ -165,6 +165,7 @@ X.XX - YYYY
 - Made About and Option windows resizable.
 - Updated pngquant to 2.11.7.
 - Made ads load smoother.
+- Retested in Windows XP SP3.
 - Updated pingo to 0.95u x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.23 with HDRI support.
 - Some minor optimizations and code cleanup.
