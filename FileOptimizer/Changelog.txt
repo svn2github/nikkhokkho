@@ -1,4 +1,4 @@
-Check access violation in Windows 7.
+Check access violation in Windows 7. Started in 12.30. 12.20 was OK.
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
