@@ -138,7 +138,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	{
 		//Check if ad display was not set
 		_tcsncpy(acPath, GetOption(_T("Options"), _T("HideAds"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
-		if ((acPath[0] == NULL) && (!gudtOptions.acDonator[0]))
+		if ((acPath[0] == NULL) && (gudtOptions.acDonator[0] == NULL))
 		{
 			String sCaption;
 			sCaption.printf(_(_T("This is the first time you run %s.\n\nDo you want to support its development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.\n\nYou can change this option at any time from the Options menu.")), Application->Name.c_str());
