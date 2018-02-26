@@ -189,12 +189,12 @@
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclimg.lib;VclSmp.lib;vclie.lib</LinkPackageStatics>
         <VerInfo_MinorVer>0</VerInfo_MinorVer>
-        <DCC_AdditionalSwitches>-x-ff -x-fvs=2 -x-fpr</DCC_AdditionalSwitches>
+        <DCC_AdditionalSwitches>-x-ff -x-fvs=2 -x-fpr -x-orc=2</DCC_AdditionalSwitches>
         <ILINK_DelayLoadDll>SHCORE.DLL;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclimg.lib;VclSmp.lib;vclie.lib</LinkPackageStatics>
-        <DCC_AdditionalSwitches>-x-ff -x-fvs=2 -x-fpr</DCC_AdditionalSwitches>
+        <DCC_AdditionalSwitches>-x-ff -x-fvs=2 -x-fpr -x-orc=2</DCC_AdditionalSwitches>
         <VerInfo_MinorVer>0</VerInfo_MinorVer>
     </PropertyGroup>
     <ItemGroup>
