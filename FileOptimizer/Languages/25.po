@@ -1,0 +1,656 @@
+uage ID: 25 (0x19)"
+# "Language Name: Russian"
+# "Project-Id-Version: FileOptimizer 12.50.2231"
+# "POT-Creation-Date: Feb 28 2018"
+# "MIME-Version: 1.0"
+# "Content-Type: text/plain; charset=ISO-8859-1"
+# "Content-Transfer-Encoding: 8bit"
+# "Language: ru-RU"
+# "Last-Translator: wvxwxvw"
+# "Language-Team: wvxwxvw - ru-board"
+# "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "&About..."
+msgstr "О программе..."
+
+msgid "Open the about window with internal and legal information"
+msgstr "Открыть окно с внутренней и юридической информацией"
+
+msgid "-"
+msgstr "-"
+
+msgid "Donate..."
+msgstr "Поддержать..."
+
+msgid "Support the development by easily and securely money donations"
+msgstr "Содействие развитию программы, путем простого пожертвования денег"
+
+msgid "&Information..."
+msgstr "Информация..."
+
+msgid "Open information window with the list of currently supported file formats"
+msgstr "Открыть инфо-окно со списком поддерживаемых форматов файлов"
+
+msgid "Help topics..."
+msgstr "Помощь"
+
+msgid "Open help topics"
+msgstr "Открыть разделы справки"
+
+msgid "&Help"
+msgstr "Помощь"
+
+msgid "&Options..."
+msgstr "Настройки..."
+
+msgid "Open configuration options window"
+msgstr "Открыть окно параметров"
+
+msgid "&Stop"
+msgstr "Остановить"
+
+msgid "Stop in-progress optimizations"
+msgstr "Прекратить оптимизацию"
+
+msgid "&Optimize all files"
+msgstr "Оптимизировать все"
+
+msgid "Optimize files in the optimization list"
+msgstr "Оптимизация файлов из списка"
+
+msgid "&Optimize"
+msgstr "Оптимизация"
+
+msgid "E&xit..."
+msgstr "Выход"
+
+msgid "Exit the program"
+msgstr "Выход из программы"
+
+msgid "Open &containing folder..."
+msgstr "Открыть содержащую папку..."
+
+msgid "Open folder containing selected item"
+msgstr "Открыть папку, содержащую выбранный элемент"
+
+msgid "&Open selected file"
+msgstr "Открыть выбранный файл"
+
+msgid "Open selected file with the associated program"
+msgstr "Открыть выбранный файл в связанной программе"
+
+msgid "&Clear all files"
+msgstr "Очистить все файлы"
+
+msgid "Empty all files in the optimization list"
+msgstr "Очистить список файлов"
+
+msgid "&Remove selected files"
+msgstr "Удалить выбранные файлы"
+
+msgid "Remove selected files from the optimization list"
+msgstr "Удалить выбранные файлы из списка"
+
+msgid "A&dd folder..."
+msgstr "Добавить папку..."
+
+msgid "Add folder contents recursively from your computer to the optimization list"
+msgstr "Добавить в список содержимое папки рекурсивно"
+
+msgid "&Add files..."
+msgstr "Добавить файлы..."
+
+msgid "Add files from your computer to the optimization list"
+msgstr "Добавить файлы в список"
+
+msgid "&File"
+msgstr "Файл"
+
+msgid "© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti)"
+msgstr "© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti)"
+
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "Перетащите в список файлы, которые надо оптимизировать. В списке работает контекстное меню. Обработанные файлы копируются в корзину, их можно легко восстановить (можно отключить в настройках). Дважды щелкните элемент, чтобы просмотреть его."
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Extension (Type)"
+msgstr "Расширение"
+
+msgid "Original size"
+msgstr "Исходный размер"
+
+msgid "Optimized size"
+msgstr "Оптим. размер"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "and %s file formats among many others."
+msgstr " %s форматы файлов, среди многих других."
+
+msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
+msgstr " это оптимизатор файлов, уменьшающий их размер без потери качества. Поддерживает: "
+
+msgid "\n\nDONATOR INFORMATION\n"
+msgstr "\n\nИНФО ДОНАТОРА\n"
+
+msgid "Have not donated yet!"
+msgstr "Еще не жертвовали!"
+
+msgid "\nUser since %s %s"
+msgstr "\nПользователь с %s %s"
+
+msgid "\n\nUSAGE STATISTICS\n- Time: %s\n- Opens: %s\n- Files: %s\n- Total: %s\n- Saved: %s\n"
+msgstr "\n\nСТАТИСТИКА ИСПОЛЬЗОВАНИЯ\n- Время: %s\n- Открытий: %s\n- Файлов: %s\n- Всего: %s\n- Сохранено: %s\n"
+
+msgid "Information"
+msgstr "Информация"
+
+msgid "Add folder"
+msgstr "Добавить папку"
+
+msgid "Options"
+msgstr "Настройки"
+
+msgid "&Cancel"
+msgstr "Отмена"
+
+msgid "Discard any changes made to options."
+msgstr "Не применять изменения."
+
+msgid "&OK"
+msgstr "OK"
+
+msgid "Accept and apply all changes made to options."
+msgstr "Применить все изменения."
+
+msgid "&Restore defaults"
+msgstr "Сброс всего"
+
+msgid "Restore all options to its factory settings values."
+msgstr "Восстановить все параметры до начальных."
+
+msgid "&Recurse"
+msgstr "Рекурсия"
+
+msgid "Enable optimization inside archives (recursive optimization)."
+msgstr "Включить оптимизацию внутри архивов (рекурсия)."
+
+msgid "&Copy metadata"
+msgstr "Сохранить метаданные"
+
+msgid "Copy file metadata. Else strip all unneded information."
+msgstr "Сохранить метаданные. Удалить, если не отмечено."
+
+msgid "&ZIP"
+msgstr "ZIP"
+
+msgid "&Enable Leanify"
+msgstr "Включить Leanify"
+
+msgid "Enable Leanify. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Уменьшает файлы, но может привести к невозможности их редактирования."
+
+msgid "&XML"
+msgstr "XML"
+
+msgid "&TIFF"
+msgstr "TIFF"
+
+msgid "&TGA"
+msgstr "TGA"
+
+msgid "&Allow lossy optimizations"
+msgstr "Разрешить оптимизацию с потерями"
+
+msgid "Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not"
+msgstr "Позволит сильнее уменьшить размер за счет потери качества (как правило незаметно визуально)"
+
+msgid "&PNG"
+msgstr "PNG"
+
+msgid "&Skip layered"
+msgstr "Пропускать многослойные"
+
+msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
+msgstr "Пропустить обработку PDF с многослойными объектами. Больший размер, но лучше совместимость."
+
+msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgstr "В пользовательском профиле можно указать свой DPI для изображений."
+
+msgid "Compression profile, from less size, to best quality."
+msgstr "Профиль сжатия, от меньшего размера, до лучшего качества."
+
+msgid "Custom"
+msgstr "Свой"
+
+msgid "Prepress: 300 dpi and color preserve"
+msgstr "Печать: 300 dpi и цветовое сохранение"
+
+msgid "Printer: 300 dpi"
+msgstr "Принтер: 300 dpi"
+
+msgid "Ebook: 150 dpi"
+msgstr "Эл.книга: 150 dpi"
+
+msgid "Screen: 72 dpi"
+msgstr "Экран: 72 dpi"
+
+msgid "None: No downsampling (Default)"
+msgstr "Нет: не понижать разрешение (по умолчанию)"
+
+msgid "&Custom DPI"
+msgstr "Свой DPI"
+
+msgid "&Profile"
+msgstr "Профиль"
+
+msgid "&PDF"
+msgstr "PDF"
+
+msgid "&PCX"
+msgstr "PCX"
+
+msgid "&MP4"
+msgstr "MP4"
+
+msgid "&MP3"
+msgstr "MP3"
+
+msgid "&Miscelaneous"
+msgstr "Прочее"
+
+msgid "&LUA"
+msgstr "LUA"
+
+msgid "Add extra extensions to be threated as JS/JSON."
+msgstr "Свои расширения, обрабатываемые как JS/JSON."
+
+msgid "&Enable JSMin"
+msgstr "Включить JSMin"
+
+msgid "Enable jsmin. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Уменьшает файлы, но может привести к невозможности их редактирования."
+
+msgid "&Additional Extensions"
+msgstr "Свои расширения"
+
+msgid "&JS"
+msgstr "JS"
+
+msgid "&Use arithmetic encoding"
+msgstr "Арифметическое кодирование"
+
+msgid "Arithmetic encoding gives additional saving reductions, but is incompatible with most programs."
+msgstr "Уменьшает файлы, но сильно ухудшает совместимость."
+
+msgid "&JPEG"
+msgstr "JPEG"
+
+msgid "&Enable Tidy"
+msgstr "Включить приборку"
+
+msgid "Enable Tidy. Results in smaller files, but can happen they are not editable anymore. Note that this applies to both SVG and HTML file types"
+msgstr "Уменьшает файлы, но может привести к невозможности их редактирования. Относится как к SVG, так и к HTML"
+
+msgid "&HTML"
+msgstr "HTML"
+
+msgid "&GZ"
+msgstr "GZ"
+
+msgid "&GIF"
+msgstr "GIF"
+
+msgid "&Enable UPX"
+msgstr "Включить UPX"
+
+msgid "Enable UPX executable compression. When enabled, UPX will be used, resulting EXE and DLL size reduction at the cost of runtime decompression."
+msgstr "Меньший размер, но может увеличить время запуска."
+
+msgid "&Disable PETrim"
+msgstr "Отключить PETrim"
+
+msgid "Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."
+msgstr "Не использовать PETrim. Меньшее повреждение EXE, но больше размер."
+
+msgid "&EXE"
+msgstr "EXE"
+
+msgid "Compression template, from safer and worse compression, to highest compression"
+msgstr "Шаблон сжатия, от более безопасного, но меньшего, до максимального"
+
+msgid "Highest"
+msgstr "Наивысший"
+
+msgid "High"
+msgstr "Высокий"
+
+msgid "Low (Default)"
+msgstr "Низкий (по умолчанию)"
+
+msgid "Enable tidy. Results in smaller files, but can happen they are not editable anymore."
+msgstr "Уменьшает файлы, но может привести к невозможности их редактирования."
+
+msgid "&Template"
+msgstr "Шаблон"
+
+msgid "&CSS"
+msgstr "CSS"
+
+msgid "&BMP"
+msgstr "BMP"
+
+msgid "User interface language"
+msgstr "Язык интерфейса"
+
+msgid "&Hide ads"
+msgstr "Скрыть рекламу"
+
+msgid "Hide ads from being displayed."
+msgstr "Скрыть показ объявлений."
+
+msgid "Specify the format to display filenames in the list."
+msgstr "Укажите формат имен файлов в списке."
+
+msgid "Drive letter + Partial (path + Filename)"
+msgstr "Буква диска + часть (путь + имя файла)"
+
+msgid "Drive letter + Partial path + Filename"
+msgstr "Буква диска + часть пути + имя файла"
+
+msgid "Filename only"
+msgstr "Только имя файла"
+
+msgid "Full path and Filename (Default)"
+msgstr "Полный путь и имя файла (по умолчанию)"
+
+msgid "&Always on top"
+msgstr "Всегда сверху"
+
+msgid "Show main window always on top."
+msgstr "Главное окно всегда сверху."
+
+msgid "&Show toolbar"
+msgstr "Показать панель"
+
+msgid "Show icons toolbar on main window"
+msgstr "Панель инструментов в главном окне."
+
+msgid "If you have already donated to support FileOptimizer development, enter here the email address or name you used"
+msgstr "Если вы пожертвовали на разработку FileOptimizer, введите здесь адрес или имя, которое вы использовали"
+
+msgid "&Language"
+msgstr "Язык"
+
+msgid "&Filename format"
+msgstr "Формат имени"
+
+msgid "&Donator"
+msgstr "Донатор"
+
+msgid "&Appearance"
+msgstr "Внешний вид"
+
+msgid "&Enable cache"
+msgstr "Включить кеш"
+
+msgid "Enable cache of already optimized files to automatically skip them."
+msgstr "Включить кэш уже оптимизированных файлов, для их авто-пропуска."
+
+msgid "If specified, number of trial iterations in all Leanify executions will use this vaule. If not, iterations are calculated depending on the Optimization level."
+msgstr "Используется если указано, количество пробных итераций для Leanify. Если нет, итерации зависят от уровня оптимизации."
+
+msgid "&Allow duplicates"
+msgstr "Разрешить дубликаты"
+
+msgid "Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."
+msgstr "Разрешить добавление одного и того же файла. Ускоряет процесс при больших списках."
+
+msgid "&Clear when complete"
+msgstr "Очистить по завершению"
+
+msgid "Automatically clear file list when optimization is completed."
+msgstr "Автоматически очищать список файлов по завершению."
+
+msgid "&Shutdown when done"
+msgstr "Выключить компьютер"
+
+msgid "Shutdown computer when optimization completes."
+msgstr "Выключить компьютер по завершении оптимизации."
+
+msgid "&Beep when done"
+msgstr "Сигнал по завершению"
+
+msgid "Beep the speaker when optimization completes."
+msgstr "Звуковой сигнал по завершению оптимизации."
+
+msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
+msgstr "Исключение выполнения плагинов. Нечувствителен к регистру, позволяет указать более одного элемента с помощью точки с запятой."
+
+msgid "&Leanify iterations"
+msgstr "Интерации Leanify"
+
+msgid "&Disable plugin mask"
+msgstr "Отключить плагин по маске"
+
+msgid "General &2"
+msgstr "Общее 2"
+
+msgid "If not empty specified directory will be used for temporary storage instead of system's %TEMP%."
+msgstr "Если не пусто, то будет использоваться указанный временный каталог вместо %TEMP%."
+
+msgid "&Allow multiple instances"
+msgstr "Разрешить несколько экземпляров"
+
+msgid "Allow having more than one FileOptimizer instance. If not, a warning will appear."
+msgstr "Разрешить несколько экземпляров FileOptimizer. Если нет, появится "предупреждение."
+
+msgid "If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included."
+msgstr "Если не пусто, то в оптимизацию будут включены только файлы по маске (по имени или пути). Можно использовать точку с запятой, чтобы указать более одной маски."
+
+msgid "Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded."
+msgstr "Файлы, по этой маске (по имени или пути), будут исключены из оптимизации. Можно использовать точку с запятой, чтобы указать более одной маски."
+
+msgid "&Do not use recycle bin"
+msgstr "Не использовать корзину"
+
+msgid "D&o not create backups"
+msgstr "Не создавать бекапы"
+
+msgid "When checked original files will not be backed up in the system trashcan."
+msgstr "Оптимизированные исходные файлы не будут сохранены в корзине."
+
+msgid "Debugging level to output on program log."
+msgstr "Уровень логирования в журнале программы."
+
+msgid "4: Information"
+msgstr "4: Информация"
+
+msgid "3: Warning"
+msgstr "3: Предупреждение"
+
+msgid "2: Error"
+msgstr "2: Ошибка"
+
+msgid "1: Critical"
+msgstr "1: Критический"
+
+msgid "0: None (Default)"
+msgstr "0: Нет (по умолчанию)"
+
+msgid "Automatically check for program updates."
+msgstr "Авто-проверка обновлений программы."
+
+msgid "Never"
+msgstr "Никогда"
+
+msgid "Automatically (Default)"
+msgstr "Автоматически (по умолчанию)"
+
+msgid "Ask"
+msgstr "Спросить"
+
+msgid "Process priority from most conservative to best performance."
+msgstr "Приоритет процесса, от умеренного до лучшей производительности."
+
+msgid "Realtime"
+msgstr "Реального времени"
+
+msgid "Above normal"
+msgstr "Выше нормального"
+
+msgid "Normal (Default)"
+msgstr "Обычный (по умолчанию)"
+
+msgid "Below normal"
+msgstr "Ниже нормального"
+
+msgid "Idle"
+msgstr "Умеренный"
+
+msgid "Optimization level from best speed to best compression."
+msgstr "Уровень оптимизации, от скоростного до наилучшего сжатия."
+
+msgid "9: Best"
+msgstr "9: Лучший"
+
+msgid "8: Better"
+msgstr "8:"
+
+msgid "7: Good"
+msgstr "7: Хороший"
+
+msgid "6:"
+msgstr "6:"
+
+msgid "5: Normal (Default)"
+msgstr "5: Обычный (по умолчанию)"
+
+msgid "4:"
+msgstr "4:"
+
+msgid "3:"
+msgstr "3:"
+
+msgid "2: Fast"
+msgstr "2: Быстрый"
+
+msgid "1: Faster"
+msgstr "1:"
+
+msgid "0: Fastest"
+msgstr "0: Скоростной"
+
+msgid "&Keep file attributes"
+msgstr "Сохранять атрибуты файлов"
+
+msgid "Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."
+msgstr "Сохранять исходные атрибуты - только чтение, системный, скрытый, архивный и штампы времени создания и изменения."
+
+msgid "&Temp directory"
+msgstr "Временный каталог"
+
+msgid "&Include mask"
+msgstr "Маска включений"
+
+msgid "&Exclude mask"
+msgstr "Маска исключений"
+
+msgid "&Log level"
+msgstr "Уровень логирования"
+
+msgid "&Check for updates"
+msgstr "Проверка обновлений"
+
+msgid "&Process priority"
+msgstr "Приоритет процесса"
+
+msgid "&Optimization level"
+msgstr "Уровень оптимизации"
+
+msgid "General &1"
+msgstr "Общее 1"
+
+msgid "Configure the appearance and behaviour of FileOptimizer"
+msgstr "Настройка внешнего вида и поведения FileOptimizer"
+
+msgid "General program options affecting all extensions (1/2)"
+msgstr "Общие параметры, влияющие на все расширения (1/2)"
+
+msgid "General program options affecting all extensions (2/2)"
+msgstr "Общие параметры, влияющие на все расширения (2/2)"
+
+msgid "Extensions affected: "
+msgstr "Затрагиваемые расширения:"
+
+msgid "Automatic: System default"
+msgstr "Автоматически: по умолчанию"
+
+msgid "About"
+msgstr "О программе"
+
+msgid "Except where otherwise noted, all of the documentation and software \r\nincluded in the package is copyrighted by Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). All rights reserved.\r\n\r\nThis software is provided \"as-is,\" without any express or implied warranty. In \r\nno event shall the author be held liable for any damages arising from the use \r\nof this software.\r\n\r\nPermission is granted to anyone to use this software for any purpose, \r\nincluding commercial applications, and to alter and redistribute it, provided that \r\nthe following conditions are met:\r\n\r\n1. All redistributions of source code files must retain all copyright notices that \r\nare currently in place, and this list of conditions without modification.\r\n\r\n2. All redistributions in binary form must retain all occurrences of the above \r\ncopyright notice and web site addresses that are currently in place (for \r\nexample, in the About boxes).\r\n\r\n3. The origin of this software must not be misrepresented; you must not claim \r\nthat you wrote the original software. If you use this software to distribute a \r\nproduct, an acknowledgment in the product documentation would be \r\nappreciated but is not required.\r\n\r\n4. Modified versions in source or binary form must be plainly marked as such, \r\nand must not be misrepresented as being the original software.\r\n\r\nIncludes icons by icons8.com.\r\n"
+msgstr "Except where otherwise noted, all of the documentation and software \r\nincluded in the package is copyrighted by Javier Gutiérrez Chamorro (Guti).\r\n\r\nCopyright © 2012- Javier Gutiérrez Chamorro (Guti). All rights reserved.\r\n\r\nThis software is provided \"as-is,\" without any express or implied warranty. In \r\nno event shall the author be held liable for any damages arising from the use \r\nof this software.\r\n\r\nPermission is granted to anyone to use this software for any purpose, \r\nincluding commercial applications, and to alter and redistribute it, provided that \r\nthe following conditions are met:\r\n\r\n1. All redistributions of source code files must retain all copyright notices that \r\nare currently in place, and this list of conditions without modification.\r\n\r\n2. All redistributions in binary form must retain all occurrences of the above \r\ncopyright notice and web site addresses that are currently in place (for \r\nexample, in the About boxes).\r\n\r\n3. The origin of this software must not be misrepresented; you must not claim \r\nthat you wrote the original software. If you use this software to distribute a \r\nproduct, an acknowledgment in the product documentation would be \r\nappreciated but is not required.\r\n\r\n4. Modified versions in source or binary form must be plainly marked as such, \r\nand must not be misrepresented as being the original software.\r\n\r\nIncludes icons by icons8.com.\r\n"
+
+msgid "&Close"
+msgstr "Закрыть"
+
+msgid "Pending"
+msgstr "Ожидание"
+
+msgid "0 / %s files"
+msgstr "0 / %s файлов"
+
+msgid "%s / %s files. %s bytes saved (%s%%)"
+msgstr "%s / %s файлов. %s байт сохранено (%s%%)"
+
+msgid "Processing %s..."
+msgstr "Обработка %s..."
+
+msgid "Copying to Recyclebin..."
+msgstr "Копирование в Корзину..."
+
+msgid "Running %s..."
+msgstr "Запуск %s..."
+
+msgid "Optimized"
+msgstr "Оптимизировано"
+
+msgid "Done (%3u%%)."
+msgstr "Готово (%3u%%)."
+
+msgid "%s files processed. %s bytes saved (%s%%)"
+msgstr "%s файлов обработано. %s байт сохранено (%s%%)"
+
+msgid "Optimization is still running. Do you want to stop and exit %s?"
+msgstr "Идет оптимизация. Хотите остановить ее и выйти из %s?"
+
+msgid "O&pen containing folder..."
+msgstr "Открыть содержащую папку..."
+
+msgid "When checked original files will not be backed up in the current folder as a .BAK files."
+msgstr "Если отмечено, то исходные файлы не будут сохранены в текущей папке как файлы .BAK."
+
+msgid "Some changed settings require %s to be restarted.\nDo you want to restart it now?"
+msgstr "Некоторые измененные настройки требуют перезапуска %s.\n\nПерезапустить его сейчас?"
+
+msgid "Restart"
+msgstr "Перезапуск"
+
+msgid "Do you want %s to automatically check for updates?"
+msgstr "Хотите, чтобы %s автоматически проверял обновления?"
+
+msgid "This is the first time you run %s.\n\nDo you want to support its development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.\n\nYou can change this option at any time from the Options menu."
+msgstr "Это первый запуск %s.\n\nХотите поддержать его разработку просмотром рекламы при его использовании?\n\nЭто поощрит дальнейшую работу по улучшению программы.\n\nПараметр можно изменить в настройках."
+
+msgid "Do you want to contribute %s development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated."
+msgstr "Хотите поддержать %s, просмотром рекламы при его использовании?\n\nЭто поощрит дальнейшую работу по улучшению программы."
+
+msgid "Creating backup..."
+msgstr "Создание резервной копии..."
+
+msgid "1 files processed. 0 bytes saved (100%) - FileOptimizer"
+msgstr "1 файлов обработано. 0 байт сохранено (100%) - FileOptimizer"
