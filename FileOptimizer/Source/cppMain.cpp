@@ -2001,13 +2001,12 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			}	
 			RunPlugin((unsigned int) iCount, "jhead (1/5)", (sPluginsDirectory + "jhead.exe -q -autorot " + sFlags + " \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
-			sFlags = "";
+			// ImageMagick does not keep metadata on TIFF images so disable it
 			if (!gudtOptions.bTIFFCopyMetadata)
 			{
-				sFlags += "-strip ";
+				RunPlugin((unsigned int) iCount, "ImageMagick (2/5)", (sPluginsDirectory + "magick.exe convert \"%INPUTFILE%\" -quiet -compress ZIP -strip \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
-			RunPlugin((unsigned int) iCount, "ImageMagick (2/5)", (sPluginsDirectory + "magick.exe convert \"%INPUTFILE%\" -quiet -compress ZIP " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-
+			
 			sFlags = "";
 			if (!gudtOptions.bTIFFCopyMetadata)
 			{

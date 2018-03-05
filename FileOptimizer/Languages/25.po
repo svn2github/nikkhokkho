@@ -1,4 +1,4 @@
-uage ID: 25 (0x19)"
+# "Language ID: 25 (0x19)"
 # "Language Name: Russian"
 # "Project-Id-Version: FileOptimizer 12.50.2231"
 # "POT-Creation-Date: Feb 28 2018"

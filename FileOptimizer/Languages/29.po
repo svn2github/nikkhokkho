@@ -1,0 +1,137 @@
+# "Language ID: 29 (0x1D)"
+# "Language Name: Svenska - Sverige"
+# "Project-Id-Version: FileOptimizer 12.40.2217"
+# "POT-Creation-Date: Feb 19 2018"
+# "MIME-Version: 1.0"
+# "Content-Type: text/plain; charset=ISO-8859-1"
+# "Content-Transfer-Encoding: 8bit"
+# "Language: sv_SE"
+# "Last-Translator: a902cd23"
+# "Language-Team: a902cd23"
+# "Plural-Forms: nplurals=2; plural=(n != 1);"
+
+msgid "FileOptimizer"
+msgstr "FilOptimierare"
+
+msgid "&About..."
+msgstr "&Om..."
+
+msgid "Open the about window with internal and legal information"
+msgstr "Öppna fönstret med intern och juridisk information"
+
+msgid "-"
+msgstr "-"
+
+msgid "Donate..."
+msgstr "Donera..."
+
+msgid "Support the development by easily and securely money donations"
+msgstr "Stöd utvecklingen genom enkel och säker penga-donering"
+
+msgid "&Information..."
+msgstr "&information..."
+
+msgid "Open information window with the list of currently supported file formats"
+msgstr "Öppna informationsfönstret med listan över nuvarande filformat"
+
+msgid "Help topics..."
+msgstr "Hjälpämnen..."
+
+msgid "Open help topics"
+msgstr "Öppna hjälpämnen"
+
+msgid "&Help"
+msgstr "&hjälp"
+
+msgid "&Options..."
+msgstr "&Alternativ..."
+
+msgid "Open configuration options window"
+msgstr "Öppna fönstret med konfigurationsalternativ"
+
+msgid "&Stop"
+msgstr "&Stopp"
+
+msgid "Stop in-progress optimizations"
+msgstr "Stoppa pågående optimeringar"
+
+msgid "&Optimize all files"
+msgstr "&Optimera alla filer"
+
+msgid "Optimize files in the optimization list"
+msgstr "Optimera filer i optimeringslistan"
+
+msgid "&Optimize"
+msgstr "&Optimera"
+
+msgid "E&xit..."
+msgstr "A&vsluta..."
+
+msgid "Exit the program"
+msgstr "Avsluta programmet"
+
+msgid "Open &containing folder..."
+msgstr "Öppna mappen med innehållet..."
+
+msgid "Open folder containing selected item"
+msgstr "Öppna mapp som innehåller valt objekt"
+
+msgid "&Open selected file"
+msgstr "&Öppna vald fil"
+
+msgid "Open selected file with the associated program"
+msgstr "Öppna vald fil med tillhörande program"
+
+msgid "&Clear all files"
+msgstr "&Rensa alla filer"
+
+msgid "Empty all files in the optimization list"
+msgstr "Töm alla filer i optimeringslistan"
+
+msgid "&Remove selected files"
+msgstr "&Ta bort valda filer"
+
+msgid "Remove selected files from the optimization list"
+msgstr "Ta bort valda filer från optimeringslistan"
+
+msgid "A&dd folder..."
+msgstr "L&ägg till mapp..."
+
+msgid "Add folder contents recursively from your computer to the optimization list"
+msgstr "Lägg till mappinnehåll rekursivt från din dator till optimeringslistan"
+
+msgid "&Add files..."
+msgstr "Lägg till filer..."
+
+msgid "Add files from your computer to the optimization list"
+msgstr "Lägg till filer från din dator till optimeringslistan"
+
+msgid "&File"
+msgstr "&Fil"
+
+msgid "© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti)"
+msgstr "© Kopieringsrättigheter 2012-2018 av Javier Gutiérrez Chamorro (Guti)"
+
+msgid "https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer"
+msgstr "https://nikkhokkho.sourceforge.io/static.php?page=FileOptimizer"
+
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "Dra på listan nedan de filer du vill optimera, och när du är klar klickar du på snabbmenyn för att fortsätta. Alla bearbetade filer läggs i papperskorgen, så att du enkelt kan återställa dem. Du kan inaktivera flyttningen till papperskorgen om du vill. Dubbelklicka på ett objekt för att förhandsgranska det. ""
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Extension (Type)"
+msgstr "Efternamn (Typ)"
+
+msgid "Original size"
+msgstr "Originalstorlek"
+
+msgid "Optimized size"
+msgstr "Optimerad storlek"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Optimization is still running. Do you want to stop and exit %s?"
+msgstr "Optimering körs fortfarande. Vill du stoppa och avsluta %s?"
