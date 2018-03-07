@@ -163,7 +163,8 @@ X.XX - YYYY
 - Added per pluggin progress (RejZoR).
 - Disabled ImageMagick on TIFF images when copy metadata because it is not kept (Dominik RUTSCHMANN).
 - Updated pingo to 0.96c x86 and x64 versions.
-
+- Some minor optimizations and code cleanup.
+- Upgraded distributions to 7-Zip 18.02.
 
 
 12.50 - 2018/02/27
