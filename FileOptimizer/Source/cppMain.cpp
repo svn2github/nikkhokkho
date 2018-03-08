@@ -1753,7 +1753,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 
 			if (!bIsPNG9Patch)
 			{
-				if (gudtOptions.bPNGAllowLossy)
+				if ((gudtOptions.bPNGAllowLossy) && (!bIsAPNG))
 				{
 					sFlags = "";
 					if (!gudtOptions.bPNGCopyMetadata)

@@ -162,6 +162,7 @@ X.XX - YYYY
 - Added swedish translation. Thanks a902cd23.
 - Added per pluggin progress (RejZoR).
 - Disabled ImageMagick on TIFF images when copy metadata because it is not kept (Dominik RUTSCHMANN).
+- Disabled pngquant on APNG images when lossy compression was selected because it broke animations (Shazy).
 - Updated pingo to 0.96c x86 and x64 versions.
 - Some minor optimizations and code cleanup.
 - Upgraded distributions to 7-Zip 18.02.
