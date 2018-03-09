@@ -167,6 +167,7 @@ X.XX - YYYY
 - Updated pingo to 0.96f x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.25 with HDRI support.
 - Some minor optimizations and code cleanup.
+- Updated EXE compatibility to PatchPE 1.30.
 - Upgraded distributions to 7-Zip 18.02.
 
 
