@@ -207,7 +207,7 @@ X.XX - YYYY
 - Updated ImageMagick to 7.0.7.22 with HDRI support.
 - Updated to cppcheck 1.82.
 - Updated to NSIS 3.03.
-- Upgraded distributions to 7-Zip 18.01.
+- Upgraded distributions to 7-Zip 18.03.
 
 12.20 - 2018/01/08
 - Fixed a regression in getting donator information (Johnson Lam).
