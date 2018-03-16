@@ -3238,6 +3238,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 
 	//Ads require internet connection, and Internet Explorer 9 or later, so Vista or newer
 	unsigned int iWindowsVersion = clsUtil::GetWindowsVersion();
+	//Show ads
 	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
 	{
 		if (webAds->Height == 0)
@@ -3253,7 +3254,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 			{
 				iBrowserEmulation = 9999;
 			}
-			clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
+			//clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
 			webAds->Offline = false;
 			webAds->Height = 90;
 			webAds->Show();
@@ -3267,13 +3268,16 @@ void __fastcall TfrmMain::UpdateAds(void)
 		#endif
 		webAds->Navigate(sUrl, oFlags);
 	}
-	else if (webAds->Height > 0)
+	else
 	{
-		webAds->Stop();
-		webAds->Hide();
-		webAds->Height = 0;
-		webAds->Navigate("about:blank");
-		webAds->Offline = true;
+		if (webAds->Height > 0)
+		{		
+			webAds->Stop();
+			webAds->Hide();
+			webAds->Height = 0;
+			webAds->Navigate("about:blank");
+			webAds->Offline = true;
+		}
 	}
 }
 
