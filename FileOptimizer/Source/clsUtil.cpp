@@ -688,7 +688,7 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 			ret[i] = ver[i];
 		ret[len-1] = 0;
 	}
-	//delete (TCHAR *) vData;
+	delete (TCHAR *) vData;
 	return(vlen);
 }
 

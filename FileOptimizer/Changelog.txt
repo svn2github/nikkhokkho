@@ -1,3 +1,5 @@
+- Crash en Release x86
+
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
@@ -169,7 +171,6 @@ X.XX - YYYY
 - Updated pingo to 0.96o x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.25 with HDRI support.
 - Some minor optimizations and code cleanup.
-- Compiled with latest C++ Builder 10.2.3 (Tokyo Update 3).
 - Updated EXE compatibility to PatchPE 1.30.
 - Upgraded distributions to 7-Zip 18.02.
 
