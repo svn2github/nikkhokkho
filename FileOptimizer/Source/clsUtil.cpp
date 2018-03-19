@@ -651,7 +651,7 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 
 	if (!GetFileVersionInfo(fn, hVersion, vis, vData))
 	{
-		delete (TCHAR *) vData;
+		delete[] (TCHAR *) vData;
 		return (0);
 	}
 	TCHAR vn[100];
@@ -663,7 +663,7 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 	BOOL res = VerQueryValue(vData, vn, &transblock, &vsize);
 	if (!res)
 	{
-		delete (TCHAR *) vData;
+		delete[] (TCHAR *) vData;
 		return (0);
 	}
 	// Swap the words so wsprintf will print the lang-charset in the correct format.
@@ -673,7 +673,7 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 	res = VerQueryValue(vData, vn, (LPVOID*) &ver, &vsize);
 	if (!res)
 	{
-		delete (TCHAR *) vData;
+		delete[] (TCHAR *) vData;
 		return(0);
 	}
 	int vlen = _tcsclen(ver);
@@ -688,7 +688,7 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 			ret[i] = ver[i];
 		ret[len-1] = 0;
 	}
-	delete (TCHAR *) vData;
+	delete[] (TCHAR *) vData;
 	return(vlen);
 }
 

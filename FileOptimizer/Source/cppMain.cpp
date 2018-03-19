@@ -2244,7 +2244,8 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 	{
 		tmrMain->Interval = 30000;
 
-		#if (defined( _DEBUG) && !defined(_WIN64))
+        //Fix Win32 debugger
+		#if (!defined( _DEBUG) && !defined(_WIN64))
 			if (_argc > 1)
 			{
 				Screen->Cursor = crAppStart;
@@ -2597,7 +2598,8 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 
 	strcpy(acPath, "ini=");
-	iSize = KI_BUFFER_SIZE - 256;
+	memset(acBuffer, 0, KI_BUFFER_SIZE);
+	iSize = KI_BUFFER_SIZE - 1024;
 	clsUtil::ReadFile(clsUtil::GetIniPath(), (void *) acBuffer, &iSize);
     //Remove cache part
 	char *pcCache = strstr(acBuffer, "[Cache]");

@@ -213,7 +213,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	{
 		char acBuffer[2048];
 		memset(acBuffer, 0, sizeof(acBuffer));
-		unsigned int iRead = sizeof(acBuffer);
+		unsigned int iRead = sizeof(acBuffer) - 1;
 		clsUtil::ReadFile(udtFindFileData.cFileName, acBuffer, &iRead);
 		char *pcStart = strstr(acBuffer, "\"Language Name:");
 		if (pcStart)
