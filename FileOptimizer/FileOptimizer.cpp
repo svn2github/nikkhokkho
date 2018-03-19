@@ -45,20 +45,20 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			), _T("Command-line help"), MB_OK | MB_ICONINFORMATION);
 			return(-1);
 		}
-		
+
 		Application->Initialize();
 		Application->Name = "FileOptimizer";
 		Application->Title = Application->Name;
 		Application->HelpFile = Application->Name + ".chm";
 		Application->MainFormOnTaskBar = true;
-		
+
 		#if defined( _DEBUG)
 			ReportMemoryLeaksOnShutdown = true;
 		#endif
 
 		SetProcessWorkingSetSize(GetCurrentProcess(), UINT_MAX, UINT_MAX);	//GS:AGGRESSIVE
 		SetMinimumBlockAlignment(mba16Byte);
-		
+
 		#if !defined(_WIN64)
 			// Disable file system redirection on Win64 environments
 			HMODULE hKernel32 = LoadLibrary(_T("KERNEL32.DLL"));
@@ -90,6 +90,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			FreeLibrary(hUser32);
 		}
 
+
 		if (!TfrmMain::GetOption(_T("Options"), _T("AllowMultipleInstances"), false))
 		{
 			hMutex = OpenMutex(MUTEX_ALL_ACCESS, false, Application->Name.c_str());
@@ -105,20 +106,18 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 				}
 			}
 		}
-		
+
 		Application->CreateForm(__classid(TfrmMain), &frmMain);
 		Application->Run();
+
+		if (hMutex)
+		{
+			ReleaseMutex(hMutex);
+		}
 	}
 	catch (Exception &excE)
 	{
-		#if defined( _DEBUG)
-			Application->ShowException(&excE);
-		#endif
-	}
-
-	if (hMutex)
-	{
-		ReleaseMutex(hMutex);
+		Application->ShowException(&excE);
 	}
 	return (0);
 }

@@ -8,6 +8,8 @@
 #include "clsUtil.h"
 #include "clsLanguage.h"
 #include <SHDocVw.hpp>
+#include <stdio.h>
+#include <stdlib.h>
 #include <System.Actions.hpp>
 #include <System.Classes.hpp>
 #include <System.ImageList.hpp>

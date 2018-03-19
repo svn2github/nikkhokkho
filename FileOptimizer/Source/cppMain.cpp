@@ -2244,32 +2244,34 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 	{
 		tmrMain->Interval = 30000;
 
-		if (_argc > 1)
-		{
-			Screen->Cursor = crAppStart;
-			grdFiles->Enabled = false;  //Prevent grid modifications while adding files
-			Show();	//Required because some themes do not automatically refresh
-			Application->ProcessMessages();
-			AddFilesInitializeExist();
-			bool bAdded = false;
-			for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
+		#if (defined( _DEBUG) && !defined(_WIN64))
+			if (_argc > 1)
 			{
-				//Skip options starting with /
-				if (_targv[iCount][0] != '/')
+				Screen->Cursor = crAppStart;
+				grdFiles->Enabled = false;  //Prevent grid modifications while adding files
+				Show();	//Required because some themes do not automatically refresh
+				Application->ProcessMessages();
+				AddFilesInitializeExist();
+				bool bAdded = false;
+				for (unsigned int iCount = 1; iCount < (unsigned int) _argc; iCount++)
 				{
-					AddFiles(_targv[iCount]);
-					bAdded = true;
+					//Skip options starting with /
+					if (_targv[iCount][0] != '/')
+					{
+						AddFiles(_targv[iCount]);
+						bAdded = true;
+					}
+				}
+				if (bAdded)
+				{
+					grdFiles->Enabled = true;
+					RefreshStatus();
+					Screen->Cursor = crDefault;
+					actOptimizeExecute(Sender);
+					actExitExecute(Sender);
 				}
 			}
-			if (bAdded)
-			{
-				grdFiles->Enabled = true;
-				RefreshStatus();
-				Screen->Cursor = crDefault;
-				actOptimizeExecute(Sender);
-				actExitExecute(Sender);
-			}
-		}
+        #endif
 	}
 }
 
@@ -3572,7 +3574,7 @@ const TCHAR * __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHA
 	static TCHAR acRes[2048];
 
 
-    memset(acRes, 0, sizeof(acRes));
+	memset(acRes, 0, sizeof(acRes));
 	/* Get it via global registry */
 	_tcsncpy(acRes, clsUtil::GetRegistry(HKEY_LOCAL_MACHINE, clsUtil::GetRegistryPath(), pacKey), (sizeof(acRes) / sizeof(TCHAR)) - 1);
 	if (acRes[0] == NULL)

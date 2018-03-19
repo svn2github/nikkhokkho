@@ -651,7 +651,6 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 
 	if (!GetFileVersionInfo(fn, hVersion, vis, vData))
 	{
-		//delete vData;
 		delete (TCHAR *) vData;
 		return (0);
 	}
@@ -664,9 +663,8 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 	BOOL res = VerQueryValue(vData, vn, &transblock, &vsize);
 	if (!res)
 	{
-		//delete vData;
 		delete (TCHAR *) vData;
-		return 0;
+		return (0);
 	}
 	// Swap the words so wsprintf will print the lang-charset in the correct format.
 	*(DWORD *) transblock = MAKELONG(HIWORD(*(DWORD *) transblock), LOWORD(*(DWORD *) transblock));
@@ -675,7 +673,6 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 	res = VerQueryValue(vData, vn, (LPVOID*) &ver, &vsize);
 	if (!res)
 	{
-		//delete vData;
 		delete (TCHAR *) vData;
 		return(0);
 	}
@@ -691,9 +688,8 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 			ret[i] = ver[i];
 		ret[len-1] = 0;
 	}
-  //delete vData;
-  delete (TCHAR *) vData;
-  return(vlen);
+	//delete (TCHAR *) vData;
+	return(vlen);
 }
 
 
