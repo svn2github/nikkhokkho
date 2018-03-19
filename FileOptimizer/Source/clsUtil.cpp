@@ -543,11 +543,11 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 	{
 		
 		unsigned int iFlags = INTERNET_DEFAULT_HTTP_PORT;
-		if (_tcsstr(pacServer, _T("https://")) != NULL)
+		if (pbHttps)
 		{
 			iFlags = INTERNET_DEFAULT_HTTPS_PORT;
 		}
-		HINTERNET hConnect = InternetConnect(hInternet, pacServer, INTERNET_DEFAULT_HTTPS_PORT, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1);
+		HINTERNET hConnect = InternetConnect(hInternet, pacServer, iFlags, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1);
 		if (hConnect)
 		{
 			iFlags = INTERNET_FLAG_RELOAD | INTERNET_FLAG_IGNORE_CERT_CN_INVALID | INTERNET_FLAG_IGNORE_CERT_DATE_INVALID | INTERNET_FLAG_NO_CACHE_WRITE | INTERNET_FLAG_NO_UI;

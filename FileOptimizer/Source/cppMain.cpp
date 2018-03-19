@@ -3245,18 +3245,6 @@ void __fastcall TfrmMain::UpdateAds(void)
 	{
 		if (webAds->Height == 0)
 		{
-			unsigned int iBrowserEmulation;
-			//7, 8 and 10 IE11
-			if (iWindowsVersion >= 602)
-			{
-				iBrowserEmulation = 11001;
-			}
-			//Vista IE9
-			else
-			{
-				iBrowserEmulation = 9999;
-			}
-			//clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), iBrowserEmulation);
 			webAds->Offline = false;
 			webAds->Height = 90;
 			webAds->Show();
