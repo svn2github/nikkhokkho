@@ -2245,7 +2245,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		tmrMain->Interval = 30000;
 
         //Fix Win32 debugger
-		#if (!defined( _DEBUG) && !defined(_WIN64))
+		#if (!defined( _DEBUG) || !defined(_WIN64))
 			if (_argc > 1)
 			{
 				Screen->Cursor = crAppStart;
