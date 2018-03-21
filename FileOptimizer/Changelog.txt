@@ -161,7 +161,7 @@ ndo
 
 X.XX - YYYY
 
-12.60 - 2018/03/15
+12.60 - 2018/03/21
 - Added russian translation. Thanks Max.
 - Added swedish translation. Thanks a902cd23.
 - Added per pluggin progress (RejZoR).
@@ -175,7 +175,6 @@ X.XX - YYYY
 - Some minor optimizations and code cleanup.
 - Updated EXE compatibility to PatchPE 1.30.
 - Upgraded distributions to 7-Zip 18.02.
-
 
 12.50 - 2018/02/27
 - Switched to AGPL license to protect it from modifications in network environments and making it compatible with Ghostcript (Robin Watts #33).
