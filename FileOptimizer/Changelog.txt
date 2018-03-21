@@ -124,7 +124,7 @@ ndo
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.91 - http://www.lcdf.org/gifsicle/
 - Gifsicle Lossy 1.88 - https://kornel.ski/lossygif
-- Ghostscript 9.22 - http://www.ghostscript.com
+- Ghostscript 9.23 - http://www.ghostscript.com
 - GNU Strip 2.29.1 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
 - ImageMagick 7.0.7.25 - http://www.imagemagick.org
@@ -160,6 +160,8 @@ ndo
 
 
 X.XX - YYYY
+- Updated Ghostscript to 9.23.
+
 
 12.60 - 2018/03/21
 - Added russian translation. Thanks Max.
