@@ -144,7 +144,7 @@ ndo
 - mutool 1.12 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.96o - http://css-ig.net/pingo
+- pingo 0.96u - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.7 - http://www.pngquant.org
@@ -168,7 +168,7 @@ X.XX - YYYY
 - Disabled ImageMagick on TIFF images when copy metadata because it is not kept (Dominik RUTSCHMANN).
 - Disabled pngquant on APNG images when lossy compression was selected because it broke animations (Shazy).
 - Updated ffmpeg to 3.4.2.
-- Updated pingo to 0.96o x86 and x64 versions.
+- Updated pingo to 0.96u x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.25 with HDRI support.
 - Updated Leanify to 0.4.3.210 daily binaries.
 - Statically analized with C++ Builder Audits.
