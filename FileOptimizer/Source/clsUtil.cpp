@@ -217,7 +217,7 @@ HANDLE __fastcall clsUtil::FindProcess(const TCHAR *pacProcess)
 	HANDLE hProcess = NULL;
 	while (bRes)
 	{
-		if (_tcsicmp(udtEntry.szExeFile, pacProcess) == 0)
+		if (_tcsicmp(GetShortName((String) udtEntry.szExeFile).c_str(), GetShortName((String) pacProcess).c_str()) == 0)
 		{
 			hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, udtEntry.th32ProcessID);
 			break;
@@ -255,8 +255,7 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 		udtSI.hStdOutput = hWrite;
 		udtSI.wShowWindow = SW_HIDE;
 
-		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory, &udtSI,
-				&udtPI))
+		if (!CreateProcess(NULL, GetShortName((String) pacProcess).c_str(), &udtSA, &udtSA, false, NULL, NULL, GetShortName((String) pacDirectory).c_str(), &udtSI, &udtPI))
 		{
 			//_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);
 			//MsgBox(NULL, acTmp, _T("Error"), MB_OK | MB_ICONASTERISK);
@@ -272,8 +271,7 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 		udtSI.dwFlags = STARTF_USESHOWWINDOW;
 		udtSI.wShowWindow = SW_HIDE;
 
-		if (!CreateProcess(NULL, (TCHAR *) pacProcess, &udtSA, &udtSA, false, NULL, NULL, (TCHAR *) pacDirectory,
-				&udtSI, &udtPI))
+		if (!CreateProcess(NULL, GetShortName((String) pacProcess).c_str(), &udtSA, &udtSA, false, NULL, NULL, GetShortName((String) pacDirectory).c_str(), &udtSI, &udtPI))
 		{
 			//_stprintf(acTmp, _T("Cannot launch %s"), pacProcess);
 			//MsgBox(NULL, acTmp, _T("Error"), MB_OK | MB_ICONASTERISK);
@@ -321,7 +319,7 @@ unsigned long __fastcall clsUtil::RunProcess(const TCHAR *pacProcess, const TCHA
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::ExistsFile(const TCHAR *pacFile)
 {
-	unsigned int iAttributes = GetFileAttributes(clsUtil::GetShortName((String) pacFile).c_str());
+	unsigned int iAttributes = GetFileAttributes(GetShortName((String) pacFile).c_str());
 	return (iAttributes != INVALID_FILE_ATTRIBUTES);
 }
 
@@ -334,7 +332,7 @@ unsigned long long __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
 	WIN32_FILE_ATTRIBUTE_DATA udtFileAttribute;
 
 
-	if (GetFileAttributesEx(clsUtil::GetShortName((String) pacFile).c_str(), GetFileExInfoStandard, (void*) &udtFileAttribute))
+	if (GetFileAttributesEx(GetShortName((String) pacFile).c_str(), GetFileExInfoStandard, (void*) &udtFileAttribute))
 	{
 		lSize = ((unsigned long long) udtFileAttribute.nFileSizeHigh << 32) + udtFileAttribute.nFileSizeLow;
 	}
@@ -351,7 +349,7 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 
 
 	HANDLE hMapping = NULL;
-	HANDLE hFile = CreateFile(clsUtil::GetShortName((String) pacFile).c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+	HANDLE hFile = CreateFile(GetShortName((String) pacFile).c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		if (*piSize == 0)
@@ -384,7 +382,6 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 					}
 					bRes = ::ReadFile(hFile, pvData, *piSize, (unsigned long *) &iSize, NULL);
 				}
-
 			}
 		}
 		*piSize = iSize;
@@ -403,7 +400,7 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, uns
 
 
 	HANDLE hMapping = NULL;
-	HANDLE hFile = CreateFile(clsUtil::GetShortName((String) pacFile).c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_FLAG_WRITE_THROUGH, NULL);
+	HANDLE hFile = CreateFile(GetShortName((String) pacFile).c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_FLAG_WRITE_THROUGH, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		// Use file mapped IO
@@ -442,7 +439,7 @@ bool __fastcall clsUtil::GetFileTimestamp(const TCHAR *pacFile, FILETIME *pudtCr
 	bool bRes = false;
 
 
-	HANDLE hFile = CreateFile(clsUtil::GetShortName((String) pacFile).c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(GetShortName((String) pacFile).c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		bRes = GetFileTime(hFile, pudtCreated, pudtAccessed, pudtModified);
@@ -459,7 +456,7 @@ bool __fastcall clsUtil::SetFileTimestamp(const TCHAR *pacFile, const FILETIME *
 	bool bRes = false;
 
 
-	HANDLE hFile = CreateFile(clsUtil::GetShortName((String) pacFile).c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFile(GetShortName((String) pacFile).c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		bRes = SetFileTime(hFile, pudtCreated, pudtAccessed, pudtModified);
@@ -489,7 +486,7 @@ bool __fastcall clsUtil::DirectoryCreate(String psDirectory)
 		if (acDirectory[iCount] == '\\')
 		{
 			acDirectory[iCount] = NULL;
-			bRes = (CreateDirectory(clsUtil::GetShortName((String) acDirectory).c_str(), NULL) != 0);
+			bRes = (CreateDirectory(GetShortName((String) acDirectory).c_str(), NULL) != 0);
 			acDirectory[iCount] = '\\';
 		}
 	}
@@ -592,11 +589,11 @@ bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestin
 
 	
 	//Try copying file with faster no buffering only available in Windows XP
-	bRes = CopyFileEx(clsUtil::GetShortName((String) pacSource).c_str(), clsUtil::GetShortName((String) pacDestination).c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+	bRes = CopyFileEx(GetShortName((String) pacSource).c_str(), GetShortName((String) pacDestination).c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
 	if (!bRes)
 	{
 		//Try copying file with buffering
-		bRes = ::CopyFile(clsUtil::GetShortName((String) pacSource).c_str(), clsUtil::GetShortName((String) pacDestination).c_str(), false);
+		bRes = ::CopyFile(GetShortName((String) pacSource).c_str(), GetShortName((String) pacDestination).c_str(), false);
 	}
 	return (bRes);
 }
@@ -620,7 +617,7 @@ const TCHAR * __fastcall clsUtil::ExeVersion(const TCHAR *pacFile)
 	pacVersionData = new TCHAR[iVersionSize];
 	if (pacVersionData)
 	{
-		if (GetFileVersionInfo(pacFile, 0, iVersionSize, pacVersionData))
+		if (GetFileVersionInfo(GetShortName((String) pacFile).c_str(), 0, iVersionSize, pacVersionData))
 		{
 			if (VerQueryValue(pacVersionData, _T("\\"), &a, &iVersionSize))
 			{
@@ -723,6 +720,8 @@ const TCHAR * __fastcall clsUtil::GetIniPath(bool pbAllUsers)
 			_stprintf(acPath, acTmp);
 			_tcsncpy(acPathAllUsers, acPath, (sizeof(acPathAllUsers) / sizeof(TCHAR)) - 1);
 		}
+		_tcscpy(acPath, GetShortName((String) acPath).c_str());
+		_tcscpy(acPathAllUsers, GetShortName((String) acPathAllUsers).c_str());
 	}
 	if (pbAllUsers)
 	{
@@ -1205,6 +1204,7 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 			CloseHandle(hFile);
 			_tcsncpy(acPath, acTmp, (sizeof(acPath) / sizeof(TCHAR)) - 1);
 		}
+		_tcscpy(acPath, GetShortName((String) acPath).c_str());
 	}
 	return (acPath);
 }
@@ -1282,14 +1282,17 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 	Application->ProcessMessages();
 	// ShFileOperation expect strings ending in double NULL
 	_tcsncpy(acSource, pacSource, (sizeof(acSource) / sizeof(TCHAR)) - 1);
+	_tcscpy(acSource, GetShortName((String) acSource).c_str());
+	
 	_tcsncpy(acDestination, acSource, (sizeof(acDestination) / sizeof(TCHAR)) - 5);
 	_tcscat(acDestination, _T(".tmp"));
+	_tcscpy(acDestination, GetShortName((String) acDestination).c_str());
 
 	CopyFile(acSource, acDestination);
 
 	udtFileOp.wFunc = FO_DELETE;
 	udtFileOp.fFlags = FOF_ALLOWUNDO | FOF_NO_UI;
-	udtFileOp.pFrom = clsUtil::GetShortName((String) acSource).c_str();
+	udtFileOp.pFrom = GetShortName((String) acSource).c_str();
 
 	iRes = SHFileOperation(&udtFileOp);
 	if (iRes == 0)
@@ -1449,14 +1452,28 @@ bool __fastcall clsUtil::ShutdownWindows(unsigned int piMode)
 // ---------------------------------------------------------------------------
 String __fastcall clsUtil::GetShortName(String psLongName)
 {
+	String sRes;
+	
+	
+	sRes = ExtractShortPathName(psLongName);
+	if (sRes.Length() <= 0)
+	{
+		sRes = psLongName;
+	}
+	return(sRes);
+	
+	/*
+	unsigned int iRes;
 	TCHAR acShortName[PATH_MAX] = {};
 
 
-	if (GetShortPathName(psLongName.c_str(), acShortName, sizeof(acShortName)) <= 0)
+	iRes = GetShortPathName(psLongName.c_str(), acShortName, (sizeof(acShortName) / sizeof(TCHAR)) - 1);
+	if ((iRes == 0) || (iRes >= (sizeof(acShortName) / sizeof(TCHAR)) - 1)
 	{
 		_tcscpy(acShortName, psLongName.c_str());
 	}
 	return ((String) acShortName);
+	*/
 }
 
 

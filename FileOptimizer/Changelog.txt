@@ -161,6 +161,8 @@ ndo
 
 X.XX - YYYY
 - Updated Ghostscript to 9.23.
+- Some minor optimizations and code cleanup.
+- Upgraded distributions to 7-Zip 18.03.
 
 
 12.60 - 2018/03/21

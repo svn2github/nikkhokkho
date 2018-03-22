@@ -746,7 +746,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	{
 		_tcscat(acTmpFile, _T("\\Plugins32\\"));
 	}
-	sPluginsDirectory = ExtractShortPathName((String) acTmpFile);
+	sPluginsDirectory = clsUtil::GetShortName((String) acTmpFile);
 
 	lSavedBytes = 0;
 	lTotalBytes = 0;
