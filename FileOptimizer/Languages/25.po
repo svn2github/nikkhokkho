@@ -1,7 +1,7 @@
 # "Language ID: 25 (0x19)"
 # "Language Name: Russian"
 # "Project-Id-Version: FileOptimizer 12.50.2231"
-# "POT-Creation-Date: Feb 28 2018"
+# "POT-Creation-Date: Mar 03 2018"
 # "MIME-Version: 1.0"
 # "Content-Type: text/plain; charset=ISO-8859-1"
 # "Content-Transfer-Encoding: 8bit"
@@ -126,27 +126,6 @@ msgstr "Оптим. размер"
 
 msgid "Status"
 msgstr "Статус"
-
-msgid "and %s file formats among many others."
-msgstr " %s форматы файлов, среди многих других."
-
-msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
-msgstr " это оптимизатор файлов, уменьшающий их размер без потери качества. Поддерживает: "
-
-msgid "\n\nDONATOR INFORMATION\n"
-msgstr "\n\nИНФО ДОНАТОРА\n"
-
-msgid "Have not donated yet!"
-msgstr "Еще не жертвовали!"
-
-msgid "\nUser since %s %s"
-msgstr "\nПользователь с %s %s"
-
-msgid "\n\nUSAGE STATISTICS\n- Time: %s\n- Opens: %s\n- Files: %s\n- Total: %s\n- Saved: %s\n"
-msgstr "\n\nСТАТИСТИКА ИСПОЛЬЗОВАНИЯ\n- Время: %s\n- Открытий: %s\n- Файлов: %s\n- Всего: %s\n- Сохранено: %s\n"
-
-msgid "Information"
-msgstr "Информация"
 
 msgid "Add folder"
 msgstr "Добавить папку"
@@ -310,6 +289,9 @@ msgstr "Включить UPX"
 msgid "Enable UPX executable compression. When enabled, UPX will be used, resulting EXE and DLL size reduction at the cost of runtime decompression."
 msgstr "Меньший размер, но может увеличить время запуска."
 
+msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
+msgstr "Исключение выполнения плагинов. Нечувствителен к регистру, позволяет указать более одного элемента с помощью точки с запятой."
+
 msgid "&Disable PETrim"
 msgstr "Отключить PETrim"
 
@@ -426,9 +408,6 @@ msgstr "Сигнал по завершению"
 
 msgid "Beep the speaker when optimization completes."
 msgstr "Звуковой сигнал по завершению оптимизации."
-
-msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
-msgstr "Исключение выполнения плагинов. Нечувствителен к регистру, позволяет указать более одного элемента с помощью точки с запятой."
 
 msgid "&Leanify iterations"
 msgstr "Интерации Leanify"
@@ -586,8 +565,26 @@ msgstr "Общие параметры, влияющие на все расшир
 msgid "Extensions affected: "
 msgstr "Затрагиваемые расширения:"
 
-msgid "Automatic: System default"
-msgstr "Автоматически: по умолчанию"
+msgid "and %s file formats among many others."
+msgstr " %s форматы файлов, среди многих других."
+
+msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
+msgstr " это оптимизатор файлов, уменьшающий их размер без потери качества. Поддерживает: "
+
+msgid "\n\nDONATOR INFORMATION\n"
+msgstr "\n\nИНФО ДОНАТОРА\n"
+
+msgid "Have not donated yet!"
+msgstr "Еще не жертвовали!"
+
+msgid "\nUser since %s %s"
+msgstr "\nВы пользуетесь %s с версии %s"
+
+msgid "\n\nUSAGE STATISTICS\n- Time: %s\n- Opens: %s\n- Files: %s\n- Total: %s\n- Saved: %s\n"
+msgstr "\n\nСТАТИСТИКА ИСПОЛЬЗОВАНИЯ\n- Время: %s\n- Открытий: %s\n- Файлов: %s\n- Всего: %s\n- Сохранено: %s\n"
+
+msgid "Information"
+msgstr "Информация"
 
 msgid "About"
 msgstr "О программе"
@@ -631,6 +628,9 @@ msgstr "Идет оптимизация. Хотите остановить ее 
 msgid "O&pen containing folder..."
 msgstr "Открыть содержащую папку..."
 
+msgid "Skipped"
+msgstr "Пропущено"
+
 msgid "When checked original files will not be backed up in the current folder as a .BAK files."
 msgstr "Если отмечено, то исходные файлы не будут сохранены в текущей папке как файлы .BAK."
 
@@ -654,3 +654,6 @@ msgstr "Создание резервной копии..."
 
 msgid "1 files processed. 0 bytes saved (100%) - FileOptimizer"
 msgstr "1 файлов обработано. 0 байт сохранено (100%) - FileOptimizer"
+
+msgid "Automatic: System default"
+msgstr "Автоматически: по умолчанию"

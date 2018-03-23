@@ -160,6 +160,7 @@ ndo
 
 
 X.XX - YYYY
+- Updated russian translation (Thanks Max).
 - Updated Ghostscript to 9.23.
 - Some minor optimizations and code cleanup.
 - Upgraded distributions to 7-Zip 18.03.
