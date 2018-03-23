@@ -1452,28 +1452,29 @@ bool __fastcall clsUtil::ShutdownWindows(unsigned int piMode)
 // ---------------------------------------------------------------------------
 String __fastcall clsUtil::GetShortName(String psLongName)
 {
+
+/*
 	String sRes;
-	
-	
+
+
 	sRes = ExtractShortPathName(psLongName);
 	if (sRes.Length() <= 0)
 	{
 		sRes = psLongName;
 	}
 	return(sRes);
-	
-	/*
+
+*/
 	unsigned int iRes;
 	TCHAR acShortName[PATH_MAX] = {};
 
 
 	iRes = GetShortPathName(psLongName.c_str(), acShortName, (sizeof(acShortName) / sizeof(TCHAR)) - 1);
-	if ((iRes == 0) || (iRes >= (sizeof(acShortName) / sizeof(TCHAR)) - 1)
+	if ((iRes == 0) || (iRes >= (sizeof(acShortName) / sizeof(TCHAR)) - 1))
 	{
 		_tcscpy(acShortName, psLongName.c_str());
 	}
 	return ((String) acShortName);
-	*/
 }
 
 

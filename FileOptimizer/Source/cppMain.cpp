@@ -2245,7 +2245,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		tmrMain->Interval = 30000;
 
         //Fix Win32 debugger
-		#if (!defined( _DEBUG) || !defined(_WIN64))
+		#if (!defined( _DEBUG) || defined(_WIN64))
 			if (_argc > 1)
 			{
 				Screen->Cursor = crAppStart;
@@ -2554,7 +2554,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
 		{
 			lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
-			if ((lSizeNew > 0) && (lSizeNew < lSize))
+			if ((lSizeNew >= 8) && (lSizeNew < lSize))
 			{
 				clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 			}
@@ -2562,7 +2562,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
 		{
 			lSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
-			if ((lSizeNew > 0) && (lSizeNew < lSize))
+			if ((lSizeNew >= 8) && (lSizeNew < lSize))
 			{
 				clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
 				//sInputFile = sTmpOutputFile;
@@ -2573,7 +2573,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	clsUtil::DeleteFile(sTmpInputFile.c_str());
 	clsUtil::DeleteFile(sTmpOutputFile.c_str());
 
-	if ((lSizeNew == 0) || (lSizeNew > lSize))
+	if ((lSizeNew <= 8) || (lSizeNew > lSize))
 	{
 		lSizeNew = lSize;
 	}
