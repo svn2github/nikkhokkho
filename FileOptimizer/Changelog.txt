@@ -1,3 +1,5 @@
+- Lang path (Manuel).
+
 - Crash en Release x86
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
