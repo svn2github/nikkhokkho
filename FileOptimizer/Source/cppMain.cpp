@@ -557,7 +557,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 				//grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow]->BeginUpdate();
 				//grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
 				//grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
-				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1).c_str()));
+				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(clsUtil::GetShortName(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1)).c_str()));
 				//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
 				//grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
 				//grdFiles->Rows[(int) iRow]->EndUpdate();
@@ -1141,9 +1141,9 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				udtFileModified.dwLowDateTime = 0;
 				udtFileModified.dwHighDateTime = 0; */
 			}
-			iFileAttributes = GetFileAttributes(sInputFile.c_str());
+			iFileAttributes = GetFileAttributes(clsUtil::GetShortName(sInputFile).c_str());
 		}
-		SetFileAttributes(sInputFile.c_str(), FILE_ATTRIBUTE_NORMAL);
+		SetFileAttributes(clsUtil::GetShortName(sInputFile).c_str(), FILE_ATTRIBUTE_NORMAL);
 
 
 		int iLevel;
@@ -1715,6 +1715,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					TCHAR acTmpFilePdf[PATH_MAX];
 					_tcsncpy(acTmpFilePdf, sInputFile.c_str(), (sizeof(acTmpFilePdf) / sizeof(TCHAR)) - 5);
 					_tcscat(acTmpFilePdf, _T(".pdf"));
+					_tcsncpy(acTmpFilePdf, clsUtil::GetShortName(acTmpFilePdf).c_str(), (sizeof(acTmpFilePdf) / sizeof(TCHAR)) - 1);
 
 					//RunPlugin((unsigned int) iCount, "Ghostcript", (sPluginsDirectory + "cwebp.exe -mt -quiet -lossless " + sFlags + "\"" + acTmpFileWebp + "\" -o \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sInputFile, "", 0, 0);
 					if (clsUtil::IsWindows64())
@@ -2065,6 +2066,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			TCHAR acTmpFileWebp[PATH_MAX];
 			_tcsncpy(acTmpFileWebp, sInputFile.c_str(), (sizeof(acTmpFileWebp) / sizeof(TCHAR)) - 5);
 			_tcscat(acTmpFileWebp, _T(".png"));
+			_tcsncpy(acTmpFileWebp, clsUtil::GetShortName(acTmpFileWebp).c_str(), (sizeof(acTmpFileWebp) / sizeof(TCHAR)) - 1);
 
 			if (RunPlugin((unsigned int) iCount, "dwebp (1/2)", (sPluginsDirectory + "dwebp.exe -mt \"%INPUTFILE%\" -o \"" + acTmpFileWebp + "\"").c_str(), sInputFile, "", 0, 0) == 0)
 			{
@@ -2168,7 +2170,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		{
 			if (iFileAttributes != INVALID_FILE_ATTRIBUTES)
 			{
-				SetFileAttributes(sInputFile.c_str(), iFileAttributes);
+				SetFileAttributes(clsUtil::GetShortName(sInputFile).c_str(), iFileAttributes);
 			}
 			//Restore timestamp if we were able to get it
 			if ((udtFileCreated.dwLowDateTime != 0) && (udtFileCreated.dwHighDateTime != 0))
@@ -2521,32 +2523,33 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 
 	unsigned long long lSize = clsUtil::SizeFile(sInputFile.c_str());
 	unsigned long long lSizeNew = lSize;
+	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
+
+	Application->ProcessMessages();
+
+	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
+	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
+	{
+		clsUtil::CopyFile(sInputFile.c_str(), sTmpInputFile.c_str());
+		//sInputFile = sTmpOutputFile;
+	}
+
+	//sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = ReplaceStr(sCommandLine, "%INPUTFILE%", sInputFile);
+
+	//sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = ReplaceStr(sCommandLine, "%OUTPUTFILE%", sOutputFile);
+
+	//sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = ReplaceStr(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile);
+
+	//sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
+	sCommandLine = ReplaceStr(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile);
+
+	int iError;
 	if (lSize > 0)
 	{
-		grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
-
-		Application->ProcessMessages();
-
-		//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
-		if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
-		{
-			clsUtil::CopyFile(sInputFile.c_str(), sTmpInputFile.c_str());
-			//sInputFile = sTmpOutputFile;
-		}
-
-		//sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
-		sCommandLine = ReplaceStr(sCommandLine, "%INPUTFILE%", sInputFile);
-		
-		//sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
-		sCommandLine = ReplaceStr(sCommandLine, "%OUTPUTFILE%", sOutputFile);
-
-		//sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
-		sCommandLine = ReplaceStr(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile);
-		
-		//sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
-		sCommandLine = ReplaceStr(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile);
-
-		int iError = (int) RunProcess(sCommandLine.c_str(), NULL, 0, true);
+		iError = (int) RunProcess(sCommandLine.c_str(), NULL, 0, true);
 		Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
 
 		//Check exit errorlevel
@@ -2571,7 +2574,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 				}
 			}
 		}
-	}
+    }
 	else
 	{
 		iError = -9999;
