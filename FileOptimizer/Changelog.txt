@@ -162,8 +162,10 @@ ndo
 
 
 X.XX - YYYY
+- Fixed corruption due to 0 byte file sizes (Alex Devero).
 - Updated russian translation (Thanks Max).
 - Updated Ghostscript to 9.23.
+- Updated pingo to 0.96w x86 and x64 versions.
 - Some minor optimizations and code cleanup.
 - Upgraded distributions to 7-Zip 18.03.
 
@@ -175,7 +177,7 @@ X.XX - YYYY
 - Disabled ImageMagick on TIFF images when copy metadata because it is not kept (Dominik RUTSCHMANN).
 - Disabled pngquant on APNG images when lossy compression was selected because it broke animations (Shazy).
 - Updated ffmpeg to 3.4.2.
-- Updated pingo to 0.96w x86 and x64 versions.
+- Updated pingo to 0.96q x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.25 with HDRI support.
 - Updated Leanify to 0.4.3.210 daily binaries.
 - Statically analized with C++ Builder Audits.

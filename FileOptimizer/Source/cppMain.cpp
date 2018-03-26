@@ -2521,53 +2521,60 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 
 	unsigned long long lSize = clsUtil::SizeFile(sInputFile.c_str());
 	unsigned long long lSizeNew = lSize;
-	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
-
-	Application->ProcessMessages();
-
-	//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
-	if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
+	if (lSize > 0)
 	{
-		clsUtil::CopyFile(sInputFile.c_str(), sTmpInputFile.c_str());
-		//sInputFile = sTmpOutputFile;
+		grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSize);
+
+		Application->ProcessMessages();
+
+		//Handle copying original file, if there is not Output nor Tmp for commands that only accept 1 file
+		if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
+		{
+			clsUtil::CopyFile(sInputFile.c_str(), sTmpInputFile.c_str());
+			//sInputFile = sTmpOutputFile;
+		}
+
+		//sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
+		sCommandLine = ReplaceStr(sCommandLine, "%INPUTFILE%", sInputFile);
+		
+		//sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
+		sCommandLine = ReplaceStr(sCommandLine, "%OUTPUTFILE%", sOutputFile);
+
+		//sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
+		sCommandLine = ReplaceStr(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile);
+		
+		//sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
+		sCommandLine = ReplaceStr(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile);
+
+		int iError = (int) RunProcess(sCommandLine.c_str(), NULL, 0, true);
+		Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
+
+		//Check exit errorlevel
+		if ((iError >= piErrorMin) && (iError <= piErrorMax))
+		{
+			//We did get a TMP output file, so if smaller, make it overwrite input file
+			if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
+			{
+				lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
+				if ((lSizeNew >= 8) && (lSizeNew < lSize))
+				{
+					clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+				}
+			}
+			else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
+			{
+				lSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
+				if ((lSizeNew >= 8) && (lSizeNew < lSize))
+				{
+					clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
+					//sInputFile = sTmpOutputFile;
+				}
+			}
+		}
 	}
-
-	//sCommandLine = StringReplace(sCommandLine, "%INPUTFILE%", sInputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = ReplaceStr(sCommandLine, "%INPUTFILE%", sInputFile);
-	
-	//sCommandLine = StringReplace(sCommandLine, "%OUTPUTFILE%", sOutputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = ReplaceStr(sCommandLine, "%OUTPUTFILE%", sOutputFile);
-
-	//sCommandLine = StringReplace(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = ReplaceStr(sCommandLine, "%TMPINPUTFILE%", sTmpInputFile);
-	
-	//sCommandLine = StringReplace(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile, TReplaceFlags() << rfReplaceAll);
-	sCommandLine = ReplaceStr(sCommandLine, "%TMPOUTPUTFILE%", sTmpOutputFile);
-
-	int iError = (int) RunProcess(sCommandLine.c_str(), NULL, 0, true);
-	Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
-
-	//Check exit errorlevel
-	if ((iError >= piErrorMin) && (iError <= piErrorMax))
+	else
 	{
-		//We did get a TMP output file, so if smaller, make it overwrite input file
-		if (PosEx("%TMPOUTPUTFILE%", psCommandLine) != 0)
-		{
-			lSizeNew = clsUtil::SizeFile(sTmpOutputFile.c_str());
-			if ((lSizeNew >= 8) && (lSizeNew < lSize))
-			{
-				clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
-			}
-		}
-		else if ((PosEx("%OUTPUTFILE%", psCommandLine) == 0) && (PosEx("%TMPOUTPUTFILE%", psCommandLine) == 0))
-		{
-			lSizeNew = clsUtil::SizeFile(sTmpInputFile.c_str());
-			if ((lSizeNew >= 8) && (lSizeNew < lSize))
-			{
-				clsUtil::CopyFile(sTmpInputFile.c_str(), sInputFile.c_str());
-				//sInputFile = sTmpOutputFile;
-			}
-		}
+		iError = -9999;
 	}
 
 	clsUtil::DeleteFile(sTmpInputFile.c_str());
