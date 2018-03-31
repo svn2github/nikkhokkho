@@ -1282,17 +1282,15 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 	Application->ProcessMessages();
 	// ShFileOperation expect strings ending in double NULL
 	_tcsncpy(acSource, pacSource, (sizeof(acSource) / sizeof(TCHAR)) - 1);
-	_tcscpy(acSource, GetShortName((String) acSource).c_str());
-	
+
 	_tcsncpy(acDestination, acSource, (sizeof(acDestination) / sizeof(TCHAR)) - 5);
 	_tcscat(acDestination, _T(".tmp"));
-	_tcscpy(acDestination, GetShortName((String) acDestination).c_str());
 
 	CopyFile(acSource, acDestination);
 
 	udtFileOp.wFunc = FO_DELETE;
 	udtFileOp.fFlags = FOF_ALLOWUNDO | FOF_NO_UI;
-	udtFileOp.pFrom = GetShortName((String) acSource).c_str();
+	udtFileOp.pFrom = acSource;
 
 	iRes = SHFileOperation(&udtFileOp);
 	if (iRes == 0)

@@ -1,5 +1,3 @@
-- 0 bytes en JPEG.
-
 - Lang path (Manuel).
 
 - Crash en Release x86
