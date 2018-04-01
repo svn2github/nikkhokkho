@@ -163,6 +163,7 @@ ndo
 
 X.XX - YYYY
 - Updated jpegoptim to 1.4.5 (custom built with libjpeg 9b).
+- Some minor optimizations and code cleanup.
 
 
 12.61 - 2018/04/01

@@ -557,7 +557,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 				//grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow]->BeginUpdate();
 				//grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
 				//grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
-				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(clsUtil::GetShortName(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1)).c_str()));
+				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1)));
 				//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
 				//grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
 				//grdFiles->Rows[(int) iRow]->EndUpdate();
