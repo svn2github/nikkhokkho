@@ -162,13 +162,15 @@ ndo
 
 
 X.XX - YYYY
-- Fixed corruption due to 0 byte file sizes (Alex Devero).
+
+
+12.61 - 2018/04/01
+- Fixed corruption when copy to recyclebin due to 0 byte file sizes (Alex Devero).
 - Updated russian translation (Thanks Max).
 - Updated Ghostscript to 9.23.
 - Updated pingo to 0.96w x86 and x64 versions.
 - Some minor optimizations and code cleanup.
 - Upgraded distributions to 7-Zip 18.03.
-
 
 12.60 - 2018/03/21
 - Added russian translation. Thanks Max.
