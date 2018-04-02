@@ -1,3 +1,5 @@
+- Add Libdeflate - https://github.com/ebiggers/libdeflate/releases (JoeW).
+
 - Lang path (Manuel).
 
 - Crash en Release x86
