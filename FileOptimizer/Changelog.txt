@@ -155,7 +155,7 @@ ndo
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
-- SQLite 3.22.0 - http://www.sqlite.org
+- SQLite 3.23.0 - http://www.sqlite.org
 - Tidy 5.6.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.5 - http://x128.ho.ua/pngutils.html
 - UPX 3.94 - https://upx.github.io
@@ -165,6 +165,7 @@ ndo
 
 X.XX - YYYY
 - Updated jpegoptim to 1.4.5 (custom built with libjpeg 9b).
+- Updated SQLite to 3.23.0 x86 and x64 Visual C++ 2017 custom builds.
 - Some minor optimizations and code cleanup.
 
 
