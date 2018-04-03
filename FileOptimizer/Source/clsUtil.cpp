@@ -528,8 +528,7 @@ bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigne
 bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *pacPage, const char *pacParameters, void *pvData, unsigned int piSize, bool pbHttps)
 {
 	bool bRes = false;
-	TCHAR acHeaders[] = _T("Content-Type: application/x-www-form-urlencoded");
-
+	
 
     //ToDo: Use UrlGetPart https://msdn.microsoft.com/en-us/library/windows/desktop/bb773781(v=vs.85).aspx
 	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
@@ -560,7 +559,8 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 					unsigned int iCertificate = 0;
 					InternetSetOption(hRequest, INTERNET_OPTION_SECURITY_SELECT_CLIENT_CERT, &iCertificate, sizeof(iCertificate));
 				}
-
+				
+				TCHAR acHeaders[] = _T("Content-Type: application/x-www-form-urlencoded");
 				if (HttpSendRequest(hRequest, acHeaders, _tcslen(acHeaders), (void *) pacParameters, strlen((char *) pacParameters)))
 				{
 					memset(pvData, 0, piSize);
@@ -695,7 +695,6 @@ int __fastcall clsUtil::GetFileVersionField(const TCHAR *fn, const TCHAR *info, 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall clsUtil::GetIniPath(bool pbAllUsers)
 {
-	TCHAR acTmp[2048];
 	static TCHAR acPath[PATH_MAX] = _T("");
 	static TCHAR acPathAllUsers[PATH_MAX] = _T("");
 
@@ -703,6 +702,8 @@ const TCHAR * __fastcall clsUtil::GetIniPath(bool pbAllUsers)
 	// Check if we already have it cached
 	if ((acPath[0] == NULL) && (acPathAllUsers[0] == NULL))
 	{
+		TCHAR acTmp[2048];
+		
 		GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1);
 		*_tcsrchr(acTmp, '.') = NULL;
 		_tcscat(acTmp, _T(".ini"));
@@ -1183,13 +1184,14 @@ int __fastcall clsUtil::Random(int piMin, int piMax)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const TCHAR * __fastcall clsUtil::GetLogPath(void)
 {
-	TCHAR acTmp[2048];
 	static TCHAR acPath[PATH_MAX] = _T("");
 
 
 	// Check if we already have it cached
 	if (acPath[0] == NULL)
 	{
+		TCHAR acTmp[2048];
+		
 		GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1);
 		*_tcsrchr(acTmp, '.') = NULL;
 		_tcscat(acTmp, _T(".log"));
@@ -1214,12 +1216,11 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel)
 {
-	TCHAR acPath[PATH_MAX];
-	TCHAR acLevel[][32] = { _T("CRITICAL"), _T("ERROR"), _T("WARNING"), _T("INFORMATION"), _T("NONE") };
-	
-
 	if ((piDesiredLevel) > piLevel)
 	{
+		TCHAR acPath[PATH_MAX];
+		TCHAR acLevel[][32] = { _T("CRITICAL"), _T("ERROR"), _T("WARNING"), _T("INFORMATION"), _T("NONE") };
+		
 		_tcsncpy(acPath, GetLogPath(), (sizeof(acPath) / sizeof(TCHAR)) - 1);
 		FILE *pLog = _tfopen(acPath, _T("at"));
 		TDateTime dteDate = dteDate.CurrentDateTime();

@@ -166,6 +166,7 @@ ndo
 X.XX - YYYY
 - Updated jpegoptim to 1.4.5 (custom built with libjpeg 9b).
 - Updated SQLite to 3.23.0 x86 and x64 Visual C++ 2017 custom builds.
+- Updated to cppcheck 1.83.
 - Some minor optimizations and code cleanup.
 
 

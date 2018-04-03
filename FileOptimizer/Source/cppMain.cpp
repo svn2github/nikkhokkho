@@ -264,12 +264,13 @@ void __fastcall TfrmMain::SaveOptions(void)
 void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 {
 	WIN32_FIND_DATA udtFindFileData;
-	TCHAR acPluginsDirectory[PATH_MAX];
 	
 
 	//Check if there are plugins still running
 	if ((!gbStop) && (!gudtOptions.bAllowMultipleInstances))
 	{
+		TCHAR acPluginsDirectory[PATH_MAX];
+		
 		GetModuleFileName(NULL, acPluginsDirectory, (sizeof(acPluginsDirectory) / sizeof(TCHAR)) - 1);
 		*_tcsrchr(acPluginsDirectory, '\\') = NULL;
 		if (clsUtil::IsWindows64())
@@ -2291,9 +2292,6 @@ void __fastcall TfrmMain::lblCopyrightClick(TObject *Sender)
 // ---------------------------------------------------------------------------
 void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 {
-	TCHAR acBuffer[PATH_MAX];
-
-
 	HDROP hDrop = (HDROP) udtMessage.Drop;
 	if (hDrop)
 	{
@@ -2306,6 +2304,8 @@ void __fastcall TfrmMain::WMDropFiles(TWMDropFiles &udtMessage)
 			AddFilesInitializeExist();
 			for (unsigned int iCount = 0; iCount < iFiles; iCount++)
 			{
+				TCHAR acBuffer[PATH_MAX];
+
 				if (DragQueryFile(hDrop, iCount, acBuffer, (sizeof(acBuffer) / sizeof(TCHAR)) - 1))
 				{
 					AddFiles(acBuffer);
