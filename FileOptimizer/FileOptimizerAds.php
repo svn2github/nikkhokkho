@@ -109,13 +109,14 @@
 				?>
 	<?php
 		}
-	echo $sSearch;
 	?>
 </tr>
 </table>
+<br/><br/><br/><br/><br/><br/>
 FileOptimizer is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: .3G2, .3GG, .3GP, .7Z, .A, .AAI, .AC, .ACC, .ADP, .AI, .AIR, .APK, .APNG, .APPX, .APR, .ART, .ART, .AVI, .AVS, .BAR, .BMP, .BPG, .BPL, .BSZ, .CBT, .CBZ, .CDR, .CDT, .CHI, .CHM, .CHQ, .CHS, .CHW, .CIN, .CMYK, .CMYKA, .CPL, .CSL, .CSS, .CUR, .DB, .DB, .DCX, .DDS, .DEB, .DES, .DIB, .DLL, .DOC, .DOCM, .DOCX, .DOT, .DOTM, .DOTX, .DPX, .DRV, .DWF, .DWFX, .EAR, .EASM, .EML, .EMLX, .EPDF, .EPDF, .EPRT, .EPUB, .EXE, .FAX, .FAX, .FB2, .FDF, .FITS, .FLA, .FLAC, .FLV, .FPX, .FPX, .FXG, .FXG, .GALLERY, .GALLERYCOLLECTION, .GALLERYITEM, .GIF, .GRAY, .GRS, .GZ, .HDR, .HRZ, .HTM, .HTML, .ICB, .ICL, .ICO, .ICO, .INK, .INLINE, .IPA, .IPK, .IPSW, .ITA, .ITS, .ITZ, .J2C, .J2K, .JAR, .JFI, .JFIF, .JIF, .JNG, .JP2, .JPC, .JPE, .JPEG, .JPG, .JPS, .JPT, .JS, .JSON, .KML, .KMZ, .KMZ, .KSF, .LIB, .LIT, .LUA, .LUAC, .LXF, .LZL, .LZMA, .M4A, .M4B, .M4P, .M4R, .M4V, .MAX, .MBX, .MCE, .MDB, .MDT, .MDZ, .MHT, .MHT, .MHTML, .MHTML, .MIC, .MIF, .MIFF, .MIX, .MIZ, .MK3D, .MKA, .MKS, .MKV, .MMIP, .MNG, .MONO, .MOV, .MP3, .MP4, .MPC, .MPD, .MPEG, .MPG, .MPO, .MPP, .MPP, .MPR, .MPT, .MSC, .MSG, .MSG, .MSI, .MSL, .MSP, .MST, .MSZ, .MTV, .MTW, .MVG, .MVZ, .MZZ, .NAR, .NBK, .NOTEBOOK, .O, .OBJ, .OCX, .ODB, .ODF, .ODG, .ODP, .ODS, .ODT, .OEX, .OGA, .OGG, .OGG, .OGV, .OGX, .OGX, .OLE, .OLE2, .ONE, .OPT, .OSK, .OST, .OTB, .OXPS, .P7, .PALM, .PBM, .PCC, .PCD, .PCDS, .PCL, .PCLS, .PCX, .PDB, .PDF, .PFM, .PFS, .PGM, .PIC, .PICON, .PICT, .PK3, .PNG, .PNM, .PNS, .POTM, .POTX, .PPAM, .PPM, .PPS, .PPSM, .PPSX, .PPT, .PPTM, .PPTX, .PSB, .PSD, .PTIF, .PTIF, .PTIFF, .PTIFF, .PUB, .PUB, .PUZ, .QT, .QWK, .R2SKIN, .RA, .RAM, .RDB, .RFA, .RFG, .RFT, .RGB, .RGBA, .RLL, .RM, .RMSKIN, .RMVB, .RTE, .RV, .RVT, .S3Z, .SCR, .SGI, .SGML, .SLDASM, .SLDDRW, .SLDM, .SLDPRT, .SLDX, .SMIL, .SOU, .SPL, .SPO, .SQLITE, .SQLITE2, .SQLITE3, .STZ, .SUN, .SVG, .SVGZ, .SWC, .SWF, .SYS, .TAR, .TGA, .TGZ, .THM, .TIF, .TIFF, .UYVY, .VBX, .VCARD, .VCF, .VDA, .VDX, .VICAR, .VIFF, .VLT, .VOB, .VSD, .VSS, .VST, .VST, .VSX, .VTX, .WAL, .WAR, .WBA, .WBMP, .WEBA, .WEBM, .WEBP, .WIZ, .WMA, .WMV, .WMZ, .WPS, .WSZ, .X, .XAP, .XBM, .XHTML, .XHTML, .XL, .XLA, .XLAM, .XLC, .XLM, .XLS, .XLSM, .XLSX, .XLTM, .XLTX, .XLW, .XML, .XML, .XMZ, .XNK, .XPI, .XPM, .XPS, .XSF, .XSL, .XSLT, .XSN, .XWD, .YCBR, .YCBRA, .YUB, .Z01, .Z02, .Z03, .Z04, .Z05, .Z06, .Z07, .Z08, .Z09, .Z10, .ZIP, .ZIPX, .ZX01, .ZX02, .ZX03, .ZX04, .ZX05, .ZX05, .ZX06, .ZX07, .ZX08, .ZX09, .ZX10, STICKYNOTES.SNT, and THUMBS.DB file formats among many others.<br><br>
 It keeps the behavior of the file untouched, but with its size reduced thanks to several recompression and optimization techniques.<br><br>
 <a href="/">Back to home</a>
 <iframe src="//mediacpm.pl/serve/show.php?a=19114&b=728x90" width="728" height="90" frameBorder="0" scrolling="no" marginwidth="0" marginheight="0" sandbox="allow-same-origin allow-scripts allow-top-navigation allow-forms allow-modals"></iframe><br><br>
+<?php echo $sSearch; ?>
 </body>
 </html>
