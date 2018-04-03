@@ -17,6 +17,8 @@
 #include <ctype.h>
 #include <assert.h>
 #include <errno.h>
+#include <io.h>
+#include <fcntl.h>
 #if HAVE_UNISTD_H
 # include <unistd.h>
 #endif
@@ -1454,7 +1456,7 @@ main(int argc, char *argv[])
      32-bit Windows and Makefile.w64 for 64-bit Windows. */
   static_assert(sizeof(unsigned int) == SIZEOF_UNSIGNED_INT, "unsigned int has the wrong size.");
   static_assert(sizeof(unsigned long) == SIZEOF_UNSIGNED_LONG, "unsigned long has the wrong size.");
-  static_assert(sizeof(void*) == SIZEOF_VOID_P, "void* has the wrong size.");
+  //static_assert(sizeof(void*) == SIZEOF_VOID_P, "void* has the wrong size.");
 
   clp = Clp_NewParser(argc, (const char * const *)argv, sizeof(options) / sizeof(options[0]), options);
 

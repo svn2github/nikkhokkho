@@ -44,7 +44,7 @@
 # include <inttypes.h>
 #endif
 #if !defined(HAVE_UINTPTR_T) && defined(HAVE_CONFIG_H)
-typedef unsigned long uintptr_t;
+//typedef unsigned long uintptr_t;
 #endif
 
 #ifdef __cplusplus
