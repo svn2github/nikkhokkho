@@ -558,7 +558,7 @@ void __fastcall TfrmMain::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Sh
 				//grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow]->BeginUpdate();
 				//grdFiles->Cells[KI_GRID_FILE][(int) iRow] = asValue[1];
 				//grdFiles->Cells[KI_GRID_EXTENSION][(int) iRow] = asValue[2];
-				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1)));
+				grdFiles->Cells[KI_GRID_ORIGINAL][(int) iRow] = FormatNumberThousand(clsUtil::SizeFile(GetCellValue(grdFiles->Cells[KI_GRID_FILE][iRow], 1).c_str()));
 				//grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iRow] = asValue[4];
 				//grdFiles->Cells[KI_GRID_STATUS][(int) iRow] = asValue[5];
 				//grdFiles->Rows[(int) iRow]->EndUpdate();
@@ -748,6 +748,9 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 		_tcscat(acTmpFile, _T("\\Plugins32\\"));
 	}
 	sPluginsDirectory = clsUtil::GetShortName((String) acTmpFile);
+
+	SetCurrentDirectory(sPluginsDirectory.c_str());
+
 
 	lSavedBytes = 0;
 	lTotalBytes = 0;
@@ -1320,11 +1323,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			}
 			RunPlugin((unsigned int) iCount, "gifsicle (3/3)", (sPluginsDirectory + "gifsicle.exe -w -j --no-conserve-memory -o \"%TMPOUTPUTFILE%\" " + sFlags + "\"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
-		// GZ: Leanify, ect, advdef, zRecompress, deflopt, defluff, deflopt
+		// GZ: Libdeflate, Leanify, ect, advdef, zRecompress, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_GZ) > 0)
 		{
 			if (!gudtOptions.bGZCopyMetadata)
 			{
+				RunPlugin((unsigned int) iCount, "libdeflate (1/8)", (sPluginsDirectory + "libdeflate.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+				
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 				//Overwrite Leanify iterations
@@ -1341,16 +1346,16 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				{
 					sFlags += "--keep-exif ";
 				}
-				RunPlugin((unsigned int) iCount, "Leanify (1/7)", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "Leanify (2/8)", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
 			
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
 			iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			sFlags += "-i " + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "advdef (2/7)", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "advdef (3/8)", (sPluginsDirectory + "advdef.exe -z -q -4 " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
-			RunPlugin((unsigned int) iCount, "zRecompress (3/7)", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "zRecompress (4/8)", (sPluginsDirectory + "zRecompress.exe -tgz \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
 			sFlags = "";
 			if (!gudtOptions.bGZCopyMetadata)
@@ -1359,18 +1364,18 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			}
 			iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
 			sFlags += "-" + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "ECT (4/7)", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate -gzip " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "ECT (5/8)", (sPluginsDirectory + "ECT.exe -quiet --allfilters --mt-deflate -gzip " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
 			sFlags = "";
 			if (gudtOptions.bGZCopyMetadata)
 			{
 				sFlags += "/c ";
 			}
-			RunPlugin((unsigned int) iCount, "DeflOpt (5/7)", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "DeflOpt (6/8)", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
-			RunPlugin((unsigned int) iCount, "defluff (6/7)", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "defluff (7/8)", (sPluginsDirectory + "defluff.bat \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
-			RunPlugin((unsigned int) iCount, "DeflOpt (7/7)", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "DeflOpt (8/8)", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
 		// HTML: tidy-html5, Leanify
 		if (PosEx(sExtensionByContent, KS_EXTENSION_HTML) > 0)
