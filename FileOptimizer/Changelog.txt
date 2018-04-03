@@ -125,7 +125,7 @@ ndo
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.91 - http://www.lcdf.org/gifsicle/
-- Gifsicle Lossy 1.88 - https://kornel.ski/lossygif
+- Gifsicle Lossy 1.91 - https://kornel.ski/lossygif
 - Ghostscript 9.23 - http://www.ghostscript.com
 - GNU Strip 2.29.1 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
@@ -134,11 +134,11 @@ ndo
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
 - jpegoptim 1.4.5 - http://www.kokkonen.net/tjko/projects.html
-- jpegtran 9 - http://jpegclub.org/jpegtran/
+- jpegtran 9b - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.210 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libdeflate 0.8 - https://github.com/ebiggers/libdeflate
-- libwebp 0.6.1 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
+- libwebp 1.0.0 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
 - mkclean 0.8.10 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
@@ -166,6 +166,8 @@ X.XX - YYYY
 - Added Libdeflate for GZ toolchain (JoeW).
 - Updated jpegoptim to 1.4.5 (custom built with libjpeg 9b).
 - Updated SQLite to 3.23.0 x86 and x64 Visual C++ 2017 custom builds.
+- Updated gifsicle-lossy to 1.91 (custom built).
+- Updated libwebp to 1.0.0.
 - Updated pingo to 0.96y x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.28 with HDRI support.
 - Updated to cppcheck 1.83.
