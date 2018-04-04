@@ -1,3 +1,5 @@
+- Move TruePNG at beggining: https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/956e7706/?limit=25
+
 - Lang path (Manuel).
 
 - Crash en Release x86
