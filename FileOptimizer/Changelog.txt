@@ -140,7 +140,7 @@ ndo
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.210 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libdeflate 0.8 - https://github.com/ebiggers/libdeflate
-- libwebp 1.0.0 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
+- libwebp 1.0.0 RC2 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
 - mkclean 0.8.10 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
@@ -165,17 +165,19 @@ ndo
 
 
 X.XX - YYYY
+
+
+12.70 - 2018/04/05
 - Added Libdeflate for GZ toolchain (JoeW).
 - Updated jpegoptim to 1.4.5 (custom built with libjpeg 9b).
 - Updated SQLite to 3.23.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated gifsicle-lossy to 1.91 (custom built).
-- Updated libwebp to 1.0.0.
+- Updated libwebp to 1.0.0 RC2.
 - Updated pingo to 0.96y x86 and x64 versions.
 - Updated ImageMagick to 7.0.7.28 with HDRI support.
 - Updated strip to 2.30.
 - Updated to cppcheck 1.83.
 - Some minor optimizations and code cleanup.
-
 
 12.61 - 2018/04/01
 - Fixed corruption when copy to recyclebin due to 0 byte file sizes (Alex Devero).
