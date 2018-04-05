@@ -1750,7 +1750,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				RunPlugin((unsigned int) iCount, "cpdf (3/3)", (sPluginsDirectory + "cpdf.exe -squeeze \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
 		}
-		// PNG: PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, pingo, advpng, deflopt, defluff, deflopt
+		// PNG: apngopt, pngquant, PngOptimizer, TruePNG, pngout, optipng, pngwolf, Leanify, ect, pingo, advpng, deflopt, defluff, deflopt
 		if (PosEx(sExtensionByContent, KS_EXTENSION_PNG) > 0)
 		{
 			bool bIsAPNG = IsAPNG(sInputFile.c_str());
@@ -1780,7 +1780,6 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					sFlags += "-KeepPhysicalPixelDimensions ";
 				}
 				RunPlugin((unsigned int) iCount, "PngOptimizer (3/16)", (sPluginsDirectory + "PngOptimizer.exe " + sFlags + "-file:\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-
 			}
 			
 			if ((!bIsAPNG) && (!bIsPNG9Patch))
