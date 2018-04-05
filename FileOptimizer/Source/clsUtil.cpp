@@ -501,8 +501,10 @@ bool __fastcall clsUtil::DownloadFile(const TCHAR *pacUrl, void *pvData, unsigne
 	bool bRes = false;
 
 
-	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
-	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
+	if (GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1) != 0)
+	{
+		_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
+	}
 	HINTERNET hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
 	if (hInternet != NULL)
 	{
@@ -531,9 +533,10 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 	
 
     //ToDo: Use UrlGetPart https://msdn.microsoft.com/en-us/library/windows/desktop/bb773781(v=vs.85).aspx
-	GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1);
-	_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
-
+	if (GetModuleFileName(NULL, (TCHAR *) pvData, piSize - 1) != 0)
+	{
+		_stprintf((TCHAR *) pvData, _T("%s/%s"), Application->Name.c_str(), ExeVersion((const TCHAR *) pvData));
+	}
 	HINTERNET hInternet = InternetOpen((const TCHAR *) pvData, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
 	if (hInternet)
 	{
@@ -704,8 +707,10 @@ const TCHAR * __fastcall clsUtil::GetIniPath(bool pbAllUsers)
 	{
 		TCHAR acTmp[2048];
 		
-		GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1);
-		*_tcsrchr(acTmp, '.') = NULL;
+		if (GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1) != 0)
+		{
+			*_tcsrchr(acTmp, '.') = NULL;
+		}
 		_tcscat(acTmp, _T(".ini"));
 
 		// Check if we can write to that location
@@ -1192,8 +1197,10 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 	{
 		TCHAR acTmp[2048];
 		
-		GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1);
-		*_tcsrchr(acTmp, '.') = NULL;
+		if (GetModuleFileName(NULL, acTmp, (sizeof(acTmp) / sizeof(TCHAR)) - 1) != 0)
+		{
+			*_tcsrchr(acTmp, '.') = NULL;
+		}
 		_tcscat(acTmp, _T(".log"));
 		// Check if we can write to that location
 		HANDLE hFile = CreateFile(acTmp, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);

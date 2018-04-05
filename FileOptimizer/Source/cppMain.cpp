@@ -166,9 +166,11 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 
-	GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1);
-	_tcsncpy(acPath, clsUtil::ExeVersion(acPath), (sizeof(acPath) / sizeof(TCHAR)) - 1);
-	_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), (sizeof(gudtOptions.acVersion) / sizeof(TCHAR)) - 1);
+	if (GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1) != 0)
+	{
+		_tcsncpy(acPath, clsUtil::ExeVersion(acPath), (sizeof(acPath) / sizeof(TCHAR)) - 1);
+		_tcsncpy(gudtOptions.acVersion, GetOption(_T("Options"), _T("Version"), acPath), (sizeof(gudtOptions.acVersion) / sizeof(TCHAR)) - 1);
+	}
 
 	//Statistics
 	miStartTicks = GetTickCount();
@@ -271,8 +273,10 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 	{
 		TCHAR acPluginsDirectory[PATH_MAX];
 		
-		GetModuleFileName(NULL, acPluginsDirectory, (sizeof(acPluginsDirectory) / sizeof(TCHAR)) - 1);
-		*_tcsrchr(acPluginsDirectory, '\\') = NULL;
+		if (GetModuleFileName(NULL, acPluginsDirectory, (sizeof(acPluginsDirectory) / sizeof(TCHAR)) - 1) != 0)
+		{
+			*_tcsrchr(acPluginsDirectory, '\\') = NULL;
+		}
 		if (clsUtil::IsWindows64())
 		{
 			_tcscat(acPluginsDirectory, _T("\\Plugins64\\"));
@@ -737,8 +741,10 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	UpdateAds();
 	RefreshStatus();
 
-	GetModuleFileName(NULL, acTmpFile, (sizeof(acTmpFile) / sizeof(TCHAR)) - 1);
-	*_tcsrchr(acTmpFile, '\\') = NULL;
+	if (GetModuleFileName(NULL, acTmpFile, (sizeof(acTmpFile) / sizeof(TCHAR)) - 1) != 0)
+	{
+		*_tcsrchr(acTmpFile, '\\') = NULL;
+	}
 	if (clsUtil::IsWindows64())
 	{
 		_tcscat(acTmpFile, _T("\\Plugins64\\"));
@@ -748,9 +754,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 		_tcscat(acTmpFile, _T("\\Plugins32\\"));
 	}
 	sPluginsDirectory = clsUtil::GetShortName((String) acTmpFile);
-
 	SetCurrentDirectory(sPluginsDirectory.c_str());
-
 
 	lSavedBytes = 0;
 	lTotalBytes = 0;
@@ -2656,8 +2660,10 @@ void __fastcall TfrmMain::CheckForUpdates(bool pbSilent)
 
 		gudtOptions.iAdsShown = 0;
 
-		GetModuleFileName(NULL, (TCHAR *) acPath, KI_BUFFER_SIZE);
-		_tcsncpy(acTemp, clsUtil::ExeVersion((TCHAR *) acPath), KI_BUFFER_SIZE - 1);
+		if (GetModuleFileName(NULL, (TCHAR *) acPath, KI_BUFFER_SIZE) != 0)
+		{
+			_tcsncpy(acTemp, clsUtil::ExeVersion((TCHAR *) acPath), KI_BUFFER_SIZE - 1);
+		}
 		_stprintf((TCHAR *) acBuffer, _T("%10s"), (TCHAR *) acTemp);
 
 		_tcsncpy((TCHAR *) acTemp, acWide, KI_BUFFER_SIZE - 1);

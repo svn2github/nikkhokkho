@@ -206,6 +206,13 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	cboLanguage->Items->Add(_("Automatic: System default"));
 	cboLanguage->Items->Add(_("3082: English - United States (Built-in)"));
 
+	TCHAR acProgramDirectory[PATH_MAX];
+	if (GetModuleFileName(NULL, acProgramDirectory, (sizeof(acProgramDirectory) / sizeof(TCHAR)) - 1) != 0)
+	{
+		*_tcsrchr(acPluginsDirectory, '\\') = NULL;
+		SetCurrentDirectory(acProgramDirectory);
+	}
+
 	unsigned int iIndex = 2;
 	WIN32_FIND_DATA udtFindFileData;
 	HANDLE hFindFile = FindFirstFile(_T("*.po"), &udtFindFileData);
