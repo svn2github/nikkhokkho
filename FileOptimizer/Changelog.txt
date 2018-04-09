@@ -1,3 +1,5 @@
+- Auto-Close option (SomeBody).
+
 - Move TruePNG at beggining: https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/956e7706/?limit=25
 
 - Lang path (Manuel).
@@ -138,7 +140,7 @@ ndo
 - jpegoptim 1.4.5 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9b - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.210 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.212 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libdeflate 0.8 - https://github.com/ebiggers/libdeflate
 - libwebp 1.0.0 RC2 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
@@ -165,6 +167,7 @@ ndo
 
 
 X.XX - YYYY
+- Updated Leanify to 0.4.3.212 daily binaries.
 - Some minor optimizations and code cleanup.
 
 
