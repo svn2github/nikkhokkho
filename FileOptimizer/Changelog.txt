@@ -148,17 +148,17 @@ ndo
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
-- mutool 1.12 - http://mupdf.com/downloads/
+- mutool 1.13 RC1 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.96y - http://css-ig.net/pingo
+- pingo 0.96z4 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.7 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
-- SQLite 3.23.0 - http://www.sqlite.org
+- SQLite 3.23.1 - http://www.sqlite.org
 - Tidy 5.6.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.5 - http://x128.ho.ua/pngutils.html
 - UPX 3.94 - https://upx.github.io
@@ -167,6 +167,9 @@ ndo
 
 
 X.XX - YYYY
+- Updated SQLite to 3.23.1 x86 and x64 Visual C++ 2017 custom builds.
+- Updated to mutool 1.13 RC1.
+- Updated pingo to 0.96z4 x86 and x64 versions.
 - Updated Leanify to 0.4.3.214 daily binaries.
 - Some minor optimizations and code cleanup.
 
