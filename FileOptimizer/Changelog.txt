@@ -142,13 +142,13 @@ ndo
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
 - Leanify 0.4.3.214 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libdeflate 0.8 - https://github.com/ebiggers/libdeflate
-- libwebp 1.0.0 RC2 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
+- libwebp 1.0.0 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
 - mkclean 0.8.10 - http://www.matroska.org/downloads/mkclean.html
 - mozjpeg 3.2 - https://github.com/mozilla/mozjpeg
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
-- mutool 1.13 RC1 - http://mupdf.com/downloads/
+- mutool 1.13 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - pingo 0.96z4 - http://css-ig.net/pingo
@@ -168,7 +168,8 @@ ndo
 
 X.XX - YYYY
 - Updated SQLite to 3.23.1 x86 and x64 Visual C++ 2017 custom builds.
-- Updated to mutool 1.13 RC1.
+- Updated libwebp to 1.0.0 (Olav R. Birkeland).
+- Updated to mutool 1.13.
 - Updated pingo to 0.96z4 x86 and x64 versions.
 - Updated Leanify to 0.4.3.214 daily binaries.
 - Some minor optimizations and code cleanup.
