@@ -6,7 +6,7 @@
  * requires libjpeg (Independent JPEG Group's JPEG software 
  *                     release 6a or later...)
  *
- * $Id: 4a81f768fff5ea2c15fe80a211b72abaeaeb3b0a $
+ * $Id: 74017e528ed731e76a8d244d80cf8db865aaaf76 $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,7 +34,7 @@
 #include "jpegoptim.h"
 
 
-#define VERSIO "1.4.5"
+#define VERSIO "1.4.6"
 #define COPYRIGHT  "Copyright (C) 1996-2018, Timo Kokkonen"
 
 
@@ -56,7 +56,7 @@ struct my_error_mgr {
 };
 typedef struct my_error_mgr * my_error_ptr;
 
-const char *rcsid = "$Id: 4a81f768fff5ea2c15fe80a211b72abaeaeb3b0a $";
+const char *rcsid = "$Id: 74017e528ed731e76a8d244d80cf8db865aaaf76 $";
 
 
 int verbose_mode = 0;
@@ -199,7 +199,10 @@ void print_version()
 
   
   printf(PROGRAMNAME " v%s  %s\n",VERSIO,HOST_TYPE);
-  printf(COPYRIGHT "\n");
+  printf(COPYRIGHT "\n\n");
+  printf("This program comes with ABSOLUTELY NO WARRANTY. This is free software,\n"
+	 "and you are welcome to redistirbute it under certain conditions.\n"
+	 "See the GNU General Public License for more details.\n\n");
 
   if (!(err=jpeg_std_error(&jcerr)))
     fatal("jpeg_std_error() failed");
@@ -896,7 +899,7 @@ int main(int argc, char **argv)
 	    average_count, average_rate/average_count, total_save);
   jpeg_destroy_decompress(&dinfo);
   jpeg_destroy_compress(&cinfo);
-  free (outbuffer);
+  free(outbuffer);
 
   return (decompress_err_count > 0 || compress_err_count > 0 ? 1 : 0);;
 }

@@ -6,7 +6,7 @@
  *
  * custom libjpeg "Destination Manager" for saving into RAM
  *
- * $Id: 5f79e39501830abee802650b05b81f7827c3ba8f $
+ * $Id: 2689b6f6dc660d3386bf5c0ca3ea2e616faa46f7 $
  */
 
 #include <stdio.h>
@@ -62,6 +62,7 @@ boolean jpeg_memory_empty_output_buffer (j_compress_ptr cinfo)
   dest->pub.next_output_byte = newbuf + dest->bufsize;
   dest->pub.free_in_buffer = dest->incsize;
 
+  *dest->buf_ptr = newbuf;
   dest->buf = newbuf;
   dest->bufsize += dest->incsize;
   dest->incsize *= 2;
