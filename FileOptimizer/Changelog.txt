@@ -133,14 +133,14 @@ ndo
 - Ghostscript 9.23 - http://www.ghostscript.com
 - GNU Strip 2.30 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
-- ImageMagick 7.0.7.28 - http://www.imagemagick.org
+- ImageMagick 7.0.7.31 - http://www.imagemagick.org
 - ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
 - jpegoptim 1.4.6 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9b - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.214 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.216 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libdeflate 0.8 - https://github.com/ebiggers/libdeflate
 - libwebp 1.0.0 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
@@ -151,7 +151,7 @@ ndo
 - mutool 1.13 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.96z6 - http://css-ig.net/pingo
+- pingo 0.96z9 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.7 - http://www.pngquant.org
@@ -172,8 +172,9 @@ X.XX - YYYY
 - Updated libwebp to 1.0.0 (Olav R. Birkeland).
 - Updated jpegoptim to 1.4.6 (custom built with libjpeg 9b).
 - Updated to mutool 1.13.
-- Updated pingo to 0.96z6 x86 and x64 versions.
-- Updated Leanify to 0.4.3.214 daily binaries.
+- Updated pingo to 0.96z9 x86 and x64 versions.
+- Updated ImageMagick to 7.0.7.31 with HDRI support.
+- Updated Leanify to 0.4.3.216 daily binaries.
 - Upgraded distributions to 7-Zip 18.05.
 - Better performance updating to ASMLib 2.52 with AVX512 support.
 - Some minor optimizations and code cleanup.
