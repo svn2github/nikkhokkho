@@ -72,7 +72,7 @@
 		'ShowToolBar' => false,
 		'HideAds' => false,
 		'TempDirectory' => '',
-		'Version' => '12.70.2280',
+		'Version' => '12.80.2295',
 		'Time' => 0,
 		'Opens' => 0,
 		'Files' => 0,

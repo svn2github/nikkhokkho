@@ -209,7 +209,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	TCHAR acProgramDirectory[PATH_MAX];
 	if (GetModuleFileName(NULL, acProgramDirectory, (sizeof(acProgramDirectory) / sizeof(TCHAR)) - 1) != 0)
 	{
-		*_tcsrchr(acPluginsDirectory, '\\') = NULL;
+		*_tcsrchr(acProgramDirectory, '\\') = NULL;
 		SetCurrentDirectory(acProgramDirectory);
 	}
 
