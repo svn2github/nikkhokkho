@@ -167,6 +167,7 @@ ndo
 
 
 X.XX - YYYY
+- Fixed strip.exe in Win32 version was Win64 itself. jpeg-recompress and pngquant still are Win64 since there are no 32 bit binaries available (Lucy Phipps).
 - Updated mozjpegtran to 3.3.1 x86 and x64 binaries (Olav R. Birkeland).
 - Updated SQLite to 3.23.1 x86 and x64 Visual C++ 2017 custom builds.
 - Updated libwebp to 1.0.0 (Olav R. Birkeland).
