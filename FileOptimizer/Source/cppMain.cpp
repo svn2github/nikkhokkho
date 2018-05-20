@@ -246,7 +246,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates, _T("Number. Default: 1. Automatically check for program updates."));
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel, _T("Number. Default: 0. Debugging level to output on program log."));
 	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat, _T("Number. Default: 0. Specify the format to display filenames in the list."));
-	clsUtil::SetIni(_T("Options"), _T("LeanifyIterations"), gudtOptions.iLeanifyIterations, _T("Number. Default: -1. If specified, number of trial iterations in all Leanify executions will use this vaule. If not, iterations are calculated depending on the Optimization level."));
+	clsUtil::SetIni(_T("Options"), _T("LeanifyIterations"), gudtOptions.iLeanifyIterations, _T("Number. Default: -1. If specified, number of trial iterations in all Leanify executions will use this value. If not, iterations are calculated depending on the Optimization level."));
 	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory, _T("String. Default: ''. If not empty specified directory will be used for temporary storage instead of system's %TEMP%."));
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion, _T("String. Default: ''."));
 	

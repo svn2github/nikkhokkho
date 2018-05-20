@@ -471,7 +471,7 @@ object frmOptions: TfrmOptions
         Height = 22
         Hint = 
           'If specified, number of trial iterations in all Leanify executio' +
-          'ns will use this vaule. If not, iterations are calculated depend' +
+          'ns will use this value. If not, iterations are calculated depend' +
           'ing on the Optimization level.'
         Increment = 50
         MaxValue = 1000
