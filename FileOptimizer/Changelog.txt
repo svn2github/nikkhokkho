@@ -167,6 +167,8 @@ ndo
 
 
 X.XX - YYYY
+
+12.80 - 2018/05/23
 - Fixed strip.exe in Win32 version was Win64 itself. jpeg-recompress and pngquant still are Win64 since there are no 32 bit binaries available (Lucy Phipps).
 - Fixed some description typos (dado023).
 - Updated mozjpegtran to 3.3.1 x86 and x64 binaries (Olav R. Birkeland).
@@ -181,7 +183,6 @@ X.XX - YYYY
 - Upgraded distributions to 7-Zip 18.05.
 - Better performance updating to ASMLib 2.52 with AVX512 support.
 - Some minor optimizations and code cleanup.
-
 
 12.70 - 2018/04/05
 - Added Libdeflate for GZ toolchain (JoeW).
