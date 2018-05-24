@@ -153,7 +153,7 @@ ndo
 - mutool 1.13 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.96z94 - http://css-ig.net/pingo
+- pingo 0.97 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.11.7 - http://www.pngquant.org
@@ -169,6 +169,8 @@ ndo
 
 
 X.XX - YYYY
+- Updated pingo to 0.97 x86 and x64 versions.
+
 
 12.80 - 2018/05/23
 - Fixed strip.exe in Win32 version was Win64 itself. jpeg-recompress and pngquant still are Win64 since there are no 32 bit binaries available (Lucy Phipps).
