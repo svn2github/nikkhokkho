@@ -156,7 +156,7 @@ ndo
 - pingo 0.97 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
-- pngquant 2.11.7 - http://www.pngquant.org
+- pngquant 2.12.0 - http://www.pngquant.org
 - pngrewrite 1.4.0 - http://entropymine.com/jason/pngrewrite
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
@@ -171,6 +171,7 @@ ndo
 X.XX - YYYY
 - Updated ImageMagick to 7.0.7.37 with HDRI support.
 - Updated pingo to 0.97 x86 and x64 versions.
+- Updated pngquant to 2.12.0.
 
 
 12.80 - 2018/05/23
