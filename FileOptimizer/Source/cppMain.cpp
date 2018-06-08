@@ -3124,41 +3124,45 @@ bool __fastcall TfrmMain::IsEXESFX(const TCHAR *pacFile)
 	{
 		clsUtil::ReadFile(pacFile, acBuffer, &iSize);
 		
-		//Check if it is an Inno Setup Installer
-		if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "Inno Setup", 10) != NULL)
+		//Check if it is EXE
+		if ((memcmp(acBuffer, "MZ", 2) == 0) || (memcmp(acBuffer, "ZM", 2) == 0))
 		{
-			bRes = true;
+			//Check if it is an Inno Setup Installer
+			if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "Inno Setup", 10) != NULL)
+			{
+				bRes = true;
+			}
+			//Check if it is an InstallShield Wizard
+			else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "InstallShield", 13) != NULL)
+			{
+				bRes = true;
+			}
+			//Check if it is an NSIS
+			else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "Nullsoft Install System", 23) != NULL)
+			{
+				bRes = true;
+			}
+			//Check if it is an RTPatch Updater
+			else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "RTPatch", 7) != NULL)
+			{
+				bRes = true;
+			}
+			//Check if it is a RAR SFX
+			else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x52\x61\x72\x21\x1A\x07", 6) != NULL)
+			{
+				bRes = true;
+			}
+			//Check if it is a ZIP SFX
+			else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x50\x4B\x03\x04", 4) != NULL)
+			{
+				bRes = true;
+			}
+			//Check if it is a 7-ZIP SFX
+			else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x37\x7A\xBC\xAF\x27\x1C", 6) != NULL)
+			{
+				bRes = true;
+			}
 		}
-		//Check if it is an InstallShield Wizard
-		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "InstallShield", 13) != NULL)
-		{
-			bRes = true;
-		}
-		//Check if it is an NSIS
-		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "Nullsoft Install System", 23) != NULL)
-		{
-			bRes = true;
-		}
-		//Check if it is an RTPatch Updater
-		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "RTPatch", 7) != NULL)
-		{
-			bRes = true;
-		}
-		//Check if it is a RAR SFX
-		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x52\x61\x72\x21\x1A\x07", 6) != NULL)
-		{
-			bRes = true;
-		}
-		//Check if it is a ZIP SFX
-		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x50\x4B\x03\x04", 4) != NULL)
-		{
-			bRes = true;
-		}
-		//Check if it is a 7-ZIP SFX
-		else if (clsUtil::MemMem((const void *) acBuffer, iSize, (const void *) "\x37\x7A\xBC\xAF\x27\x1C", 6) != NULL)
-		{
-			bRes = true;
-		}	
 		delete[] acBuffer;
 	}
 	return (bRes);
