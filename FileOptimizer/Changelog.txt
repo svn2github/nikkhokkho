@@ -169,6 +169,7 @@ ndo
 
 
 X.XX - YYYY
+- Added chinesse traditional translation. Thanks Danfong Hsieh.
 - Updated SQLite to 3.24.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated ImageMagick to 7.0.7.37 with HDRI support.
 - Updated pingo to 0.97 x86 and x64 versions.
