@@ -170,7 +170,8 @@ ndo
 
 X.XX - YYYY
 - Added chinesse traditional translation. Thanks Danfong Hsieh.
-- Fixed some archives not being processed because they were detected as SFX even if they were not EXE (Lucy Phipps).
+- Improved window repositioning in several windows (Tomasz W).
+- Fixed some archives not being processed because they were detected as SFX even if they were not EXE (Lucy Phipps #37).
 - Updated SQLite to 3.24.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated ImageMagick to 7.0.7.37 with HDRI support.
 - Updated pingo to 0.97 x86 and x64 versions.

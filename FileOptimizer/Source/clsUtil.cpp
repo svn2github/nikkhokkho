@@ -1256,6 +1256,7 @@ bool __fastcall clsUtil::LoadForm(TForm *pfrmForm)
 	}
 	pfrmForm->WindowState = (TWindowState) iWindowState;
 	pfrmForm->DefaultMonitor = (TDefaultMonitor) GetIni(pfrmForm->Name.c_str(), _T("DefaultMonitor"), pfrmForm->DefaultMonitor);
+	prfrmForm->MakeFullyVisible(NULL);
 	return (true);
 }
 
