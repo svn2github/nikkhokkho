@@ -1,13 +1,4 @@
 
-Lucy Phipps
-- http://www.etree.org/shnutils/shntool/support/doc/shntool.txt
-
-Can you add how long it took to complete an item individually and the total
-time it took?
-Also can you up the iterations to pngwolf to about 100 on max like we can
-with leanify or allow us to set settings for individual plugins, or both?
-Abinadab Suzuki 
-
 - Consider deleting advpng.exe, pngout.exe, pngwolf.exe, and truepng.exe
 
 - Auto-Close option (SomeBody).
