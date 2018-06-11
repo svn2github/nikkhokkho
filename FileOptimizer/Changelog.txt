@@ -181,15 +181,18 @@ ndo
 
 X.XX - YYYY
 - Added WAV support by using shntool. New INI options available WAVCopyMetadata=false and WAVStripSilence=false (Lucy Phipps).
-- Extend shntool to FLAC when WAVCopyMetadata enabled (Lucy Phipps).
+- Extended shntool to FLAC when WAVCopyMetadata enabled (Lucy Phipps).
 - Added new INI setting PNGWolfIterations=-1 to overwrite PNGWolf zopfli settings (Abinadab Suzuki).
+- Added elapsed time displayed in status bar when finished as well as in MessageBox when BeenWhenDone is enabled (Abinadab Suzuki).
 - Added chinesse traditional translation. Thanks Danfong Hsieh.
 - Improved window repositioning in several windows (Tomasz W).
+- Fixed SWF processing with FLASM.
 - Fixed some archives not being processed because they were detected as SFX even if they were not EXE (Lucy Phipps #37).
 - Updated SQLite to 3.24.0 x86 and x64 Visual C++ 2017 custom builds.
 - Updated ImageMagick to 7.0.7.37 with HDRI support.
 - Updated pingo to 0.97 x86 and x64 versions.
 - Updated pngquant to 2.12.0.
+- Some minor optimizations and code cleanup.
 
 
 12.80 - 2018/05/23

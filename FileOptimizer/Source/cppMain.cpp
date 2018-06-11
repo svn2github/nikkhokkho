@@ -719,8 +719,6 @@ static struct udtOptimizeProgress
 	unsigned int iCurrentFile;
 	unsigned int iProcessedFiles;
 	unsigned int iTotalFiles;
-	unsigned int iStartTicks;
-	unsigned int iEndTicks;
 	String sFileStatusText;
 	String sWindowCaptionText;
 	String sStatusbarText;
@@ -813,7 +811,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	String sCaption;
 
 	TCHAR acTime[64];
-	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1)
+	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1);
 	
 	sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%). Elapsed time %s.")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str(), acTime);
 	stbMain->Panels->Items[0]->Text = sCaption;
@@ -826,8 +824,6 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	if (gudtOptions.bBeepWhenDone)
 	{
 			
-		//unsigned int iElapsedTicks = GetTickCount() - miStartTicks;
-		sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%)")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str())
 		clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Done")), MB_ICONINFORMATION | MB_OK);
 		FlashWindow(Handle, false);
 		MessageBeep(0xFFFFFFFF);
@@ -1287,10 +1283,26 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		{
 			if (!gudtOptions.bWAVCopyMetadata)
 			{
-				RunPlugin((unsigned int) iCount, "shntool (1/4)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
-				if (!gudtOptions.bWAVStripSilence)
+				String sTmpOutputFile = ReplaceStr(sInputFile, ".flac", "-stripped.flac");
+
+				RunPlugin((unsigned int) iCount, "shntool (1/4)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+				if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
-					RunPlugin((unsigned int) iCount, "shntool (2/4)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
+					clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
+				}
+				clsUtil::DeleteFile(sTmpOutputFile.c_str());
+				if (gudtOptions.bWAVStripSilence)
+				{
+					sTmpOutputFile = ReplaceStr(sInputFile, ".flac", "-trimmed.flac");
+
+					RunPlugin((unsigned int) iCount, "shntool (2/4)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+					if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+					{
+						clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+						grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
+					}
+					clsUtil::DeleteFile(sTmpOutputFile.c_str());
 				}
 			}
 
@@ -1959,29 +1971,28 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				RunPlugin((unsigned int) iCount, "DeflOpt (16/16)", (sPluginsDirectory + "deflopt.exe /a /b /s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
 		}
-		
+
 		// SWF: Leanfy, flasm, zRecompress
 		if (PosEx(sExtensionByContent, KS_EXTENSION_SWF) > 0)
 		{
-			RunPlugin((unsigned int) iCount, "flasm (1/4)", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-			if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
-			{
-				//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-				clsUtil::CopyFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str(), sInputFile.c_str());
-			}
-			//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
+			String sTmpOutputFile = ReplaceStr(sInputFile, ".swf", ".$wf");
+			RunPlugin((unsigned int) iCount, "flasm (1/5)", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+			clsUtil::DeleteFile(sTmpOutputFile.c_str());
+
+			RunPlugin((unsigned int) iCount, "flasm (2/5)", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
-			RunPlugin((unsigned int) iCount, "flasm (2/4)", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-			if (clsUtil::SizeFile(sInputFile.c_str()) >= ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+			RunPlugin((unsigned int) iCount, "flasm (3/5)", (sPluginsDirectory + "flasm.exe -z \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 			{
-				//CopyFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase).c_str(), sInputFile.c_str(), false);
-				clsUtil::CopyFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str(), sInputFile.c_str());
+				clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+				grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
 			}
-			//DeleteFile(StringReplace(sInputFile, ".swf", ".$wf", TReplaceFlags() << rfReplaceAll << rfIgnoreCase));
 			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
-			RunPlugin((unsigned int) iCount, "zRecompress (3/4)", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "zRecompress (4/5)", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
 			sFlags = "";
 			//iLevel = min(gudtOptions.iLevel * 8 / 9, 8) + 1;
@@ -1995,7 +2006,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
 			}
 			sFlags += "-i " + (String) iLevel + " ";
-			RunPlugin((unsigned int) iCount, "Leanify (4/4)", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "Leanify (5/5)", (sPluginsDirectory + "leanify.exe -q " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
 		// SQLITE: sqlite
 		if (PosEx(sExtensionByContent, KS_EXTENSION_SQLITE) > 0)
@@ -2086,10 +2097,26 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		{
 			if (!gudtOptions.bWAVCopyMetadata)
 			{
-				RunPlugin((unsigned int) iCount, "shntool (1/2)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
-				if (!gudtOptions.bWAVStripSilence)
+				String sTmpOutputFile = ReplaceStr(sInputFile, ".wav", "-stripped.wav");
+
+				RunPlugin((unsigned int) iCount, "shntool (1/2)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+				if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
 				{
-					RunPlugin((unsigned int) iCount, "shntool (2/2)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
+					clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
+				}
+				clsUtil::DeleteFile(sTmpOutputFile.c_str());
+				if (gudtOptions.bWAVStripSilence)
+				{
+					sTmpOutputFile = ReplaceStr(sInputFile, ".wav", "-trimmed.wav");
+
+					RunPlugin((unsigned int) iCount, "shntool (2/2)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+					if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+					{
+						clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
+						grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
+					}
+					clsUtil::DeleteFile(sTmpOutputFile.c_str());
 				}
 			}
 		}
