@@ -164,6 +164,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
+	gudtOptions.iPNGWolfIterations = GetOption(_T("Options"), _T("PNGWolfIterations"), -1);
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 
 	if (GetModuleFileName(NULL, acPath, (sizeof(acPath) / sizeof(TCHAR)) - 1) != 0)
@@ -247,6 +248,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel, _T("Number. Default: 0. Debugging level to output on program log."));
 	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat, _T("Number. Default: 0. Specify the format to display filenames in the list."));
 	clsUtil::SetIni(_T("Options"), _T("LeanifyIterations"), gudtOptions.iLeanifyIterations, _T("Number. Default: -1. If specified, number of trial iterations in all Leanify executions will use this value. If not, iterations are calculated depending on the Optimization level."));
+	clsUtil::SetIni(_T("Options"), _T("PNGWolfIterations"), gudtOptions.iPNGWolfIterations, _T("Number. Default: -1. If specified, number of trial iterations in all PNGWolf executions will use this value. If not, iterations are calculated depending on the Optimization level."));
 	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory, _T("String. Default: ''. If not empty specified directory will be used for temporary storage instead of system's %TEMP%."));
 	clsUtil::SetIni(_T("Options"), _T("Version"), gudtOptions.acVersion, _T("String. Default: ''."));
 	
@@ -1858,7 +1860,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				
 				sFlags = "";
 				//iLevel = min(gudtOptions.iLevel * 7 / 9, 7) + 1;
-				iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				if (gudtOptions.iPNGWolfIterations != -1)
+				{
+					iLevel = gudtOptions.iPNGWolfIterations;
+				}
+				else
+				{
+					iLevel = ((gudtOptions.iLevel * gudtOptions.iLevel * gudtOptions.iLevel) / 25) + 1; //1, 1, 2, 3, 6, 9, 14, 21, 30
+				}
 				sFlags += "--out-deflate=zopfli,iter=" + (String) iLevel + " ";
 				RunPlugin((unsigned int) iCount, "pngwolf (9/16)", (sPluginsDirectory + "pngwolf.exe " + sFlags + "--in=\"%INPUTFILE%\" --out=\"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 

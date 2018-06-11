@@ -134,6 +134,7 @@ struct udtOptions
 	int iLogLevel;
 	int iFilenameFormat;
 	int iLeanifyIterations;
+	int iPNGWolfIterations;
 	int iLanguage;
 	bool bHideAds;
 	bool bShowToolBar;

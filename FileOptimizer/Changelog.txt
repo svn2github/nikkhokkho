@@ -1,3 +1,14 @@
+PNGWolfIterations
+
+Lucy Phipps
+- http://www.etree.org/shnutils/shntool/support/doc/shntool.txt
+
+Can you add how long it took to complete an item individually and the total
+time it took?
+Also can you up the iterations to pngwolf to about 100 on max like we can
+with leanify or allow us to set settings for individual plugins, or both?
+Abinadab Suzuki 
+
 - Consider deleting advpng.exe, pngout.exe, pngwolf.exe, and truepng.exe
 
 - Auto-Close option (SomeBody).
@@ -161,6 +172,7 @@ ndo
 - pngwolf-zopli 1.1.2 - https://github.com/jibsen/pngwolf-zopfli
 - rehuff - http://wiki.xiph.org/Rehuff
 - SQLite 3.24.0 - http://www.sqlite.org
+- shntool 3.0.10 - http://www.etree.org/shnutils/shntool/
 - Tidy 5.6.0 - http://www.html-tidy.org
 - TruePNG 0.6.2.5 - http://x128.ho.ua/pngutils.html
 - UPX 3.94 - https://upx.github.io
@@ -169,6 +181,7 @@ ndo
 
 
 X.XX - YYYY
+- Added new INI setting PNGWolfIterations=-1 to overwrite PNGWolf zopfli settings (Abinadab Suzuki).
 - Added chinesse traditional translation. Thanks Danfong Hsieh.
 - Improved window repositioning in several windows (Tomasz W).
 - Fixed some archives not being processed because they were detected as SFX even if they were not EXE (Lucy Phipps #37).
