@@ -110,6 +110,8 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bPNGAllowLossy = GetOption(_T("Options"), _T("PNGAllowLossy"), false);
 	gudtOptions.bTGACopyMetadata = GetOption(_T("Options"), _T("TGACopyMetadata"), false);
 	gudtOptions.bTIFFCopyMetadata = GetOption(_T("Options"), _T("TIFFCopyMetadata"), false);
+	gudtOptions.bWAVCopyMetadata = GetOption(_T("Options"), _T("WAVCopyMetadata"), false);
+	gudtOptions.bWAVStripSilence = GetOption(_T("Options"), _T("WAVStripSilence"), false);
 	gudtOptions.bXMLEnableLeanify = GetOption(_T("Options"), _T("XMLEnableLeanify"), false);
 	gudtOptions.bZIPCopyMetadata = GetOption(_T("Options"), _T("ZIPCopyMetadata"), false);
 	gudtOptions.bZIPRecurse = GetOption(_T("Options"), _T("ZIPRecurse"), false);
@@ -221,6 +223,8 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("PNGAllowLossy"), gudtOptions.bPNGAllowLossy, _T("Boolean. Default: false. Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not."));
 	clsUtil::SetIni(_T("Options"), _T("TGACopyMetadata"), gudtOptions.bTGACopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
 	clsUtil::SetIni(_T("Options"), _T("TIFFCopyMetadata"), gudtOptions.bTIFFCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("WAVCopyMetadata"), gudtOptions.bWAVCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("WAVStripSilence"), gudtOptions.bWAVStripSilence, _T("Boolean. Default: false. Strip start and end silences if any."));
 	clsUtil::SetIni(_T("Options"), _T("XMLEnableLeanify"), gudtOptions.bXMLEnableLeanify, _T("Boolean. Default: false. Enable Leanify. Results in smaller files, but can happen they are not editable anymore."));
 	clsUtil::SetIni(_T("Options"), _T("ZIPCopyMetadata"), gudtOptions.bZIPCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
 	clsUtil::SetIni(_T("Options"), _T("ZIPRecurse"), gudtOptions.bZIPRecurse, _T("Boolean. Default: false. Enable optimization inside archives (recursive optimization)."));
@@ -715,6 +719,8 @@ static struct udtOptimizeProgress
 	unsigned int iCurrentFile;
 	unsigned int iProcessedFiles;
 	unsigned int iTotalFiles;
+	unsigned int iStartTicks;
+	unsigned int iEndTicks;
 	String sFileStatusText;
 	String sWindowCaptionText;
 	String sStatusbarText;
@@ -725,6 +731,7 @@ static CRITICAL_SECTION mudtCriticalSection;
 
 //---------------------------------------------------------------------------
 static unsigned long long lSavedBytes, lTotalBytes;
+static unsigned int iStartTicks, iEndTicks;
 static String sPluginsDirectory;
 
 
@@ -760,6 +767,8 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 
 	lSavedBytes = 0;
 	lTotalBytes = 0;
+	iStartTicks = GetTickCount();
+	
 	unsigned int iRows = (unsigned int) grdFiles->RowCount;
 
 
@@ -798,10 +807,15 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	{
 		iPercentBytes = 0;
 	}
+	iEndTicks = GetTickCount();
 
 	//Required indirection
 	String sCaption;
-	sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%)")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str());
+
+	TCHAR acTime[64];
+	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1)
+	
+	sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%). Elapsed time %s.")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str(), acTime);
 	stbMain->Panels->Items[0]->Text = sCaption;
 
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
@@ -811,6 +825,10 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 
 	if (gudtOptions.bBeepWhenDone)
 	{
+			
+		//unsigned int iElapsedTicks = GetTickCount() - miStartTicks;
+		sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%)")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str())
+		clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Done")), MB_ICONINFORMATION | MB_OK);
 		FlashWindow(Handle, false);
 		MessageBeep(0xFFFFFFFF);
 	}
@@ -1267,6 +1285,15 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		// FLAC: FLAC, FLACOut
 		if (PosEx(sExtensionByContent, KS_EXTENSION_FLAC) > 0)
 		{
+			if (!gudtOptions.bWAVCopyMetadata)
+			{
+				RunPlugin((unsigned int) iCount, "shntool (1/4)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
+				if (!gudtOptions.bWAVStripSilence)
+				{
+					RunPlugin((unsigned int) iCount, "shntool (2/4)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
+				}
+			}
+
 			sFlags = "";
 			if (gudtOptions.bMiscCopyMetadata)
 			{
@@ -1288,11 +1315,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			{
 				sFlags += "-8 --best -ep ";
 			}	
-			RunPlugin((unsigned int) iCount, "FLAC (1/2)", (sPluginsDirectory + "flac.exe --force -s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "FLAC (3/4)", (sPluginsDirectory + "flac.exe --force -s " + sFlags + "\"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
 			if (gudtOptions.iLevel >= 9)
 			{
-				RunPlugin((unsigned int) iCount, "FLACOut (2/2)", (sPluginsDirectory + "flacout.exe /q /y \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+				RunPlugin((unsigned int) iCount, "FLACOut (4/4)", (sPluginsDirectory + "flacout.exe /q /y \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
 		}
 		// GIF: ImageMagick, gifsicle-lossy, gifsicle
@@ -2053,6 +2080,18 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			RunPlugin((unsigned int) iCount, "jpegtran (4/5)", (sPluginsDirectory + "jpegtran.exe -progressive -optimize " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
 			RunPlugin((unsigned int) iCount, "mozjpegtran (5/5)", (sPluginsDirectory + "mozjpegtran.exe -outfile \"%TMPOUTPUTFILE%\" -progressive -optimize -perfect " + sFlags + "\"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+		}
+		// WAV: shntool
+		if (PosEx(sExtensionByContent, KS_EXTENSION_WAV) > 0)
+		{
+			if (!gudtOptions.bWAVCopyMetadata)
+			{
+				RunPlugin((unsigned int) iCount, "shntool (1/2)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
+				if (!gudtOptions.bWAVStripSilence)
+				{
+					RunPlugin((unsigned int) iCount, "shntool (2/2)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%TMPINPUTFILE%\").c_str(), sInputFile, "", 0, 0);
+				}
+			}
 		}
 		// XML: Leanify
 		if (PosEx(sExtensionByContent, KS_EXTENSION_XML) > 0)
@@ -2865,6 +2904,11 @@ String __fastcall TfrmMain::GetExtensionByContent (String psFilename)
 			{
 				sRes = ".tif";
 			}
+			//Check WAV
+			else if (memcmp(acBuffer, "RIFF", 4) == 0)
+			{
+				sRes = ".wav";
+			}			
 			//Check WEBP
 			else if (memcmp(&acBuffer[7], "WEBP", 4) == 0)
 			{
