@@ -813,7 +813,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	TCHAR acTime[64];
 	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1);
 	
-	sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%). Elapsed time %s.")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str(), acTime);
+	sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%). Elapsed time %s")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str(), acTime);
 	stbMain->Panels->Items[0]->Text = sCaption;
 
 	stbMain->Hint = stbMain->Panels->Items[0]->Text;
@@ -2292,7 +2292,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		TCHAR acTime[64];
 		StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1);
 		
-		sCaption.printf(_(_T("Done (%3u%%) in %s.")), iPercentBytes, acTime);
+		sCaption.printf(_(_T("Done (%3u%%) in %s")), iPercentBytes, acTime);
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = sCaption;
 
 		//Update cache
