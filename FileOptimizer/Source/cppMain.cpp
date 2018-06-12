@@ -822,8 +822,7 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	RefreshStatus(false);
 
 	if (gudtOptions.bBeepWhenDone)
-	{
-			
+	{	
 		clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Done")), MB_ICONINFORMATION | MB_OK);
 		FlashWindow(Handle, false);
 		MessageBeep(0xFFFFFFFF);
@@ -1065,10 +1064,13 @@ void __fastcall TfrmMain::actOptimizeForThread(TObject *Sender, int AIndex, TPar
 void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 {
 	int iCount = AIndex;
+	unsigned int iStartTicks, iEndTicks;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags;
 
 
+	iStartTicks = GetTickCount();
+	
 	sInputFile = GetCellValue(grdFiles->Cells[KI_GRID_FILE][iCount], 1);
 
 	struct udtOptimizeProgress a =
@@ -2285,7 +2287,12 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		unsigned int iPercentBytes = ((unsigned int) ((double) ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]) / ParseNumberThousand(grdFiles->Cells[KI_GRID_ORIGINAL][iCount]) * 100));
 
 		//Required indirection
-		sCaption.printf(_(_T("Done (%3u%%).")), iPercentBytes);
+		
+		iEndTicks = GetTickCount();
+		TCHAR acTime[64];
+		StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1);
+		
+		sCaption.printf(_(_T("Done (%3u%%) in %s.")), iPercentBytes, acTime);
 		grdFiles->Cells[KI_GRID_STATUS][iCount] = sCaption;
 
 		//Update cache

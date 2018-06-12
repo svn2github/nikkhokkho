@@ -1,4 +1,3 @@
-
 - Consider deleting advpng.exe, pngout.exe, pngwolf.exe, and truepng.exe
 
 - Auto-Close option (SomeBody).
@@ -175,6 +174,7 @@ X.XX - YYYY
 - Extended shntool to FLAC when WAVCopyMetadata enabled (Lucy Phipps).
 - Added new INI setting PNGWolfIterations=-1 to overwrite PNGWolf zopfli settings (Abinadab Suzuki).
 - Added elapsed time displayed in status bar when finished as well as in MessageBox when BeenWhenDone is enabled (Abinadab Suzuki).
+- Added per file elapsed time in Status column (Abinadab Suzuki).
 - Added chinesse traditional translation. Thanks Danfong Hsieh.
 - Improved window repositioning in several windows (Tomasz W).
 - Fixed SWF processing with FLASM.
