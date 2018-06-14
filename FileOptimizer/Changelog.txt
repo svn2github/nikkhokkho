@@ -177,6 +177,7 @@ X.XX - YYYY
 - Added per file elapsed time in Status column (Abinadab Suzuki).
 - Added chinesse traditional translation. Thanks Danfong Hsieh.
 - Improved window repositioning in several windows (Tomasz W).
+- Fixed processing files without extension (Lucy Phipps #38).
 - Fixed SWF processing with FLASM.
 - Fixed some archives not being processed because they were detected as SFX even if they were not EXE (Lucy Phipps #37).
 - Updated SQLite to 3.24.0 x86 and x64 Visual C++ 2017 custom builds.

@@ -2466,7 +2466,7 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		//If it is a directory, recurse
 		if (udtFileAttribute.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			HANDLE hFindFile = FindFirstFile((((String) pacFile) + "\\*.*").c_str(), &udtFindFileData);
+			HANDLE hFindFile = FindFirstFile((((String) pacFile) + "\\*").c_str(), &udtFindFileData);
 			do
 			{
 				if ((_tcscmp(udtFindFileData.cFileName, _T(".")) != 0) &&
