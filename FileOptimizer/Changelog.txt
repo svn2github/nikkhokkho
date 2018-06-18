@@ -184,7 +184,7 @@ X.XX - YYYY
 - Updated ImageMagick to 7.0.7.37 with HDRI support.
 - Updated pingo to 0.97 x86 and x64 versions.
 - Updated pngquant to 2.12.0.
-- Updated ECT x86 binary to 0.8.2 b62da9a01560e626a8a1a9ebd78245f88dc81590. Thanks to landfillbaby.
+- Updated ECT x86 and x64 binaries to 0.8.2 b62da9a01560e626a8a1a9ebd78245f88dc81590. Thanks to landfillbaby and fhanau.
 - Some minor optimizations and code cleanup.
 
 
