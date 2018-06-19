@@ -170,6 +170,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+12.90 - 2018/06/19
 - Added WAV support by using shntool. New INI options available WAVCopyMetadata=false and WAVStripSilence=false (Lucy Phipps).
 - Extended shntool to FLAC when WAVCopyMetadata enabled (Lucy Phipps).
 - Added new INI setting PNGWolfIterations=-1 to overwrite PNGWolf zopfli settings (Abinadab Suzuki).
