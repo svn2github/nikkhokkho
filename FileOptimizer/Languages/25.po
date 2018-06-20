@@ -290,7 +290,7 @@ msgid "Enable UPX executable compression. When enabled, UPX will be used, result
 msgstr "Меньший размер, но может увеличить время запуска."
 
 msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
-msgstr "Исключение выполнения плагинов. Нечувствителен к регистру, позволяет указать более одного элемента с помощью точки с запятой."
+msgstr "Исключение выполнения плагинов. Нечувствителен к регистру, можно указать более одного элемента, через точку с запятой."
 
 msgid "&Disable PETrim"
 msgstr "Отключить PETrim"
@@ -382,8 +382,8 @@ msgstr "Включить кеш"
 msgid "Enable cache of already optimized files to automatically skip them."
 msgstr "Включить кэш уже оптимизированных файлов, для их авто-пропуска."
 
-msgid "If specified, number of trial iterations in all Leanify executions will use this vaule. If not, iterations are calculated depending on the Optimization level."
-msgstr "Используется если указано, количество пробных итераций для Leanify. Если нет, итерации зависят от уровня оптимизации."
+msgid "If specified, number of trial iterations in all Leanify executions will use this value. If not, iterations are calculated depending on the Optimization level."
+msgstr "Используется если указано количество пробных итераций для Leanify. Если нет, итерации вычисляются по уровню оптимизации."
 
 msgid "&Allow duplicates"
 msgstr "Разрешить дубликаты"

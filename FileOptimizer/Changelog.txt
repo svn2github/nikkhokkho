@@ -170,6 +170,7 @@ ndo
 
 
 X.XX - YYYY
+- Updated russian translation (Thanks Max).
 
 
 12.90 - 2018/06/19
