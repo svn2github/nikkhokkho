@@ -68,7 +68,10 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	clsUtil::SaveForm(this);
 	clsLanguage::Save();
 	SaveOptions();
-	webAds->Stop();
+	if (!gudtOptions.bHideAds)
+	{
+		webAds->Stop();
+	}
 }
 
 
@@ -135,7 +138,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
 	gudtOptions.bShowToolBar = GetOption(_T("Options"), _T("ShowToolBar"), false);
 
-    //Disable ads in XP
+    //Show ads
 	if (clsUtil::GetWindowsVersion() >= 600)
 	{
 		//Check if ad display was not set
@@ -146,8 +149,10 @@ void __fastcall TfrmMain::LoadOptions(void)
 			sCaption.printf(_(_T("This is the first time you run %s.\n\nDo you want to support its development by showing ads while it is in use?\n\nThis will encourage its future maintenance and upgrades, being highly appreciated.\n\nYou can change this option at any time from the Options menu.")), Application->Name.c_str());
 			gudtOptions.bHideAds = !(clsUtil::MsgBox(Handle, sCaption.c_str(), _(_T("Support")), MB_YESNO | MB_ICONQUESTION) == ID_YES);
 		}
+		//Disable ads in XP
 		else
 		{
+			//ToDo: Potential crash when hideads=false on closing
 			gudtOptions.bHideAds = GetOption(_T("Options"), _T("HideAds"), false);
 		}
 	}
@@ -3354,7 +3359,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 	//Ads require internet connection, and Internet Explorer 9 or later, so Vista or newer
 	unsigned int iWindowsVersion = clsUtil::GetWindowsVersion();
 	//Show ads
-	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)) && (iWindowsVersion >= 600))
+	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
 	{
 		if (webAds->Height == 0)
 		{
