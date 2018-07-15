@@ -170,6 +170,7 @@ ndo
 
 
 X.XX - YYYY
+- New StartupDelay=1000 INI setting from 1000ms to 29000ms specifying the delay before start adding files (cy_sfnet_2007).
 - Removed --mt-deflate ECT switch because it is not available in latest build (Renard Voﬂ, #39).
 - Updated russian translation (Thanks Max).
 - Updated pingo to 0.97.1 x86 and x64 versions.

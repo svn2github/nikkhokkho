@@ -170,6 +170,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.iCheckForUpdates = GetOption(_T("Options"), _T("CheckForUpdates"), 1);
 	gudtOptions.iLogLevel = GetOption(_T("Options"), _T("LogLevel"), 0);
 	gudtOptions.iFilenameFormat = GetOption(_T("Options"), _T("FilenameFormat"), 0);
+	gudtOptions.iStartupDelay = GetOption(_T("Options"), _T("StartupDelay"), 1000);
 	gudtOptions.iLeanifyIterations = GetOption(_T("Options"), _T("LeanifyIterations"), -1);
 	gudtOptions.iPNGWolfIterations = GetOption(_T("Options"), _T("PNGWolfIterations"), -1);
 	_tcsncpy(gudtOptions.acTempDirectory, GetOption(_T("Options"), _T("TempDirectory"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
@@ -256,6 +257,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("CheckForUpdates"), gudtOptions.iCheckForUpdates, _T("Number. Default: 1. Automatically check for program updates."));
 	clsUtil::SetIni(_T("Options"), _T("LogLevel"), gudtOptions.iLogLevel, _T("Number. Default: 0. Debugging level to output on program log."));
 	clsUtil::SetIni(_T("Options"), _T("FilenameFormat"), gudtOptions.iFilenameFormat, _T("Number. Default: 0. Specify the format to display filenames in the list."));
+	clsUtil::SetIni(_T("Options"), _T("StartupDelay"), gudtOptions.iStartupDelay, _T("Number. Default: 1000. Integer from 1000ms to 29000ms specifying the delay before start adding files."));
 	clsUtil::SetIni(_T("Options"), _T("LeanifyIterations"), gudtOptions.iLeanifyIterations, _T("Number. Default: -1. If specified, number of trial iterations in all Leanify executions will use this value. If not, iterations are calculated depending on the Optimization level."));
 	clsUtil::SetIni(_T("Options"), _T("PNGWolfIterations"), gudtOptions.iPNGWolfIterations, _T("Number. Default: -1. If specified, number of trial iterations in all PNGWolf executions will use this value. If not, iterations are calculated depending on the Optimization level."));
 	clsUtil::SetIni(_T("Options"), _T("TempDirectory"), gudtOptions.acTempDirectory, _T("String. Default: ''. If not empty specified directory will be used for temporary storage instead of system's %TEMP%."));
@@ -2322,8 +2324,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 //---------------------------------------------------------------------------
 void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 {
+	//Elapsed time
+	tmrMain->Tag += tmrMain->Interval;
+	
 	//30 seconds: Update check and enable ads
-	if (tmrMain->Interval >= 30000)
+	if (tmrMain->Tag >= 30000)
 	{
 		tmrMain->Enabled = false;
 		if (gudtOptions.iCheckForUpdates < 0)
@@ -2338,7 +2343,7 @@ void __fastcall TfrmMain::tmrMainTimer(TObject *Sender)
 		}
 	}
 	//1 second: Process command-line arguments
-	else if (tmrMain->Interval >= 1000)
+	else if (tmrMain->Tag >= gudtOptions.iStartupDelay)
 	{
 		tmrMain->Interval = 30000;
 
