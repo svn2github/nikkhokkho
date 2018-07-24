@@ -598,7 +598,7 @@ bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestin
 	DeleteFile(pacDestination);
 
 	//Try copying file with faster no buffering only available in Windows XP
-	bRes = (CopyFileEx(GetShortName((String) pacSource).c_str(), GetShortName((String) pacDestination).c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING) != 0);
+	bRes = (CopyFileEx(GetShortName((String) pacSource).c_str(), GetShortName((String) pacDestination).c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION | COPY_FILE_NO_BUFFERING) != 0);
 	if (!bRes)
 	{
 		//Try copying file with buffering

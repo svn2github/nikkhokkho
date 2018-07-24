@@ -171,6 +171,10 @@ ndo
 
 
 X.XX - YYYY
+
+
+
+13.00 - 2018/07/24
 - New StartupDelay=1000 INI setting from 1000ms to 29000ms specifying the delay before start adding files (cy_sfnet_2007).
 - Removed --mt-deflate ECT switch because it is not available in latest build (Renard Voﬂ, #39).
 - Fixed a resource leak while copying files using memory mapped views.
@@ -182,7 +186,6 @@ X.XX - YYYY
 - Upgraded to C++ Builder Community Edition 10.2.3 (10.2.3.3231).
 - Using IDE Fix Pack 6.3.1.
 - Some minor optimizations and code cleanup.
-
 
 12.90 - 2018/06/19
 - Added WAV support by using shntool. New INI options available WAVCopyMetadata=false and WAVStripSilence=false (Lucy Phipps).

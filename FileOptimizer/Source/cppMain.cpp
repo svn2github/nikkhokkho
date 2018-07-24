@@ -3372,10 +3372,10 @@ void __fastcall TfrmMain::UpdateAds(void)
 			webAds->Show();
 		}
 		#if defined (_DEBUG)
-			OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache;
+			OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNoReadFromCache | Shdocvw::navNoWriteToCache | Shdocvw::navNewWindowsManaged | Shdocvw::navTrustedForActiveX;
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=1&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#else
-			OleVariant oFlags = Shdocvw::navNoHistory;
+			OleVariant oFlags = Shdocvw::navNoHistory | Shdocvw::navNewWindowsManaged | Shdocvw::navTrustedForActiveX;
 			String sUrl = (String) KS_APP_ADS_URL + "?w=" + webAds->Width + "&h=" + webAds->Height + "&d=0&q=" + LeftStr(grdFiles->Cols[KI_GRID_FILE]->CommaText, 512);
 		#endif
 		webAds->Navigate(sUrl, oFlags);
