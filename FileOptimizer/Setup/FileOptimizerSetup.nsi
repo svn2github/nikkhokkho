@@ -130,6 +130,7 @@ Section "Files"
 		File ..\Win32\Release\*64.exe
 		SetOutPath $INSTDIR\Plugins64
 		File /r ..\Win32\Release\Plugins64\*.*
+		SetOutPath $INSTDIR
 		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}64.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
@@ -138,6 +139,7 @@ Section "Files"
 		File ..\Win32\Release\*32.exe
 		SetOutPath $INSTDIR\Plugins32
 		File /r ..\Win32\Release\Plugins32\*.*
+		SetOutPath $INSTDIR
 		CreateShortCut "$SMPROGRAMS\${APP_NAME}\Launch ${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 		CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
 		CreateShortCut "$QUICKLAUNCH\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}32.exe" "" "" "" SW_SHOWNORMAL "" "${APP_NAME}"
