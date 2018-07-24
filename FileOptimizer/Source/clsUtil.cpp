@@ -372,10 +372,14 @@ bool __fastcall clsUtil::ReadFile(const TCHAR *pacFile, void *pvData, unsigned i
 					memcpy(pvData, pacBuffer, iSize);
 					bRes = UnmapViewOfFile(pacBuffer);
 				}
-				//CloseHandle(hMapping);
 				// Use regular IO
 				else
 				{
+					//Cleanup
+					if (pacBuffer != NULL)
+					{
+						UnmapViewOfFile(pacBuffer);
+					}
 					if (piOffset != 0)
 					{
 						SetFilePointer(hFile, (long) piOffset, NULL, FILE_BEGIN);
@@ -589,10 +593,12 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestination)
 {
 	bool bRes;
+	int i;
 
-	
+	DeleteFile(pacDestination);
+
 	//Try copying file with faster no buffering only available in Windows XP
-	bRes = CopyFileEx(GetShortName((String) pacSource).c_str(), GetShortName((String) pacDestination).c_str(), NULL, NULL, NULL, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING);
+	bRes = (CopyFileEx(GetShortName((String) pacSource).c_str(), GetShortName((String) pacDestination).c_str(), NULL, NULL, false, COPY_FILE_ALLOW_DECRYPTED_DESTINATION|COPY_FILE_NO_BUFFERING) != 0);
 	if (!bRes)
 	{
 		//Try copying file with buffering

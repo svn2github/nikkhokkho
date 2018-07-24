@@ -3362,7 +3362,6 @@ void __fastcall TfrmMain::UpdateAds(void)
 
 
 	//Ads require internet connection, and Internet Explorer 9 or later, so Vista or newer
-	unsigned int iWindowsVersion = clsUtil::GetWindowsVersion();
 	//Show ads
 	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
 	{
@@ -3384,7 +3383,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 	else
 	{
 		if (webAds->Height > 0)
-		{		
+		{
 			webAds->Stop();
 			webAds->Hide();
 			webAds->Height = 0;
