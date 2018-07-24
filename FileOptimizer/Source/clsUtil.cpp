@@ -593,8 +593,8 @@ bool __fastcall clsUtil::DownloadFilePost(const TCHAR *pacServer, const TCHAR *p
 bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestination)
 {
 	bool bRes;
-	int i;
 
+	//Try to delete file if existing before overwritting
 	DeleteFile(pacDestination);
 
 	//Try copying file with faster no buffering only available in Windows XP
