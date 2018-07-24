@@ -1,7 +1,7 @@
 [Stats]
 <<<<<<< .mine
 EditorSecs=127049
-DesignerSecs=6992
+DesignerSecs=6995
 ||||||| .r1221
 EditorSecs=119424
 DesignerSecs=6656
@@ -11,8 +11,8 @@ DesignerSecs=6659
 >>>>>>> .r1223
 InspectorSecs=4900
 <<<<<<< .mine
-CompileSecs=31010461
-OtherSecs=36997
+CompileSecs=31042273
+OtherSecs=37035
 ||||||| .r1221
 CompileSecs=28058287
 OtherSecs=33032

@@ -251,23 +251,6 @@ object frmMain: TfrmMain
     Step = 1
     TabOrder = 1
   end
-  object stbMain: TStatusBar
-    Left = 0
-    Top = 396
-    Width = 699
-    Height = 19
-    Panels = <
-      item
-        Width = 650
-      end
-      item
-        Style = psOwnerDraw
-        Width = 200
-      end>
-    ParentShowHint = False
-    ShowHint = True
-    OnDrawPanel = stbMainDrawPanel
-  end
   object webAds: TWebBrowser
     Left = 0
     Top = 306
@@ -1065,5 +1048,22 @@ object frmMain: TfrmMain
         Action = actAbout
       end
     end
+  end
+  object stbMain: TStatusBar
+    Left = 0
+    Top = 396
+    Width = 699
+    Height = 19
+    Panels = <
+      item
+        Width = 650
+      end
+      item
+        Style = psOwnerDraw
+        Width = 200
+      end>
+    ParentShowHint = False
+    ShowHint = True
+    OnDrawPanel = stbMainDrawPanel
   end
 end
