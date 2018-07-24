@@ -1,5 +1,3 @@
-- SQLite optimization keeps not optimized instead of optimized one
-
 - Consider deleting advpng.exe, pngout.exe, pngwolf.exe, and truepng.exe
 
 - Auto-Close option (SomeBody).
