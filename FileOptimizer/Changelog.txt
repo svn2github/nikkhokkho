@@ -171,6 +171,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+13.10 - 2018/07/26
 - Fixed installer shortcuts pointing to Pluings32 or Plugin64 folders instead of where FO was installed (James Pous).
 - Updated ffmpeg to 4.0.1.
 - Updated pingo to 0.97.6 x64 version.
@@ -178,7 +181,6 @@ X.XX - YYYY
 - Extensively debugged with CodeGuard.
 - Updated to cppcheck 1.84.
 - Some minor optimizations and code cleanup.
-
 
 13.00 - 2018/07/24
 - New StartupDelay=1000 INI setting from 1000ms to 29000ms specifying the delay before start adding files (cy_sfnet_2007).
