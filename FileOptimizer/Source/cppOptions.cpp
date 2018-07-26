@@ -216,35 +216,37 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	unsigned int iIndex = 2;
 	WIN32_FIND_DATA udtFindFileData;
 	HANDLE hFindFile = FindFirstFile(_T("*.po"), &udtFindFileData);
-	do
+	if (hFindFile != INVALID_HANDLE_VALUE)
 	{
-		char acBuffer[2048];
-		memset(acBuffer, 0, sizeof(acBuffer));
-		unsigned int iRead = sizeof(acBuffer) - 1;
-		clsUtil::ReadFile(udtFindFileData.cFileName, acBuffer, &iRead);
-		char *pcStart = strstr(acBuffer, "\"Language Name:");
-		if (pcStart)
+		do
 		{
-			char *pcEnd = strstr(pcStart + 15, "\"");
-			if (pcEnd)
+			char acBuffer[2048];
+			memset(acBuffer, 0, sizeof(acBuffer));
+			unsigned int iRead = sizeof(acBuffer) - 1;
+			clsUtil::ReadFile(udtFindFileData.cFileName, acBuffer, &iRead);
+			char *pcStart = strstr(acBuffer, "\"Language Name:");
+			if (pcStart)
 			{
-				String sLanguage = ReplaceStr(ExtractFileName(udtFindFileData.cFileName), ExtractFileExt(udtFindFileData.cFileName), "");
-				strncpy(acBuffer, pcStart + 16, (size_t) (pcEnd - pcStart - 16));
-				acBuffer[pcEnd - pcStart - 16] = NULL;
-				sLanguage += ": " + UTF8ToString(acBuffer);
-				cboLanguage->Items->Add(sLanguage);
-				//Selected?
-				if (PosEx((String) gudtOptions.iLanguage + ": ", sLanguage) == 1)
+				char *pcEnd = strstr(pcStart + 15, "\"");
+				if (pcEnd)
 				{
-					cboLanguage->ItemIndex = (int) iIndex;
+					String sLanguage = ReplaceStr(ExtractFileName(udtFindFileData.cFileName), ExtractFileExt(udtFindFileData.cFileName), "");
+					strncpy(acBuffer, pcStart + 16, (size_t) (pcEnd - pcStart - 16));
+					acBuffer[pcEnd - pcStart - 16] = NULL;
+					sLanguage += ": " + UTF8ToString(acBuffer);
+					cboLanguage->Items->Add(sLanguage);
+					//Selected?
+					if (PosEx((String) gudtOptions.iLanguage + ": ", sLanguage) == 1)
+					{
+						cboLanguage->ItemIndex = (int) iIndex;
+					}
+					iIndex++;
 				}
-				iIndex++;
 			}
 		}
+		while (FindNextFile(hFindFile, &udtFindFileData) != false);
+		FindClose(hFindFile);
 	}
-	while (FindNextFile(hFindFile, &udtFindFileData) != 0);
-	FindClose(hFindFile);
-
 	if (gudtOptions.iLanguage == 0)
 	{
 		cboLanguage->ItemIndex = 0;

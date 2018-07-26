@@ -175,6 +175,7 @@ X.XX - YYYY
 - Updated ffmpeg to 4.0.1.
 - Updated pingo to 0.97.6 x64 version.
 - Updated ImageMagick to 7.0.8.8 with HDRI support.
+- Extensively debugged with CodeGuard.
 - Updated to cppcheck 1.84.
 - Some minor optimizations and code cleanup.
 

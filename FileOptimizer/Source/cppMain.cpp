@@ -301,16 +301,19 @@ void __fastcall TfrmMain::FormCloseQuery(TObject *Sender, bool &CanClose)
 
 		bool bRunning = false;
 		HANDLE hFindFile = FindFirstFile((((String) acPluginsDirectory) + "*.exe").c_str(), &udtFindFileData);
-		do
+		if (hFindFile != INVALID_HANDLE_VALUE)
 		{
-			if (clsUtil::FindProcess(udtFindFileData.cFileName))
+			do
 			{
-				bRunning = true;
-				break;
+				if (clsUtil::FindProcess(udtFindFileData.cFileName))
+				{
+					bRunning = true;
+					break;
+				}
 			}
+			while (FindNextFile(hFindFile, &udtFindFileData) != false);
+			FindClose(hFindFile);
 		}
-		while (FindNextFile(hFindFile, &udtFindFileData) != 0);
-		FindClose(hFindFile);
 
 		String sCaption;
 		sCaption.printf(_(_T("Optimization is still running. Do you want to stop and exit %s?")), Application->Name.c_str());
@@ -2477,17 +2480,20 @@ void __fastcall TfrmMain::AddFiles(const TCHAR *pacFile)
 		if (udtFileAttribute.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
 			HANDLE hFindFile = FindFirstFile((((String) pacFile) + "\\*").c_str(), &udtFindFileData);
-			do
+			if (hFindFile != INVALID_HANDLE_VALUE )
 			{
-				if ((_tcscmp(udtFindFileData.cFileName, _T(".")) != 0) &&
-					(_tcscmp(udtFindFileData.cFileName, _T("..")) != 0))
+				do
 				{
-					AddFiles((((String) pacFile) + "\\" + udtFindFileData.cFileName).c_str());
+					if ((_tcscmp(udtFindFileData.cFileName, _T(".")) != 0) &&
+						(_tcscmp(udtFindFileData.cFileName, _T("..")) != 0))
+					{
+						AddFiles((((String) pacFile) + "\\" + udtFindFileData.cFileName).c_str());
+					}
 				}
+				while (FindNextFile(hFindFile, &udtFindFileData) != false);
+				FindClose(hFindFile);
+				RefreshStatus();
 			}
-			while (FindNextFile(hFindFile, &udtFindFileData) != 0);
-			FindClose(hFindFile);
-			RefreshStatus();
 		}
 		//It it is a file, parse it
 		else

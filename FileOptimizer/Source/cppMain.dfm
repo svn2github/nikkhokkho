@@ -270,6 +270,23 @@ object frmMain: TfrmMain
       8000000000000000000000000000000000000000000000000000000000000000
       00000000000000000100000000000000000000000000000000000000}
   end
+  object stbMain: TStatusBar
+    Left = 0
+    Top = 396
+    Width = 699
+    Height = 19
+    Panels = <
+      item
+        Width = 650
+      end
+      item
+        Style = psOwnerDraw
+        Width = 200
+      end>
+    ParentShowHint = False
+    ShowHint = True
+    OnDrawPanel = stbMainDrawPanel
+  end
   object mnuFiles: TPopupMenu
     Images = imgMain
     Left = 328
@@ -1048,22 +1065,5 @@ object frmMain: TfrmMain
         Action = actAbout
       end
     end
-  end
-  object stbMain: TStatusBar
-    Left = 0
-    Top = 396
-    Width = 699
-    Height = 19
-    Panels = <
-      item
-        Width = 650
-      end
-      item
-        Style = psOwnerDraw
-        Width = 200
-      end>
-    ParentShowHint = False
-    ShowHint = True
-    OnDrawPanel = stbMainDrawPanel
   end
 end
