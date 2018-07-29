@@ -1,0 +1,675 @@
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"X-Generator: Poedit 2.0.6\n"
+
+# "Language ID: 4 (0x04)"
+# "Language Name: Chinese"
+# "Project-Id-Version: FileOptimizer 12.40.2217"
+# "POT-Creation-Date: Feb 19 2018"
+# "MIME-Version: 1.0"
+# "Content-Type: text/plain; charset=ISO-8859-1"
+# "Content-Transfer-Encoding: 8bit"
+# "Language: zh-CN"
+# "Last-Translator: Oliver HÃ¶now"
+# "Language-Team: Oliver HÃ¶now"
+# "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+msgid "&About..."
+msgstr "關於(&A)..."
+
+msgid "Open the about window with internal and legal information"
+msgstr "開啟包含內部和法律資訊的「關於」視窗"
+
+msgid "-"
+msgstr "-"
+
+msgid "Donate..."
+msgstr "捐贈..."
+
+msgid "Support the development by easily and securely money donations"
+msgstr "透過方便安全的資金捐贈支援發展"
+
+msgid "&Information..."
+msgstr "資訊(&I)..."
+
+msgid "Open information window with the list of currently supported file formats"
+msgstr "開啟包含目前支援檔案格式清單的資訊視窗"
+
+msgid "Help topics..."
+msgstr "說明主題..."
+
+msgid "&Help"
+msgstr "說明(&H)"
+
+msgid "&Options..."
+msgstr "選項(&O)..."
+
+msgid "Open configuration options window"
+msgstr "開啟設定選項視窗"
+
+msgid "&Stop"
+msgstr "停止(&S)"
+
+msgid "Stop in-progress optimizations"
+msgstr "停止進行中的優化"
+
+msgid "&Optimize all files"
+msgstr "優化所有檔案(&O)"
+
+msgid "Optimize files in the optimization list"
+msgstr "優化在優化清單中的檔案"
+
+msgid "&Optimize"
+msgstr "優化(&O)"
+
+msgid "E&xit..."
+msgstr "結束(&x)..."
+
+msgid "Exit the program"
+msgstr "結束程式"
+
+msgid "Open &containing folder..."
+msgstr "開啟包含資料夾(&c)..."
+
+msgid "&Open selected file"
+msgstr "開啟所選檔案(&O)"
+
+msgid "&Clear all files"
+msgstr "清除所有檔案(&C)"
+
+msgid "Empty all files in the optimization list"
+msgstr "清空優化清單中的所有檔案"
+
+msgid "&Remove selected files"
+msgstr "移除所選檔案(&R)"
+
+msgid "Remove selected files from the optimization list"
+msgstr "從優化清單移除所選檔案"
+
+msgid "A&dd folder..."
+msgstr "加入資料夾(&d)..."
+
+msgid "Add folder contents recursively from your computer to the optimization list"
+msgstr "從您的電腦將資料夾內容以遞迴方式加入到優化清單"
+
+msgid "&Add files..."
+msgstr "加入檔案(&A)..."
+
+msgid "Add files from your computer to the optimization list"
+msgstr "從您的電腦將檔案加入到優化清單"
+
+msgid "&File"
+msgstr "檔案(&F)"
+
+msgid "File"
+msgstr "檔案"
+
+msgid "Extension (Type)"
+msgstr "副檔名(類型)"
+
+msgid "Original size"
+msgstr "原始大小"
+
+msgid "Optimized size"
+msgstr "優化後大小"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it."
+msgstr "將要優化檔案拖曳到底下清單上，準備就緒後，按一下滑鼠右鍵出現右鍵選單。所有已處理的檔案都複製到資源回收筒，以便您可以輕鬆地還原它們。如果願意，可以停用移動到資源回收筒。連按兩下某個項目以預覽它。                                              正體中文編譯:丹楓"
+
+msgid "Add folder"
+msgstr "加入資料夾"
+
+msgid "Options"
+msgstr "選項"
+
+msgid "&Cancel"
+msgstr "取消(&C)"
+
+msgid "Discard any changes made to options."
+msgstr "放棄對選項所做的任何變更。"
+
+msgid "&OK"
+msgstr "確定(&O)"
+
+msgid "Accept and apply all changes made to options."
+msgstr "接受並套用對選項所做的所有變更。"
+
+msgid "&Restore defaults"
+msgstr "還原預設值(&R)"
+
+msgid "Restore all options to its factory settings values."
+msgstr "將所有選項還原成其出廠設定值。"
+
+msgid "&Recurse"
+msgstr "遞迴(&R)"
+
+msgid "Enable optimization inside archives (recursive optimization)."
+msgstr "在壓縮檔中啟用優化(遞迴優化)。"
+
+msgid "&Copy metadata"
+msgstr "複製中繼資料(&C)"
+
+msgid "Copy file metadata. Else strip all unneded information."
+msgstr "複製檔案中繼資料。除去所有不需要的資訊。"
+
+msgid "&ZIP"
+msgstr "&ZIP"
+
+msgid "&Enable Leanify"
+msgstr "啟用 Leanify(&E)"
+
+msgid "Enable Leanify. Results in smaller files, but can happen they are not editable anymore."
+msgstr "啟用 Leanify。導致較小的檔，但可能發生它們不再是可編輯。"
+
+msgid "&XML"
+msgstr "&XML"
+
+msgid "&TIFF"
+msgstr "&TIFF"
+
+msgid "&TGA"
+msgstr "&TGA"
+
+msgid "&Allow lossy optimizations"
+msgstr "允許有損優化(&A)"
+
+msgid "Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not"
+msgstr "允許有損優化將以損失一些品質為代價來得到較高的檔案減少程度，即使在視覺上可見或不明顯"
+
+msgid "&PNG"
+msgstr "&PNG"
+
+msgid "&Skip layered"
+msgstr "跳過分層(&S)"
+
+msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
+msgstr "跳過處理包含分層物件的 PDF 檔案。產生更大尺寸的更相容檔案。"
+
+msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgstr "當選擇自訂設定檔時，它允許您指定用於降低取樣圖像的自訂 DPI"
+
+msgid "Compression profile, from less size, to best quality."
+msgstr "壓縮設定檔，從較小的大小到最佳的品質。"
+
+msgid "Custom"
+msgstr "自訂"
+
+msgid "Prepress: 300 dpi and color preserve"
+msgstr "印前: 300 dpi 和顏色保留"
+
+msgid "Printer: 300 dpi"
+msgstr "印表機: 300 dpi"
+
+msgid "Ebook: 150 dpi"
+msgstr "電子書: 150 dpi"
+
+msgid "Screen: 72 dpi"
+msgstr "螢幕: 72 dpi"
+
+msgid "None: No downsampling (Default)"
+msgstr "無: 無降低取樣(預設)"
+
+msgid "&Custom DPI"
+msgstr "自訂 DPI(&C)"
+
+msgid "&Profile"
+msgstr "設定檔(&P)"
+
+msgid "&PDF"
+msgstr "&PDF"
+
+msgid "&PCX"
+msgstr "&PCX"
+
+msgid "&MP4"
+msgstr "&MP4"
+
+msgid "&MP3"
+msgstr "&MP3"
+
+msgid "&Miscelaneous"
+msgstr "雜項(&M)"
+
+msgid "&LUA"
+msgstr "&LUA"
+
+msgid "Add extra extensions to be threated as JS/JSON."
+msgstr "加入額外的副檔名為 JS/JSON。"
+
+msgid "&Enable JSMin"
+msgstr "啟用 JSMin(&E)"
+
+msgid "Enable jsmin. Results in smaller files, but can happen they are not editable anymore."
+msgstr "啟用 jsmin。導致較小的檔，但可能發生它們不再是可編輯。"
+
+msgid "&Additional Extensions"
+msgstr "其他副檔名(&A)"
+
+msgid "&JS"
+msgstr "&JS"
+
+msgid "&Use arithmetic encoding"
+msgstr "使用算術編碼(&U)"
+
+msgid "Arithmetic encoding gives additional saving reductions, but is incompatible with most programs."
+msgstr "算術編碼提供了額外的節省減少程度，但與大多數程式不相容。"
+
+msgid "&JPEG"
+msgstr "&JPEG"
+
+msgid "&Enable Tidy"
+msgstr "啟用 Tidy(&E)"
+
+msgid "Enable Tidy. Results in smaller files, but can happen they are not editable anymore. Note that this applies to both SVG and HTML file types"
+msgstr "啟用 Tidy。導致較小的檔，但可能發生它們不再是可編輯。請注意，這同時適用於 SVG 和 HTML 檔案類型"
+
+msgid "&HTML"
+msgstr "&HTML"
+
+msgid "&GZ"
+msgstr "&GZ"
+
+msgid "&GIF"
+msgstr "&GIF"
+
+msgid "&Enable UPX"
+msgstr "啟用 UPX(&E)"
+
+msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
+msgstr "允許排除某些外掛程式的執行。它不區分大小寫，允許使用分號作為分隔符號指定多個項目。"
+
+msgid "&Disable PETrim"
+msgstr "停用 PETrim(&D)"
+
+msgid "Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."
+msgstr "停用 PETrim。啟用後，不會使用 PETrim，從而導致以更大檔案大小為代價、更少的 EXE 損毀。"
+
+msgid "&EXE"
+msgstr "&EXE"
+
+msgid "Compression template, from safer and worse compression, to highest compression"
+msgstr "壓縮範本，從更安全和更差的壓縮，到最高壓縮"
+
+msgid "Highest"
+msgstr "最高"
+
+msgid "High"
+msgstr "高"
+
+msgid "Low (Default)"
+msgstr "低(預設)"
+
+msgid "Enable tidy. Results in smaller files, but can happen they are not editable anymore."
+msgstr "啟用 tidy。導致較小的檔，但可能發生它們不再是可編輯。"
+
+msgid "&Template"
+msgstr "範本(&T)"
+
+msgid "&CSS"
+msgstr "&CSS"
+
+msgid "&BMP"
+msgstr "&BMP"
+
+msgid "&Hide ads"
+msgstr "隱藏廣告(&H)"
+
+msgid "Hide ads from being displayed."
+msgstr "隱藏顯示的廣告。"
+
+msgid "Specify the format to display filenames in the list."
+msgstr "指定要在清單中顯示檔案名稱的格式。"
+
+msgid "Drive letter + Partial (path + Filename)"
+msgstr "磁碟機代號 + 部分(路徑 + 檔案名稱)"
+
+msgid "Drive letter + Partial path + Filename"
+msgstr "磁碟機代號 + 部分路徑 + 檔案名稱"
+
+msgid "Filename only"
+msgstr "只有檔案名稱"
+
+msgid "Full path and Filename (Default)"
+msgstr "完整路徑和檔案名稱(預設)"
+
+msgid "&Always on top"
+msgstr "最上層顯示(&A)"
+
+msgid "Show main window always on top."
+msgstr "主視窗最上層顯示。"
+
+msgid "&Show toolbar"
+msgstr "顯示工具列(&S)"
+
+msgid "Show icons toolbar on main window"
+msgstr "主視窗顯示圖示工具列"
+
+msgid "If you have already donated to support FileOptimizer development, enter here the email address or name you used"
+msgstr "如果您已捐贈來支援  FileOptimizer  發展，請在這裡輸入您使用的電子郵件位址和姓名"
+
+msgid "&Language"
+msgstr "語系(&L)"
+
+msgid "&Filename format"
+msgstr "檔案名稱格式(&F)"
+
+msgid "&Donator"
+msgstr "捐贈者(&D)"
+
+msgid "&Appearance"
+msgstr "外觀(&A)"
+
+msgid "&Enable cache"
+msgstr "啟用快取(&E)"
+
+msgid "Enable cache of already optimized files to automatically skip them."
+msgstr "啟用已優化檔的快取來自動跳過它們。"
+
+msgid "If specified, number of trial iterations in all Leanify executions will use this value. If not, iterations are calculated depending on the Optimization level."
+msgstr "如果指定，所有 Leanify 執行中的試用反覆項目數將使用此值。如果不是，則根據優化層級計算反覆項目。"
+
+msgid "&Allow duplicates"
+msgstr "允許重複(&A)"
+
+msgid "Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."
+msgstr "允許多次加入同一個檔案。 如果啟用，加入到網格會更快，特別是在非常大的網格上。"
+
+msgid "&Clear when complete"
+msgstr "完成時清除(&C)"
+
+msgid "Automatically clear file list when optimization is completed."
+msgstr "當優化完成時自動清除檔案清單。"
+
+msgid "&Shutdown when done"
+msgstr "完成時關機(&S)"
+
+msgid "Shutdown computer when optimization completes."
+msgstr "當優化完成時關機。"
+
+msgid "&Beep when done"
+msgstr "完成時發出嗶嗶聲(&B)"
+
+msgid "Beep the speaker when optimization completes."
+msgstr "當完成時發出嗶嗶聲。"
+
+msgid "&Leanify iterations"
+msgstr "Leanify 反覆項目(&L)"
+
+msgid "&Disable plugin mask"
+msgstr "停用外掛程式遮罩(&D)"
+
+msgid "General &2"
+msgstr "一般(&2)"
+
+msgid "If not empty specified directory will be used for temporary storage instead of system's %TEMP%."
+msgstr "如果不清空，則指定的目錄將用於暫時存放，而不是系統的 %TEMP%。"
+
+msgid "&Allow multiple instances"
+msgstr "允許多重執行個體(&A)"
+
+msgid "Allow having more than one FileOptimizer instance. If not, a warning will appear."
+msgstr "允許有一個以上的 FileOptimizer 執行個體。如果沒有，將出現警告。"
+
+msgid "If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included."
+msgstr "如果不為空，則只從優化中包括包含此遮罩(子字串)的名稱或路徑的檔案。可以使用分號指定包含多個子字串。"
+
+msgid "Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded."
+msgstr "在名稱或路徑上包含此遮罩(子字串)的檔案將被排除在優化之外。可以使用分號(;)指定要排除的多個子字串。"
+
+msgid "&Do not use recycle bin"
+msgstr "不使用資源回收筒(&D)"
+
+msgid "When checked original files will not be backed up in the system trashcan."
+msgstr "當勾選，原始檔案將不會在系統資源回收筒中備份。"
+
+msgid "Debugging level to output on program log."
+msgstr "除錯層級在程式記錄上輸出。"
+
+msgid "4: Information"
+msgstr "4: 資訊"
+
+msgid "3: Warning"
+msgstr "3: 警告"
+
+msgid "2: Error"
+msgstr "2: 錯誤"
+
+msgid "1: Critical"
+msgstr "1: 關鍵"
+
+msgid "0: None (Default)"
+msgstr "0: 無(預設)"
+
+msgid "Automatically check for program updates."
+msgstr "自動檢查程式更新。"
+
+msgid "Never"
+msgstr "從不"
+
+msgid "Automatically (Default)"
+msgstr "自動(預設)"
+
+msgid "Ask"
+msgstr "詢問"
+
+msgid "Process priority from most conservative to best performance."
+msgstr "從最保守到最佳效能的進程優先順序。"
+
+msgid "Realtime"
+msgstr "即時"
+
+msgid "Above normal"
+msgstr "高於一般"
+
+msgid "Normal (Default)"
+msgstr "一般(預設)"
+
+msgid "Below normal"
+msgstr "低於一般"
+
+msgid "Idle"
+msgstr "閒置"
+
+msgid "Optimization level from best speed to best compression."
+msgstr "從最佳速度到最佳壓縮的優化層級。"
+
+msgid "9: Best"
+msgstr "9: 最好"
+
+msgid "8: Better"
+msgstr "8: 更好"
+
+msgid "7: Good"
+msgstr "7: 好"
+
+msgid "6:"
+msgstr "6:"
+
+msgid "5: Normal (Default)"
+msgstr "5: 一般(預設)"
+
+msgid "4:"
+msgstr "4:"
+
+msgid "3:"
+msgstr "3:"
+
+msgid "2: Fast"
+msgstr "2: 快"
+
+msgid "1: Faster"
+msgstr "1: 更快"
+
+msgid "0: Fastest"
+msgstr "0: 最快"
+
+msgid "&Keep file attributes"
+msgstr "保留檔案屬性(&K)"
+
+msgid "Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."
+msgstr "保留原始的唯讀、系統、隱藏和存檔屬性以及建立和修改時間戳記。"
+
+msgid "&Temp directory"
+msgstr "暫存目錄(&T)"
+
+msgid "&Include mask"
+msgstr "包含遮罩(&I)"
+
+msgid "&Exclude mask"
+msgstr "排除遮罩(&E)"
+
+msgid "&Log level"
+msgstr "記錄層級(&L)"
+
+msgid "&Check for updates"
+msgstr "檢查更新(&C)"
+
+msgid "&Process priority"
+msgstr "進程優先順序(&P)"
+
+msgid "&Optimization level"
+msgstr "優化層級(&O)"
+
+msgid "General &1"
+msgstr "一般(&1)"
+
+msgid "Configure the appearance and behaviour of FileOptimizer"
+msgstr "設定 FileOptimizer 的外觀和行為"
+
+msgid "General program options affecting all extensions (1/2)"
+msgstr "影響所有副檔名的一般程式選項 (1/2)"
+
+msgid "General program options affecting all extensions (2/2)"
+msgstr "影響所有副檔名的一般程式選項 (2/2)"
+
+msgid "Extensions affected: "
+msgstr "受影響的副檔名: "
+
+msgid "Automatic: System default"
+msgstr "自動: 系統預設"
+
+msgid "and %s file formats among many others."
+msgstr "和許多其他 %s 檔案格式。"
+
+msgid " is an advanced file optimizer featuring a lossless (no quality loss) file size reduction that supports: "
+msgstr " 是一款進階的檔案優化工具，具有無損(無品質損失)檔案大小縮減功能，支援: "
+
+msgid ""
+"\n"
+"\n"
+"DONATOR INFORMATION\n"
+msgstr ""
+"\n"
+"\n"
+"捐贈者資訊\n"
+
+msgid "Have not donated yet!"
+msgstr "尚未捐贈!"
+
+msgid ""
+"\n"
+"User since %s %s"
+msgstr ""
+"\n"
+"使用者自 %s %s"
+
+msgid ""
+"\n"
+"\n"
+"USAGE STATISTICS\n"
+"- Time: %s\n"
+"- Opens: %s\n"
+"- Files: %s\n"
+"- Total: %s\n"
+"- Saved: %s\n"
+msgstr ""
+"\n"
+"\n"
+"使用量統計資料\n"
+"- 時間: %s\n"
+"- 開啟: %s\n"
+"- 檔案: %s\n"
+"- 總計: %s\n"
+"- 已儲存: %s\n"
+
+msgid "Information"
+msgstr "資訊"
+
+msgid "About"
+msgstr "關於"
+
+msgid ""
+"Except where otherwise noted, all of the documentation and software \r\n"
+"included in the package is copyrighted by Javier GutiÃÂ©rrez Chamorro (Guti).\r\n"
+"\r\n"
+"Copyright ÃÂ© 2012- Javier GutiÃÂ©rrez Chamorro (Guti). All rights reserved.\r\n"
+"\r\n"
+"This software is provided \"as-is,\" without any express or implied warranty.\r\n"
+"In no event shall the author be held liable for any damages arising from the\r\n"
+"use of this software.\r\n"
+"\r\n"
+"Permission is granted to anyone to use this software for any purpose,\r\n"
+"including commercial applications, and to alter and redistribute it,\r\n"
+"provided that the following conditions are met:\r\n"
+"\r\n"
+"1. All redistributions of source code files must retain all copyright\r\n"
+"   notices that are currently in place, and this list of conditions without\r\n"
+"   modification.\r\n"
+"\r\n"
+"2. All redistributions in binary form must retain all occurrences of the\r\n"
+"   above copyright notice and web site addresses that are currently in\r\n"
+"   place (for example, in the About boxes).\r\n"
+"\r\n"
+"3. The origin of this software must not be misrepresented; you must not\r\n"
+"   claim that you wrote the original software. If you use this software to\r\n"
+"   distribute a product, an acknowledgment in the product documentation\r\n"
+"   would be appreciated but is not required.\r\n"
+"\r\n"
+"4. Modified versions in source or binary form must be plainly marked as\r\n"
+"   such, and must not be misrepresented as being the original software.\r\n"
+msgstr ""
+
+msgid "&Close"
+msgstr "關閉(&C)"
+
+msgid "Pending"
+msgstr "擱置"
+
+msgid "0 / %s files"
+msgstr "0 / %s 檔案"
+
+msgid "%s / %s files. %s bytes saved (%s%%)"
+msgstr "%s / %s 檔案。已儲存 %s 個位元組(%s%%)"
+
+msgid "Processing %s..."
+msgstr "正在處理 %s..."
+
+msgid "Copying to Recyclebin..."
+msgstr "正在複製到資源回收筒..."
+
+msgid "Running %s..."
+msgstr "正在執行 %s..."
+
+msgid "Optimized"
+msgstr "優化後"
+
+msgid "Done (%3u%%)."
+msgstr "完成(%3u%%)"
+
+msgid "%s files processed. %s bytes saved (%s%%)"
+msgstr "已處理 %s 個檔案。已儲存 %s 個位元組(%s%%)"
+
+msgid "Optimization is still running. Do you want to stop and exit %s?"
+msgstr "優化仍執行中。您要停止並結束 %s 嗎?"
+
+msgid "D&o not create backups"
+msgstr "不建立備份(&o)"

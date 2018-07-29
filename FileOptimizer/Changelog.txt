@@ -171,6 +171,7 @@ ndo
 
 
 X.XX - YYYY
+- Updated chinese traditional translation. Thanks Danfong Hsieh.
 - Updated to mutool 1.14 gfe8b5f20.
 
 
