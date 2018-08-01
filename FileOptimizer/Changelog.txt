@@ -147,7 +147,7 @@ ndo
 - libwebp 1.0.0 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
 - mkclean 0.8.10 - http://www.matroska.org/downloads/mkclean.html
-- mozjpeg 3.3.1 - https://github.com/garyzyg/mozjpeg-windows/
+- mozjpeg 3.3.1-3 - https://github.com/garyzyg/mozjpeg-windows/
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 2.1.0 - https://github.com/TechSmith/mp4v2
 - mutool 1.14 (gfe8b5f20) - http://mupdf.com/downloads/
@@ -172,6 +172,7 @@ ndo
 
 X.XX - YYYY
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
+- Updated mozjpegtran to 3.3.1-3 x86 and x64 binaries.
 - Updated to mutool 1.14 gfe8b5f20.
 - Integrated with Synopsys Coverity Scan.
 - Some minor optimizations and code cleanup.
