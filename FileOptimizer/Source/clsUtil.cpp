@@ -421,6 +421,11 @@ bool __fastcall clsUtil::WriteFile(const TCHAR *pacFile, const void *pvData, uns
 			// Use regular IO
 			else
 			{
+				//Cleanup
+				if (pacBuffer != NULL)
+				{
+					UnmapViewOfFile(pacBuffer);
+				}
 				if (piOffset != 0)
 				{
 					SetFilePointer(hFile, (long) piOffset, NULL, FILE_BEGIN);
