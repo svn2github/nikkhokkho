@@ -171,6 +171,7 @@ ndo
 
 
 X.XX - YYYY
+- Fixed "Miscelaneous" spelled as "Miscellaneous" in Options window and translations (JoeW).
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
 - Updated mozjpegtran to 3.3.1-3 x86 and x64 binaries.
 - Updated to mutool 1.14 gfe8b5f20.

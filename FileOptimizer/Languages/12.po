@@ -259,7 +259,7 @@ msgstr "&MP4"
 msgid "&MP3"
 msgstr "&MP3"
 
-msgid "&Miscelaneous"
+msgid "&Miscellaneous"
 msgstr "&Divers"
 
 msgid "&LUA"

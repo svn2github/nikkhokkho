@@ -916,7 +916,7 @@ object frmOptions: TfrmOptions
       end
     end
     object pagMisc: TTabSheet
-      Caption = '&Miscelaneous'
+      Caption = '&Miscellaneous'
       ImageIndex = 8
       ExplicitLeft = 0
       ExplicitTop = 0
