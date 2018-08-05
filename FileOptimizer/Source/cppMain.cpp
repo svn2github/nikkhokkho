@@ -1296,9 +1296,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			if (!gudtOptions.bWAVCopyMetadata)
 			{
 				String sTmpOutputFile = ReplaceStr(sInputFile, ".flac", "-stripped.flac");
+				//Prevent a bug in shntool with no lowercase extensions
+				if (sTmpOutputFile == sInputFile)
+				{
+					sTmpOutputFile += "-stripped.flac";
+				}
 
 				RunPlugin((unsigned int) iCount, "shntool (1/4)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-				if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+				if ((clsUtil::SizeFile(sTmpOutputFile.c_str()) > 0) && (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])))
 				{
 					clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
@@ -1307,9 +1312,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				if (gudtOptions.bWAVStripSilence)
 				{
 					sTmpOutputFile = ReplaceStr(sInputFile, ".flac", "-trimmed.flac");
+					//Prevent a bug in shntool with no lowercase extensions
+					if (sTmpOutputFile == sInputFile)
+					{
+						sTmpOutputFile += "-trimmed.flac";
+					}
 
 					RunPlugin((unsigned int) iCount, "shntool (2/4)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-					if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+					if ((clsUtil::SizeFile(sTmpOutputFile.c_str()) > 0) && (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])))
 					{
 						clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 						grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
@@ -2110,9 +2120,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			if (!gudtOptions.bWAVCopyMetadata)
 			{
 				String sTmpOutputFile = ReplaceStr(sInputFile, ".wav", "-stripped.wav");
+				//Prevent a bug in shntool with no lowercase extensions
+				if (sTmpOutputFile == sInputFile)
+				{
+					sTmpOutputFile += "-stripped.wav";
+				}
 
 				RunPlugin((unsigned int) iCount, "shntool (1/2)", (sPluginsDirectory + "shntool.exe strip -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-				if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+				if ((clsUtil::SizeFile(sTmpOutputFile.c_str()) > 0) && (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])))
 				{
 					clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
@@ -2121,9 +2136,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				if (gudtOptions.bWAVStripSilence)
 				{
 					sTmpOutputFile = ReplaceStr(sInputFile, ".wav", "-trimmed.wav");
+					//Prevent a bug in shntool with no lowercase extensions
+					if (sTmpOutputFile == sInputFile)
+					{
+						sTmpOutputFile += "-trimmed.wav";
+					}
 
 					RunPlugin((unsigned int) iCount, "shntool (2/2)", (sPluginsDirectory + "shntool.exe trim -q -O always \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
-					if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
+					if ((clsUtil::SizeFile(sTmpOutputFile.c_str()) > 0) && (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount])))
 					{
 						clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 						grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
@@ -2689,12 +2709,15 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	clsUtil::DeleteFile(sTmpInputFile.c_str());
 	clsUtil::DeleteFile(sTmpOutputFile.c_str());
 
-	if ((lSizeNew <= 8) || (lSizeNew > lSize))
+	if ((lSizeNew <= 8) || (lSizeNew >= lSize))
 	{
 		lSizeNew = lSize;
 	}
-	//iPercent = (((unsigned long long) iSize) * 100) / ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][piCurrent]);
-	grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSizeNew);
+	else
+	{
+		grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSizeNew);
+	}
+
 	Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
 
 	return (iError);
