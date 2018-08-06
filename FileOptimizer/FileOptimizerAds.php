@@ -12,15 +12,16 @@
 	{
 		global $iHeight;
 		static $iCont = 0;
-		$iRnd = mt_rand(0, 100);
 		$iCont++;
 
-		if ($iRnd < 80)
+		$iRnd = mt_rand(0, 100);
+		if ($iRnd < 5)
 		{
 			//ADX
-			$sBanner = '<script async="async" src="//www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [728, 90], "div-gpt-ad-1506002846364-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506002846364-' . $iCont . '" style="height:90px; width:728px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506002846364-' . $iCont . '"); });</script></div>';
+			//$sBanner = '<script async="async" src="//www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [728, 90], "div-gpt-ad-1506002846364-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506002846364-' . $iCont . '" style="height:90px; width:728px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506002846364-' . $iCont . '"); });</script></div>';
+			$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {};  googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericosDFP2018", [728, 90], "div-gpt-ad-1523882324353-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().set("page_url", "https://nikkhokkho.sourceforge.io/images/FileOptimizerAds.php"); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1523882324353-' . $iCont . '"style="height:90px; width:728px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1523882324353-' . $iCont . '"); });</script></div>';
 		}
-		else if ($iRnd < 90)
+		else if ($iRnd < 10)
 		{
 			//Adsense 728x90
 			$sBanner = '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6958213404940013" data-ad-slot="6985177659"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
@@ -69,7 +70,7 @@
 <table border=0 cellspacing=0 cellpadding=0 width="100%">
 <tr height="<?php echo $iHeight; ?>">
 	<?php
-		$iBanners = 6;
+		$iBanners = 4;
 		for ($iBanner = 0; $iBanner < $iBanners; $iBanner++)
 		{
 	?>
