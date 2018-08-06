@@ -141,6 +141,8 @@ void __fastcall TfrmMain::LoadOptions(void)
     //Show ads
 	if (clsUtil::GetWindowsVersion() >= 600)
 	{
+		clsUtil::SetRegistry(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION"), ExtractFileName(Application->ExeName).c_str(), 11001U);
+
 		//Check if ad display was not set
 		_tcsncpy(acPath, GetOption(_T("Options"), _T("HideAds"), _T("")), (sizeof(gudtOptions.acTempDirectory) / sizeof(TCHAR)) - 1);
 		if ((acPath[0] == NULL) && (gudtOptions.acDonator[0] == NULL))
