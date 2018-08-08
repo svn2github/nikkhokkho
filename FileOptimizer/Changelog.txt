@@ -4,8 +4,6 @@
 
 - Move TruePNG at beggining: https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/956e7706/?limit=25
 
-- Lang path (Manuel).
-
 - Crash en Release x86
 
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
@@ -173,6 +171,7 @@ ndo
 X.XX - YYYY
 - Fixed shntool introduce in 12.90 being inconsistent in file extension management, which could cause 0 byte optimized files (Peter S. #42).
 - Fixed "Miscelaneous" spelled as "Miscellaneous" in Options window and translations (JoeW).
+- Tested with WINE 3 under macOS Sierra and High Sierra.
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
 - Updated mozjpegtran to 3.3.1-3 x86 and x64 binaries.
 - Updated to mutool 1.14 gfe8b5f20.
