@@ -49,13 +49,13 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	clsUtil::LoadForm(this);
 	LoadOptions();
+
 	UpdateTheme();
 	FormResize(Sender);
 
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 
 	actClearExecute(Sender);
-
 
 	//GetSystemInfo(&gudtSystemInfo);
 }
@@ -3808,7 +3808,7 @@ bool __fastcall TfrmMain::GetOption(const TCHAR *pacSection, const TCHAR *pacKey
 	TCHAR acDefault[2048] = {};
 
 
-	_tcsncpy(acDefault, GetOption(pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
+	_tcsncpy(acDefault, (pacSection, pacKey, _T("")), (sizeof(acDefault) / sizeof(TCHAR)) - 1);
 	if (acDefault[0] != NULL)
 	{
 		bRes = (_tcsicmp(acDefault, _T("true")) == 0);

@@ -30,6 +30,7 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 				"<Path|File>: Specifies a path to recursively process or a single file. You can specify as much Files/Paths as you want. Paths with extended characters, or spaces, should be double quoted. Such as *.JPG \"C:\\PROYECTOS\\\" C:\\TEST.PNG\n\n"
 				"[/Options]: Optionally you can specify any options, using same syntax as in the INI file, prepending them with a slash. Such as /GIFAllowLossy=true /Level=9 /PDFCustomDPI=150 /ExcludeMask=.bak\n\nSpecial options are also supported:\n\n"
 				"/?: Show this help screen.\n"
+				"/NOWINDOW: Run windowless, useful when using command-line.\n"
 				"/SAVELANGUAGE: Save 1033.po file containing english strings.\n\n"
 				"Arguments work like:\n\n"
 				"C:\\PROYECTOS\\FileOptimizer\\Win32\\Release\\FileOptimizer64.exe /PNGCopyMetadata=true \"C:\\PROYECTOS\\FileOptimizer\\_Tests\\_ - copia\"\n\n"
@@ -109,7 +110,16 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 			}
 		}
 
+		if (StrStrI(GetCommandLine(), _T("/NOWINDOW")) != NULL)
+		{
+			Application->ShowMainForm = false;
+			Application->MainFormOnTaskBar = false;
+		}
 		Application->CreateForm(__classid(TfrmMain), &frmMain);
+		if (StrStrI(GetCommandLine(), _T("/NOWINDOW")) != NULL)
+		{
+            frmMain->Visible = false;
+		}
 		Application->Run();
 
 		if (hMutex)
@@ -120,7 +130,9 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 	}
 	catch (Exception &excE)
 	{
-		Application->ShowException(&excE);
+		#if defined( _DEBUG)
+			Application->ShowException(&excE);
+		#endif
 	}
 	return (0);
 }
