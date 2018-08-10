@@ -1,3 +1,7 @@
+1. Allow for a /NoWindow option. I currently enforce this within C# but the screen still flickers when a new instance of FileOptimizer launches. (It looks like windows starts it and then hides it ASAP). Devedse 
+
+2. Allow for an option to specify a custom log location. Devedse 
+
 - Consider deleting advpng.exe, pngout.exe, pngwolf.exe, and truepng.exe
 
 - Auto-Close option (SomeBody).
