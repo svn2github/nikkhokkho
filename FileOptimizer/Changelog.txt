@@ -1,3 +1,5 @@
+Appearance option to hide the instructions label (Robert Berge)
+
 1. Allow for a /NoWindow option. I currently enforce this within C# but the screen still flickers when a new instance of FileOptimizer launches. (It looks like windows starts it and then hides it ASAP). Devedse 
 
 2. Allow for an option to specify a custom log location. Devedse 
@@ -173,7 +175,7 @@ ndo
 
 
 X.XX - YYYY
-- Fixed shntool introduce in 12.90 being inconsistent in file extension management, which could cause 0 byte optimized files (Peter S. #42).
+- Fixed shntool introduce in 12.90 being inconsistent in file extension management, which could cause 0 byte optimized files (Robert Berge, Peter S. #42).
 - Fixed "Miscelaneous" spelled as "Miscellaneous" in Options window and translations (JoeW).
 - Tested with WINE 3 under macOS Sierra and High Sierra.
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
