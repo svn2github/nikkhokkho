@@ -131,6 +131,7 @@ struct udtOptions
 	bool bAllowMultipleInstances;
 	bool bClearWhenComplete;
 	bool bEnableCache;
+	bool bHideInstructions;
 	int iLevel;
 	int iProcessPriority;
 	int iCheckForUpdates;

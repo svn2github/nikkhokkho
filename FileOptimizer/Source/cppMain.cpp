@@ -166,6 +166,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bAllowMultipleInstances = GetOption(_T("Options"), _T("AllowMultipleInstances"), false);
 	gudtOptions.bClearWhenComplete = GetOption(_T("Options"), _T("ClearWhenComplete"), false);
 	gudtOptions.bEnableCache = GetOption(_T("Options"), _T("EnableCache"), false);
+	gudtOptions.bHideInstructions = GetOption(_T("Options"), _T("HideInstructions"), false);
 	gudtOptions.iLevel = GetOption(_T("Options"), _T("Level"), 5);
 	gudtOptions.iLanguage = GetOption(_T("Options"), _T("Language"), 0);
 	gudtOptions.iProcessPriority = GetOption(_T("Options"), _T("ProcessPriority"), NORMAL_PRIORITY_CLASS);
@@ -253,6 +254,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("AllowMultipleInstances"), gudtOptions.bAllowMultipleInstances, _T("Boolean. Default: false. Allow having more than one FileOptimizer instance. If not, a warning will appear."));
 	clsUtil::SetIni(_T("Options"), _T("ClearWhenComplete"), gudtOptions.bClearWhenComplete, _T("Boolean. Default: false. Automatically clear file list when optimization is completed."));
 	clsUtil::SetIni(_T("Options"), _T("EnableCache"), gudtOptions.bEnableCache, _T("Boolean. Default: false. Enable cache of already optimized files to automatically skip them."));
+	clsUtil::SetIni(_T("Options"), _T("HideInstructions"), gudtOptions.bHideInstructions, _T("Boolean. Default: false. Hide instructions panel label."));
 	clsUtil::SetIni(_T("Options"), _T("Level"), gudtOptions.iLevel, _T("Number. Default: 5. Optimization level from best speed to best compression."));
 	clsUtil::SetIni(_T("Options"), _T("Language"), gudtOptions.iLanguage, _T("Number. Default: 0 (System default). Interface language/locale code in decimal."));
 	clsUtil::SetIni(_T("Options"), _T("ProcessPriority"), gudtOptions.iProcessPriority, _T("Number. Default: 2 (Normal). Process priority from most conservative to best performance."));
@@ -3468,17 +3470,25 @@ void __fastcall TfrmMain::UpdateTheme(void)
 	clsLanguage::Load((unsigned int) gudtOptions.iLanguage, true);
 	clsLanguage::TranslateForm(this);
 
-	//Change instructions depending on Recycle Bin settins
-	if (gudtOptions.bDoNotUseRecycleBin)
+	//Change instructions depending on Recycle Bin settings
+	if (gudtOptions.bHideInstructions)
 	{
-		lblInstructions->Caption = _("Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.");
+		lblInstructions->Visible = false;
 	}
 	else
 	{
-		lblInstructions->Caption = _("Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.");
+		lblInstructions->Visible = true;
+		if (gudtOptions.bDoNotUseRecycleBin)
+		{
+			lblInstructions->Caption = _("Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. No backups will be created, but you can enable moving to Recycle Bin if you like. Double click an item to preview it.");
+		}
+		else
+		{
+			lblInstructions->Caption = _("Drag on the list below files you want to optimize, and when ready, click on the right button context menu to proceed. All processed files are copied to Recycle Bin, so you can easily restore them. You can disable moving to Recycle Bin if you like. Double click an item to preview it.");
+		}
+		lblInstructions->Hint = lblInstructions->Caption;
 	}
-	lblInstructions->Hint = lblInstructions->Caption;
-
+	
 	if (gudtOptions.bAlwaysOnTop)
 	{
 		FormStyle = fsStayOnTop;
