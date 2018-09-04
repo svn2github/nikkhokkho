@@ -31,11 +31,6 @@
 			//Clicksor
 			//$sBanner = '<script type="text/javascript">ad_idzone="1306998"; ad_width="728"; ad_height="90";</script><script type="text/javascript" src="//ads.exoclick.com/ads.js"></script>';
 		}*/
-		else if ($iRnd <= 100)
-		{
-			//Chitika 728x90
-			$sBanner = '<script type="text/javascript">( function() { if (window.CHITIKA === undefined) { window.CHITIKA = { \'units\' : [] }; }; var unit = {"calltype":"async[2]","publisher":"guti","width":728,"height":90,"sid":"Chitika Default"}; var placement_id = window.CHITIKA.units.length; window.CHITIKA.units.push(unit); document.write(\'<div id="chitikaAdBlock-\' + placement_id + \'"></div>\');}());</script><script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>';
-		}
 		return($sBanner);
 	}
 ?>
