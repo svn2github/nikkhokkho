@@ -25,6 +25,21 @@ bool MP4GetTrackAtomData (
    uint8_t ** outAtomData, 
    uint64_t * outDataSize);
 
+/** Frees the memory allocated by MP4GetTrackAtomData.
+ *
+ *  MP4FreeTrackAtomData frees the memory that was allocated by a
+ *  call to the MP4GetTrackAtomData function.
+ *
+ *  On the Windows platform the atom data allocated by MP4GetTrackAtomData
+ *  cannot be done directly by the client application because the C runtime
+ *  of the client application and the C runtime of the mp4v2 DLL may be different,
+ *  which will result in an error at runtime.  This function allows the client
+ *  application to let the mp4v2 DLL free the memory with the appropriate CRT heap manager.
+ *
+ *  @param pAtomData pointer to atom data allocated with MP4GetTrackAtomData
+ */
+MP4V2_EXPORT
+void MP4FreeTrackAtomData(uint8_t * pAtomData);
 
 /** Get the track type.
  *
@@ -165,6 +180,22 @@ bool MP4GetTrackName(
     MP4TrackId    trackId,
     char**        name );
 
+/** Frees the memory allocated by MP4GetTrackName.
+ *
+ *  MP4FreeTrackName frees the memory that was allocated by a
+ *  call to the MP4GetTrackName function.
+ *
+ *  On the Windows platform the atom data allocated by MP4GetTrackAtomData
+ *  cannot be done directly by the client application because the C runtime
+ *  of the client application and the C runtime of the mp4v2 DLL may be different,
+ *  which will result in an error at runtime.  This function allows the client
+ *  application to let the mp4v2 DLL free the memory with the appropriate CRT heap manager.
+ *
+ *  @param pTrackName pointer to track name allocated with MP4GetTrackName
+ */
+MP4V2_EXPORT
+void MP4FreeTrackName(char * pTrackName);
+
 /** Set track name.
  *
  *  MP4SetTrackName sets the name of the track via udta.name property.
@@ -224,6 +255,35 @@ bool MP4SetTrackESConfiguration(
     uint32_t       configSize );
 
 /* h264 information routines */
+
+/** Frees the memory allocated by MP4GetTrackH264SeqPictHeaders.
+ *
+ *  MP4FreeH264SeqPictHeaders frees the memory that was allocated by a
+ *  call to the MP4GetTrackH264SeqPictHeaders function.
+ *
+ *  When a client application wants to extract the H.264 video data from
+ *  an MP4 file it will call MP4GetTrackH264SeqPictHeaders to obtain the
+ *  sequence and picture parameter sets.  These parameter sets are
+ *  required for decoding a sequence of one, or more, coded slices.  When
+ *  the client application is done with the data it must free it.  On the
+ *  Windows platform this cannot be done directly by the client
+ *  application because the C runtime of the client application and the C
+ *  runtime of the mp4v2 DLL may be different, which will result in an
+ *  error at runtime.  This function allows the client application to let
+ *  the mp4v2 DLL free the memory with the appropriate CRT heap manager.
+ *
+ *  @param pSeqHeaders pointer to an array of SPS pointers.
+ *  @param pSeqHeaderSize pointer to array of SPS sizes.
+ *  @param pPictHeader pointer to an array of PPS pointers.
+ *  @param pPictHeaderSize pointer to array of PPS sizes.
+ */
+MP4V2_EXPORT
+void MP4FreeH264SeqPictHeaders(
+    uint8_t** pSeqHeaders,
+    uint32_t* pSeqHeaderSize,
+    uint8_t** pPictHeader,
+    uint32_t* pPictHeaderSize );
+
 MP4V2_EXPORT
 bool MP4GetTrackH264ProfileLevel(
     MP4FileHandle hFile,

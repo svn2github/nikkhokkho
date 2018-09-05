@@ -2562,6 +2562,26 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         }
         return false;
     }
+   
+    void MP4FreeH264SeqPictHeaders(uint8_t** pSeqHeaders,
+                                   uint32_t* pSeqHeaderSize,
+                                   uint8_t** pPictHeader,
+                                   uint32_t* pPictHeaderSize )
+    {
+        uint32_t ix;
+
+        for (ix = 0; pSeqHeaderSize[ix] != 0; ++ix) {
+            free(pSeqHeaders[ix]);
+        }
+        free(pSeqHeaders);
+        free(pSeqHeaderSize);
+
+        for (ix = 0; pPictHeaderSize[ix] != 0; ++ix) {
+            free(pPictHeader[ix]);
+        }
+        free(pPictHeader);
+        free(pPictHeaderSize);
+    }
 
     bool MP4GetTrackH264SeqPictHeaders (MP4FileHandle hFile,
                                         MP4TrackId trackId,
@@ -2765,6 +2785,13 @@ MP4FileHandle MP4ReadProvider( const char* fileName, const MP4FileProvider* file
         return false;
     }
 
+    MP4V2_EXPORT
+    void MP4FreeTrackAtomData(uint8_t * pAtomData)
+    {
+       if (pAtomData)
+          free(pAtomData);
+    }
+   
     bool MP4GetTrackIntegerProperty (
         MP4FileHandle hFile, MP4TrackId trackId,
         const char* propName,
@@ -4550,6 +4577,12 @@ bool MP4GetTrackName(
     return false;
 }
 
+void MP4FreeTrackName(char * pTrackName)
+{
+   if (pTrackName)
+      free(pTrackName);
+}
+   
 ///////////////////////////////////////////////////////////////////////////////
 
 bool MP4SetTrackName(
