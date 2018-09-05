@@ -134,7 +134,7 @@ ndo
 - Flasm 1.62 - http://flasm.sourceforge.net
 - Gifsicle 1.91 - http://www.lcdf.org/gifsicle/
 - Gifsicle Lossy 1.91 - https://kornel.ski/lossygif
-- Ghostscript 9.23 - http://www.ghostscript.com
+- Ghostscript 9.24 - http://www.ghostscript.com
 - GNU Strip 2.30 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
 - ImageMagick 7.0.8.11 - http://www.imagemagick.org
@@ -178,6 +178,7 @@ X.XX - YYYY
 - Fixed "Miscelaneous" spelled as "Miscellaneous" in Options window and translations (JoeW).
 - Tested with WINE 3 under macOS Sierra and High Sierra.
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
+- Updated Ghostscript to 9.24.
 - Updated Leanify to 0.4.3.218 daily binaries.
 - Updated ECT x86 and x64 binaries to ECT 0.8.3.47 (g4a45c139e86). Thanks to przemoc.
 - Updated mp4v2 x86 and x64 to 4.0.1 Visual C++ 2017 custom builds.
