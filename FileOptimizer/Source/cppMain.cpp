@@ -72,6 +72,8 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	{
 		webAds->Stop();
 	}
+	delete webAds;
+	webAds = NULL;
 }
 
 
@@ -3398,6 +3400,7 @@ void __fastcall TfrmMain::UpdateAds(void)
 	//Show ads
 	if ((!gudtOptions.bHideAds) && (InternetGetConnectedState(&lResultFlags, 0)))
 	{
+		//If was hidden, show it
 		if (webAds->Height == 0)
 		{
 			webAds->Offline = false;
@@ -3415,12 +3418,13 @@ void __fastcall TfrmMain::UpdateAds(void)
 	}
 	else
 	{
+		//If was visible, hide it
 		if (webAds->Height > 0)
 		{
 			webAds->Stop();
+			webAds->Navigate("about:blank");			
 			webAds->Hide();
 			webAds->Height = 0;
-			webAds->Navigate("about:blank");
 			webAds->Offline = true;
 		}
 	}
