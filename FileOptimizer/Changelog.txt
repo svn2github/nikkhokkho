@@ -155,7 +155,7 @@ ndo
 - mutool 1.14 (gfe8b5f20) - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.98.9 - http://css-ig.net/pingo
+- pingo 0.98.13 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.12.0 - http://www.pngquant.org
@@ -174,7 +174,8 @@ ndo
 
 X.XX - YYYY
 - New HideInstructions=false INI setting to hide instructions pane on the top, and left more UI space available (Robert Berge).
-- Fixed shntool introduce in 12.90 being inconsistent in file extension management, which could cause 0 byte optimized files (Robert Berge, Peter S. #42).
+- Fixed (hopefully) access violations caused by TWebBrowser on close in some system configurations (Tomas J Stehlik, mario lopez moreno).
+- Fixed shntool introduced in 12.90 being inconsistent in file extension management, which could cause 0 byte optimized files (Robert Berge, Peter S. #42).
 - Fixed "Miscelaneous" spelled as "Miscellaneous" in Options window and translations (JoeW).
 - Tested with WINE 3 under macOS Sierra and High Sierra.
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
@@ -183,7 +184,7 @@ X.XX - YYYY
 - Updated ECT x86 and x64 binaries to ECT 0.8.3.47 (g4a45c139e86). Thanks to przemoc.
 - Updated mp4v2 x86 and x64 to 4.0.1 Visual C++ 2017 custom builds.
 - Updated ImageMagick to 7.0.8.11 with HDRI support.
-- Updated pingo to 0.98.9 x64 version.
+- Updated pingo to 0.98.13 x64 version.
 - Updated ffmpeg to 4.0.2.
 - Updated mozjpegtran to 3.3.1-3 x86 and x64 binaries.
 - Updated to mutool 1.14 gfe8b5f20.
