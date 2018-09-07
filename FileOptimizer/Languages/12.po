@@ -181,7 +181,7 @@ msgstr "Activer l'optimisation dans les archives (optimisation récursive)."
 msgid "&Copy metadata"
 msgstr "&Copier les métadonnées"
 
-msgid "Copy file metadata. Else strip all unneded information."
+msgid "Copy file metadata. Else strip all unneeded information."
 msgstr "Copier les métadonnées de fichier. Sinon, toutes les informations inutiles sont supprimées."
 
 msgid "&ZIP"

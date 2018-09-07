@@ -180,7 +180,7 @@ msgstr "Schakel optimaliseren in archieven in (recursieve optimalisatie)."
 msgid "&Copy metadata"
 msgstr "&Kopieer metadata"
 
-msgid "Copy file metadata. Else strip all unneded information."
+msgid "Copy file metadata. Else strip all unneeded information."
 msgstr "Kopiëer bestands metadata. Verwijder anders alle onnodige informatie."
 
 msgid "&ZIP"

@@ -6,7 +6,7 @@
  3.45. 17/11/2017. FileOptimizer. Added DeleteRegistry, DeleteIni.
  3.44. 15/11/2017. FileOptimizer. Added SetRegistry for ints.
  3.43. 23/06/2017. FileOptimizer. Backported crc32 from Lamark.
- 3.42. 12/01/2017. FileOptimizer. Allow writting comments in .INI files
+ 3.42. 12/01/2017. FileOptimizer. Allow writing comments in .INI files
  3.41. 08/08/2016. FileOptimizer. Added ShutdownWindows
  3.40. 27/12/2015. FileOptimizer. Added GetWindowsVersion since GetVersion on Windows 8.1 or later do not work unless application is manifested
  3.30. 05/05/2015. FileOptimizer. Added 64 bit version of GetIni/SetIni. Added MemMem, CopyFile
@@ -599,7 +599,7 @@ bool __fastcall clsUtil::CopyFile(const TCHAR *pacSource, const TCHAR *pacDestin
 {
 	bool bRes;
 
-	//Try to delete file if existing before overwritting
+	//Try to delete file if existing before overwriting
 	DeleteFile(pacDestination);
 
 	//Try copying file with faster no buffering only available in Windows XP

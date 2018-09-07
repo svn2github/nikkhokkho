@@ -637,7 +637,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -741,7 +741,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -774,7 +774,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -815,7 +815,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -927,7 +927,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -946,7 +946,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -965,7 +965,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -984,7 +984,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -1081,7 +1081,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -1114,7 +1114,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -1133,7 +1133,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True
@@ -1173,7 +1173,7 @@ object frmOptions: TfrmOptions
         Top = 22
         Width = 281
         Height = 17
-        Hint = 'Copy file metadata. Else strip all unneded information.'
+        Hint = 'Copy file metadata. Else strip all unneeded information.'
         Caption = '&Copy metadata'
         ParentShowHint = False
         ShowHint = True

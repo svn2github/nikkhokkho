@@ -177,6 +177,7 @@ X.XX - YYYY
 - Fixed (hopefully) access violations caused by TWebBrowser on close in some system configurations (Tomas J Stehlik, mario lopez moreno).
 - Fixed shntool introduced in 12.90 being inconsistent in file extension management, which could cause 0 byte optimized files (Robert Berge, Peter S. #42).
 - Fixed "Miscelaneous" spelled as "Miscellaneous" in Options window and translations (JoeW).
+- Fixed some interface and help english typos (Armin Müller).
 - Tested with WINE 3 under macOS Sierra and High Sierra.
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
 - Updated Ghostscript to 9.24.

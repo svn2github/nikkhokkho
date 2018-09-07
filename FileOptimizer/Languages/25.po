@@ -160,7 +160,7 @@ msgstr "Включить оптимизацию внутри архивов (р�
 msgid "&Copy metadata"
 msgstr "Сохранить метаданные"
 
-msgid "Copy file metadata. Else strip all unneded information."
+msgid "Copy file metadata. Else strip all unneeded information."
 msgstr "Сохранить метаданные. Удалить, если не отмечено."
 
 msgid "&ZIP"

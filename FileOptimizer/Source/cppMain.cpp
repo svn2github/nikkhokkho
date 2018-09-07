@@ -72,8 +72,12 @@ void __fastcall TfrmMain::FormDestroy(TObject *Sender)
 	{
 		webAds->Stop();
 	}
-	delete webAds;
-	webAds = NULL;
+	//Fix TWebBrowser access violation on close
+	if (webAds)
+	{
+		delete webAds;
+		webAds = NULL;
+	}
 }
 
 
@@ -208,36 +212,36 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(Name.c_str(), _T("Col2Width"), grdFiles->ColWidths[KI_GRID_ORIGINAL]);
 	clsUtil::SetIni(Name.c_str(), _T("Col3Width"), grdFiles->ColWidths[KI_GRID_OPTIMIZED]);
 	clsUtil::SetIni(Name.c_str(), _T("Col4Width"), grdFiles->ColWidths[KI_GRID_STATUS]);
-	clsUtil::SetIni(_T("Options"), _T("BMPCopyMetadata"), gudtOptions.bBMPCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("BMPCopyMetadata"), gudtOptions.bBMPCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("CSSEnableTidy"), gudtOptions.bCSSEnableTidy, _T("Boolean. Default: false. Enable tidy. Results in smaller files, but can happen they are not editable anymore."));
 	clsUtil::SetIni(_T("Options"), _T("CSSTemplate"), gudtOptions.acCSSTemplate, _T("String. Default 'low'. Compression template, from safer and worse compression, to highest compression."));
 	clsUtil::SetIni(_T("Options"), _T("EXEDisablePETrim"), gudtOptions.bEXEDisablePETrim, _T("Boolean. Default: false. Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."));
 	clsUtil::SetIni(_T("Options"), _T("EXEEnableUPX"), gudtOptions.bEXEEnableUPX, _T("Boolean. Default: false. Enable UPX executable compression. When enabled, UPX will be used, resulting EXE and DLL size reduction at the cost of runtime decompression."));
-	clsUtil::SetIni(_T("Options"), _T("GIFCopyMetadata"), gudtOptions.bGIFCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("GIFCopyMetadata"), gudtOptions.bGIFCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("GIFAllowLossy"), gudtOptions.bGIFAllowLossy, _T("Boolean. Default: false. Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not."));
-	clsUtil::SetIni(_T("Options"), _T("GZCopyMetadata"), gudtOptions.bGZCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("GZCopyMetadata"), gudtOptions.bGZCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("HTMLEnableTidy"), gudtOptions.bHTMLEnableTidy, _T("Boolean. Default: false. Enable Tidy. Results in smaller files, but can happen they are not editable anymore. Note that this applies to both SVG and HTML file types."));
-	clsUtil::SetIni(_T("Options"), _T("JPEGCopyMetadata"), gudtOptions.bJPEGCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information"));
+	clsUtil::SetIni(_T("Options"), _T("JPEGCopyMetadata"), gudtOptions.bJPEGCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information"));
 	clsUtil::SetIni(_T("Options"), _T("JPEGUseArithmeticEncoding"), gudtOptions.bJPEGUseArithmeticEncoding, _T("Boolean. Default: false. Arithmetic encoding gives additional saving reductions, but is incompatible with most programs."));
 	clsUtil::SetIni(_T("Options"), _T("JPEGAllowLossy"), gudtOptions.bJPEGAllowLossy, _T("Boolean. Default: false. Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not."));
 	clsUtil::SetIni(_T("Options"), _T("JSEnableJSMin"), gudtOptions.bJSEnableJSMin, _T("Boolean. Default: false. Enable jsmin. Results in smaller files, but can happen they are not editable anymore."));
 	clsUtil::SetIni(_T("Options"), _T("JSAdditionalExtensions"), gudtOptions.acJSAdditionalExtensions, _T("String. Default: ''. Add extra extensions to be threated as JS/JSON."));
 	clsUtil::SetIni(_T("Options"), _T("LUAEnableLeanify"), gudtOptions.bLUAEnableLeanify, _T("Boolean. Default: false. Enable Leanify. Results in smaller files, but can happen they are not editable anymore."));
-	clsUtil::SetIni(_T("Options"), _T("MiscCopyMetadata"), gudtOptions.bMiscCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
-	clsUtil::SetIni(_T("Options"), _T("MP3CopyMetadata"), gudtOptions.bMP3CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
-	clsUtil::SetIni(_T("Options"), _T("MP4CopyMetadata"), gudtOptions.bMP4CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
-	clsUtil::SetIni(_T("Options"), _T("PCXCopyMetadata"), gudtOptions.bPCXCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("MiscCopyMetadata"), gudtOptions.bMiscCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
+	clsUtil::SetIni(_T("Options"), _T("MP3CopyMetadata"), gudtOptions.bMP3CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
+	clsUtil::SetIni(_T("Options"), _T("MP4CopyMetadata"), gudtOptions.bMP4CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
+	clsUtil::SetIni(_T("Options"), _T("PCXCopyMetadata"), gudtOptions.bPCXCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("PDFProfile"), gudtOptions.acPDFProfile, _T("String. Default 'none'. Compression profile, from less size, to best quality."));
 	clsUtil::SetIni(_T("Options"), _T("PDFCustomDPI"), gudtOptions.iPDFCustomDPI, _T("Number. Default: 150. When custom profile is choosen, it allows you to specify a custom DPI for downsampling images."));
 	clsUtil::SetIni(_T("Options"), _T("PDFSkipLayered"), gudtOptions.bPDFSkipLayered, _T("Boolean. Default: false. Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."));
-	clsUtil::SetIni(_T("Options"), _T("PNGCopyMetadata"), gudtOptions.bPNGCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("PNGCopyMetadata"), gudtOptions.bPNGCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("PNGAllowLossy"), gudtOptions.bPNGAllowLossy, _T("Boolean. Default: false. Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not."));
-	clsUtil::SetIni(_T("Options"), _T("TGACopyMetadata"), gudtOptions.bTGACopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
-	clsUtil::SetIni(_T("Options"), _T("TIFFCopyMetadata"), gudtOptions.bTIFFCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
-	clsUtil::SetIni(_T("Options"), _T("WAVCopyMetadata"), gudtOptions.bWAVCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("TGACopyMetadata"), gudtOptions.bTGACopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
+	clsUtil::SetIni(_T("Options"), _T("TIFFCopyMetadata"), gudtOptions.bTIFFCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
+	clsUtil::SetIni(_T("Options"), _T("WAVCopyMetadata"), gudtOptions.bWAVCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("WAVStripSilence"), gudtOptions.bWAVStripSilence, _T("Boolean. Default: false. Strip start and end silences if any."));
 	clsUtil::SetIni(_T("Options"), _T("XMLEnableLeanify"), gudtOptions.bXMLEnableLeanify, _T("Boolean. Default: false. Enable Leanify. Results in smaller files, but can happen they are not editable anymore."));
-	clsUtil::SetIni(_T("Options"), _T("ZIPCopyMetadata"), gudtOptions.bZIPCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneded information."));
+	clsUtil::SetIni(_T("Options"), _T("ZIPCopyMetadata"), gudtOptions.bZIPCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("ZIPRecurse"), gudtOptions.bZIPRecurse, _T("Boolean. Default: false. Enable optimization inside archives (recursive optimization)."));
 	clsUtil::SetIni(_T("Options"), _T("KeepAttributes"), gudtOptions.bKeepAttributes, _T("Boolean. Default: false. Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."));
 	clsUtil::SetIni(_T("Options"), _T("DoNotUseRecycleBin"), gudtOptions.bDoNotUseRecycleBin, _T("Boolean. Default: false. When checked original files will not be backed up in the system trashcan."));

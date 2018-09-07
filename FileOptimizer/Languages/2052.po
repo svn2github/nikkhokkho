@@ -147,7 +147,7 @@ msgstr "在壓縮檔中啟用優化(遞迴優化)。"
 msgid "&Copy metadata"
 msgstr "複製中繼資料(&C)"
 
-msgid "Copy file metadata. Else strip all unneded information."
+msgid "Copy file metadata. Else strip all unneeded information."
 msgstr "複製檔案中繼資料。除去所有不需要的資訊。"
 
 msgid "&ZIP"

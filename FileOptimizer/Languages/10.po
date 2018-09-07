@@ -148,7 +148,7 @@ msgstr "Habilite la optimización dentro de los archivos (optimización recursiv
 msgid "&Copy metadata"
 msgstr "&Copiar metadatos"
 
-msgid "Copy file metadata. Else strip all unneded information."
+msgid "Copy file metadata. Else strip all unneeded information."
 msgstr "Copiar metadatos de archivos De lo contrario, quite toda la información innecesaria."
 
 msgid "&ZIP"
