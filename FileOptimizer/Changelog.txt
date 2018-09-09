@@ -144,7 +144,7 @@ ndo
 - jpegoptim 1.4.6 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9b - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.218 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.219 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libdeflate 0.8 - https://github.com/ebiggers/libdeflate
 - libwebp 1.0.0 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
@@ -181,7 +181,7 @@ X.XX - YYYY
 - Tested with WINE 3 under macOS Sierra and High Sierra.
 - Updated chinese traditional translation. Thanks Danfong Hsieh.
 - Updated Ghostscript to 9.24.
-- Updated Leanify to 0.4.3.218 daily binaries.
+- Updated Leanify to 0.4.3.219 daily binaries.
 - Updated ECT x86 and x64 binaries to ECT 0.8.3.47 (g4a45c139e86). Thanks to przemoc.
 - Updated mp4v2 x86 and x64 to 4.0.1 Visual C++ 2017 custom builds.
 - Updated ImageMagick to 7.0.8.11 with HDRI support.
