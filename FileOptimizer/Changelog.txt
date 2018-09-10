@@ -173,6 +173,9 @@ ndo
 
 
 X.XX - YYYY
+
+
+13.20 - 2018/09/10
 - New HideInstructions=false INI setting to hide instructions pane on the top, and left more UI space available (Robert Berge).
 - Fixed (hopefully) access violations caused by TWebBrowser on close in some system configurations (Tomas J Stehlik, mario lopez moreno).
 - Fixed shntool introduced in 12.90 being inconsistent in file extension management, which could cause 0 byte optimized files (Robert Berge, Peter S. #42).
@@ -192,7 +195,6 @@ X.XX - YYYY
 - Updated UPX to 3.95.
 - Integrated with Synopsys Coverity Scan.
 - Some minor optimizations and code cleanup.
-
 
 13.10 - 2018/07/26
 - Fixed installer shortcuts pointing to Pluings32 or Plugin64 folders instead of where FO was installed (James Pous).
