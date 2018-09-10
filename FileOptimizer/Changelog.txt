@@ -155,7 +155,7 @@ ndo
 - mutool 1.14 (gfe8b5f20) - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.98.15 - http://css-ig.net/pingo
+- pingo 0.98.16 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.12.0 - http://www.pngquant.org
@@ -173,6 +173,7 @@ ndo
 
 
 X.XX - YYYY
+- Updated pingo to 0.98.16 x64 version.
 
 
 13.20 - 2018/09/10

@@ -15,13 +15,13 @@
 		$iCont++;
 
 		$iRnd = mt_rand(0, 100);
-		if ($iRnd < 5)
+		if ($iRnd < 50)
 		{
 			//ADX
 			//$sBanner = '<script async="async" src="//www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {}; googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericDFP2017", [728, 90], "div-gpt-ad-1506002846364-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1506002846364-' . $iCont . '" style="height:90px; width:728px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506002846364-' . $iCont . '"); });</script></div>';
 			$sBanner = '<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script><script>var googletag=googletag || {};  googletag.cmd=googletag.cmd || []; googletag.cmd.push(function() { googletag.defineSlot("/360613911/GenericosDFP2018", [728, 90], "div-gpt-ad-1523882324353-' . $iCont . '").addService(googletag.pubads()); googletag.pubads().set("page_url", "https://nikkhokkho.sourceforge.io/images/FileOptimizerAds.php"); googletag.pubads().enableSingleRequest(); googletag.enableServices(); });</script><div id="div-gpt-ad-1523882324353-' . $iCont . '"style="height:90px; width:728px;"><script>googletag.cmd.push(function() { googletag.display("div-gpt-ad-1523882324353-' . $iCont . '"); });</script></div>';
 		}
-		else if ($iRnd < 10)
+		else if ($iRnd < 100)
 		{
 			//Adsense 728x90
 			$sBanner = '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6958213404940013" data-ad-slot="6985177659"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
@@ -51,6 +51,29 @@
 		 	<meta http-equiv="Pragma" content="no-cache"/>
 	<?php
 		}
+		$iRnd = mt_rand(0, 100);
+		//Taboola
+		if ($iRnd > 30)
+		{
+			?>
+			<script type="text/javascript">window._taboola = window._taboola || []; _taboola.push({article:'auto'}); !function (e, f, u, i)
+				{
+					if (!document.getElementById(i))
+					{
+						e.async = 1;
+						e.src = u;
+						e.id = i;
+						f.parentNode.insertBefore(e, f);
+					}
+				}
+				(document.createElement('script'), document.getElementsByTagName('script')[0], '//cdn.taboola.com/libtrc/nikkhokkho/loader.js', 'tb_loader_script');
+				if(window.performance && typeof window.performance.mark == 'function')
+				{
+					window.performance.mark('tbl_ic');
+				}
+			</script>
+		<?php
+		}
 	?>
 	<base target="_blank"/>
 	<style type="text/css">
@@ -65,12 +88,22 @@
 <table border=0 cellspacing=0 cellpadding=0 width="100%">
 <tr height="<?php echo $iHeight; ?>">
 	<?php
-		$iBanners = 4;
-		for ($iBanner = 0; $iBanner < $iBanners; $iBanner++)
+		//Taboola
+		if ($iRnd > 30)
 		{
 	?>
-			<td valign="top"><?php echo GetBanner(); ?></td>
+			<td valign="top"><div id="taboola-below-article-thumbnails"></div><script type="text/javascript">window._taboola = window._taboola || []; _taboola.push({mode: 'thumbnails-a', container: 'taboola-below-article-thumbnails', placement: 'Below Article Thumbnails', target_type: 'mix'});</script></td>
 	<?php
+		}
+		else
+		{
+			$iBanners = 4;
+			for ($iBanner = 0; $iBanner < $iBanners; $iBanner++)
+			{
+	?>
+				<td valign="top"><?php echo GetBanner(); ?></td>
+	<?php
+			}
 		}
 	?>
 </tr>
