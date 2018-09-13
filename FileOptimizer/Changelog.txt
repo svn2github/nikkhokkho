@@ -8,8 +8,6 @@
 
 - Move TruePNG at beggining: https://sourceforge.net/p/nikkhokkho/discussion/fileoptimizer/thread/956e7706/?limit=25
 
-- Crash en Release x86
-
 - Move PNG plugins that are expensive in time, to execute only in level 7 or higher.
 
 - Would it be possible for you to add a command line flag to hide the window and just return a 0 or 1 whether the provided file(s) have completed the operations? (Devedse)
