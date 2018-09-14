@@ -84,7 +84,7 @@
 	</style>
 </head>
 	
-<body leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0>
+<body oncontextmenu="javascript:return(false);" leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0 marginwidth=0 marginheight=0>
 <table border=0 cellspacing=0 cellpadding=0 width="100%">
 <tr height="<?php echo $iHeight; ?>">
 	<?php
