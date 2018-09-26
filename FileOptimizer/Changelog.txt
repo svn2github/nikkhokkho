@@ -133,7 +133,7 @@ ndo
 - flexiGIF 2018.09a - https://create.stephan-brumme.com/flexigif-lossless-gif-lzw-optimization/
 - Gifsicle 1.91 - http://www.lcdf.org/gifsicle/
 - Gifsicle Lossy 1.91 - https://kornel.ski/lossygif
-- Ghostscript 9.24 - http://www.ghostscript.com
+- Ghostscript 9.25 - http://www.ghostscript.com
 - GNU Strip 2.30 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
 - ImageMagick 7.0.8.11 - http://www.imagemagick.org
@@ -154,7 +154,7 @@ ndo
 - mutool 1.14 (gfe8b5f20) - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
-- pingo 0.98.16 - http://css-ig.net/pingo
+- pingo 0.98.24 - http://css-ig.net/pingo
 - PngOptimizer 2.5 - http://psydk.org/PngOptimizer
 - PNGOUT 02/13/2015 - http://advsys.net/ken/utils.htm
 - pngquant 2.12.0 - http://www.pngquant.org
@@ -174,7 +174,8 @@ ndo
 X.XX - YYYY
 - Added flexiGIF for GIF toolchain.
 - Updated SQLite to 3.25.0 x86 and x64 Visual C++ 2017 custom builds.
-- Updated pingo to 0.98.16 x64 version.
+- Updated Ghostscript to 9.25.
+- Updated pingo to 0.98.24 x64 version.
 
 
 13.20 - 2018/09/10
