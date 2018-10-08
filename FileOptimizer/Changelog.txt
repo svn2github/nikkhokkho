@@ -151,7 +151,7 @@ ndo
 - mozjpeg 3.3.1-3 - https://github.com/garyzyg/mozjpeg-windows/
 - MP3packer 2.04 - http://omion.dyndns.org/mp3packer/mp3packer.html
 - mp4v2 4.0.1 - https://github.com/TechSmith/mp4v2
-- mutool 1.14 (gfe8b5f20) - http://mupdf.com/downloads/
+- mutool 1.14 - http://mupdf.com/downloads/
 - OptiPNG 0.7.7 - http://optipng.sourceforge.net
 - PETrim 4.00 beta - http://pecompact.com/pesuite.php
 - pingo 0.98.31 - http://css-ig.net/pingo
@@ -177,6 +177,7 @@ X.XX - YYYY
 - Updated pingo to 0.98.31 x64 version.
 - Updated Ghostscript to 9.25.
 - Updated ImageMagick to 7.0.8.12 with HDRI support.
+- Updated to mutool 1.14.
 
 
 13.20 - 2018/09/10
