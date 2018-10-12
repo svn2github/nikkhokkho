@@ -2305,14 +2305,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 
 		if (gudtOptions.bKeepAttributes)
 		{
-			if (iFileAttributes != INVALID_FILE_ATTRIBUTES)
-			{
-				SetFileAttributes(clsUtil::GetShortName(sInputFile).c_str(), iFileAttributes);
-			}
 			//Restore timestamp if we were able to get it
 			if ((udtFileCreated.dwLowDateTime != 0) && (udtFileCreated.dwHighDateTime != 0))
 			{
 				clsUtil::SetFileTimestamp(sInputFile.c_str(), &udtFileCreated, &udtFileAccessed, &udtFileModified);
+			}
+			if (iFileAttributes != INVALID_FILE_ATTRIBUTES)
+			{
+				SetFileAttributes(clsUtil::GetShortName(sInputFile).c_str(), iFileAttributes);
 			}
 		}
 
