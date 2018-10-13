@@ -1,6 +1,7 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
- 3.50. 15/12/2018. FileOptimizer. Added DeleteFile, GetShortName. Do most operations internally using them
+ 3.51. 13/10/2018. FileOptimizer. Added RenameFile
+ 3.50. 15/12/2017. FileOptimizer. Added DeleteFile, GetShortName. Do most operations internally using them
  3.47. 22/11/2017. FileOptimizer. Added EscapeIniValue, UnescapeIniValue, EscapeIniKey, UnescapeIniKey.
  3.46. 21/11/2017. FileOptimizer. Added GetRegistryPath.
  3.45. 17/11/2017. FileOptimizer. Added DeleteRegistry, DeleteIni.
@@ -323,6 +324,13 @@ bool __fastcall clsUtil::ExistsFile(const TCHAR *pacFile)
 	return (iAttributes != INVALID_FILE_ATTRIBUTES);
 }
 
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+bool __fastcall clsUtil::RenameFile(const TCHAR *pacOldName, const TCHAR *pacNewName)
+{
+	 return(MoveFileEx(GetShortName((String) pacOldName).c_str()), pacNewName, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH);
+}
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
