@@ -2648,7 +2648,10 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	}
 	else
 	{
-		GetTempPath((sizeof(acTempPath) / sizeof(TCHAR)) - 1, acTempPath);
+		if (!GetTempPath((sizeof(acTempPath) / sizeof(TCHAR)) - 1, acTempPath))
+		{
+			memset(acTempPath, sizeof(acTempPath) / sizeof(TCHAR), 0);
+		}
 	}
 
 	//Create temporary directory just in case it did not existed

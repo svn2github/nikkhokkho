@@ -213,7 +213,6 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 		SetCurrentDirectory(acProgramDirectory);
 	}
 
-	unsigned int iIndex = 2;
 	WIN32_FIND_DATA udtFindFileData;
 	HANDLE hFindFile = FindFirstFile(_T("*.po"), &udtFindFileData);
 	if (hFindFile != INVALID_HANDLE_VALUE)
@@ -227,6 +226,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 			char *pcStart = strstr(acBuffer, "\"Language Name:");
 			if (pcStart)
 			{
+				unsigned int iIndex = 2;
 				char *pcEnd = strstr(pcStart + 15, "\"");
 				if (pcEnd)
 				{
