@@ -329,7 +329,7 @@ bool __fastcall clsUtil::ExistsFile(const TCHAR *pacFile)
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool __fastcall clsUtil::RenameFile(const TCHAR *pacNewName, const TCHAR *pacOldName)
 {
-	 return(MoveFileEx(GetShortName((String) pacOldName).c_str()), pacNewName, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH);
+	return(MoveFileEx(GetShortName((String) pacOldName).c_str(), pacNewName, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH));
 }
 
 
@@ -1324,7 +1324,7 @@ bool __fastcall clsUtil::CopyToRecycleBin(const TCHAR *pacSource)
 	if (iRes == 0)
 	{
 		DeleteFile(acSource);
-		RenameFile(acDestination, acSource);
+		RenameFile(acSource, acDestination);
 		DeleteFile(acDestination);
 		return (true);
 	}
