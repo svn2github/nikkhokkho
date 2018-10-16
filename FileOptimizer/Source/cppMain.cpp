@@ -1404,7 +1404,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			if (!gudtOptions.bGIFCopyMetadata)
 			{
 				sFlags = "";
-				if (gudtOptions.iLevel >= 5)
+				if (gudtOptions.iLevel >= 8)
 				{
 					sFlags += "-p ";
 				}
