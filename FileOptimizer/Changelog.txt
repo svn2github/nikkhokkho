@@ -132,7 +132,7 @@ ndo
 - FLAC 1.3.2 - https://xiph.org/flac/
 - FLACOUT 07/03/2014 - http://advsys.net/ken/utils.htm
 - Flasm 1.62 - http://flasm.sourceforge.net
-- flexiGIF 2018.09b - https://create.stephan-brumme.com/flexigif-lossless-gif-lzw-optimization/
+- flexiGIF 2018.10a - https://create.stephan-brumme.com/flexigif-lossless-gif-lzw-optimization/
 - Gifsicle 1.91 - http://www.lcdf.org/gifsicle/
 - Gifsicle Lossy 1.91 - https://kornel.ski/lossygif
 - Ghostscript 9.25 - http://www.ghostscript.com
@@ -174,6 +174,7 @@ ndo
 
 
 X.XX - YYYY
+- Updated flexiGIF to 2018.10a.
 - Updated Leanify to 0.4.3.222 daily binaries.
 - Some minor optimizations and code cleanup.
 
