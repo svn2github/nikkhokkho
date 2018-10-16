@@ -183,7 +183,7 @@ msgstr "跳過分層(&S)"
 msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
 msgstr "跳過處理包含分層物件的 PDF 檔案。產生更大尺寸的更相容檔案。"
 
-msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgid "When custom profile is chosen, it allows you to specify a custom DPI for downsampling images"
 msgstr "當選擇自訂設定檔時，它允許您指定用於降低取樣圖像的自訂 DPI"
 
 msgid "Compression profile, from less size, to best quality."

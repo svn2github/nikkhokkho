@@ -216,7 +216,7 @@ msgstr "&Sla gelaagde over"
 msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
 msgstr "Verwerken van PDF-bestanden met objecten in lagen overslaan. Geeft grotere, beter compatibele bestanden."
 
-msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgid "When custom profile is chosen, it allows you to specify a custom DPI for downsampling images"
 msgstr "Met een aangepast profiel geselecteerd, kan u een aangepaste DPI specifiëren om afbeeldingen te verkleinen"
 
 msgid "Compression profile, from less size, to best quality."

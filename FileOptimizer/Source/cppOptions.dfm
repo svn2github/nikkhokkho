@@ -1045,7 +1045,7 @@ object frmOptions: TfrmOptions
         Width = 50
         Height = 22
         Hint = 
-          'When custom profile is choosen, it allows you to specify a custo' +
+          'When custom profile is chosen, it allows you to specify a custo' +
           'm DPI for downsampling images'
         Increment = 50
         MaxValue = 3000

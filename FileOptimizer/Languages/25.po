@@ -196,7 +196,7 @@ msgstr "Пропускать многослойные"
 msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
 msgstr "Пропустить обработку PDF с многослойными объектами. Больший размер, но лучше совместимость."
 
-msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgid "When custom profile is chosen, it allows you to specify a custom DPI for downsampling images"
 msgstr "В пользовательском профиле можно указать свой DPI для изображений."
 
 msgid "Compression profile, from less size, to best quality."

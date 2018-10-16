@@ -183,7 +183,7 @@ msgstr "&Ebenen überspringen"
 msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
 msgstr "Überspringe die Verarbeitung von PDF-Dateien, welche Ebenen-Objekte enthalten. Dies ergibt kompatiblere Dateien mit höherer Dateigröße."
 
-msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgid "When custom profile is chosen, it allows you to specify a custom DPI for downsampling images"
 msgstr "Wenn ein benutzerdefiniertes Profil ausgewählt ist, können Sie eine benutzerdefinierte DPI für das Downsampling von Bildern festlegen"
 
 msgid "Compression profile, from less size, to best quality."

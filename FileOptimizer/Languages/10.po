@@ -184,7 +184,7 @@ msgstr "&Saltar en capas"
 msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
 msgstr "Omite el procesamiento de archivos PDF que contienen objetos en capas. Resultados en más archivos compatibles con mayor tamaño."
 
-msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgid "When custom profile is chosen, it allows you to specify a custom DPI for downsampling images"
 msgstr "Cuando se elige un perfil personalizado, le permite especificar un DPI personalizado para imágenes de baja resolución de muestreo"
 
 msgid "Compression profile, from less size, to best quality."

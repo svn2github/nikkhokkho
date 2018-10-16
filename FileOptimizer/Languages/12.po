@@ -217,7 +217,7 @@ msgstr "&Ignorer si calques"
 msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
 msgstr "Ignorer le traitement des fichiers PDF contenant des calques d'objets. Produit des fichiers plus compatibles mais avec une taille plus élevée."
 
-msgid "When custom profile is choosen, it allows you to specify a custom DPI for downsampling images"
+msgid "When custom profile is chosen, it allows you to specify a custom DPI for downsampling images"
 msgstr "Lorsque le profil Personnalisé est choisi, vous pouvez spécifier la valeur de DPI à utiliser pour sous-échantillonner les images"
 
 msgid "Compression profile, from less size, to best quality."
