@@ -2650,7 +2650,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	{
 		if (!GetTempPath((sizeof(acTempPath) / sizeof(TCHAR)) - 1, acTempPath))
 		{
-			memset(acTempPath, 0, sizeof(acTempPath);
+			memset(acTempPath, 0, sizeof(acTempPath));
 		}
 	}
 

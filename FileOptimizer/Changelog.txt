@@ -178,6 +178,7 @@ X.XX - YYYY
 - Updated pingo to 0.98.35 x64 version.
 - Updated Leanify to 0.4.3.222 daily binaries.
 - Some minor optimizations and code cleanup.
+- Updated to cppcheck 1.85.
 
 
 13.30 - 2018/10/15

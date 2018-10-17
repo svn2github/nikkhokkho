@@ -217,6 +217,7 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	HANDLE hFindFile = FindFirstFile(_T("*.po"), &udtFindFileData);
 	if (hFindFile != INVALID_HANDLE_VALUE)
 	{
+		unsigned int iIndex = 2;
 		do
 		{
 			char acBuffer[2048];
@@ -226,7 +227,6 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 			char *pcStart = strstr(acBuffer, "\"Language Name:");
 			if (pcStart)
 			{
-				unsigned int iIndex = 2;
 				char *pcEnd = strstr(pcStart + 15, "\"");
 				if (pcEnd)
 				{
