@@ -58,7 +58,7 @@
         <VerInfo_MajorVer>13</VerInfo_MajorVer>
         <VerInfo_MinorVer>3</VerInfo_MinorVer>
         <VerInfo_Build>2393</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=13.3.0.2393;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=File Optimizer;ProductVersion=13.3.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Javier Gutiérrez Chamorro (Guti);FileDescription=Lossless file size optimizer;FileVersion=13.3.0.2393;InternalName=FileOptimizer;LegalCopyright=© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti);LegalTrademarks=© Copyright 2012-2018 by Javier Gutiérrez Chamorro (Guti);OriginalFilename=FileOptimizer.exe;ProductName=FileOptimizer;ProductVersion=13.3.0.0;Comments=Get more info at http://www.javiergutierrezchamorro.com</VerInfo_Keys>
         <BCC_PCHCache>true</BCC_PCHCache>
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
