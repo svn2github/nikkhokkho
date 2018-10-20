@@ -139,7 +139,7 @@ ndo
 - GNU Strip 2.30 - https://sourceforge.net/projects/mingw-w64/
 - Guetzli 1.0.1 - https://github.com/google/guetzli
 - ImageMagick 7.0.8.12 - http://www.imagemagick.org
-- ImageWorsener 1.3.2 - http://entropymine.com/imageworsener
+- ImageWorsener 1.3.3 - http://entropymine.com/imageworsener
 - jhead 3.00 - http://www.sentex.net/~mwandel/jhead/
 - jpeg-archive 2.1.1 - https://github.com/danielgtaylor/jpeg-archive
 - jpegoptim 1.4.6 - http://www.kokkonen.net/tjko/projects.html
@@ -175,6 +175,7 @@ ndo
 
 X.XX - YYYY
 - Updated flexiGIF to 2018.10a.
+- Updated ImageWorsener to 1.3.3.
 - Updated pingo to 0.98.35 x64 version.
 - Updated Leanify to 0.4.3.222 daily binaries.
 - Some minor optimizations and code cleanup.
