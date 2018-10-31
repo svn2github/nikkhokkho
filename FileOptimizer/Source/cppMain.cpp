@@ -1490,12 +1490,14 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		// ICO: ImageMagick, Leanify
 		if (PosEx(sExtensionByContent, KS_EXTENSION_ICO) > 0)
 		{
+			/*
 			sFlags = "";
 			if (!gudtOptions.bPNGCopyMetadata)
 			{
 				sFlags += "-strip ";
 			}
 			RunPlugin((unsigned int) iCount, "ImageMagick (1/2)", (sPluginsDirectory + "magick.exe convert \"%INPUTFILE%\" -quiet -compress ZIP " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			*/
 
 			if (gudtOptions.bPNGCopyMetadata)
 			{
