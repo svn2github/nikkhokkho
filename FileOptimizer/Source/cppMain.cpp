@@ -1404,10 +1404,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			if (!gudtOptions.bGIFCopyMetadata)
 			{
 				sFlags = "";
-				if (gudtOptions.iLevel >= 8)
+				/*if (gudtOptions.iLevel >= 8)
 				{
 					sFlags += "-p ";
-				}
+				}*/
 				RunPlugin((unsigned int) iCount, "flexiGIF (4/4)", (sPluginsDirectory + "flexiGIF.exe -q " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
 		}
