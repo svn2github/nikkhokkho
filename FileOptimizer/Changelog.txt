@@ -177,6 +177,7 @@ X.XX - YYYY
 - You can support FileOptimizer at Patreon (https://patreon.com/user?u=14590326).
 - Removed -p switch in FlexiGIF because it is very slow (Edward Truong).
 - Removed ImageMagick from the ICO tool chain because it causes some lossy artifacts (Pepper Andrino).
+- Fixed TruePNG reducing bit-depth (Devedse #58).
 - Updated flexiGIF to 2018.10b (Edward Truong).
 - Updated ImageWorsener to 1.3.3.
 - Updated pingo to 0.98.35 x64 version.

@@ -1882,13 +1882,13 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					}
 					else
 					{
-						sFlags += "-tz -md remove all -g0 ";
+						sFlags += "-tz -md remove all -a1 -g1 ";
 					}
 					if (gudtOptions.bPNGAllowLossy)
 					{
 						sFlags += "-l ";
 					}
-					RunPlugin((unsigned int) iCount, "TruePNG (4/16)", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+					RunPlugin((unsigned int) iCount, "TruePNG (4/16)", (sPluginsDirectory + "truepng.exe " + sFlags + "/i0 /nc /tz /quiet /y /out \"%TMPOUTPUTFILE%\" \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 				}
 
 				sFlags = "";
