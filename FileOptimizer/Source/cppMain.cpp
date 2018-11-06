@@ -142,6 +142,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bBeepWhenDone = GetOption(_T("Options"), _T("BeepWhenDone"), false);
 	gudtOptions.bShutdownWhenDone = GetOption(_T("Options"), _T("ShutdownWhenDone"), false);
 	gudtOptions.bAlwaysOnTop = GetOption(_T("Options"), _T("AlwaysOnTop"), false);
+	gudtOptions.bDebug = GetOption(_T("Options"), _T("Debug"), false);
 	gudtOptions.bShowToolBar = GetOption(_T("Options"), _T("ShowToolBar"), false);
 
     //Show ads
@@ -255,6 +256,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("ShutdownWhenDone"), gudtOptions.bShutdownWhenDone, _T("Boolean. Default: false. Shutdown computer when optimization completes."));
 	clsUtil::SetIni(_T("Options"), _T("AlwaysOnTop"), gudtOptions.bAlwaysOnTop, _T("Boolean. Default: false. Show main window always on top."));
 	clsUtil::SetIni(_T("Options"), _T("ShowToolBar"), gudtOptions.bShowToolBar, _T("Boolean. Default: false. Show icons toolbar on main window."));
+	clsUtil::SetIni(_T("Options"), _T("Debug"), gudtOptions.bDebug, _T("Boolean. Default: false. Enable internal debugging mode. Temporary files will not be deleted."));
 	clsUtil::SetIni(_T("Options"), _T("HideAds"), gudtOptions.bHideAds, _T("Boolean. Default: false. Hide ads from being displayed."));
 	clsUtil::SetIni(_T("Options"), _T("AllowDuplicates"), gudtOptions.bAllowDuplicates, _T("Boolean. Default: false. Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."));
 	clsUtil::SetIni(_T("Options"), _T("AllowMultipleInstances"), gudtOptions.bAllowMultipleInstances, _T("Boolean. Default: false. Allow having more than one FileOptimizer instance. If not, a warning will appear."));
@@ -1318,7 +1320,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
 				}
-				clsUtil::DeleteFile(sTmpOutputFile.c_str());
+				if (!gudtOptions.bDebug)
+				{
+					clsUtil::DeleteFile(sTmpOutputFile.c_str());
+				}
 				if (gudtOptions.bWAVStripSilence)
 				{
 					sTmpOutputFile = ReplaceStr(sInputFile, ".flac", "-trimmed.flac");
@@ -1334,7 +1339,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 						clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 						grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
 					}
-					clsUtil::DeleteFile(sTmpOutputFile.c_str());
+					if (!gudtOptions.bDebug)
+					{			
+						clsUtil::DeleteFile(sTmpOutputFile.c_str());
+					}
 				}
 			}
 
@@ -1830,7 +1838,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 							clsUtil::CopyFile(acTmpFilePdf, sInputFile.c_str());
 						}
 					}
-					clsUtil::DeleteFile(acTmpFilePdf);
+					if (!gudtOptions.bDebug)
+					{
+						clsUtil::DeleteFile(acTmpFilePdf);
+					}
 				}
 					
 				RunPlugin((unsigned int) iCount, "cpdf (3/3)", (sPluginsDirectory + "cpdf.exe -squeeze \"%INPUTFILE%\" -o \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
@@ -2023,11 +2034,17 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			String sTmpOutputFile = ReplaceStr(sInputFile, ".swf", ".$wf");
 			RunPlugin((unsigned int) iCount, "flasm (1/5)", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
-			clsUtil::DeleteFile(sTmpOutputFile.c_str());
+			if (!gudtOptions.bDebug)
+			{
+				clsUtil::DeleteFile(sTmpOutputFile.c_str());
+			}
 
 			RunPlugin((unsigned int) iCount, "flasm (2/5)", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
-			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
+			if (!gudtOptions.bDebug)
+			{
+				clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
+			}
 
 			RunPlugin((unsigned int) iCount, "flasm (3/5)", (sPluginsDirectory + "flasm.exe -z \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
@@ -2035,7 +2052,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 				grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
 			}
-			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
+			if (!gudtOptions.bDebug)
+			{	
+				clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
+			}
 
 			RunPlugin((unsigned int) iCount, "zRecompress (4/5)", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
@@ -2155,7 +2175,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 					grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
 				}
-				clsUtil::DeleteFile(sTmpOutputFile.c_str());
+				if (!gudtOptions.bDebug)
+				{
+					clsUtil::DeleteFile(sTmpOutputFile.c_str());
+				}
 				if (gudtOptions.bWAVStripSilence)
 				{
 					sTmpOutputFile = ReplaceStr(sInputFile, ".wav", "-trimmed.wav");
@@ -2171,7 +2194,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 						clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 						grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
 					}
-					clsUtil::DeleteFile(sTmpOutputFile.c_str());
+					if (!gudtOptions.bDebug)
+					{
+						clsUtil::DeleteFile(sTmpOutputFile.c_str());
+					}
 				}
 			}
 		}
@@ -2215,7 +2241,10 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 					clsUtil::CopyFile(acTmpFileWebp, sInputFile.c_str());
 				}
 			}
-			clsUtil::DeleteFile(acTmpFileWebp);
+			if (!gudtOptions.bDebug)
+			{
+				clsUtil::DeleteFile(acTmpFileWebp);
+			}
 
 			//RunPlugin((unsigned int) iCount, "ImageWorsener", (sPluginsDirectory + "imagew.exe -noresize -zipcmprlevel 9 \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
@@ -2665,8 +2694,11 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 
 	sTmpOutputFile = (String) acTempPath + Application->Name + "_Output_" + (String) iRandom + "_" + ExtractFileName(sInputFile);
 
-	clsUtil::DeleteFile(sTmpInputFile.c_str());
-	clsUtil::DeleteFile(sTmpOutputFile.c_str());
+	if (!gudtOptions.bDebug)
+	{
+		clsUtil::DeleteFile(sTmpInputFile.c_str());
+		clsUtil::DeleteFile(sTmpOutputFile.c_str());
+	}
 
 	//Required indirection
 	String sCaption;
@@ -2732,8 +2764,11 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		iError = -9999;
 	}
 
-	clsUtil::DeleteFile(sTmpInputFile.c_str());
-	clsUtil::DeleteFile(sTmpOutputFile.c_str());
+	if (!gudtOptions.bDebug)
+	{
+		clsUtil::DeleteFile(sTmpInputFile.c_str());
+		clsUtil::DeleteFile(sTmpOutputFile.c_str());
+	}
 
 	if ((lSizeNew <= 8) || (lSizeNew >= lSize))
 	{

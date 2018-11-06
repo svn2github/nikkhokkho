@@ -141,6 +141,7 @@ struct udtOptions
 	int iPNGWolfIterations;
 	int iLanguage;
 	int iStartupDelay;
+	bool bDebug;
 	bool bHideAds;
 	bool bShowToolBar;
 	TCHAR acVersion[16];
