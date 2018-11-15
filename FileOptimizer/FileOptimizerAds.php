@@ -53,7 +53,7 @@
 		}
 		$iRnd = mt_rand(0, 100);
 		//Taboola
-		if ($iRnd > 90)
+		if ($iRnd > 100)
 		{
 			?>
 			<script type="text/javascript">window._taboola = window._taboola || []; _taboola.push({article:'auto'}); !function (e, f, u, i)
@@ -89,7 +89,7 @@
 <tr height="<?php echo $iHeight; ?>">
 	<?php
 		//Taboola
-		if ($iRnd > 90)
+		if ($iRnd > 100)
 		{
 	?>
 			<td valign="top"><div id="taboola-below-article-thumbnails"></div><script type="text/javascript">window._taboola = window._taboola || []; _taboola.push({mode: 'thumbnails-a', container: 'taboola-below-article-thumbnails', placement: 'Below Article Thumbnails', target_type: 'mix'});</script></td>
@@ -97,7 +97,7 @@
 		}
 		else
 		{
-			$iBanners = 4;
+			$iBanners = 3;
 			for ($iBanner = 0; $iBanner < $iBanners; $iBanner++)
 			{
 	?>
@@ -114,8 +114,7 @@ It keeps the behavior of the file untouched, but with its size reduced thanks to
 
 	
 <!--<iframe src="//mediacpm.pl/serve/show.php?a=19114&b=728x90" width="728" height="90" frameBorder="0" scrolling="no" marginwidth="0" marginheight="0" sandbox="allow-same-origin allow-scripts allow-top-navigation allow-forms allow-modals"></iframe><br><br>-->
-<?php echo $sSearch; ?>
-	
+<?php echo $sSearch; ?><br/><br/>
 <a href="/">Back to home</a>
 
 </body>
