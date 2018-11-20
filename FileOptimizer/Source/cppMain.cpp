@@ -2034,17 +2034,11 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			String sTmpOutputFile = ReplaceStr(sInputFile, ".swf", ".$wf");
 			RunPlugin((unsigned int) iCount, "flasm (1/5)", (sPluginsDirectory + "flasm.exe -x \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
-			if (!gudtOptions.bDebug)
-			{
-				clsUtil::DeleteFile(sTmpOutputFile.c_str());
-			}
+			clsUtil::DeleteFile(sTmpOutputFile.c_str());
 
 			RunPlugin((unsigned int) iCount, "flasm (2/5)", (sPluginsDirectory + "flasm.exe -u \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
-			if (!gudtOptions.bDebug)
-			{
-				clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
-			}
+			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
 			RunPlugin((unsigned int) iCount, "flasm (3/5)", (sPluginsDirectory + "flasm.exe -z \"%INPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			if (clsUtil::SizeFile(sTmpOutputFile.c_str()) < ParseNumberThousand(grdFiles->Cells[KI_GRID_OPTIMIZED][iCount]))
@@ -2052,10 +2046,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				clsUtil::CopyFile(sTmpOutputFile.c_str(), sInputFile.c_str());
 				grdFiles->Cells[KI_GRID_OPTIMIZED][(int) iCount] = FormatNumberThousand(clsUtil::SizeFile(sInputFile.c_str()));
 			}
-			if (!gudtOptions.bDebug)
-			{	
-				clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
-			}
+			clsUtil::DeleteFile(ReplaceStr(sInputFile, ".swf", ".$wf").c_str());
 
 			RunPlugin((unsigned int) iCount, "zRecompress (4/5)", (sPluginsDirectory + "zRecompress.exe -tswf-lzma \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 
