@@ -136,3 +136,10 @@ int WINAPI _tWinMain(HINSTANCE phInstance, HINSTANCE phPrevInstance, LPTSTR pacC
 	}
 	return (0);
 }
+
+
+//---------------------------------------------------------------------------
+#include <io.h>
+
+
+

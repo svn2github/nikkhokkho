@@ -1416,7 +1416,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 				{
 					sFlags += "-p ";
 				}*/
-				RunPlugin((unsigned int) iCount, "flexiGIF (4/4)", (sPluginsDirectory + "flexiGIF.exe -q " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+				//RunPlugin((unsigned int) iCount, "flexiGIF (4/4)", (sPluginsDirectory + "flexiGIF.exe -q " + sFlags + "\"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
 		}
 		// GZ: Libdeflate, Leanify, ect, advdef, zRecompress, deflopt, defluff, deflopt

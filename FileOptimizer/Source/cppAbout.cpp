@@ -72,7 +72,7 @@ void __fastcall TfrmAbout::FormCreate(TObject *Sender)
 	#elif ((__BORLANDC__ >= 0x0730) && (__BORLANDC__ <= 0x0739))
 		imgAbout->Hint = "Embarcadero C++ Builder 10.2 Tokyo";
 	#elif ((__BORLANDC__ >= 0x0740) && (__BORLANDC__ <= 0x0749))
-		imgAbout->Hint = "Embarcadero C++ Builder 10.3";
+		imgAbout->Hint = "Embarcadero C++ Builder 10.3 Rio";
 	#elif ((__BORLANDC__ >= 0x0750) && (__BORLANDC__ <= 0x0759))
 		imgAbout->Hint = "Embarcadero C++ Builder 10.4";
 	#else
