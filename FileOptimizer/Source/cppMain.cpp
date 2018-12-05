@@ -53,13 +53,14 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	UpdateTheme();
 	FormResize(Sender);
 	
-	if (StrStrI(GetCommandLine(), _T("/NOWINDOW")) != NULL)
-	{
-		Visible = false;
-	}	
 	SetPriorityClass(GetCurrentProcess(), (unsigned long) gudtOptions.iProcessPriority);
 
 	actClearExecute(Sender);
+
+	if (StrStrI(GetCommandLine(), _T("/NOWINDOW")) != NULL)
+	{
+		Visible = false;
+	}
 
 	//GetSystemInfo(&gudtSystemInfo);
 }
