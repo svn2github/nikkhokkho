@@ -829,19 +829,23 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	}
 	iEndTicks = GetTickCount();
 
-	//Required indirection
-	String sCaption;
 
-	TCHAR acTime[64];
-	StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1);
-	
-	sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%). Elapsed time %s")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str(), acTime);
-	stbMain->Panels->Items[0]->Text = sCaption;
+	if (Visible)
+	{
+		//Required indirection
+		String sCaption;
 
-	stbMain->Hint = stbMain->Panels->Items[0]->Text;
-	Caption = stbMain->Hint + " - " + Application->Name;
-	Application->Title = Caption;	
-	RefreshStatus(false);
+		TCHAR acTime[64];
+		StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1);
+		
+		sCaption.printf(_(_T("%s files processed. %s bytes saved (%s%%). Elapsed time %s")), FormatNumberThousand(iCount - 1).c_str(), FormatNumberThousand(lSavedBytes).c_str(), FormatNumberThousand(iPercentBytes).c_str(), acTime);
+		stbMain->Panels->Items[0]->Text = sCaption;
+
+		stbMain->Hint = stbMain->Panels->Items[0]->Text;
+		Caption = stbMain->Hint + " - " + Application->Name;
+		Application->Title = Caption;	
+		RefreshStatus(false);
+	}
 
 	if (gudtOptions.bBeepWhenDone)
 	{	
