@@ -57,11 +57,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 
 	actClearExecute(Sender);
 
-	if (StrStrI(GetCommandLine(), _T("/NOWINDOW")) != NULL)
-	{
-		Visible = false;
-	}
-
 	//GetSystemInfo(&gudtSystemInfo);
 }
 
@@ -3556,7 +3551,7 @@ void __fastcall TfrmMain::UpdateTheme(void)
 	tooMain->Visible = gudtOptions.bShowToolBar;
 
 	UpdateAds();
-
+	
 	//Reenable form updates
 	LockWindowUpdate(NULL);
 }
@@ -3568,7 +3563,13 @@ void __fastcall TfrmMain::RefreshStatus(bool pbUpdateStatusBar, unsigned int piC
 	//Prevent flickering
 	//LockWindowUpdate(Handle);
 
-    //ProcessMessages is required before changing DragAcceptFiles
+	//ProcessMessages is required before changing DragAcceptFiles
+	if (StrStrI(GetCommandLine(), _T("/NOWINDOW")) != NULL)
+	{
+		Hide();
+	}
+
+
 	Application->ProcessMessages();
 
 	if (gbProcess)
