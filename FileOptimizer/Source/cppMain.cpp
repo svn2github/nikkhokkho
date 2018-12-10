@@ -1090,7 +1090,7 @@ void __fastcall TfrmMain::actOptimizeForThread(TObject *Sender, int AIndex, TPar
 void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 {
 	int iCount = AIndex;
-	unsigned int iStartTicks, iEndTicks;
+	//unsigned int iStartTicks, iEndTicks;
 	FILETIME udtFileCreated, udtFileAccessed, udtFileModified;
 	String sInputFile, sFlags;
 
