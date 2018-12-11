@@ -1,8 +1,8 @@
 [Stats]
 <<<<<<< .mine
-EditorSecs=130984
+EditorSecs=131004
 <<<<<<< .mine
-DesignerSecs=7119
+DesignerSecs=7122
 ||||||| .r1365
 DesignerSecs=7064
 =======
@@ -18,8 +18,8 @@ DesignerSecs=6659
 InspectorSecs=4912
 <<<<<<< .mine
 <<<<<<< .mine
-CompileSecs=32436218
-OtherSecs=39002
+CompileSecs=32485418
+OtherSecs=39029
 ||||||| .r1365
 CompileSecs=31772057
 OtherSecs=37858

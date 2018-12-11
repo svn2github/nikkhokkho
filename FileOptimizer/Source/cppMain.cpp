@@ -830,11 +830,10 @@ void __fastcall TfrmMain::actOptimizeExecute(TObject *Sender)
 	iEndTicks = GetTickCount();
 
 
+	//Required indirection
+	String sCaption;
 	if (Visible)
 	{
-		//Required indirection
-		String sCaption;
-
 		TCHAR acTime[64];
 		StrFromTimeInterval(acTime, (sizeof(acTime) / sizeof(TCHAR)) - 1, (unsigned long long) iEndTicks - iStartTicks, sizeof(acTime) - 1);
 		
