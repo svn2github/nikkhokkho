@@ -264,6 +264,16 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 			oControl->Hint = Get(oControl->Hint);
 		}
 	}
+	//TRichEdit
+	else if (poControl->InheritsFrom(__classid(TRichEdit)))
+	{
+		TMemo *oControl = dynamic_cast<TRichEdit *>(poControl);
+		if (oControl)
+		{
+			oControl->Lines->Text = Get(oControl->Lines->Text);
+			oControl->Hint = Get(oControl->Hint);
+		}
+	}
 	//TSpinEdit
 	else if (poControl->InheritsFrom(__classid(TSpinEdit)))
 	{
