@@ -23,7 +23,7 @@ __published:	// IDE-managed Components
 	TLabel *lblProduct;
 	TLabel *lblCopyright;
 	TLabel *lblDetail;
-	TMemo *mmoLicense;
+	TRichEdit *mmoLicense;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall butCloseClick(TObject *Sender);
 	void __fastcall lblCopyrightClick(TObject *Sender);

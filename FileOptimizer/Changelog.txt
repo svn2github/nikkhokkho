@@ -173,6 +173,7 @@ ndo
 
 X.XX - YYYY
 - Implemented /NoWindow command-line option to hide FileOptimizer when starting (Devedse).
+- Improved About window.
 - flexiGIF has been disabled due to corruption and inestability. Hope it could be reenabled soon.
 - Fixed optimization of SWF files when new debug in 13.40 is enabled (avalanch).
 - Updated SQLite to 3.26.0 x86 and x64 Visual C++ 2017 custom builds.
