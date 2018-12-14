@@ -11,6 +11,7 @@
 #include "clsUtil.h"
 #include "clsLanguage.h"
 #include "cppMain.h"
+#include <Vcl.ComCtrls.hpp>
 
 	
 //---------------------------------------------------------------------------
