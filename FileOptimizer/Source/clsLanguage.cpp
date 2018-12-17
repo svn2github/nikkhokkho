@@ -267,7 +267,7 @@ void clsLanguage::EnumerateControls(TComponent *poControl)
 	//TRichEdit
 	else if (poControl->InheritsFrom(__classid(TRichEdit)))
 	{
-		TMemo *oControl = dynamic_cast<TRichEdit *>(poControl);
+		TRichEdit *oControl = dynamic_cast<TRichEdit *>(poControl);
 		if (oControl)
 		{
 			oControl->Lines->Text = Get(oControl->Lines->Text);
