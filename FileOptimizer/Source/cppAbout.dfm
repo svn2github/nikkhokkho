@@ -329,7 +329,6 @@ object frmAbout: TfrmAbout
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 0
-    WantReturns = False
     Zoom = 100
   end
 end

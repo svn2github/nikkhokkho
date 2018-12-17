@@ -186,6 +186,7 @@ X.XX - YYYY
 - Updated flexiGIF to 2018.11a that fixes GIF corruptions (Aleksey Kuznetsov, Edward Truong).
 - Updated Leanify to 0.4.3.224 daily binaries.
 - Updated to cppcheck 1.86.
+- Updated to NSIS 3.04.
 - Some minor optimizations and code cleanup.
 
 
