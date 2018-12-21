@@ -159,6 +159,8 @@ void __fastcall TfrmOptions::FormCreate(TObject *Sender)
 	txtJSAdditionalExtensions->Text = gudtOptions.acJSAdditionalExtensions;
 	chkJSEnableJSMin->Checked = gudtOptions.bJSEnableJSMin;
 	chkLUAEnableLeanify->Checked = gudtOptions.bLUAEnableLeanify;
+	chkMiscDisable->Checked = gudtOptions.bMiscDisable;
+	//chkMiscCopyMetadata->Enabled = !gudtOptions.bMiscDisable;
 	chkMiscCopyMetadata->Checked = gudtOptions.bMiscCopyMetadata;
 	chkMP3CopyMetadata->Checked = gudtOptions.bMP3CopyMetadata;
 	chkMP4CopyMetadata->Checked = gudtOptions.bMP4CopyMetadata;
@@ -365,6 +367,7 @@ void __fastcall TfrmOptions::butOKClick(TObject *Sender)
 	_tcscpy(gudtOptions.acJSAdditionalExtensions, txtJSAdditionalExtensions->Text.c_str());
 	gudtOptions.bJSEnableJSMin = chkJSEnableJSMin->Checked;
 	gudtOptions.bLUAEnableLeanify = chkLUAEnableLeanify->Checked;
+	gudtOptions.bMiscDisable = chkMiscDisable->Checked;
 	gudtOptions.bMiscCopyMetadata = chkMiscCopyMetadata->Checked;
 	gudtOptions.bMP3CopyMetadata = chkMP3CopyMetadata->Checked;
 	gudtOptions.bMP4CopyMetadata = chkMP4CopyMetadata->Checked;
@@ -442,6 +445,15 @@ void __fastcall TfrmOptions::chkCSSEnableTidyClick(TObject *Sender)
 {
 	cboCSSTemplate->Enabled = chkCSSEnableTidy->Checked;
 }
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TfrmOptions::chkMiscDisableClick(TObject *Sender)
+{
+	chkMiscCopyMetadata->Enabled = !chkMiscDisable->Checked;
+}
+
 
 
 //---------------------------------------------------------------------------

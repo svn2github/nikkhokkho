@@ -91,6 +91,7 @@ __published: // IDE-managed Components
 	TLabel *lblIncludeMask;
 	TEdit *txtIncludeMask;
 	TCheckBox *chkBMPCopyMetadata;
+	TCheckBox *chkMiscDisable;
 	TCheckBox *chkMiscCopyMetadata;
 	TCheckBox *chkMP4CopyMetadata;
 	TCheckBox *chkPCXCopyMetadata;
@@ -126,6 +127,7 @@ __published: // IDE-managed Components
 	void __fastcall butRestoreDefaultsClick(TObject *Sender);
 	void __fastcall cboPDFProfileChange(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall chkMiscDisableClick(TObject *Sender);
 private: // User declarations
 public: // User declarations
 	__fastcall TfrmOptions(TComponent* Owner);

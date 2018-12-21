@@ -1,8 +1,8 @@
 [Stats]
 <<<<<<< .mine
-EditorSecs=132259
+EditorSecs=132332
 <<<<<<< .mine
-DesignerSecs=7254
+DesignerSecs=7280
 ||||||| .r1365
 DesignerSecs=7064
 =======
@@ -15,11 +15,11 @@ DesignerSecs=6656
 EditorSecs=119635
 DesignerSecs=6659
 >>>>>>> .r1223
-InspectorSecs=4962
+InspectorSecs=5025
 <<<<<<< .mine
 <<<<<<< .mine
-CompileSecs=32821931
-OtherSecs=39439
+CompileSecs=32931726
+OtherSecs=39612
 ||||||| .r1365
 CompileSecs=31772057
 OtherSecs=37858
@@ -37,4 +37,4 @@ OtherSecs=33091
 StartTime=07/04/2015 13:17:38
 RealKeys=0
 EffectiveKeys=0
-DebugSecs=85614
+DebugSecs=85673

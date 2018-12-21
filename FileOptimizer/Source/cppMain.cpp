@@ -108,6 +108,7 @@ void __fastcall TfrmMain::LoadOptions(void)
 	gudtOptions.bJSEnableJSMin = GetOption(_T("Options"), _T("JSEnableJSMin"), false);
 	_tcsncpy(gudtOptions.acJSAdditionalExtensions, GetOption(_T("Options"), _T("JSAdditionalExtensions"), _T("")), (sizeof(gudtOptions.acJSAdditionalExtensions) / sizeof(TCHAR)) - 1);
 	gudtOptions.bLUAEnableLeanify = GetOption(_T("Options"), _T("LUAEnableLeanify"), false);
+	gudtOptions.bMiscDisable = GetOption(_T("Options"), _T("MiscDisable"), false);
 	gudtOptions.bMiscCopyMetadata = GetOption(_T("Options"), _T("MiscCopyMetadata"), false);
 	gudtOptions.bMP3CopyMetadata = GetOption(_T("Options"), _T("MP3CopyMetadata"), false);
 	gudtOptions.bMP4CopyMetadata = GetOption(_T("Options"), _T("MP4CopyMetadata"), false);
@@ -228,6 +229,7 @@ void __fastcall TfrmMain::SaveOptions(void)
 	clsUtil::SetIni(_T("Options"), _T("JSEnableJSMin"), gudtOptions.bJSEnableJSMin, _T("Boolean. Default: false. Enable jsmin. Results in smaller files, but can happen they are not editable anymore."));
 	clsUtil::SetIni(_T("Options"), _T("JSAdditionalExtensions"), gudtOptions.acJSAdditionalExtensions, _T("String. Default: ''. Add extra extensions to be threated as JS/JSON."));
 	clsUtil::SetIni(_T("Options"), _T("LUAEnableLeanify"), gudtOptions.bLUAEnableLeanify, _T("Boolean. Default: false. Enable Leanify. Results in smaller files, but can happen they are not editable anymore."));
+	clsUtil::SetIni(_T("Options"), _T("MiscDisable"), gudtOptions.bMiscDisable, _T("Boolean. Default: false. Disable processing of other file types. This could imply lossing some edit capabilities such as PSD/PSB where text layers will be rasterized."));
 	clsUtil::SetIni(_T("Options"), _T("MiscCopyMetadata"), gudtOptions.bMiscCopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("MP3CopyMetadata"), gudtOptions.bMP3CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
 	clsUtil::SetIni(_T("Options"), _T("MP4CopyMetadata"), gudtOptions.bMP4CopyMetadata, _T("Boolean. Default: false. Copy file metadata. Else strip all unneeded information."));
@@ -2320,12 +2322,15 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 		// MISC: ImageMagick
 		if (PosEx(sExtensionByContent, KS_EXTENSION_MISC) > 0)
 		{
-			sFlags = "";
-			if (!gudtOptions.bMiscCopyMetadata)
+			if (!gudtOptions.bMiscDisable)
 			{
-				sFlags += "-strip ";
+				sFlags = "";
+				if (!gudtOptions.bMiscCopyMetadata)
+				{
+					sFlags += "-strip ";
+				}
+				RunPlugin((unsigned int) iCount, "ImageMagick (1/1)", (sPluginsDirectory + "magick.exe convert \"%INPUTFILE%\" -quiet " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			}
-			RunPlugin((unsigned int) iCount, "ImageMagick (1/1)", (sPluginsDirectory + "magick.exe convert \"%INPUTFILE%\" -quiet " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
 
 		if (gudtOptions.bKeepAttributes)

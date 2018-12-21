@@ -134,30 +134,22 @@
         <VerInfo_MinorVer>4</VerInfo_MinorVer>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <ILINK_LinkwithSQLite>false</ILINK_LinkwithSQLite>
         <DCC_MinimumEnumSize>4</DCC_MinimumEnumSize>
         <DCC_AssertionsAtRuntime>false</DCC_AssertionsAtRuntime>
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
         <ILINK_iOSMinimumVersion>5.0</ILINK_iOSMinimumVersion>
-        <ILINK_LinkwithSQL>false</ILINK_LinkwithSQL>
         <BCC_MergeDuplicateStrings>true</BCC_MergeDuplicateStrings>
         <ILINK_MapFileType>None</ILINK_MapFileType>
-        <ILINK_LinkwithIntebaseTogo>false</ILINK_LinkwithIntebaseTogo>
-        <ILINK_LinkwithMidas>false</ILINK_LinkwithMidas>
-        <ILINK_LinkwithIndy>false</ILINK_LinkwithIndy>
         <BCC_StringsInWriteableDataSeg>true</BCC_StringsInWriteableDataSeg>
-        <ILINK_LinkwithRegEx>false</ILINK_LinkwithRegEx>
         <DCC_DebugInformation>0</DCC_DebugInformation>
         <BCC_StringsInReadOnlyDataSeg>true</BCC_StringsInReadOnlyDataSeg>
         <DCC_IOChecking>false</DCC_IOChecking>
-        <ILINK_LinkwithZLib>false</ILINK_LinkwithZLib>
         <DynamicRTL>false</DynamicRTL>
         <UsePackages>false</UsePackages>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
-        <UsingDelphiRTL>false</UsingDelphiRTL>
-        <ILINK_LinkwithPThread>false</ILINK_LinkwithPThread>
+        <UsingDelphiRTL>true</UsingDelphiRTL>
         <ILINK_FastTLS>true</ILINK_FastTLS>
         <ILINK_ImageChecksum>true</ILINK_ImageChecksum>
         <ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
@@ -178,14 +170,21 @@
         <BCC_EliminateDeadStore>true</BCC_EliminateDeadStore>
         <BCC_PentiumInstructionScheduling>true</BCC_PentiumInstructionScheduling>
         <BCC_EliminateDuplicateExpressions>true</BCC_EliminateDuplicateExpressions>
+        <ILINK_LinkwithSQL>false</ILINK_LinkwithSQL>
         <BCC_OptimizeVariables>true</BCC_OptimizeVariables>
+        <ILINK_LinkwithIndy>false</ILINK_LinkwithIndy>
         <BCC_MemberPtrKind>Smallest</BCC_MemberPtrKind>
+        <ILINK_LinkwithIntebaseTogo>false</ILINK_LinkwithIntebaseTogo>
         <BCC_DataAlignment>Paragraph</BCC_DataAlignment>
+        <ILINK_LinkwithMidas>false</ILINK_LinkwithMidas>
+        <ILINK_LinkwithPThread>false</ILINK_LinkwithPThread>
         <BCC_ZeroLengthEmptyBaseClass>true</BCC_ZeroLengthEmptyBaseClass>
+        <ILINK_LinkwithRegEx>false</ILINK_LinkwithRegEx>
         <BCC_OptimizeJumps>true</BCC_OptimizeJumps>
+        <ILINK_LinkwithSQLite>false</ILINK_LinkwithSQLite>
         <BCC_LoopInductionReduction>true</BCC_LoopInductionReduction>
         <BCC_ExpandIntrinsics>true</BCC_ExpandIntrinsics>
-        <VerInfo_MinorVer>4</VerInfo_MinorVer>
+        <ILINK_LinkwithZLib>false</ILINK_LinkwithZLib>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <LinkPackageStatics>rtl.lib;vcl.lib;vclactnband.lib;vclx.lib;vclimg.lib;VclSmp.lib;vclie.lib</LinkPackageStatics>
@@ -277,7 +276,7 @@
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32220mt.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Debug" Class="ProjectFile"/>
                 <DeployFile LocalName=".\Win32\Release\FileOptimizer.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="$(BDS)\Redist\Win64\vclimg250.bpl" Configuration="Debug" Class="DependencyPackage">
@@ -306,8 +305,8 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
-                    <Platform Name="Win64">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -437,13 +436,13 @@
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32230mt.dll" Class="DependencyModule"/>
                 <DeployFile LocalName="Source\asmlib.lib" Configuration="Release" Class="ProjectFile"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64160mt.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32220mt.dll" Class="DependencyModule"/>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX64">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64160.dll" Class="DependencyModule"/>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64160mt.dll" Class="DependencyModule"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
