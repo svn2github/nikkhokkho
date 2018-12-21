@@ -2,7 +2,7 @@
 <<<<<<< .mine
 EditorSecs=132332
 <<<<<<< .mine
-DesignerSecs=7280
+DesignerSecs=7283
 ||||||| .r1365
 DesignerSecs=7064
 =======
@@ -18,8 +18,8 @@ DesignerSecs=6659
 InspectorSecs=5025
 <<<<<<< .mine
 <<<<<<< .mine
-CompileSecs=32931726
-OtherSecs=39612
+CompileSecs=32971110
+OtherSecs=39609
 ||||||| .r1365
 CompileSecs=31772057
 OtherSecs=37858
