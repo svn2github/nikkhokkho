@@ -172,6 +172,10 @@ ndo
 
 
 X.XX - YYYY
+
+
+
+13.50 - 2018/12/24
 - New INI setting MiscDisable=false and option to prevent misc optimization (#54, Dm Kh).
 - Implemented /NoWindow command-line option to hide FileOptimizer when starting (Devedse).
 - Improved About window.
@@ -189,7 +193,6 @@ X.XX - YYYY
 - Updated to cppcheck 1.86.
 - Updated to NSIS 3.04.
 - Some minor optimizations and code cleanup.
-
 
 13.40 - 2018/11/16
 - Added new INI setting Debug=false that keeps temporary files (Devedse #51).
