@@ -1,7 +1,7 @@
 # "Language ID: 25 (0x19)"
 # "Language Name: Russian"
-# "Project-Id-Version: FileOptimizer 12.50.2231"
-# "POT-Creation-Date: Mar 03 2018"
+# "Project-Id-Version: FileOptimizer 13.50.2431"
+# "POT-Creation-Date: Dec 28 2018"
 # "MIME-Version: 1.0"
 # "Content-Type: text/plain; charset=ISO-8859-1"
 # "Content-Transfer-Encoding: 8bit"
@@ -23,7 +23,7 @@ msgid "Donate..."
 msgstr "Поддержать..."
 
 msgid "Support the development by easily and securely money donations"
-msgstr "Содействие развитию программы, путем простого пожертвования денег"
+msgstr "Содействие развитию программы, финансовой поддержкой."
 
 msgid "&Information..."
 msgstr "Информация..."
@@ -95,7 +95,7 @@ msgid "A&dd folder..."
 msgstr "Добавить папку..."
 
 msgid "Add folder contents recursively from your computer to the optimization list"
-msgstr "Добавить в список содержимое папки рекурсивно"
+msgstr "Добавить в список содержимое папки и ее подпапок."
 
 msgid "&Add files..."
 msgstr "Добавить файлы..."
@@ -161,7 +161,7 @@ msgid "&Copy metadata"
 msgstr "Сохранить метаданные"
 
 msgid "Copy file metadata. Else strip all unneeded information."
-msgstr "Сохранить метаданные. Удалить, если не отмечено."
+msgstr "Сохранить метаданные.\nУдалить, если не отмечено."
 
 msgid "&ZIP"
 msgstr "ZIP"
@@ -170,7 +170,7 @@ msgid "&Enable Leanify"
 msgstr "Включить Leanify"
 
 msgid "Enable Leanify. Results in smaller files, but can happen they are not editable anymore."
-msgstr "Уменьшает файлы, но может привести к невозможности их редактирования."
+msgstr "Включить Leanify.\nУменьшает файлы, но может привести к невозможности их редактирования."
 
 msgid "&XML"
 msgstr "XML"
@@ -185,7 +185,7 @@ msgid "&Allow lossy optimizations"
 msgstr "Разрешить оптимизацию с потерями"
 
 msgid "Allowing lossy optimizations will get higher files reduction at the cost of some quality loss, even if visually unnoticeable or not"
-msgstr "Позволит сильнее уменьшить размер за счет потери качества (как правило незаметно визуально)"
+msgstr "Разрешить оптимизацию с потерями.\nПозволит значительно уменьшить размер файлов, за счет потери качества (как правило незаметно визуально)."
 
 msgid "&PNG"
 msgstr "PNG"
@@ -194,13 +194,13 @@ msgid "&Skip layered"
 msgstr "Пропускать многослойные"
 
 msgid "Skip processing of PDF files containing layered objects. Results in more compatible files with higher size."
-msgstr "Пропустить обработку PDF с многослойными объектами. Больший размер, но лучше совместимость."
+msgstr "Пропустить обработку PDF с многослойными объектами.\nБольший размер, но лучше совместимость."
 
 msgid "When custom profile is chosen, it allows you to specify a custom DPI for downsampling images"
 msgstr "В пользовательском профиле можно указать свой DPI для изображений."
 
 msgid "Compression profile, from less size, to best quality."
-msgstr "Профиль сжатия, от меньшего размера, до лучшего качества."
+msgstr "Профиль сжатия, от меньшего размера до лучшего качества."
 
 msgid "Custom"
 msgstr "Свой"
@@ -251,7 +251,7 @@ msgid "&Enable JSMin"
 msgstr "Включить JSMin"
 
 msgid "Enable jsmin. Results in smaller files, but can happen they are not editable anymore."
-msgstr "Уменьшает файлы, но может привести к невозможности их редактирования."
+msgstr "Включить JSMin.\nУменьшает файлы, но может привести к невозможности их редактирования."
 
 msgid "&Additional Extensions"
 msgstr "Свои расширения"
@@ -263,7 +263,7 @@ msgid "&Use arithmetic encoding"
 msgstr "Арифметическое кодирование"
 
 msgid "Arithmetic encoding gives additional saving reductions, but is incompatible with most programs."
-msgstr "Уменьшает файлы, но сильно ухудшает совместимость."
+msgstr "Арифметическое кодирование.\nУменьшает файлы, но сильно ухудшает совместимость."
 
 msgid "&JPEG"
 msgstr "JPEG"
@@ -272,7 +272,7 @@ msgid "&Enable Tidy"
 msgstr "Включить приборку"
 
 msgid "Enable Tidy. Results in smaller files, but can happen they are not editable anymore. Note that this applies to both SVG and HTML file types"
-msgstr "Уменьшает файлы, но может привести к невозможности их редактирования. Относится как к SVG, так и к HTML"
+msgstr "Включить приборку.\nУменьшает файлы, но может привести к невозможности их редактирования.\nОтносится как к SVG, так и к HTML"
 
 msgid "&HTML"
 msgstr "HTML"
@@ -287,22 +287,22 @@ msgid "&Enable UPX"
 msgstr "Включить UPX"
 
 msgid "Enable UPX executable compression. When enabled, UPX will be used, resulting EXE and DLL size reduction at the cost of runtime decompression."
-msgstr "Меньший размер, но может увеличить время запуска."
+msgstr "Включить UPX сжатие.\nМеньший размер, но может увеличить время запуска."
 
 msgid "Allow excluding execution of certain plugins. It is case insensitive, and allows more than one item to be specified by using semicolon as separator."
-msgstr "Исключение выполнения плагинов. Нечувствителен к регистру, можно указать более одного элемента, через точку с запятой."
+msgstr "Исключение выполнения плагинов.\nНечувствителен к регистру, через точку с запятой можно указать более одного элемента."
 
 msgid "&Disable PETrim"
 msgstr "Отключить PETrim"
 
 msgid "Disable PETrim. When enabled, PETrim will not be used, resulting in less EXE corruption at the cost of larger file size."
-msgstr "Не использовать PETrim. Меньшее повреждение EXE, но больше размер."
+msgstr "Не использовать PETrim.\nМеньшее повреждение EXE, но больше размер."
 
 msgid "&EXE"
 msgstr "EXE"
 
 msgid "Compression template, from safer and worse compression, to highest compression"
-msgstr "Шаблон сжатия, от более безопасного, но меньшего, до максимального"
+msgstr "Шаблон сжатия, от более безопасного, но меньшего, до максимального."
 
 msgid "Highest"
 msgstr "Наивысший"
@@ -314,7 +314,7 @@ msgid "Low (Default)"
 msgstr "Низкий (по умолчанию)"
 
 msgid "Enable tidy. Results in smaller files, but can happen they are not editable anymore."
-msgstr "Уменьшает файлы, но может привести к невозможности их редактирования."
+msgstr "Включить приборку.\nУменьшает файлы, но может привести к невозможности их редактирования."
 
 msgid "&Template"
 msgstr "Шаблон"
@@ -362,7 +362,7 @@ msgid "Show icons toolbar on main window"
 msgstr "Панель инструментов в главном окне."
 
 msgid "If you have already donated to support FileOptimizer development, enter here the email address or name you used"
-msgstr "Если вы пожертвовали на разработку FileOptimizer, введите здесь адрес или имя, которое вы использовали"
+msgstr "Введите здесь адрес или имя, если вы поддержали разработку FileOptimizer."
 
 msgid "&Language"
 msgstr "Язык"
@@ -383,13 +383,13 @@ msgid "Enable cache of already optimized files to automatically skip them."
 msgstr "Включить кэш уже оптимизированных файлов, для их авто-пропуска."
 
 msgid "If specified, number of trial iterations in all Leanify executions will use this value. If not, iterations are calculated depending on the Optimization level."
-msgstr "Используется если указано количество пробных итераций для Leanify. Если нет, итерации вычисляются по уровню оптимизации."
+msgstr "Используется, если указано количество пробных итераций для Leanify.\nЕсли нет, итерации вычисляются по уровню оптимизации."
 
 msgid "&Allow duplicates"
 msgstr "Разрешить дубликаты"
 
 msgid "Allow adding same file more than once. If enabled, adding to the grid will be much faster, specially on very large grids."
-msgstr "Разрешить добавление одного и того же файла. Ускоряет процесс при больших списках."
+msgstr "Разрешить добавление одного и того же файла.\nУскоряет процесс при больших списках."
 
 msgid "&Clear when complete"
 msgstr "Очистить по завершению"
@@ -410,7 +410,7 @@ msgid "Beep the speaker when optimization completes."
 msgstr "Звуковой сигнал по завершению оптимизации."
 
 msgid "&Leanify iterations"
-msgstr "Интерации Leanify"
+msgstr "Итерации Leanify"
 
 msgid "&Disable plugin mask"
 msgstr "Отключить плагин по маске"
@@ -419,19 +419,19 @@ msgid "General &2"
 msgstr "Общее 2"
 
 msgid "If not empty specified directory will be used for temporary storage instead of system's %TEMP%."
-msgstr "Если не пусто, то будет использоваться указанный временный каталог вместо %TEMP%."
+msgstr "Если не пусто, то вместо %TEMP% будет использоваться указанный временный каталог."
 
 msgid "&Allow multiple instances"
 msgstr "Разрешить несколько экземпляров"
 
 msgid "Allow having more than one FileOptimizer instance. If not, a warning will appear."
-msgstr "Разрешить несколько экземпляров FileOptimizer. Если нет, появится "предупреждение."
+msgstr "Разрешить несколько экземпляров FileOptimizer.\nЕсли нет, появится предупреждение."
 
 msgid "If not empty, only files containing this mask (substring) on name or path will be included from optimization. You can use semicolon to specify more than one substring being included."
-msgstr "Если не пусто, то в оптимизацию будут включены только файлы по маске (по имени или пути). Можно использовать точку с запятой, чтобы указать более одной маски."
+msgstr "Если не пусто, то в оптимизацию будут включены только файлы по маске (по имени или пути).\nМожно использовать точку с запятой, чтобы указать более одной маски."
 
 msgid "Files containing this mask (substring) on name or path will be excluded from optimization. You can use semicolon (;) to specify more than one substring being excluded."
-msgstr "Файлы, по этой маске (по имени или пути), будут исключены из оптимизации. Можно использовать точку с запятой, чтобы указать более одной маски."
+msgstr "Файлы, по этой маске (по имени или пути), будут исключены из оптимизации.\nМожно использовать точку с запятой, чтобы указать более одной маски."
 
 msgid "&Do not use recycle bin"
 msgstr "Не использовать корзину"
@@ -527,7 +527,7 @@ msgid "&Keep file attributes"
 msgstr "Сохранять атрибуты файлов"
 
 msgid "Keep original readonly, system, hidden and archive attributes as well as creation and modification timestamps."
-msgstr "Сохранять исходные атрибуты - только чтение, системный, скрытый, архивный и штампы времени создания и изменения."
+msgstr "Сохранять исходные атрибуты - только чтение, системный, скрытый, архивный,\nштампы времени создания и изменения."
 
 msgid "&Temp directory"
 msgstr "Временный каталог"
@@ -563,7 +563,7 @@ msgid "General program options affecting all extensions (2/2)"
 msgstr "Общие параметры, влияющие на все расширения (2/2)"
 
 msgid "Extensions affected: "
-msgstr "Затрагиваемые расширения:"
+msgstr "Затрагиваемые расширения:\n"
 
 msgid "and %s file formats among many others."
 msgstr " %s форматы файлов, среди многих других."
@@ -575,7 +575,7 @@ msgid "\n\nDONATOR INFORMATION\n"
 msgstr "\n\nИНФО ДОНАТОРА\n"
 
 msgid "Have not donated yet!"
-msgstr "Еще не жертвовали!"
+msgstr "Еще не поддержали!"
 
 msgid "\nUser since %s %s"
 msgstr "\nВы пользуетесь %s с версии %s"
@@ -632,7 +632,7 @@ msgid "Skipped"
 msgstr "Пропущено"
 
 msgid "When checked original files will not be backed up in the current folder as a .BAK files."
-msgstr "Если отмечено, то исходные файлы не будут сохранены в текущей папке как файлы .BAK."
+msgstr "Если отмечено, то исходные файлы не будут сохранены как .BAK-файлы в текущей папке."
 
 msgid "Some changed settings require %s to be restarted.\nDo you want to restart it now?"
 msgstr "Некоторые измененные настройки требуют перезапуска %s.\n\nПерезапустить его сейчас?"
@@ -657,3 +657,9 @@ msgstr "1 файлов обработано. 0 байт сохранено (100%
 
 msgid "Automatic: System default"
 msgstr "Автоматически: по умолчанию"
+
+msgid "&Disable"
+msgstr "Отключить"
+
+msgid "Disable processing of other file types. This could imply lossing some edit capabilities such as PSD/PSB where text layers will be rasterized."
+msgstr "Отключить обработку файлов других типов.\nЭто может означать потерю некоторых возможностей редактирования,\nнапример, в PSD/PSB текстовые слои будут растеризованы."
