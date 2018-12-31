@@ -143,7 +143,7 @@ ndo
 - jpegoptim 1.4.6 - http://www.kokkonen.net/tjko/projects.html
 - jpegtran 9b - http://jpegclub.org/jpegtran/
 - jsmin 2013-03-29 - http://www.crockford.com/javascript/jsmin.html
-- Leanify 0.4.3.224 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
+- Leanify 0.4.3.225 - https://github.com/JayXon/Leanify (https://ci.appveyor.com/project/JayXon/leanify)
 - libdeflate 0.8 - https://github.com/ebiggers/libdeflate
 - libwebp 1.0.1 - https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
 - m7zRepacker 1.0.32.319 - https://encode.ru/threads/1201-m7zRepacker
@@ -173,6 +173,7 @@ ndo
 
 X.XX - YYYY
 - Updated russian translation (thanks Max).
+- Updated Leanify to 0.4.3.225 daily binaries.
 - Updated ImageMagick to 7.0.8.21 with HDRI support.
 - Upgraded distributions to 7-Zip 18.06.
 
