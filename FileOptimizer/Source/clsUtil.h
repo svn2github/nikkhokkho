@@ -13,6 +13,7 @@
 	#define min(a,b) (((a) < (b)) ? (a) : (b))
 #endif
 
+/*
 #if defined(_DEBUG)
 	//For some reason BCC64 gaves an error with __FUNC__
 	#if defined(_WIN64)
@@ -27,6 +28,8 @@
 		#define Log(piLevel, pacValue) (clsUtil::LogAdd(_T(__FILE__), __LINE__, _T(__FUNC__), piLevel, pacValue, gudtOptions.iLogLevel))
 	#endif
 #endif
+*/
+
 
 #if defined(PATH_MAX)
 	#undef PATH_MAX
@@ -79,7 +82,8 @@ class clsUtil
 		static bool __fastcall SetRegistry(HKEY phKey, const TCHAR *pacSubkey, const TCHAR *pacName, unsigned long long plValue);
 		static bool __fastcall DeleteRegistry(HKEY phKey, const TCHAR *pacSubkey);
 		static const TCHAR * __fastcall GetLogPath(void);
-		static void __fastcall LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel);
+		//static void __fastcall LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel);
+		static void __fastcall Log(int piLevel, const TCHAR *pacValue, int piDesiredLevel);
 		static bool __fastcall LoadForm(TForm *pfrmForm);
 		static bool __fastcall SaveForm(TForm *pfrmForm);
 		static bool __fastcall CopyToRecycleBin(const TCHAR *pacSource);

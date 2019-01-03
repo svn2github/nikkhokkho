@@ -333,6 +333,7 @@ bool __fastcall clsUtil::RenameFile(const TCHAR *pacNewName, const TCHAR *pacOld
 }
 
 
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 unsigned long long __fastcall clsUtil::SizeFile(const TCHAR *pacFile)
 {
@@ -1240,13 +1241,14 @@ const TCHAR * __fastcall clsUtil::GetLogPath(void)
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
 void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *pacFunc, int piLevel, const TCHAR *pacValue, int piDesiredLevel)
 {
 	if ((piDesiredLevel) > piLevel)
 	{
 		TCHAR acPath[PATH_MAX];
 		TCHAR acLevel[][32] = { _T("CRITICAL"), _T("ERROR"), _T("WARNING"), _T("INFORMATION"), _T("NONE") };
-		
+
 		_tcsncpy(acPath, GetLogPath(), (sizeof(acPath) / sizeof(TCHAR)) - 1);
 		FILE *pLog = _tfopen(acPath, _T("at"));
 		TDateTime dteDate = dteDate.CurrentDateTime();
@@ -1254,6 +1256,24 @@ void __fastcall clsUtil::LogAdd(const TCHAR *pacFile, int piLine, const TCHAR *p
 		fclose(pLog);
 	}
 }
+*/
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void __fastcall clsUtil::Log(int piLevel, const TCHAR *pacValue, int piDesiredLevel)
+{
+	if ((piDesiredLevel) > piLevel)
+	{
+		TCHAR acPath[PATH_MAX];
+		
+		_tcsncpy(acPath, GetLogPath(), (sizeof(acPath) / sizeof(TCHAR)) - 1);
+		FILE *pLog = _tfopen(acPath, _T("at"));
+		//TDateTime dteDate = dteDate.CurrentDateTime();
+		_ftprintf(pLog, _T("%s\n"), pacValue);
+		fclose(pLog);
+	}
+}
+
 
 
 

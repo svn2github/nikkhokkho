@@ -2732,8 +2732,13 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 	int iError;
 	if (lSize > 0)
 	{
+		TDateTime dteDate = dteDate.CurrentDateTime();
+		clsUtil::Log(3, ("====================================================================================================================================================\nPlugin Name: " + psStatus + "\nPlugin Start: " + dteDate.FormatString("yyyy/mm/dd hh:nn:ss") + "\nPlugin Commandline: " + sCommandLine + "\nInput Filename: " + psInputFile + "\nOutput Filename: " + psOutputFile).c_str(), gudtOptions.iLogLevel);
+
 		iError = (int) RunProcess(sCommandLine.c_str(), NULL, 0, true);
-		Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
+		//Log(3, ("Return: " + ((String) iError) + ". Process: " + sCommandLine).c_str());
+		dteDate = dteDate.CurrentDateTime();
+		clsUtil::Log(3, ("Plugin End: " + dteDate.FormatString("yyyy/mm/dd hh:nn:ss") + "\nPlugin Errorlevel: " + ((String) iError)).c_str(), gudtOptions.iLogLevel);
 
 		//Check exit errorlevel
 		if ((iError >= piErrorMin) && (iError <= piErrorMax))
@@ -2778,7 +2783,10 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSizeNew);
 	}
 
-	Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
+	//Log(3, ("Original Size: " + ((String) lSize) + ". Optimized Size: " + ((String) lSizeNew)).c_str());
+
+	clsUtil::Log(3, ("Original Size: " + ((String) lSize) + "\nOptimized Size: " + ((String) lSizeNew) + "\n====================================================================================================================================================\n").c_str(), gudtOptions.iLogLevel);
+
 
 	return (iError);
 }

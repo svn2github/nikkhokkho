@@ -172,6 +172,7 @@ ndo
 
 
 X.XX - YYYY
+- Rewritten log format (FatBit).
 - Updated russian translation (thanks Max).
 - Updated Leanify to 0.4.3.227 daily binaries.
 - Updated ImageMagick to 7.0.8.21 with HDRI support.
