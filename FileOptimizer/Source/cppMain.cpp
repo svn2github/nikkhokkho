@@ -1750,7 +1750,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			}			
 			RunPlugin((unsigned int) iCount, "ffmpeg (1/2)", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy -map 0 " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			
-			RunPlugin((unsigned int) iCount, "mp4v2 (1/2)", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "mp4v2 (2/2)", (sPluginsDirectory + "mp4file.exe --optimize -q \"%TMPINPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
 		// OBJ: strip
 		if (PosEx(sExtensionByContent, KS_EXTENSION_OBJ) > 0)
@@ -1772,7 +1772,7 @@ void __fastcall TfrmMain::actOptimizeFor(TObject *Sender, int AIndex)
 			}			
 			RunPlugin((unsigned int) iCount, "ffmpeg (1/2)", (sPluginsDirectory + "ffmpeg.exe -i \"%INPUTFILE%\" -vcodec copy -acodec copy -map 0 " + sFlags + "\"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 			
-			RunPlugin((unsigned int) iCount, "rehuff_theora (1/2)", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
+			RunPlugin((unsigned int) iCount, "rehuff_theora (2/2)", (sPluginsDirectory + "rehuff_theora.exe \"%INPUTFILE%\" \"%TMPOUTPUTFILE%\"").c_str(), sInputFile, "", 0, 0);
 		}
 		// Microsoft OLE Compound Files: Document Press
 		if (PosEx(sExtensionByContent, KS_EXTENSION_OLE) > 0)
