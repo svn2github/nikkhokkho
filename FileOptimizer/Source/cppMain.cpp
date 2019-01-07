@@ -2780,7 +2780,7 @@ int __fastcall TfrmMain::RunPlugin(unsigned int piCurrent, String psStatus, Stri
 		grdFiles->Cells[KI_GRID_OPTIMIZED][(int) piCurrent] = FormatNumberThousand(lSizeNew);
 	}
 
-	clsUtil::Log(3, ("Start: " + dteStart.FormatString("yyyy/mm/dd hh:nn:ss") + "\tEnd: " + dteStart.FormatString("yyyy/mm/dd hh:nn:ss") + "\tOriginal: " + ((String) lSize) + "\tOptimized: " + ((String) lSizeNew) + "\tErrorlevel: " + ((String) iError) + "\tInput: " + sInputFile + "\tOutput: " + sOutputFile + "\tPlugin: " + psStatus + "\tCommandline: " + sCommandLine + "\n====================================================================================================================================================").c_str(), gudtOptions.iLogLevel);
+	clsUtil::Log(3, ("Start: " + dteStart.FormatString("yyyy/mm/dd hh:nn:ss") + "\tEnd: " + dteEnd.FormatString("yyyy/mm/dd hh:nn:ss") + "\tLevel: " + ((String) gudtOptions.iLevel) +  "\tOriginal: " + ((String) lSize) + "\tOptimized: " + ((String) lSizeNew) + "\tErrorlevel: " + ((String) iError) + "\tInput: " + sInputFile + "\tOutput: " + sOutputFile + "\tPlugin: " + psStatus + "\tCommandline: " + sCommandLine + "").c_str(), gudtOptions.iLogLevel);
 
 
 	return (iError);
